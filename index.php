@@ -262,7 +262,7 @@
               </div>
             </div>
             <div class="d-xl-flex justify-content-between align-items-start">
-              <h2 class="text-dark font-weight-bold mb-2"> Overview dashboard </h2>
+              <h2 class="text-dark font-weight-bold mb-2"> Заявления </h2>
               <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
                 <div class="btn-group bg-white p-3" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-link text-light py-0 border-right">7 Days</button>
@@ -287,16 +287,16 @@
                 <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border {">
                   <ul class="nav nav-tabs tab-transparent" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Users</a>
+                          <a class="nav-link" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Все заявления</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">Business</a>
+                      <a class="nav-link active" id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">На рассмотрении</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="performance-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Performance</a>
+                      <a class="nav-link" id="performance-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="conversion-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Conversion</a>
+                      <a class="nav-link" id="conversion-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Не одобренные</a>
                     </li>
                   </ul>
                   <div class="d-md-block d-none">
