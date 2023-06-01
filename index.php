@@ -108,7 +108,10 @@
                   <img src="assets/images/faces/face28.png" alt="image">
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">Henry Klein</p>
+                  <p class="mb-1 text-black"><?php if (!isset($_COOKIE['login']))
+                          echo "Гость";
+                      else
+                          echo $_COOKIE['login']; ?></p>
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
@@ -137,14 +140,18 @@
                   </a>
                   <div role="separator" class="dropdown-divider"></div>
                   <h5 class="dropdown-header text-uppercase  pl-2 text-dark mt-2">Actions</h5>
-                  <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="#">
-                    <span>Lock Account</span>
+                    <?php
+                    if (isset($_COOKIE['login'])) {?>
+                    <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/index.php?logout">
+                        <span>Выйти</span>
+                        <i class="mdi mdi-logout ml-1"></i>
+                    </a>
+                    <?php } else {?>
+                  <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/login.php">
+                    <span>Войти</span>
                     <i class="mdi mdi-lock ml-1"></i>
                   </a>
-                  <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="#">
-                    <span>Log Out</span>
-                    <i class="mdi mdi-logout ml-1"></i>
-                  </a>
+                    <?php } ?>
                 </div>
               </div>
             </li>
