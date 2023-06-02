@@ -181,13 +181,13 @@
                                     <div class="card">
                                         <div class="card-body">
 
-                                            <label>Наименование заинтересованного лица</label><input  type="text" class="form-control"/>
-                                            <label>Сокращенное наименование</label><input class="form-control" type="text"/>
-                                            <label>УНП</label><input class="form-control" type="text" id="unp" onfocusout="onInputUnp()"/>
-                                            <label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/>
-                                            <label>Номер телефона</label><input class="form-control" type="text"/>
-                                            <label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/>
-                                            <label for="formGroupExampleInput">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
+                                            <div class="form-group"> <label>Наименование заинтересованного лица</label><input  type="text" class="form-control"/></div>
+                                            <div class="form-group"><label>Сокращенное наименование</label><input class="form-control" type="text"/></div>
+                                            <div class="form-group"><label>УНП</label><input class="form-control" type="text" id="unp" onfocusout="onInputUnp()"/></div>
+                                            <div class="form-group"><label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/></div>
+                                            <div class="form-group"><label>Номер телефона</label><input class="form-control" type="text"/></div>
+                                            <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
+                                            <div class="form-group"><label for="formGroupExampleInput">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
                                             <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
                                                 <label class="form-check-label" for="defaultCheck1">
@@ -211,6 +211,7 @@
                                                 <label class="form-check-label" for="defaultCheck4">
                                                     Анестезиология и реаниматология
                                                 </label>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
