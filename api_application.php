@@ -2,6 +2,9 @@
     .hiddentab{
         display: none;
     }
+    .margleft{
+        padding-left: 20px;
+    }
 </style>
 <div class="content-wrapper">
             <div class="row" id="proBanner">
@@ -185,25 +188,25 @@
                                             <label>Номер телефона</label><input class="form-control" type="text"/>
                                             <label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/>
                                             <label for="formGroupExampleInput">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
-                                            <div class="form-check">
+                                            <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
                                                 <label class="form-check-label" for="defaultCheck1">
                                                     Хирургия
                                                 </label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" onclick="toggleTabs(this,'rodovspom-tab')">
                                                 <label class="form-check-label" for="defaultCheck2" >
                                                     Родовспоможение
                                                 </label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" onclick="toggleTabs(this,'akush-tab')">
                                                 <label class="form-check-label" for="defaultCheck3">
                                                     Акушерство и гинекология
                                                 </label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'anest-tab')">
                                                 <label class="form-check-label" for="defaultCheck4">
                                                     Анестезиология и реаниматология
