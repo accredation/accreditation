@@ -72,5 +72,8 @@
         case "/index.php?application":
             nav2.className = "nav-item active";
             break;
+        default:
+            nav1.className = "nav-item active";
+            break;
     }
 </script>
