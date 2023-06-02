@@ -180,10 +180,10 @@
 
                                             <label>Наименование заинтересованного лица</label><input  type="text" class="form-control"/>
                                             <label>Сокращенное наименование</label><input class="form-control" type="text"/>
-                                            <label>УНП</label><input class="form-control" type="text"/>
-                                            <label>Юридический адрес</label><input class="form-control" type="text"/>
+                                            <label>УНП</label><input class="form-control" type="text" id="unp" onfocusout="onInputUnp()"/>
+                                            <label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/>
                                             <label>Номер телефона</label><input class="form-control" type="text"/>
-                                            <label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInput()"/>
+                                            <label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/>
                                             <label for="formGroupExampleInput">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
@@ -261,10 +261,12 @@
     }
 
     const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+    const UNP_REGEXP = /^([0-9]{9})$/iu;
+    const ADRESS_REGEXP = /^(\d{4,6}\s[А-Яа-яЁё0-9,. ]{1,})$/iu;
 
 
 
-    function onInput() {
+    function onInputEmail() {
         const input = document.getElementById('email');
         if (isEmailValid(input.value)) {
             input.style.borderColor = 'green';
@@ -274,5 +276,29 @@
     }
     function isEmailValid(value) {
         return EMAIL_REGEXP.test(value);
+    }
+
+    function onInputUnp() {
+        const input = document.getElementById('unp');
+        if (isUnpValid(input.value)) {
+            input.style.borderColor = 'green';
+        } else {
+            input.style.borderColor = 'red';
+        }
+    }
+    function isUnpValid(value) {
+        return UNP_REGEXP.test(value);
+    }
+
+    function onInputAdress() {
+        const input = document.getElementById('adress');
+        if (isAdressValid(input.value)) {
+            input.style.borderColor = 'green';
+        } else {
+            input.style.borderColor = 'red';
+        }
+    }
+    function isAdressValid(value) {
+        return ADRESS_REGEXP.test(value);
     }
 </script>
