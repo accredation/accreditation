@@ -183,7 +183,7 @@
                                             <label>УНП</label><input class="form-control" type="text"/>
                                             <label>Юридический адрес</label><input class="form-control" type="text"/>
                                             <label>Номер телефона</label><input class="form-control" type="text"/>
-                                            <label>Электронная почта</label><input class="form-control" type="email"/>
+                                            <label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInput()"/>
                                             <label for="formGroupExampleInput">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
@@ -258,5 +258,21 @@
         else{
             tab.classList.add("hiddentab");
         }
+    }
+
+    const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+
+
+
+    function onInput() {
+        const input = document.getElementById('email');
+        if (isEmailValid(input.value)) {
+            input.style.borderColor = 'green';
+        } else {
+            input.style.borderColor = 'red';
+        }
+    }
+    function isEmailValid(value) {
+        return EMAIL_REGEXP.test(value);
     }
 </script>
