@@ -178,10 +178,12 @@
                                     <div class="card">
                                         <div class="card-body">
 
-                                            <label>Наименование заинтересованного лица</label><label class="form-control" type="text"></label>
-                                            <label>Сокращенное наименование</label><label class="form-control" type="text"></label>
-                                            <label>УНП</label><label class="form-control" type="text"></label>
-                                            <label>Юридический адрес</label><label class="form-control" type="text"></label>
+                                            <label>Наименование заинтересованного лица</label><input  type="text" class="form-control"/>
+                                            <label>Сокращенное наименование</label><input class="form-control" type="text"/>
+                                            <label>УНП</label><input class="form-control" type="text"/>
+                                            <label>Юридический адрес</label><input class="form-control" type="text"/>
+                                            <label>Номер телефона</label><input class="form-control" type="text"/>
+                                            <label>Электронная почта</label><input class="form-control" type="email"/>
                                             <label for="formGroupExampleInput">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
