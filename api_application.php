@@ -303,47 +303,25 @@
                                                         <table class="table table-bordered">
                                                             <thead>
                                                             <tr>
-                                                                <th scope="col">Day</th>
-                                                                <th scope="col">Article Name</th>
-                                                                <th scope="col">Author</th>
-                                                                <th scope="col">Shares</th>
-                                                                <th scope="col">Actions</th>
+                                                                <th scope="col">№ п/п</th>
+                                                                <th scope="col">Наименование критерия </th>
+                                                                <th scope="col">Класс</th>
+                                                                <th scope="col">Наименование ЛПА</th>
+                                                                <th scope="col">Приложения</th>
+                                                                <th scope="col">Соответствие критерию (выполнено / не выполнено)</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             <tr>
                                                                 <th scope="row">1</th>
                                                                 <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
-                                                                <td>Cristina</td>
-                                                                <td>2.846</td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                                                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
                                                             </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                                                                <td>Cristina</td>
-                                                                <td>3.417</td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                                                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Bootstrap Flexbox Tutorial and Examples</td>
-                                                                <td>Cristina</td>
-                                                                <td>1.234</td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                                                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                                                                </td>
-                                                            </tr>
+
+
                                                             </tbody>
                                                         </table>
                                                     </div>

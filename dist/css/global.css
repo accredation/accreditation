@@ -1,3 +1,4 @@
 .label-accreditation  {color:#333;}
 .modal-title {color:#333;}
-.table th, .table td {white-space: normal;}
+.table th, .table td {white-space: normal; vertical-align: middle;}
+.table thead th {vertical-align: middle;}
