@@ -152,19 +152,19 @@
                 <div class="col-md-12">
                     <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                         <ul class="nav nav-tabs tab-transparent" role="tablist">
-                            <li class="nav-item" id="home-tab">
+                            <li class="nav-item" id="home-tab" onclick="showTab1()">
                                 <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
                             </li>
-                            <li class="nav-item hiddentab" id="khirurg-tab">
+                            <li class="nav-item hiddentab" id="khirurg-tab" onclick="showTab2()">
                                 <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Хирургия</a>
                             </li>
-                            <li class="nav-item hiddentab" id="rodovspom-tab">
+                            <li class="nav-item hiddentab" id="rodovspom-tab" onclick="showTab3()">
                                 <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Родовспоможение</a>
                             </li>
-                            <li class="nav-item hiddentab" id="akush-tab">
+                            <li class="nav-item hiddentab" id="akush-tab" onclick="showTab4()">
                                 <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Акушерство и гинекология</a>
                             </li>
-                            <li class="nav-item hiddentab" id="anest-tab">
+                            <li class="nav-item hiddentab" id="anest-tab" onclick="showTab5()">
                                 <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Анестезиология и реаниматология</a>
                             </li>
                         </ul>
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                     <div class="tab-content tab-transparent-content">
-                        <div class="tab-pane fade show active" id="business-1" role="tabpanel" aria-labelledby="business-tab">
+                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="business-tab" >
 
                             <div class="row">
                                 <div class="col-12 grid-margin">
@@ -187,7 +187,59 @@
                                             <div class="form-group"><label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/></div>
                                             <div class="form-group"><label>Номер телефона</label><input class="form-control" type="text"/></div>
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
-                                            <div class="form-group"><label for="formGroupExampleInput">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
+                                            <div class="form-group"><label style="font-size: 18px">Инициатор административной процедуры</label></div>
+                                            <div class="form-check margleft">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="deleteDoverennost()" checked>
+                                                <label class="form-check-label" for="rukovoditel">
+                                                    Руководитель заинтересованного лица
+                                                </label>
+                                            </div>
+                                            <div class="form-check margleft">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="predstavitel" value="option2" onclick="showDoverennost(this)">
+                                                <label class="form-check-label" for="predstavitel">
+                                                    Представитель заинтересованного лица
+                                                </label>
+                                            </div>
+                                            <br/>
+                                            <form id="formDoverennost" class="hiddentab">
+                                                <div class="form-group">
+                                                    <label for="doverennost">Доверенность</label>
+                                                    <input type="file" class="form-control-file" id="doverennost">
+                                                </div>
+                                            </form>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Имя">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Фамилия">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Отчество">
+                                                </div>
+                                            </div>
+
+                                            <br/>
+                                            <div class="form-group"> <label>Должность</label><input  type="text" class="form-control"/></div>
+
+                                            <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
+
+                                            <form id="formCopyRaspisanie" >
+                                                <div class="form-group">
+                                                    <label for="copyRaspisanie">Копия штатного расписания</label>
+                                                    <input type="file" class="form-control-file" id="copyRaspisanie">
+                                                </div>
+                                            </form>
+
+                                            <form id="formInfoMedTecnics" >
+                                                <div class="form-group">
+                                                    <label for="infoMedTecnics">Информация об используемой медицинской технике с указанием ее наименования, количества, продолжительности эксплуатации и срока службы</label>
+                                                    <input type="file" class="form-control-file" id="infoMedTecnics">
+                                                </div>
+                                            </form>
+
+                                            <div class="form-group"><label for="formGroupExampleInput" style="font-size: 18px">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
                                             <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
                                                 <label class="form-check-label" for="defaultCheck1">
@@ -219,6 +271,63 @@
                             </div>
 
                         </div>
+
+
+
+                        <div class="tab-pane fade show " id="tab-2" role="tabpanel" aria-labelledby="business-tab" >
+
+                            <div class="row">
+                                <div class="col-12 grid-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            2
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade show " id="tab-3" role="tabpanel" aria-labelledby="business-tab" >
+
+                            <div class="row">
+                                <div class="col-12 grid-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            3
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade show " id="tab-4" role="tabpanel" aria-labelledby="business-tab" >
+
+                            <div class="row">
+                                <div class="col-12 grid-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            4
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade show" id="tab-5" role="tabpanel" aria-labelledby="business-tab" >
+
+                            <div class="row">
+                                <div class="col-12 grid-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            5
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -237,72 +346,4 @@
     </div>
 </div>
 
-<script>
-    function showModal(){
-
-        let modal = document.getElementById("myModal");
-        modal.classList.add("show");
-        modal.style = "display: block";
-
-        $(".btn-close").on("click",() => {
-            modal.classList.remove("show");
-            modal.style = "display: none";
-        });
-        $(".btn-danger").on("click",() => {
-            modal.classList.remove("show");
-            modal.style = "display: none";
-        });
-    }
-
-    function toggleTabs(chkb,idelement){
-        let tab = document.getElementById(idelement);
-        if(chkb.checked === true) {
-            tab.classList.remove("hiddentab");
-        }
-        else{
-            tab.classList.add("hiddentab");
-        }
-    }
-
-    const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-    const UNP_REGEXP = /^([0-9]{9})$/iu;
-    const ADRESS_REGEXP = /^(\d{4,6}\s[А-Яа-яЁё0-9,. ]{1,})$/iu;
-
-
-
-    function onInputEmail() {
-        const input = document.getElementById('email');
-        if (isEmailValid(input.value)) {
-            input.style.borderColor = 'green';
-        } else {
-            input.style.borderColor = 'red';
-        }
-    }
-    function isEmailValid(value) {
-        return EMAIL_REGEXP.test(value);
-    }
-
-    function onInputUnp() {
-        const input = document.getElementById('unp');
-        if (isUnpValid(input.value)) {
-            input.style.borderColor = 'green';
-        } else {
-            input.style.borderColor = 'red';
-        }
-    }
-    function isUnpValid(value) {
-        return UNP_REGEXP.test(value);
-    }
-
-    function onInputAdress() {
-        const input = document.getElementById('adress');
-        if (isAdressValid(input.value)) {
-            input.style.borderColor = 'green';
-        } else {
-            input.style.borderColor = 'red';
-        }
-    }
-    function isAdressValid(value) {
-        return ADRESS_REGEXP.test(value);
-    }
-</script>
+<script src="dist/js/formApplication.js"></script>
