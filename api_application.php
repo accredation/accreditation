@@ -316,11 +316,18 @@
                                                                 <th scope="row">1</th>
                                                                 <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
                                                                 <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
+                                                                <td class = "id1" contenteditable ></td>
+                                                                <td ></td>
+                                                                <td ></td>
                                                             </tr>
-
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
+                                                                <td></td>
+                                                                <td class="id1" contenteditable ></td>
+                                                                <td ></td>
+                                                                <td ></td>
+                                                            </tr>
 
                                                             </tbody>
                                                         </table>
@@ -385,11 +392,21 @@ s
 
             <!-- Modal footer -->
             <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-fw" onclick="kc()">Success</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+    function kc(){
+        let tds = document.getElementsByClassName('id1');
+        for (let item of tds){
+            alert(item.innerText);
+        }
+    }
+</script>
 
 <script src="dist/js/formApplication.js"></script>
