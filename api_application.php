@@ -9,7 +9,7 @@
 
 <style>
     .container {
-        padding: 2rem 0rem;
+        padding: 0rem 0rem;
     }
 
     h4 {
