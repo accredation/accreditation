@@ -271,6 +271,18 @@
 
     </script>
 
+    <script>
+
+        $(document).ready(function () {
+            $('#table-2').DataTable({
+                scrollY: 200,
+                scrollX: true,
+            });
+        });
+
+
+    </script>
+
 
     <script src="dist/js/jquery-3.5.1.js"></script>
     <script src="dist/js/jquery.dataTables.min.js"></script>

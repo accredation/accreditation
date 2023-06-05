@@ -6,6 +6,23 @@
         padding-left: 20px;
     }
 </style>
+
+<style>
+    .container {
+        padding: 2rem 0rem;
+    }
+
+    h4 {
+        margin: 2rem 0rem 1rem;
+    }
+
+    .table-image {
+    td, th {
+        vertical-align: middle;
+    }
+    }
+
+</style>
 <div class="content-wrapper">
             <div class="row" id="proBanner">
               <div class="col-12">
@@ -280,7 +297,58 @@
                                 <div class="col-12 grid-margin">
                                     <div class="card">
                                         <div class="card-body">
-                                            2
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">Day</th>
+                                                                <th scope="col">Article Name</th>
+                                                                <th scope="col">Author</th>
+                                                                <th scope="col">Shares</th>
+                                                                <th scope="col">Actions</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
+                                                                <td>Cristina</td>
+                                                                <td>2.846</td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                                                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                                                                <td>Cristina</td>
+                                                                <td>3.417</td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                                                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>Bootstrap Flexbox Tutorial and Examples</td>
+                                                                <td>Cristina</td>
+                                                                <td>1.234</td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                                                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -288,7 +356,7 @@
                         </div>
 
                         <div class="tab-pane fade show " id="tab-3" role="tabpanel" aria-labelledby="business-tab" >
-
+s
                             <div class="row">
                                 <div class="col-12 grid-margin">
                                     <div class="card">
