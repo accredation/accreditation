@@ -218,10 +218,10 @@
                                                 </label>
                                             </div>
                                             <br/>
-                                            <form id="formDoverennost" class="hiddentab">
+                                            <form id="formDoverennost" method="post" class="hiddentab">
                                                 <div class="form-group">
                                                     <label for="doverennost">Доверенность</label>
-                                                    <input type="file" class="form-control-file" id="doverennost">
+                                                    <input type="file" name="doverennost" class="form-control-file" id="doverennost">
                                                 </div>
                                             </form>
 
@@ -242,11 +242,12 @@
 
                                             <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
 
-                                            <form id="formCopyRaspisanie" >
+                                            <form id="formCopyRaspisanie" method="POST" action="getFiles.php">
                                                 <div class="form-group">
                                                     <label for="copyRaspisanie">Копия штатного расписания</label>
-                                                    <input type="file" class="form-control-file" id="copyRaspisanie">
+                                                    <input type="text" class="form-control-file" name="Name" id="copyRaspisanie">
                                                 </div>
+                                                <input type="submit" name="submit" value="Нажми">
                                             </form>
 
                                             <form id="formInfoMedTecnics" >
@@ -316,16 +317,16 @@
                                                                 <th scope="row">1</th>
                                                                 <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
                                                                 <td></td>
-                                                                <td class = "id1" contenteditable ></td>
-                                                                <td ></td>
+                                                                <td class = "lpa" contenteditable ></td>
+                                                                <td class = "pril"><input type="file" name="filesPril[]" id="pril1" multiple/><br/></td>
                                                                 <td ></td>
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row">1</th>
                                                                 <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
                                                                 <td></td>
-                                                                <td class="id1" contenteditable ></td>
-                                                                <td ></td>
+                                                                <td class="lpa" contenteditable ></td>
+                                                                <td class = "pril"><input type="file" multiple/><br/></td>
                                                                 <td ></td>
                                                             </tr>
 
@@ -389,10 +390,9 @@ s
 
 
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-fw" onclick="kc()">Success</button>
+                <button type="button" class="btn btn-success btn-fw" id="btnSuc">Success</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
 
@@ -401,12 +401,63 @@ s
 </div>
 
 <script>
-    function kc(){
-        let tds = document.getElementsByClassName('id1');
-        for (let item of tds){
-            alert(item.innerText);
-        }
-    }
-</script>
 
+    $(document).ready(function () {
+
+
+   $("#btnSuc").click(()=>{
+        var filesPril=document.getElementById("pril1"),
+            xhr1=new XMLHttpRequest(),
+            form1=new FormData();
+        var upload_filePril=filesPril.files;
+        let j = 0;
+        for (let file of upload_filePril){
+            form1.append("filPril_"+j,file);
+            j++;
+        }
+
+       // var url = "getFiles.php";
+       // var xhr = new XMLHttpRequest();
+       // var params = 'count=' + encodeURIComponent(j);
+       //
+       // xhr.open("GET", url+"?"+ params, true);
+       // xhr.onreadystatechange = function()
+       // {
+       //     if(xhr .readyState == 4 && xhr.status == 200) {
+       //         alert(xhr.responseText);
+       //     }
+       // }
+       // xhr.send();
+       var distance = 2;
+       $.ajax({
+           url: "getFiles.php",
+           type: "POST",
+           data: {distance: distance},
+           success: function(responseText){
+               alert(responseText);
+           }
+       });
+
+        let tds = document.getElementsByClassName('lpa');
+        let pril = document.getElementsByClassName('pril');
+        let i = 0;
+        for (let item of pril){
+            let files = item.getElementsByTagName('input')[0];
+            for (let file of files.files){
+                item.innerHTML += file.name+"<br/>";
+            }
+        }
+
+        var doverennost=document.getElementById("doverennost"),
+            xhr=new XMLHttpRequest(),
+            form=new FormData();
+        var upload_file=doverennost.files[0];
+        form.append("fil",upload_file);
+        xhr.open("post","getFiles.php",true);
+        xhr.send(form);
+
+    });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="dist/js/formApplication.js"></script>
