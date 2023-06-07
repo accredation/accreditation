@@ -1,5 +1,8 @@
-<?php include "connection.php";
+<?php
+include "connection.php";
+include "getIdUser.php";
 
+$idUser = getIdUser();
 //move_uploaded_file($_FILES["fil"]["tmp_name"],$_FILES["fil"]["name"]);
 //
 //sleep(2);
@@ -10,26 +13,31 @@
 //foreach($_FILES as $file)
 //    move_uploaded_file($file["tmp_name"], $file["name"]);
 
-$total_files = $_POST["index"];
-echo $total_files;
-for($key = 0; $key < $total_files; $key++) {
-    if (isset($_FILES['filesPril_'.$key]['name'])) {
+$total_cell = $_POST["cell"];
 
-                $file_name = $_FILES['filesPril_'.$key]['name'] ;
-                $file_tmp = $_FILES['filesPril_'.$key]['tmp_name'];
 
-                move_uploaded_file($file_tmp, "./documents/" . $file_name);
+echo $total_cell;
+for ($cell = 0; $cell < $total_cell; $cell++) {
+    $total_files = $_POST['index_'.$cell];
+    echo $total_files;
+    for ($key = 0; $key < $total_files; $key++) {
+        if (isset($_FILES['filesPril_'.$cell.'_' . $key]['name'])) {
 
-                $insertquery =
-                    "INSERT INTO files(`file`) VALUES('$file_name')";
+            $file_name = $_FILES['filesPril_'.$cell.'_' . $key]['name'];
+            $file_tmp = $_FILES['filesPril_'.$cell.'_' . $key]['tmp_name'];
 
-                $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-                if ($result) {
-                    header("Location: " . $_SERVER['REQUEST_URI']);
-                }
+            move_uploaded_file($file_tmp, "./documents/" . $file_name);
+
+            $insertquery =
+                "INSERT INTO files(`file`,`cell`,`id_user`) VALUES('$file_name','$cell','$idUser')";
+
+            $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+            if ($result) {
+                header("Location: " . $_SERVER['REQUEST_URI']);
+            }
+        } else {
+            echo "zxc";
         }
-    else{
-        echo "zxc";
     }
 }
 ?>

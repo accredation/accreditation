@@ -46,19 +46,36 @@ function showTab5(){
 
 function showModal(){
 
-
-
     let modal = document.getElementById("myModal");
     modal.classList.add("show");
     modal.style = "display: block";
 
+    let pril = document.getElementsByClassName('pril');
+    let i = 0;
+    for (let item of pril){
+        for (let fileName of filesName)
+            item.innerHTML += fileName +"<br/>";
+    }
+
     $(".btn-close").on("click",() => {
+        let i = 0;
+        for (let item of pril){
+            item.innerHTML = "<input type='file' name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
+            i++;
+        }
         modal.classList.remove("show");
         modal.style = "display: none";
+
     });
     $(".btn-danger").on("click",() => {
+        for (let item of pril){
+            item.innerHTML = "<input type='file' name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
+            i++;
+        }
         modal.classList.remove("show");
         modal.style = "display: none";
+
+
     });
 }
 

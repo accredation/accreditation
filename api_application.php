@@ -318,7 +318,7 @@
                                                                 <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
                                                                 <td></td>
                                                                 <td class = "lpa" contenteditable ></td>
-                                                                <td class = "pril"><input type="file" name="filesPril_" id="pril1" multiple/><br/></td>
+                                                                <td class = "pril"><input type="file" name="filesPril_0_" class="prilCell" multiple/><br/></td>
                                                                 <td ></td>
                                                             </tr>
                                                             <tr>
@@ -326,7 +326,7 @@
                                                                 <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
                                                                 <td></td>
                                                                 <td class="lpa" contenteditable ></td>
-                                                                <td class = "pril"><input type="file" multiple/><br/></td>
+                                                                <td class = "pril"><input type="file" name="filesPril_1_" class="prilCell" multiple/><br/></td>
                                                                 <td ></td>
                                                             </tr>
 
@@ -342,7 +342,6 @@
                         </div>
 
                         <div class="tab-pane fade show " id="tab-3" role="tabpanel" aria-labelledby="business-tab" >
-s
                             <div class="row">
                                 <div class="col-12 grid-margin">
                                     <div class="card">
@@ -414,20 +413,23 @@ s
 
    $("#btnSuc").on("click", function () {
 
-        var filesPril=document.getElementById("pril1"),
+        var filesPril=document.getElementsByClassName("prilCell"),
             xhr1=new XMLHttpRequest(),
             form1=new FormData();
-        var upload_filePril=filesPril.files;
-        let index = 0;
-        for (let i=0; i<upload_filePril.length; i++){
-            form1.append("filesPril_"+index,upload_filePril.item(i));
-            index++;
+        let cell = 0;
+        for (let element of filesPril) {
+            var upload_filePril = element.files;
+            let index = 0;
+            for (let i = 0; i < upload_filePril.length; i++) {
+                form1.append("filesPril_"+cell+"_" + index, upload_filePril.item(i));
+                index++;
+            }
+            form1.append("index_"+cell, index);
+            cell++;
         }
-       form1.append("index", index);
-       xhr1.open("post","saveFiles.php",true);
-       xhr1.send(form1);
-
-
+        form1.append("cell", cell);
+        xhr1.open("post", "saveFiles.php", true);
+        xhr1.send(form1);
         let tds = document.getElementsByClassName('lpa');
         let pril = document.getElementsByClassName('pril');
         let i = 0;
@@ -438,7 +440,7 @@ s
 
             }
         }
-        //
+
         var doverennost=document.getElementById("doverennost"),
             xhr=new XMLHttpRequest(),
             form=new FormData();
@@ -451,4 +453,6 @@ s
 </script>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>let filesName = new Array();</script>
+<script><?php include 'getFiles.php' ?></script>
 <script src="dist/js/formApplication.js"></script>
