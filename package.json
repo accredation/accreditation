@@ -2,7 +2,7 @@
   "name": "Connect-plus-admin-free",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "index.php",
   "dependencies": {
     "@mdi/font": "3.7.95",
     "bootstrap": "^4.3.1",

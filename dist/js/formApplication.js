@@ -46,6 +46,8 @@ function showTab5(){
 
 function showModal(){
 
+
+
     let modal = document.getElementById("myModal");
     modal.classList.add("show");
     modal.style = "display: block";
