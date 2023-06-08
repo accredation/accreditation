@@ -13,16 +13,21 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 }
 
 
-$query = "SELECT * FROM files where id_user='$id'";
-$filesName = array();
 
-
+$query = "SELECT count(cell) as kol, cell FROM files where id_user='$id' group by cell ";
 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
-foreach ($data as $user) {
-    array_push($filesName, $user['file']);
+foreach ($data as $line) {
+    $filesName = array();
+    $cell = $line['cell'];
+    $query1 = "SELECT file FROM files where id_user='$id' and cell='$cell'";
+    $result1=mysqli_query($con, $query1) or die ( mysqli_error($con));
+    for ($data1 = []; $row1 = mysqli_fetch_assoc($result1); $data1[] = $row1);
+    foreach ($data1 as $line1) {
+        array_push($filesName, $line1['file']);
+    }
+    echo 'filesName.push('.json_encode($filesName).');';
 }
 
-echo 'filesName.push('.json_encode($filesName).');';
 
 ?>

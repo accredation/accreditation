@@ -455,4 +455,5 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>let filesName = new Array();</script>
 <script><?php include 'getFiles.php' ?></script>
+<script>console.log(filesName)</script>
 <script src="dist/js/formApplication.js"></script>

@@ -1,17 +1,17 @@
 <?php
 include "connection.php";
-include "getIdUser.php";
 
-$idUser = getIdUser();
-//move_uploaded_file($_FILES["fil"]["tmp_name"],$_FILES["fil"]["name"]);
-//
-//sleep(2);
-//echo "Данные: цифра - ".$_POST['number'];
-//    $count = $_POST['number'];
-//    for ($i = 0; $i < $count; $i++)
-//        move_uploaded_file($_FILES["filPril_" . $i]["tmp_name"], $_FILES["filPril_" . $i]["name"]);
-//foreach($_FILES as $file)
-//    move_uploaded_file($file["tmp_name"], $file["name"]);
+$login = $_COOKIE['login'];
+$insertquery = "SELECT * FROM users WHERE login='$login'";
+
+$rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+
+if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+{
+    $row = mysqli_fetch_assoc($rez);
+    $id = $row['id_user'];
+}
+
 
 $total_cell = $_POST["cell"];
 
@@ -29,7 +29,7 @@ for ($cell = 0; $cell < $total_cell; $cell++) {
             move_uploaded_file($file_tmp, "./documents/" . $file_name);
 
             $insertquery =
-                "INSERT INTO files(`file`,`cell`,`id_user`) VALUES('$file_name','$cell','$idUser')";
+                "INSERT INTO files(`file`,`cell`,`id_user`) VALUES('$file_name','$cell','$id')";
 
             $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
             if ($result) {

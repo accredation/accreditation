@@ -53,8 +53,9 @@ function showModal(){
     let pril = document.getElementsByClassName('pril');
     let i = 0;
     for (let item of pril){
-        for (let fileName of filesName)
+        for (let fileName of filesName[i])
             item.innerHTML += fileName +"<br/>";
+        i++;
     }
 
     $(".btn-close").on("click",() => {
