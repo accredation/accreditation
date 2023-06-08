@@ -36,15 +36,6 @@
 
 
   </head>
-  <script>
-      let n = new Array();
-      let m = new Array();
-      n.push(1,2,3);
-      m.push(1,2);
-      let x = new Array();
-      x.push(n,m);
-      console.log(x);
-  </script>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->

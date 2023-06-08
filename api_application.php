@@ -322,11 +322,38 @@
                                                                 <td ></td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">1</th>
+                                                                <th scope="row">2</th>
                                                                 <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
                                                                 <td></td>
                                                                 <td class="lpa" contenteditable ></td>
                                                                 <td class = "pril"><input type="file" name="filesPril_1_" class="prilCell" multiple/><br/></td>
+                                                                <td ></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
+                                                                <td></td>
+                                                                <td class="lpa" contenteditable ></td>
+                                                                <td class = "pril"><input type="file" name="filesPril_2_" class="prilCell" multiple/><br/></td>
+                                                                <td ></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row">4</th>
+                                                                <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
+                                                                <td></td>
+                                                                <td class="lpa" contenteditable ></td>
+                                                                <td class = "pril"><input type="file" name="filesPril_3_" class="prilCell" multiple/><br/></td>
+                                                                <td ></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row">5</th>
+                                                                <td>Деятельность структурного подразделения организации здравоохранения (далее – структурное подразделение) осуществляется в соответствии с положением о структурном подразделении</td>
+                                                                <td></td>
+                                                                <td class="lpa" contenteditable ></td>
+                                                                <td class = "pril"><input type="file" name="filesPril_4_" class="prilCell" multiple/><br/></td>
                                                                 <td ></td>
                                                             </tr>
 

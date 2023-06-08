@@ -17,16 +17,29 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 $query = "SELECT count(cell) as kol, cell FROM files where id_user='$id' group by cell ";
 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+$i = 0;
 foreach ($data as $line) {
-    $filesName = array();
     $cell = $line['cell'];
-    $query1 = "SELECT file FROM files where id_user='$id' and cell='$cell'";
-    $result1=mysqli_query($con, $query1) or die ( mysqli_error($con));
-    for ($data1 = []; $row1 = mysqli_fetch_assoc($result1); $data1[] = $row1);
-    foreach ($data1 as $line1) {
-        array_push($filesName, $line1['file']);
+
+    $filesName = array();
+    end:
+
+    if($i!=$cell){
+        echo 'filesName.push(new Array());';
+        $i++;
+        goto end;
     }
-    echo 'filesName.push('.json_encode($filesName).');';
+    else {
+        $query1 = "SELECT file FROM files where id_user='$id' and cell='$cell'";
+        $result1 = mysqli_query($con, $query1) or die (mysqli_error($con));
+        for ($data1 = []; $row1 = mysqli_fetch_assoc($result1); $data1[] = $row1) ;
+        foreach ($data1 as $line1) {
+            array_push($filesName, $line1['file']);
+        }
+        $i++;
+        echo 'filesName.push(' . json_encode($filesName) . ');';
+    }
+
 }
 
 

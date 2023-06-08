@@ -69,6 +69,7 @@ function showModal(){
 
     });
     $(".btn-danger").on("click",() => {
+        let i = 0;
         for (let item of pril){
             item.innerHTML = "<input type='file' name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
             i++;
