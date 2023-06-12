@@ -257,7 +257,7 @@
                                                 </div>
                                             </form>
 
-                                            <div class="form-group"><label for="formGroupExampleInput" style="font-size: 18px">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
+                                            <div class="form-group"><label for="formGroupExampleInput" style="font-size: 18px; text-align: left;">Аккредитация по профилям заболеваний, состояниям, синдромам (отметить необходимые профили, далее заполнить таблицу самооценки во вкладках)</label>
                                             <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
                                                 <label class="form-check-label" for="defaultCheck1">
@@ -429,6 +429,7 @@
         </div>
     </div>
 </div>
+
 <script>
 
     $(document).ready(function () {
@@ -460,14 +461,24 @@
         let tds = document.getElementsByClassName('lpa');
         let pril = document.getElementsByClassName('pril');
         let i = 0;
-        for (let item of pril){
-            let files = item.getElementsByTagName('input')[0];
-            for (let file of files.files){
-                item.innerHTML += file.name+"<br/>";
-
-            }
-        }
-
+       if(filesName.length !== 0) {
+           if (getCookie('login') !== "accred@mail.ru") { // СЮДА ДОБАВЛЯТЬ ЛОГИНЫ ВСЕХ РАБОТНИКОВ АККРЕДИТАЦИИ
+               for (let item of pril) {
+                   for (let fileName of filesName[i]) {
+                       item.innerHTML += fileName + "<br/>";
+                   }
+                   i++;
+               }
+           } else {
+               for (let item of pril) {
+                   for (let fileName of filesName[i]) {
+                       let login = getCookie('login');
+                       item.innerHTML += "<a href='/documents/" + login + "/" + fileName + "'>" + fileName + "</a><br/>";
+                   }
+                   i++;
+               }
+           }
+       }
         var doverennost=document.getElementById("doverennost"),
             xhr=new XMLHttpRequest(),
             form=new FormData();

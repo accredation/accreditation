@@ -17,6 +17,9 @@ $total_cell = $_POST["cell"];
 
 
 echo $total_cell;
+if (!file_exists('documents/'.$login)) {
+    mkdir('documents/'.$login, 0777, true);
+}
 for ($cell = 0; $cell < $total_cell; $cell++) {
     $total_files = $_POST['index_'.$cell];
     echo $total_files;
@@ -26,7 +29,7 @@ for ($cell = 0; $cell < $total_cell; $cell++) {
             $file_name = $_FILES['filesPril_'.$cell.'_' . $key]['name'];
             $file_tmp = $_FILES['filesPril_'.$cell.'_' . $key]['tmp_name'];
 
-            move_uploaded_file($file_tmp, "./documents/" . $file_name);
+            move_uploaded_file($file_tmp, "./documents/".$login."/" . $file_name);
 
             $insertquery =
                 "INSERT INTO files(`file`,`cell`,`id_user`) VALUES('$file_name','$cell','$id')";

@@ -22,22 +22,23 @@ foreach ($data as $line) {
     $cell = $line['cell'];
 
     $filesName = array();
-    end:
 
-    if($i!=$cell){
-        echo 'filesName.push(new Array());';
-        $i++;
-        goto end;
-    }
-    else {
-        $query1 = "SELECT file FROM files where id_user='$id' and cell='$cell'";
-        $result1 = mysqli_query($con, $query1) or die (mysqli_error($con));
-        for ($data1 = []; $row1 = mysqli_fetch_assoc($result1); $data1[] = $row1) ;
-        foreach ($data1 as $line1) {
-            array_push($filesName, $line1['file']);
+    while($i < 5) {
+        if ($i != $cell) {
+            echo 'filesName.push(new Array());';
+
+        } else {
+            $query1 = "SELECT file FROM files where id_user='$id' and cell='$cell'";
+            $result1 = mysqli_query($con, $query1) or die (mysqli_error($con));
+            for ($data1 = []; $row1 = mysqli_fetch_assoc($result1); $data1[] = $row1) ;
+            foreach ($data1 as $line1) {
+                array_push($filesName, $line1['file']);
+            }
+
+            echo 'filesName.push(' . json_encode($filesName) . ');';
+
         }
         $i++;
-        echo 'filesName.push(' . json_encode($filesName) . ');';
     }
 
 }

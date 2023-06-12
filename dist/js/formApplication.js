@@ -44,19 +44,51 @@ function showTab5(){
     tab5.classList.add("active");
 }
 
-function showModal(){
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
+function showModal(){
     let modal = document.getElementById("myModal");
     modal.classList.add("show");
     modal.style = "display: block";
 
     let pril = document.getElementsByClassName('pril');
     let i = 0;
-    for (let item of pril){
-        for (let fileName of filesName[i])
-            item.innerHTML += fileName +"<br/>";
-        i++;
-    }
+
+        if (getCookie('login') !== "accred@mail.ru") { // СЮДА ДОБАВЛЯТЬ ЛОГИНЫ ВСЕХ РАБОТНИКОВ АККРЕДИТАЦИИ
+            for (let item of pril) {
+                if(filesName.length !== 0) {
+                    for (let fileName of filesName[i]) {
+                        item.innerHTML += fileName + "<br/>";
+                    }
+                    i++;
+                }
+            }
+        } else {
+            for (let item of pril) {
+                if(filesName.length !== 0) {
+                    for (let fileName of filesName[i]) {
+                        let login = getCookie('login');
+                        item.innerHTML += "<a href='/documents/" + login + "/" + fileName + "'>" + fileName + "</a><br/>";
+                    }
+                    i++;
+                }
+            }
+        }
+
 
     $(".btn-close").on("click",() => {
         let i = 0;
