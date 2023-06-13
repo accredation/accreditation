@@ -60,7 +60,8 @@ function getCookie(cname) {
     return "";
 }
 
-function showModal(){
+function createApplication(){
+    document.getElementsByClassName("modal-title")[0].innerHTML = "Создание заявления";
     let modal = document.getElementById("myModal");
     modal.classList.add("show");
     modal.style = "display: block";
@@ -68,26 +69,8 @@ function showModal(){
     let pril = document.getElementsByClassName('pril');
     let i = 0;
 
-        if (getCookie('login') !== "accred@mail.ru") { // СЮДА ДОБАВЛЯТЬ ЛОГИНЫ ВСЕХ РАБОТНИКОВ АККРЕДИТАЦИИ
-            for (let item of pril) {
-                if(filesName.length !== 0) {
-                    for (let fileName of filesName[i]) {
-                        item.innerHTML += fileName + "<br/>";
-                    }
-                    i++;
-                }
-            }
-        } else {
-            for (let item of pril) {
-                if(filesName.length !== 0) {
-                    for (let fileName of filesName[i]) {
-                        let login = getCookie('login');
-                        item.innerHTML += "<a href='/documents/" + login + "/" + fileName + "'>" + fileName + "</a><br/>";
-                    }
-                    i++;
-                }
-            }
-        }
+
+
 
 
     $(".btn-close").on("click",() => {
@@ -104,6 +87,80 @@ function showModal(){
         let i = 0;
         for (let item of pril){
             item.innerHTML = "<input type='file' name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
+            i++;
+        }
+        modal.classList.remove("show");
+        modal.style = "display: none";
+
+
+    });
+}
+
+function showModal(id_application){
+    document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления";
+    let number_app = document.getElementById("id_application");
+    number_app.innerHTML = id_application;
+    let modal = document.getElementById("myModal");
+    modal.classList.add("show");
+    modal.style = "display: block";
+
+    let pril = document.getElementsByClassName('pril');
+    let i = 0;
+    let filesName = new Array();
+    $.ajax({
+        url: "getFiles.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function( response ) {
+
+            // let items = response.split(";");
+            // for(let i of items){
+            //     filesName.push(i.slice(1,-1));
+            // }
+          //  console.log(JSON.parse(response));
+            for (let i of JSON.parse(response)){
+                filesName.push(i);
+            }
+            console.log(filesName);
+            if (getCookie('login') !== "accred@mail.ru") { // СЮДА ДОБАВЛЯТЬ ЛОГИНЫ ВСЕХ РАБОТНИКОВ АККРЕДИТАЦИИ
+                for (let item of pril) {
+                    if(filesName.length !== 0) {
+                        for (let fileName of filesName[i]) {
+                            item.innerHTML += fileName + "<br/>";
+                        }
+                        i++;
+                    }
+                }
+            } else {
+                for (let item of pril) {
+                    if(filesName.length !== 0) {
+                        for (let fileName of filesName[i]) {
+                            let login = getCookie('login');
+                            item.innerHTML += "<a href='/documents/" + login + "/" + fileName + "'>" + fileName + "</a><br/>";
+                        }
+                        i++;
+                    }
+                }
+            }
+        });
+
+     // выводим полученный ответ на консоль браузер
+
+    $(".btn-close").on("click",() => {
+        let i = 0;
+        for (let item of pril){
+            item.innerHTML = "<input type='file' class=\"prilCell\" name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
+            i++;
+        }
+        modal.classList.remove("show");
+        modal.style = "display: none";
+
+    });
+    $(".btn-danger").on("click",() => {
+        let i = 0;
+        for (let item of pril){
+            item.innerHTML = "<input type='file' class=\"prilCell\" name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
             i++;
         }
         modal.classList.remove("show");
@@ -173,3 +230,5 @@ function showDoverennost(element){
 function deleteDoverennost(element){
     formDoverennost.classList.add("hiddentab");
 };
+
+

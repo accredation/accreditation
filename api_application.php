@@ -34,7 +34,7 @@
               <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
 
                 <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
-                  <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="showModal()"> Новое заявление </button>
+                  <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
                 </div>
               </div>
             </div>
@@ -43,10 +43,10 @@
                 <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                   <ul class="nav nav-tabs tab-transparent" role="tablist">
                     <li class="nav-item">
-                          <a class="nav-link" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Все заявления</a>
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Все заявления</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">На рассмотрении</a>
+                      <a class="nav-link " id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">На рассмотрении</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="performance-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
@@ -113,27 +113,45 @@
                         <div class="card">
                           <div class="card-body">
 
+                              <?php
+                              $login = $_COOKIE['login'];
+                              $insertquery = "SELECT * FROM users WHERE login='$login'";
+
+                              $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+
+                              if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                              {
+                                  $row = mysqli_fetch_assoc($rez);
+                                  $id = $row['id_user'];
+                              }
+                              $query = "SELECT * FROM applications where id_user='$id'";
+                              $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                              for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                              ?>
 
                               <table id="example" class="table table-striped table-bordered" style="width:100%">
                                   <thead>
                                   <tr>
-                                      <th>Name</th>
-                                      <th>Position</th>
-                                      <th>Office</th>
-                                      <th>Age</th>
-                                      <th>Start date</th>
-                                      <th>Salary</th>
+                                      <th>№</th>
                                   </tr>
                                   </thead>
                                   <tbody>
-                                  <tr>
-                                      <td>Tiger Nixon</td>
-                                      <td>System Architect</td>
-                                      <td>Edinburgh</td>
-                                      <td>61</td>
-                                      <td>2011-04-25</td>
-                                      <td>$320,800</td>
-                                  </tr>
+                                  <?php
+
+                                  foreach ($data as $app) {
+
+                                      ?>
+
+                                      <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+
+
+                                          <td><?= $app['id_application'] ?></td>
+
+
+                                      </tr>
+                                      <?php
+                                  }
+                                  ?>
 
                                   </tbody>
 
@@ -157,6 +175,7 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Создание заявления</h4>
+                <h4 id="id_application"></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
             </div>
 
@@ -242,12 +261,11 @@
 
                                             <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
 
-                                            <form id="formCopyRaspisanie" method="POST" action="saveFiles.php">
+                                            <form id="formCopyRaspisanie">
                                                 <div class="form-group">
                                                     <label for="copyRaspisanie">Копия штатного расписания</label>
-                                                    <input type="text" class="form-control-file" name="Name" id="copyRaspisanie">
+                                                    <input type="file" class="form-control-file" name="Name" id="copyRaspisanie">
                                                 </div>
-                                                <input type="submit" name="submit" value="Нажми">
                                             </form>
 
                                             <form id="formInfoMedTecnics" >
@@ -440,58 +458,69 @@
         // });
 
    $("#btnSuc").on("click", function () {
-
-        var filesPril=document.getElementsByClassName("prilCell"),
-            xhr1=new XMLHttpRequest(),
-            form1=new FormData();
-        let cell = 0;
-        for (let element of filesPril) {
-            var upload_filePril = element.files;
-            let index = 0;
-            for (let i = 0; i < upload_filePril.length; i++) {
-                form1.append("filesPril_"+cell+"_" + index, upload_filePril.item(i));
-                index++;
+       let number_app = document.getElementById("id_application");
+       let id_application = number_app.innerText;
+       let modal = document.getElementById("myModal");
+       modal.classList.add("show");
+       modal.style = "display: block";
+       let pril = document.getElementsByClassName('pril');
+       let i = 0;
+        if( document.getElementsByClassName("modal-title")[0].innerText === "Создание заявления"){
+            $.ajax({
+                url: "createApplication.php",
+                method: "POST",
+                data: ""
+            })
+                .done(function( response ) {
+                    console.log(response);
+                });
+            let i = 0;
+            for (let item of pril){
+                item.innerHTML = "<input type='file' name='filesPril_"+i+"_' id=\"pril1\" multiple/><br/>";
+                i++;
             }
-            form1.append("index_"+cell, index);
-            cell++;
+            modal.classList.remove("show");
+            modal.style = "display: none";
+            alert("Заявление сохранено");
+            location.href = "/index.php?application";
+
         }
-        form1.append("cell", cell);
-        xhr1.open("post", "saveFiles.php", true);
-        xhr1.send(form1);
-        let tds = document.getElementsByClassName('lpa');
-        let pril = document.getElementsByClassName('pril');
-        let i = 0;
-       if(filesName.length !== 0) {
-           if (getCookie('login') !== "accred@mail.ru") { // СЮДА ДОБАВЛЯТЬ ЛОГИНЫ ВСЕХ РАБОТНИКОВ АККРЕДИТАЦИИ
-               for (let item of pril) {
-                   for (let fileName of filesName[i]) {
-                       item.innerHTML += fileName + "<br/>";
-                   }
-                   i++;
-               }
-           } else {
-               for (let item of pril) {
-                   for (let fileName of filesName[i]) {
-                       let login = getCookie('login');
-                       item.innerHTML += "<a href='/documents/" + login + "/" + fileName + "'>" + fileName + "</a><br/>";
-                   }
-                   i++;
-               }
-           }
-       }
-        var doverennost=document.getElementById("doverennost"),
-            xhr=new XMLHttpRequest(),
-            form=new FormData();
-        var upload_file=doverennost.files[0];
-        form.append("doverennost",upload_file);
-        xhr.open("post","saveFiles.php",true);
-        xhr.send(form);
+        else {
+            var filesPril = document.getElementsByClassName("prilCell"),
+                xhr1 = new XMLHttpRequest(),
+                form1 = new FormData();
+            let cell = 0;
+            for (let element of filesPril) {
+                var upload_filePril = element.files;
+                let index = 0;
+                for (let i = 0; i < upload_filePril.length; i++) {
+                    form1.append("filesPril_" + cell + "_" + index, upload_filePril.item(i));
+                    index++;
+                }
+                form1.append("index_" + cell, index);
+                cell++;
+            }
+            form1.append("cell", cell);
+            form1.append("id_application", id_application);
+            xhr1.open("post", "saveFiles.php", true);
+            xhr1.send(form1);
+            let tds = document.getElementsByClassName('lpa');
+            let pril = document.getElementsByClassName('pril');
+
+            var doverennost = document.getElementById("doverennost"),
+                xhr = new XMLHttpRequest(),
+                form = new FormData();
+            var upload_file = doverennost.files[0];
+            form.append("doverennost", upload_file);
+            xhr.open("post", "saveFiles.php", true);
+            xhr.send(form);
+        }
     });
     });
 </script>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script>let filesName = new Array();</script>
-<script><?php include 'getFiles.php' ?></script>
-<script>console.log(filesName)</script>
+<script></script>
+<!--<script>--><?php //include 'getFiles.php' ?><!--</script>-->
+<!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formApplication.js"></script>
