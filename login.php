@@ -10,7 +10,6 @@ if(isset($_POST['log_in']))
     {
         $UID = $_SESSION['id_user'];
 
-
         header('Location: http://'.$_SERVER['HTTP_HOST'].'/index.php');
     }
     else if(count($error) == 2)
