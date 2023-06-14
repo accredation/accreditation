@@ -9,7 +9,7 @@
 				value: 0.70,
 				size: 125,
 				thickness: 7,
-				startAngle: 80,
+				startAngle: 80.1,
 				fill: {
 					gradient: ["#7922e5", "#1579ff"]
 				}
@@ -33,7 +33,7 @@
 				value: 0.60,
 				size: 125,
 				thickness: 7,
-				startAngle: 10,
+				startAngle: 80.1,
 				fill: {
 					gradient: ["#429321", "#b4ec51"]
 				}
@@ -54,10 +54,10 @@
 
 		if ($(".dashboard-progress-3").length) {
 			$('.dashboard-progress-3').circleProgress({
-				value: 0.90,
+				value: 0.35,
 				size: 125,
 				thickness: 7,
-				startAngle: 10,
+				startAngle: 80.1,
 				fill: {
 					gradient: ["#f76b1c", "#fad961"]
 				}
@@ -81,7 +81,7 @@
 				value: 0.45,
 				size: 125,
 				thickness: 7,
-				startAngle: 10,
+				startAngle: 80.1,
 				fill: {
 					gradient: ["#9f041b", "#f5515f"]
 				}
