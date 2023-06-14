@@ -132,25 +132,25 @@
                               <table id="example" class="table table-striped table-bordered" style="width:100%">
                                   <thead>
                                   <tr>
-                                      <th>№</th>
+                                      <th>Заявления</th>
                                   </tr>
                                   </thead>
                                   <tbody>
                                   <?php
 
-                                  foreach ($data as $app) {
+                                      foreach ($data as $app) {
 
-                                      ?>
+                                          ?>
 
-                                      <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
-
-
-                                          <td><?= $app['id_application'] ?></td>
+                                          <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
 
 
-                                      </tr>
-                                      <?php
-                                  }
+                                              <td>Заявление № <?= $app['id_application'] ?></td>
+
+
+                                          </tr>
+                                          <?php
+                                      }
                                   ?>
 
                                   </tbody>
