@@ -53,7 +53,7 @@ if(isset($_POST['log_in']))
                 <h6 class="font-weight-light">Sign in to continue.</h6>
                 <form class="pt-3" action="/login.php" method="post">
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Login" name="login">
+                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Login" name="login">
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password">
