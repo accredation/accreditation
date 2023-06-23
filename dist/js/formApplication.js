@@ -61,108 +61,51 @@ function getCookie(cname) {
 }
 
 function createApplication(){
-    document.getElementsByClassName("modal-title")[0].innerHTML = "Создание заявления";
-    let modal = document.getElementById("myModal");
-    modal.classList.add("show");
-    modal.style = "display: block";
-
-    let pril = document.getElementsByClassName('pril');
-    let i = 0;
-
-
-
-
-
-    $(".btn-close").on("click",() => {
-        let i = 0;
-        for (let item of pril){
-            item.innerHTML = "<input type='file' name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
-            i++;
-        }
-        modal.classList.remove("show");
-        modal.style = "display: none";
-
-    });
-    $(".btn-danger").on("click",() => {
-        let i = 0;
-        for (let item of pril){
-            item.innerHTML = "<input type='file' name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
-            i++;
-        }
-        modal.classList.remove("show");
-        modal.style = "display: none";
-
-
-    });
+    $.ajax({
+        url: "createApplication.php",
+        method: "POST",
+        data: ""
+    })
+        .done(function( response ) {
+            console.log(response);
+        });
+    alert("Заявление создано");
+    location.href = "/index.php?application";
 }
 
 function showModal(id_application){
     document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления";
     let number_app = document.getElementById("id_application");
+    let naim = document.getElementById("naim");
+    let dov = document.getElementById("divDoverennost");
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
     modal.classList.add("show");
     modal.style = "display: block";
-
-    let pril = document.getElementsByClassName('pril');
-    let i = 0;
-    let filesName = new Array();
+    let data = new Array();
     $.ajax({
         url: "getFiles.php",
         method: "GET",
         data: {id_application: id_application}
     })
         .done(function( response ) {
-
-            // let items = response.split(";");
-            // for(let i of items){
-            //     filesName.push(i.slice(1,-1));
-            // }
-          //  console.log(JSON.parse(response));
             for (let i of JSON.parse(response)){
-                filesName.push(i);
+                data.push(i);
             }
-            console.log(filesName);
-            if (getCookie('login') !== "accred@mail.ru") { // СЮДА ДОБАВЛЯТЬ ЛОГИНЫ ВСЕХ РАБОТНИКОВ АККРЕДИТАЦИИ
-                for (let item of pril) {
-                    if(filesName.length !== 0) {
-                        for (let fileName of filesName[i]) {
-                            item.innerHTML += fileName + "<br/>";
-                        }
-                        i++;
-                    }
-                }
-            } else {
-                for (let item of pril) {
-                    if(filesName.length !== 0) {
-                        for (let fileName of filesName[i]) {
-                            let login = getCookie('login');
-                            item.innerHTML += "<a href='/documents/" + login + "/" + fileName + "'>" + fileName + "</a><br/>";
-                        }
-                        i++;
-                    }
-                }
-            }
+            naim.value = data[0];
+            let login = getCookie('login');
+            dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
         });
-
      // выводим полученный ответ на консоль браузер
 
     $(".btn-close").on("click",() => {
-        let i = 0;
-        for (let item of pril){
-            item.innerHTML = "<input type='file' class=\"prilCell\" name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
-            i++;
-        }
+        dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
 
     });
     $(".btn-danger").on("click",() => {
-        let i = 0;
-        for (let item of pril){
-            item.innerHTML = "<input type='file' class=\"prilCell\" name='filesPril_ "+i+"_' id=\"pril1\" multiple/><br/>";
-            i++;
-        }
+        dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
 

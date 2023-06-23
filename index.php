@@ -218,7 +218,9 @@
                     case 'application':
                         include 'api_application.php';
                         break;
-
+                    case 'users':
+                        include 'api_accreditation.php';
+                        break;
 
                 }
             }
@@ -288,11 +290,46 @@
 
     <script src="dist/js/jquery.dataTables.min.js"></script>
 
+    <script>
+        //window.onload = () => console.log('page is loaded');
 
+        //const arr = [1,5,3,7,8,2,10,9,6];
+        /*for (let i = 0; i< arr.length; i++) {
+            for (let j = 0; j< arr.length-1; j++) {
+                let c;
+                if (arr[j] > arr[j+1]) {
+                    c = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = c;
+                }
+            }
+        }*/
+        //arr.sort((a,b) => a-b);
+        /*arr.forEach((el, ind) => {
+            //console.log(arr[ind+1]);
+            let c;
+            if (ind < arr.length && el > arr[ind + 1]) {
+                c = el;
+                el = arr[ind + 1];
+                arr[ind + 1] = c;
+            }
+        })*/
+        //console.log(arr);
+
+        const ourButton = document.querySelector('.navbar-toggler');
+        //console.log(ourButton);
+    </script>
 
     <!-- End custom js for this page -->
 
 
 
   </body>
+  <script>
+      // fetch('getFiles.php?id_application=24', {
+      //     method: 'GET'
+      // })
+      // .then(response => response.json())
+      // .then(data => console.log(data));
+  </script>
 </html>

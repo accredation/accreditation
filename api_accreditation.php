@@ -24,157 +24,103 @@
 
 </style>
 <div class="content-wrapper">
-            <div class="row" id="proBanner">
-              <div class="col-12">
+    <div class="row" id="proBanner">
+        <div class="col-12">
             <!--    -->
-              </div>
-            </div>
-            <div class="d-xl-flex justify-content-between align-items-start">
-              <h2 class="text-dark font-weight-bold mb-2"> Заявления </h2>
-              <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
+        </div>
+    </div>
+    <div class="d-xl-flex justify-content-between align-items-start">
+        <h2 class="text-dark font-weight-bold mb-2"> Организации </h2>
+        <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
 
-                <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
-                  <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
-                </div>
-              </div>
+            <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
+                <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
-                  <ul class="nav nav-tabs tab-transparent" role="tablist">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
+                <ul class="nav nav-tabs tab-transparent" role="tablist">
                     <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Все заявления</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Все заявления</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link " id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">На рассмотрении</a>
+                        <a class="nav-link " id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">На рассмотрении</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="performance-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
+                        <a class="nav-link" id="performance-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="conversion-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Не одобренные</a>
+                        <a class="nav-link" id="conversion-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Не одобренные</a>
                     </li>
-                  </ul>
-                  <div class="d-md-block d-none">
+                </ul>
+                <div class="d-md-block d-none">
                     <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>
                     <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>
-                  </div>
                 </div>
-                <div class="tab-content tab-transparent-content">
-                  <div class="tab-pane fade show active" id="business-1" role="tabpanel" aria-labelledby="business-tab">
-<!--                    <div class="row">-->
-<!--                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">-->
-<!--                        <div class="card">-->
-<!--                          <div class="card-body text-center">-->
-<!--                            <h5 class="mb-2 text-dark font-weight-normal">Orders</h5>-->
-<!--                            <h2 class="mb-4 text-dark font-weight-bold">932.00</h2>-->
-<!--                            <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i></div>-->
-<!--                            <p class="mt-4 mb-0">Completed</p>-->
-<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">5443</h3>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">-->
-<!--                        <div class="card">-->
-<!--                          <div class="card-body text-center">-->
-<!--                            <h5 class="mb-2 text-dark font-weight-normal">Unique Visitors</h5>-->
-<!--                            <h2 class="mb-4 text-dark font-weight-bold">756,00</h2>-->
-<!--                            <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-account-circle icon-md absolute-center text-dark"></i></div>-->
-<!--                            <p class="mt-4 mb-0">Increased since yesterday</p>-->
-<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">50%</h3>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                      <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">-->
-<!--                        <div class="card">-->
-<!--                          <div class="card-body text-center">-->
-<!--                            <h5 class="mb-2 text-dark font-weight-normal">Impressions</h5>-->
-<!--                            <h2 class="mb-4 text-dark font-weight-bold">100,38</h2>-->
-<!--                            <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-eye icon-md absolute-center text-dark"></i></div>-->
-<!--                            <p class="mt-4 mb-0">Increased since yesterday</p>-->
-<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">-->
-<!--                        <div class="card">-->
-<!--                          <div class="card-body text-center">-->
-<!--                            <h5 class="mb-2 text-dark font-weight-normal">Followers</h5>-->
-<!--                            <h2 class="mb-4 text-dark font-weight-bold">4250k</h2>-->
-<!--                            <div class="dashboard-progress dashboard-progress-4 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-cube icon-md absolute-center text-dark"></i></div>-->
-<!--                            <p class="mt-4 mb-0">Decreased since yesterday</p>-->
-<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">25%</h3>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
+            </div>
+            <div class="tab-content tab-transparent-content">
+                <div class="tab-pane fade show active" id="business-1" role="tabpanel" aria-labelledby="business-tab">
+
                     <div class="row">
-                      <div class="col-12 grid-margin">
-                        <div class="card">
-                          <div class="card-body">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
 
-                              <?php
-                              $login = $_COOKIE['login'];
-                              $insertquery = "SELECT * FROM users WHERE login='$login'";
+                                    <?php
 
-                              $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+                                    $query = "SELECT * FROM users where id_role = 3";
+                                    $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                    for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                    ?>
 
-                              if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
-                              {
-                                  $row = mysqli_fetch_assoc($rez);
-                                  $id = $row['id_user'];
-                              }
-                              $query = "SELECT * FROM applications where id_user='$id'";
-                              $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                              for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
-                              ?>
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Пользователи</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
 
-                              <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                  <thead>
-                                  <tr>
-                                      <th>Заявления</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <?php
+                                        foreach ($data as $app) {
 
-                                      foreach ($data as $app) {
+                                            ?>
 
-                                          ?>
-
-                                          <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+                                            <tr onclick="showModalApps('<?= $app['username'] ?>')" style="cursor: pointer;">
 
 
-                                              <td>Заявление <?= $app['naim'] ?></td>
+                                                <td><?= $app['username'] ?></td>
 
 
-                                          </tr>
-                                          <?php
-                                      }
-                                  ?>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
 
-                                  </tbody>
+                                        </tbody>
 
-                              </table>
+                                    </table>
 
 
-                          </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
 
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
+    </div>
+</div>
 <div class="modal" id="myModal">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Создание заявления</h4>
+                <h4 class="modal-title">Заявления пользователя</h4>
                 <h4 id="id_application"></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
             </div>
@@ -182,8 +128,45 @@
             <!-- Modal body -->
             <div class="modal-body">
 
+                <table id="table-apps" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Заявления</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
 
+                    </tbody>
+
+                </table>
+
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>
+
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalApp">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Заявление</h4>
+                <h4 id="id_app"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
 
                 <div class="col-md-12">
                     <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
@@ -276,30 +259,30 @@
                                             </form>
 
                                             <div class="form-group"><label for="formGroupExampleInput" style="font-size: 18px; text-align: left;">Типы учреждения</label>
-                                            <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    Хирургия
-                                                </label>
-                                            </div>
-                                            <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" onclick="toggleTabs(this,'rodovspom-tab')">
-                                                <label class="form-check-label" for="defaultCheck2" >
-                                                    Родовспоможение
-                                                </label>
-                                            </div>
-                                            <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" onclick="toggleTabs(this,'akush-tab')">
-                                                <label class="form-check-label" for="defaultCheck3">
-                                                    Акушерство и гинекология
-                                                </label>
-                                            </div>
-                                            <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'anest-tab')">
-                                                <label class="form-check-label" for="defaultCheck4">
-                                                    Анестезиология и реаниматология
-                                                </label>
-                                            </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
+                                                    <label class="form-check-label" for="defaultCheck1">
+                                                        Хирургия
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" onclick="toggleTabs(this,'rodovspom-tab')">
+                                                    <label class="form-check-label" for="defaultCheck2" >
+                                                        Родовспоможение
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" onclick="toggleTabs(this,'akush-tab')">
+                                                    <label class="form-check-label" for="defaultCheck3">
+                                                        Акушерство и гинекология
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'anest-tab')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Анестезиология и реаниматология
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -381,61 +364,15 @@
                             </div>
                         </div>
 
-<!--                        <div class="tab-pane fade show " id="tab-3" role="tabpanel" aria-labelledby="business-tab" >-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-12 grid-margin">-->
-<!--                                    <div class="card">-->
-<!--                                        <div class="card-body">-->
-<!--                                            3-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!---->
-<!---->
-<!--                        <div class="tab-pane fade show " id="tab-4" role="tabpanel" aria-labelledby="business-tab" >-->
-<!---->
-<!--                            <div class="row">-->
-<!--                                <div class="col-12 grid-margin">-->
-<!--                                    <div class="card">-->
-<!--                                        <div class="card-body">-->
-<!--                                            4-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!---->
-<!--                        <div class="tab-pane fade show" id="tab-5" role="tabpanel" aria-labelledby="business-tab" >-->
-<!---->
-<!--                            <div class="row">-->
-<!--                                <div class="col-12 grid-margin">-->
-<!--                                    <div class="card">-->
-<!--                                        <div class="card-body">-->
-<!--                                            5-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
                     </div>
                 </div>
-
-
-
-
 
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-<!--                <form action="getFiles.php" method="post">-->
-<!--                    <input type="text" name="count" id="count"/>-->
-<!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
-                    <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>
-<!--                </form>-->
+
+                <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>
+
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
 
@@ -452,48 +389,45 @@
         //     files = this.files;
         // });
 
-   $("#btnSuc").on("click", function () {
-       let number_app = document.getElementById("id_application");
-       let naim = document.getElementById("naim");
-       let unp = document.getElementById("unp");
-       let naimText = naim.value;
-       let unpText = unp.value;
-       let id_application = number_app.innerText;
-       let modal = document.getElementById("myModal");
-       modal.classList.add("show");
-       modal.style = "display: block";
+        $("#btnSuc").on("click", function () {
+            let number_app = document.getElementById("id_application");
+            let naim = document.getElementById("naim");
+            let naimText = naim.value;
+            let id_application = number_app.innerText;
+            let modal = document.getElementById("myModal");
+            modal.classList.add("show");
+            modal.style = "display: block";
 
-       var doverennost = document.getElementById("doverennost"),
-           xhr = new XMLHttpRequest(),
-           form = new FormData();
-       var upload_file = doverennost.files[0];
-       form.append("doverennost", upload_file);
-       form.append("naimUZ", naimText);
-       form.append("unp", unpText);
-       form.append("id_application", id_application);
+            var doverennost = document.getElementById("doverennost"),
+                xhr = new XMLHttpRequest(),
+                form = new FormData();
+            var upload_file = doverennost.files[0];
+            form.append("doverennost", upload_file);
+            form.append("naimUZ", naimText);
+            form.append("id_application", id_application);
 
-       xhr.open("post", "saveApplication.php", true);
-       xhr.send(form);
-        alert("Заявление сохранено");
-        location.href = "/index.php?application";
-       // $.ajax({
-       //     url: "saveApplication.php",
-       //     method: "POST",
-       //     data: {id_application: id_application}
-       // })
-       //     .done(function( response ) {
-       //         alert("ok");
-       //     });
+            xhr.open("post", "saveApplication.php", true);
+            xhr.send(form);
+            alert("Заявление сохранено");
+            location.href = "/index.php?application";
+            // $.ajax({
+            //     url: "saveApplication.php",
+            //     method: "POST",
+            //     data: {id_application: id_application}
+            // })
+            //     .done(function( response ) {
+            //         alert("ok");
+            //     });
 
-       // var doverennost = document.getElementById("doverennost"),
-        //     xhr = new XMLHttpRequest(),
-        //     form = new FormData();
-        // var upload_file = doverennost.files[0];
-        // form.append("doverennost", upload_file);
-        // xhr.open("post", "saveFiles.php", true);
-        // xhr.send(form);
+            // var doverennost = document.getElementById("doverennost"),
+            //     xhr = new XMLHttpRequest(),
+            //     form = new FormData();
+            // var upload_file = doverennost.files[0];
+            // form.append("doverennost", upload_file);
+            // xhr.open("post", "saveFiles.php", true);
+            // xhr.send(form);
 
-    });
+        });
     });
 </script>
 
@@ -501,4 +435,4 @@
 <script></script>
 <!--<script>--><?php //include 'getFiles.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
-<script src="dist/js/formApplication.js"></script>
+<script src="dist/js/formUsers.js"></script>
