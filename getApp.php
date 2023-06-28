@@ -12,12 +12,14 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 {
     $row = mysqli_fetch_assoc($rez);
     $dov = $row['copy_rasp'];
+    $unp = $row['unp'];
     $login = $row['login'];
 }
 
 array_push($cells,$login);
 array_push($cells,$naim);
 array_push($cells,$dov);
+array_push($cells,$unp);
 
 echo json_encode($cells);
 ?>

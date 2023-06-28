@@ -23,6 +23,7 @@
     }
 
 </style>
+<?php if(isset($_COOKIE['login'])){?>
 <div class="content-wrapper">
             <div class="row" id="proBanner">
               <div class="col-12">
@@ -225,7 +226,7 @@
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
                                             <div class="form-group"><label style="font-size: 18px">Инициатор административной процедуры</label></div>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="deleteDoverennost()" checked>
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="deleteDoverennost(this)" checked>
                                                 <label class="form-check-label" for="rukovoditel">
                                                     Руководитель заинтересованного лица
                                                 </label>
@@ -434,6 +435,7 @@
 <!--                <form action="getFiles.php" method="post">-->
 <!--                    <input type="text" name="count" id="count"/>-->
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
+                <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
                     <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>
 <!--                </form>-->
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
@@ -502,3 +504,17 @@
 <!--<script>--><?php //include 'getFiles.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formApplication.js"></script>
+
+<?php } else { ?>
+    <div class="content-wrapper">
+        <div class="row" id="proBanner">
+            <div class="col-12">
+                <!--    -->
+            </div>
+        </div>
+        <div class="d-xl-flex justify-content-between align-items-start">
+            <h2 class="text-dark font-weight-bold mb-2"> Требуется авторизация </h2>
+        </div>
+    </div>
+
+<?php } ?>

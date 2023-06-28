@@ -66,6 +66,7 @@
     let url = currentUrl.pathname + currentUrl.search;
     let nav1 = document.getElementById("nav1");
     let nav2 = document.getElementById("nav2");
+    let nav5 = document.getElementById("nav5");
 
 
     switch(url){
@@ -74,6 +75,9 @@
             break;
         case "/index.php?application":
             nav2.className = "nav-item active";
+            break;
+        case "/index.php?users":
+            nav5.className = "nav-item active";
             break;
         default:
             nav1.className = "nav-item active";

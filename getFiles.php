@@ -23,10 +23,12 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
     $row = mysqli_fetch_assoc($rez);
     $dov = $row['copy_rasp'];
     $naim = $row['naim'];
+    $unp = $row['unp'];
 }
 
 array_push($cells,$naim);
 array_push($cells,$dov);
+array_push($cells,$unp);
 
 echo json_encode($cells);
 ?>

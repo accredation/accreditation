@@ -23,6 +23,7 @@
     }
 
 </style>
+<?php if(isset($_COOKIE['login'])){?>
 <div class="content-wrapper">
     <div class="row" id="proBanner">
         <div class="col-12">
@@ -33,9 +34,9 @@
         <h2 class="text-dark font-weight-bold mb-2"> Организации </h2>
         <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
 
-            <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
-                <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
-            </div>
+<!--            <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">-->
+<!--                <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>-->
+<!--            </div>-->
         </div>
     </div>
     <div class="row">
@@ -119,7 +120,7 @@
         <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header">
+            <div class="modal-header" id="myModalHeader">
                 <h4 class="modal-title">Заявления пользователя</h4>
                 <h4 id="id_application"></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
@@ -143,9 +144,9 @@
 
             </div>
             <!-- Modal footer -->
-            <div class="modal-footer">
+            <div class="modal-footer" id="myModalFooter">
 
-                <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>
+<!--                <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>-->
 
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
@@ -159,7 +160,7 @@
         <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header">
+            <div class="modal-header" id="modalAppHeader">
                 <h4 class="modal-title">Заявление</h4>
                 <h4 id="id_app"></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
@@ -208,7 +209,7 @@
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
                                             <div class="form-group"><label style="font-size: 18px">Инициатор административной процедуры</label></div>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="deleteDoverennost()" checked>
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="deleteDoverennost(this)" checked>
                                                 <label class="form-check-label" for="rukovoditel">
                                                     Руководитель заинтересованного лица
                                                 </label>
@@ -369,9 +370,10 @@
 
             </div>
             <!-- Modal footer -->
-            <div class="modal-footer">
+            <div class="modal-footer" id="modalAppFooter">
 
-                <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>
+                <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+<!--                <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>-->
 
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
@@ -410,22 +412,7 @@
             xhr.send(form);
             alert("Заявление сохранено");
             location.href = "/index.php?application";
-            // $.ajax({
-            //     url: "saveApplication.php",
-            //     method: "POST",
-            //     data: {id_application: id_application}
-            // })
-            //     .done(function( response ) {
-            //         alert("ok");
-            //     });
 
-            // var doverennost = document.getElementById("doverennost"),
-            //     xhr = new XMLHttpRequest(),
-            //     form = new FormData();
-            // var upload_file = doverennost.files[0];
-            // form.append("doverennost", upload_file);
-            // xhr.open("post", "saveFiles.php", true);
-            // xhr.send(form);
 
         });
     });
@@ -436,3 +423,17 @@
 <!--<script>--><?php //include 'getFiles.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formUsers.js"></script>
+
+<?php } else { ?>
+    <div class="content-wrapper">
+        <div class="row" id="proBanner">
+            <div class="col-12">
+                <!--    -->
+            </div>
+        </div>
+        <div class="d-xl-flex justify-content-between align-items-start">
+            <h2 class="text-dark font-weight-bold mb-2"> Требуется авторизация </h2>
+        </div>
+    </div>
+
+<?php } ?>

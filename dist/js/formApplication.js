@@ -77,11 +77,11 @@ function showModal(id_application){
     document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления";
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
+    let unp = document.getElementById("unp");
     let dov = document.getElementById("divDoverennost");
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
-    modal.classList.add("show");
-    modal.style = "display: block";
+
     let data = new Array();
     $.ajax({
         url: "getFiles.php",
@@ -93,8 +93,11 @@ function showModal(id_application){
                 data.push(i);
             }
             naim.value = data[0];
+            unp.value = data[2];
             let login = getCookie('login');
             dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
+            modal.classList.add("show");
+            modal.style = "display: block";
         });
      // выводим полученный ответ на консоль браузер
 
@@ -108,7 +111,23 @@ function showModal(id_application){
         dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
+    });
 
+    $("#btnPrint").on("click", function () {
+        let naim = document.getElementById("naim");
+        let unp = document.getElementById("unp");
+        let naimText = naim.value;
+        let unpText = unp.value;
+        var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+        WinPrint.document.write('Наименование организации: ');
+        WinPrint.document.write(naimText);
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write('УНП: ');
+        WinPrint.document.write(unpText);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
 
     });
 }

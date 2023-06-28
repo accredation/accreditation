@@ -13,6 +13,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 }
 
 $naim = $_POST['naimUZ'];
+$unp = $_POST['unp'];
 $id_application = $_POST['id_application'];
 
 echo $naim;
@@ -27,13 +28,13 @@ if (isset($_FILES['doverennost']['name'])) {
 
     move_uploaded_file($file_tmp, "./documents/" . $login . "/" . $file_name);
     $insertquery =
-        "UPDATE applications set copy_rasp = '$file_name', naim = '$naim' where id_application='$id_application'";
+        "UPDATE applications set copy_rasp = '$file_name', naim = '$naim', unp = '$unp' where id_application='$id_application'";
 
     $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 }else {
 
     $insertquery =
-        "UPDATE applications set naim = '$naim' where id_application='$id_application'";
+        "UPDATE applications set naim = '$naim', unp = '$unp' where id_application='$id_application'";
 
     $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 }
