@@ -33,10 +33,19 @@
             <div class="d-xl-flex justify-content-between align-items-start">
               <h2 class="text-dark font-weight-bold mb-2"> Заявления </h2>
               <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
+<?php
+$login = $_COOKIE['login'];
+$query = "SELECT * FROM applications, users WHERE login='$login' and users.id_user = applications.id_user";
 
+$rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+if (mysqli_num_rows($rez) == 0) //если нашлась одна строка, значит такой юзер существует в базе данных
+{
+
+?>
                 <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
                   <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
                 </div>
+                  <?php } ?>
               </div>
             </div>
             <div class="row">

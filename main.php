@@ -1,53 +1,50 @@
 <div class="content-wrapper">
-    <div class="row" id="proBanner">
-        <div class="col-12">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="column_1">
-                            <div class="section_title">
-                                О ЦЕНТРЕ
-                            </div>
-                            <hr>
-                            <div class="anno">Республиканский научно-практический центр медицинских технологий, информатизации, управления и экономики здравоохранения.<br><br>						Целью деятельности РНПЦ МТ являются научные исследования по совершенствованию функционирования системы здравоохранения Республики Беларусь в современных социально-экономических условиях, разработка стратегии и тактики, новых организационных мероприятий по совершенствованию медицинской помощи населению Республики Беларусь.						</div>
-                            <hr>
-                            <a href="https://rnpcmt.by/%D1%86%D0%B5%D0%BD%D1%82%D1%80/%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%B0/%D0%BC%D0%B5%D0%B4%D0%B8%D1%86%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F-%D0%B0%D0%BA%D0%BA%D1%80%D0%B5%D0%B4%D0%B8%D1%82%D0%B0%D1%86%D0%B8%D1%8F/%D0%BE%D1%82%D0%B4%D0%B5%D0%BB-%D0%BC%D0%B5%D0%B4%D0%B8%D1%86%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B9-%D0%B0%D0%BA%D0%BA%D1%80%D0%B5%D0%B4%D0%B8%D1%82%D0%B0%D1%86%D0%B8%D0%B8" class="button">НАША КОМАНДА</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="column_2">
-                            <div class="item">
-                                <div class="preview">								<i class="fa fa-users"></i>							</div>
-                                <div class="content">
-                                    <div class="title">СОЗДАН ПРОФЕССИОНАЛАМИ</div>
-                                    В нашем центе работают замечательные люди и отличные специалисты. Кто то из них работает с нами многие годы, кто то только недавно присоединился.
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="preview">								<i class="fa fa-cubes"></i>							</div>
-                                <div class="content">
-                                    <div class="title">БЫСТРО РАЗВИВАЕТСЯ</div>
-                                    За время существования центра спроектированы, разработаны и успешно функционирует ряд программных комплексов и информационных систем национального уровня, позволяющих осуществлять мониторинг состояния здоровья различных групп населения  и принимать оперативные решения по управлению отраслью
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="preview">								<i class="fa fa-rocket"></i>							</div>
-                                <div class="content">
-                                    <div class="title">НАШИ ПЕРСПЕКТИВЫ</div>
-                                    Мы непрерывно развиваем наши продукты и работаем над расширением их линейки. В планах увеличение количества пользователей и разработка дополнительного функционала.
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="preview">								<i class="fa fa-flag"></i>							</div>
-                                <div class="content">
-                                    <div class="title">РАБОТА У НАС</div>
-                                    Мы ищем умных, образованных и желающих развиваться людей, которые захотят присоединиться к нашей команде. Мы предоставляем достойные условия труда и возможности для профессионального и карьерного роста.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="row">
+          <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body text-center">
+                <h5 class="mb-2 text-dark font-weight-normal">Orders</h5>
+                <h2 class="mb-4 text-dark font-weight-bold">932.00</h2>
+                <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i></div>
+                <p class="mt-4 mb-0">Completed</p>
+                <h3 class="mb-0 font-weight-bold mt-2 text-dark">5443</h3>
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body text-center">
+                <h5 class="mb-2 text-dark font-weight-normal">Unique Visitors</h5>
+                <h2 class="mb-4 text-dark font-weight-bold">756,00</h2>
+                <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-account-circle icon-md absolute-center text-dark"></i></div>
+                <p class="mt-4 mb-0">Increased since yesterday</p>
+                <h3 class="mb-0 font-weight-bold mt-2 text-dark">50%</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body text-center">
+                <h5 class="mb-2 text-dark font-weight-normal">Impressions</h5>
+                <h2 class="mb-4 text-dark font-weight-bold">100,38</h2>
+                <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-eye icon-md absolute-center text-dark"></i></div>
+                <p class="mt-4 mb-0">Increased since yesterday</p>
+                <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body text-center">
+                <h5 class="mb-2 text-dark font-weight-normal">Followers</h5>
+                <h2 class="mb-4 text-dark font-weight-bold">4250k</h2>
+                <div class="dashboard-progress dashboard-progress-4 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-cube icon-md absolute-center text-dark"></i></div>
+                <p class="mt-4 mb-0">Decreased since yesterday</p>
+                <h3 class="mb-0 font-weight-bold mt-2 text-dark">25%</h3>
+              </div>
+            </div>
+          </div>
     </div>
+
+
 </div>
