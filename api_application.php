@@ -235,19 +235,8 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                             <div class="form-group"><label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/></div>
                                             <div class="form-group"><label>Номер телефона</label><input class="form-control" type="text"/></div>
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
-                                            <div class="form-group"><label style="font-size: 18px">Инициатор административной процедуры</label></div>
-                                            <div class="form-check margleft">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="" checked>
-                                                <label class="form-check-label" for="rukovoditel">
-                                                    Руководитель заинтересованного лица
-                                                </label>
-                                            </div>
-                                            <div class="form-check margleft">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="predstavitel" value="option2" onclick="">
-                                                <label class="form-check-label" for="predstavitel">
-                                                    Представитель заинтересованного лица
-                                                </label>
-                                            </div>
+                                            <div class="form-group"><label>Руководитель заинтересованного лица</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО"/></div>
+                                            <div class="form-group"><label>Представитель заинтересованного лица</label><input class="form-control" type="text" id="predstavitel" placeholder="Контактное лицо"/></div>
                                             <br/>
 <!--                                            <form id="formDoverennost" method="post" class="hiddentab">-->
 <!--                                                <div class="form-group" id="divDoverennost">-->
@@ -256,20 +245,6 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                                                </div>-->
 <!--                                            </form>-->
 
-                                            <div class="row">
-                                                <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Имя">
-                                                </div>
-                                                <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Фамилия">
-                                                </div>
-                                                <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Отчество">
-                                                </div>
-                                            </div>
-
-                                            <br/>
-                                            <div class="form-group"> <label>Должность</label><input  type="text" class="form-control"/></div>
 
                                             <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
 
