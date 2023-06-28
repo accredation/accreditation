@@ -128,12 +128,14 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                               $insertquery = "SELECT * FROM users WHERE login='$login'";
 
                               $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-
+                              $username = "";
                               if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                               {
                                   $row = mysqli_fetch_assoc($rez);
                                   $id = $row['id_user'];
+                                  $username = $row['username'];
                               }
+
                               $query = "SELECT * FROM applications where id_user='$id'";
                               $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                               for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -155,7 +157,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
 
 
-                                              <td>Заявление <?= $app['naim'] ?></td>
+                                              <td>Заявление <?= $username ?></td>
 
 
                                           </tr>
@@ -197,22 +199,22 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
                 <div class="col-md-12">
                     <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
-                        <ul class="nav nav-tabs tab-transparent" role="tablist">
+                        <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
                             <li class="nav-item" id="home-tab" onclick="showTab1()">
                                 <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
                             </li>
-                            <li class="nav-item hiddentab" id="khirurg-tab" onclick="showTab2()">
-                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Хирургия</a>
+                            <li class="nav-item" id="khirurg-tab" onclick="showTab2()">
+                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Самооценка <?= $username ?></a>
                             </li>
-                            <li class="nav-item hiddentab" id="rodovspom-tab" onclick="showTab3()">
-                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Родовспоможение</a>
-                            </li>
-                            <li class="nav-item hiddentab" id="akush-tab" onclick="showTab4()">
-                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Акушерство и гинекология</a>
-                            </li>
-                            <li class="nav-item hiddentab" id="anest-tab" onclick="showTab5()">
-                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Анестезиология и реаниматология</a>
-                            </li>
+<!--                            <li class="nav-item hiddentab" id="rodovspom-tab" onclick="showTab3()">-->
+<!--                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Родовспоможение</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item hiddentab" id="akush-tab" onclick="showTab4()">-->
+<!--                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Акушерство и гинекология</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item hiddentab" id="anest-tab" onclick="showTab5()">-->
+<!--                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Анестезиология и реаниматология</a>-->
+<!--                            </li>-->
                         </ul>
                         <div class="d-md-block d-none">
                             <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>
@@ -227,7 +229,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                     <div class="card">
                                         <div class="card-body">
 
-                                            <div class="form-group"> <label>Наименование заинтересованного лица</label><input id="naim" type="text" class="form-control"/></div>
+                                            <div class="form-group"> <label>Наименование юридического лица</label><input id="naim" type="text" class="form-control"/></div>
                                             <div class="form-group"><label>Сокращенное наименование</label><input class="form-control" type="text"/></div>
                                             <div class="form-group"><label>УНП</label><input class="form-control" type="text" id="unp" onfocusout="onInputUnp()"/></div>
                                             <div class="form-group"><label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/></div>
@@ -235,24 +237,24 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
                                             <div class="form-group"><label style="font-size: 18px">Инициатор административной процедуры</label></div>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="deleteDoverennost(this)" checked>
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="rukovoditel" value="option1" onclick="" checked>
                                                 <label class="form-check-label" for="rukovoditel">
                                                     Руководитель заинтересованного лица
                                                 </label>
                                             </div>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="predstavitel" value="option2" onclick="showDoverennost(this)">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="predstavitel" value="option2" onclick="">
                                                 <label class="form-check-label" for="predstavitel">
                                                     Представитель заинтересованного лица
                                                 </label>
                                             </div>
                                             <br/>
-                                            <form id="formDoverennost" method="post" class="hiddentab">
-                                                <div class="form-group" id="divDoverennost">
-                                                    <label for="doverennost">Доверенность</label>
-                                                    <input type="file" name="doverennost" class="form-control-file" id="doverennost">
-                                                </div>
-                                            </form>
+<!--                                            <form id="formDoverennost" method="post" class="hiddentab">-->
+<!--                                                <div class="form-group" id="divDoverennost">-->
+<!--                                                    <label for="doverennost">Доверенность</label>-->
+<!--                                                    <input type="file" name="doverennost" class="form-control-file" id="doverennost">-->
+<!--                                                </div>-->
+<!--                                            </form>-->
 
                                             <div class="row">
                                                 <div class="col">
@@ -271,6 +273,13 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
                                             <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
 
+                                            <form id="formSoprovodPismo">
+                                                <div class="form-group">
+                                                    <label for="soprPismo">Сопроводительное письмо</label>
+                                                    <input type="file" class="form-control-file" name="Name" id="soprPismo">
+                                                </div>
+                                            </form>
+
                                             <form id="formCopyRaspisanie">
                                                 <div class="form-group">
                                                     <label for="copyRaspisanie">Копия штатного расписания</label>
@@ -278,38 +287,122 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                 </div>
                                             </form>
 
-                                            <form id="formInfoMedTecnics" >
+                                            <form id="formOrgStrukt" >
                                                 <div class="form-group">
-                                                    <label for="infoMedTecnics">Информация об используемой медицинской технике с указанием ее наименования, количества, продолжительности эксплуатации и срока службы</label>
-                                                    <input type="file" class="form-control-file" id="infoMedTecnics">
+                                                    <label for="orgStrukt">Организационная структура</label>
+                                                    <input type="file" class="form-control-file" id="orgStrukt">
                                                 </div>
                                             </form>
 
-                                            <div class="form-group"><label for="formGroupExampleInput" style="font-size: 18px; text-align: left;">Типы учреждения</label>
+                                            <div class="form-group"><label for="formGroupExampleInput" style="font-size: 18px; text-align: left;">Общие критерии</label>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'khirurg-tab')">
+                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'fap')">
                                                 <label class="form-check-label" for="defaultCheck1">
-                                                    Хирургия
+                                                    Фельдшерско-акушерский пункт
                                                 </label>
                                             </div>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" onclick="toggleTabs(this,'rodovspom-tab')">
+                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" onclick="toggleTabs(this,'avop')">
                                                 <label class="form-check-label" for="defaultCheck2" >
-                                                    Родовспоможение
+                                                    Врачебная амбулатория общей практики
                                                 </label>
                                             </div>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" onclick="toggleTabs(this,'akush-tab')">
+                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" onclick="toggleTabs(this,'gp')">
                                                 <label class="form-check-label" for="defaultCheck3">
-                                                    Акушерство и гинекология
+                                                    Городская поликлиника (районная поликлиника)
                                                 </label>
                                             </div>
                                             <div class="form-check margleft">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'anest-tab')">
+                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'dp')">
                                                 <label class="form-check-label" for="defaultCheck4">
-                                                    Анестезиология и реаниматология
+                                                    Детская поликлиника
                                                 </label>
                                             </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'cgp')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Центральная городская поликлиника
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'kdp')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Консультативно-диагностическая поликлиника
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'sp')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Стоматологическая поликлиника
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'bsu')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Больница сестринского ухода
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'ub')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Участковая больница
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'crb')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Центральная районная больница
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'gb')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Городская больница
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'rd')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Родильный дом
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'ob')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Областная больница (диспансер, центр)
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'rc')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Республиканский центр (больница)
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'db')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Детская больница
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'bsp')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Больница скорой помощи
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'cpk')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Центр (станция) переливания крови
+                                                    </label>
+                                                </div>
+                                                <div class="form-check margleft">
+                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" onclick="toggleTabs(this,'csmp')">
+                                                    <label class="form-check-label" for="defaultCheck4">
+                                                        Центр (станция) скорой медицинской помощи
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

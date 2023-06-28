@@ -95,20 +95,20 @@ function showModal(id_application){
             naim.value = data[0];
             unp.value = data[2];
             let login = getCookie('login');
-            dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
+            // dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
             modal.classList.add("show");
             modal.style = "display: block";
         });
      // выводим полученный ответ на консоль браузер
 
     $(".btn-close").on("click",() => {
-        dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
+        // dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
 
     });
     $(".btn-danger").on("click",() => {
-        dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
+        // dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
     });
