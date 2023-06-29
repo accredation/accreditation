@@ -196,6 +196,8 @@ function getTabs(name){
     tablist.appendChild(tab);
 }
 
+
+
 function addTab(){
     let nameTab = prompt("Введите название структурного подразделения");
     let tablist = document.getElementById("tablist");

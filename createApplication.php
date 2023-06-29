@@ -9,6 +9,10 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 {
     $row = mysqli_fetch_assoc($rez);
     $id = $row['id_user'];
+    $name = $row['username'];
 }
-mysqli_query($con, "Insert into applications(`id_user`) values ('$id')");
+
+
+mysqli_query($con, "Insert into applications(`id_user`, `id_status`) values ('$id', 1)");
+mysqli_query($con, "Insert into subvision(`name`,`id_application`)  select '$name', id_application from applications where id_user='$id' and id_status=1");
 ?>

@@ -203,9 +203,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                             <li class="nav-item" id="tab1" onclick="showTab(this)">
                                 <a class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
                             </li>
-                            <li class="nav-item" id="tab2" onclick="showTab(this)">
-                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Самооценка <?= $username ?></a>
-                            </li>
+
 <!--                            <li class="nav-item hiddentab" id="rodovspom-tab" onclick="showTab3()">-->
 <!--                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Родовспоможение</a>-->
 <!--                            </li>-->
