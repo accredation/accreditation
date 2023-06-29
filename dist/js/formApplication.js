@@ -4,7 +4,7 @@ let tab3 = document.getElementById("tab-3");
 let tab4 = document.getElementById("tab-4");
 let tab5 = document.getElementById("tab-5");
 
-function showTab(element){
+function showTab(element,id_sub){
     let tablist = document.getElementById("tablist");
     for (let item of tablist.children){
         let a = item.children[0];
@@ -15,8 +15,48 @@ function showTab(element){
     let tabDiv = document.getElementById(id+"-");
     let myModal = document.getElementById("myModal");
     let activeTabDiv = myModal.getElementsByClassName("tab-pane fade show active")[0];
-    activeTabDiv.classList.remove("active");
-    tabDiv.classList.add("active");
+    if(tabDiv && activeTabDiv) {
+        activeTabDiv.classList.remove("active");
+        tabDiv.classList.add("active");
+    }
+    let data = new Array();
+    let idNum = id.substring(3);
+    if(idNum > 1){
+        let row = tabDiv.getElementsByClassName("col-12")[1];
+        $.ajax({
+            url: "getCrits.php",
+            method: "GET",
+            data: {id_sub: id_sub}
+        })
+            .done(function( response ) {
+                for (let i of JSON.parse(response)){
+                    data.push(i);
+                    let divFormGroup = document.createElement("div");
+                    divFormGroup.className = "form-group";
+                    let divFormCheck = document.createElement("div");
+                    divFormCheck.className = "form-check margleft";
+                    let inputCheck = document.createElement("input");
+                    inputCheck.className = "form-check-input";
+                    inputCheck.setAttribute("type", "checkbox");
+                    inputCheck.setAttribute("id", "checkbox"+i[0]);
+                    if(i[4]==1){
+                        inputCheck.checked = true;
+                    }
+                    else{
+                        inputCheck.checked = false;
+                    }
+                    let labelCheck = document.createElement("label");
+                    labelCheck.className = "form-check-label";
+                    labelCheck.setAttribute("for", "checkbox"+i[0]);
+                    labelCheck.innerHTML = i[1] + " (" + i[3] + ")";
+                    divFormCheck.appendChild(inputCheck);
+                    divFormCheck.appendChild(labelCheck);
+                    divFormGroup.appendChild(divFormCheck);
+                    row.appendChild(divFormGroup);
+                }
+            });
+
+    }
 }
 
 function getCookie(cname) {
@@ -74,8 +114,8 @@ function showModal(id_application){
             modal.classList.add("show");
             modal.style = "display: block";
 
-            for(let name of data[1]){
-                getTabs(name);
+            for(let obj of data[1]){
+                getTabs(obj[1],obj[0]);
             }
         });
      // выводим полученный ответ на консоль браузер
@@ -84,7 +124,7 @@ function showModal(id_application){
         // dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
-        for(let i = tablist.children.length - 1; i > 1; i--){
+        for(let i = tablist.children.length - 1; i > 0; i--){
             tablist.children[i].remove();
         }
 
@@ -93,7 +133,7 @@ function showModal(id_application){
         // dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
-        for(let i = tablist.children.length - 1; i > 1; i--){
+        for(let i = tablist.children.length - 1; i > 0; i--){
             tablist.children[i].remove();
         }
     });
@@ -178,7 +218,7 @@ function deleteDoverennost(element){
     formDoverennost.classList.add("hiddentab");
 };
 
-function getTabs(name){
+function getTabs(name, id_sub){
     let tablist = document.getElementById("tablist");
     let countCh = tablist.children.length;
     let tab = document.createElement("li");
@@ -189,11 +229,16 @@ function getTabs(name){
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
-    tab.setAttribute("onclick", "showTab(this)");
+    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
     tab.id = "tab" + ++countCh;
     tablist.appendChild(tab);
+
+
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[1];
+    let tabPane = document.createElement("div");
+    tabPane.className = "tab-pane fade show";
 }
 
 

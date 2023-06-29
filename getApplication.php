@@ -23,10 +23,14 @@ array_push($cells,$unp);
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+
 $subvis_names = array();
 for ($names = []; $row = mysqli_fetch_assoc($rez); $names[] = $row);
 foreach ($names as $name) {
-    array_push($subvis_names,$name['name']);
+    $subvis_obj = array();
+    array_push($subvis_obj,$name['id_subvision']);
+    array_push($subvis_obj,$name['name']);
+    array_push($subvis_names,$subvis_obj);
 }
 
 array_push($data,$cells);
