@@ -200,10 +200,10 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                 <div class="col-md-12">
                     <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                         <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
-                            <li class="nav-item" id="home-tab" onclick="showTab1()">
-                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
+                            <li class="nav-item" id="tab1" onclick="showTab(this)">
+                                <a class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
                             </li>
-                            <li class="nav-item" id="khirurg-tab" onclick="showTab2()">
+                            <li class="nav-item" id="tab2" onclick="showTab(this)">
                                 <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Самооценка <?= $username ?></a>
                             </li>
 <!--                            <li class="nav-item hiddentab" id="rodovspom-tab" onclick="showTab3()">-->
@@ -222,7 +222,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                         </div>
                     </div>
                     <div class="tab-content tab-transparent-content">
-                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="business-tab" >
+                        <div class="tab-pane fade show active" id="tab1-" role="tabpanel" aria-labelledby="business-tab" >
 
                             <div class="row">
                                 <div class="col-12 grid-margin">
@@ -268,7 +268,9 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" id="orgStrukt">
                                                 </div>
                                             </form>
-
+                                            <button class="btn-inverse-info" onclick="addTab()">+ добавить структурное подразделение</button>
+                                            <br/>
+                                            <br/>
                                             <div class="form-group"><label for="formGroupExampleInput" style="font-size: 18px; text-align: left;">Общие критерии</label>
                                             <div class="form-check margleft">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="toggleTabs(this,'fap')">
@@ -388,7 +390,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
 
 
-                        <div class="tab-pane fade show " id="tab-2" role="tabpanel" aria-labelledby="business-tab" >
+                        <div class="tab-pane fade show " id="tab2-" role="tabpanel" aria-labelledby="business-tab" >
 
                             <div class="row">
                                 <div class="col-12 grid-margin">
@@ -509,7 +511,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-<!--                <form action="getFiles.php" method="post">-->
+<!--                <form action="getApplication.php" method="post">-->
 <!--                    <input type="text" name="count" id="count"/>-->
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
                 <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
@@ -578,7 +580,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script></script>
-<!--<script>--><?php //include 'getFiles.php' ?><!--</script>-->
+<!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formApplication.js"></script>
 

@@ -4,44 +4,19 @@ let tab3 = document.getElementById("tab-3");
 let tab4 = document.getElementById("tab-4");
 let tab5 = document.getElementById("tab-5");
 
-function showTab1(){
-    tab1.classList.add("active");
-    tab2.classList.remove("active");
-    tab3.classList.remove("active");
-    tab4.classList.remove("active");
-    tab5.classList.remove("active");
-}
-
-function showTab2(){
-    tab1.classList.remove("active");
-    tab2.classList.add("active");
-    tab3.classList.remove("active");
-    tab4.classList.remove("active");
-    tab5.classList.remove("active");
-}
-
-function showTab3(){
-    tab1.classList.remove("active");
-    tab2.classList.remove("active");
-    tab3.classList.add("active");
-    tab4.classList.remove("active");
-    tab5.classList.remove("active");
-}
-
-function showTab4(){
-    tab1.classList.remove("active");
-    tab2.classList.remove("active");
-    tab3.classList.remove("active");
-    tab4.classList.add("active");
-    tab5.classList.remove("active");
-}
-
-function showTab5(){
-    tab1.classList.remove("active");
-    tab2.classList.remove("active");
-    tab3.classList.remove("active");
-    tab4.classList.remove("active");
-    tab5.classList.add("active");
+function showTab(element){
+    let tablist = document.getElementById("tablist");
+    for (let item of tablist.children){
+        let a = item.children[0];
+        a.classList.remove("active");
+    }
+    element.classList.add("active");
+    let id = element.id;
+    let tabDiv = document.getElementById(id+"-");
+    let myModal = document.getElementById("myModal");
+    let activeTabDiv = myModal.getElementsByClassName("tab-pane fade show active")[0];
+    activeTabDiv.classList.remove("active");
+    tabDiv.classList.add("active");
 }
 
 function getCookie(cname) {
@@ -81,10 +56,10 @@ function showModal(id_application){
     let dov = document.getElementById("divDoverennost");
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
-
+    let tablist = document.getElementById("tablist");
     let data = new Array();
     $.ajax({
-        url: "getFiles.php",
+        url: "getApplication.php",
         method: "GET",
         data: {id_application: id_application}
     })
@@ -92,12 +67,16 @@ function showModal(id_application){
             for (let i of JSON.parse(response)){
                 data.push(i);
             }
-            naim.value = data[0];
-            unp.value = data[2];
+            naim.value = data[0][0];
+            unp.value = data[0][2];
             let login = getCookie('login');
             // dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
             modal.classList.add("show");
             modal.style = "display: block";
+
+            for(let name of data[1]){
+                getTabs(name);
+            }
         });
      // выводим полученный ответ на консоль браузер
 
@@ -105,12 +84,18 @@ function showModal(id_application){
         // dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
+        for(let i = tablist.children.length - 1; i > 1; i--){
+            tablist.children[i].remove();
+        }
 
     });
     $(".btn-danger").on("click",() => {
         // dov.innerHTML = "<input type=\"file\" name=\"doverennost\" class=\"form-control-file\" id=\"doverennost\">";
         modal.classList.remove("show");
         modal.style = "display: none";
+        for(let i = tablist.children.length - 1; i > 1; i--){
+            tablist.children[i].remove();
+        }
     });
 
     $("#btnPrint").on("click", function () {
@@ -192,5 +177,57 @@ function showDoverennost(element){
 function deleteDoverennost(element){
     formDoverennost.classList.add("hiddentab");
 };
+
+function getTabs(name){
+    let tablist = document.getElementById("tablist");
+    let countCh = tablist.children.length;
+    let tab = document.createElement("li");
+    tab.classList.add("nav-item");
+    let a = document.createElement("a");
+    a.className = "nav-link";
+    a.setAttribute("data-toggle", "tab");
+    a.setAttribute("href", "#");
+    a.setAttribute("role", "tab");
+    a.setAttribute("aria-selected", "false");
+    tab.setAttribute("onclick", "showTab(this)");
+    a.innerHTML = "Самооценка " + name;
+    tab.appendChild(a);
+    tab.id = "tab" + ++countCh;
+    tablist.appendChild(tab);
+}
+
+function addTab(){
+    let nameTab = prompt("Введите название структурного подразделения");
+    let tablist = document.getElementById("tablist");
+    for (let item of tablist.children){
+        let a = item.children[0];
+        a.classList.remove("active");
+    }
+    let countCh = tablist.children.length;
+    let tab = document.createElement("li");
+    tab.classList.add("nav-item");
+    let a = document.createElement("a");
+    a.className = "nav-link active";
+    a.setAttribute("data-toggle", "tab");
+    a.setAttribute("href", "#");
+    a.setAttribute("role", "tab");
+    a.setAttribute("aria-selected", "true");
+    tab.setAttribute("onclick", "showTab(this)");
+    a.innerHTML = "Самооценка " + nameTab;
+    tab.appendChild(a);
+    tab.id = "tab" + ++countCh;
+    tablist.appendChild(tab);
+
+    let number_app = document.getElementById("id_application");
+    let id_application = number_app.innerHTML;
+    $.ajax({
+        url: "addSubvision.php",
+        method: "POST",
+        data: {id_application: id_application, name: nameTab}
+    })
+        .done(function( response ) {
+
+        });
+}
 
 

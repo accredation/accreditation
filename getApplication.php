@@ -1,22 +1,12 @@
 <?php
 include "connection.php";
 
-$login = $_COOKIE['login'];
-$insertquery = "SELECT * FROM users WHERE login='$login'";
-
-$rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-
-if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
-{
-    $row = mysqli_fetch_assoc($rez);
-    $id = $row['id_user'];
-}
-
 $id_application = $_GET['id_application'];
 
 $query = "SELECT * FROM applications WHERE id_application='$id_application'";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+$data = array();
 $cells = array();
 if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
 {
@@ -30,5 +20,16 @@ array_push($cells,$naim);
 array_push($cells,$dov);
 array_push($cells,$unp);
 
-echo json_encode($cells);
+$query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
+
+$rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+$subvis_names = array();
+for ($names = []; $row = mysqli_fetch_assoc($rez); $names[] = $row);
+foreach ($names as $name) {
+    array_push($subvis_names,$name['name']);
+}
+
+array_push($data,$cells);
+array_push($data,$subvis_names);
+echo json_encode($data);
 ?>
