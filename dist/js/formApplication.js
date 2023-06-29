@@ -4,6 +4,8 @@ let tab3 = document.getElementById("tab-3");
 let tab4 = document.getElementById("tab-4");
 let tab5 = document.getElementById("tab-5");
 
+let data_old = new Array();
+
 function showTab(element,id_sub){
     let tablist = document.getElementById("tablist");
     for (let item of tablist.children){
@@ -23,6 +25,9 @@ function showTab(element,id_sub){
     let idNum = id.substring(3);
     if(idNum > 1){
         let row = tabDiv.getElementsByClassName("col-12")[1];
+
+
+        row.innerHTML = "";
         $.ajax({
             url: "getCrits.php",
             method: "GET",
@@ -39,7 +44,7 @@ function showTab(element,id_sub){
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
                     inputCheck.setAttribute("id", "checkbox"+i[0]);
-                    if(i[4]==1){
+                    if(i[4] == 1){
                         inputCheck.checked = true;
                     }
                     else{
@@ -106,6 +111,7 @@ function showModal(id_application){
         .done(function( response ) {
             for (let i of JSON.parse(response)){
                 data.push(i);
+                data_old.push(i);
             }
             naim.value = data[0][0];
             unp.value = data[0][2];
@@ -113,9 +119,14 @@ function showModal(id_application){
             // dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
             modal.classList.add("show");
             modal.style = "display: block";
-
+            let j = 0;
             for(let obj of data[1]){
-                getTabs(obj[1],obj[0]);
+                if(j==0){
+                    getMainTab(obj[1],obj[0]);
+                }else {
+                    getTabs(obj[1], obj[0]);
+                }
+                j++;
             }
         });
      // выводим полученный ответ на консоль браузер
@@ -220,7 +231,6 @@ function deleteDoverennost(element){
 
 function getTabs(name, id_sub){
     let tablist = document.getElementById("tablist");
-    let countCh = tablist.children.length;
     let tab = document.createElement("li");
     tab.classList.add("nav-item");
     let a = document.createElement("a");
@@ -232,20 +242,100 @@ function getTabs(name, id_sub){
     tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
-    tab.id = "tab" + ++countCh;
+    tab.id = "tab" + id_sub;
     tablist.appendChild(tab);
 
 
     let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[1];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show";
+    tabPane.id = "tab" + id_sub + "-";
+    let row1 = document.createElement("div");
+    row1.className = "row";
+    let col12_1 = document.createElement("div");
+    col12_1.className = "col-12 grid-margin";
+    let card = document.createElement("div");
+    card.className = "card";
+    let cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+    let container = document.createElement("div");
+    container.className = "container";
+    let row2 = document.createElement("div");
+    row2.className = "row";
+    let col12_2 = document.createElement("div");
+    col12_2.className = "col-12";
+
+    let btnDelete = document.createElement("button");
+    btnDelete.innerHTML = "Удалить подразделение";
+    btnDelete.setAttribute("onclick", "deleteTab('"+ id_sub +"')");
+    tabPane.appendChild(btnDelete);
+
+
+    row2.appendChild(col12_2);
+    container.appendChild(row2);
+    cardBody.appendChild(container);
+    card.appendChild(cardBody);
+    col12_1.appendChild(card);
+    row1.appendChild(col12_1);
+    tabPane.appendChild(row1);
+
+    tabContent.appendChild(tabPane);
+}
+
+
+function getMainTab(name, id_sub){
+    let tablist = document.getElementById("tablist");
+    let tab = document.createElement("li");
+    tab.classList.add("nav-item");
+    let a = document.createElement("a");
+    a.className = "nav-link";
+    a.setAttribute("data-toggle", "tab");
+    a.setAttribute("href", "#");
+    a.setAttribute("role", "tab");
+    a.setAttribute("aria-selected", "false");
+    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+    a.innerHTML = "Самооценка " + name;
+    tab.appendChild(a);
+    tab.id = "tab" + id_sub;
+    tablist.appendChild(tab);
+
+
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[1];
+    let tabPane = document.createElement("div");
+    tabPane.className = "tab-pane fade show";
+    tabPane.id = "tab" + id_sub + "-";
+    let row1 = document.createElement("div");
+    row1.className = "row";
+    let col12_1 = document.createElement("div");
+    col12_1.className = "col-12 grid-margin";
+    let card = document.createElement("div");
+    card.className = "card";
+    let cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+    let container = document.createElement("div");
+    container.className = "container";
+    let row2 = document.createElement("div");
+    row2.className = "row";
+    let col12_2 = document.createElement("div");
+    col12_2.className = "col-12";
+
+
+    row2.appendChild(col12_2);
+    container.appendChild(row2);
+    cardBody.appendChild(container);
+    card.appendChild(cardBody);
+    col12_1.appendChild(card);
+    row1.appendChild(col12_1);
+    tabPane.appendChild(row1);
+
+    tabContent.appendChild(tabPane);
 }
 
 
 
 function addTab(){
     let nameTab = prompt("Введите название структурного подразделения");
-    let tablist = document.getElementById("tablist");
+  /*  let tablist = document.getElementById("tablist");
     for (let item of tablist.children){
         let a = item.children[0];
         a.classList.remove("active");
@@ -264,7 +354,7 @@ function addTab(){
     tab.appendChild(a);
     tab.id = "tab" + ++countCh;
     tablist.appendChild(tab);
-
+*/
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
     $.ajax({
@@ -275,6 +365,70 @@ function addTab(){
         .done(function( response ) {
 
         });
+
+    let data = new Array();
+    $.ajax({
+        url: "getApplication.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function( response ) {
+            let jg = response.length
+            let i = JSON.parse(response);
+
+                   data.push(i);
+console.log('data')
+            console.log(data);
+getTabs(data[1][data[1].length], data[1][data[1].length]);
+
+        });
+
+    /*
+
+     let data = new Array();
+    $.ajax({
+        url: "getApplication.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function( response ) {
+            for (let i of JSON.parse(response)){
+                data.push(i);
+                data_old.push(i);
+            }
+            naim.value = data[0][0];
+            unp.value = data[0][2];
+            let login = getCookie('login');
+            // dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
+            modal.classList.add("show");
+            modal.style = "display: block";
+            let j = 0;
+            for(let obj of data[1]){
+                if(j==0){
+                    getMainTab(obj[1],obj[0]);
+                }else {
+                    getTabs(obj[1], obj[0]);
+                }
+                j++;
+            }
+        });
+
+     */
+}
+
+function deleteTab(id_sub){
+    $.ajax({
+        url: "deleteTab.php",
+        method: "POST",
+        data: {id_sub: id_sub}
+    })
+        .done(function( response ) {
+
+        });
+    let thisTab = document.getElementById("tab"+id_sub);
+    let thisTab1 = document.getElementById("tab"+id_sub+"-");
+    thisTab.remove();
+    thisTab1.remove();
 }
 
 
