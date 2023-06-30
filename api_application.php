@@ -12,6 +12,11 @@
         padding: 0rem 0rem;
     }
 
+    .leftSide {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     h4 {
         margin: 2rem 0rem 1rem;
     }
@@ -181,7 +186,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
             </div>
           </div>
 <div class="modal" id="myModal">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -422,48 +427,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
         //     files = this.files;
         // });
 
-   $("#btnSuc").on("click", function () {
-       let number_app = document.getElementById("id_application");
-       let naim = document.getElementById("naim");
-       let unp = document.getElementById("unp");
-       let naimText = naim.value;
-       let unpText = unp.value;
-       let id_application = number_app.innerText;
-       let modal = document.getElementById("myModal");
-       modal.classList.add("show");
-       modal.style = "display: block";
 
-       var doverennost = document.getElementById("doverennost"),
-           xhr = new XMLHttpRequest(),
-           form = new FormData();
-       var upload_file = doverennost.files[0];
-       form.append("doverennost", upload_file);
-       form.append("naimUZ", naimText);
-       form.append("unp", unpText);
-       form.append("id_application", id_application);
-
-       xhr.open("post", "saveApplication.php", true);
-       xhr.send(form);
-        alert("Заявление сохранено");
-        location.href = "/index.php?application";
-       // $.ajax({
-       //     url: "saveApplication.php",
-       //     method: "POST",
-       //     data: {id_application: id_application}
-       // })
-       //     .done(function( response ) {
-       //         alert("ok");
-       //     });
-
-       // var doverennost = document.getElementById("doverennost"),
-        //     xhr = new XMLHttpRequest(),
-        //     form = new FormData();
-        // var upload_file = doverennost.files[0];
-        // form.append("doverennost", upload_file);
-        // xhr.open("post", "saveFiles.php", true);
-        // xhr.send(form);
-
-    });
     });
 </script>
 

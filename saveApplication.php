@@ -1,6 +1,7 @@
 <?php
 include "connection.php";
 
+
 $login = $_COOKIE['login'];
 $query = "SELECT * FROM users WHERE login='$login'";
 

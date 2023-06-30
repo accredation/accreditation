@@ -7,6 +7,7 @@ let tab5 = document.getElementById("tab-5");
 let data_old = new Array();
 
 function showTab(element,id_sub){
+
     let tablist = document.getElementById("tablist");
     for (let item of tablist.children){
         let a = item.children[0];
@@ -142,6 +143,16 @@ function showTab(element,id_sub){
             });
 
     }
+
+    return new Promise((resolve, reject) => {
+        console.log("Готово.");
+        // Успех в половине случаев.
+        if (Math.random() > .5) {
+            resolve("Успех")
+        } else {
+            reject("Ошибка")
+        }
+    })
 }
 
 function getCookie(cname) {
@@ -334,12 +345,13 @@ function getTabs(name, id_sub){
     row1.className = "row";
     let col12_1 = document.createElement("div");
     col12_1.className = "col-12 grid-margin";
-    let card = document.createElement("div");
-    card.className = "card";
+    let cardLeft = document.createElement("div");
+    cardLeft.className = "card";
+    cardLeft.style = "width: 35%";
     let cardBody = document.createElement("div");
     cardBody.className = "card-body";
     let container = document.createElement("div");
-    container.className = "container";
+    container.className = "container leftSide";
     let row2 = document.createElement("div");
     row2.className = "row";
     let col12_2 = document.createElement("div");
@@ -348,16 +360,31 @@ function getTabs(name, id_sub){
     let btnDelete = document.createElement("button");
     btnDelete.innerHTML = "Удалить подразделение";
     btnDelete.setAttribute("onclick", "deleteTab('"+ id_sub +"')");
+    btnDelete.style = "margin-bottom: 15px";
     tabPane.appendChild(btnDelete);
 
+
+    col12_1.style = "display: flex";
+
+    let cardRight = document.createElement("div");
+    cardRight.className = "card";
+    cardRight.style = "margin-left: 15px; width: 65%";
+    cardRight.innerHTML = "подзразделения";
 
     row2.appendChild(col12_2);
     container.appendChild(row2);
     cardBody.appendChild(container);
-    card.appendChild(cardBody);
-    col12_1.appendChild(card);
+    cardLeft.appendChild(cardBody);
+    col12_1.appendChild(cardLeft);
+    col12_1.appendChild(cardRight);
     row1.appendChild(col12_1);
     tabPane.appendChild(row1);
+
+
+    let btnSave = document.createElement("button");
+    btnSave.innerHTML = "Сохранить информацию о подразделении";
+    btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
+    tabPane.appendChild(btnSave);
 
     tabContent.appendChild(tabPane);
 }
@@ -388,28 +415,41 @@ function getMainTab(name, id_sub){
     row1.className = "row";
     let col12_1 = document.createElement("div");
     col12_1.className = "col-12 grid-margin";
-    let card = document.createElement("div");
-    card.className = "card";
+    let cardLeft = document.createElement("div");
+    cardLeft.className = "card";
+    cardLeft.style = "width: 35%";
     let cardBody = document.createElement("div");
     cardBody.className = "card-body";
     let container = document.createElement("div");
-    container.className = "container";
+    container.className = "container leftSide";
     let row2 = document.createElement("div");
     row2.className = "row";
     let col12_2 = document.createElement("div");
     col12_2.className = "col-12";
+    col12_1.style = "display: flex";
 
+    let cardRight = document.createElement("div");
+    cardRight.className = "card";
+    cardRight.style = "margin-left: 15px; width: 65%";
+    cardRight.innerHTML = "главная";
 
     row2.appendChild(col12_2);
     container.appendChild(row2);
     cardBody.appendChild(container);
-    card.appendChild(cardBody);
-    col12_1.appendChild(card);
+    cardLeft.appendChild(cardBody);
+    col12_1.appendChild(cardLeft);
+    col12_1.appendChild(cardRight);
     row1.appendChild(col12_1);
     tabPane.appendChild(row1);
 
+    let btnSave = document.createElement("button");
+    btnSave.innerHTML = "Сохранить информацию о подразделении";
+    btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
+    tabPane.appendChild(btnSave);
+
     tabContent.appendChild(tabPane);
 }
+
 
 
 
@@ -457,4 +497,90 @@ function deleteTab(id_sub){
 
 }
 
+$("#btnSuc").on("click", function () {
+    let number_app = document.getElementById("id_application");
+    let naim = document.getElementById("naim");
+    let unp = document.getElementById("unp");
+    let naimText = naim.value;
+    let unpText = unp.value;
+    let id_application = number_app.innerText;
+    let modal = document.getElementById("myModal");
+    modal.classList.add("show");
+    modal.style = "display: block";
 
+    // var doverennost = document.getElementById("doverennost"),
+   let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    // var upload_file = doverennost.files[0];
+    // form.append("doverennost", upload_file);
+    form.append("naimUZ", naimText);
+    form.append("unp", unpText);
+    form.append("id_application", id_application);
+
+    xhr.open("post", "saveApplication.php", true);
+    xhr.send(form);
+    alert("Заявление сохранено");
+    location.href = "/index.php?application";
+
+});
+
+function saveTab(id_sub){
+
+    let thisTab = document.getElementById("tab"+id_sub+"-");
+    let arrCheckInputs = thisTab.getElementsByClassName("form-check-input");
+    let arrIdCriterias = new Array();
+    for (let input of arrCheckInputs){
+        let id_criteria = input.id.substring(8);
+
+        if(input.checked === true ){
+            let item = {
+                id_criteria : id_criteria,
+                value : 1
+            };
+            arrIdCriterias.push(item);
+        }
+        // else{
+        //     let item = {
+        //         id_criteria : id_criteria,
+        //         value : 0
+        //     };
+        //     arrIdCriterias.push(item);
+        // }
+    }
+
+
+    $.ajax({
+        url: "saveTab.php",
+        method: "POST",
+        data: {id_sub: id_sub, arr_id_criterias: arrIdCriterias}
+    })
+        .done(function( response ) {
+
+        });
+
+    createAccordionCards(id_sub);
+}
+
+
+
+function createAccordionCards(id_sub) {
+    let thisTab = document.getElementById("tab" + id_sub + "-");
+    let arrCheckInputs = thisTab.getElementsByClassName("form-check-input");
+    let arrIdCriterias = new Array();
+
+
+    for (let input of arrCheckInputs) {
+        let id_criteria = input.id.substring(8);
+
+
+        if (input.checked === true) {
+            let item = {
+                id_criteria: id_criteria,
+                name_criteria: document.querySelector("label[for='checkbox"+id_criteria+"']")
+
+            };
+            console.log(document.querySelector("label[for='checkbox"+id_criteria+"']").innerText);
+            arrIdCriterias.push(item);
+        }
+    }
+}
