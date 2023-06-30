@@ -36,6 +36,19 @@ function showTab(element,id_sub){
             .done(function( response ) {
                 for (let i of JSON.parse(response)){
                     data.push(i);
+
+                }
+
+                    let data_main = new Array();
+                    data_main = data.filter(item => item[2] == '1');
+
+                    let divFormGroup = document.createElement("div");
+                    let label_1 = document.createElement("label");
+                    label_1.innerHTML = "Общие критерии";
+                    divFormGroup.appendChild(label_1);
+                    row.appendChild(divFormGroup);
+
+                for (let i = 0;  i<data_main.length ; i++) {
                     let divFormGroup = document.createElement("div");
                     divFormGroup.className = "form-group";
                     let divFormCheck = document.createElement("div");
@@ -43,8 +56,8 @@ function showTab(element,id_sub){
                     let inputCheck = document.createElement("input");
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
-                    inputCheck.setAttribute("id", "checkbox"+i[0]);
-                    if(i[4] == 1){
+                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
+                    if(data_main[i][4] == 1){
                         inputCheck.checked = true;
                     }
                     else{
@@ -52,8 +65,75 @@ function showTab(element,id_sub){
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
-                    labelCheck.setAttribute("for", "checkbox"+i[0]);
-                    labelCheck.innerHTML = i[1] + " (" + i[3] + ")";
+                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
+                    divFormCheck.appendChild(inputCheck);
+                    divFormCheck.appendChild(labelCheck);
+                    divFormGroup.appendChild(divFormCheck);
+                    row.appendChild(divFormGroup);
+                }
+
+                data_main = data.filter(item => item[2] == '2');
+
+                let divFormGroup2 = document.createElement("div");
+                let label_2 = document.createElement("label");
+                    label_2.innerHTML = "По видам оказания медицинской помощи";
+                    divFormGroup2.appendChild(label_2);
+                    row.appendChild(divFormGroup2);
+
+                for (let i = 0;  i<data_main.length ; i++) {
+                    let divFormGroup = document.createElement("div");
+                    divFormGroup.className = "form-group";
+                    let divFormCheck = document.createElement("div");
+                    divFormCheck.className = "form-check margleft";
+                    let inputCheck = document.createElement("input");
+                    inputCheck.className = "form-check-input";
+                    inputCheck.setAttribute("type", "checkbox");
+                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
+                    if(data_main[i][4] == 1){
+                        inputCheck.checked = true;
+                    }
+                    else{
+                        inputCheck.checked = false;
+                    }
+                    let labelCheck = document.createElement("label");
+                    labelCheck.className = "form-check-label";
+                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
+                    divFormCheck.appendChild(inputCheck);
+                    divFormCheck.appendChild(labelCheck);
+                    divFormGroup.appendChild(divFormCheck);
+                    row.appendChild(divFormGroup);
+                }
+
+
+                data_main = data.filter(item => item[2] == '3')
+
+                let divFormGroup3 = document.createElement("div");
+                let label_3 = document.createElement("label");
+                    label_3.innerHTML = "Вспомогательные подразделения (диагностические)";
+                    divFormGroup3.appendChild(label_3);
+                    row.appendChild(divFormGroup3);
+
+                for (let i = 0;  i<data_main.length ; i++) {
+                    let divFormGroup = document.createElement("div");
+                    divFormGroup.className = "form-group";
+                    let divFormCheck = document.createElement("div");
+                    divFormCheck.className = "form-check margleft";
+                    let inputCheck = document.createElement("input");
+                    inputCheck.className = "form-check-input";
+                    inputCheck.setAttribute("type", "checkbox");
+                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
+                    if(data_main[i][4] == 1){
+                        inputCheck.checked = true;
+                    }
+                    else{
+                        inputCheck.checked = false;
+                    }
+                    let labelCheck = document.createElement("label");
+                    labelCheck.className = "form-check-label";
+                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
                     divFormGroup.appendChild(divFormCheck);
@@ -335,26 +415,7 @@ function getMainTab(name, id_sub){
 
 function addTab(){
     let nameTab = prompt("Введите название структурного подразделения");
-  /*  let tablist = document.getElementById("tablist");
-    for (let item of tablist.children){
-        let a = item.children[0];
-        a.classList.remove("active");
-    }
-    let countCh = tablist.children.length;
-    let tab = document.createElement("li");
-    tab.classList.add("nav-item");
-    let a = document.createElement("a");
-    a.className = "nav-link active";
-    a.setAttribute("data-toggle", "tab");
-    a.setAttribute("href", "#");
-    a.setAttribute("role", "tab");
-    a.setAttribute("aria-selected", "true");
-    tab.setAttribute("onclick", "showTab(this)");
-    a.innerHTML = "Самооценка " + nameTab;
-    tab.appendChild(a);
-    tab.id = "tab" + ++countCh;
-    tablist.appendChild(tab);
-*/
+
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
     $.ajax({
@@ -368,57 +429,8 @@ function addTab(){
             getTabs(nameTab, id);
         });
 
-//     let data = new Array();
-//     $.ajax({
-//         url: "getApplication.php",
-//         method: "GET",
-//         data: {id_application: id_application}
-//     })
-//         .done(function( response ) {
-//             let jg = response.length
-//             let i = JSON.parse(response);
-//
-//                    data.push(i);
-// console.log('data')
-//             console.log(i);
-//             let last = i[1].length-1;
-//             console.log(i[1][last][1] + " " + i[1][last][0]);
-// console.log("длина: " + last);
-// getTabs(i[1][last][1], i[1][last][0]);
-//
-//         });
 
-    /*
 
-     let data = new Array();
-    $.ajax({
-        url: "getApplication.php",
-        method: "GET",
-        data: {id_application: id_application}
-    })
-        .done(function( response ) {
-            for (let i of JSON.parse(response)){
-                data.push(i);
-                data_old.push(i);
-            }
-            naim.value = data[0][0];
-            unp.value = data[0][2];
-            let login = getCookie('login');
-            // dov.innerHTML += "<a href='/documents/" + login + "/" + data[1] + "'>" + data[1] + "</a><br/>";
-            modal.classList.add("show");
-            modal.style = "display: block";
-            let j = 0;
-            for(let obj of data[1]){
-                if(j==0){
-                    getMainTab(obj[1],obj[0]);
-                }else {
-                    getTabs(obj[1], obj[0]);
-                }
-                j++;
-            }
-        });
-
-     */
 }
 
 function deleteTab(id_sub){
@@ -430,14 +442,18 @@ function deleteTab(id_sub){
         .done(function( response ) {
 
         });
+
+
     let thisTab = document.getElementById("tab"+id_sub);
     let thisTab1 = document.getElementById("tab"+id_sub+"-");
     thisTab.remove();
     thisTab1.remove();
+
     let mainTabDiv = document.getElementById("tab1-");
     let mainTab = document.getElementById("tab1");
     mainTabDiv.classList.add("active");
     mainTab.children[0].classList.add("active");
+
 
 }
 
