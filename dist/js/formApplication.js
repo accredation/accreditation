@@ -363,25 +363,30 @@ function addTab(){
         data: {id_application: id_application, name: nameTab}
     })
         .done(function( response ) {
-
+            let id = response;
+            console.log(nameTab + " " + id);
+            getTabs(nameTab, id);
         });
 
-    let data = new Array();
-    $.ajax({
-        url: "getApplication.php",
-        method: "GET",
-        data: {id_application: id_application}
-    })
-        .done(function( response ) {
-            let jg = response.length
-            let i = JSON.parse(response);
-
-                   data.push(i);
-console.log('data')
-            console.log(data);
-getTabs(data[1][data[1].length], data[1][data[1].length]);
-
-        });
+//     let data = new Array();
+//     $.ajax({
+//         url: "getApplication.php",
+//         method: "GET",
+//         data: {id_application: id_application}
+//     })
+//         .done(function( response ) {
+//             let jg = response.length
+//             let i = JSON.parse(response);
+//
+//                    data.push(i);
+// console.log('data')
+//             console.log(i);
+//             let last = i[1].length-1;
+//             console.log(i[1][last][1] + " " + i[1][last][0]);
+// console.log("длина: " + last);
+// getTabs(i[1][last][1], i[1][last][0]);
+//
+//         });
 
     /*
 
@@ -429,6 +434,11 @@ function deleteTab(id_sub){
     let thisTab1 = document.getElementById("tab"+id_sub+"-");
     thisTab.remove();
     thisTab1.remove();
+    let mainTabDiv = document.getElementById("tab1-");
+    let mainTab = document.getElementById("tab1");
+    mainTabDiv.classList.add("active");
+    mainTab.children[0].classList.add("active");
+
 }
 
 
