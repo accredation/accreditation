@@ -6,6 +6,36 @@ let tab5 = document.getElementById("tab-5");
 
 let data_old = new Array();
 
+let marks_app = {
+    arr_marks : [],
+    getArr(){
+        return this.arr_marks;
+    },
+    setArr(arr){
+        this.arr_marks.push(arr);
+    },
+    setValueByIndex(index,name_field, value){
+        this.arr_marks[index][name_field] = value;
+    },
+    arClear(){
+        for (let i=this.arr_marks.length-1; i>-1 ; i--) {
+            //  console.log(marks_app[i]);
+            this.arr_marks.pop();
+        }
+    }
+};
+
+let mark = {
+    id_mark: 0,
+    id_mark_rating: 0,
+    mark_name: 0,
+    mark_class: 0,
+    field4: 0,
+    field5: 0,
+    field6: 0
+}
+
+
 function showTab(element,id_sub){
 
     let tablist = document.getElementById("tablist");
@@ -560,6 +590,14 @@ function saveTab(id_sub){
 
 function createAccordionCards(id_sub) {
 
+ //   let marks_app = [];
+/*
+    for (let i=marks_app.length-1; i>-1 ; i--) {
+        //  console.log(marks_app[i]);
+        marks_app.pop();
+    }
+*/
+    marks_app.arClear();
 
     let thisTab = document.getElementById("tab" + id_sub + "-");
     let cardRight = thisTab.querySelector("#cardRight");
@@ -592,7 +630,6 @@ function createAccordionCards(id_sub) {
             btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
 
 
-
             divCardHeader.appendChild(btnCollapse);
             divCard.appendChild(divCardHeader);
 
@@ -607,22 +644,46 @@ function createAccordionCards(id_sub) {
 
             divCollapse.appendChild(divCardBody);
             divCard.appendChild(divCollapse);
-
-
+         //   let marks_app = [];
             divCardHeader.onclick=() =>{
-                divCollapse.classList.toggle("show");
+                let collapses = divCard.getElementsByClassName("collapse");
 
-                let aa = btnCollapse.getAttribute('aria-expanded');
-                if(aa == 'false') {
-                    btnCollapse.setAttribute('aria-expanded',true);
+
+
+                if (arrChange == false) {
+                    divCollapse.classList.toggle("show");
+                    // arrChange =  false;
                     collapseTable(id_criteria, divCardBody,id_sub);
-                } else {
-                    btnCollapse.setAttribute('aria-expanded',false)
                 }
 
+                if(isSavedMarks()){
+                    for (let i of collapses){
+                        i.classList.remove("show");
 
+                    }
+                    divCollapse.classList.toggle("show");
+                    arrChange =  false;
+                    //  divCollapse.setAttribute('afl', );
+                //    let marks_app1 =
+                        collapseTable(id_criteria, divCardBody,id_sub);
+
+                 //  console.log(marks_app);
+                 //   marks_app.map(item => console.log(item));
+
+                }
+                else{
+                    // for (let i of collapses){
+                    //     i.classList.remove("show");
+                    //
+                    // }
+                 //   divCollapse.classList.toggle("show");
+                   // arrChange =  false;
+                    //collapseTable(id_criteria, divCardBody,id_sub);
+                }
 
             }
+
+
         }
     }
 
@@ -632,21 +693,19 @@ function createAccordionCards(id_sub) {
 
 }
 
-let marks_app = new Array();
-
-
-let mark = {
-    id_mark: 0,
-    id_mark_rating: 0,
-    mark_name: 0,
-    mark_class: 0,
-    field4: 0,
-    field5: 0,
-    field6: 0
-}
 
 
 function collapseTable(id_criteria, divCardBody,id_sub){
+   // marks_app.splice(0, marks_app.length);
+/*
+    for (let i=marks_app.length-1; i>-1 ; i--) {
+      //  console.log(marks_app[i]);
+        marks_app.pop();
+    }
+
+ */
+    marks_app.arClear();
+
     divCardBody.innerHTML = "";
 
     let table = document.createElement('table');
@@ -687,13 +746,37 @@ function collapseTable(id_criteria, divCardBody,id_sub){
         data: {id_sub: id_sub, id_criteria: id_criteria}
     })
         .done(function( response ) {
-         //   marks_app = new Array()
+
             let marks = JSON.parse(response);
 
             marks.map((item, index) => {
 
+              //  console.log('item ', item['id_mark']);
             //    console.log(mark);
-                marks_app.push(item);
+/*
+                let ff = false;
+
+                console.log('marks_app');
+                console.log(marks_app);
+
+                 marks_app.map(element => {
+                    console.log('element ', element['id_mark']);
+                   ff =  false;
+                   if (element['id_mark'] == item['id_mark']) {
+                        ff =  true;
+                   }
+                });
+
+                console.log('ff1',ff)
+
+                if (ff == false) {
+                    marks_app.push(item);
+                 //   console.log('push',item);
+                }
+*/
+                marks_app.setArr(item);//   push(item);
+
+
 
                 let tr = document.createElement('tr');
 
@@ -707,14 +790,15 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let input4 = document.createElement("textarea");
                 input4.setAttribute("rows","3");
                 input4.value = item['field5'];
-                input4.oninput =() => ChangeValue(item['id_mark'], 'field5', input4.value, item['id_mark_rating'], index);
+                let arr;
+                input4.oninput =() => ChangeValue(id_criteria,item['id_mark'], 'field5', input4.value, item['id_mark_rating'], index);
             //    input4.setAttribute("type","text");
                 td4.appendChild(input4);
                 let td5 = document.createElement('td');
                 let input5 = document.createElement("textarea");
                 input5.setAttribute("rows","3");
                 input5.value = item['field6'];
-                input5.oninput = ()=>{ChangeValue(item['id_mark'],'field6', input5.value, item['iid_mark_rating'], index)};
+                input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['iid_mark_rating'], index)};
               //  input5.setAttribute("type","text-area");
                 td5.appendChild(input5);
               //  td5.innerHTML = item['field6'];
@@ -726,7 +810,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 tr.appendChild(td4);
                 tr.appendChild(td5);
 
-                createSelectMark(item['id_mark'], td3, item['field4'], item['id_mark_rating'], index );
+                createSelectMark(id_criteria,item['id_mark'], td3, item['field4'], item['id_mark_rating'], index );
 
                 tbody.appendChild(tr);
 
@@ -735,11 +819,17 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
         });
     divCardBody.appendChild(table);
+
+    let bunt = document.createElement('button');
+    bunt.onclick=() => saveMarks(6);
+    bunt.innerHTML='BUTTON';
+    divCardBody.appendChild(bunt);
+  //  return marks_app;
 }
 
 
 
-function createSelectMark(id_mark, nameColumn, value, id_mark_rating, index){
+function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating, index){
     let newSelect = document.createElement('select');
    // newSelect.disabled =true;
     let optEmpty  = document.createElement('option');
@@ -760,8 +850,8 @@ function createSelectMark(id_mark, nameColumn, value, id_mark_rating, index){
     newSelect.add(opt1);
     newSelect.add(opt2);
     newSelect.add(opt3);
-
-    newSelect.onchange = ()=>{ChangeValue(id_mark, 'field4', newSelect.options.selectedIndex, id_mark_rating, index) };
+let arr;
+    newSelect.onchange = ()=>{ChangeValue(id_criteria,id_mark, 'field4', newSelect.options.selectedIndex, id_mark_rating, index) };
 
     if ((id_mark_rating !== null) && (value !== null)) {
         newSelect.selectedIndex = Number(value);
@@ -770,13 +860,55 @@ function createSelectMark(id_mark, nameColumn, value, id_mark_rating, index){
     nameColumn.appendChild(newSelect);
 }
 
-function ChangeValue(id_mark, field_name, value, id_mark_rating, index) {
-    marks_app.map((item, index) => {
+let arrChange= false;
+
+
+function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, index) {
+
+   // arrChange.id_criteria = id_criteria;
+    arrChange = true;
+
+    marks_app.getArr().forEach((item, index) => {
         if (Number(item['id_mark']) == id_mark ) {
-            marks_app[index][field_name] = value;
+            marks_app.setValueByIndex([index],[field_name],value);
         }
     })
+    console.log(marks_app.getArr());
+
+  //  retArr(marks_app);
+    //return marks_app;
 }
+
+function isSavedMarks(){
+    if (arrChange == true) {
+        return confirm("Есть несохраненные данные, при выходе они будут потеряны");
+    } else return false;
+
+
+}
+
+function saveMarks(id_sub){
+ //   console.log(123123123);
+   // console.log('id_sub = ', id_sub);
+  //  console.log(marks);
+    //let arr = new Array(1,2,3);
+
+  //  marks.map(item => console.log(item));
+
+
+
+    $.ajax({
+        url: "saveMarks.php",
+        method: "POST",
+        data: {id_sub: id_sub, marks: JSON.stringify(marks_app.getArr())}
+    })
+        .done(function( response ) {
+            console.log(response)
+        });
+
+}
+
+
 
 
 
