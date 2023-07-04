@@ -632,8 +632,53 @@ function createAccordionCards(id_sub) {
 
 }
 
+let marks_app = new Array();
+
+
+let mark = {
+    id_mark: 0,
+    id_mark_rating: 0,
+    mark_name: 0,
+    mark_class: 0,
+    field4: 0,
+    field5: 0,
+    field6: 0
+}
+
+
 function collapseTable(id_criteria, divCardBody,id_sub){
     divCardBody.innerHTML = "";
+
+    let table = document.createElement('table');
+    table.style = "width: 100%";
+    let trHead = document.createElement('tr');
+
+  //  let trHead = document.createElement('trHead');
+    let th1 = document.createElement('td');
+    th1.innerHTML = 'Критерий';
+
+    let th2 = document.createElement('td');
+    th2.innerHTML = 'Класс критерия';
+
+    let th3 = document.createElement('td');
+    th3.innerHTML = 'поле 4';
+
+    let th4 = document.createElement('td');
+    th4.innerHTML = 'поле 5';
+
+    let th5 = document.createElement('td');
+    th5.innerHTML = 'поле 6';
+
+    trHead.appendChild(th1);
+    trHead.appendChild(th2);
+    trHead.appendChild(th3);
+    trHead.appendChild(th4);
+    trHead.appendChild(th5);
+
+    table.appendChild(trHead);
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
 
 
     $.ajax({
@@ -642,56 +687,97 @@ function collapseTable(id_criteria, divCardBody,id_sub){
         data: {id_sub: id_sub, id_criteria: id_criteria}
     })
         .done(function( response ) {
+         //   marks_app = new Array()
             let marks = JSON.parse(response);
 
             marks.map((item, index) => {
-                let newRow = document.createElement('div');
-                newRow.className = 'row';
 
-                if (index ==0) {
-                    let newHead1 = document.createElement('div');
-                    newHead1.className = 'col';
-                    newHead1.innerHTML = 'Критерий';
+            //    console.log(mark);
+                marks_app.push(item);
 
+                let tr = document.createElement('tr');
 
-                    let newHead2 = document.createElement('div');
-                    newHead2.className = 'col';
-                    newHead2.innerHTML = 'Класс критерия';
+                let td1 = document.createElement('td');
+                td1.innerHTML = item['mark_name'];
+                let td2 = document.createElement('td');
+                td2.innerHTML = item['mark_class'];
+                let td3 = document.createElement('td');
+              //  td3.innerHTML = item['filed4'];
+                let td4 = document.createElement('td');
+                let input4 = document.createElement("textarea");
+                input4.setAttribute("rows","3");
+                input4.value = item['field5'];
+                input4.oninput =() => ChangeValue(item['id_mark'], 'field5', input4.value, item['id_mark_rating'], index);
+            //    input4.setAttribute("type","text");
+                td4.appendChild(input4);
+                let td5 = document.createElement('td');
+                let input5 = document.createElement("textarea");
+                input5.setAttribute("rows","3");
+                input5.value = item['field6'];
+                input5.oninput = ()=>{ChangeValue(item['id_mark'],'field6', input5.value, item['iid_mark_rating'], index)};
+              //  input5.setAttribute("type","text-area");
+                td5.appendChild(input5);
+              //  td5.innerHTML = item['field6'];
 
-                    let newHead3 = document.createElement('div');
-                    newHead3.className = 'col';
-                    newHead3.innerHTML = 'поле 4';
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
 
-                    let newHeadRow = document.createElement('div');
-                    newHeadRow.className = 'row';
+                tr.appendChild(td4);
+                tr.appendChild(td5);
 
-                    newHeadRow.appendChild(newHead1);
-                    newHeadRow.appendChild(newHead2);
-                    newHeadRow.appendChild(newHead3);
+                createSelectMark(item['id_mark'], td3, item['field4'], item['id_mark_rating'], index );
 
-
-
-                    divCardBody.appendChild(newHeadRow);
-                }
-
-                let newCol1 = document.createElement('div');
-                newCol1.className = 'col';
-                newCol1.innerHTML = item['mark_name'];
-                let newCol2 = document.createElement('div');
-                newCol2.className = 'col';
-                newCol2.innerHTML = item['mark_class'];
-                let newCol3 = document.createElement('div');
-                newCol3.className = 'col';
-                newCol3.innerHTML = item['id_mark'];
-
-                newRow.appendChild(newCol1);
-                newRow.appendChild(newCol2);
-                newRow.appendChild(newCol3);
-
-                divCardBody.appendChild(newRow);
+                tbody.appendChild(tr);
 
             });
+       //     console.log(marks_app);
+
         });
+    divCardBody.appendChild(table);
 }
+
+
+
+function createSelectMark(id_mark, nameColumn, value, id_mark_rating, index){
+    let newSelect = document.createElement('select');
+   // newSelect.disabled =true;
+    let optEmpty  = document.createElement('option');
+    let opt1  = document.createElement('option');
+    let opt2  = document.createElement('option');
+    let opt3  = document.createElement('option');
+
+    optEmpty.value = null;
+    optEmpty.text = '';
+    opt1.value = '1';
+    opt1.text = 'Да';
+    opt2.value = '2';
+    opt2.text = 'Нет';
+    opt3.value = '3';
+    opt3.text = 'Не требуется';
+
+    newSelect.add(optEmpty);
+    newSelect.add(opt1);
+    newSelect.add(opt2);
+    newSelect.add(opt3);
+
+    newSelect.onchange = ()=>{ChangeValue(id_mark, 'field4', newSelect.options.selectedIndex, id_mark_rating, index) };
+
+    if ((id_mark_rating !== null) && (value !== null)) {
+        newSelect.selectedIndex = Number(value);
+    }
+
+    nameColumn.appendChild(newSelect);
+}
+
+function ChangeValue(id_mark, field_name, value, id_mark_rating, index) {
+    marks_app.map((item, index) => {
+        if (Number(item['id_mark']) == id_mark ) {
+            marks_app[index][field_name] = value;
+        }
+    })
+}
+
+
 
 
