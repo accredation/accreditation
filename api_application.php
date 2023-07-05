@@ -8,6 +8,7 @@
 </style>
 
 <style>
+
     .container {
         padding: 0rem 0rem;
     }
@@ -205,19 +206,12 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                 <div class="col-md-12">
                     <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                         <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
-                            <li class="nav-item" id="tab1" onclick="showTab(this)">
+                            <li class="nav-item" id="tabCommon" onclick="showTab(this)">
                                 <a class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
                             </li>
 
-<!--                            <li class="nav-item hiddentab" id="rodovspom-tab" onclick="showTab3()">-->
-<!--                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Родовспоможение</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item hiddentab" id="akush-tab" onclick="showTab4()">-->
-<!--                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Акушерство и гинекология</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item hiddentab" id="anest-tab" onclick="showTab5()">-->
-<!--                                <a class="nav-link"  data-toggle="tab" href="#" role="tab" aria-selected="false">Анестезиология и реаниматология</a>-->
-<!--                            </li>-->
+
+                        <!--                            ...-->
                         </ul>
                         <div class="d-md-block d-none">
                             <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>
@@ -233,10 +227,10 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                         <div class="card-body">
 
                                             <div class="form-group"> <label>Наименование юридического лица</label><input id="naim" type="text" class="form-control"/></div>
-                                            <div class="form-group"><label>Сокращенное наименование</label><input class="form-control" type="text"/></div>
+                                            <div class="form-group"><label>Сокращенное наименование</label><input class="form-control" id="sokr" type="text"/></div>
                                             <div class="form-group"><label>УНП</label><input class="form-control" type="text" id="unp" onfocusout="onInputUnp()"/></div>
                                             <div class="form-group"><label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/></div>
-                                            <div class="form-group"><label>Номер телефона</label><input class="form-control" type="text"/></div>
+                                            <div class="form-group"><label>Номер телефона</label><input class="form-control" id="tel" type="text"/></div>
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
                                             <div class="form-group"><label>Руководитель заинтересованного лица</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО"/></div>
                                             <div class="form-group"><label>Представитель заинтересованного лица</label><input class="form-control" type="text" id="predstavitel" placeholder="Контактное лицо"/></div>
@@ -252,21 +246,21 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                             <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
 
                                             <form id="formSoprovodPismo">
-                                                <div class="form-group">
+                                                <div class="form-group" id = "divSoprovodPismo">
                                                     <label for="soprPismo">Сопроводительное письмо</label>
                                                     <input type="file" class="form-control-file" name="Name" id="soprPismo">
                                                 </div>
                                             </form>
 
                                             <form id="formCopyRaspisanie">
-                                                <div class="form-group">
-                                                    <label for="copyRaspisanie">Копия штатного расписания</label>
+                                                <div class="form-group" id = "divCopyRaspisanie">
+                                                    <label for="copyRaspisanie" >Копия штатного расписания</label>
                                                     <input type="file" class="form-control-file" name="Name" id="copyRaspisanie">
                                                 </div>
                                             </form>
 
                                             <form id="formOrgStrukt" >
-                                                <div class="form-group">
+                                                <div class="form-group" id = "divOrgStrukt">
                                                     <label for="orgStrukt">Организационная структура</label>
                                                     <input type="file" class="form-control-file" id="orgStrukt">
                                                 </div>

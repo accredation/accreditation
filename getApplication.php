@@ -11,14 +11,32 @@ $cells = array();
 if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
 {
     $row = mysqli_fetch_assoc($rez);
-    $dov = $row['copy_rasp'];
+
     $naim = $row['naim'];
+    $sokr = $row['sokr_naim'];
     $unp = $row['unp'];
+    $ur_adress = $row['ur_adress'];
+    $tel = $row['tel'];
+    $email = $row['email'];
+    $rukovoditel = $row['rukovoditel'];
+    $predstavitel = $row['predstavitel'];
+    $soprovod_pismo = $row['soprovod_pismo'];
+    $copy_rasp = $row['copy_rasp'];
+    $org_structure = $row['org_structure'];
+
 }
 
 array_push($cells,$naim);
-array_push($cells,$dov);
+array_push($cells,$sokr);
 array_push($cells,$unp);
+array_push($cells,$ur_adress);
+array_push($cells,$tel);
+array_push($cells,$email);
+array_push($cells,$rukovoditel);
+array_push($cells,$predstavitel);
+array_push($cells,$soprovod_pismo);
+array_push($cells,$copy_rasp);
+array_push($cells,$org_structure);
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
 

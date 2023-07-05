@@ -1,21 +1,41 @@
 <?php
+include "connection.php";
 $id_sub = $_POST['id_sub'];
 $marks = $_POST['marks'];
-/*
-echo $id_sub;
 
-*/
+//echo $marks;
 
+foreach($marks as $k=>$v){
 
+  //  echo json_encode($v);
 
-echo json_decode($marks);
+    $id_mark = $v['id_mark'];
+    $field4 = (integer)$v['field4'];
 
-//for($i = 0; $i < count($marks); $i++){
-//    $id_mark = $marks[$i]['id_mark'];
-//    $field4 = $marks[$i]['field4'];
-//    $field5 = $marks[$i]['field5'];
-//    $field6 = $marks[$i]['field6'];
-//    $id_mark_rating = $marks[$i]['id_mark_rating'];
+    $field5 = $v['field5'];
+    $field6 = $v['field6'];
+    $id_mark_rating = $v['id_mark_rating'];
+
+ //   echo $id_mark_rating;
+
+    if($id_mark_rating != '') {
+            $insertquery = "update mark_rating
+            set id_mark = '$id_mark', field4='$field4', field5='$field5', field6='$field6', id_subvision='$id_sub'
+            where id_mark_rating='$id_mark_rating'";
+        } else {
+            $insertquery = "Insert into mark_rating(id_mark, field4, field5, field6, id_subvision)
+                                values ('$id_mark','$field4', '$field5', '$field6', '$id_sub')";
+        }
+
+        mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+}
+
+//foreach($marks as $k=>$v){
+//    $id_mark = $v['id_mark'];
+//    $field4 = $v['field4'];
+//    $field5 = $v['field5'];
+//    $field6 = $v['field6'];
+//    $id_mark_rating = $v['id_mark_rating'];
 //
 //    echo $id_mark;
 //    /*

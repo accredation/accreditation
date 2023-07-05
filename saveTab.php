@@ -5,7 +5,6 @@ $id_sub = $_POST['id_sub'];
 $arr_id_criterias = $_POST['arr_id_criterias'];
 $count = $_POST['count'];
 
-//$arr_id_criterias = \MongoDB\BSON\fromJSON($arr_id_criterias);
 
 //echo $arr_id_criterias;
 

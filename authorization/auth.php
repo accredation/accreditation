@@ -23,8 +23,8 @@ function enter($sesId)
             if (md5($password) == $row['password']) //сравнивается хэшированный пароль из базы данных с хэшированными паролем, введённым пользователем
                 {
                 //пишутся логин и хэшированный пароль в cookie, также создаётся переменная сессии
-                setcookie("login", $row['login'], time() + 5000);
-                setcookie("password", md5($row['login'] . $row['password']), time() + 5000);
+                setcookie("login", $row['login'], time() + 50000);
+                setcookie("password", md5($row['login'] . $row['password']), time() + 50000);
                 $_SESSION['id_user'] = $row['id_user']; //записываем в сессию id пользователя
 
                 $id = $_SESSION['id_user'];
@@ -106,9 +106,9 @@ function login()
                                     {
                                     $row = mysqli_fetch_assoc($rez); //она записывается в ассоциативный массив
 
-                                    setcookie("login", $row['login'], time() + 36000, '/');
+                                    setcookie("login", $row['login'], time() + 360000, '/');
 
-                                    setcookie("password", md5($row['login'] . $row['password']), time() + 36000, '/');
+                                    setcookie("password", md5($row['login'] . $row['password']), time() + 360000, '/');
 
                                     $id = $_SESSION['id_user'];
                                     $sesId = $_COOKIE['PHPSESSID'];
@@ -152,9 +152,9 @@ function login()
                                 return true;
                             } else //если данные из cookie не подошли, эти куки удаляются
                                 {
-                                SetCookie("login", "", time() - 36000, '/');
+                                SetCookie("login", "", time() - 360000, '/');
 
-                                SetCookie("password", "", time() - 36000, '/');
+                                SetCookie("password", "", time() - 360000, '/');
                                 return false;
                             }
                         } else //если куки не существуют
