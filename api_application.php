@@ -59,16 +59,16 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                 <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                   <ul class="nav nav-tabs tab-transparent" role="tablist">
                     <li class="nav-item">
-                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Все заявления</a>
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Все заявления</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link " id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">На рассмотрении</a>
+                      <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab" aria-selected="false">На рассмотрении</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="performance-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
+                      <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="conversion-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Не одобренные</a>
+                      <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Не одобренные</a>
                     </li>
                   </ul>
                   <div class="d-md-block d-none">
@@ -77,7 +77,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                   </div>
                 </div>
                 <div class="tab-content tab-transparent-content">
-                  <div class="tab-pane fade show active" id="business-1" role="tabpanel" aria-labelledby="business-tab">
+                  <div class="tab-pane fade show active" id="allApps" role="tabpanel" aria-labelledby="home-tab">
 <!--                    <div class="row">-->
 <!--                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">-->
 <!--                        <div class="card">-->
@@ -142,7 +142,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                   $username = $row['username'];
                               }
 
-                              $query = "SELECT * FROM applications where id_user='$id'";
+                              $query = "SELECT * FROM applications where id_user='$id' and id_status = 1";
                               $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                               for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                               ?>
@@ -183,6 +183,196 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
                   </div>
                 </div>
+
+                  <div class="tab-content tab-transparent-content">
+                      <div class="tab-pane fade" id="rassmotrenie" role="tabpanel" aria-labelledby="rassmotrenie-tab">
+                          <div class="row">
+                              <div class="col-12 grid-margin">
+                                  <div class="card">
+                                      <div class="card-body">
+
+                                          <?php
+                                          $login = $_COOKIE['login'];
+                                          $insertquery = "SELECT * FROM users WHERE login='$login'";
+
+                                          $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+                                          $username = "";
+                                          if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                          {
+                                              $row = mysqli_fetch_assoc($rez);
+                                              $id = $row['id_user'];
+                                              $username = $row['username'];
+                                          }
+
+                                          $query = "SELECT * FROM applications where id_user='$id' and id_status = 2";
+                                          $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                          for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                          ?>
+
+                                          <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                              <thead>
+                                              <tr>
+                                                  <th>Заявления</th>
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              <?php
+
+                                              foreach ($data as $app) {
+
+                                                  ?>
+
+                                                  <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+
+
+                                                      <td>Заявление <?= $username ?></td>
+
+
+                                                  </tr>
+                                                  <?php
+                                              }
+                                              ?>
+
+                                              </tbody>
+
+                                          </table>
+
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+
+                  <div class="tab-content tab-transparent-content">
+                      <div class="tab-pane fade" id="odobrennie" role="tabpanel" aria-labelledby="odobrennie-tab">
+                          <div class="row">
+                              <div class="col-12 grid-margin">
+                                  <div class="card">
+                                      <div class="card-body">
+
+                                          <?php
+                                          $login = $_COOKIE['login'];
+                                          $insertquery = "SELECT * FROM users WHERE login='$login'";
+
+                                          $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+                                          $username = "";
+                                          if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                          {
+                                              $row = mysqli_fetch_assoc($rez);
+                                              $id = $row['id_user'];
+                                              $username = $row['username'];
+                                          }
+
+                                          $query = "SELECT * FROM applications where id_user='$id' and id_status = 4";
+                                          $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                          for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                          ?>
+
+                                          <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                              <thead>
+                                              <tr>
+                                                  <th>Заявления</th>
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              <?php
+
+                                              foreach ($data as $app) {
+
+                                                  ?>
+
+                                                  <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+
+
+                                                      <td>Заявление <?= $username ?></td>
+
+
+                                                  </tr>
+                                                  <?php
+                                              }
+                                              ?>
+
+                                              </tbody>
+
+                                          </table>
+
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+
+                  <div class="tab-content tab-transparent-content">
+                      <div class="tab-pane fade" id="neodobrennie" role="tabpanel" aria-labelledby="neodobrennie-tab">
+                          <div class="row">
+                              <div class="col-12 grid-margin">
+                                  <div class="card">
+                                      <div class="card-body">
+
+                                          <?php
+                                          $login = $_COOKIE['login'];
+                                          $insertquery = "SELECT * FROM users WHERE login='$login'";
+
+                                          $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+                                          $username = "";
+                                          if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                          {
+                                              $row = mysqli_fetch_assoc($rez);
+                                              $id = $row['id_user'];
+                                              $username = $row['username'];
+                                          }
+
+                                          $query = "SELECT * FROM applications where id_user='$id' and id_status = 5";
+                                          $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                          for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                          ?>
+
+                                          <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                              <thead>
+                                              <tr>
+                                                  <th>Заявления</th>
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              <?php
+
+                                              foreach ($data as $app) {
+
+                                                  ?>
+
+                                                  <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+
+
+                                                      <td>Заявление <?= $username ?></td>
+
+
+                                                  </tr>
+                                                  <?php
+                                              }
+                                              ?>
+
+                                              </tbody>
+
+                                          </table>
+
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+
               </div>
             </div>
           </div>
@@ -206,7 +396,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                 <div class="col-md-12">
                     <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                         <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
-                            <li class="nav-item" id="tabCommon" onclick="showTab(this)">
+                            <li class="nav-item" id="tab1" onclick="showTab(this)">
                                 <a class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
                             </li>
 
@@ -272,6 +462,12 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                         </div>
                                     </div>
                                 </div>
+                                <div style="width: 100%">
+                                    <div style="display:flex; justify-content: flex-end;">
+                                        <button type="submit" class="btn btn-warning btn-fw" id="btnSuc" ые>Сохранить</button>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -402,8 +598,9 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                <form action="getApplication.php" method="post">-->
 <!--                    <input type="text" name="count" id="count"/>-->
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
+                <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
                 <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
-                    <button type="submit" class="btn btn-warning btn-fw" id="btnSuc">Сохранить</button>
+
 <!--                </form>-->
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>

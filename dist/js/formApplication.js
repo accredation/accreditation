@@ -1,10 +1,12 @@
-let tab1 = document.getElementById("tab-1");
-let tab2 = document.getElementById("tab-2");
-let tab3 = document.getElementById("tab-3");
-let tab4 = document.getElementById("tab-4");
-let tab5 = document.getElementById("tab-5");
+// let tab1 = document.getElementById("tab-1");
+// let tab2 = document.getElementById("tab-2");
+// let tab3 = document.getElementById("tab-3");
+// let tab4 = document.getElementById("tab-4");
+// let tab5 = document.getElementById("tab-5");
 
 let data_old = new Array();
+
+let status = 1;
 
 let marks_app = {
     arr_marks : new Array(),
@@ -47,8 +49,8 @@ function showTab(element,id_sub){
       //  console.log(OpenSub);
        // arrChange=false;
        if (saveMarks(OpenSub) === false) {
-           console.log('OpenSub',OpenSub);
-           console.log('id_sub',id_sub);
+        //   console.log('OpenSub',OpenSub);
+        //   console.log('id_sub',id_sub);
 
            for (let item of tablist.children){
                let a = item.children[0];
@@ -56,7 +58,7 @@ function showTab(element,id_sub){
                //   a.classList.remove("active");
            }
 
-           let main = document.getElementById('tabCommon');
+           let main = document.getElementById('tab1');
            main.children[0].removeAttribute("data-toggle");
 
            element.classList.add("active");
@@ -92,10 +94,10 @@ function showTab(element,id_sub){
         a.removeAttribute("data-toggle");
      //   a.classList.remove("active");
     }
-    element.classList.add("active");
+    // element.classList.add("active");
     element.children[0].setAttribute("data-toggle", "tab");
 
-    let main = document.getElementById('tabCommon');
+    let main = document.getElementById('tab1');
     main.children[0].setAttribute("data-toggle", "tab");
 
     let id = element.id;
@@ -464,7 +466,7 @@ function getTabs(name, id_sub){
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
     tab.onclick= () => {
-        console.log(tab.children[0]);
+      //  console.log(tab.children[0]);
     //    tab.children[0].setAttribute("data-toggle", "tab");
         if(isSavedMarks()) {
             //  console.log(OpenSub);
@@ -474,14 +476,14 @@ function getTabs(name, id_sub){
             }
 
         }
-        console.log(1);
+     //   console.log(1);
         showTab(tab,id_sub);
     }
     tab.id = "tab" + id_sub;
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[1];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show";
     tabPane.id = "tab" + id_sub + "-";
@@ -557,7 +559,7 @@ function getMainTab(name, id_sub){
             }
 
         }
-        console.log(2);
+       // console.log(2);
         showTab(tab,id_sub);
     }
     a.innerHTML = "Самооценка " + name;
@@ -566,7 +568,7 @@ function getMainTab(name, id_sub){
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[1];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show";
     tabPane.id = "tab" + id_sub + "-";
@@ -625,7 +627,7 @@ function addTab(){
     })
         .done(function( response ) {
             let id = response;
-            console.log(nameTab + " " + id);
+         //   console.log(nameTab + " " + id);
             getTabs(nameTab, id);
         });
 
@@ -650,7 +652,7 @@ function deleteTab(id_sub){
     thisTab1.remove();
 
     let mainTabDiv = document.getElementById("tab1-");
-    let mainTab = document.getElementById("tabCommon");
+    let mainTab = document.getElementById("tab1");
     mainTabDiv.classList.add("active");
     mainTab.children[0].classList.add("active");
 
@@ -910,29 +912,40 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     }
 
  */
+
+   // console.log('status',status);
+
     marks_app.arClear();
 
     divCardBody.innerHTML = "";
+    divCardBody.style = "padding: 0";
 
     let table = document.createElement('table');
-    table.style = "width: 100%";
+    table.style = "border: 1px solid black; width:100%";
     let trHead = document.createElement('tr');
+    //trHead.style = "border: 1px solid black; width:100%";
 
   //  let trHead = document.createElement('trHead');
     let th1 = document.createElement('td');
     th1.innerHTML = 'Критерий';
+    th1.style = "border: 1px solid black";
 
     let th2 = document.createElement('td');
     th2.innerHTML = 'Класс критерия';
+    th2.style = "border: 1px solid black";
 
     let th3 = document.createElement('td');
-    th3.innerHTML = 'поле 4';
+    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('td');
-    th4.innerHTML = 'поле 5';
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+    th4.style = "width:350px; border: 1px solid black";
+
 
     let th5 = document.createElement('td');
-    th5.innerHTML = 'поле 6';
+    th5.innerHTML = 'Примечание';
+    th5.style = "border: 1px solid black";
 
     trHead.appendChild(th1);
     trHead.appendChild(th2);
@@ -988,20 +1001,40 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['mark_name'];
+                td1.style = "border: 1px solid black";
+
                 let td2 = document.createElement('td');
                 td2.innerHTML = item['mark_class'];
+                td2.style = "border: 1px solid black";
                 let td3 = document.createElement('td');
               //  td3.innerHTML = item['filed4'];
+                td3.style = "border: 1px solid black";
+                let divTd3 = document.createElement("div");
+                divTd3.style = "display: flex; justify-content: center;";
+                td3.appendChild(divTd3);
                 let td4 = document.createElement('td');
+                td4.style = "border: 1px solid black";
                 let input4 = document.createElement("textarea");
                 input4.setAttribute("rows","3");
+                if (status == 1) {
+                } else {
+                    input4.setAttribute("readonly","");
+                }
+                input4.style = "width:100%";
                 input4.value = item['field5'];
+
                 let arr;
                 input4.oninput =() => ChangeValue(id_criteria,item['id_mark'], 'field5', input4.value, item['id_mark_rating'], index,id_sub);
             //    input4.setAttribute("type","text");
                 td4.appendChild(input4);
                 let td5 = document.createElement('td');
+                td5.style = "border: 1px solid black";
                 let input5 = document.createElement("textarea");
+                if (status == 1) {
+                } else {
+                    input5.setAttribute("readonly","");
+                }
+                input5.style = "width:100%";
                 input5.setAttribute("rows","3");
                 input5.value = item['field6'];
                 input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['iid_mark_rating'], index,id_sub)};
@@ -1016,7 +1049,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 tr.appendChild(td4);
                 tr.appendChild(td5);
 
-                createSelectMark(id_criteria,item['id_mark'], td3, item['field4'], item['id_mark_rating'], index,id_sub );
+                createSelectMark(id_criteria,item['id_mark'], divTd3, item['field4'], item['id_mark_rating'], index,id_sub );
 
                 tbody.appendChild(tr);
 
@@ -1061,6 +1094,11 @@ let arr;
 
     if ((id_mark_rating !== null) && (value !== null)) {
         newSelect.selectedIndex = Number(value);
+    }
+
+    if (status == 1) {
+    } else {
+        newSelect.setAttribute("disabled","");
     }
 
     nameColumn.appendChild(newSelect);
@@ -1162,8 +1200,73 @@ function saveMarks(id_sub){
     return result;
 
 }
+let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
+$("#home-tab").on("click", () => {
+    for (let i = 0 ; i < 4; i++){
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[0].children[0].classList.add("show");
+    allTabsMainPage[0].children[0].classList.add("show");
+    status = 1;
+  //  console.log(status);
+});
 
+$("#rassmotrenie-tab").on("click", () => {
+
+    for (let i = 0 ; i < 4; i++){
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[1].children[0].classList.add("show");
+    allTabsMainPage[1].children[0].classList.add("active");
+    status = 2;
+  //  console.log(status);
+
+});
+
+$("#odobrennie-tab").on("click", () => {
+
+    for (let i = 0 ; i < 4; i++){
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[2].children[0].classList.add("show");
+    allTabsMainPage[2].children[0].classList.add("active");
+    status = 4;
+  //  console.log(status);
+
+});
+
+$("#neodobrennie-tab").on("click", () => {
+
+    for (let i = 0 ; i < 4; i++){
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[3].children[0].classList.add("show");
+    allTabsMainPage[3].children[0].classList.add("active");
+    status = 5;
+ //   console.log(status);
+
+});
+
+$("#btnSend").on("click", () => {
+    let id_application = document.getElementById("id_application");
+
+    $.ajax({
+        url: "sendApp.php",
+        method: "GET",
+        data: {id_application: id_application.innerText}
+    })
+        .done(function( response ) {
+
+                alert("Заявление отправлено");
+                location.href = "/index.php?application";
+            });
+
+});
 
 
 
