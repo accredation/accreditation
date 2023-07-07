@@ -493,7 +493,28 @@ function getTabs(name, id_sub){
     col12_1.className = "col-12 grid-margin";
     let cardLeft = document.createElement("div");
     cardLeft.className = "card";
-    cardLeft.style = "width: 35%";
+
+
+    let divRollUp = document.createElement("div");
+    divRollUp.className = "d-md-block d-none";
+    divRollUp.style = "text-align: end;margin-top: 5px;";
+    let aRollUp = document.createElement("a");
+    aRollUp.href = "#";
+    aRollUp.className = "text-light p-1";
+    aRollUp.id = "rollUp";
+    let iconRollUp = document.createElement("i");
+    iconRollUp.className = "mdi mdi-view-dashboard";
+
+    aRollUp.appendChild(iconRollUp);
+    divRollUp.appendChild(aRollUp);
+    cardLeft.appendChild(divRollUp);
+
+    aRollUp.onclick = () => {
+        cardLeft.classList.toggle("rolledUp");
+        cardLeft.getElementsByClassName("card-body")[0].classList.toggle("hiddentab");
+        cardRight.classList.toggle("rightCardFS");
+    }
+
     let cardBody = document.createElement("div");
     cardBody.className = "card-body";
     let container = document.createElement("div");
@@ -513,9 +534,9 @@ function getTabs(name, id_sub){
     col12_1.style = "display: flex";
 
     let cardRight = document.createElement("div");
-    cardRight.className = "card";
+    cardRight.className = "card rightCard65";
     cardRight.id = "cardRight";
-    cardRight.style = "margin-left: 15px; width: 65%";
+    cardRight.style = "margin-left: 15px;";
     cardRight.innerHTML = "подзразделения";
 
     row2.appendChild(col12_2);
@@ -578,7 +599,28 @@ function getMainTab(name, id_sub){
     col12_1.className = "col-12 grid-margin";
     let cardLeft = document.createElement("div");
     cardLeft.className = "card";
-    cardLeft.style = "width: 35%";
+    cardLeft.id = "leftCardMain";
+
+    let divRollUp = document.createElement("div");
+    divRollUp.className = "d-md-block d-none";
+    divRollUp.style = "text-align: end;margin-top: 5px;";
+    let aRollUp = document.createElement("a");
+    aRollUp.href = "#";
+    aRollUp.className = "text-light p-1";
+    aRollUp.id = "rollUpMain";
+    let iconRollUp = document.createElement("i");
+    iconRollUp.className = "mdi mdi-view-dashboard";
+
+    aRollUp.appendChild(iconRollUp);
+    divRollUp.appendChild(aRollUp);
+    cardLeft.appendChild(divRollUp);
+
+    aRollUp.onclick = () => {
+        cardLeft.classList.toggle("rolledUp");
+        cardLeft.getElementsByClassName("card-body")[0].classList.toggle("hiddentab");
+        cardRight.classList.toggle("rightCardFS");
+    }
+
     let cardBody = document.createElement("div");
     cardBody.className = "card-body";
     let container = document.createElement("div");
@@ -590,9 +632,9 @@ function getMainTab(name, id_sub){
     col12_1.style = "display: flex";
 
     let cardRight = document.createElement("div");
-    cardRight.className = "card";
+    cardRight.className = "card rightCard65";
     cardRight.id = "cardRight";
-    cardRight.style = "margin-left: 15px; width: 65%";
+    cardRight.style = "margin-left: 15px;";
     cardRight.innerHTML = "главная";
 
     row2.appendChild(col12_2);
@@ -1265,6 +1307,10 @@ $("#btnSend").on("click", () => {
                 alert("Заявление отправлено");
                 location.href = "/index.php?application";
             });
+
+});
+
+$("#btnCalc").on("click", () => {
 
 });
 

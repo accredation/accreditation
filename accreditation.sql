@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 28 2023 г., 11:15
+-- Время создания: Июл 07 2023 г., 12:10
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -21,6 +21,138 @@ SET time_zone = "+00:00";
 -- База данных: `accreditation`
 --
 
+DELIMITER $$
+--
+-- Процедуры
+--
+CREATE DEFINER=`root`@`%` PROCEDURE `count_mark_cursor` (IN `id_app` INTEGER)   BEGIN
+
+DECLARE is_done integer default 0;
+DECLARE id_sub_temp integer default 0;
+
+DECLARE mark_cursor CURSOR FOR
+SELECT id_subvision from subvision where id_application=id_app;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET is_done = 1;
+OPEN mark_cursor;
+
+get_Sub: LOOP
+FETCH mark_cursor INTO id_sub_temp;
+IF is_done = 1 THEN 
+LEAVE get_Sub;
+END IF;
+
+INSERT INTO report_mark(id_subvision, id_application) VALUES(id_sub_temp, id_app);
+
+END LOOP get_Sub;
+CLOSE mark_cursor;
+
+END$$
+
+CREATE DEFINER=`root`@`%` PROCEDURE `cursor_for_subvision` (IN `id_app` INT)   BEGIN
+
+DECLARE is_done integer default 0;
+DECLARE id_sub_temp integer default 0;
+
+DECLARE mark_cursor CURSOR FOR
+SELECT id_subvision from subvision where id_application=id_app;
+
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET is_done = 1;
+OPEN mark_cursor;
+
+get_Sub: LOOP
+FETCH mark_cursor INTO id_sub_temp;
+IF is_done = 1 THEN 
+LEAVE get_Sub;
+END IF;
+
+
+CREATE TEMPORARY table temp_mark_sub (id_sub int, mark_class int, id_criteria int, id_mark int, field4 int);
+
+insert into temp_mark_sub (id_sub , mark_class , id_criteria , id_mark , field4)
+SELECT sub.id_subvision, m.mark_class, m.id_criteria, m.id_mark, mr.field4
+FROM `subvision` sub
+left outer join mark_rating mr on sub.id_subvision=mr.id_subvision
+left outer join mark m on mr.id_mark=m.id_mark
+WHERE sub.id_subvision= id_sub_temp;
+
+
+set @all_mark = (select count(*)
+from temp_mark_sub);
+
+
+set @all_mark_3 = ( select count(*)
+from temp_mark_sub
+where field4 =3);
+
+set  @all_mark_1 =( select count(*)
+from temp_mark_sub
+where field4 =1);
+
+set @otmetka_all =  (@all_mark_1/(@all_mark-@all_mark_3))*100;
+
+
+
+
+
+set @all_mark_class_1 = (select  count(*)
+from temp_mark_sub
+where mark_class=1);
+
+
+set @all_mark_3_class_1=(select count(*)
+from temp_mark_sub
+where field4 =3 and  mark_class=1);
+
+set @all_mark_1_class_1 =(select  count(*)
+from temp_mark_sub
+where field4 =1 and  mark_class=1);
+
+set @otmetka_all_class_1 = (@all_mark_1_class_1/(@all_mark_class_1-@all_mark_3_class_1))*100;
+
+
+set @all_mark_class_2 = (select  count(*)
+from temp_mark_sub
+where mark_class=2);
+
+
+set @all_mark_3_class_2 = (select count(*)
+from temp_mark_sub
+where field4 =3 and  mark_class=2);
+
+set @all_mark_1_class_2 = (select count(*) 
+from temp_mark_sub
+where field4 =1 and  mark_class=2);
+
+set @otmetka_all_class_2 = (@all_mark_1_class_2/(@all_mark_class_2-@all_mark_3_class_2))*100;
+
+set @all_mark_class_3 = (select count(*)
+from temp_mark_sub
+where mark_class=3);
+
+
+set @all_mark_3_class_3 =(select  count(*)
+from temp_mark_sub
+where field4 =3 and  mark_class=3);
+
+set @all_mark_1_class_3= (select  count(*)
+from temp_mark_sub
+where field4 =1 and  mark_class=3);
+
+set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
+
+INSERT INTO report_subvision_mark(id_application, id_subvision, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
+VALUES(id_app, id_sub_temp, @otmetka_all, @otmetka_all_class_1, @otmetka_all_class_2, @otmetka_all_class_3);
+
+DROP TEMPORARY TABLE temp_mark_sub;
+
+END LOOP get_Sub;
+CLOSE mark_cursor;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -35,32 +167,21 @@ CREATE TABLE `applications` (
   `ur_adress` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `tel` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `iniciator` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fam` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `otch` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `dolzhn` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `copy_rasp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `info_med_tech` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `khirurgiya` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `rodovsp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `akush` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `anest` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `id_user` int NOT NULL
+  `rukovoditel` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `predstavitel` text COLLATE utf8mb4_general_ci,
+  `soprovod_pismo` text COLLATE utf8mb4_general_ci,
+  `copy_rasp` text COLLATE utf8mb4_general_ci,
+  `org_structure` text COLLATE utf8mb4_general_ci,
+  `id_user` int NOT NULL,
+  `id_status` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `applications`
 --
 
-INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `iniciator`, `fam`, `name`, `otch`, `dolzhn`, `copy_rasp`, `info_med_tech`, `khirurgiya`, `rodovsp`, `akush`, `anest`, `id_user`) VALUES
-(24, '1-я ЦРКП', NULL, '123987777', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '№82_2007.rtf', NULL, NULL, NULL, NULL, NULL, 2),
-(25, 'Ветковский ФАП', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Регламент подключения УЗ и ЧМЦ к АИС ЭР.docx', NULL, NULL, NULL, NULL, NULL, 2),
-(26, 'Приморский АВОП', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'описание задачи справочник.docx', NULL, NULL, NULL, NULL, NULL, 2),
-(27, 'Гомельская №14', NULL, '423432123', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Заявление (6).docx', NULL, NULL, NULL, NULL, NULL, 109),
-(28, 'Лельчицкий ФАП', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `id_user`, `id_status`) VALUES
+(35, '1', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -90,13 +211,206 @@ CREATE TABLE `columns` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `conditions`
+--
+
+CREATE TABLE `conditions` (
+  `conditions_id` int NOT NULL,
+  `conditions` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `conditions`
+--
+
+INSERT INTO `conditions` (`conditions_id`, `conditions`) VALUES
+(1, 'Амбулаторная'),
+(2, 'Стационарная');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `criteria`
 --
 
 CREATE TABLE `criteria` (
   `id_criteria` int NOT NULL,
-  `name` varchar(500) COLLATE utf8mb4_general_ci NOT NULL
+  `name` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `type_criteria` int NOT NULL COMMENT '1 - общий 2 - по видам оказания 3 - вспомогательные подразделения',
+  `conditions_id` int DEFAULT NULL COMMENT '1-амбулаторно 2 - стационарно'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `criteria`
+--
+
+INSERT INTO `criteria` (`id_criteria`, `name`, `type_criteria`, `conditions_id`) VALUES
+(3, 'Фельдшерско-акушерский пункт', 1, 1),
+(4, 'Врачебная амбулатория общей практики', 1, 1),
+(5, 'Городская поликлиника (Районная поликлиника)', 1, 1),
+(6, 'Больница сестринского ухода', 1, 2),
+(7, 'Участковая больница', 1, 2),
+(8, 'Центральная районная больница', 1, 2),
+(9, 'Хирургия', 2, 1),
+(10, 'Хирургия', 2, 2),
+(11, 'Анестезиология и реаниматология', 2, 1),
+(12, 'Анестезиология и реаниматология', 2, 2),
+(13, 'Акушерство и гинекология', 2, 1),
+(14, 'Акушерство и гинекология', 2, 2),
+(15, 'Травматология', 2, 1),
+(16, 'Травматология', 2, 2),
+(17, 'Кардиология', 2, 1),
+(18, 'Кардиология', 2, 2),
+(19, 'Лабораторная диагностика', 3, 1),
+(20, 'Лабораторная диагностика', 3, 2),
+(21, 'Рентгенодиагностика', 3, 1),
+(22, 'Рентгенодиагностика', 3, 2),
+(23, 'Компьютерная диагностика', 3, 1),
+(24, 'Компьютерная диагностика', 3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `mark`
+--
+
+CREATE TABLE `mark` (
+  `id_mark` int NOT NULL,
+  `mark_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `mark_class` int NOT NULL,
+  `id_criteria` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `mark`
+--
+
+INSERT INTO `mark` (`id_mark`, `mark_name`, `mark_class`, `id_criteria`) VALUES
+(1, 'В учреждении здравоохранения определены ответственные лица за  организацию оказания медицинской помощи, в том числе  специализированной	3					', 1, 3),
+(2, 'В  учреждении  здравоохранения положения о структурных подразделениях соответствуют деятельности подразделений, их структуре. Деятельность структурных подразделений осуществляется в соответствии с положениями', 2, 3),
+(3, 'Проведение анализа деятельности учреждения здравоохранения по достигнутым результатам, ежеквартальное рассмотрение на медицинских советах, производственных совещаниях, принятие мер по устранению недостатков', 1, 3),
+(4, 'Организация и осуществление контроля за выполнением доведенных объемных показателей деятельности учреждения здравоохранения (региональный комплекс мероприятий)', 2, 3),
+(5, 'Организация и осуществление контроля за выполнением  управленческих решений по  улучшению качества медицинской помощи в учреждении здравоохранения за  последний отчетный период или год, анализ  выполнения решений', 3, 3),
+(6, 'критерий 1', 1, 4),
+(7, 'критерий 2', 1, 4),
+(8, 'критерий 3', 2, 4),
+(9, 'критерий 4', 2, 4),
+(10, 'критерий 5', 3, 4),
+(11, 'критерий 6', 3, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `mark_rating`
+--
+
+CREATE TABLE `mark_rating` (
+  `id_mark_rating` int NOT NULL,
+  `id_mark` int NOT NULL,
+  `field4` int DEFAULT NULL COMMENT '1 - да 2 - нет 3 - не требуется',
+  `field5` text COLLATE utf8mb4_general_ci,
+  `field6` text COLLATE utf8mb4_general_ci,
+  `field7` int DEFAULT NULL COMMENT '1 - да 2 - нет 3 - не требуется',
+  `field8` text COLLATE utf8mb4_general_ci,
+  `id_subvision` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `mark_rating`
+--
+
+INSERT INTO `mark_rating` (`id_mark_rating`, `id_mark`, `field4`, `field5`, `field6`, `field7`, `field8`, `id_subvision`) VALUES
+(1, 1, 1, 'hfhgfh121', '556667789e', NULL, NULL, 6),
+(2, 2, 1, '1e', 'fff', NULL, NULL, 6),
+(3, 3, 1, '2', 'asdfasdf', NULL, NULL, 6),
+(4, 4, 1, 'g', 'erty', NULL, NULL, 6),
+(5, 5, 1, '1112', '1', NULL, NULL, 6),
+(6, 6, 0, 'r1', 'r', NULL, NULL, 6),
+(7, 7, 0, 'r', 'f', NULL, NULL, 6),
+(8, 8, 0, 'r', '551', NULL, NULL, 6),
+(9, 9, 0, '0', '', NULL, NULL, 6),
+(10, 10, 0, '11', '11', NULL, NULL, 6),
+(11, 11, 0, 'r', '', NULL, NULL, 6),
+(22, 1, 3, '1', '1', NULL, NULL, 49),
+(23, 2, 2, '2', '12', NULL, NULL, 49),
+(24, 3, 1, '5', '', NULL, NULL, 49),
+(25, 4, 0, '', '', NULL, NULL, 49),
+(26, 5, 0, '', '', NULL, NULL, 49),
+(27, 6, 0, '2', '2', NULL, NULL, 49),
+(28, 7, 0, '0', '0', NULL, NULL, 49),
+(29, 8, 0, '4', '4', NULL, NULL, 49),
+(30, 9, 0, '3', '3', NULL, NULL, 49),
+(31, 10, 0, '', '', NULL, NULL, 49),
+(32, 11, 0, '', '', NULL, NULL, 49);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `rating_criteria`
+--
+
+CREATE TABLE `rating_criteria` (
+  `id_rating_criteria` int NOT NULL,
+  `id_subvision` int NOT NULL,
+  `id_criteria` int NOT NULL,
+  `value` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `rating_criteria`
+--
+
+INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteria`, `value`) VALUES
+(95, 6, 3, 1),
+(96, 6, 4, 1),
+(97, 6, 5, 1),
+(98, 6, 24, 1),
+(102, 49, 3, 1),
+(103, 49, 5, 1),
+(104, 49, 11, 1),
+(105, 49, 20, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `report_mark`
+--
+
+CREATE TABLE `report_mark` (
+  `id_subvision` int NOT NULL,
+  `id_application` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `report_mark`
+--
+
+INSERT INTO `report_mark` (`id_subvision`, `id_application`) VALUES
+(6, 35),
+(49, 35);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `report_subvision_mark`
+--
+
+CREATE TABLE `report_subvision_mark` (
+  `id_application` int NOT NULL,
+  `id_subvision` int NOT NULL,
+  `otmetka_all` int NOT NULL,
+  `otmetka_class_1` int NOT NULL,
+  `otmetka_class_2` int NOT NULL,
+  `otmetka_class_3` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `report_subvision_mark`
+--
+
+INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`) VALUES
+(35, 6, 45, 50, 50, 33),
+(35, 49, 10, 33, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -121,6 +435,48 @@ INSERT INTO `roles` (`id_role`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `status`
+--
+
+CREATE TABLE `status` (
+  `id_status` int NOT NULL,
+  `name_status` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `status`
+--
+
+INSERT INTO `status` (`id_status`, `name_status`) VALUES
+(1, 'создано'),
+(2, 'новое'),
+(3, 'проверяется'),
+(4, 'проверено'),
+(5, 'отклонено');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `subvision`
+--
+
+CREATE TABLE `subvision` (
+  `id_subvision` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_application` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `subvision`
+--
+
+INSERT INTO `subvision` (`id_subvision`, `name`, `id_application`) VALUES
+(6, '36gp', 35),
+(49, 'qwe', 35);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `users`
 --
 
@@ -141,8 +497,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'd1uskcgqtf3rls2pcuvi8r3pqbn90ri9', 'd1uskcgqtf3rls2pcuvi8r3pqbn90ri9', '2023-06-28 11:13:34', '/index.php?application'),
-(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', 'd1uskcgqtf3rls2pcuvi8r3pqbn90ri9', '2023-06-28 11:11:17', '/index.php?logout'),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'cgj0s63tdridqq0sb73k6cn340nvooho', 'cgj0s63tdridqq0sb73k6cn340nvooho', '2023-06-28 15:48:28', '/index.php?users'),
+(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, 'v7f49fc47e1ml0ecn4a3g6pgveqiobr4', 'v7f49fc47e1ml0ecn4a3g6pgveqiobr4', '2023-07-07 12:04:07', '/index.php?application'),
 (3, 'Брестская городская поликлиника №1', 'brestgp1', 'ddd415ac66e91cf20c63792ffe88eb70', 3, NULL, NULL, NULL, NULL),
 (4, 'Брестская городская поликлиника №2', 'brestgp2', '8bc25d7d934f31bca3a27442355caade', 3, NULL, NULL, NULL, NULL),
 (5, 'Брестская городская поликлиника №3', 'brestgp3', 'dab4e30dcda1b14af1e11730e7597579', 3, NULL, NULL, NULL, NULL),
@@ -304,7 +660,7 @@ INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `onl
 (161, 'Могилёвская поликлиника № 9', 'mogp9', '539e58c857080de06853d18db0b38e06', 3, NULL, NULL, NULL, NULL),
 (162, 'Могилёвская поликлиника № 10', 'mogp10', 'bc7ee77c8e31bf55c24f02abd3e32fc9', 3, NULL, NULL, NULL, NULL),
 (163, 'Могилёвская поликлиника № 11', 'mogp11', '271a367f3b83e17c75f1365f3e57a697', 3, NULL, NULL, NULL, NULL),
-(164, 'Могилёвская поликлиника № 12', 'mogp12', '31c3e7c375d4b11841e11d1fe3e224c8', 3, NULL, NULL, NULL, NULL),
+(164, 'Могилёвская поликлиника № 12', 'mogp12', '31c3e7c375d4b11841e11d1fe3e224c8', 3, '0', 'dhsoakom76qva8of8ug4jnu1jmnr8mla', '2023-06-29 12:06:00', '/index.php?logout'),
 (165, 'Могилёвская детская поликлиника', 'mogdp', 'e0979a51dd440eef0cb52a6df30c3b0e', 3, NULL, NULL, NULL, NULL),
 (166, 'Могилёвская детская поликлиника № 1', 'mogdp1', '19c6645444fffadcbcb83b1b8524fc81', 3, NULL, NULL, NULL, NULL),
 (167, 'Могилёвская детская поликлиника № 2', 'mogdp2', '2495cdf58a095b31c3f376e9663017c4', 3, NULL, NULL, NULL, NULL),
@@ -333,7 +689,8 @@ INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `onl
 --
 ALTER TABLE `applications`
   ADD PRIMARY KEY (`id_application`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_status` (`id_status`);
 
 --
 -- Индексы таблицы `cells`
@@ -351,16 +708,59 @@ ALTER TABLE `columns`
   ADD PRIMARY KEY (`id_column`);
 
 --
+-- Индексы таблицы `conditions`
+--
+ALTER TABLE `conditions`
+  ADD PRIMARY KEY (`conditions_id`);
+
+--
 -- Индексы таблицы `criteria`
 --
 ALTER TABLE `criteria`
-  ADD PRIMARY KEY (`id_criteria`);
+  ADD PRIMARY KEY (`id_criteria`),
+  ADD KEY `conditions_id` (`conditions_id`);
+
+--
+-- Индексы таблицы `mark`
+--
+ALTER TABLE `mark`
+  ADD PRIMARY KEY (`id_mark`),
+  ADD KEY `id_criteria` (`id_criteria`);
+
+--
+-- Индексы таблицы `mark_rating`
+--
+ALTER TABLE `mark_rating`
+  ADD PRIMARY KEY (`id_mark_rating`),
+  ADD KEY `id_mark` (`id_mark`),
+  ADD KEY `id_subvision` (`id_subvision`);
+
+--
+-- Индексы таблицы `rating_criteria`
+--
+ALTER TABLE `rating_criteria`
+  ADD PRIMARY KEY (`id_rating_criteria`),
+  ADD KEY `id_criteria` (`id_criteria`),
+  ADD KEY `id_subvision` (`id_subvision`);
 
 --
 -- Индексы таблицы `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id_role`);
+
+--
+-- Индексы таблицы `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id_status`);
+
+--
+-- Индексы таблицы `subvision`
+--
+ALTER TABLE `subvision`
+  ADD PRIMARY KEY (`id_subvision`),
+  ADD KEY `id_application` (`id_application`);
 
 --
 -- Индексы таблицы `users`
@@ -377,7 +777,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT для таблицы `cells`
@@ -392,16 +792,52 @@ ALTER TABLE `columns`
   MODIFY `id_column` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT для таблицы `conditions`
+--
+ALTER TABLE `conditions`
+  MODIFY `conditions_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT для таблицы `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `id_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT для таблицы `mark`
+--
+ALTER TABLE `mark`
+  MODIFY `id_mark` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT для таблицы `mark_rating`
+--
+ALTER TABLE `mark_rating`
+  MODIFY `id_mark_rating` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT для таблицы `rating_criteria`
+--
+ALTER TABLE `rating_criteria`
+  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id_role` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `status`
+--
+ALTER TABLE `status`
+  MODIFY `id_status` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `subvision`
+--
+ALTER TABLE `subvision`
+  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -417,7 +853,8 @@ ALTER TABLE `users`
 -- Ограничения внешнего ключа таблицы `applications`
 --
 ALTER TABLE `applications`
-  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `cells`
@@ -426,6 +863,38 @@ ALTER TABLE `cells`
   ADD CONSTRAINT `cells_ibfk_1` FOREIGN KEY (`id_application`) REFERENCES `applications` (`id_application`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `cells_ibfk_2` FOREIGN KEY (`id_column`) REFERENCES `columns` (`id_column`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `cells_ibfk_3` FOREIGN KEY (`id_criteria`) REFERENCES `criteria` (`id_criteria`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Ограничения внешнего ключа таблицы `criteria`
+--
+ALTER TABLE `criteria`
+  ADD CONSTRAINT `criteria_ibfk_1` FOREIGN KEY (`conditions_id`) REFERENCES `conditions` (`conditions_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Ограничения внешнего ключа таблицы `mark`
+--
+ALTER TABLE `mark`
+  ADD CONSTRAINT `mark_ibfk_1` FOREIGN KEY (`id_criteria`) REFERENCES `criteria` (`id_criteria`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Ограничения внешнего ключа таблицы `mark_rating`
+--
+ALTER TABLE `mark_rating`
+  ADD CONSTRAINT `mark_rating_ibfk_1` FOREIGN KEY (`id_mark`) REFERENCES `mark` (`id_mark`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `mark_rating_ibfk_2` FOREIGN KEY (`id_subvision`) REFERENCES `subvision` (`id_subvision`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+--
+-- Ограничения внешнего ключа таблицы `rating_criteria`
+--
+ALTER TABLE `rating_criteria`
+  ADD CONSTRAINT `rating_criteria_ibfk_1` FOREIGN KEY (`id_criteria`) REFERENCES `criteria` (`id_criteria`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `rating_criteria_ibfk_2` FOREIGN KEY (`id_subvision`) REFERENCES `subvision` (`id_subvision`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+--
+-- Ограничения внешнего ключа таблицы `subvision`
+--
+ALTER TABLE `subvision`
+  ADD CONSTRAINT `subvision_ibfk_1` FOREIGN KEY (`id_application`) REFERENCES `applications` (`id_application`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `users`
