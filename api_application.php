@@ -56,7 +56,9 @@
               <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
 <?php
 $login = $_COOKIE['login'];
-$query = "SELECT * FROM applications, users WHERE login='$login' and users.id_user = applications.id_user";
+$query = "SELECT * FROM applications a
+    left outer join users u on u.id_user = a.id_user
+    WHERE login='$login' and  id_status=6";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 if (mysqli_num_rows($rez) == 0) //если нашлась одна строка, значит такой юзер существует в базе данных
@@ -157,7 +159,9 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                   $username = $row['username'];
                               }
 
-                              $query = "SELECT * FROM applications where id_user='$id' and id_status = 1";
+                              $query = "SELECT a.*, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3 FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               where id_user='$id' and id_status = 1";
                               $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                               for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                               ?>
@@ -177,8 +181,26 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
                                           <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
 
+                                              <?php
+                                              $str_CalcSelfMark = "";
 
-                                              <td>Заявление <?= $username ?></td>
+                                              if(!$app['otmetka_all'] == false){
+                                                  $str_CalcSelfMark = $str_CalcSelfMark . 'Количественная оценка =' . ($app['otmetka_all']).'%';
+                                              }
+                                              if(!$app['otmetka_class_1'] == false){
+                                                  $str_CalcSelfMark .= ' По 1 классу =' . ($app['otmetka_class_1']).'%';
+                                              }
+                                              if(!$app['otmetka_class_2'] == false){
+                                                  $str_CalcSelfMark .=  ' По 2 классу =' . ($app['otmetka_class_2']).'%';
+                                              }
+                                              if(!$app['otmetka_class_3'] == false){
+                                                  $str_CalcSelfMark .=  ' По 3 классу =' . ($app['otmetka_class_3']).'%';
+                                              }
+
+
+                                              ?>
+
+                                              <td>Заявление <?= $username ?>  <?= $str_CalcSelfMark ?></td>
 
 
                                           </tr>

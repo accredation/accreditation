@@ -546,7 +546,7 @@ function getTabs(name, id_sub){
     aRollUp.id = "rollUp";
     let iconRollUp = document.createElement("i");
     iconRollUp.className = "mdi mdi-view-dashboard";
-
+    cardLeft.style = "display: none";
     aRollUp.appendChild(iconRollUp);
     divRollUp.appendChild(aRollUp);
     cardLeft.appendChild(divRollUp);
@@ -566,11 +566,11 @@ function getTabs(name, id_sub){
     let col12_2 = document.createElement("div");
     col12_2.className = "col-12";
 
-    let btnDelete = document.createElement("button");
-    btnDelete.innerHTML = "Удалить подразделение";
-    btnDelete.setAttribute("onclick", "deleteTab('"+ id_sub +"')");
-    btnDelete.style = "margin-bottom: 15px";
-    tabPane.appendChild(btnDelete);
+    // let btnDelete = document.createElement("button");
+    // btnDelete.innerHTML = "Удалить подразделение";
+    // btnDelete.setAttribute("onclick", "deleteTab('"+ id_sub +"')");
+    // btnDelete.style = "margin-bottom: 15px";
+    // tabPane.appendChild(btnDelete);
 
 
     col12_1.style = "display: flex";
@@ -591,10 +591,10 @@ function getTabs(name, id_sub){
     tabPane.appendChild(row1);
 
 
-    let btnSave = document.createElement("button");
-    btnSave.innerHTML = "Сохранить информацию о подразделении";
-    btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
-    tabPane.appendChild(btnSave);
+    // let btnSave = document.createElement("button");
+    // btnSave.innerHTML = "Сохранить информацию о подразделении";
+    // btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
+    // tabPane.appendChild(btnSave);
 
     tabContent.appendChild(tabPane);
 }
@@ -678,7 +678,7 @@ function getMainTab(name, id_sub){
     cardRight.id = "cardRight";
     cardRight.style = "margin-left: 15px;";
     cardRight.innerHTML = "главная";
-
+    cardLeft.style = "display: none";
     row2.appendChild(col12_2);
     container.appendChild(row2);
     cardBody.appendChild(container);
@@ -688,10 +688,10 @@ function getMainTab(name, id_sub){
     row1.appendChild(col12_1);
     tabPane.appendChild(row1);
 
-    let btnSave = document.createElement("button");
-    btnSave.innerHTML = "Сохранить информацию о подразделении";
-    btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
-    tabPane.appendChild(btnSave);
+    // let btnSave = document.createElement("button");
+    // btnSave.innerHTML = "Сохранить информацию о подразделении";
+    // btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
+    // tabPane.appendChild(btnSave);
 
     tabContent.appendChild(tabPane);
 }
@@ -1125,10 +1125,9 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 td4.style = "border: 1px solid black";
                 let input4 = document.createElement("textarea");
                 input4.setAttribute("rows","3");
-                if (status == 1) {
-                } else {
+
                     input4.setAttribute("readonly","");
-                }
+
                 input4.style = "width:100%";
                 input4.value = item['field5'];
 
@@ -1139,10 +1138,9 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td5 = document.createElement('td');
                 td5.style = "border: 1px solid black";
                 let input5 = document.createElement("textarea");
-                if (status == 1) {
-                } else {
+
                     input5.setAttribute("readonly","");
-                }
+
                 input5.style = "width:100%";
                 input5.setAttribute("rows","3");
                 input5.value = item['field6'];
@@ -1168,10 +1166,10 @@ function collapseTable(id_criteria, divCardBody,id_sub){
         });
     divCardBody.appendChild(table);
 
-    let bunt = document.createElement('button');
-    bunt.onclick=() => saveMarks(id_sub);
-    bunt.innerHTML='Сохранить таблицу по критерию';
-    divCardBody.appendChild(bunt);
+    // let bunt = document.createElement('button');
+    // bunt.onclick=() => saveMarks(id_sub);
+    // bunt.innerHTML='Сохранить таблицу по критерию';
+    // divCardBody.appendChild(bunt);
   //  return marks_app;
 }
 
@@ -1205,10 +1203,9 @@ let arr;
         newSelect.selectedIndex = Number(value);
     }
 
-    if (status == 1) {
-    } else {
+
         newSelect.setAttribute("disabled","");
-    }
+
 
     nameColumn.appendChild(newSelect);
 }
@@ -1361,19 +1358,51 @@ $("#neodobrennie-tab").on("click", () => {
 
 });
 
-$("#btnSend").on("click", () => {
+$("#btnChecking").on("click", () => {
     let id_application = document.getElementById("id_application");
 
     $.ajax({
-        url: "sendApp.php",
+        url: "changeStatusChecking.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
         .done(function( response ) {
 
-                alert("Заявление отправлено");
-                location.href = "/index.php?application";
+            alert("Заявка проверяется");
+            location.href = "/index.php?users";
+        });
+
+});
+
+$("#btnOk").on("click", () => {
+    let id_application = document.getElementById("id_application");
+
+    $.ajax({
+        url: "changeStatusOk.php",
+        method: "GET",
+        data: {id_application: id_application.innerText}
+    })
+        .done(function( response ) {
+
+                alert("Заявка принята");
+                location.href = "/index.php?users";
             });
+
+});
+
+$("#btnNeOk").on("click", () => {
+    let id_application = document.getElementById("id_application");
+
+    $.ajax({
+        url: "changeStatusNeOk.php",
+        method: "GET",
+        data: {id_application: id_application.innerText}
+    })
+        .done(function( response ) {
+
+            alert("Заявка отклонена");
+            location.href = "/index.php?users";
+        });
 
 });
 
@@ -1386,7 +1415,7 @@ $("#btnCalc").on("click", () => {
         data: {id_application: id_application.innerText}
     })
         .done(function( response ) {
-            location.href = "/index.php?application";
+            location.href = "/index.php?users";
         });
 });
 

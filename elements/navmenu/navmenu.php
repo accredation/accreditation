@@ -34,7 +34,7 @@
               <li class="nav-item" id="nav5">
                   <a class="nav-link" href="/index.php?users" >
                       <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-                      <span class="menu-title">Пользователи</span>
+                      <span class="menu-title">Заявки</span>
                   </a>
               </li>
               <?php
