@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 07 2023 г., 12:10
+-- Время создания: Июл 07 2023 г., 16:45
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -25,27 +25,217 @@ DELIMITER $$
 --
 -- Процедуры
 --
-CREATE DEFINER=`root`@`%` PROCEDURE `count_mark_cursor` (IN `id_app` INTEGER)   BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `cursor_for_application` (IN `id_app` INT)   BEGIN
 
-DECLARE is_done integer default 0;
-DECLARE id_sub_temp integer default 0;
+delete
+from report_application_mark
+where id_application= id_app;
 
-DECLARE mark_cursor CURSOR FOR
-SELECT id_subvision from subvision where id_application=id_app;
+delete
+from report_subvision_mark
+where id_application= id_app;
 
-DECLARE CONTINUE HANDLER FOR NOT FOUND SET is_done = 1;
-OPEN mark_cursor;
+delete
+from report_criteria_mark
+where id_application= id_app;
 
-get_Sub: LOOP
-FETCH mark_cursor INTO id_sub_temp;
-IF is_done = 1 THEN 
-LEAVE get_Sub;
+CREATE TEMPORARY table temp_criteria (id_sub int, mark_class int, id_criteria int, id_mark int, field4 int);
+
+insert into temp_criteria (id_sub , mark_class , id_criteria , id_mark , field4)
+SELECT sub.id_subvision, case when m.mark_class is null then 0 else m.mark_class end, rc.id_criteria, m.id_mark,
+case when mr.field4 is null then 0 else mr.field4 end
+FROM `subvision` sub
+left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
+left outer join mark m on rc.id_criteria=m.id_criteria
+left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
+WHERE sub.id_application= id_app;
+
+
+set @all_mark = (select count(*)
+from temp_criteria);
+
+set @all_mark_3 = ( select count(*)
+from temp_criteria
+where field4 =3);
+
+set  @all_mark_1 =( select count(*)
+from temp_criteria
+where field4 =1);
+
+set @otmetka_all =  (@all_mark_1/(@all_mark-@all_mark_3))*100;
+
+set @all_mark_class_1 = (select  count(*)
+from temp_criteria
+where mark_class=1);
+
+
+set @all_mark_3_class_1=(select count(*)
+from temp_criteria
+where field4 =3 and  mark_class=1);
+
+set @all_mark_1_class_1 =(select  count(*)
+from temp_criteria
+where field4 =1 and  mark_class=1);
+
+set @otmetka_all_class_1 = (@all_mark_1_class_1/(@all_mark_class_1-@all_mark_3_class_1))*100;
+
+
+set @all_mark_class_2 = (select  count(*)
+from temp_criteria
+where mark_class=2);
+
+
+set @all_mark_3_class_2 = (select count(*)
+from temp_criteria
+where field4 =3 and  mark_class=2);
+
+set @all_mark_1_class_2 = (select count(*) 
+from temp_criteria
+where field4 =1 and  mark_class=2);
+
+set @otmetka_all_class_2 = (@all_mark_1_class_2/(@all_mark_class_2-@all_mark_3_class_2))*100;
+
+set @all_mark_class_3 = (select count(*)
+from temp_criteria
+where mark_class=3);
+
+
+set @all_mark_3_class_3 =(select  count(*)
+from temp_criteria
+where field4 =3 and  mark_class=3);
+
+set @all_mark_1_class_3= (select  count(*)
+from temp_criteria
+where field4 =1 and  mark_class=3);
+
+set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
+
+INSERT INTO report_application_mark(id_application, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
+VALUES(id_app,  IFNULL(@otmetka_all,0), IFNULL(@otmetka_all_class_1,0), IFNULL(@otmetka_all_class_2,0), IFNULL(@otmetka_all_class_3,0));
+
+DROP TEMPORARY TABLE temp_criteria;
+
+call cursor_for_subvision(id_app);
+
+END$$
+
+CREATE DEFINER=`root`@`%` PROCEDURE `cursor_for_criteria` (IN `id_app` INT, IN `id_sub` INT)   BEGIN
+DECLARE is_done_criteria integer default 0;
+DECLARE id_criteria_temp integer default 0;
+
+DECLARE criteria_cursor CURSOR FOR
+SELECT DISTINCT rc.id_criteria
+FROM rating_criteria rc
+WHERE rc.id_subvision=id_sub;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET is_done_criteria = 1;
+OPEN criteria_cursor;
+
+get_Criteria: LOOP
+FETCH criteria_cursor INTO id_criteria_temp;
+IF is_done_criteria = 1 THEN 
+LEAVE get_Criteria;
 END IF;
 
-INSERT INTO report_mark(id_subvision, id_application) VALUES(id_sub_temp, id_app);
 
-END LOOP get_Sub;
-CLOSE mark_cursor;
+CREATE TEMPORARY table temp_criteria_sub (id_sub int, mark_class int, id_criteria int, id_mark int, field4 int);
+
+
+insert into temp_criteria_sub (id_sub , mark_class , id_criteria , id_mark , field4)
+SELECT sub.id_subvision, case when m.mark_class is null then 0 else m.mark_class end, rc.id_criteria, m.id_mark,
+case when mr.field4 is null then 0 else mr.field4 end
+FROM `subvision` sub
+left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
+left outer join mark m on rc.id_criteria=m.id_criteria
+left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
+WHERE sub.id_subvision= id_sub and 
+m.id_criteria=id_criteria_temp;
+
+set @all_mark = 0;
+set @all_mark_3 = 0;
+set  @all_mark_1 =0;
+set @otmetka_all =0;
+
+set @all_mark_class_1 = 0;
+set @all_mark_3_class_1= 0;
+set  @all_mark_1_class_1 =0;
+set @otmetka_all_class_1 =0;
+
+set @all_mark_class_2 = 0;
+set @all_mark_3_class_2 = 0;
+set  @all_mark_1_class_2 =0;
+set @otmetka_all_class_2=0;
+
+set @all_mark_class_3 = 0;
+set @all_mark_3_class_3 = 0;
+set  @all_mark_1_class_3 =0;
+set @otmetka_all_class_3=0;
+
+set @all_mark = (select count(*)
+from temp_criteria_sub);
+
+set @all_mark_3 = ( select count(*)
+from temp_criteria_sub
+where field4 =3);
+
+set  @all_mark_1 =( select count(*)
+from temp_criteria_sub
+where field4 =1);
+
+set @otmetka_all =  (@all_mark_1/(@all_mark-@all_mark_3))*100;
+
+set @all_mark_class_1 = (select  count(*)
+from temp_criteria_sub
+where mark_class=1);
+
+
+set @all_mark_3_class_1=(select count(*)
+from temp_criteria_sub
+where field4 =3 and  mark_class=1);
+
+set @all_mark_1_class_1 =(select  count(*)
+from temp_criteria_sub
+where field4 =1 and  mark_class=1);
+
+set @otmetka_all_class_1 = (@all_mark_1_class_1/(@all_mark_class_1-@all_mark_3_class_1))*100;
+
+set @all_mark_class_2 = (select  count(*)
+from temp_criteria_sub
+where mark_class=2);
+
+
+set @all_mark_3_class_2 = (select count(*)
+from temp_criteria_sub
+where field4 =3 and  mark_class=2);
+
+set @all_mark_1_class_2 = (select count(*) 
+from temp_criteria_sub
+where field4 =1 and  mark_class=2);
+
+set @otmetka_all_class_2 = (@all_mark_1_class_2/(@all_mark_class_2-@all_mark_3_class_2))*100;
+
+set @all_mark_class_3 = (select count(*)
+from temp_criteria_sub
+where mark_class=3);
+
+
+set @all_mark_3_class_3 =(select  count(*)
+from temp_criteria_sub
+where field4 =3 and  mark_class=3);
+
+set @all_mark_1_class_3= (select  count(*)
+from temp_criteria_sub
+where field4 =1 and  mark_class=3);
+
+set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
+
+INSERT INTO report_criteria_mark(id_application, id_subvision, id_criteria, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
+VALUES(id_app, id_sub, id_criteria_temp, IFNULL(@otmetka_all,0), IFNULL(@otmetka_all_class_1,0), IFNULL(@otmetka_all_class_2,0), IFNULL(@otmetka_all_class_3,0));
+
+DROP TEMPORARY TABLE temp_criteria_sub;
+
+END LOOP get_Criteria;
+CLOSE criteria_cursor;
 
 END$$
 
@@ -71,12 +261,34 @@ END IF;
 CREATE TEMPORARY table temp_mark_sub (id_sub int, mark_class int, id_criteria int, id_mark int, field4 int);
 
 insert into temp_mark_sub (id_sub , mark_class , id_criteria , id_mark , field4)
-SELECT sub.id_subvision, m.mark_class, m.id_criteria, m.id_mark, mr.field4
+SELECT sub.id_subvision, case when m.mark_class is null then 0 else m.mark_class end, rc.id_criteria, m.id_mark,
+case when mr.field4 is null then 0 else mr.field4 end
 FROM `subvision` sub
-left outer join mark_rating mr on sub.id_subvision=mr.id_subvision
-left outer join mark m on mr.id_mark=m.id_mark
+left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
+left outer join mark m on rc.id_criteria=m.id_criteria
+left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
 WHERE sub.id_subvision= id_sub_temp;
 
+
+set @all_mark = 0;
+set @all_mark_3 = 0;
+set  @all_mark_1 =0;
+set @otmetka_all =0;
+
+set @all_mark_class_1 = 0;
+set @all_mark_3_class_1= 0;
+set  @all_mark_1_class_1 =0;
+set @otmetka_all_class_1 =0;
+
+set @all_mark_class_2 = 0;
+set @all_mark_3_class_2 = 0;
+set  @all_mark_1_class_2 =0;
+set @otmetka_all_class_2=0;
+
+set @all_mark_class_3 = 0;
+set @all_mark_3_class_3 = 0;
+set  @all_mark_1_class_3 =0;
+set @otmetka_all_class_3=0;
 
 set @all_mark = (select count(*)
 from temp_mark_sub);
@@ -143,7 +355,9 @@ where field4 =1 and  mark_class=3);
 set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
 
 INSERT INTO report_subvision_mark(id_application, id_subvision, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
-VALUES(id_app, id_sub_temp, @otmetka_all, @otmetka_all_class_1, @otmetka_all_class_2, @otmetka_all_class_3);
+VALUES(id_app, id_sub_temp, IFNULL(@otmetka_all,0), IFNULL(@otmetka_all_class_1,0), IFNULL(@otmetka_all_class_2,0), IFNULL(@otmetka_all_class_3,0));
+
+call cursor_for_criteria(id_app, id_sub_temp);
 
 DROP TEMPORARY TABLE temp_mark_sub;
 
@@ -161,17 +375,17 @@ DELIMITER ;
 
 CREATE TABLE `applications` (
   `id_application` int NOT NULL,
-  `naim` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `sokr_naim` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `unp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ur_adress` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tel` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `naim` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sokr_naim` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `unp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ur_adress` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tel` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `rukovoditel` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `predstavitel` text COLLATE utf8mb4_general_ci,
-  `soprovod_pismo` text COLLATE utf8mb4_general_ci,
-  `copy_rasp` text COLLATE utf8mb4_general_ci,
-  `org_structure` text COLLATE utf8mb4_general_ci,
+  `predstavitel` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `soprovod_pismo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `copy_rasp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `org_structure` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `id_user` int NOT NULL,
   `id_status` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -181,7 +395,7 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `id_user`, `id_status`) VALUES
-(35, '1', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 1);
+(35, '1', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -193,7 +407,7 @@ CREATE TABLE `cells` (
   `id_cell` int NOT NULL,
   `id_criteria` int NOT NULL,
   `id_column` int NOT NULL,
-  `cell` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `cell` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `id_application` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -205,7 +419,7 @@ CREATE TABLE `cells` (
 
 CREATE TABLE `columns` (
   `id_column` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -216,7 +430,7 @@ CREATE TABLE `columns` (
 
 CREATE TABLE `conditions` (
   `conditions_id` int NOT NULL,
-  `conditions` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `conditions` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -235,7 +449,7 @@ INSERT INTO `conditions` (`conditions_id`, `conditions`) VALUES
 
 CREATE TABLE `criteria` (
   `id_criteria` int NOT NULL,
-  `name` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `type_criteria` int NOT NULL COMMENT '1 - общий 2 - по видам оказания 3 - вспомогательные подразделения',
   `conditions_id` int DEFAULT NULL COMMENT '1-амбулаторно 2 - стационарно'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -276,7 +490,7 @@ INSERT INTO `criteria` (`id_criteria`, `name`, `type_criteria`, `conditions_id`)
 
 CREATE TABLE `mark` (
   `id_mark` int NOT NULL,
-  `mark_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `mark_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `mark_class` int NOT NULL,
   `id_criteria` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -296,7 +510,8 @@ INSERT INTO `mark` (`id_mark`, `mark_name`, `mark_class`, `id_criteria`) VALUES
 (8, 'критерий 3', 2, 4),
 (9, 'критерий 4', 2, 4),
 (10, 'критерий 5', 3, 4),
-(11, 'критерий 6', 3, 4);
+(11, 'критерий 6', 3, 4),
+(12, 'test id_mark=5', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -308,10 +523,10 @@ CREATE TABLE `mark_rating` (
   `id_mark_rating` int NOT NULL,
   `id_mark` int NOT NULL,
   `field4` int DEFAULT NULL COMMENT '1 - да 2 - нет 3 - не требуется',
-  `field5` text COLLATE utf8mb4_general_ci,
-  `field6` text COLLATE utf8mb4_general_ci,
+  `field5` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `field6` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `field7` int DEFAULT NULL COMMENT '1 - да 2 - нет 3 - не требуется',
-  `field8` text COLLATE utf8mb4_general_ci,
+  `field8` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `id_subvision` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -332,9 +547,9 @@ INSERT INTO `mark_rating` (`id_mark_rating`, `id_mark`, `field4`, `field5`, `fie
 (10, 10, 0, '11', '11', NULL, NULL, 6),
 (11, 11, 0, 'r', '', NULL, NULL, 6),
 (22, 1, 3, '1', '1', NULL, NULL, 49),
-(23, 2, 2, '2', '12', NULL, NULL, 49),
-(24, 3, 1, '5', '', NULL, NULL, 49),
-(25, 4, 0, '', '', NULL, NULL, 49),
+(23, 2, 1, '2', '12', NULL, NULL, 49),
+(24, 3, 2, '5', 'jk', NULL, NULL, 49),
+(25, 4, 1, '', '', NULL, NULL, 49),
 (26, 5, 0, '', '', NULL, NULL, 49),
 (27, 6, 0, '2', '2', NULL, NULL, 49),
 (28, 7, 0, '0', '0', NULL, NULL, 49),
@@ -373,21 +588,53 @@ INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteri
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `report_mark`
+-- Структура таблицы `report_application_mark`
 --
 
-CREATE TABLE `report_mark` (
-  `id_subvision` int NOT NULL,
-  `id_application` int NOT NULL
+CREATE TABLE `report_application_mark` (
+  `id_application` int NOT NULL,
+  `otmetka_all` int NOT NULL,
+  `otmetka_class_1` int NOT NULL,
+  `otmetka_class_2` int NOT NULL,
+  `otmetka_class_3` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп данных таблицы `report_mark`
+-- Дамп данных таблицы `report_application_mark`
 --
 
-INSERT INTO `report_mark` (`id_subvision`, `id_application`) VALUES
-(6, 35),
-(49, 35);
+INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`) VALUES
+(35, 40, 43, 67, 25);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `report_criteria_mark`
+--
+
+CREATE TABLE `report_criteria_mark` (
+  `id_application` int NOT NULL,
+  `id_subvision` int NOT NULL,
+  `id_criteria` int NOT NULL,
+  `otmetka_all` int NOT NULL,
+  `otmetka_class_1` int NOT NULL,
+  `otmetka_class_2` int NOT NULL,
+  `otmetka_class_3` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `report_criteria_mark`
+--
+
+INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criteria`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`) VALUES
+(35, 6, 3, 100, 100, 100, 100),
+(35, 6, 4, 0, 0, 0, 0),
+(35, 6, 5, 0, 0, 0, 0),
+(35, 6, 24, 0, 0, 0, 0),
+(35, 49, 3, 75, 100, 100, 0),
+(35, 49, 5, 0, 0, 0, 0),
+(35, 49, 11, 0, 0, 0, 0),
+(35, 49, 20, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -409,8 +656,8 @@ CREATE TABLE `report_subvision_mark` (
 --
 
 INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`) VALUES
-(35, 6, 45, 50, 50, 33),
-(35, 49, 10, 33, 0, 0);
+(35, 6, 38, 40, 50, 33),
+(35, 49, 43, 50, 100, 0);
 
 -- --------------------------------------------------------
 
@@ -420,7 +667,7 @@ INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_
 
 CREATE TABLE `roles` (
   `id_role` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -440,7 +687,7 @@ INSERT INTO `roles` (`id_role`, `name`) VALUES
 
 CREATE TABLE `status` (
   `id_status` int NOT NULL,
-  `name_status` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `name_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -462,7 +709,7 @@ INSERT INTO `status` (`id_status`, `name_status`) VALUES
 
 CREATE TABLE `subvision` (
   `id_subvision` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_application` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -482,14 +729,14 @@ INSERT INTO `subvision` (`id_subvision`, `name`, `id_application`) VALUES
 
 CREATE TABLE `users` (
   `id_user` int NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `login` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_role` int NOT NULL,
-  `online` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `last_act` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `last_time_online` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `last_page` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `online` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_act` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_time_online` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_page` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -497,8 +744,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'cgj0s63tdridqq0sb73k6cn340nvooho', 'cgj0s63tdridqq0sb73k6cn340nvooho', '2023-06-28 15:48:28', '/index.php?users'),
-(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, 'v7f49fc47e1ml0ecn4a3g6pgveqiobr4', 'v7f49fc47e1ml0ecn4a3g6pgveqiobr4', '2023-07-07 12:04:07', '/index.php?application'),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'a8v68k2lrk07g2s7kr4245bv1kn93dk6', 'a8v68k2lrk07g2s7kr4245bv1kn93dk6', '2023-07-07 16:42:17', '/index.php?users'),
+(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', '2023-07-07 16:44:36', '/index.php?application'),
 (3, 'Брестская городская поликлиника №1', 'brestgp1', 'ddd415ac66e91cf20c63792ffe88eb70', 3, NULL, NULL, NULL, NULL),
 (4, 'Брестская городская поликлиника №2', 'brestgp2', '8bc25d7d934f31bca3a27442355caade', 3, NULL, NULL, NULL, NULL),
 (5, 'Брестская городская поликлиника №3', 'brestgp3', 'dab4e30dcda1b14af1e11730e7597579', 3, NULL, NULL, NULL, NULL),
@@ -807,7 +1054,7 @@ ALTER TABLE `criteria`
 -- AUTO_INCREMENT для таблицы `mark`
 --
 ALTER TABLE `mark`
-  MODIFY `id_mark` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_mark` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `mark_rating`
