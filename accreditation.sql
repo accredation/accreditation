@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 07 2023 г., 16:45
+-- Время создания: Июл 10 2023 г., 17:52
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -119,6 +119,100 @@ call cursor_for_subvision(id_app);
 
 END$$
 
+CREATE DEFINER=`root`@`%` PROCEDURE `cursor_for_application_acred` (IN `id_app` INT)   BEGIN
+
+
+CREATE TEMPORARY table temp_criteria (id_sub int, mark_class int, id_criteria int, id_mark int, field7 int, field4 int);
+
+insert into temp_criteria (id_sub , mark_class , id_criteria , id_mark , field7, field4)
+SELECT sub.id_subvision, case when m.mark_class is null then 0 else m.mark_class end, rc.id_criteria, m.id_mark,
+case when mr.field7 is null then 0 else mr.field7 end,
+case when mr.field4 is null then 0 else mr.field4 end
+FROM `subvision` sub
+left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
+left outer join mark m on rc.id_criteria=m.id_criteria
+left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
+WHERE sub.id_application= id_app;
+
+
+set @all_mark = (select count(*)
+from temp_criteria);
+
+set @all_mark_3 = ( select count(*)
+from temp_criteria
+where field7 =3);
+
+set  @all_mark_1 =( select count(*)
+from temp_criteria
+where field7 =1);
+
+set @mark_verif = (select count(*)
+from temp_criteria
+where field7<>field4
+);
+
+set @otmetka_verif =  (@mark_verif /(@all_mark-@all_mark_3))*100;
+
+set @otmetka_all =  (@all_mark_1/(@all_mark-@all_mark_3))*100;
+
+set @all_mark_class_1 = (select  count(*)
+from temp_criteria
+where mark_class=1);
+
+
+set @all_mark_3_class_1=(select count(*)
+from temp_criteria
+where field7 =3 and  mark_class=1);
+
+set @all_mark_1_class_1 =(select  count(*)
+from temp_criteria
+where field7 =1 and  mark_class=1);
+
+set @otmetka_all_class_1 = (@all_mark_1_class_1/(@all_mark_class_1-@all_mark_3_class_1))*100;
+
+
+set @all_mark_class_2 = (select  count(*)
+from temp_criteria
+where mark_class=2);
+
+
+set @all_mark_3_class_2 = (select count(*)
+from temp_criteria
+where field7 =3 and  mark_class=2);
+
+set @all_mark_1_class_2 = (select count(*) 
+from temp_criteria
+where field7 =1 and  mark_class=2);
+
+set @otmetka_all_class_2 = (@all_mark_1_class_2/(@all_mark_class_2-@all_mark_3_class_2))*100;
+
+set @all_mark_class_3 = (select count(*)
+from temp_criteria
+where mark_class=3);
+
+
+set @all_mark_3_class_3 =(select  count(*)
+from temp_criteria
+where field7 =3 and  mark_class=3);
+
+set @all_mark_1_class_3= (select  count(*)
+from temp_criteria
+where field7 =1 and  mark_class=3);
+
+set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
+
+update report_application_mark
+set otmetka_accred_all = IFNULL(@otmetka_all,0), 
+otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0),
+otmetka_verif=IFNULL(@otmetka_verif,0)
+where id_application=id_app;
+
+DROP TEMPORARY TABLE temp_criteria;
+
+call cursor_for_subvision_acred(id_app);
+
+END$$
+
 CREATE DEFINER=`root`@`%` PROCEDURE `cursor_for_criteria` (IN `id_app` INT, IN `id_sub` INT)   BEGIN
 DECLARE is_done_criteria integer default 0;
 DECLARE id_criteria_temp integer default 0;
@@ -231,6 +325,140 @@ set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_c
 
 INSERT INTO report_criteria_mark(id_application, id_subvision, id_criteria, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
 VALUES(id_app, id_sub, id_criteria_temp, IFNULL(@otmetka_all,0), IFNULL(@otmetka_all_class_1,0), IFNULL(@otmetka_all_class_2,0), IFNULL(@otmetka_all_class_3,0));
+
+DROP TEMPORARY TABLE temp_criteria_sub;
+
+END LOOP get_Criteria;
+CLOSE criteria_cursor;
+
+END$$
+
+CREATE DEFINER=`root`@`%` PROCEDURE `cursor_for_criteria_acred` (IN `id_app` INT, IN `id_sub` INT)   BEGIN
+DECLARE is_done_criteria integer default 0;
+DECLARE id_criteria_temp integer default 0;
+
+DECLARE criteria_cursor CURSOR FOR
+SELECT DISTINCT rc.id_criteria
+FROM rating_criteria rc
+WHERE rc.id_subvision=id_sub;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET is_done_criteria = 1;
+OPEN criteria_cursor;
+
+get_Criteria: LOOP
+FETCH criteria_cursor INTO id_criteria_temp;
+IF is_done_criteria = 1 THEN 
+LEAVE get_Criteria;
+END IF;
+
+
+CREATE TEMPORARY table temp_criteria_sub (id_sub int, mark_class int, id_criteria int, id_mark int, field7 int, field4 int);
+
+
+insert into temp_criteria_sub (id_sub , mark_class , id_criteria , id_mark , field7, field4)
+SELECT sub.id_subvision, case when m.mark_class is null then 0 else m.mark_class end, rc.id_criteria, m.id_mark,
+case when mr.field7 is null then 0 else mr.field7 end,
+case when mr.field4 is null then 0 else mr.field4 end
+FROM `subvision` sub
+left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
+left outer join mark m on rc.id_criteria=m.id_criteria
+left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
+WHERE sub.id_subvision= id_sub and 
+m.id_criteria=id_criteria_temp;
+
+set @all_mark = 0;
+set @all_mark_3 = 0;
+set  @all_mark_1 =0;
+set @otmetka_all =0;
+
+set @mark_verif =0;
+set @otmetka_verif =0;
+
+set @all_mark_class_1 = 0;
+set @all_mark_3_class_1= 0;
+set  @all_mark_1_class_1 =0;
+set @otmetka_all_class_1 =0;
+
+set @all_mark_class_2 = 0;
+set @all_mark_3_class_2 = 0;
+set  @all_mark_1_class_2 =0;
+set @otmetka_all_class_2=0;
+
+set @all_mark_class_3 = 0;
+set @all_mark_3_class_3 = 0;
+set  @all_mark_1_class_3 =0;
+set @otmetka_all_class_3=0;
+
+set @all_mark = (select count(*)
+from temp_criteria_sub);
+
+set @all_mark_3 = ( select count(*)
+from temp_criteria_sub
+where field7 =3);
+
+set  @all_mark_1 =( select count(*)
+from temp_criteria_sub
+where field7 =1);
+
+set @otmetka_all =  (@all_mark_1/(@all_mark-@all_mark_3))*100;
+
+set @mark_verif = (select count(*)
+from temp_criteria_sub 
+where field7<>field4
+);
+
+set @otmetka_verif =  (@mark_verif /(@all_mark-@all_mark_3))*100;
+
+set @all_mark_class_1 = (select  count(*)
+from temp_criteria_sub
+where mark_class=1);
+
+
+set @all_mark_3_class_1=(select count(*)
+from temp_criteria_sub
+where field7 =3 and  mark_class=1);
+
+set @all_mark_1_class_1 =(select  count(*)
+from temp_criteria_sub
+where field7 =1 and  mark_class=1);
+
+set @otmetka_all_class_1 = (@all_mark_1_class_1/(@all_mark_class_1-@all_mark_3_class_1))*100;
+
+set @all_mark_class_2 = (select  count(*)
+from temp_criteria_sub
+where mark_class=2);
+
+
+set @all_mark_3_class_2 = (select count(*)
+from temp_criteria_sub
+where field7 =3 and  mark_class=2);
+
+set @all_mark_1_class_2 = (select count(*) 
+from temp_criteria_sub
+where field7 =1 and  mark_class=2);
+
+set @otmetka_all_class_2 = (@all_mark_1_class_2/(@all_mark_class_2-@all_mark_3_class_2))*100;
+
+set @all_mark_class_3 = (select count(*)
+from temp_criteria_sub
+where mark_class=3);
+
+
+set @all_mark_3_class_3 =(select  count(*)
+from temp_criteria_sub
+where field7 =3 and  mark_class=3);
+
+set @all_mark_1_class_3= (select  count(*)
+from temp_criteria_sub
+where field7 =1 and  mark_class=3);
+
+set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
+
+update report_criteria_mark
+set otmetka_accred_all = IFNULL(@otmetka_all,0), 
+otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0), otmetka_verif =IFNULL(@otmetka_verif ,0)
+where id_application=id_app and id_subvision=id_sub and id_criteria=id_criteria_temp;
+
 
 DROP TEMPORARY TABLE temp_criteria_sub;
 
@@ -365,6 +593,145 @@ END LOOP get_Sub;
 CLOSE mark_cursor;
 END$$
 
+CREATE DEFINER=`root`@`%` PROCEDURE `cursor_for_subvision_acred` (IN `id_app` INT)   BEGIN
+
+DECLARE is_done integer default 0;
+DECLARE id_sub_temp integer default 0;
+
+DECLARE mark_cursor CURSOR FOR
+SELECT id_subvision from subvision where id_application=id_app;
+
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET is_done = 1;
+OPEN mark_cursor;
+
+get_Sub: LOOP
+FETCH mark_cursor INTO id_sub_temp;
+IF is_done = 1 THEN 
+LEAVE get_Sub;
+END IF;
+
+
+CREATE TEMPORARY table temp_mark_sub (id_sub int, mark_class int, id_criteria int, id_mark int, field7 int, field4 int);
+
+insert into temp_mark_sub (id_sub , mark_class , id_criteria , id_mark , field7, field4)
+SELECT sub.id_subvision, case when m.mark_class is null then 0 else m.mark_class end, rc.id_criteria, m.id_mark,
+case when mr.field7 is null then 0 else mr.field7 end,
+case when mr.field4 is null then 0 else mr.field4 end
+FROM `subvision` sub
+left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
+left outer join mark m on rc.id_criteria=m.id_criteria
+left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
+WHERE sub.id_subvision= id_sub_temp;
+
+
+set @all_mark = 0;
+set @all_mark_3 = 0;
+set  @all_mark_1 =0;
+set @otmetka_all =0;
+
+set @mark_verif =0;
+set @otmetka_verif =0;
+
+set @all_mark_class_1 = 0;
+set @all_mark_3_class_1= 0;
+set  @all_mark_1_class_1 =0;
+set @otmetka_all_class_1 =0;
+
+set @all_mark_class_2 = 0;
+set @all_mark_3_class_2 = 0;
+set  @all_mark_1_class_2 =0;
+set @otmetka_all_class_2=0;
+
+set @all_mark_class_3 = 0;
+set @all_mark_3_class_3 = 0;
+set  @all_mark_1_class_3 =0;
+set @otmetka_all_class_3=0;
+
+set @all_mark = (select count(*)
+from temp_mark_sub);
+
+
+set @all_mark_3 = ( select count(*)
+from temp_mark_sub
+where field7 =3);
+
+set  @all_mark_1 =( select count(*)
+from temp_mark_sub
+where field7 =1);
+
+set @otmetka_all =  (@all_mark_1/(@all_mark-@all_mark_3))*100;
+
+
+set @mark_verif = (select count(*)
+from temp_mark_sub
+where field7<>field4
+);
+
+set @otmetka_verif =  (@mark_verif /(@all_mark-@all_mark_3))*100;
+
+
+set @all_mark_class_1 = (select  count(*)
+from temp_mark_sub
+where mark_class=1);
+
+
+set @all_mark_3_class_1=(select count(*)
+from temp_mark_sub
+where field7 =3 and  mark_class=1);
+
+set @all_mark_1_class_1 =(select  count(*)
+from temp_mark_sub
+where field7 =1 and  mark_class=1);
+
+set @otmetka_all_class_1 = (@all_mark_1_class_1/(@all_mark_class_1-@all_mark_3_class_1))*100;
+
+
+set @all_mark_class_2 = (select  count(*)
+from temp_mark_sub
+where mark_class=2);
+
+
+set @all_mark_3_class_2 = (select count(*)
+from temp_mark_sub
+where field7 =3 and  mark_class=2);
+
+set @all_mark_1_class_2 = (select count(*) 
+from temp_mark_sub
+where field7 =1 and  mark_class=2);
+
+set @otmetka_all_class_2 = (@all_mark_1_class_2/(@all_mark_class_2-@all_mark_3_class_2))*100;
+
+set @all_mark_class_3 = (select count(*)
+from temp_mark_sub
+where mark_class=3);
+
+
+set @all_mark_3_class_3 =(select  count(*)
+from temp_mark_sub
+where field7 =3 and  mark_class=3);
+
+set @all_mark_1_class_3= (select  count(*)
+from temp_mark_sub
+where field7 =1 and  mark_class=3);
+
+set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
+
+
+update report_subvision_mark
+set otmetka_accred_all = IFNULL(@otmetka_all,0), 
+otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0), otmetka_verif =IFNULL(@otmetka_verif ,0)
+where id_application=id_app and id_subvision=id_sub_temp;
+
+call cursor_for_criteria_acred(id_app, id_sub_temp);
+
+
+DROP TEMPORARY TABLE temp_mark_sub;
+
+END LOOP get_Sub;
+CLOSE mark_cursor;
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -395,7 +762,7 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `id_user`, `id_status`) VALUES
-(35, '1', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 4);
+(35, '1', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -535,22 +902,22 @@ CREATE TABLE `mark_rating` (
 --
 
 INSERT INTO `mark_rating` (`id_mark_rating`, `id_mark`, `field4`, `field5`, `field6`, `field7`, `field8`, `id_subvision`) VALUES
-(1, 1, 1, 'hfhgfh121', '556667789e', NULL, NULL, 6),
-(2, 2, 1, '1e', 'fff', NULL, NULL, 6),
-(3, 3, 1, '2', 'asdfasdf', NULL, NULL, 6),
-(4, 4, 1, 'g', 'erty', NULL, NULL, 6),
-(5, 5, 1, '1112', '1', NULL, NULL, 6),
+(1, 1, 2, 'hfhgfh121', '556667789e', 1, 'ghj', 6),
+(2, 2, 1, '1e', 'fff', 0, '', 6),
+(3, 3, 1, '2', 'asdfasdf', 0, '', 6),
+(4, 4, 1, 'g', 'erty', 0, '', 6),
+(5, 5, 1, '1112', '1', 0, '', 6),
 (6, 6, 0, 'r1', 'r', NULL, NULL, 6),
 (7, 7, 0, 'r', 'f', NULL, NULL, 6),
 (8, 8, 0, 'r', '551', NULL, NULL, 6),
 (9, 9, 0, '0', '', NULL, NULL, 6),
 (10, 10, 0, '11', '11', NULL, NULL, 6),
 (11, 11, 0, 'r', '', NULL, NULL, 6),
-(22, 1, 3, '1', '1', NULL, NULL, 49),
-(23, 2, 1, '2', '12', NULL, NULL, 49),
-(24, 3, 2, '5', 'jk', NULL, NULL, 49),
-(25, 4, 1, '', '', NULL, NULL, 49),
-(26, 5, 0, '', '', NULL, NULL, 49),
+(22, 1, 3, '1', '1', 1, '', 49),
+(23, 2, 1, '2', '12', 0, '', 49),
+(24, 3, 2, '5', 'jk', 0, '', 49),
+(25, 4, 1, '', '', 0, '', 49),
+(26, 5, 0, '', '', 0, '', 49),
 (27, 6, 0, '2', '2', NULL, NULL, 49),
 (28, 7, 0, '0', '0', NULL, NULL, 49),
 (29, 8, 0, '4', '4', NULL, NULL, 49),
@@ -576,14 +943,14 @@ CREATE TABLE `rating_criteria` (
 --
 
 INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteria`, `value`) VALUES
-(95, 6, 3, 1),
-(96, 6, 4, 1),
-(97, 6, 5, 1),
-(98, 6, 24, 1),
 (102, 49, 3, 1),
 (103, 49, 5, 1),
 (104, 49, 11, 1),
-(105, 49, 20, 1);
+(105, 49, 20, 1),
+(113, 6, 3, 1),
+(114, 6, 4, 1),
+(115, 6, 5, 1),
+(116, 6, 24, 1);
 
 -- --------------------------------------------------------
 
@@ -596,15 +963,20 @@ CREATE TABLE `report_application_mark` (
   `otmetka_all` int NOT NULL,
   `otmetka_class_1` int NOT NULL,
   `otmetka_class_2` int NOT NULL,
-  `otmetka_class_3` int NOT NULL
+  `otmetka_class_3` int NOT NULL,
+  `otmetka_accred_all` int DEFAULT NULL,
+  `otmetka_accred_class_1` int DEFAULT NULL,
+  `otmetka_accred_class_2` int DEFAULT NULL,
+  `otmetka_accred_class_3` int DEFAULT NULL,
+  `otmetka_verif` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `report_application_mark`
 --
 
-INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`) VALUES
-(35, 40, 43, 67, 25);
+INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`, `otmetka_accred_all`, `otmetka_accred_class_1`, `otmetka_accred_class_2`, `otmetka_accred_class_3`, `otmetka_verif`) VALUES
+(35, 30, 14, 67, 25, 10, 25, 0, 0, 43);
 
 -- --------------------------------------------------------
 
@@ -619,22 +991,27 @@ CREATE TABLE `report_criteria_mark` (
   `otmetka_all` int NOT NULL,
   `otmetka_class_1` int NOT NULL,
   `otmetka_class_2` int NOT NULL,
-  `otmetka_class_3` int NOT NULL
+  `otmetka_class_3` int NOT NULL,
+  `otmetka_accred_all` int DEFAULT NULL,
+  `otmetka_accred_class_1` int DEFAULT NULL,
+  `otmetka_accred_class_2` int DEFAULT NULL,
+  `otmetka_accred_class_3` int DEFAULT NULL,
+  `otmetka_verif` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `report_criteria_mark`
 --
 
-INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criteria`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`) VALUES
-(35, 6, 3, 100, 100, 100, 100),
-(35, 6, 4, 0, 0, 0, 0),
-(35, 6, 5, 0, 0, 0, 0),
-(35, 6, 24, 0, 0, 0, 0),
-(35, 49, 3, 75, 100, 100, 0),
-(35, 49, 5, 0, 0, 0, 0),
-(35, 49, 11, 0, 0, 0, 0),
-(35, 49, 20, 0, 0, 0, 0);
+INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criteria`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`, `otmetka_accred_all`, `otmetka_accred_class_1`, `otmetka_accred_class_2`, `otmetka_accred_class_3`, `otmetka_verif`) VALUES
+(35, 6, 3, 80, 50, 100, 100, 20, 50, 0, 0, 100),
+(35, 6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 6, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 49, 3, 50, 0, 100, 0, 20, 50, 0, 0, 80),
+(35, 49, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 49, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 49, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -648,16 +1025,21 @@ CREATE TABLE `report_subvision_mark` (
   `otmetka_all` int NOT NULL,
   `otmetka_class_1` int NOT NULL,
   `otmetka_class_2` int NOT NULL,
-  `otmetka_class_3` int NOT NULL
+  `otmetka_class_3` int NOT NULL,
+  `otmetka_accred_all` int DEFAULT NULL,
+  `otmetka_accred_class_1` int DEFAULT NULL,
+  `otmetka_accred_class_2` int DEFAULT NULL,
+  `otmetka_accred_class_3` int DEFAULT NULL,
+  `otmetka_verif` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `report_subvision_mark`
 --
 
-INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`) VALUES
-(35, 6, 38, 40, 50, 33),
-(35, 49, 43, 50, 100, 0);
+INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`, `otmetka_accred_all`, `otmetka_accred_class_1`, `otmetka_accred_class_2`, `otmetka_accred_class_3`, `otmetka_verif`) VALUES
+(35, 6, 31, 20, 50, 33, 8, 20, 0, 0, 38),
+(35, 49, 29, 0, 100, 0, 13, 33, 0, 0, 50);
 
 -- --------------------------------------------------------
 
@@ -744,8 +1126,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'a8v68k2lrk07g2s7kr4245bv1kn93dk6', 'a8v68k2lrk07g2s7kr4245bv1kn93dk6', '2023-07-07 16:42:17', '/index.php?users'),
-(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', '2023-07-07 16:44:36', '/index.php?application'),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'thv6o3f7fs581a1ajvacbiadgfdg646f', 'thv6o3f7fs581a1ajvacbiadgfdg646f', '2023-07-10 17:43:17', '/index.php?users'),
+(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', '2023-07-10 17:40:54', '/index.php?logout'),
 (3, 'Брестская городская поликлиника №1', 'brestgp1', 'ddd415ac66e91cf20c63792ffe88eb70', 3, NULL, NULL, NULL, NULL),
 (4, 'Брестская городская поликлиника №2', 'brestgp2', '8bc25d7d934f31bca3a27442355caade', 3, NULL, NULL, NULL, NULL),
 (5, 'Брестская городская поликлиника №3', 'brestgp3', 'dab4e30dcda1b14af1e11730e7597579', 3, NULL, NULL, NULL, NULL),
@@ -1024,7 +1406,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT для таблицы `cells`
@@ -1066,7 +1448,7 @@ ALTER TABLE `mark_rating`
 -- AUTO_INCREMENT для таблицы `rating_criteria`
 --
 ALTER TABLE `rating_criteria`
-  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
@@ -1084,7 +1466,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `subvision`
 --
 ALTER TABLE `subvision`
-  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -1101,7 +1483,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `applications`
   ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `cells`
