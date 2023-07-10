@@ -5,8 +5,9 @@
 // let tab5 = document.getElementById("tab-5");
 
 let data_old = new Array();
+let openTabId = 0;
 
-let status = 1;
+let status = 2;
 
 let marks_app = {
     arr_marks : new Array(),
@@ -41,48 +42,17 @@ let OpenSub = 0;
 
 
 function showTab(element,id_sub){
- //   console.log(OpenSub);
+    openTabId = id_sub;
     let tablist = document.getElementById("tablist");
 
-
-   if(isSavedMarks()) {
-      //  console.log(OpenSub);
-       // arrChange=false;
-       if (saveMarks(OpenSub) === false) {
-        //   console.log('OpenSub',OpenSub);
-        //   console.log('id_sub',id_sub);
-
-           for (let item of tablist.children){
-               let a = item.children[0];
-               a.removeAttribute("data-toggle");
-               //   a.classList.remove("active");
-           }
-
-           let main = document.getElementById('tab1');
-           main.children[0].removeAttribute("data-toggle");
-
-           element.classList.add("active");
-           element.children[0].setAttribute("data-toggle", "tab");
-
-           /*
-            let actTab = document.getElementById("tab"+OpenSub);
-            console.log(actTab.getElementsByTagName("a")[0]);
-            let a = actTab.getElementsByTagName("a")[0];
-            a.setAttribute("aria-selected", "true");
-           a.classList.add("active");
-
-            */
-           return;
-       }
+    if(isSavedMarks()) {
+        //  console.log(OpenSub);
+        // arrChange=false;
+      //  saveMarks(OpenSub);
+        if (saveMarks(OpenSub) === false) {
+            return;
+        }
     }
-
-  /*
-    let openedDiv =  document.getElementById("collapse"+id_open_criteria);
-    if (openedDiv !== null) {
-        openedDiv.classList.remove("show");
-        console.log(openedDiv);
-    }
-   */
 
     arrChange=false;
     OpenSub=0;
@@ -245,10 +215,11 @@ function showTab(element,id_sub){
             .done(function( response ) {
 
                 let criteriaMark ='';
+                let criteriaMarkAccred ='';
                 JSON.parse(response).map((item, index) =>{
                     if(item !== 0){
                         if(index == 0){
-                            criteriaMark = criteriaMark + 'Количественная оценка =' + item +'%';
+                            criteriaMark = criteriaMark + 'Количественная оценка самооценки=' + item +'%';
                         }
                         if(index == 1){
                             criteriaMark += ' По 1 классу ='  + item +'%';
@@ -259,10 +230,41 @@ function showTab(element,id_sub){
                         if(index == 3){
                             criteriaMark +=  ' По 3 классу ='  + item +'%';
                         }
+
+
+                        if(index == 4){
+                            criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки=' + item +'%';
+                        }
+                        if(index == 5){
+                            criteriaMarkAccred += ' Верификация результатов самооценки ='  + item +'%';
+                        }
+                        if(index == 6){
+                            criteriaMarkAccred += ' По 1 классу ='  + item +'%';
+                        }
+                        if(index == 7){
+                            criteriaMarkAccred +=  ' По 2 классу ='  + item +'%';
+                        }
+                        if(index == 8){
+                            criteriaMarkAccred +=  ' По 3 классу ='  + item +'%';
+                        }
                     }
                 });
-                calcSubMark.innerHTML = criteriaMark;
+                let isBtnPrint = document.getElementById("btnPrint");
+                if(isBtnPrint){
+                    isBtnPrint.remove();
+                }
+                // calcSubMark.innerHTML = criteriaMark
+               calcSubMark.innerHTML = criteriaMark + "<br/>";
+               calcSubMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
+                let btnPrint = document.createElement("button");
+                btnPrint.setAttribute("type", "submit");
+                btnPrint.className = "btn btn-light btn-fw";
+                btnPrint.id = "btnPrint";
+                btnPrint.innerHTML = "Печать";
+                btnPrint.style = "float: right";
+               btnPrint.onclick = () => print();
                 calcRow.appendChild(calcSubMark);
+               calcSubMark.insertAdjacentElement("afterend", btnPrint);
                 // let marks = JSON.parse(response);
 
                 //  console.log(JSON.parse(response));
@@ -305,7 +307,39 @@ function createApplication(){
     location.href = "/index.php?application";
 }
 
-function showModal(id_application){
+
+function showModal(id_application, strMarks, strMarksAccred){
+    let btnChecking = document.getElementById("btnChecking");
+    let btnOk = document.getElementById("btnOk");
+    let btnNeOk = document.getElementById("btnNeOk");
+
+    let tabOdobrenie = document.getElementById("odobrennie-tab");
+    let tabNeodobrennie = document.getElementById("neodobrennie-tab");
+    let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
+    let tabHome = document.getElementById("home-tab");
+
+    if(tabOdobrenie.classList.contains("active")){
+        btnChecking.classList.remove("hiddentab");
+        btnNeOk.classList.remove("hiddentab");
+    }else if(tabNeodobrennie.classList.contains("active")){
+        btnChecking.classList.remove("hiddentab");
+        btnOk.classList.remove("hiddentab");
+    }
+    else if(tabRassmotrenie.classList.contains("active")){
+        btnNeOk.classList.remove("hiddentab");
+        btnOk.classList.remove("hiddentab");
+    }
+    else{
+        btnNeOk.classList.remove("hiddentab");
+        btnOk.classList.remove("hiddentab");
+        btnChecking.classList.remove("hiddentab");
+    }
+
+    let mainRightCard = document.getElementById("mainRightCard");
+
+
+    mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
+    openTabId=0;
     document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления";
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
@@ -409,30 +443,271 @@ function showModal(id_application){
         }
     });
 
-    $("#btnPrint").on("click", function () {
-        let naim = document.getElementById("naim");
-        let unp = document.getElementById("unp");
-        let naimText = naim.value;
-        let unpText = unp.value;
-        var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
-        WinPrint.document.write('Наименование организации: ');
-        WinPrint.document.write(naimText);
-        WinPrint.document.write('<br/>');
-        WinPrint.document.write('УНП: ');
-        WinPrint.document.write(unpText);
-        WinPrint.document.close();
-        WinPrint.focus();
-        WinPrint.print();
-        WinPrint.close();
+    
 
-    });
+
 }
+
+function print() {
+
+
+    console.log('openTabId =',openTabId);
+
+    $.ajax({
+        url: "getSubForPrint.php",
+        method: "GET",
+        data: {id_sub: openTabId}
+    })
+        .done(function( response ) {
+            //  console.log(response);
+            let tableForPrint = JSON.parse(response);
+
+
+            let naim = document.getElementById("naim");
+            let unp = document.getElementById("unp");
+            let naimText = naim.value;
+            let unpText = unp.value;
+            var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+            WinPrint.document.write('<style>@page {\n' +
+                'margin: 0cm;\n' +
+                '}</style>');  // убрать колонтитул
+            // WinPrint.document.write('Наименование организации: ');
+            // WinPrint.document.write(naimText);
+            // WinPrint.document.write('<br/>');
+            // WinPrint.document.write('УНП: ');
+            // WinPrint.document.write(unpText);
+
+            let table = createTableForPrint(tableForPrint);
+
+
+
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write(table.innerHTML);
+
+
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            WinPrint.close();
+
+        });
+
+
+
+
+}
+
+function createTableForPrint(tableForPrint){
+
+        let divPrintTable = document.createElement('div');
+
+        let divNameCriteriaTable = document.createElement('div');
+        divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+        divNameCriteriaTable.style = "padding-top: 2rem; padding-bottom:2rem";
+
+        divPrintTable.appendChild(divNameCriteriaTable);
+
+        let table = document.createElement('table');
+        table.style = "border-collapse: collapse; border-spacing: 0;";
+
+
+        let trHeadMain = document.createElement('tr');
+        let th1_Main = document.createElement('th');
+        th1_Main.innerHTML = 'Критерий';
+        th1_Main.style = "border: 1px solid black";
+        th1_Main.setAttribute('rowspan','2');
+
+        let th2_Main = document.createElement('th');
+        th2_Main.innerHTML = 'Класс критерия';
+        th2_Main.style = "border: 1px solid black";
+        th2_Main.setAttribute('rowspan','2');
+
+
+        let th3_Main = document.createElement('th');
+        th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+        th3_Main.style = "border: 1px solid black; text-align: center";
+        th3_Main.setAttribute('colspan','3');
+
+        let th4_Main = document.createElement('th');
+        th4_Main.innerHTML = 'Сведения об оценке критериев';
+        th4_Main.style = "border: 1px solid black; text-align: center";
+        th4_Main.setAttribute('colspan','2');
+        
+
+        let trHead = document.createElement('tr');
+        let th3 = document.createElement('th');
+        th3.innerHTML = 'Сведения по самооценке ОЗ';
+        th3.style = "border: 1px solid black";
+
+        let th4 = document.createElement('th');
+        th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+        th4.style = "width:350px; border: 1px solid black";
+
+
+        let th5 = document.createElement('th');
+        th5.innerHTML = 'Примечание';
+        th5.style = "border: 1px solid black";
+
+        let th6 = document.createElement('th');
+        th6.innerHTML = 'Сведения по оценке соответствия';
+        th6.style = "border: 1px solid black";
+
+        let th7 = document.createElement('th');
+        th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+        th7.style = "border: 1px solid black";
+
+        trHeadMain.appendChild(th1_Main);
+        trHeadMain.appendChild(th2_Main);
+        trHeadMain.appendChild(th3_Main);
+        trHeadMain.appendChild(th4_Main);
+        
+        table.appendChild(trHeadMain);
+        trHead.appendChild(th3);
+        trHead.appendChild(th4);
+        trHead.appendChild(th5);
+        trHead.appendChild(th6);
+        trHead.appendChild(th7);
+
+        table.appendChild(trHead);
+        
+        let tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+
+        numCriteria=0;
+        tableForPrint.map((item, index) => {
+      
+           
+                if((numCriteria !== item['id_criteria']) && (index !==0))  {
+
+                    let trNaim = document.createElement('tr');
+                    let tdNaim = document.createElement('td');
+                    tdNaim.setAttribute('colspan','7');
+                    tdNaim.style = "padding-top: 2rem; padding-bottom:2rem";
+                    tdNaim.innerHTML = item['name_criteria'];
+                    trNaim.appendChild(tdNaim);
+                    tbody.appendChild(trNaim);
+
+
+
+                    let trHeadMain2 = document.createElement('tr');
+                    let th1_Main2 = document.createElement('td');
+                    th1_Main2.innerHTML = 'Критерий';
+                    th1_Main2.style = "border: 1px solid black";
+                    th1_Main2.setAttribute('rowspan','2');
+            
+                    let th2_Main2 = document.createElement('td');
+                    th2_Main2.innerHTML = 'Класс критерия';
+                    th2_Main2.style = "border: 1px solid black";
+                    th2_Main2.setAttribute('rowspan','2');
+            
+            
+                    let th3_Main2 = document.createElement('td');
+                    th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+                    th3_Main2.style = "border: 1px solid black; text-align: center";
+                    th3_Main2.setAttribute('colspan','3');
+            
+                    let th4_Main2 = document.createElement('td');
+                    th4_Main2.innerHTML = 'Сведения об оценке критериев';
+                    th4_Main2.style = "border: 1px solid black; text-align: center";
+                    th4_Main2.setAttribute('colspan','2');
+                    
+            
+                    let trHead2 = document.createElement('tr');
+                    let th32 = document.createElement('td');
+                    th32.innerHTML = 'Сведения по самооценке ОЗ';
+                    th32.style = "border: 1px solid black";
+            
+                    let th42 = document.createElement('td');
+                    th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+                    th4.style = "width:350px; border: 1px solid black";
+            
+            
+                    let th52 = document.createElement('td');
+                    th52.innerHTML = 'Примечание';
+                    th52.style = "border: 1px solid black";
+            
+                    let th62 = document.createElement('td');
+                    th62.innerHTML = 'Сведения по оценке соответствия';
+                    th62.style = "border: 1px solid black";
+            
+                    let th72 = document.createElement('td');
+                    th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+                    th72.style = "border: 1px solid black";
+            
+                    trHeadMain2.appendChild(th1_Main2);
+                    trHeadMain2.appendChild(th2_Main2);
+                    trHeadMain2.appendChild(th3_Main2);
+                    trHeadMain2.appendChild(th4_Main2);
+                    
+                    tbody.appendChild(trHeadMain2);
+                    trHead2.appendChild(th32);
+                    trHead2.appendChild(th42);
+                    trHead2.appendChild(th52);
+                    trHead2.appendChild(th62);
+                    trHead2.appendChild(th72);
+            
+                    tbody.appendChild(trHead2);
+                    
+
+                }
+    
+                let tr = document.createElement('tr');
+    
+                let td1 = document.createElement('td');
+                td1.innerHTML = item['mark_name'];
+                td1.style = "border: 1px solid black";
+    
+                let td2 = document.createElement('td');
+                td2.innerHTML = item['mark_class'];
+                td2.style = "border: 1px solid black";
+          
+                let td3 = document.createElement('td');
+                td3.style = "border: 1px solid black";
+                td3.innerHTML = item['field4'];
+           
+                let td4 = document.createElement('td');
+                td4.style = "border: 1px solid black";
+                td4.innerHTML = item['field5'];
+    
+                let td5 = document.createElement('td');
+                td5.style = "border: 1px solid black";
+                td5.innerHTML = item['field6'];
+    
+                let td6 = document.createElement('td');
+                td6.style = "border: 1px solid black";
+                td6.innerHTML = item['field7'];
+    
+                let td7 = document.createElement('td');
+                td7.style = "border: 1px solid black";
+                td7.innerHTML = item['field8'];
+    
+    
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+    
+                tr.appendChild(td4);
+                tr.appendChild(td5);
+                tr.appendChild(td6);
+                tr.appendChild(td7);
+    
+                tbody.appendChild(tr);
+     
+                numCriteria = item['id_criteria'];
+             })
+    
+
+        divPrintTable.appendChild(table);
+
+        return divPrintTable;
+}
+
 
 
 const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 const UNP_REGEXP = /^([0-9]{9})$/iu;
 const ADRESS_REGEXP = /^(\d{4,6}\s[А-Яа-яЁё0-9,. ]{1,})$/iu;
-
 
 
 function onInputEmail() {
@@ -496,31 +771,19 @@ function getTabs(name, id_sub){
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
     tab.classList.add("nav-item");
-    let a = document.createElement("a");
+    let a = document.createElement("button");
     a.className = "nav-link";
+    a.id = 'button' + id_sub;
    a.setAttribute("data-toggle", "tab");
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
 
-   // tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
 
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
-    tab.onclick= () => {
-      //  console.log(tab.children[0]);
-    //    tab.children[0].setAttribute("data-toggle", "tab");
-        if(isSavedMarks()) {
-            //  console.log(OpenSub);
-            // arrChange=false;
-            if (saveMarks(OpenSub) === false) {
-                return;
-            }
-
-        }
-     //   console.log(1);
-        showTab(tab,id_sub);
-    }
+   
     tab.id = "tab" + id_sub;
     tablist.appendChild(tab);
 
@@ -605,26 +868,14 @@ function getMainTab(name, id_sub){
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
     tab.classList.add("nav-item");
-    let a = document.createElement("a");
+    let a = document.createElement("button");
     a.className = "nav-link";
+    a.id = 'button' + id_sub;
     a.setAttribute("data-toggle", "tab");
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
-  //  tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
-    tab.onclick= () => {
-    //    tab.children[0].setAttribute("data-toggle", "tab");
-        if(isSavedMarks()) {
-            //  console.log(OpenSub);
-            // arrChange=false;
-            if (saveMarks(OpenSub) === false) {
-                return;
-            }
-
-        }
-       // console.log(2);
-        showTab(tab,id_sub);
-    }
+    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
     tab.id = "tab" + id_sub;
@@ -897,10 +1148,11 @@ function createAccordionCards(id_sub) {
                 .done(function( response ) {
 
                     let criteriaMark ='';
+                    let criteriaMarkAccred ='';
                     JSON.parse(response).map((item, index) =>{
                         if(item !== 0){
                             if(index == 0){
-                                criteriaMark = criteriaMark + 'Количественная оценка =' + item +'%';
+                                criteriaMark = criteriaMark + 'Количественная оценка самооценки=' + item +'%';
                             }
                             if(index == 1){
                                 criteriaMark += ' По 1 классу ='  + item +'%';
@@ -911,9 +1163,28 @@ function createAccordionCards(id_sub) {
                             if(index == 3){
                                 criteriaMark +=  ' По 3 классу ='  + item +'%';
                             }
+
+
+                            if(index == 4){
+                                criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки=' + item +'%';
+                            }
+                            if(index == 5){
+                                criteriaMarkAccred += ' Верификация результатов самооценки ='  + item +'%';
+                            }
+                            if(index == 6){
+                                criteriaMarkAccred += ' По 1 классу ='  + item +'%';
+                            }
+                            if(index == 7){
+                                criteriaMarkAccred +=  ' По 2 классу ='  + item +'%';
+                            }
+                            if(index == 8){
+                                criteriaMarkAccred +=  ' По 3 классу ='  + item +'%';
+                            }
                         }
                     });
-                    divCardHeaderMark.innerHTML = criteriaMark;
+                    divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
+                    divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
+
                     divCardHeader.appendChild(divCardHeaderMark);
                     // let marks = JSON.parse(response);
 
@@ -1054,6 +1325,30 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
     let table = document.createElement('table');
     table.style = "border: 1px solid black; width:100%";
+
+    let trHeadMain = document.createElement('tr');
+    let th1_Main = document.createElement('th');
+    th1_Main.innerHTML = 'Критерий';
+    th1_Main.style = "border: 1px solid black";
+    th1_Main.setAttribute('rowspan','2');
+
+    let th2_Main = document.createElement('th');
+    th2_Main.innerHTML = 'Класс критерия';
+    th2_Main.style = "border: 1px solid black";
+    th2_Main.setAttribute('rowspan','2');
+
+
+    let th3_Main = document.createElement('th');
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.style = "border: 1px solid black; text-align: center";
+    th3_Main.setAttribute('colspan','3');
+
+    let th4_Main = document.createElement('th');
+    th4_Main.innerHTML = 'Сведения об оценке критериев';
+    th4_Main.style = "border: 1px solid black; text-align: center";
+    th4_Main.setAttribute('colspan','2');
+    
+
     let trHead = document.createElement('tr');
     //trHead.style = "border: 1px solid black; width:100%";
 
@@ -1066,26 +1361,47 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th2.innerHTML = 'Класс критерия';
     th2.style = "border: 1px solid black";
 
-    let th3 = document.createElement('td');
+    let th3 = document.createElement('th');
     th3.innerHTML = 'Сведения по самооценке ОЗ';
     th3.style = "border: 1px solid black";
 
-    let th4 = document.createElement('td');
+    let th4 = document.createElement('th');
     th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
     th4.style = "width:350px; border: 1px solid black";
 
 
-    let th5 = document.createElement('td');
+    let th5 = document.createElement('th');
     th5.innerHTML = 'Примечание';
     th5.style = "border: 1px solid black";
 
-    trHead.appendChild(th1);
-    trHead.appendChild(th2);
+    let th6 = document.createElement('th');
+    th6.innerHTML = 'Сведения по оценке соответствия';
+    th6.style = "border: 1px solid black";
+
+    let th7 = document.createElement('th');
+    th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+    th7.style = "border: 1px solid black";
+    
+
+    // trHead.appendChild(th1);
+    // trHead.appendChild(th2);
+    trHeadMain.appendChild(th1_Main);
+    trHeadMain.appendChild(th2_Main);
+    trHeadMain.appendChild(th3_Main);
+    trHeadMain.appendChild(th4_Main);
+    
+    table.appendChild(trHeadMain);
+    // trHead.appendChild(th1);
+    // trHead.appendChild(th2);
     trHead.appendChild(th3);
     trHead.appendChild(th4);
     trHead.appendChild(th5);
+    trHead.appendChild(th6);
+    trHead.appendChild(th7);
 
     table.appendChild(trHead);
+
+    
 
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
@@ -1138,16 +1454,40 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td5 = document.createElement('td');
                 td5.style = "border: 1px solid black";
                 let input5 = document.createElement("textarea");
-
-                    input5.setAttribute("readonly","");
-
+                  input4.setAttribute("readonly","");
                 input5.style = "width:100%";
                 input5.setAttribute("rows","3");
                 input5.value = item['field6'];
-                input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['iid_mark_rating'], index,id_sub)};
+                input5.setAttribute("readonly","");
+                input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['id_mark_rating'], index,id_sub)};
               //  input5.setAttribute("type","text-area");
                 td5.appendChild(input5);
-              //  td5.innerHTML = item['field6'];
+                
+
+
+                let td6 = document.createElement('td');
+                //  td3.innerHTML = item['filed4'];
+                  td6.style = "border: 1px solid black";
+                  let divTd6 = document.createElement("div");
+                  divTd6.style = "display: flex; justify-content: center;";
+                  td6.appendChild(divTd6);
+
+
+                let td7 = document.createElement('td');
+                td7.style = "border: 1px solid black";
+                let input7 = document.createElement("textarea");
+
+                    if ((status == 2) || (status == 3)) {
+                    } else {
+                        input7.setAttribute("readonly","");
+                    }
+
+                input7.style = "width:100%";
+                input7.setAttribute("rows","3");
+                input7.value = item['field8'];
+                input7.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field8', input7.value, item['id_mark_rating'], index,id_sub)};
+              //  input5.setAttribute("type","text-area");
+                td7.appendChild(input7);  
 
                 tr.appendChild(td1);
                 tr.appendChild(td2);
@@ -1155,9 +1495,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                 tr.appendChild(td4);
                 tr.appendChild(td5);
+                tr.appendChild(td6);
+                tr.appendChild(td7);
 
-                createSelectMark(id_criteria,item['id_mark'], divTd3, item['field4'], item['id_mark_rating'], index,id_sub );
-
+                createSelectMark(id_criteria,item['id_mark'], divTd3, item['field4'], item['id_mark_rating'], index,id_sub,'field4');
+                createSelectMark(id_criteria,item['id_mark'], divTd6, item['field7'], item['id_mark_rating'], index,id_sub,'field7');
                 tbody.appendChild(tr);
 
             });
@@ -1166,16 +1508,20 @@ function collapseTable(id_criteria, divCardBody,id_sub){
         });
     divCardBody.appendChild(table);
 
-    // let bunt = document.createElement('button');
-    // bunt.onclick=() => saveMarks(id_sub);
-    // bunt.innerHTML='Сохранить таблицу по критерию';
-    // divCardBody.appendChild(bunt);
-  //  return marks_app;
+    let bunt = document.createElement('button');
+    bunt.onclick=() => saveMarks(id_sub);
+    bunt.innerHTML='Сохранить результаты оценки критериев';
+    bunt.className = "btn btn-success";
+    bunt.style = "margin-top: 1rem";
+    divCardBody.appendChild(bunt);
+    if(status == 4 || status == 5){bunt.remove();}
+
+    //  return marks_app;
 }
 
 
 
-function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating, index,id_sub){
+function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating, index,id_sub, name_field){
     let newSelect = document.createElement('select');
    // newSelect.disabled =true;
     let optEmpty  = document.createElement('option');
@@ -1197,15 +1543,22 @@ function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating
     newSelect.add(opt2);
     newSelect.add(opt3);
 let arr;
-    newSelect.onchange = ()=>{ChangeValue(id_criteria,id_mark, 'field4', newSelect.options.selectedIndex, id_mark_rating, index,id_sub) };
+
+    newSelect.onchange = ()=>{ChangeValue(id_criteria,id_mark, name_field, newSelect.options.selectedIndex, id_mark_rating, index,id_sub) };
 
     if ((id_mark_rating !== null) && (value !== null)) {
         newSelect.selectedIndex = Number(value);
     }
 
-
+    if ((status == 2) || (status == 3)) {
+   // if ((status == 4) || (status == 5) || (status == 1)) {
+    } else {
         newSelect.setAttribute("disabled","");
+    }
 
+    if(name_field === 'field4') {
+        newSelect.setAttribute("disabled","");
+    }
 
     nameColumn.appendChild(newSelect);
 }
@@ -1225,20 +1578,36 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
     })
   //  console.log(marks_app.getArr());
     OpenSub = id_sub;
-
-  //  retArr(marks_app);
-    //return marks_app;
+    setDisabledOnChange(true);
 }
 
 function isSavedMarks(){
-
     if (arrChange == true) {
+        let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?"); 
+        console.log('res',res);
+        if(res == false){
+            console.log('check');
+            setDisabledOnChange(false);
+        }
 
-
-
-        return confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?");
+        return res
+                 
     } else return false;
 
+    // if (arrChange == true) {
+    //     return confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?");
+    // } else return false;
+
+}
+
+function setDisabledOnChange(value){
+    if (value == true) {
+        let clickElel = document.getElementById('button1');
+        clickElel.setAttribute('disabled', "true");
+    } else {
+        let clickElel = document.getElementById('button1');
+        clickElel.removeAttribute('disabled');
+    }
 }
 
 let flagSave = true;
@@ -1275,15 +1644,11 @@ function saveMarks(id_sub){
 
     let arr = new Array();
 
-   // validateDataMarks();
-   // console.log(arrChange);
-   // console.log(validateDataMarks());
-
     marks_app.getArr().map(item => {
         arr.push(item);
-      //  console.log(item);
-
     })
+
+    console.log(arr);
 
     let result = true;
 
@@ -1291,12 +1656,13 @@ function saveMarks(id_sub){
         result = false;
     } else  {
         $.ajax({
-            url: "saveMarks.php",
+            url: "saveMarksAccred.php",
             method: "POST",
             data: {id_sub: id_sub, marks: arr}
         })
             .done(function( response ) {
                 alert("Сохранено!");
+                setDisabledOnChange(false);
                 arrChange=false;
             });
 
@@ -1410,7 +1776,7 @@ $("#btnCalc").on("click", () => {
     let id_application = document.getElementById("id_application");
 
     $.ajax({
-        url: "getCalc.php",
+        url: "getCalcAccred.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })

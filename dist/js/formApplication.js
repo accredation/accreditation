@@ -7,7 +7,7 @@
 let data_old = new Array();
 
 let status = 1;
-
+let openTabId = 0;
 let marks_app = {
     arr_marks : new Array(),
     getArr(){
@@ -42,48 +42,21 @@ let OpenSub = 0;
 
 function showTab(element,id_sub){
  //   console.log(OpenSub);
+    openTabId = id_sub;
     let tablist = document.getElementById("tablist");
-
-
-   if(isSavedMarks()) {
-      //  console.log(OpenSub);
-       // arrChange=false;
-       if (saveMarks(OpenSub) === false) {
-        //   console.log('OpenSub',OpenSub);
-        //   console.log('id_sub',id_sub);
-
-           for (let item of tablist.children){
-               let a = item.children[0];
-               a.removeAttribute("data-toggle");
-               //   a.classList.remove("active");
-           }
-
-           let main = document.getElementById('tab1');
-           main.children[0].removeAttribute("data-toggle");
-
-           element.classList.add("active");
-           element.children[0].setAttribute("data-toggle", "tab");
-
-           /*
-            let actTab = document.getElementById("tab"+OpenSub);
-            console.log(actTab.getElementsByTagName("a")[0]);
-            let a = actTab.getElementsByTagName("a")[0];
-            a.setAttribute("aria-selected", "true");
-           a.classList.add("active");
-
-            */
-           return;
-       }
-    }
-
-  /*
-    let openedDiv =  document.getElementById("collapse"+id_open_criteria);
-    if (openedDiv !== null) {
-        openedDiv.classList.remove("show");
-        console.log(openedDiv);
-    }
-   */
-
+    let mainSearch = document.getElementById("tab1");
+   
+    if(isSavedMarks()) {
+       
+        if (saveMarks(OpenSub) === false) {
+            
+            if((mainSearch == element) && (id_sub==undefined)){
+                return;
+            }
+        }
+        return;
+    };
+   
     arrChange=false;
     OpenSub=0;
     id_open_criteria = 0;
@@ -261,8 +234,20 @@ function showTab(element,id_sub){
                         }
                     }
                 });
-                calcSubMark.innerHTML = criteriaMark;
+                let isBtnPrint = document.getElementById("btnPrint");
+                if(isBtnPrint){
+                    isBtnPrint.remove();
+                }
+                calcSubMark.innerHTML = criteriaMark + "<br/><br/>";
+                let btnPrint = document.createElement("button");
+                btnPrint.setAttribute("type", "submit");
+                btnPrint.className = "btn btn-light btn-fw";
+                btnPrint.id = "btnPrint";
+                btnPrint.innerHTML = "Печать";
+                btnPrint.style = "float: right";
+                btnPrint.onclick = () => print();
                 calcRow.appendChild(calcSubMark);
+                calcSubMark.insertAdjacentElement("afterend", btnPrint);
                 // let marks = JSON.parse(response);
 
                 //  console.log(JSON.parse(response));
@@ -305,8 +290,21 @@ function createApplication(){
     location.href = "/index.php?application";
 }
 
-function showModal(id_application){
+function showModal(id_application, strMarks, strMarksAccred){
+    openTabId=0;
+   let mainRightCard = document.getElementById("mainRightCard");
+    mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
+   let addtab = document.getElementById("addtab");
+   let btnSuc = document.getElementById("btnSuc");
+   let btnSend = document.getElementById("btnSend");
+   let btnCalc = document.getElementById("btnCalc");
+
+    
+  //  console.log(aButton);
+
+
     document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления";
+
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
     let sokr = document.getElementById("sokr");
@@ -326,6 +324,30 @@ function showModal(id_application){
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
+
+    if(status == 1){
+
+    }else{
+
+        number_app.setAttribute("readonly","");
+        naim.setAttribute("readonly","");
+        sokr.setAttribute("readonly","");
+        unp.setAttribute("readonly","");
+        adress.setAttribute("readonly","");
+        number_app.setAttribute("readonly","");
+        tel.setAttribute("readonly","");
+        email.setAttribute("readonly","");
+        rukovoditel.setAttribute("readonly","");
+        predstavitel.setAttribute("readonly","");
+        soprPismo.setAttribute("disabled","true");
+        copyRaspisanie.setAttribute("disabled","true");
+        orgStrukt.setAttribute("disabled","true");
+        addtab.classList.add("hiddentab");
+        btnSuc.classList.add("hiddentab");
+        btnSend.classList.add("hiddentab");
+        btnCalc.remove();
+    }
+
     let data = new Array();
     $.ajax({
         url: "getApplication.php",
@@ -426,6 +448,7 @@ function showModal(id_application){
         WinPrint.close();
 
     });
+
 }
 
 
@@ -496,31 +519,35 @@ function getTabs(name, id_sub){
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
     tab.classList.add("nav-item");
-    let a = document.createElement("a");
+    let a = document.createElement("button");
     a.className = "nav-link";
+    a.id = 'button' + id_sub;
    a.setAttribute("data-toggle", "tab");
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
 
-   // tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
 
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
-    tab.onclick= () => {
-      //  console.log(tab.children[0]);
-    //    tab.children[0].setAttribute("data-toggle", "tab");
-        if(isSavedMarks()) {
-            //  console.log(OpenSub);
-            // arrChange=false;
-            if (saveMarks(OpenSub) === false) {
-                return;
-            }
+    // tab.onclick= () => {
+    //   //  console.log(tab.children[0]);
+    // //    tab.children[0].setAttribute("data-toggle", "tab");
+        
+    //  //   
+    //  console.log(1);
+    //  if(isSavedMarks()) {
+    //     //  console.log(OpenSub);
+    //     // arrChange=false;
+    //     if (saveMarks(OpenSub) === false) {
+    //         return;
+    //     }
 
-        }
-     //   console.log(1);
-        showTab(tab,id_sub);
-    }
+    // }
+
+    //     showTab(tab,id_sub);
+    // }
     tab.id = "tab" + id_sub;
     tablist.appendChild(tab);
 
@@ -537,6 +564,7 @@ function getTabs(name, id_sub){
     cardLeft.className = "card";
 
 
+
     let divRollUp = document.createElement("div");
     divRollUp.className = "d-md-block d-none";
     divRollUp.style = "text-align: end;margin-top: 5px;";
@@ -548,6 +576,8 @@ function getTabs(name, id_sub){
     iconRollUp.className = "mdi mdi-view-dashboard";
 
     aRollUp.appendChild(iconRollUp);
+
+
     divRollUp.appendChild(aRollUp);
     cardLeft.appendChild(divRollUp);
 
@@ -593,10 +623,22 @@ function getTabs(name, id_sub){
 
     let btnSave = document.createElement("button");
     btnSave.innerHTML = "Сохранить информацию о подразделении";
+    btnSave.className = "btn btn-outline-primary";
+    btnSave.id = "btnSaveInfoCriteriaMain";
     btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
     tabPane.appendChild(btnSave);
+    if(status == 1){
 
+    }else{
+        cardLeft.classList.add("rolledUp");
+        aRollUp.setAttribute("disabled","true");
+        btnDelete.classList.add("hiddentab");
+        container.classList.add("hiddentab");
+        btnSave.classList.add("hiddentab");
+    }
     tabContent.appendChild(tabPane);
+
+    
 }
 
 
@@ -605,26 +647,31 @@ function getMainTab(name, id_sub){
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
     tab.classList.add("nav-item");
-    let a = document.createElement("a");
+    let a = document.createElement("button");
     a.className = "nav-link";
+    a.id = 'button' + id_sub;
     a.setAttribute("data-toggle", "tab");
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
-  //  tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
-    tab.onclick= () => {
-    //    tab.children[0].setAttribute("data-toggle", "tab");
-        if(isSavedMarks()) {
-            //  console.log(OpenSub);
-            // arrChange=false;
-            if (saveMarks(OpenSub) === false) {
-                return;
-            }
+    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+  
+    // tab.onclick= () => {
+    //     console.log(2);
+    // //    tab.children[0].setAttribute("data-toggle", "tab");
+    //     if(isSavedMarks()) {
+            
+    //         //  console.log(OpenSub);
+    //         // arrChange=false;
+    //         if (saveMarks(OpenSub) === false) {
+    //             return;
+    //         }
 
-        }
-       // console.log(2);
-        showTab(tab,id_sub);
-    }
+    //     }
+
+    //    // console.log(2);
+    //     showTab(tab,id_sub);
+    // }
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
     tab.id = "tab" + id_sub;
@@ -650,12 +697,16 @@ function getMainTab(name, id_sub){
     aRollUp.href = "#";
     aRollUp.className = "text-light p-1";
     aRollUp.id = "rollUpMain";
+
+
     let iconRollUp = document.createElement("i");
     iconRollUp.className = "mdi mdi-view-dashboard";
 
     aRollUp.appendChild(iconRollUp);
     divRollUp.appendChild(aRollUp);
     cardLeft.appendChild(divRollUp);
+
+
 
     aRollUp.onclick = () => {
         cardLeft.classList.toggle("rolledUp");
@@ -688,11 +739,22 @@ function getMainTab(name, id_sub){
     row1.appendChild(col12_1);
     tabPane.appendChild(row1);
 
+
+
     let btnSave = document.createElement("button");
     btnSave.innerHTML = "Сохранить информацию о подразделении";
+    btnSave.className = "btn btn-outline-primary";
+    btnSave.id = "btnSaveInfoCriteria";
     btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
     tabPane.appendChild(btnSave);
+    if(status == 1){
 
+    }else{
+        cardLeft.classList.add("rolledUp");
+        aRollUp.setAttribute("disabled","true");
+        container.classList.add("hiddentab");
+        btnSave.classList.add("hiddentab");
+    }
     tabContent.appendChild(tabPane);
 }
 
@@ -1146,7 +1208,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 input5.style = "width:100%";
                 input5.setAttribute("rows","3");
                 input5.value = item['field6'];
-                input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['iid_mark_rating'], index,id_sub)};
+                input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['id_mark_rating'], index,id_sub)};
               //  input5.setAttribute("type","text-area");
                 td5.appendChild(input5);
               //  td5.innerHTML = item['field6'];
@@ -1171,7 +1233,14 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let bunt = document.createElement('button');
     bunt.onclick=() => saveMarks(id_sub);
     bunt.innerHTML='Сохранить таблицу по критерию';
+    bunt.className = "btn btn-success";
+    bunt.style = "margin-top: 1rem";
     divCardBody.appendChild(bunt);
+    if(status == 1){
+
+    }else{
+        bunt.remove();
+    }
   //  return marks_app;
 }
 
@@ -1228,23 +1297,56 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
     })
   //  console.log(marks_app.getArr());
     OpenSub = id_sub;
+    setDisabledOnChange(true);
 
   //  retArr(marks_app);
     //return marks_app;
 }
 
-function isSavedMarks(){
-
+function  isSavedMarks(){
+    
     if (arrChange == true) {
+        let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?"); 
+        console.log('res',res);
+        if(res == false){
+            console.log('check');
+            setDisabledOnChange(false);
+        }
 
-
-
-        return confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?");
+        return res
+                 
     } else return false;
 
 }
 
 let flagSave = true;
+
+
+function setDisabledOnChange(value){
+    let clickElel = document.getElementById('button1');
+    let btnSaveInfoCriteriaMain = document.getElementById('btnSaveInfoCriteriaMain');
+    let btnSaveInfoCriteria = document.getElementById('btnSaveInfoCriteria');
+    let divTab = document.getElementById('tab'+openTabId+"-");
+    let leftSide = divTab.getElementsByClassName('leftSide')[0];
+
+    let inputs = leftSide.getElementsByClassName("form-check-input");
+    console.log(inputs);
+    if (value == true) {
+        for(let item of inputs){
+            item.setAttribute("disabled","true");
+        }
+        clickElel.setAttribute('disabled', "true");
+        btnSaveInfoCriteriaMain.setAttribute('disabled', "true");
+        btnSaveInfoCriteria.setAttribute('disabled', "true");
+    } else {
+        for(let item of inputs){
+            item.removeAttribute("disabled");
+        }
+        clickElel.removeAttribute('disabled');
+        btnSaveInfoCriteriaMain.removeAttribute('disabled');
+        btnSaveInfoCriteria.removeAttribute('disabled');
+    }
+}
 
 
 function validateDataMarks(){
@@ -1300,6 +1402,7 @@ function saveMarks(id_sub){
         })
             .done(function( response ) {
                 alert("Сохранено!");
+                setDisabledOnChange(false);
                 arrChange=false;
             });
 
@@ -1372,12 +1475,25 @@ $("#btnSend").on("click", () => {
         .done(function( response ) {
 
                 alert("Заявление отправлено");
+                calcMarks();
                 location.href = "/index.php?application";
             });
+
 
 });
 
 $("#btnCalc").on("click", () => {
+    calcMarks();
+});
+
+$("#button1").on("click", (e) => {
+   // let id_application = document.getElementById("id_application");
+  
+
+
+});
+
+function calcMarks() {
     let id_application = document.getElementById("id_application");
 
     $.ajax({
@@ -1388,7 +1504,269 @@ $("#btnCalc").on("click", () => {
         .done(function( response ) {
             location.href = "/index.php?application";
         });
-});
+}
+
+function print() {
+
+
+    console.log('openTabId =',openTabId);
+
+    $.ajax({
+        url: "getSubForPrint.php",
+        method: "GET",
+        data: {id_sub: openTabId}
+    })
+        .done(function( response ) {
+            //  console.log(response);
+            let tableForPrint = JSON.parse(response);
+
+
+            let naim = document.getElementById("naim");
+            let unp = document.getElementById("unp");
+            let naimText = naim.value;
+            let unpText = unp.value;
+            var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+            WinPrint.document.write('<style>@page {\n' +
+                'margin: 0cm;\n' +
+                '}</style>');  // убрать колонтитул
+            // WinPrint.document.write('Наименование организации: ');
+            // WinPrint.document.write(naimText);
+            // WinPrint.document.write('<br/>');
+            // WinPrint.document.write('УНП: ');
+            // WinPrint.document.write(unpText);
+
+            let table = createTableForPrint(tableForPrint);
+
+
+
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write(table.innerHTML);
+
+
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            WinPrint.close();
+
+        });
+
+
+
+
+}
+
+function createTableForPrint(tableForPrint){
+
+    let divPrintTable = document.createElement('div');
+
+    let divNameCriteriaTable = document.createElement('div');
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+    divNameCriteriaTable.style = "padding-top: 2rem; padding-bottom:2rem";
+
+    divPrintTable.appendChild(divNameCriteriaTable);
+
+    let table = document.createElement('table');
+    table.style = "border-collapse: collapse; border-spacing: 0;";
+
+
+    let trHeadMain = document.createElement('tr');
+    let th1_Main = document.createElement('th');
+    th1_Main.innerHTML = 'Критерий';
+    th1_Main.style = "border: 1px solid black";
+    th1_Main.setAttribute('rowspan','2');
+
+    let th2_Main = document.createElement('th');
+    th2_Main.innerHTML = 'Класс критерия';
+    th2_Main.style = "border: 1px solid black";
+    th2_Main.setAttribute('rowspan','2');
+
+
+    let th3_Main = document.createElement('th');
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.style = "border: 1px solid black; text-align: center";
+    th3_Main.setAttribute('colspan','3');
+
+    let th4_Main = document.createElement('th');
+    th4_Main.innerHTML = 'Сведения об оценке критериев';
+    th4_Main.style = "border: 1px solid black; text-align: center";
+    th4_Main.setAttribute('colspan','2');
+
+
+    let trHead = document.createElement('tr');
+    let th3 = document.createElement('th');
+    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.style = "border: 1px solid black";
+
+    let th4 = document.createElement('th');
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+    th4.style = "width:350px; border: 1px solid black";
+
+
+    let th5 = document.createElement('th');
+    th5.innerHTML = 'Примечание';
+    th5.style = "border: 1px solid black";
+
+    let th6 = document.createElement('th');
+    th6.innerHTML = 'Сведения по оценке соответствия';
+    th6.style = "border: 1px solid black";
+
+    let th7 = document.createElement('th');
+    th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+    th7.style = "border: 1px solid black";
+
+    trHeadMain.appendChild(th1_Main);
+    trHeadMain.appendChild(th2_Main);
+    trHeadMain.appendChild(th3_Main);
+    trHeadMain.appendChild(th4_Main);
+
+    table.appendChild(trHeadMain);
+    trHead.appendChild(th3);
+    trHead.appendChild(th4);
+    trHead.appendChild(th5);
+    trHead.appendChild(th6);
+    trHead.appendChild(th7);
+
+    table.appendChild(trHead);
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+    numCriteria=0;
+    tableForPrint.map((item, index) => {
+
+
+        if((numCriteria !== item['id_criteria']) && (index !==0))  {
+
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan','7');
+            tdNaim.style = "padding-top: 2rem; padding-bottom:2rem";
+            tdNaim.innerHTML = item['name_criteria'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
+
+
+
+            let trHeadMain2 = document.createElement('tr');
+            let th1_Main2 = document.createElement('td');
+            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.style = "border: 1px solid black";
+            th1_Main2.setAttribute('rowspan','2');
+
+            let th2_Main2 = document.createElement('td');
+            th2_Main2.innerHTML = 'Класс критерия';
+            th2_Main2.style = "border: 1px solid black";
+            th2_Main2.setAttribute('rowspan','2');
+
+
+            let th3_Main2 = document.createElement('td');
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.style = "border: 1px solid black; text-align: center";
+            th3_Main2.setAttribute('colspan','3');
+
+            let th4_Main2 = document.createElement('td');
+            th4_Main2.innerHTML = 'Сведения об оценке критериев';
+            th4_Main2.style = "border: 1px solid black; text-align: center";
+            th4_Main2.setAttribute('colspan','2');
+
+
+            let trHead2 = document.createElement('tr');
+            let th32 = document.createElement('td');
+            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.style = "border: 1px solid black";
+
+            let th42 = document.createElement('td');
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+            th4.style = "width:350px; border: 1px solid black";
+
+
+            let th52 = document.createElement('td');
+            th52.innerHTML = 'Примечание';
+            th52.style = "border: 1px solid black";
+
+            let th62 = document.createElement('td');
+            th62.innerHTML = 'Сведения по оценке соответствия';
+            th62.style = "border: 1px solid black";
+
+            let th72 = document.createElement('td');
+            th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+            th72.style = "border: 1px solid black";
+
+            trHeadMain2.appendChild(th1_Main2);
+            trHeadMain2.appendChild(th2_Main2);
+            trHeadMain2.appendChild(th3_Main2);
+            trHeadMain2.appendChild(th4_Main2);
+
+            tbody.appendChild(trHeadMain2);
+            trHead2.appendChild(th32);
+            trHead2.appendChild(th42);
+            trHead2.appendChild(th52);
+            trHead2.appendChild(th62);
+            trHead2.appendChild(th72);
+
+            tbody.appendChild(trHead2);
+
+
+        }
+
+        let tr = document.createElement('tr');
+
+        let td1 = document.createElement('td');
+        td1.innerHTML = item['mark_name'];
+        td1.style = "border: 1px solid black";
+
+        let td2 = document.createElement('td');
+        td2.innerHTML = item['mark_class'];
+        td2.style = "border: 1px solid black";
+
+        let td3 = document.createElement('td');
+        td3.style = "border: 1px solid black";
+        td3.innerHTML = item['field4'];
+
+        let td4 = document.createElement('td');
+        td4.style = "border: 1px solid black";
+        td4.innerHTML = item['field5'];
+
+        let td5 = document.createElement('td');
+        td5.style = "border: 1px solid black";
+        td5.innerHTML = item['field6'];
+
+        let td6 = document.createElement('td');
+        td6.style = "border: 1px solid black";
+
+
+        let td7 = document.createElement('td');
+        td7.style = "border: 1px solid black";
+
+
+        if(status == 4 || status == 5) {
+            td6.innerHTML = item['field7'];
+            td7.innerHTML = item['field8'];
+        }
+
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+        tr.appendChild(td6);
+        tr.appendChild(td7);
+
+        tbody.appendChild(tr);
+
+        numCriteria = item['id_criteria'];
+    })
+
+
+    divPrintTable.appendChild(table);
+
+    return divPrintTable;
+}
+
+
 
 
 

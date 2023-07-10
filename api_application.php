@@ -58,7 +58,7 @@
 $login = $_COOKIE['login'];
 $query = "SELECT * FROM applications a
     left outer join users u on u.id_user = a.id_user
-    WHERE login='$login' and  id_status=6";
+    WHERE login='$login' and  id_status in (1,2,3)";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 if (mysqli_num_rows($rez) == 0) //если нашлась одна строка, значит такой юзер существует в базе данных
@@ -159,9 +159,11 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                   $username = $row['username'];
                               }
 
-                              $query = "SELECT a.*, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3 FROM applications a
+                              $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
+                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
-                               where id_user='$id' and id_status = 1";
+                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 1";
                               $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                               for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                               ?>
@@ -177,30 +179,14 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
                                       foreach ($data as $app) {
 
+                                          include "mainMark.php";
                                           ?>
 
-                                          <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
-
-                                              <?php
-                                              $str_CalcSelfMark = "";
-
-                                              if(!$app['otmetka_all'] == false){
-                                                  $str_CalcSelfMark = $str_CalcSelfMark . 'Количественная оценка =' . ($app['otmetka_all']).'%';
-                                              }
-                                              if(!$app['otmetka_class_1'] == false){
-                                                  $str_CalcSelfMark .= ' По 1 классу =' . ($app['otmetka_class_1']).'%';
-                                              }
-                                              if(!$app['otmetka_class_2'] == false){
-                                                  $str_CalcSelfMark .=  ' По 2 классу =' . ($app['otmetka_class_2']).'%';
-                                              }
-                                              if(!$app['otmetka_class_3'] == false){
-                                                  $str_CalcSelfMark .=  ' По 3 классу =' . ($app['otmetka_class_3']).'%';
-                                              }
+                                          <tr onclick="showModal('<?= $app['id_application'] ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
-                                              ?>
 
-                                              <td>Заявление <?= $username ?>  <?= $str_CalcSelfMark ?></td>
+                                              <td>Заявление <?= $username ?>  </td>
 
 
                                           </tr>
@@ -241,7 +227,11 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               $username = $row['username'];
                                           }
 
-                                          $query = "SELECT * FROM applications where id_user='$id' and id_status = 2";
+                                          $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
+                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status in (2,3)";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
@@ -256,10 +246,10 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               <?php
 
                                               foreach ($data as $app) {
-
+                                                  include "mainMark.php";
                                                   ?>
 
-                                                  <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+                                                  <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?></td>
@@ -304,7 +294,11 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               $username = $row['username'];
                                           }
 
-                                          $query = "SELECT * FROM applications where id_user='$id' and id_status = 4";
+                                          $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
+                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 4";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
@@ -319,10 +313,10 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               <?php
 
                                               foreach ($data as $app) {
-
+                                                  include "mainMark.php";
                                                   ?>
 
-                                                  <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+                                                  <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?></td>
@@ -367,7 +361,11 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               $username = $row['username'];
                                           }
 
-                                          $query = "SELECT * FROM applications where id_user='$id' and id_status = 5";
+                                          $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
+                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 5";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
@@ -382,10 +380,10 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               <?php
 
                                               foreach ($data as $app) {
-
+                                                  include "mainMark.php";
                                                   ?>
 
-                                                  <tr onclick="showModal('<?= $app['id_application'] ?>')" style="cursor: pointer;">
+                                                  <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?></td>
@@ -434,7 +432,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                     <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                         <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
                             <li class="nav-item" id="tab1" onclick="showTab(this)">
-                                <a class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true">Общие сведения о заявителе</a>
+                                <button class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true" id = "button1" ;>Общие сведения о заявителе</button>
                             </li>
 
 
@@ -449,7 +447,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                         <div class="tab-pane fade show active" id="tab1-" role="tabpanel" aria-labelledby="business-tab" >
 
                             <div class="row">
-                                <div class="col-12 grid-margin">
+                                <div class="col-6 grid-margin">
                                     <div class="card">
                                         <div class="card-body">
 
@@ -492,16 +490,23 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" id="orgStrukt">
                                                 </div>
                                             </form>
-                                            <button class="btn-inverse-info" onclick="addTab()">+ добавить структурное подразделение</button>
+                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить структурное подразделение</button>
                                             <br/>
                                             <br/>
 
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-6 grid-margin">
+                                    <div class="card">
+                                        <div class="card-body" id="mainRightCard">
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <div style="width: 100%">
                                     <div style="display:flex; justify-content: flex-end;">
-                                        <button type="submit" class="btn btn-warning btn-fw" id="btnSuc" ые>Сохранить</button>
+                                        <button type="submit" class="btn btn-warning btn-fw" id="btnSuc" >Сохранить</button>
                                     </div>
                                 </div>
 
@@ -636,7 +641,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                    <input type="text" name="count" id="count"/>-->
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
                 <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
-                <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+<!--                <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>-->
                 <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>
 
 <!--                </form>-->

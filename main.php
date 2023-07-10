@@ -15,7 +15,7 @@
                 <p class="mt-4 mb-0">Проверенных</p>
                 <h3 class="mb-0 font-weight-bold mt-2 text-dark">
                     <?php
-                    $rez = mysqli_query($con, "Select count(*) allApps from applications where id_status=4") or die("Ошибка " . mysqli_error($con));
+                    $rez = mysqli_query($con, "Select count(*) allApps from applications where id_status in (4,5)") or die("Ошибка " . mysqli_error($con));
                     if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                     {
                         $row = mysqli_fetch_assoc($rez);
