@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 10 2023 г., 17:52
+-- Время создания: Июл 11 2023 г., 17:29
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -48,7 +48,7 @@ FROM `subvision` sub
 left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
-WHERE sub.id_application= id_app;
+WHERE sub.id_application= id_app and m.id_mark is not null;
 
 
 set @all_mark = (select count(*)
@@ -110,8 +110,14 @@ where field4 =1 and  mark_class=3);
 
 set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
 
-INSERT INTO report_application_mark(id_application, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
-VALUES(id_app,  IFNULL(@otmetka_all,0), IFNULL(@otmetka_all_class_1,0), IFNULL(@otmetka_all_class_2,0), IFNULL(@otmetka_all_class_3,0));
+INSERT INTO report_application_mark(id_application, otmetka_all, otmetka_all_count_yes, otmetka_all_count_all, otmetka_all_count_not_need, otmetka_class_1, otmetka_class_1_count_yes, otmetka_class_1_count_all, otmetka_class_1_count_not_need,otmetka_class_2, otmetka_class_2_count_yes, otmetka_class_2_count_all, otmetka_class_2_count_not_need,otmetka_class_3,otmetka_class_3_count_yes, otmetka_class_3_count_all, otmetka_class_3_count_not_need) 
+VALUES(id_app,  IFNULL(@otmetka_all,0),
+IFNULL(@all_mark_1,0),IFNULL(@all_mark,0),IFNULL(@all_mark_3,0), IFNULL(@otmetka_all_class_1,0), 
+IFNULL(@all_mark_1_class_1,0),IFNULL(@all_mark_class_1,0),IFNULL(@all_mark_3_class_1,0),
+IFNULL(@otmetka_all_class_2,0), 
+IFNULL(@all_mark_1_class_2,0),IFNULL(@all_mark_class_2,0),IFNULL(@all_mark_3_class_2,0),
+IFNULL(@otmetka_all_class_3,0),
+IFNULL(@all_mark_1_class_3,0),IFNULL(@all_mark_class_3,0),IFNULL(@all_mark_3_class_3,0));
 
 DROP TEMPORARY TABLE temp_criteria;
 
@@ -132,7 +138,7 @@ FROM `subvision` sub
 left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
-WHERE sub.id_application= id_app;
+WHERE sub.id_application= id_app and m.id_mark is not null;
 
 
 set @all_mark = (select count(*)
@@ -203,8 +209,21 @@ set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_c
 
 update report_application_mark
 set otmetka_accred_all = IFNULL(@otmetka_all,0), 
-otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0),
-otmetka_verif=IFNULL(@otmetka_verif,0)
+otmetka_accred_all_count_yes=IFNULL(@all_mark_1,0), 
+otmetka_accred_all_count_all=IFNULL(@all_mark,0),
+otmetka_accred_all_count_not_need=IFNULL(@all_mark_3,0),
+otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), 
+otmetka_accred_class_1_count_yes=IFNULL(@all_mark_1_class_1,0),otmetka_accred_class_1_count_all=IFNULL(@all_mark_class_1,0), otmetka_accred_class_1_count_not_need=IFNULL(@all_mark_3_class_1,0),
+otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), 
+otmetka_accred_class_2_count_yes= 
+IFNULL(@all_mark_1_class_2,0),otmetka_accred_class_2_count_all=IFNULL(@all_mark_class_2,0),
+otmetka_accred_class_2_count_not_need=IFNULL(@all_mark_3_class_2,0),
+otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0),
+
+otmetka_accred_class_3_count_yes=IFNULL(@all_mark_1_class_3,0),
+otmetka_accred_class_3_count_all= IFNULL(@all_mark_class_3,0),otmetka_accred_class_3_count_not_need=IFNULL(@all_mark_3_class_3,0),
+otmetka_verif=IFNULL(@otmetka_verif,0),
+otmetka_verif_count_yes= IFNULL(@mark_verif,0),otmetka_verif_count_all= IFNULL(@all_mark,0),otmetka_verif_count_not_need=IFNULL(@all_mark_3,0)
 where id_application=id_app;
 
 DROP TEMPORARY TABLE temp_criteria;
@@ -243,7 +262,7 @@ left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
 WHERE sub.id_subvision= id_sub and 
-m.id_criteria=id_criteria_temp;
+m.id_criteria=id_criteria_temp and m.id_mark is not null;
 
 set @all_mark = 0;
 set @all_mark_3 = 0;
@@ -323,8 +342,14 @@ where field4 =1 and  mark_class=3);
 
 set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
 
-INSERT INTO report_criteria_mark(id_application, id_subvision, id_criteria, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
-VALUES(id_app, id_sub, id_criteria_temp, IFNULL(@otmetka_all,0), IFNULL(@otmetka_all_class_1,0), IFNULL(@otmetka_all_class_2,0), IFNULL(@otmetka_all_class_3,0));
+INSERT INTO report_criteria_mark(id_application, id_subvision, id_criteria, otmetka_all, otmetka_all_count_yes, otmetka_all_count_all, otmetka_all_count_not_need, otmetka_class_1, otmetka_class_1_count_yes, otmetka_class_1_count_all, otmetka_class_1_count_not_need,otmetka_class_2, otmetka_class_2_count_yes, otmetka_class_2_count_all, otmetka_class_2_count_not_need,otmetka_class_3,otmetka_class_3_count_yes, otmetka_class_3_count_all, otmetka_class_3_count_not_need) 
+VALUES(id_app, id_sub, id_criteria_temp, IFNULL(@otmetka_all,0),
+IFNULL(@all_mark_1,0),IFNULL(@all_mark,0),IFNULL(@all_mark_3,0), IFNULL(@otmetka_all_class_1,0), 
+IFNULL(@all_mark_1_class_1,0),IFNULL(@all_mark_class_1,0),IFNULL(@all_mark_3_class_1,0),
+IFNULL(@otmetka_all_class_2,0), 
+IFNULL(@all_mark_1_class_2,0),IFNULL(@all_mark_class_2,0),IFNULL(@all_mark_3_class_2,0),
+IFNULL(@otmetka_all_class_3,0),
+IFNULL(@all_mark_1_class_3,0),IFNULL(@all_mark_class_3,0),IFNULL(@all_mark_3_class_3,0));
 
 DROP TEMPORARY TABLE temp_criteria_sub;
 
@@ -364,7 +389,7 @@ left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
 WHERE sub.id_subvision= id_sub and 
-m.id_criteria=id_criteria_temp;
+m.id_criteria=id_criteria_temp and m.id_mark is not null;
 
 set @all_mark = 0;
 set @all_mark_3 = 0;
@@ -456,7 +481,20 @@ set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_c
 
 update report_criteria_mark
 set otmetka_accred_all = IFNULL(@otmetka_all,0), 
-otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0), otmetka_verif =IFNULL(@otmetka_verif ,0)
+otmetka_accred_all_count_yes=IFNULL(@all_mark_1,0), 
+otmetka_accred_all_count_all=IFNULL(@all_mark,0),
+otmetka_accred_all_count_not_need=IFNULL(@all_mark_3,0),
+otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), 
+otmetka_accred_class_1_count_yes=IFNULL(@all_mark_1_class_1,0),otmetka_accred_class_1_count_all=IFNULL(@all_mark_class_1,0), otmetka_accred_class_1_count_not_need=IFNULL(@all_mark_3_class_1,0),
+otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), 
+otmetka_accred_class_2_count_yes= 
+IFNULL(@all_mark_1_class_2,0),otmetka_accred_class_2_count_all=IFNULL(@all_mark_class_2,0),
+otmetka_accred_class_2_count_not_need=IFNULL(@all_mark_3_class_2,0),
+otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0),
+otmetka_accred_class_3_count_yes=IFNULL(@all_mark_1_class_3,0),
+otmetka_accred_class_3_count_all= IFNULL(@all_mark_class_3,0),otmetka_accred_class_3_count_not_need=IFNULL(@all_mark_3_class_3,0),
+otmetka_verif=IFNULL(@otmetka_verif,0),
+otmetka_verif_count_yes= IFNULL(@otmetka_verif,0),otmetka_verif_count_all= IFNULL(@mark_verif,0),otmetka_verif_count_not_need=IFNULL(@all_mark_3,0)
 where id_application=id_app and id_subvision=id_sub and id_criteria=id_criteria_temp;
 
 
@@ -495,7 +533,7 @@ FROM `subvision` sub
 left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
-WHERE sub.id_subvision= id_sub_temp;
+WHERE sub.id_subvision= id_sub_temp and m.id_mark is not null;
 
 
 set @all_mark = 0;
@@ -582,8 +620,14 @@ where field4 =1 and  mark_class=3);
 
 set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_class_3))*100;
 
-INSERT INTO report_subvision_mark(id_application, id_subvision, otmetka_all, otmetka_class_1, otmetka_class_2, otmetka_class_3) 
-VALUES(id_app, id_sub_temp, IFNULL(@otmetka_all,0), IFNULL(@otmetka_all_class_1,0), IFNULL(@otmetka_all_class_2,0), IFNULL(@otmetka_all_class_3,0));
+INSERT INTO report_subvision_mark(id_application, id_subvision, otmetka_all, otmetka_all_count_yes, otmetka_all_count_all, otmetka_all_count_not_need, otmetka_class_1, otmetka_class_1_count_yes, otmetka_class_1_count_all, otmetka_class_1_count_not_need,otmetka_class_2, otmetka_class_2_count_yes, otmetka_class_2_count_all, otmetka_class_2_count_not_need,otmetka_class_3,otmetka_class_3_count_yes, otmetka_class_3_count_all, otmetka_class_3_count_not_need) 
+VALUES(id_app, id_sub_temp, IFNULL(@otmetka_all,0),
+IFNULL(@all_mark_1,0),IFNULL(@all_mark,0),IFNULL(@all_mark_3,0), IFNULL(@otmetka_all_class_1,0), 
+IFNULL(@all_mark_1_class_1,0),IFNULL(@all_mark_class_1,0),IFNULL(@all_mark_3_class_1,0),
+IFNULL(@otmetka_all_class_2,0), 
+IFNULL(@all_mark_1_class_2,0),IFNULL(@all_mark_class_2,0),IFNULL(@all_mark_3_class_2,0),
+IFNULL(@otmetka_all_class_3,0),
+IFNULL(@all_mark_1_class_3,0),IFNULL(@all_mark_class_3,0),IFNULL(@all_mark_3_class_3,0));
 
 call cursor_for_criteria(id_app, id_sub_temp);
 
@@ -622,7 +666,7 @@ FROM `subvision` sub
 left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
-WHERE sub.id_subvision= id_sub_temp;
+WHERE sub.id_subvision= id_sub_temp and m.id_mark is not null;
 
 
 set @all_mark = 0;
@@ -720,7 +764,20 @@ set @otmetka_all_class_3 = (@all_mark_1_class_3/(@all_mark_class_3-@all_mark_3_c
 
 update report_subvision_mark
 set otmetka_accred_all = IFNULL(@otmetka_all,0), 
-otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0), otmetka_verif =IFNULL(@otmetka_verif ,0)
+otmetka_accred_all_count_yes=IFNULL(@all_mark_1,0), 
+otmetka_accred_all_count_all=IFNULL(@all_mark,0),
+otmetka_accred_all_count_not_need=IFNULL(@all_mark_3,0),
+otmetka_accred_class_1=IFNULL(@otmetka_all_class_1,0), 
+otmetka_accred_class_1_count_yes=IFNULL(@all_mark_1_class_1,0),otmetka_accred_class_1_count_all=IFNULL(@all_mark_class_1,0), otmetka_accred_class_1_count_not_need=IFNULL(@all_mark_3_class_1,0),
+otmetka_accred_class_2=IFNULL(@otmetka_all_class_2,0), 
+otmetka_accred_class_2_count_yes= 
+IFNULL(@all_mark_1_class_2,0),otmetka_accred_class_2_count_all=IFNULL(@all_mark_class_2,0),
+otmetka_accred_class_2_count_not_need=IFNULL(@all_mark_3_class_2,0),
+otmetka_accred_class_3=IFNULL(@otmetka_all_class_3,0),
+otmetka_accred_class_3_count_yes=IFNULL(@all_mark_1_class_3,0),
+otmetka_accred_class_3_count_all= IFNULL(@all_mark_class_3,0),otmetka_accred_class_3_count_not_need=IFNULL(@all_mark_3_class_3,0),
+otmetka_verif=IFNULL(@otmetka_verif,0),
+otmetka_verif_count_yes= IFNULL(@mark_verif,0),otmetka_verif_count_all= IFNULL(@all_mark,0),otmetka_verif_count_not_need=IFNULL(@all_mark_3,0)
 where id_application=id_app and id_subvision=id_sub_temp;
 
 call cursor_for_criteria_acred(id_app, id_sub_temp);
@@ -762,7 +819,7 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `id_user`, `id_status`) VALUES
-(35, '1', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 2);
+(35, '1', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -857,6 +914,7 @@ INSERT INTO `criteria` (`id_criteria`, `name`, `type_criteria`, `conditions_id`)
 
 CREATE TABLE `mark` (
   `id_mark` int NOT NULL,
+  `str_num` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `mark_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `mark_class` int NOT NULL,
   `id_criteria` int NOT NULL
@@ -866,19 +924,19 @@ CREATE TABLE `mark` (
 -- Дамп данных таблицы `mark`
 --
 
-INSERT INTO `mark` (`id_mark`, `mark_name`, `mark_class`, `id_criteria`) VALUES
-(1, 'В учреждении здравоохранения определены ответственные лица за  организацию оказания медицинской помощи, в том числе  специализированной	3					', 1, 3),
-(2, 'В  учреждении  здравоохранения положения о структурных подразделениях соответствуют деятельности подразделений, их структуре. Деятельность структурных подразделений осуществляется в соответствии с положениями', 2, 3),
-(3, 'Проведение анализа деятельности учреждения здравоохранения по достигнутым результатам, ежеквартальное рассмотрение на медицинских советах, производственных совещаниях, принятие мер по устранению недостатков', 1, 3),
-(4, 'Организация и осуществление контроля за выполнением доведенных объемных показателей деятельности учреждения здравоохранения (региональный комплекс мероприятий)', 2, 3),
-(5, 'Организация и осуществление контроля за выполнением  управленческих решений по  улучшению качества медицинской помощи в учреждении здравоохранения за  последний отчетный период или год, анализ  выполнения решений', 3, 3),
-(6, 'критерий 1', 1, 4),
-(7, 'критерий 2', 1, 4),
-(8, 'критерий 3', 2, 4),
-(9, 'критерий 4', 2, 4),
-(10, 'критерий 5', 3, 4),
-(11, 'критерий 6', 3, 4),
-(12, 'test id_mark=5', 1, 5);
+INSERT INTO `mark` (`id_mark`, `str_num`, `mark_name`, `mark_class`, `id_criteria`) VALUES
+(1, '1', 'В учреждении здравоохранения определены ответственные лица за  организацию оказания медицинской помощи, в том числе  специализированной	3					', 1, 3),
+(2, '2', 'В  учреждении  здравоохранения положения о структурных подразделениях соответствуют деятельности подразделений, их структуре. Деятельность структурных подразделений осуществляется в соответствии с положениями', 2, 3),
+(3, NULL, 'Проведение анализа деятельности учреждения здравоохранения по достигнутым результатам, ежеквартальное рассмотрение на медицинских советах, производственных совещаниях, принятие мер по устранению недостатков', 1, 3),
+(4, NULL, 'Организация и осуществление контроля за выполнением доведенных объемных показателей деятельности учреждения здравоохранения (региональный комплекс мероприятий)', 2, 3),
+(5, NULL, 'Организация и осуществление контроля за выполнением  управленческих решений по  улучшению качества медицинской помощи в учреждении здравоохранения за  последний отчетный период или год, анализ  выполнения решений', 3, 3),
+(6, NULL, 'критерий 1', 1, 4),
+(7, NULL, 'критерий 2', 1, 4),
+(8, NULL, 'критерий 3', 2, 4),
+(9, NULL, 'критерий 4', 2, 4),
+(10, NULL, 'критерий 5', 3, 4),
+(11, NULL, 'критерий 6', 3, 4),
+(12, NULL, 'test id_mark=5', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -961,22 +1019,49 @@ INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteri
 CREATE TABLE `report_application_mark` (
   `id_application` int NOT NULL,
   `otmetka_all` int NOT NULL,
+  `otmetka_all_count_yes` int DEFAULT NULL,
+  `otmetka_all_count_all` int DEFAULT NULL,
+  `otmetka_all_count_not_need` int DEFAULT NULL,
   `otmetka_class_1` int NOT NULL,
+  `otmetka_class_1_count_yes` int DEFAULT NULL,
+  `otmetka_class_1_count_all` int DEFAULT NULL,
+  `otmetka_class_1_count_not_need` int DEFAULT NULL,
   `otmetka_class_2` int NOT NULL,
+  `otmetka_class_2_count_yes` int DEFAULT NULL,
+  `otmetka_class_2_count_all` int DEFAULT NULL,
+  `otmetka_class_2_count_not_need` int DEFAULT NULL,
   `otmetka_class_3` int NOT NULL,
+  `otmetka_class_3_count_yes` int DEFAULT NULL,
+  `otmetka_class_3_count_all` int DEFAULT NULL,
+  `otmetka_class_3_count_not_need` int DEFAULT NULL,
   `otmetka_accred_all` int DEFAULT NULL,
+  `otmetka_accred_all_count_yes` int DEFAULT NULL,
+  `otmetka_accred_all_count_all` int DEFAULT NULL,
+  `otmetka_accred_all_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_1` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_2` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_3` int DEFAULT NULL,
-  `otmetka_verif` int DEFAULT NULL
+  `otmetka_accred_class_3_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_3_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_3_count_not_need` int DEFAULT NULL,
+  `otmetka_verif` int DEFAULT NULL,
+  `otmetka_verif_count_yes` int DEFAULT NULL,
+  `otmetka_verif_count_all` int DEFAULT NULL,
+  `otmetka_verif_count_not_need` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `report_application_mark`
 --
 
-INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`, `otmetka_accred_all`, `otmetka_accred_class_1`, `otmetka_accred_class_2`, `otmetka_accred_class_3`, `otmetka_verif`) VALUES
-(35, 30, 14, 67, 25, 10, 25, 0, 0, 43);
+INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka_all_count_yes`, `otmetka_all_count_all`, `otmetka_all_count_not_need`, `otmetka_class_1`, `otmetka_class_1_count_yes`, `otmetka_class_1_count_all`, `otmetka_class_1_count_not_need`, `otmetka_class_2`, `otmetka_class_2_count_yes`, `otmetka_class_2_count_all`, `otmetka_class_2_count_not_need`, `otmetka_class_3`, `otmetka_class_3_count_yes`, `otmetka_class_3_count_all`, `otmetka_class_3_count_not_need`, `otmetka_accred_all`, `otmetka_accred_all_count_yes`, `otmetka_accred_all_count_all`, `otmetka_accred_all_count_not_need`, `otmetka_accred_class_1`, `otmetka_accred_class_1_count_yes`, `otmetka_accred_class_1_count_all`, `otmetka_accred_class_1_count_not_need`, `otmetka_accred_class_2`, `otmetka_accred_class_2_count_yes`, `otmetka_accred_class_2_count_all`, `otmetka_accred_class_2_count_not_need`, `otmetka_accred_class_3`, `otmetka_accred_class_3_count_yes`, `otmetka_accred_class_3_count_all`, `otmetka_accred_class_3_count_not_need`, `otmetka_verif`, `otmetka_verif_count_yes`, `otmetka_verif_count_all`, `otmetka_verif_count_not_need`) VALUES
+(35, 35, 6, 18, 1, 14, 1, 8, 1, 67, 4, 6, 0, 25, 1, 4, 0, 11, 2, 18, 0, 25, 2, 8, 0, 0, 0, 6, 0, 0, 0, 4, 0, 50, 9, 18, 0);
 
 -- --------------------------------------------------------
 
@@ -989,29 +1074,56 @@ CREATE TABLE `report_criteria_mark` (
   `id_subvision` int NOT NULL,
   `id_criteria` int NOT NULL,
   `otmetka_all` int NOT NULL,
+  `otmetka_all_count_yes` int DEFAULT NULL,
+  `otmetka_all_count_all` int DEFAULT NULL,
+  `otmetka_all_count_not_need` int DEFAULT NULL,
   `otmetka_class_1` int NOT NULL,
+  `otmetka_class_1_count_yes` int DEFAULT NULL,
+  `otmetka_class_1_count_all` int DEFAULT NULL,
+  `otmetka_class_1_count_not_need` int DEFAULT NULL,
   `otmetka_class_2` int NOT NULL,
+  `otmetka_class_2_count_yes` int DEFAULT NULL,
+  `otmetka_class_2_count_all` int DEFAULT NULL,
+  `otmetka_class_2_count_not_need` int DEFAULT NULL,
   `otmetka_class_3` int NOT NULL,
+  `otmetka_class_3_count_yes` int DEFAULT NULL,
+  `otmetka_class_3_count_all` int DEFAULT NULL,
+  `otmetka_class_3_count_not_need` int DEFAULT NULL,
   `otmetka_accred_all` int DEFAULT NULL,
+  `otmetka_accred_all_count_yes` int DEFAULT NULL,
+  `otmetka_accred_all_count_all` int DEFAULT NULL,
+  `otmetka_accred_all_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_1` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_2` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_3` int DEFAULT NULL,
-  `otmetka_verif` int DEFAULT NULL
+  `otmetka_accred_class_3_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_3_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_3_count_not_need` int DEFAULT NULL,
+  `otmetka_verif` int DEFAULT NULL,
+  `otmetka_verif_count_yes` int DEFAULT NULL,
+  `otmetka_verif_count_all` int DEFAULT NULL,
+  `otmetka_verif_count_not_need` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `report_criteria_mark`
 --
 
-INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criteria`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`, `otmetka_accred_all`, `otmetka_accred_class_1`, `otmetka_accred_class_2`, `otmetka_accred_class_3`, `otmetka_verif`) VALUES
-(35, 6, 3, 80, 50, 100, 100, 20, 50, 0, 0, 100),
-(35, 6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 6, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 49, 3, 50, 0, 100, 0, 20, 50, 0, 0, 80),
-(35, 49, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 49, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 49, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criteria`, `otmetka_all`, `otmetka_all_count_yes`, `otmetka_all_count_all`, `otmetka_all_count_not_need`, `otmetka_class_1`, `otmetka_class_1_count_yes`, `otmetka_class_1_count_all`, `otmetka_class_1_count_not_need`, `otmetka_class_2`, `otmetka_class_2_count_yes`, `otmetka_class_2_count_all`, `otmetka_class_2_count_not_need`, `otmetka_class_3`, `otmetka_class_3_count_yes`, `otmetka_class_3_count_all`, `otmetka_class_3_count_not_need`, `otmetka_accred_all`, `otmetka_accred_all_count_yes`, `otmetka_accred_all_count_all`, `otmetka_accred_all_count_not_need`, `otmetka_accred_class_1`, `otmetka_accred_class_1_count_yes`, `otmetka_accred_class_1_count_all`, `otmetka_accred_class_1_count_not_need`, `otmetka_accred_class_2`, `otmetka_accred_class_2_count_yes`, `otmetka_accred_class_2_count_all`, `otmetka_accred_class_2_count_not_need`, `otmetka_accred_class_3`, `otmetka_accred_class_3_count_yes`, `otmetka_accred_class_3_count_all`, `otmetka_accred_class_3_count_not_need`, `otmetka_verif`, `otmetka_verif_count_yes`, `otmetka_verif_count_all`, `otmetka_verif_count_not_need`) VALUES
+(35, 6, 3, 80, 4, 5, 0, 50, 1, 2, 0, 100, 2, 2, 0, 100, 1, 1, 0, 20, 1, 5, 0, 50, 1, 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 100, 100, 5, 0),
+(35, 6, 4, 0, 0, 6, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 6, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0),
+(35, 6, 5, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 6, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 49, 3, 50, 2, 5, 1, 0, 0, 2, 1, 100, 2, 2, 0, 0, 0, 1, 0, 20, 1, 5, 0, 50, 1, 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 80, 80, 4, 0),
+(35, 49, 5, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 49, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 49, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1023,23 +1135,50 @@ CREATE TABLE `report_subvision_mark` (
   `id_application` int NOT NULL,
   `id_subvision` int NOT NULL,
   `otmetka_all` int NOT NULL,
+  `otmetka_all_count_yes` int DEFAULT NULL,
+  `otmetka_all_count_all` int DEFAULT NULL,
+  `otmetka_all_count_not_need` int DEFAULT NULL,
   `otmetka_class_1` int NOT NULL,
+  `otmetka_class_1_count_yes` int DEFAULT NULL,
+  `otmetka_class_1_count_all` int DEFAULT NULL,
+  `otmetka_class_1_count_not_need` int DEFAULT NULL,
   `otmetka_class_2` int NOT NULL,
+  `otmetka_class_2_count_yes` int DEFAULT NULL,
+  `otmetka_class_2_count_all` int DEFAULT NULL,
+  `otmetka_class_2_count_not_need` int DEFAULT NULL,
   `otmetka_class_3` int NOT NULL,
+  `otmetka_class_3_count_yes` int DEFAULT NULL,
+  `otmetka_class_3_count_all` int DEFAULT NULL,
+  `otmetka_class_3_count_not_need` int DEFAULT NULL,
   `otmetka_accred_all` int DEFAULT NULL,
+  `otmetka_accred_all_count_yes` int DEFAULT NULL,
+  `otmetka_accred_all_count_all` int DEFAULT NULL,
+  `otmetka_accred_all_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_1` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_1_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_2` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_2_count_not_need` int DEFAULT NULL,
   `otmetka_accred_class_3` int DEFAULT NULL,
-  `otmetka_verif` int DEFAULT NULL
+  `otmetka_accred_class_3_count_yes` int DEFAULT NULL,
+  `otmetka_accred_class_3_count_all` int DEFAULT NULL,
+  `otmetka_accred_class_3_count_not_need` int DEFAULT NULL,
+  `otmetka_verif` int DEFAULT NULL,
+  `otmetka_verif_count_yes` int DEFAULT NULL,
+  `otmetka_verif_count_all` int DEFAULT NULL,
+  `otmetka_verif_count_not_need` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `report_subvision_mark`
 --
 
-INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_all`, `otmetka_class_1`, `otmetka_class_2`, `otmetka_class_3`, `otmetka_accred_all`, `otmetka_accred_class_1`, `otmetka_accred_class_2`, `otmetka_accred_class_3`, `otmetka_verif`) VALUES
-(35, 6, 31, 20, 50, 33, 8, 20, 0, 0, 38),
-(35, 49, 29, 0, 100, 0, 13, 33, 0, 0, 50);
+INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_all`, `otmetka_all_count_yes`, `otmetka_all_count_all`, `otmetka_all_count_not_need`, `otmetka_class_1`, `otmetka_class_1_count_yes`, `otmetka_class_1_count_all`, `otmetka_class_1_count_not_need`, `otmetka_class_2`, `otmetka_class_2_count_yes`, `otmetka_class_2_count_all`, `otmetka_class_2_count_not_need`, `otmetka_class_3`, `otmetka_class_3_count_yes`, `otmetka_class_3_count_all`, `otmetka_class_3_count_not_need`, `otmetka_accred_all`, `otmetka_accred_all_count_yes`, `otmetka_accred_all_count_all`, `otmetka_accred_all_count_not_need`, `otmetka_accred_class_1`, `otmetka_accred_class_1_count_yes`, `otmetka_accred_class_1_count_all`, `otmetka_accred_class_1_count_not_need`, `otmetka_accred_class_2`, `otmetka_accred_class_2_count_yes`, `otmetka_accred_class_2_count_all`, `otmetka_accred_class_2_count_not_need`, `otmetka_accred_class_3`, `otmetka_accred_class_3_count_yes`, `otmetka_accred_class_3_count_all`, `otmetka_accred_class_3_count_not_need`, `otmetka_verif`, `otmetka_verif_count_yes`, `otmetka_verif_count_all`, `otmetka_verif_count_not_need`) VALUES
+(35, 6, 33, 4, 12, 0, 20, 1, 5, 0, 50, 2, 4, 0, 33, 1, 3, 0, 8, 1, 12, 0, 20, 1, 5, 0, 0, 0, 4, 0, 0, 0, 3, 0, 42, 5, 12, 0),
+(35, 49, 40, 2, 6, 1, 0, 0, 3, 1, 100, 2, 2, 0, 0, 0, 1, 0, 17, 1, 6, 0, 33, 1, 3, 0, 0, 0, 2, 0, 0, 0, 1, 0, 67, 4, 6, 0);
 
 -- --------------------------------------------------------
 
@@ -1126,12 +1265,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'thv6o3f7fs581a1ajvacbiadgfdg646f', 'thv6o3f7fs581a1ajvacbiadgfdg646f', '2023-07-10 17:43:17', '/index.php?users'),
-(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', '2023-07-10 17:40:54', '/index.php?logout'),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'ba99ugsq19b7j0jcss1kttuf4c2gje0a', 'ba99ugsq19b7j0jcss1kttuf4c2gje0a', '2023-07-11 17:29:27', '/index.php'),
+(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', '2023-07-11 09:48:53', '/index.php?application'),
 (3, 'Брестская городская поликлиника №1', 'brestgp1', 'ddd415ac66e91cf20c63792ffe88eb70', 3, NULL, NULL, NULL, NULL),
 (4, 'Брестская городская поликлиника №2', 'brestgp2', '8bc25d7d934f31bca3a27442355caade', 3, NULL, NULL, NULL, NULL),
 (5, 'Брестская городская поликлиника №3', 'brestgp3', 'dab4e30dcda1b14af1e11730e7597579', 3, NULL, NULL, NULL, NULL),
-(6, 'Брестская городская поликлиника №5', 'brestgp5', '336e3f80e6a5d322384fffda3acf3493', 3, '0', '0ss8lrpf0cgljb62ptktlmibqncud4f8', '2023-06-21 16:14:17', '/index.php?logout'),
+(6, 'Брестская городская поликлиника №5', 'brestgp5', '336e3f80e6a5d322384fffda3acf3493', 3, '0', NULL, '2023-06-21 16:14:17', '/index.php?logout'),
 (7, 'Брестская городская поликлиника №6', 'brestgp6', 'c724f414397c5a9c719bfb0b63201032', 3, NULL, NULL, NULL, NULL),
 (8, 'Брестская городская детская поликлиника №1', 'brestgdp1', '0fb809774404c914cdafda26f72cbd9c', 3, NULL, NULL, NULL, NULL),
 (9, 'Бешенковичская центральная районная больница', 'beshcrb', 'e1bc2f88ab5562e1439bf60d25211f93', 3, NULL, NULL, NULL, NULL),
@@ -1234,13 +1373,13 @@ INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `onl
 (106, 'Гомельская городская клиническая поликлиника № 10', 'gomgkp10', 'f3e2e3fa1dce833133867f225d15ea6c', 3, NULL, NULL, NULL, NULL),
 (107, 'Гомельская городская клиническая поликлиника № 11', 'gomgkp11', '81f0dcd793db9f2b0b2fffb2584bc304', 3, NULL, NULL, NULL, NULL),
 (108, 'Гомельская городская поликлиника №13', 'gomgp13', 'bae495cf230b4ca7c017de7977a82e64', 3, NULL, NULL, NULL, NULL),
-(109, 'Гомельская городская клиническая поликлиника № 14', 'gomgkp14', '0122d770cc542cacb20b7293b245dc92', 3, '0vgff6u46s0sn13e96m5jtafjbelto6j', '0vgff6u46s0sn13e96m5jtafjbelto6j', '2023-06-23 16:42:49', '/index.php?application'),
-(110, 'Гомельская городская поликлиника № 1', 'gomgp1', 'f4e7f83bd04cbcb3eff3d05119b974d4', 3, '0', 'ga4egbgb4e9g18ud6ak3oq8c2q5mkpjh', '2023-06-23 11:23:18', '/index.php?logout'),
+(109, 'Гомельская городская клиническая поликлиника № 14', 'gomgkp14', '0122d770cc542cacb20b7293b245dc92', 3, NULL, NULL, '2023-06-23 16:42:49', '/index.php?application'),
+(110, 'Гомельская городская поликлиника № 1', 'gomgp1', 'f4e7f83bd04cbcb3eff3d05119b974d4', 3, '0', NULL, '2023-06-23 11:23:18', '/index.php?logout'),
 (111, 'Поликлиника № 7', 'gomp7', 'd4ea3910789bf7de1c5c0907042f0254', 3, NULL, NULL, NULL, NULL),
 (112, 'Гомельская центральная городская детская клиническая поликлиника', 'gomcgdkp', 'c34b63c78150c7eac48ec2620ae53a26', 3, NULL, NULL, NULL, NULL),
 (113, 'Гомельская центральная городская стоматологическая поликлиника', 'gomcgsp', '4de0c63e1f0c0e98040b7ae2b25dfc75', 3, NULL, NULL, NULL, NULL),
 (114, 'Мозырская центральная городская поликлиника', 'mozcgp', '62d97280f28e55d52ffa173c6e63da25', 3, NULL, NULL, NULL, NULL),
-(115, 'Центр медицинской реабилитации для детей-инвалидов и молодых инвалидов с психоневрологическими заболеваниями «Радуга»', 'radugacmrdi', 'ee25f4b10557e264ae0c6cd4930460df', 3, '0', 'ga4egbgb4e9g18ud6ak3oq8c2q5mkpjh', '2023-06-23 11:23:41', '/index.php?logout'),
+(115, 'Центр медицинской реабилитации для детей-инвалидов и молодых инвалидов с психоневрологическими заболеваниями «Радуга»', 'radugacmrdi', 'ee25f4b10557e264ae0c6cd4930460df', 3, '0', NULL, '2023-06-23 11:23:41', '/index.php?logout'),
 (116, 'Мозырская городская стоматологическая поликлиника', 'mozgsp', '9b8073512100f57a6136f2ef1d85b1b1', 3, NULL, NULL, NULL, NULL),
 (117, 'Мозырская городская поликлиника №4', 'mozgp4', 'aa60a09bb93dc5b20cd68bbf6a05d72c', 3, NULL, NULL, NULL, NULL),
 (118, 'Белыничская центральная районная больница', 'belincrb', 'd98beb62c8136ddb15fcb039d0094435', 3, NULL, NULL, NULL, NULL),
@@ -1289,7 +1428,7 @@ INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `onl
 (161, 'Могилёвская поликлиника № 9', 'mogp9', '539e58c857080de06853d18db0b38e06', 3, NULL, NULL, NULL, NULL),
 (162, 'Могилёвская поликлиника № 10', 'mogp10', 'bc7ee77c8e31bf55c24f02abd3e32fc9', 3, NULL, NULL, NULL, NULL),
 (163, 'Могилёвская поликлиника № 11', 'mogp11', '271a367f3b83e17c75f1365f3e57a697', 3, NULL, NULL, NULL, NULL),
-(164, 'Могилёвская поликлиника № 12', 'mogp12', '31c3e7c375d4b11841e11d1fe3e224c8', 3, '0', 'dhsoakom76qva8of8ug4jnu1jmnr8mla', '2023-06-29 12:06:00', '/index.php?logout'),
+(164, 'Могилёвская поликлиника № 12', 'mogp12', '31c3e7c375d4b11841e11d1fe3e224c8', 3, '0', NULL, '2023-06-29 12:06:00', '/index.php?logout'),
 (165, 'Могилёвская детская поликлиника', 'mogdp', 'e0979a51dd440eef0cb52a6df30c3b0e', 3, NULL, NULL, NULL, NULL),
 (166, 'Могилёвская детская поликлиника № 1', 'mogdp1', '19c6645444fffadcbcb83b1b8524fc81', 3, NULL, NULL, NULL, NULL),
 (167, 'Могилёвская детская поликлиника № 2', 'mogdp2', '2495cdf58a095b31c3f376e9663017c4', 3, NULL, NULL, NULL, NULL),

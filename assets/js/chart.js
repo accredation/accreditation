@@ -1,4 +1,7 @@
 $(function() {
+
+  let allCountOrganization = 438;
+
   /* ChartJS
    * -------
    * Data and config for chartjs
@@ -78,9 +81,10 @@ $(function() {
     }
 
   };
-  var doughnutPieData = {
+  let attr1Donut1 = $("#doughnutChart1").get(0).getAttribute("attr1");
+  var doughnutPieData1 = {
     datasets: [{
-      data: [30, 40, 30],
+      data: [Number(attr1Donut1), (allCountOrganization-Number(attr1Donut1))],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',
@@ -101,18 +105,105 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'Pink',
-      'Blue',
-      'Yellow',
+      'Зарегистрировано',
+      'Подлежащих организаций здравоохранения',
+
     ]
   };
+ let attr1Donut2 = $("#doughnutChart2").get(0).getAttribute("attr1");
+ let attr2Donut2 = $("#doughnutChart2").get(0).getAttribute("attr2");
+ let attr3Donut2 = $("#doughnutChart2").get(0).getAttribute("attr3");
+ let attr4Donut2 = $("#doughnutChart2").get(0).getAttribute("attr4");
+
+ var doughnutPieData2 = {
+    datasets: [{
+      data: [Number(attr1Donut2),Number(attr2Donut2),Number(attr3Donut2),Number(attr4Donut2),
+        (allCountOrganization - Number(attr1Donut2)-Number(attr2Donut2)-Number(attr3Donut2)-Number(attr4Donut2))],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(75, 192, 192, 0.5)',
+        'rgba(153, 102, 255, 0.5)',
+        'rgba(255, 159, 64, 0.5)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+      'Проводится самооценка',
+      'Подали',
+      'В работе',
+      'Проведена оценка',
+      'Не подали заявку'
+    ]
+  };
+
+  let attr1Donut3 = $("#doughnutChart3").get(0).getAttribute("attr1");
+  let attr2Donut3 = $("#doughnutChart3").get(0).getAttribute("attr2");
+  let attr3Donut3 = $("#doughnutChart3").get(0).getAttribute("attr3");
+  let attr4Donut3 = $("#doughnutChart3").get(0).getAttribute("attr4");
+
+  var doughnutPieData3 = {
+    datasets: [{
+      data: [Number(attr1Donut3),Number(attr2Donut3),Number(attr3Donut3),Number(attr4Donut3)],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(75, 192, 192, 0.5)',
+        'rgba(153, 102, 255, 0.5)',
+        'rgba(255, 159, 64, 0.5)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      weight: 20
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+      'оценены до 25%',
+      'оценены до 50%',
+      'оценены до 75%',
+      'оценены до 100%'
+    ]
+  };
+
+
   var doughnutPieOptions = {
     responsive: true,
     animation: {
       animateScale: true,
       animateRotate: true
-    }
+    },
+    legend: {
+      labels: {
+        // This more specific font property overrides the global property
+        fontSize: 16
+      }
+    },
+    cutoutPercentage: 85,
+   // labels: {}
+   // fontSize: 20,
+
   };
+
+
   var areaData = {
     labels: ["2013", "2014", "2015", "2016", "2017"],
     datasets: [{
@@ -305,11 +396,30 @@ $(function() {
     });
   }
 
-  if ($("#doughnutChart").length) {
-    var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+  if ($("#doughnutChart1").length) {
+    var doughnutChartCanvas = $("#doughnutChart1").get(0).getContext("2d");
     var doughnutChart = new Chart(doughnutChartCanvas, {
       type: 'doughnut',
-      data: doughnutPieData,
+      data: doughnutPieData1,
+      options: doughnutPieOptions
+    });
+
+  }
+
+  if ($("#doughnutChart2").length) {
+    var doughnutChartCanvas = $("#doughnutChart2").get(0).getContext("2d");
+    var doughnutChart = new Chart(doughnutChartCanvas, {
+      type: 'doughnut',
+      data: doughnutPieData2,
+      options: doughnutPieOptions
+    });
+  }
+
+  if ($("#doughnutChart3").length) {
+    var doughnutChartCanvas = $("#doughnutChart3").get(0).getContext("2d");
+    var doughnutChart = new Chart(doughnutChartCanvas, {
+      type: 'doughnut',
+      data: doughnutPieData3,
       options: doughnutPieOptions
     });
   }

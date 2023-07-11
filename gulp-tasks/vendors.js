@@ -32,7 +32,7 @@ gulp.task('buildBaseVendorStyles', function() {
 
 /*Scripts for addons*/
 gulp.task('buildOptionalVendorScripts', function() {
-    var aScript1 = gulp.src(['node_modules/chart.js/dist/Chart.min.js'])
+    var aScript1 = gulp.src(['node_modules/chart.js/dist/Chart1.min.js'])
         .pipe(gulp.dest('./assets/vendors/chart.js'));
     var aScript2 = gulp.src(['node_modules/progressbar.js/dist/progressbar.min.js'])
         .pipe(gulp.dest('./assets/vendors/progressbar.js'));

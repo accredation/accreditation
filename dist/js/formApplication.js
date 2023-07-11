@@ -218,42 +218,42 @@ function showTab(element,id_sub){
             .done(function( response ) {
 
                 let criteriaMark ='';
-                JSON.parse(response).map((item, index) =>{
-                    if(item !== 0){
-                        if(index == 0){
-                            criteriaMark = criteriaMark + 'Количественная оценка =' + item +'%';
-                        }
-                        if(index == 1){
-                            criteriaMark += ' По 1 классу ='  + item +'%';
-                        }
-                        if(index == 2){
-                            criteriaMark +=  ' По 2 классу ='  + item +'%';
-                        }
-                        if(index == 3){
-                            criteriaMark +=  ' По 3 классу ='  + item +'%';
-                        }
-                    }
-                });
-                let isBtnPrint = document.getElementById("btnPrint");
-                if(isBtnPrint){
-                    isBtnPrint.remove();
-                }
-                calcSubMark.innerHTML = criteriaMark + "<br/><br/>";
-                let btnPrint = document.createElement("button");
-                btnPrint.setAttribute("type", "submit");
-                btnPrint.className = "btn btn-light btn-fw";
-                btnPrint.id = "btnPrint";
-                btnPrint.innerHTML = "Печать";
-                btnPrint.style = "float: right";
-                btnPrint.onclick = () => print();
+                let marksSub = JSON.parse(response);
+                 
+                criteriaMark = criteriaMark + 'Количественная оценка самооценки ' + marksSub['otmetka_all_count_yes'] + '/('  
+                                        + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
+                criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+                + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
+                + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
+                + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+/*
+                criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
+                + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
+                criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
+                + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
+                criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('  
+                + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
+                criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
+                + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
+                criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
+                + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
+*/
+                // let isBtnPrint = document.getElementById("btnPrint");
+                // if(isBtnPrint){
+                //     isBtnPrint.remove();
+                // }
+                calcSubMark.innerHTML = criteriaMark; // + "<br/><br/>";
+                // let btnPrint = document.createElement("button");
+                // btnPrint.setAttribute("type", "submit");
+                // btnPrint.className = "btn btn-light btn-fw";
+                // btnPrint.id = "btnPrint";
+                // btnPrint.innerHTML = "Печать";
+                // btnPrint.style = "float: right";
+                // btnPrint.onclick = () => print();
                 calcRow.appendChild(calcSubMark);
-                calcSubMark.insertAdjacentElement("afterend", btnPrint);
-                // let marks = JSON.parse(response);
-
-                //  console.log(JSON.parse(response));
-                //  marks.map((item, index) => {
-
-                //  });
+                // calcSubMark.insertAdjacentElement("afterend", btnPrint);
 
             });
     }
@@ -431,25 +431,14 @@ function showModal(id_application, strMarks, strMarksAccred){
         }
     });
 
-    $("#btnPrint").on("click", function () {
-        let naim = document.getElementById("naim");
-        let unp = document.getElementById("unp");
-        let naimText = naim.value;
-        let unpText = unp.value;
-        var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
-        WinPrint.document.write('Наименование организации: ');
-        WinPrint.document.write(naimText);
-        WinPrint.document.write('<br/>');
-        WinPrint.document.write('УНП: ');
-        WinPrint.document.write(unpText);
-        WinPrint.document.close();
-        WinPrint.focus();
-        WinPrint.print();
-        WinPrint.close();
 
-    });
 
 }
+
+$("#btnPrint").on("click", function () {
+
+print();
+});
 
 
 const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
@@ -959,22 +948,28 @@ function createAccordionCards(id_sub) {
                 .done(function( response ) {
 
                     let criteriaMark ='';
-                    JSON.parse(response).map((item, index) =>{
-                        if(item !== 0){
-                            if(index == 0){
-                                criteriaMark = criteriaMark + 'Количественная оценка =' + item +'%';
-                            }
-                            if(index == 1){
-                                criteriaMark += ' По 1 классу ='  + item +'%';
-                            }
-                            if(index == 2){
-                                criteriaMark +=  ' По 2 классу ='  + item +'%';
-                            }
-                            if(index == 3){
-                                criteriaMark +=  ' По 3 классу ='  + item +'%';
-                            }
-                        }
-                    });
+                    let marksSub = JSON.parse(response);
+                 
+                    criteriaMark = criteriaMark + 'Количественная оценка самооценки ' + marksSub['otmetka_all_count_yes'] + '/('  
+                                            + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
+                    criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+                    + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                    criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
+                    + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                    criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
+                    + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+    
+                    // criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
+                    // + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
+                    // criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
+                    // + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
+                    // criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('  
+                    // + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
+                    // criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
+                    // + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
+                    // criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
+                    // + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
+    
                     divCardHeaderMark.innerHTML = criteriaMark;
                     divCardHeader.appendChild(divCardHeaderMark);
                     // let marks = JSON.parse(response);
@@ -1141,6 +1136,12 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th5.innerHTML = 'Примечание';
     th5.style = "border: 1px solid black";
 
+    let thNum = document.createElement('th');
+    thNum.innerHTML = '№ п/п';
+    thNum.style = "border: 1px solid black";
+    thNum.setAttribute('rowspan','2');
+    trHead.appendChild(thNum);
+
     trHead.appendChild(th1);
     trHead.appendChild(th2);
     trHead.appendChild(th3);
@@ -1189,7 +1190,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 input4.setAttribute("rows","3");
                 if (status == 1) {
                 } else {
-                    input4.setAttribute("readonly","");
+                    input4.setAttribute("disabled","true");
                 }
                 input4.style = "width:100%";
                 input4.value = item['field5'];
@@ -1203,7 +1204,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let input5 = document.createElement("textarea");
                 if (status == 1) {
                 } else {
-                    input5.setAttribute("readonly","");
+                    input5.setAttribute("disabled","true");
                 }
                 input5.style = "width:100%";
                 input5.setAttribute("rows","3");
@@ -1213,6 +1214,12 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 td5.appendChild(input5);
               //  td5.innerHTML = item['field6'];
 
+
+                let tdNum = document.createElement('td');
+                tdNum.innerHTML = item['str_num'];
+                tdNum.style = "border: 1px solid black";
+
+                tr.appendChild(tdNum);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
@@ -1509,12 +1516,14 @@ function calcMarks() {
 function print() {
 
 
-    console.log('openTabId =',openTabId);
+    let number_app = document.getElementById("id_application");
+    let id_application = number_app.innerHTML;
+
 
     $.ajax({
-        url: "getSubForPrint.php",
+        url: "getAppForPrint.php",
         method: "GET",
-        data: {id_sub: openTabId}
+        data: {id_app: id_application}
     })
         .done(function( response ) {
             //  console.log(response);
@@ -1528,7 +1537,7 @@ function print() {
             var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
             WinPrint.document.write('<style>@page {\n' +
-                'margin: 0cm;\n' +
+                'margin: 1rem;\n' +
                 '}</style>');  // убрать колонтитул
             // WinPrint.document.write('Наименование организации: ');
             // WinPrint.document.write(naimText);
@@ -1556,21 +1565,36 @@ function print() {
 
 }
 
+
 function createTableForPrint(tableForPrint){
 
     let divPrintTable = document.createElement('div');
 
+    let divNameSubTable = document.createElement('div');
+    divNameSubTable.textContent = tableForPrint[0]['name'];
+    divNameSubTable.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.5rem";
+
+    divPrintTable.appendChild(divNameSubTable);
+
     let divNameCriteriaTable = document.createElement('div');
     divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
-    divNameCriteriaTable.style = "padding-top: 2rem; padding-bottom:2rem";
+    divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
 
     divPrintTable.appendChild(divNameCriteriaTable);
 
     let table = document.createElement('table');
     table.style = "border-collapse: collapse; border-spacing: 0;";
 
+    
+    
 
     let trHeadMain = document.createElement('tr');
+
+    let thNum = document.createElement('th');
+    thNum.innerHTML = '№ п/п';
+    thNum.style = "border: 1px solid black";
+    thNum.setAttribute('rowspan','2');
+
     let th1_Main = document.createElement('th');
     th1_Main.innerHTML = 'Критерий';
     th1_Main.style = "border: 1px solid black";
@@ -1587,11 +1611,7 @@ function createTableForPrint(tableForPrint){
     th3_Main.style = "border: 1px solid black; text-align: center";
     th3_Main.setAttribute('colspan','3');
 
-    let th4_Main = document.createElement('th');
-    th4_Main.innerHTML = 'Сведения об оценке критериев';
-    th4_Main.style = "border: 1px solid black; text-align: center";
-    th4_Main.setAttribute('colspan','2');
-
+  
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
@@ -1607,158 +1627,152 @@ function createTableForPrint(tableForPrint){
     th5.innerHTML = 'Примечание';
     th5.style = "border: 1px solid black";
 
-    let th6 = document.createElement('th');
-    th6.innerHTML = 'Сведения по оценке соответствия';
-    th6.style = "border: 1px solid black";
-
-    let th7 = document.createElement('th');
-    th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
-    th7.style = "border: 1px solid black";
-
+   
+    trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
     trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
-    trHeadMain.appendChild(th4_Main);
-
+   
+    
     table.appendChild(trHeadMain);
     trHead.appendChild(th3);
     trHead.appendChild(th4);
     trHead.appendChild(th5);
-    trHead.appendChild(th6);
-    trHead.appendChild(th7);
+  
 
     table.appendChild(trHead);
-
+    
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
     numCriteria=0;
+    numSub = 0;
     tableForPrint.map((item, index) => {
+  
+       
+            if((numCriteria !== item['id_criteria']) && (index !==0))  {
+
+                if(numSub !== item['id_subvision']){
+
+                    let trNaimSub = document.createElement('tr');
+                    let tdNaimSub  = document.createElement('td');
+                    tdNaimSub.setAttribute('colspan','6');
+                    tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.5rem";
+                    tdNaimSub.innerHTML = item['name'];
+                    trNaimSub.appendChild(tdNaimSub);
+                    tbody.appendChild(trNaimSub);
+
+                }
 
 
-        if((numCriteria !== item['id_criteria']) && (index !==0))  {
-
-            let trNaim = document.createElement('tr');
-            let tdNaim = document.createElement('td');
-            tdNaim.setAttribute('colspan','7');
-            tdNaim.style = "padding-top: 2rem; padding-bottom:2rem";
-            tdNaim.innerHTML = item['name_criteria'];
-            trNaim.appendChild(tdNaim);
-            tbody.appendChild(trNaim);
+                let trNaim = document.createElement('tr');
+                let tdNaim = document.createElement('td');
+                tdNaim.setAttribute('colspan','6');
+                tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+                tdNaim.innerHTML = item['name_criteria'];
+                trNaim.appendChild(tdNaim);
+                tbody.appendChild(trNaim);
 
 
 
-            let trHeadMain2 = document.createElement('tr');
-            let th1_Main2 = document.createElement('td');
-            th1_Main2.innerHTML = 'Критерий';
-            th1_Main2.style = "border: 1px solid black";
-            th1_Main2.setAttribute('rowspan','2');
+                let trHeadMain2 = document.createElement('tr');
 
-            let th2_Main2 = document.createElement('td');
-            th2_Main2.innerHTML = 'Класс критерия';
-            th2_Main2.style = "border: 1px solid black";
-            th2_Main2.setAttribute('rowspan','2');
+                let thNum = document.createElement('th');
+                thNum.innerHTML = '№ п/п';
+                thNum.style = "border: 1px solid black";
+                thNum.setAttribute('rowspan','2');
 
+                let th1_Main2 = document.createElement('td');
+                th1_Main2.innerHTML = 'Критерий';
+                th1_Main2.style = "border: 1px solid black";
+                th1_Main2.setAttribute('rowspan','2');
+        
+                let th2_Main2 = document.createElement('td');
+                th2_Main2.innerHTML = 'Класс критерия';
+                th2_Main2.style = "border: 1px solid black";
+                th2_Main2.setAttribute('rowspan','2');
+        
+        
+                let th3_Main2 = document.createElement('td');
+                th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+                th3_Main2.style = "border: 1px solid black; text-align: center";
+                th3_Main2.setAttribute('colspan','3');
+        
+             
+                
+        
+                let trHead2 = document.createElement('tr');
+                let th32 = document.createElement('td');
+                th32.innerHTML = 'Сведения по самооценке ОЗ';
+                th32.style = "border: 1px solid black";
+        
+                let th42 = document.createElement('td');
+                th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+                th4.style = "width:350px; border: 1px solid black";
+        
+        
+                let th52 = document.createElement('td');
+                th52.innerHTML = 'Примечание';
+                th52.style = "border: 1px solid black";
+        
+                
+        
+                trHeadMain2.appendChild(thNum);
+                trHeadMain2.appendChild(th1_Main2);
+                trHeadMain2.appendChild(th2_Main2);
+                trHeadMain2.appendChild(th3_Main2);
+               
+                
+                tbody.appendChild(trHeadMain2);
+                trHead2.appendChild(th32);
+                trHead2.appendChild(th42);
+                trHead2.appendChild(th52);
+        
+                tbody.appendChild(trHead2);
+                
 
-            let th3_Main2 = document.createElement('td');
-            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
-            th3_Main2.style = "border: 1px solid black; text-align: center";
-            th3_Main2.setAttribute('colspan','3');
+            }
 
-            let th4_Main2 = document.createElement('td');
-            th4_Main2.innerHTML = 'Сведения об оценке критериев';
-            th4_Main2.style = "border: 1px solid black; text-align: center";
-            th4_Main2.setAttribute('colspan','2');
+            let tr = document.createElement('tr');
 
+            let tdNum = document.createElement('td');
+            tdNum.innerHTML = item['str_num'];
+            tdNum.style = "border: 1px solid black";
 
-            let trHead2 = document.createElement('tr');
-            let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самооценке ОЗ';
-            th32.style = "border: 1px solid black";
+            let td1 = document.createElement('td');
+            td1.innerHTML = item['mark_name'];
+            td1.style = "border: 1px solid black";
 
-            let th42 = document.createElement('td');
-            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-            th4.style = "width:350px; border: 1px solid black";
+            let td2 = document.createElement('td');
+            td2.innerHTML = item['mark_class'];
+            td2.style = "border: 1px solid black";
+      
+            let td3 = document.createElement('td');
+            td3.style = "border: 1px solid black";
+            td3.innerHTML = item['field4'];
+       
+            let td4 = document.createElement('td');
+            td4.style = "border: 1px solid black";
+            td4.innerHTML = item['field5'];
 
-
-            let th52 = document.createElement('td');
-            th52.innerHTML = 'Примечание';
-            th52.style = "border: 1px solid black";
-
-            let th62 = document.createElement('td');
-            th62.innerHTML = 'Сведения по оценке соответствия';
-            th62.style = "border: 1px solid black";
-
-            let th72 = document.createElement('td');
-            th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
-            th72.style = "border: 1px solid black";
-
-            trHeadMain2.appendChild(th1_Main2);
-            trHeadMain2.appendChild(th2_Main2);
-            trHeadMain2.appendChild(th3_Main2);
-            trHeadMain2.appendChild(th4_Main2);
-
-            tbody.appendChild(trHeadMain2);
-            trHead2.appendChild(th32);
-            trHead2.appendChild(th42);
-            trHead2.appendChild(th52);
-            trHead2.appendChild(th62);
-            trHead2.appendChild(th72);
-
-            tbody.appendChild(trHead2);
-
-
-        }
-
-        let tr = document.createElement('tr');
-
-        let td1 = document.createElement('td');
-        td1.innerHTML = item['mark_name'];
-        td1.style = "border: 1px solid black";
-
-        let td2 = document.createElement('td');
-        td2.innerHTML = item['mark_class'];
-        td2.style = "border: 1px solid black";
-
-        let td3 = document.createElement('td');
-        td3.style = "border: 1px solid black";
-        td3.innerHTML = item['field4'];
-
-        let td4 = document.createElement('td');
-        td4.style = "border: 1px solid black";
-        td4.innerHTML = item['field5'];
-
-        let td5 = document.createElement('td');
-        td5.style = "border: 1px solid black";
-        td5.innerHTML = item['field6'];
-
-        let td6 = document.createElement('td');
-        td6.style = "border: 1px solid black";
+            let td5 = document.createElement('td');
+            td5.style = "border: 1px solid black";
+            td5.innerHTML = item['field6'];
 
 
-        let td7 = document.createElement('td');
-        td7.style = "border: 1px solid black";
+            tr.appendChild(tdNum);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
 
-
-        if(status == 4 || status == 5) {
-            td6.innerHTML = item['field7'];
-            td7.innerHTML = item['field8'];
-        }
-
-
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-
-        tr.appendChild(td4);
-        tr.appendChild(td5);
-        tr.appendChild(td6);
-        tr.appendChild(td7);
-
-        tbody.appendChild(tr);
-
-        numCriteria = item['id_criteria'];
-    })
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+           
+            tbody.appendChild(tr);
+ 
+            numCriteria = item['id_criteria'];
+            numSub = item['id_subvision']
+         })
 
 
     divPrintTable.appendChild(table);

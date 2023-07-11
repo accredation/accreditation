@@ -87,8 +87,8 @@
                         </li>
                     </ul>
                     <div class="d-md-block d-none">
-                        <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>
-                        <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>
+<!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
+<!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
                     </div>
                 </div>
                 <div class="tab-content tab-transparent-content">
@@ -146,8 +146,7 @@
 
                                         <?php
 
-                                        $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
-                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                        $query = "SELECT a.*, u.username, ram.*
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user
@@ -212,8 +211,7 @@
                                             $username = $row['username'];
                                         }
 
-                                        $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
-                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                        $query = "SELECT a.*, u.username, ram.*
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where id_status = 3";
@@ -279,8 +277,7 @@
                                             $username = $row['username'];
                                         }
 
-                                        $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
-                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                        $query = "SELECT a.*, u.username, ram.*
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where id_status = 4";
@@ -346,8 +343,7 @@
                                             $username = $row['username'];
                                         }
 
-                                        $query = "SELECT a.*, u.username, ram.otmetka_all, ram.otmetka_class_1, ram.otmetka_class_2, ram.otmetka_class_3,
-                                        ram.otmetka_accred_all,ram.otmetka_accred_class_1,ram.otmetka_accred_class_2,ram.otmetka_accred_class_3,ram.otmetka_verif
+                                        $query = "SELECT a.*, u.username, ram.*
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where id_status = 5";
@@ -404,7 +400,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Создание заявления</h4>
                     <h4 id="id_application"></h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
+                    <button type="button" class="btn  btn-danger btn-close"  data-bs-dismiss="modal">x</button>
                 </div>
 
                 <!-- Modal body -->
@@ -424,8 +420,8 @@
                                 <!--                            ...-->
                             </ul>
                             <div class="d-md-block d-none">
-                                <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>
-                                <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>
+<!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
+<!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
                             </div>
                         </div>
                         <div class="tab-content tab-transparent-content">
@@ -629,7 +625,7 @@
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Принять</button>
 
                     <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">Отклонить</button>
-<!--                    <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>-->
+                    <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия</button>
 
                     <!--                </form>-->

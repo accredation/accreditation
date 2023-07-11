@@ -8,12 +8,21 @@
 		let appsComplete = document.getElementsByClassName("mb-0 font-weight-bold mt-2 text-dark")[0].innerText;
 		if ($(".dashboard-progress-1").length) {
 			$('.dashboard-progress-1').circleProgress({
-				value: appsComplete/allApps,
+				value: 0.4,
 				size: 125,
 				thickness: 7,
 				startAngle: 80.1,
 				fill: {
 					gradient: ["#7922e5", "#1579ff"]
+				}
+			});
+			$('.dashboard-progress-1').circleProgress({
+				value: 0.3,
+				size: 125,
+				thickness: 7,
+				startAngle: 0.4,
+				fill: {
+					gradient: ["#ce2172", "#8dfddd"]
 				}
 			});
 		}
@@ -23,12 +32,13 @@
 				size: 125,
 				thickness: 7,
 				startAngle: 10,
-				emptyFill: '#eef0fa',
+				emptyFill: "#ec0d0d",
 				fill: {
 					gradient: ["#7922e5", "#1579ff"]
 				}
 			});
 		}
+
 
 		if ($(".dashboard-progress-2").length) {
 			$('.dashboard-progress-2').circleProgress({

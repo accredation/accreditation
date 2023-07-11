@@ -4,7 +4,7 @@ include "connection.php";
 $id_sub = $_GET['id_sub'];
 $id_criteria = $_GET['id_criteria'];
 
-$query = "SELECT m.id_mark,mr.id_mark_rating, m.mark_name, m.mark_class, mr.field4,mr.field5,mr.field6,mr.field7,mr.field8
+$query = "SELECT m.id_mark, m.str_num, mr.id_mark_rating, m.mark_name, m.mark_class, mr.field4,mr.field5,mr.field6,mr.field7,mr.field8
 FROM `mark` m
 left outer join mark_rating mr on m.id_mark=mr.id_mark and mr.id_subvision='$id_sub'
 left outer join rating_criteria rc on m.id_criteria=rc.id_criteria and rc.id_subvision='$id_sub'
@@ -16,13 +16,15 @@ $marks = array();
 for ($data = []; $row = mysqli_fetch_assoc($rez); $data[] = $row);
 
 class Mark{
-    public $id_mark , $id_mark_rating, $mark_name, $mark_class, $field4, $field5, $field6, $field7, $field8;
+    public $id_mark , $str_num, $id_mark_rating, $mark_name, $mark_class, $field4, $field5, $field6, $field7, $field8;
 }
 
 foreach ($data as $app) {
     $obj = array();
     $mark = new Mark();
     $mark->id_mark = $app['id_mark'];
+    $mark->str_num = $app['str_num'];
+    
     $mark->id_mark_rating = $app['id_mark_rating'];
     $mark->mark_name = $app['mark_name'];
     $mark->mark_class = $app['mark_class'];

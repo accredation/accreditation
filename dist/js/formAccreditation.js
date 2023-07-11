@@ -216,61 +216,81 @@ function showTab(element,id_sub){
 
                 let criteriaMark ='';
                 let criteriaMarkAccred ='';
-                JSON.parse(response).map((item, index) =>{
-                    if(item !== 0){
-                        if(index == 0){
-                            criteriaMark = criteriaMark + 'Количественная оценка самооценки=' + item +'%';
-                        }
-                        if(index == 1){
-                            criteriaMark += ' По 1 классу ='  + item +'%';
-                        }
-                        if(index == 2){
-                            criteriaMark +=  ' По 2 классу ='  + item +'%';
-                        }
-                        if(index == 3){
-                            criteriaMark +=  ' По 3 классу ='  + item +'%';
-                        }
+
+                let marksSub = JSON.parse(response);
+                 
+                criteriaMark = criteriaMark + 'Количественная оценка самооценки ' + marksSub['otmetka_all_count_yes'] + '/('  
+                                        + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
+                criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+                + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
+                + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
+                + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+
+                criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
+                + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
+                criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
+                + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
+                criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('  
+                + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
+                criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
+                + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
+                criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
+                + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
 
 
-                        if(index == 4){
-                            criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки=' + item +'%';
-                        }
-                        if(index == 5){
-                            criteriaMarkAccred += ' Верификация результатов самооценки ='  + item +'%';
-                        }
-                        if(index == 6){
-                            criteriaMarkAccred += ' По 1 классу ='  + item +'%';
-                        }
-                        if(index == 7){
-                            criteriaMarkAccred +=  ' По 2 классу ='  + item +'%';
-                        }
-                        if(index == 8){
-                            criteriaMarkAccred +=  ' По 3 классу ='  + item +'%';
-                        }
-                    }
-                });
-                let isBtnPrint = document.getElementById("btnPrint");
-                if(isBtnPrint){
-                    isBtnPrint.remove();
-                }
-                // calcSubMark.innerHTML = criteriaMark
+                // JSON.parse(response).map((item, index) =>{
+                //     console.log(item);
+                //     if(item !== 0){
+                //         if(index == 0){
+                //             criteriaMark = criteriaMark + 'Количественная оценка самооценки=' + item +'%';
+                //         }
+                //         if(index == 1){
+                //             criteriaMark += ' По 1 классу ='  + item +'%';
+                //         }
+                //         if(index == 2){
+                //             criteriaMark +=  ' По 2 классу ='  + item +'%';
+                //         }
+                //         if(index == 3){
+                //             criteriaMark +=  ' По 3 классу ='  + item +'%';
+                //         }
+
+
+                //         if(index == 4){
+                //             criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки=' + item +'%';
+                //         }
+                //         if(index == 5){
+                //             criteriaMarkAccred += ' Верификация результатов самооценки ='  + item +'%';
+                //         }
+                //         if(index == 6){
+                //             criteriaMarkAccred += ' По 1 классу ='  + item +'%';
+                //         }
+                //         if(index == 7){
+                //             criteriaMarkAccred +=  ' По 2 классу ='  + item +'%';
+                //         }
+                //         if(index == 8){
+                //             criteriaMarkAccred +=  ' По 3 классу ='  + item +'%';
+                //         }
+                //     }
+                // });
+                // let isBtnPrint = document.getElementById("btnPrint");
+                // if(isBtnPrint){
+                //     isBtnPrint.remove();
+                // }
+
                calcSubMark.innerHTML = criteriaMark + "<br/>";
                calcSubMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
-                let btnPrint = document.createElement("button");
-                btnPrint.setAttribute("type", "submit");
-                btnPrint.className = "btn btn-light btn-fw";
-                btnPrint.id = "btnPrint";
-                btnPrint.innerHTML = "Печать";
-                btnPrint.style = "float: right";
-               btnPrint.onclick = () => print();
+               //  let btnPrint = document.createElement("button");
+               //  btnPrint.setAttribute("type", "submit");
+               //  btnPrint.className = "btn btn-light btn-fw";
+               //  btnPrint.id = "btnPrint";
+               //  btnPrint.innerHTML = "Печать";
+               //  btnPrint.style = "float: right";
+               // btnPrint.onclick = () => print();
                 calcRow.appendChild(calcSubMark);
-               calcSubMark.insertAdjacentElement("afterend", btnPrint);
-                // let marks = JSON.parse(response);
+               // calcSubMark.insertAdjacentElement("afterend", btnPrint);
 
-                //  console.log(JSON.parse(response));
-                //  marks.map((item, index) => {
-
-                //  });
 
             });
     }
@@ -309,6 +329,7 @@ function createApplication(){
 
 
 function showModal(id_application, strMarks, strMarksAccred){
+
     let btnChecking = document.getElementById("btnChecking");
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
@@ -448,15 +469,18 @@ function showModal(id_application, strMarks, strMarksAccred){
 
 }
 
-function print() {
+//function print()
+    $("#btnPrint").on("click", () => {
 
 
-    console.log('openTabId =',openTabId);
+  //  console.log('openTabId =',openTabId);
+    let number_app = document.getElementById("id_application");
+    let id_application = number_app.innerHTML;
 
     $.ajax({
-        url: "getSubForPrint.php",
+        url: "getAppForPrint.php",
         method: "GET",
-        data: {id_sub: openTabId}
+        data: {id_app: id_application}
     })
         .done(function( response ) {
             //  console.log(response);
@@ -470,7 +494,7 @@ function print() {
             var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
             WinPrint.document.write('<style>@page {\n' +
-                'margin: 0cm;\n' +
+                'margin: 1rem;\n' +
                 '}</style>');  // убрать колонтитул
             // WinPrint.document.write('Наименование организации: ');
             // WinPrint.document.write(naimText);
@@ -496,23 +520,37 @@ function print() {
 
 
 
-}
+});
 
 function createTableForPrint(tableForPrint){
 
         let divPrintTable = document.createElement('div');
 
+        let divNameSubTable = document.createElement('div');
+        divNameSubTable.textContent = tableForPrint[0]['name'];
+        divNameSubTable.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.5rem";
+
+        divPrintTable.appendChild(divNameSubTable);
+
         let divNameCriteriaTable = document.createElement('div');
         divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
-        divNameCriteriaTable.style = "padding-top: 2rem; padding-bottom:2rem";
+        divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
 
         divPrintTable.appendChild(divNameCriteriaTable);
 
         let table = document.createElement('table');
         table.style = "border-collapse: collapse; border-spacing: 0;";
 
+        
+        
 
         let trHeadMain = document.createElement('tr');
+
+        let thNum = document.createElement('th');
+        thNum.innerHTML = '№ п/п';
+        thNum.style = "border: 1px solid black";
+        thNum.setAttribute('rowspan','2');
+
         let th1_Main = document.createElement('th');
         th1_Main.innerHTML = 'Критерий';
         th1_Main.style = "border: 1px solid black";
@@ -557,6 +595,7 @@ function createTableForPrint(tableForPrint){
         th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
         th7.style = "border: 1px solid black";
 
+        trHeadMain.appendChild(thNum);
         trHeadMain.appendChild(th1_Main);
         trHeadMain.appendChild(th2_Main);
         trHeadMain.appendChild(th3_Main);
@@ -575,15 +614,29 @@ function createTableForPrint(tableForPrint){
         table.appendChild(tbody);
 
         numCriteria=0;
+        numSub = 0;
         tableForPrint.map((item, index) => {
       
            
                 if((numCriteria !== item['id_criteria']) && (index !==0))  {
 
+                    if(numSub !== item['id_subvision']){
+
+                        let trNaimSub = document.createElement('tr');
+                        let tdNaimSub  = document.createElement('td');
+                        tdNaimSub.setAttribute('colspan','8');
+                        tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.5rem";
+                        tdNaimSub.innerHTML = item['name'];
+                        trNaimSub.appendChild(tdNaimSub);
+                        tbody.appendChild(trNaimSub);
+
+                    }
+
+
                     let trNaim = document.createElement('tr');
                     let tdNaim = document.createElement('td');
-                    tdNaim.setAttribute('colspan','7');
-                    tdNaim.style = "padding-top: 2rem; padding-bottom:2rem";
+                    tdNaim.setAttribute('colspan','8');
+                    tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
                     tdNaim.innerHTML = item['name_criteria'];
                     trNaim.appendChild(tdNaim);
                     tbody.appendChild(trNaim);
@@ -591,6 +644,12 @@ function createTableForPrint(tableForPrint){
 
 
                     let trHeadMain2 = document.createElement('tr');
+
+                    let thNum = document.createElement('th');
+                    thNum.innerHTML = '№ п/п';
+                    thNum.style = "border: 1px solid black";
+                    thNum.setAttribute('rowspan','2');
+
                     let th1_Main2 = document.createElement('td');
                     th1_Main2.innerHTML = 'Критерий';
                     th1_Main2.style = "border: 1px solid black";
@@ -635,6 +694,7 @@ function createTableForPrint(tableForPrint){
                     th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
                     th72.style = "border: 1px solid black";
             
+                    trHeadMain2.appendChild(thNum);
                     trHeadMain2.appendChild(th1_Main2);
                     trHeadMain2.appendChild(th2_Main2);
                     trHeadMain2.appendChild(th3_Main2);
@@ -653,6 +713,10 @@ function createTableForPrint(tableForPrint){
                 }
     
                 let tr = document.createElement('tr');
+
+                let tdNum = document.createElement('td');
+                tdNum.innerHTML = item['str_num'];
+                tdNum.style = "border: 1px solid black";
     
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['mark_name'];
@@ -683,6 +747,7 @@ function createTableForPrint(tableForPrint){
                 td7.innerHTML = item['field8'];
     
     
+                tr.appendChild(tdNum);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
@@ -695,6 +760,7 @@ function createTableForPrint(tableForPrint){
                 tbody.appendChild(tr);
      
                 numCriteria = item['id_criteria'];
+                numSub = item['id_subvision']
              })
     
 
@@ -1149,39 +1215,29 @@ function createAccordionCards(id_sub) {
 
                     let criteriaMark ='';
                     let criteriaMarkAccred ='';
-                    JSON.parse(response).map((item, index) =>{
-                        if(item !== 0){
-                            if(index == 0){
-                                criteriaMark = criteriaMark + 'Количественная оценка самооценки=' + item +'%';
-                            }
-                            if(index == 1){
-                                criteriaMark += ' По 1 классу ='  + item +'%';
-                            }
-                            if(index == 2){
-                                criteriaMark +=  ' По 2 классу ='  + item +'%';
-                            }
-                            if(index == 3){
-                                criteriaMark +=  ' По 3 классу ='  + item +'%';
-                            }
+                    let marksSub = JSON.parse(response);
+                 
+                    criteriaMark = criteriaMark + 'Количественная оценка самооценки ' + marksSub['otmetka_all_count_yes'] + '/('  
+                                            + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
+                    criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+                    + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                    criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
+                    + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                    criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
+                    + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+    
+                    criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
+                    + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
+                    criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
+                    + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
+                    criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('  
+                    + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
+                    criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
+                    + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
+                    criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
+                    + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
 
-
-                            if(index == 4){
-                                criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки=' + item +'%';
-                            }
-                            if(index == 5){
-                                criteriaMarkAccred += ' Верификация результатов самооценки ='  + item +'%';
-                            }
-                            if(index == 6){
-                                criteriaMarkAccred += ' По 1 классу ='  + item +'%';
-                            }
-                            if(index == 7){
-                                criteriaMarkAccred +=  ' По 2 классу ='  + item +'%';
-                            }
-                            if(index == 8){
-                                criteriaMarkAccred +=  ' По 3 классу ='  + item +'%';
-                            }
-                        }
-                    });
+                    
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
 
@@ -1382,6 +1438,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
     th7.style = "border: 1px solid black";
     
+    let thNum = document.createElement('th');
+    thNum.innerHTML = '№ п/п';
+    thNum.style = "border: 1px solid black";
+    thNum.setAttribute('rowspan','2');
+    trHeadMain.appendChild(thNum);
 
     // trHead.appendChild(th1);
     // trHead.appendChild(th2);
@@ -1442,7 +1503,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let input4 = document.createElement("textarea");
                 input4.setAttribute("rows","3");
 
-                    input4.setAttribute("readonly","");
+                    input4.setAttribute("disabled","true");
 
                 input4.style = "width:100%";
                 input4.value = item['field5'];
@@ -1454,11 +1515,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td5 = document.createElement('td');
                 td5.style = "border: 1px solid black";
                 let input5 = document.createElement("textarea");
-                  input4.setAttribute("readonly","");
+                 // input4.setAttribute("disabled","true");
                 input5.style = "width:100%";
                 input5.setAttribute("rows","3");
                 input5.value = item['field6'];
-                input5.setAttribute("readonly","");
+                input5.setAttribute("disabled","true");
                 input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['id_mark_rating'], index,id_sub)};
               //  input5.setAttribute("type","text-area");
                 td5.appendChild(input5);
@@ -1479,7 +1540,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                     if ((status == 2) || (status == 3)) {
                     } else {
-                        input7.setAttribute("readonly","");
+                        input7.setAttribute("disabled","true");
                     }
 
                 input7.style = "width:100%";
@@ -1489,6 +1550,12 @@ function collapseTable(id_criteria, divCardBody,id_sub){
               //  input5.setAttribute("type","text-area");
                 td7.appendChild(input7);  
 
+
+                let tdNum = document.createElement('td');
+                tdNum.innerHTML = item['str_num'];
+                tdNum.style = "border: 1px solid black";
+
+                tr.appendChild(tdNum);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
