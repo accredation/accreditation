@@ -45,10 +45,10 @@
 
              </a>
              <div style="margin-top: 0.5rem">
-                 <img src="/assets/images/logo-rnpcmt.png" style="width: 37px; height: 35px; margin-left: 1rem; "/>
+                 <img src="/assets/images/logo-rnpcmt.png" style="width: 37px; height: 37px; margin-left: 1rem; "/>
              </div>
          </div>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+<!--          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>-->
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">

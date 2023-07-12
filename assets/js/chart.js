@@ -101,6 +101,7 @@ $(function() {
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)'
       ],
+      borderWidth: 1,
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -135,6 +136,7 @@ $(function() {
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)'
       ],
+      borderWidth: 1,
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -200,6 +202,7 @@ $(function() {
     cutoutPercentage: 85,
    // labels: {}
    // fontSize: 20,
+
 
   };
 
