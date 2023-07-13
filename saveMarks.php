@@ -2,8 +2,12 @@
 include "connection.php";
 $id_sub = $_POST['id_sub'];
 $marks = $_POST['marks'];
+$id_criteria = $_POST['id_criteria'];
 
-//echo $marks;
+echo $id_criteria;
+
+$insertquery = "delete from mark_rating where id_mark in (select id_mark from mark where id_criteria = '$id_criteria' and date_close is not null ) and id_subvision='$id_sub'";
+mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 
 foreach($marks as $k=>$v){
 
@@ -18,7 +22,9 @@ foreach($marks as $k=>$v){
 
  //   echo $id_mark_rating;
 
-    if($id_mark_rating != '') {
+
+
+       if($id_mark_rating != '') {
             $insertquery = "update mark_rating
             set id_mark = '$id_mark', field4='$field4', field5='$field5', field6='$field6', id_subvision='$id_sub'
             where id_mark_rating='$id_mark_rating'";
@@ -27,7 +33,11 @@ foreach($marks as $k=>$v){
                                 values ('$id_mark','$field4', '$field5', '$field6', '$id_sub')";
         }
 
+
         mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+
+
+
 }
 
 //foreach($marks as $k=>$v){

@@ -10,7 +10,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Connect Plus</title>
+    <title>Мед.аккредитация</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
       <link rel="stylesheet" href="dist/css/global.css" >
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="shortcut icon" href="assets/images/logo-rnpcmt.png" />
 
     <link rel="stylesheet" href="dist/css/dataTables.bootstrap4.min.css">
 
@@ -332,7 +332,27 @@
     <!-- End custom js for this page -->
 
   </body>
+  <script type="text/javascript">
+      // document.onkeydown = function(e) {
+      //     if(event.keyCode == 123) {
+      //         return false;
+      //     }
+      //     if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+      //         return false;
+      //     }
+      //     if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+      //         return false;
+      //     }
+      //     if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+      //         return false;
+      //     }
+      //
+      // }
+      // document.addEventListener('contextmenu', function(e) {
+      //     e.preventDefault();
+      // });
 
+  </script>
   <script>
 
       // fetch('getFiles.php?id_application=24', {

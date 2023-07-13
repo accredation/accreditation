@@ -146,7 +146,7 @@
 
                                         <?php
 
-                                        $query = "SELECT a.*, u.username, ram.*
+                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user
@@ -168,7 +168,7 @@
                                                 include "mainMark.php"
                                                 ?>
 
-                                                <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
+                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
                                                     <td>Заявление <?= $app['username'] ?></td>
 
@@ -211,7 +211,7 @@
                                             $username = $row['username'];
                                         }
 
-                                        $query = "SELECT a.*, u.username, ram.*
+                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where id_status = 3";
@@ -232,7 +232,7 @@
                                                     include "mainMark.php";
                                                 ?>
 
-                                                <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
+                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?></td>
@@ -277,7 +277,7 @@
                                             $username = $row['username'];
                                         }
 
-                                        $query = "SELECT a.*, u.username, ram.*
+                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where id_status = 4";
@@ -298,7 +298,7 @@
                                                 include "mainMark.php";
                                                 ?>
 
-                                                <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
+                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?></td>
@@ -343,7 +343,7 @@
                                             $username = $row['username'];
                                         }
 
-                                        $query = "SELECT a.*, u.username, ram.*
+                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where id_status = 5";
@@ -364,7 +364,7 @@
                                                 include "mainMark.php";
                                                 ?>
 
-                                                <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
+                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?></td>

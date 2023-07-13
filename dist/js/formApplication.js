@@ -325,6 +325,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
 
+  //  naim.value = username;
     if(status == 1){
 
     }else{
@@ -345,7 +346,9 @@ function showModal(id_application, strMarks, strMarksAccred){
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
         btnSend.classList.add("hiddentab");
-        btnCalc.remove();
+        if(btnCalc) {
+            btnCalc.remove();
+        }
     }
 
     let data = new Array();
@@ -359,7 +362,7 @@ function showModal(id_application, strMarks, strMarksAccred){
                 data.push(i);
                 data_old.push(i);
             }
-            naim.value = data[0][0];
+             naim.value = data[0][0];
             sokr.value = data[0][1];
             unp.value = data[0][2];
             adress.value = data[0][3];
@@ -1153,9 +1156,17 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
+    let urlStr = '';
+
+    if (Number(status) === 1) {
+        urlStr = "getMarkStatus1.php"
+    } else {
+        urlStr = "getMarkStatus2.php"
+    }
+
 
     $.ajax({
-        url: "getMark.php",
+        url: urlStr,
         method: "GET",
         data: {id_sub: id_sub, id_criteria: id_criteria}
     })
@@ -1177,10 +1188,10 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                 let td2 = document.createElement('td');
                 td2.innerHTML = item['mark_class'];
-                td2.style = "border: 1px solid black";
+                td2.style = "border: 1px solid black;text-align:center;";
                 let td3 = document.createElement('td');
               //  td3.innerHTML = item['filed4'];
-                td3.style = "border: 1px solid black";
+                td3.style = "border: 1px solid black; ";
                 let divTd3 = document.createElement("div");
                 divTd3.style = "display: flex; justify-content: center;";
                 td3.appendChild(divTd3);
@@ -1405,7 +1416,7 @@ function saveMarks(id_sub){
         $.ajax({
             url: "saveMarks.php",
             method: "POST",
-            data: {id_sub: id_sub, marks: arr}
+            data: {id_sub: id_sub, marks: arr, id_criteria: id_open_criteria}
         })
             .done(function( response ) {
                 alert("Сохранено!");

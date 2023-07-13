@@ -159,7 +159,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                   $username = $row['username'];
                               }
 
-                              $query = "SELECT a.*, u.username, ram.*
+                              $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 1";
@@ -179,9 +179,11 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                       foreach ($data as $app) {
 
                                           include "mainMark.php";
+                                          $id_application = $app['app_id'];
                                           ?>
 
-                                          <tr onclick="showModal('<?= $app['id_application'] ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+
+                                          <tr onclick="showModal('<?= $id_application ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
 
@@ -226,7 +228,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               $username = $row['username'];
                                           }
 
-                                          $query = "SELECT a.*, u.username, ram.*
+                                          $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status in (2,3)";
@@ -247,7 +249,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                   include "mainMark.php";
                                                   ?>
 
-                                                  <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                                  <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?></td>
@@ -292,7 +294,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               $username = $row['username'];
                                           }
 
-                                          $query = "SELECT a.*, u.username, ram.*
+                                          $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 4";
@@ -314,7 +316,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                    /*<?= $str_CalcSelfMarkAccred ?>*/ // второй параметр для showModal
                                                   ?>
                                                                 
-                                                  <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                                  <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?></td>
@@ -359,7 +361,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               $username = $row['username'];
                                           }
 
-                                          $query = "SELECT a.*, u.username, ram.*
+                                          $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                 left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 5";
@@ -381,7 +383,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                   /*<?= $str_CalcSelfMarkAccred ?>*/ // второй параметр для showModal
                                                   ?>
 
-                                                  <tr onclick="showModal('<?= $app['id_application'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                                  <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?></td>

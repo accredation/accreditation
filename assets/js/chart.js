@@ -199,10 +199,9 @@ $(function() {
         fontSize: 16
       }
     },
-    cutoutPercentage: 85,
+    cutoutPercentage: 0,
    // labels: {}
    // fontSize: 20,
-
 
   };
 

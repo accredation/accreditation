@@ -29,7 +29,7 @@
             </li>
                   <?php
               }
-              else if($row['id_role'] == 2){
+              else if($row['id_role'] == 2 || $row['id_role'] == 1){
                   ?>
               <li class="nav-item" id="nav5">
                   <a class="nav-link" href="/index.php?users" >

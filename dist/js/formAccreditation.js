@@ -347,12 +347,12 @@ function showModal(id_application, strMarks, strMarksAccred){
         btnOk.classList.remove("hiddentab");
     }
     else if(tabRassmotrenie.classList.contains("active")){
-        btnNeOk.classList.remove("hiddentab");
+        // btnNeOk.classList.remove("hiddentab");
         btnOk.classList.remove("hiddentab");
     }
     else{
         btnNeOk.classList.remove("hiddentab");
-        btnOk.classList.remove("hiddentab");
+        // btnOk.classList.remove("hiddentab");
         btnChecking.classList.remove("hiddentab");
     }
 
@@ -1469,7 +1469,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
 
     $.ajax({
-        url: "getMark.php",
+        url: "getMarkStatus2.php",
         method: "GET",
         data: {id_sub: id_sub, id_criteria: id_criteria}
     })
