@@ -22,7 +22,7 @@ $str_CalcSelfMarkAccred = '';
 
 $str_CalcSelfMarkAccred = $str_CalcSelfMarkAccred . 'Количественная оценка оценки ' .  ($app['otmetka_accred_all_count_yes']) . '/(' . ($app['otmetka_accred_all_count_all']) .'-' . ($app['otmetka_accred_all_count_not_need']) . ')'. ' = ' . ($app['otmetka_accred_all']).'%,';
 
-$str_CalcSelfMarkAccred .=  ' Верификация результатов самооценки ' .  ($app['otmetka_verif_count_yes']) . '/(' . ($app['otmetka_verif_count_all']) .'-' . ($app['otmetka_verif_count_yes']) . ')'. ' = ' . ($app['otmetka_verif']).'%,';
+$str_CalcSelfMarkAccred .=  ' Верификация результатов самооценки ' .  ($app['otmetka_verif_count_yes']) . '/(' . ($app['otmetka_verif_count_all']) .'-' . ($app['otmetka_verif_count_not_need']) . ')'. ' = ' . ($app['otmetka_verif']).'%,';
 
 $str_CalcSelfMarkAccred .= ' По 1 классу ' .  ($app['otmetka_accred_class_1_count_yes']) . '/(' . ($app['otmetka_accred_class_1_count_all']) .'-' . ($app['otmetka_accred_class_1_count_not_need']) . ')'. ' = ' . ($app['otmetka_accred_class_1']).'%,';
 

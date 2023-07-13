@@ -3,10 +3,11 @@ include "connection.php";
 $id_sub = $_POST['id_sub'];
 $marks = $_POST['marks'];
 $id_criteria = $_POST['id_criteria'];
+$date = date('Y-m-d');
 
 echo $id_criteria;
 
-$insertquery = "delete from mark_rating where id_mark in (select id_mark from mark where id_criteria = '$id_criteria' and date_close is not null ) and id_subvision='$id_sub'";
+$insertquery = "delete from mark_rating where id_mark in (select id_mark from mark where id_criteria = '$id_criteria' and (date_close is not null and ( date_close < '$date')) ) and id_subvision='$id_sub'";
 mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 
 foreach($marks as $k=>$v){
