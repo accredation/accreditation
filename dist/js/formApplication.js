@@ -126,8 +126,10 @@ function showTab(element,id_sub){
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
+                    labelCheck.style = "text-align: left";
                     labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
-                    labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
+                    let str = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
+                    labelCheck.innerHTML = data_main[i][1] + str;
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
                     divFormGroup.appendChild(divFormCheck);
@@ -159,8 +161,10 @@ function showTab(element,id_sub){
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
+                    labelCheck.style = "text-align: left";
                     labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
-                    labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
+                    let str1 = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
+                    labelCheck.innerHTML = data_main[i][1] + str1;
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
                     divFormGroup.appendChild(divFormCheck);
@@ -173,6 +177,7 @@ function showTab(element,id_sub){
                 let divFormGroup3 = document.createElement("div");
                 let label_3 = document.createElement("label");
                     label_3.innerHTML = "Вспомогательные подразделения (диагностические)";
+                    label_3.style = "text-align: left";
                     divFormGroup3.appendChild(label_3);
                     row.appendChild(divFormGroup3);
 
@@ -193,8 +198,10 @@ function showTab(element,id_sub){
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
+                    labelCheck.style = "text-align: left";
                     labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
-                    labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
+                    let str2 = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
+                    labelCheck.innerHTML = data_main[i][1] + str2;
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
                     divFormGroup.appendChild(divFormCheck);
@@ -308,6 +315,7 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
+    naim.setAttribute("readonly","" );
     let sokr = document.getElementById("sokr");
     let unp = document.getElementById("unp");
     let adress = document.getElementById("adress");
@@ -851,7 +859,7 @@ $("#btnSuc").on("click", function () {
     xhr.open("post", "saveApplication.php", true);
     xhr.send(form);
     alert("Заявление сохранено");
-    location.href = "/index.php?application";
+  //  location.href = "/index.php?application";
 
 });
 
@@ -1250,7 +1258,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     divCardBody.appendChild(table);
 
     let bunt = document.createElement('button');
-    bunt.onclick=() => saveMarks(id_sub);
+    bunt.onclick= async ( ) => {
+        await saveMarks(id_sub).then(()=>collapseTable(id_criteria, divCardBody,id_sub));
+
+
+};
     bunt.innerHTML='Сохранить таблицу по критерию';
     bunt.className = "btn btn-success";
     bunt.style = "margin-top: 1rem";
@@ -1262,7 +1274,6 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     }
   //  return marks_app;
 }
-
 
 
 function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating, index,id_sub){
@@ -1398,7 +1409,7 @@ function validateDataMarks(){
 }
 
 
-function saveMarks(id_sub){
+async function  saveMarks(id_sub){
 
     let arr = new Array();
 
@@ -1491,22 +1502,23 @@ $("#neodobrennie-tab").on("click", () => {
 
 $("#btnSend").on("click", () => {
     let id_application = document.getElementById("id_application");
-
-    $.ajax({
-        url: "sendApp.php",
-        method: "GET",
-        data: {id_application: id_application.innerText}
-    })
-        .done(function( response ) {
-            if(response == "") {
-                alert("Заявление отправлено");
-                calcMarks();
-                location.href = "/index.php?application";
-            }else{
-                alert(response);
-            }
+    let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
+    if(isSend) {
+        $.ajax({
+            url: "sendApp.php",
+            method: "GET",
+            data: {id_application: id_application.innerText}
+        })
+            .done(function (response) {
+                if (response == "") {
+                    alert("Заявление отправлено");
+                    calcMarks();
+                    location.href = "/index.php?application";
+                } else {
+                    alert(response);
+                }
             });
-
+    }
 
 });
 
