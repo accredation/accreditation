@@ -58,6 +58,7 @@ function showTab(element,id_sub){
     };
    
     arrChange=false;
+
     OpenSub=0;
     id_open_criteria = 0;
 
@@ -1322,13 +1323,16 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
 }
 
 function  isSavedMarks(){
-    
+  //  console.log('check arrChange begin', arrChange);
     if (arrChange == true) {
         let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?"); 
-        console.log('res',res);
+      //  console.log('res',res);
         if(res == false){
-            console.log('check');
+         //   console.log('check arrChange before', arrChange);
+            arrChange = false;
+         //   console.log('check arrChange after', arrChange);
             setDisabledOnChange(false);
+
         }
 
         return res
@@ -1420,8 +1424,11 @@ function saveMarks(id_sub){
         })
             .done(function( response ) {
                 alert("Сохранено!");
+                arrChange = false;
+                flagSave = true;
                 setDisabledOnChange(false);
-                arrChange=false;
+               // arrChange=false;
+
             });
 
         result = true;
@@ -1491,10 +1498,13 @@ $("#btnSend").on("click", () => {
         data: {id_application: id_application.innerText}
     })
         .done(function( response ) {
-
+            if(response == "") {
                 alert("Заявление отправлено");
                 calcMarks();
                 location.href = "/index.php?application";
+            }else{
+                alert(response);
+            }
             });
 
 

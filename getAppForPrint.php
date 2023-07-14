@@ -16,7 +16,13 @@ left outer join criteria c on rc.id_criteria=c.id_criteria
 left outer join conditions con on c.conditions_id=con.conditions_id
 left outer join mark m on rc.id_criteria=m.id_criteria 
 left outer join mark_rating mr on m.id_mark=mr.id_mark and mr.id_subvision=s.id_subvision
-where  s.id_application = '$id_app'";
+left outer join applications a on s.id_application=a.id_application
+where  s.id_application = '$id_app'
+and (m.date_close is null or (m.date_close is not null and ( m.date_close > IFNULL(a.date_send, CURDATE()))))
+and ((a.id_status = 1) or (a.id_status > 1 and (m.date_open is null or (m.date_open is not null and (m.date_open <= IFNULL(a.date_send, CURDATE()) )))))
+
+order by s.id_subvision, c.id_criteria, IFNULL(m.str_num, 100000), m.id_mark
+";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 $marks = array();
