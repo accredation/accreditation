@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 14 2023 г., 01:25
+-- Время создания: Июл 14 2023 г., 11:36
 -- Версия сервера: 8.0.30
--- Версия PHP: 7.2.34
+-- Версия PHP: 8.0.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -140,7 +140,7 @@ left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
 left outer join applications a on sub.id_application=a.id_application
-WHERE sub.id_application= id_app and m.id_mark is not null and (m.date_close is null or (m.date_close is not null and ( m.date_close > a.date_send))) and (m.date_open is null or (m.date_open is not null and (m.date_open < a.date_send )));
+WHERE sub.id_application= id_app and m.id_mark is not null and (m.date_close is null or (m.date_close is not null and ( m.date_close > a.date_send))) and (m.date_open is null or (m.date_open is not null and (m.date_open <= a.date_send )));
 
 set @all_mark = (select count(*)
 from temp_criteria);
@@ -392,7 +392,7 @@ left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
 left outer join applications a on sub.id_application=a.id_application
 WHERE sub.id_subvision= id_sub and 
-m.id_criteria=id_criteria_temp and m.id_mark is not null and (m.date_close is null or (m.date_close is not null and ( m.date_close > a.date_send))) and (m.date_open is null or (m.date_open is not null and (m.date_open < a.date_send )));
+m.id_criteria=id_criteria_temp and m.id_mark is not null and (m.date_close is null or (m.date_close is not null and ( m.date_close > a.date_send))) and (m.date_open is null or (m.date_open is not null and (m.date_open <= a.date_send )));
 
 set @all_mark = 0;
 set @all_mark_3 = 0;
@@ -671,7 +671,7 @@ left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
 left outer join mark_rating mr on sub.id_subvision=mr.id_subvision and m.id_mark=mr.id_mark
 left outer join applications a on sub.id_application=a.id_application
-WHERE sub.id_subvision= id_sub_temp and m.id_mark is not null and (m.date_close is null or (m.date_close is not null and ( m.date_close > a.date_send))) and (m.date_open is null or (m.date_open is not null and (m.date_open < a.date_send )));
+WHERE sub.id_subvision= id_sub_temp and m.id_mark is not null and (m.date_close is null or (m.date_close is not null and ( m.date_close > a.date_send))) and (m.date_open is null or (m.date_open is not null and (m.date_open <= a.date_send )));
 
 
 set @all_mark = 0;
@@ -825,8 +825,8 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `id_user`, `id_status`, `date_send`) VALUES
-(35, '36gp', '2', '3', '4', '5', '6', '7', '81', 'Пояснение.docx', 'Столинский район_26-06-2023_12-23-40.xlsx', NULL, 2, 2, '2023-07-13'),
-(39, 'Могилёвская центральная поликлиника', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 153, 1, NULL);
+(39, 'Могилёвская центральная поликлиника', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 153, 1, NULL),
+(40, '36gp', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -942,7 +942,7 @@ INSERT INTO `mark` (`id_mark`, `str_num`, `mark_name`, `mark_class`, `id_criteri
 (4, NULL, 'Организация и осуществление контроля за выполнением доведенных объемных показателей деятельности учреждения здравоохранения (региональный комплекс мероприятий)', 2, 3, NULL, NULL),
 (5, NULL, 'Организация и осуществление контроля за выполнением  управленческих решений по  улучшению качества медицинской помощи в учреждении здравоохранения за  последний отчетный период или год, анализ  выполнения решений', 3, 3, '2023-07-13', NULL),
 (6, NULL, 'критерий 1', 1, 4, '2023-07-13', NULL),
-(7, NULL, 'критерий 2', 1, 4, NULL, NULL),
+(7, NULL, 'критерий 2', 1, 4, '2023-07-14', NULL),
 (8, NULL, 'критерий 3', 2, 4, NULL, NULL),
 (9, NULL, 'критерий 4', 2, 4, NULL, NULL),
 (10, NULL, 'критерий 5', 3, 4, NULL, NULL),
@@ -1040,30 +1040,17 @@ CREATE TABLE `mark_rating` (
 --
 
 INSERT INTO `mark_rating` (`id_mark_rating`, `id_mark`, `field4`, `field5`, `field6`, `field7`, `field8`, `id_subvision`) VALUES
-(1, 1, 2, 'hfhgfh121', '556667789e', 1, 'ghj', 6),
-(2, 2, 1, '1e', 'fff', 0, '', 6),
-(3, 3, 1, '2', 'asdfasdf', 0, '', 6),
-(4, 4, 1, 'g', 'erty', 0, '', 6),
-(5, 5, 1, '1112', '1', 0, '', 6),
-(7, 7, 0, 'r', 'f', NULL, NULL, 6),
-(8, 8, 0, 'r', '551', NULL, NULL, 6),
-(9, 9, 0, '0', '', NULL, NULL, 6),
-(10, 10, 0, '11', '11', NULL, NULL, 6),
-(11, 11, 0, 'r', '', NULL, NULL, 6),
-(22, 1, 3, '1\nээж', '1', 1, '', 49),
-(23, 2, 1, '2', '12', 0, '', 49),
-(24, 3, 2, '5', 'jk', 0, '', 49),
-(25, 4, 1, '', '', 0, '', 49),
-(26, 5, 0, '', '', 0, '', 49),
-(27, 6, 0, '2', '2', NULL, NULL, 49),
-(28, 7, 0, '0', '0', NULL, NULL, 49),
-(29, 8, 0, '4', '4', NULL, NULL, 49),
-(30, 9, 0, '3', '3', NULL, NULL, 49),
-(31, 10, 0, '', '', NULL, NULL, 49),
-(32, 11, 0, '', '', NULL, NULL, 49),
-(33, 79, 1, '', '', NULL, NULL, 6),
-(34, 79, 1, '', '', NULL, NULL, 49),
-(35, 12, NULL, NULL, NULL, 1, '', 6);
+(36, 1, 2, '', '12', 3, '', 58),
+(37, 3, 1, '', '', 0, '', 58),
+(38, 4, 1, '', '', 1, '', 58),
+(39, 2, 2, '', '123', 0, '', 58),
+(40, 7, 1, '', '', NULL, NULL, 58),
+(41, 8, 1, '', '', NULL, NULL, 58),
+(42, 9, 1, '', '', NULL, NULL, 58),
+(43, 10, 1, '', '', NULL, NULL, 58),
+(44, 11, 1, '', '', NULL, NULL, 58),
+(45, 12, 1, 'asdasd', '1234', 1, '', 58),
+(46, 81, 1, '', '', 3, '', 58);
 
 -- --------------------------------------------------------
 
@@ -1096,17 +1083,11 @@ CREATE TABLE `rating_criteria` (
 --
 
 INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteria`, `value`) VALUES
-(127, 6, 3, 1),
-(128, 6, 4, 1),
-(129, 6, 5, 1),
-(130, 6, 24, 1),
 (132, 57, 4, 1),
 (133, 57, 25, 1),
-(134, 49, 3, 1),
-(135, 49, 4, 1),
-(136, 49, 5, 1),
-(137, 49, 11, 1),
-(138, 49, 20, 1);
+(143, 58, 3, 1),
+(144, 58, 4, 1),
+(145, 58, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -1159,7 +1140,8 @@ CREATE TABLE `report_application_mark` (
 --
 
 INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka_all_count_yes`, `otmetka_all_count_all`, `otmetka_all_count_not_need`, `otmetka_class_1`, `otmetka_class_1_count_yes`, `otmetka_class_1_count_all`, `otmetka_class_1_count_not_need`, `otmetka_class_2`, `otmetka_class_2_count_yes`, `otmetka_class_2_count_all`, `otmetka_class_2_count_not_need`, `otmetka_class_3`, `otmetka_class_3_count_yes`, `otmetka_class_3_count_all`, `otmetka_class_3_count_not_need`, `otmetka_accred_all`, `otmetka_accred_all_count_yes`, `otmetka_accred_all_count_all`, `otmetka_accred_all_count_not_need`, `otmetka_accred_class_1`, `otmetka_accred_class_1_count_yes`, `otmetka_accred_class_1_count_all`, `otmetka_accred_class_1_count_not_need`, `otmetka_accred_class_2`, `otmetka_accred_class_2_count_yes`, `otmetka_accred_class_2_count_all`, `otmetka_accred_class_2_count_not_need`, `otmetka_accred_class_3`, `otmetka_accred_class_3_count_yes`, `otmetka_accred_class_3_count_all`, `otmetka_accred_class_3_count_not_need`, `otmetka_verif`, `otmetka_verif_count_yes`, `otmetka_verif_count_all`, `otmetka_verif_count_not_need`) VALUES
-(35, 26, 5, 20, 1, 14, 1, 8, 1, 50, 4, 8, 0, 0, 0, 4, 0, 15, 3, 20, 0, 38, 3, 8, 0, 0, 0, 8, 0, 0, 0, 4, 0, 45, 9, 20, 0);
+(35, 26, 5, 20, 1, 14, 1, 8, 1, 50, 4, 8, 0, 0, 0, 4, 0, 15, 3, 20, 0, 38, 3, 8, 0, 0, 0, 8, 0, 0, 0, 4, 0, 45, 9, 20, 0),
+(40, 90, 9, 10, 0, 100, 4, 4, 0, 75, 3, 4, 0, 100, 2, 2, 0, 25, 2, 10, 2, 50, 1, 4, 2, 25, 1, 4, 0, 0, 0, 2, 0, 100, 8, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -1222,7 +1204,10 @@ INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criter
 (35, 49, 4, 0, 0, 5, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 5, 0),
 (35, 49, 5, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
 (35, 49, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 49, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(35, 49, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(40, 58, 3, 75, 3, 4, 0, 100, 2, 2, 0, 50, 1, 2, 0, 0, 0, 0, 0, 33, 1, 4, 1, 0, 0, 2, 1, 50, 1, 2, 0, 0, 0, 0, 0, 100, 3, 4, 1),
+(40, 58, 4, 100, 4, 4, 0, 0, 0, 0, 0, 100, 2, 2, 0, 100, 2, 2, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 100, 4, 4, 0),
+(40, 58, 5, 100, 2, 2, 0, 100, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 1, 2, 1, 100, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 100, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -1277,7 +1262,8 @@ CREATE TABLE `report_subvision_mark` (
 
 INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_all`, `otmetka_all_count_yes`, `otmetka_all_count_all`, `otmetka_all_count_not_need`, `otmetka_class_1`, `otmetka_class_1_count_yes`, `otmetka_class_1_count_all`, `otmetka_class_1_count_not_need`, `otmetka_class_2`, `otmetka_class_2_count_yes`, `otmetka_class_2_count_all`, `otmetka_class_2_count_not_need`, `otmetka_class_3`, `otmetka_class_3_count_yes`, `otmetka_class_3_count_all`, `otmetka_class_3_count_not_need`, `otmetka_accred_all`, `otmetka_accred_all_count_yes`, `otmetka_accred_all_count_all`, `otmetka_accred_all_count_not_need`, `otmetka_accred_class_1`, `otmetka_accred_class_1_count_yes`, `otmetka_accred_class_1_count_all`, `otmetka_accred_class_1_count_not_need`, `otmetka_accred_class_2`, `otmetka_accred_class_2_count_yes`, `otmetka_accred_class_2_count_all`, `otmetka_accred_class_2_count_not_need`, `otmetka_accred_class_3`, `otmetka_accred_class_3_count_yes`, `otmetka_accred_class_3_count_all`, `otmetka_accred_class_3_count_not_need`, `otmetka_verif`, `otmetka_verif_count_yes`, `otmetka_verif_count_all`, `otmetka_verif_count_not_need`) VALUES
 (35, 6, 30, 3, 10, 0, 25, 1, 4, 0, 50, 2, 4, 0, 0, 0, 2, 0, 20, 2, 10, 0, 50, 2, 4, 0, 0, 0, 4, 0, 0, 0, 2, 0, 50, 5, 10, 0),
-(35, 49, 22, 2, 10, 1, 0, 0, 4, 1, 50, 2, 4, 0, 0, 0, 2, 0, 10, 1, 10, 0, 25, 1, 4, 0, 0, 0, 4, 0, 0, 0, 2, 0, 40, 4, 10, 0);
+(35, 49, 22, 2, 10, 1, 0, 0, 4, 1, 50, 2, 4, 0, 0, 0, 2, 0, 10, 1, 10, 0, 25, 1, 4, 0, 0, 0, 4, 0, 0, 0, 2, 0, 40, 4, 10, 0),
+(40, 58, 90, 9, 10, 0, 100, 4, 4, 0, 75, 3, 4, 0, 100, 2, 2, 0, 25, 2, 10, 2, 50, 1, 4, 2, 25, 1, 4, 0, 0, 0, 2, 0, 100, 8, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -1338,9 +1324,8 @@ CREATE TABLE `subvision` (
 --
 
 INSERT INTO `subvision` (`id_subvision`, `name`, `id_application`) VALUES
-(6, '36gp', 35),
-(49, 'qwe', 35),
-(57, 'Могилёвская центральная поликлиника', 39);
+(57, 'Могилёвская центральная поликлиника', 39),
+(58, '36gp', 40);
 
 -- --------------------------------------------------------
 
@@ -1365,8 +1350,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '0', 'o5eaoshusi8dejtr5bap1jn00d1t64t7', '2023-07-14 01:16:33', '/index.php?logout'),
-(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, 'o5eaoshusi8dejtr5bap1jn00d1t64t7', 'o5eaoshusi8dejtr5bap1jn00d1t64t7', '2023-07-14 01:24:58', '/index.php?application'),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '0', '57niaj6bvvdla3svvlc7sjnllge7rj67', '2023-07-14 11:16:45', '/index.php?logout'),
+(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '57niaj6bvvdla3svvlc7sjnllge7rj67', '57niaj6bvvdla3svvlc7sjnllge7rj67', '2023-07-14 11:30:16', '/index.php?application'),
 (3, 'Брестская городская поликлиника №1', 'brestgp1', 'ddd415ac66e91cf20c63792ffe88eb70', 3, NULL, NULL, NULL, NULL),
 (4, 'Брестская городская поликлиника №2', 'brestgp2', '8bc25d7d934f31bca3a27442355caade', 3, NULL, NULL, NULL, NULL),
 (5, 'Брестская городская поликлиника №3', 'brestgp3', 'dab4e30dcda1b14af1e11730e7597579', 3, NULL, NULL, NULL, NULL),
@@ -1652,7 +1637,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT для таблицы `cells`
@@ -1682,19 +1667,19 @@ ALTER TABLE `criteria`
 -- AUTO_INCREMENT для таблицы `mark`
 --
 ALTER TABLE `mark`
-  MODIFY `id_mark` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_mark` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT для таблицы `mark_rating`
 --
 ALTER TABLE `mark_rating`
-  MODIFY `id_mark_rating` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_mark_rating` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT для таблицы `rating_criteria`
 --
 ALTER TABLE `rating_criteria`
-  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
@@ -1712,7 +1697,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `subvision`
 --
 ALTER TABLE `subvision`
-  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
