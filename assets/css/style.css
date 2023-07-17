@@ -3578,7 +3578,40 @@ select.tt-hint:focus::-ms-value {
 .form-control-file,
 .form-control-range {
   display: block;
-  width: 100%; }
+   }
+
+.form-control-file::before {
+  content: 'Выберите файл';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+
+.form-control-file {
+  color: transparent;
+}
+.form-control-file::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.form-control-file:hover::before {
+  border-color: black;
+}
+.form-control-file:active {
+  outline: 0;
+}
+.form-control-file:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
 
 .col-form-label {
   padding-top: calc(0.94rem + 1px);

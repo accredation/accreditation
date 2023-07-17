@@ -76,16 +76,16 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                 <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                   <ul class="nav nav-tabs tab-transparent" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Все заявления</a>
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Самооценка</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab" aria-selected="false">На рассмотрении</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
+                      <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Завершена оценка</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Не одобренные</a>
+                      <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Отклоненные</a>
                     </li>
                   </ul>
                   <div class="d-md-block d-none">
@@ -412,7 +412,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
             </div>
           </div>
 <div class="modal" id="myModal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" style="max-width: none; margin: 0;">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -473,7 +473,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                             <form id="formSoprovodPismo">
                                                 <div class="form-group" id = "divSoprovodPismo">
                                                     <label for="soprPismo">Сопроводительное письмо</label>
-                                                    <input type="file" class="form-control-file" name="Name" id="soprPismo">
+                                                    <input type="file" class="form-control-file" name="Name" id="soprPismo" content="">
                                                 </div>
                                             </form>
 
@@ -502,6 +502,12 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                         <div class="card-body" id="mainRightCard">
 
                                         </div>
+                                        <form id="formReport" >
+                                            <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
+                                                <label for="" style="font-size: 24px">Отчет</label><br/>
+                                                <input type="file" class="form-control-file hiddentab" id="fileReport" >
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div style="width: 100%">
@@ -666,7 +672,6 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 </script>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script></script>
 <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formApplication.js"></script>
@@ -684,3 +689,5 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
     </div>
 
 <?php } ?>
+
+

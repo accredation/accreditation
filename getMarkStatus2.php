@@ -24,7 +24,7 @@ left outer join applications a on s.id_application = a.id_application
 where rc.id_subvision = '$id_sub' and rc.id_criteria='$id_criteria' -- and m.date_close is null
 and (m.date_close is null or (m.date_close is not null and ( m.date_close > a.date_send)))
 and (m.date_open is null or (m.date_open is not null and (m.date_open <= a.date_send )))
-order by  m.id_mark
+order by  m.str_num
 ";
 //order by IFNULL(m.str_num, 100000), m.id_mark
 

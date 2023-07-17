@@ -2,7 +2,7 @@
 include "connection.php";
 
 $id_application = $_GET['id_application'];
-$query = "SELECT * FROM applications WHERE id_application='$id_application'";
+$query = "SELECT * FROM applications, users WHERE id_application='$id_application' and applications.id_user=users.id_user ";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 $data = array();
@@ -22,7 +22,8 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
     $soprovod_pismo = $row['soprovod_pismo'];
     $copy_rasp = $row['copy_rasp'];
     $org_structure = $row['org_structure'];
-
+    $login = $row['login'];
+    $report = $row['fileReport'];
 }
 
 array_push($cells,$naim);
@@ -36,6 +37,8 @@ array_push($cells,$predstavitel);
 array_push($cells,$soprovod_pismo);
 array_push($cells,$copy_rasp);
 array_push($cells,$org_structure);
+array_push($cells,$login);
+array_push($cells,$report);
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
 

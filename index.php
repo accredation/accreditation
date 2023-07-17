@@ -34,7 +34,6 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 
-
   </head>
   <body >
     <div class="container-scroller">
@@ -271,6 +270,7 @@
     <script src="assets/js/dashboard.js"></script>
 
 
+    <script src="dist/js/jquery.dataTables.min.js"></script>
     <script>
 
         $(document).ready(function () {
@@ -291,13 +291,18 @@
                 scrollY: 200,
                 scrollX: true,
             });
+
+            let example_filter = document.getElementById("example_filter");
+            if(document.getElementById("nav2")){
+                example_filter.classList.add("hiddentab");
+            }
         });
 
 
     </script>
 
 
-    <script src="dist/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         //window.onload = () => console.log('page is loaded');
@@ -330,7 +335,12 @@
     </script>
 
     <!-- End custom js for this page -->
+    <script>
 
+        // let el = document.getElementById("nav5");
+        // if (!el || el.children[0].href !== "/index.php?users" || !example_filter)
+        //     example_filter.remove();
+    </script>
   </body>
   <script type="text/javascript">
       // document.onkeydown = function(e) {
@@ -361,4 +371,6 @@
       // .then(response => response.json())
       // .then(data => console.log(data));
   </script>
+
+
 </html>

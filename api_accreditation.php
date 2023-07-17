@@ -74,16 +74,16 @@
                 <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                     <ul class="nav nav-tabs tab-transparent" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Все заявления</a>
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Новые</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab" aria-selected="false">На рассмотрении</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Одобренные</a>
+                            <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Завершена оценка</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Не одобренные</a>
+                            <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Отклоненные</a>
                         </li>
                     </ul>
                     <div class="d-md-block d-none">
@@ -393,7 +393,7 @@
         </div>
     </div>
     <div class="modal" id="myModal">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg" style="max-width: none; margin: 0;">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -453,22 +453,22 @@
 
                                                 <form id="formSoprovodPismo">
                                                     <div class="form-group" id = "divSoprovodPismo">
-                                                        <label for="soprPismo">Сопроводительное письмо</label>
-                                                        <input type="file" class="form-control-file" name="Name" id="soprPismo" disabled="true">
+                                                        <label for="soprPismo">Сопроводительное письмо</label><br/>
+                                                        <input type="file" class="form-control-file hiddentab" name="Name" id="soprPismo" disabled="true">
                                                     </div>
                                                 </form>
 
                                                 <form id="formCopyRaspisanie">
                                                     <div class="form-group" id = "divCopyRaspisanie">
-                                                        <label for="copyRaspisanie" >Копия штатного расписания</label>
-                                                        <input type="file" class="form-control-file" name="Name" id="copyRaspisanie" disabled="true">
+                                                        <label for="copyRaspisanie" >Копия штатного расписания</label><br/>
+                                                        <input type="file" class="form-control-file hiddentab" name="Name" id="copyRaspisanie" disabled="true">
                                                     </div>
                                                 </form>
 
                                                 <form id="formOrgStrukt" >
                                                     <div class="form-group" id = "divOrgStrukt">
-                                                        <label for="orgStrukt">Организационная структура</label>
-                                                        <input type="file" class="form-control-file" id="orgStrukt" disabled="true">
+                                                        <label for="orgStrukt">Организационная структура</label><br/>
+                                                        <input type="file" class="form-control-file hiddentab" id="orgStrukt" disabled="true">
                                                     </div>
                                                 </form>
 <!--                                                <button class="btn-inverse-info" onclick="addTab()">+ добавить структурное подразделение</button>-->
@@ -483,7 +483,14 @@
                                             <div class="card-body" id="mainRightCard">
 
                                             </div>
+                                            <form id="formReport" >
+                                                <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
+                                                    <label for="fileReport" style="font-size: 24px">Отчет</label>
+                                                    <input type="file" class="form-control-file" id="fileReport" >
+                                                </div>
+                                            </form>
                                         </div>
+
                                     </div>
                                     <div style="width: 100%">
                                         <div style="display:flex; justify-content: flex-end;">
@@ -622,7 +629,7 @@
                     <!--                    <input type="text" name="count" id="count"/>-->
                     <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">Проверяется</button>
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Принять</button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
 
                     <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">Отклонить</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
@@ -650,7 +657,7 @@
     </script>
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script></script>
+
     <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
     <!--<script>console.log(filesName)</script>-->
     <script src="dist/js/formAccreditation.js"></script>
