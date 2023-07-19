@@ -395,11 +395,13 @@ function showModal(id_application, strMarks, strMarksAccred){
     let copyRaspisanie = document.getElementById("copyRaspisanie");
     let orgStrukt = document.getElementById("orgStrukt");
     let fileReport = document.getElementById("fileReport");
+    let reportSamoocenka = document.getElementById("reportSamoocenka");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let divOrgStrukt = document.getElementById("divOrgStrukt");
     let divReport = document.getElementById("divReport");
+    let divReportSamoocenka = document.getElementById("divReportSamoocenka");
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
@@ -422,10 +424,14 @@ function showModal(id_application, strMarks, strMarksAccred){
             email.value = data[0][5];
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
+            let login = data[0][11];
+            if(data[0][12] != null) {
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][13] + "'>" + data[0][13] + "</a>");
+            }
             if(data[0][12] != null) {
                 fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
-            let login = data[0][11];
+
             if(data[0][8] != null) {
                 soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
@@ -454,6 +460,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
+        let sam = divReportSamoocenka.getElementsByTagName("a")[0];
+        if(sam) {
+            sam.remove();
+        }
         if(sopr) {
             sopr.remove();
         }
@@ -478,6 +488,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
+        let sam = divReportSamoocenka.getElementsByTagName("a")[0];
+        if(sam) {
+            sam.remove();
+        }
         if(sopr) {
             sopr.remove();
         }

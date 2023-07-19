@@ -516,6 +516,13 @@
                                                         <input type="file" class="form-control-file hiddentab" id="orgStrukt" disabled="true">
                                                     </div>
                                                 </form>
+
+                                                <form id="formReportSamoocenka" >
+                                                    <div class="form-group" id = "divReportSamoocenka">
+                                                        <label for="reportSamoocenka">Организационная структура</label><br/>
+                                                        <input type="file" class="form-control-file hiddentab" id="reportSamoocenka" disabled="true">
+                                                    </div>
+                                                </form>
 <!--                                                <button class="btn-inverse-info" onclick="addTab()">+ добавить структурное подразделение</button>-->
                                                 <br/>
                                                 <br/>
