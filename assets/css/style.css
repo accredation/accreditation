@@ -4001,7 +4001,7 @@ textarea.is-invalid.tt-hint {
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #a7afb7;
+  color: #ffffff;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -7459,6 +7459,9 @@ button.bg-dark:focus {
 
 .bg-white {
   background-color: #ffffff !important; }
+
+.bg-create {
+  background-color: #29ba36 !important; }
 
 .bg-transparent {
   background-color: transparent !important; }

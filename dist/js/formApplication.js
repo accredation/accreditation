@@ -107,7 +107,7 @@ function showTab(element,id_sub){
 
                     let divFormGroup = document.createElement("div");
                     let label_1 = document.createElement("label");
-                    label_1.innerHTML = "Общие критерии";
+                    label_1.innerHTML = "По общим условиям оказания медицинской помощи";
                     label_1.style="font-weight: 600";
 
 
@@ -138,8 +138,8 @@ function showTab(element,id_sub){
                     labelCheck.className = "form-check-label";
                     labelCheck.style = "text-align: left";
                     labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
-                    let str = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
-                    labelCheck.innerHTML = data_main[i][1] + str;
+                    let condition = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
+                    labelCheck.innerHTML = data_main[i][1] + condition;
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
                     divFormGroup.appendChild(divFormCheck);
@@ -182,8 +182,8 @@ function showTab(element,id_sub){
                     labelCheck.className = "form-check-label";
                     labelCheck.style = "text-align: left";
                     labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
-                    let str1 = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
-                    labelCheck.innerHTML = data_main[i][1] + str1;
+                    let condition = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
+                    labelCheck.innerHTML = data_main[i][1] + condition;
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
                     divFormGroup.appendChild(divFormCheck);
@@ -228,8 +228,8 @@ function showTab(element,id_sub){
                     labelCheck.className = "form-check-label";
                     labelCheck.style = "text-align: left";
                     labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
-                    let str2 = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
-                    labelCheck.innerHTML = data_main[i][1] + str2;
+                    let condition = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
+                    labelCheck.innerHTML = data_main[i][1] + condition;
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
                     divFormGroup.appendChild(divFormCheck);
@@ -355,11 +355,13 @@ function showModal(id_application, strMarks, strMarksAccred){
     let copyRaspisanie = document.getElementById("copyRaspisanie");
     let orgStrukt = document.getElementById("orgStrukt");
     let fileReport = document.getElementById("fileReport");
+    let reportSamoocenka = document.getElementById("reportSamoocenka");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let divOrgStrukt = document.getElementById("divOrgStrukt");
-    let divOrgStruktdivReport = document.getElementById("divReport");
+    let divReport = document.getElementById("divReport");
+    let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
@@ -412,6 +414,9 @@ function showModal(id_application, strMarks, strMarksAccred){
             if(data[0][12] != null) {
                 fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
+            if(data[0][13] != null) {
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][13] + "'>" + data[0][13] + "</a>");
+            }
             let login = getCookie('login');
             if(data[0][8] != null) {
                 soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
@@ -441,6 +446,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
+        let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
+        if(samoocenka) {
+            samoocenka.remove();
+        }
         if(rep) {
             rep.remove();
         }
@@ -465,6 +474,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
+        let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
+        if(samoocenka) {
+            samoocenka.remove();
+        }
         if(rep) {
             rep.remove();
         }
@@ -484,9 +497,285 @@ function showModal(id_application, strMarks, strMarksAccred){
         }
     });
 
+    let divBtnPrintReport = document.getElementById('btnPrintReport');
+    divBtnPrintReport.onclick = ()=> {
+        console.log('print');
+        printReport();
+    };
 
 
 }
+
+function printReport(){
+    let number_app = document.getElementById("id_application");
+    let id_application = number_app.innerHTML;
+
+    $.ajax({
+        url: "getAppForPrintNo.php",
+        method: "GET",
+        data: {id_app: id_application}
+    })
+        .done(function( response ) {
+            //  console.log(response);
+            let tableForPrint = JSON.parse(response);
+
+            if(tableForPrint.length !==0){
+                let naim = document.getElementById("naim");
+                let unp = document.getElementById("unp");
+                let naimText = naim.value;
+                let unpText = unp.value;
+                var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+                WinPrint.document.write('<style>@page {\n' +
+                    'margin: 1rem;\n' +
+                    '}</style>');  // убрать колонтитул
+                // WinPrint.document.write('Наименование организации: ');
+                // WinPrint.document.write(naimText);
+                // WinPrint.document.write('<br/>');
+                // WinPrint.document.write('УНП: ');
+                // WinPrint.document.write(unpText);
+
+                let table = createTableForPrintNo(tableForPrint);
+
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write(table.innerHTML);
+
+                WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+                WinPrint.close();
+            } else {
+                alert('Ничего нет под выбранные условия');
+            }
+
+
+        });
+}
+
+function createTableForPrintNo(tableForPrint){
+
+    let divPrintTable = document.createElement('div');
+
+    let divNameSubTable = document.createElement('div');
+    divNameSubTable.textContent = tableForPrint[0]['name'];
+    divNameSubTable.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+
+    divPrintTable.appendChild(divNameSubTable);
+
+    let divNameCriteriaTable = document.createElement('div');
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+    divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
+
+    divPrintTable.appendChild(divNameCriteriaTable);
+
+    let table = document.createElement('table');
+    table.style = "border-collapse: collapse; border-spacing: 0;";
+
+
+
+
+    let trHeadMain = document.createElement('tr');
+
+    let thNum = document.createElement('th');
+    thNum.innerHTML = '№ п/п';
+    thNum.style = "border: 1px solid black";
+    thNum.setAttribute('rowspan','2');
+
+    let th1_Main = document.createElement('th');
+    th1_Main.innerHTML = 'Критерий';
+    th1_Main.style = "border: 1px solid black; ";
+    th1_Main.setAttribute('rowspan','2');
+
+    let th2_Main = document.createElement('th');
+    th2_Main.innerHTML = 'Класс критерия';
+    th2_Main.style = "border: 1px solid black";
+    th2_Main.setAttribute('rowspan','2');
+
+
+    let th3_Main = document.createElement('th');
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.style = "border: 1px solid black; text-align: center";
+    th3_Main.setAttribute('colspan','3');
+
+
+
+    let trHead = document.createElement('tr');
+    let th3 = document.createElement('th');
+    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.style = "border: 1px solid black";
+
+    let th4 = document.createElement('th');
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+    th4.style = "width:350px; border: 1px solid black";
+
+
+    let th5 = document.createElement('th');
+    th5.innerHTML = 'Примечание';
+    th5.style = "border: 1px solid black";
+
+
+    trHeadMain.appendChild(thNum);
+    trHeadMain.appendChild(th1_Main);
+    trHeadMain.appendChild(th2_Main);
+    trHeadMain.appendChild(th3_Main);
+
+
+    table.appendChild(trHeadMain);
+    trHead.appendChild(th3);
+    trHead.appendChild(th4);
+    trHead.appendChild(th5);
+
+
+    table.appendChild(trHead);
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+    numCriteria=0;
+    numSub = 0;
+    tableForPrint.map((item, index) => {
+
+        if(numSub !== item['id_subvision']){
+
+        if((numCriteria !== item['id_criteria']) && (index !==0))  {
+
+
+        }
+                let trNaimSub = document.createElement('tr');
+                let tdNaimSub  = document.createElement('td');
+                tdNaimSub.setAttribute('colspan','6');
+                tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+                tdNaimSub.innerHTML = item['name'];
+                trNaimSub.appendChild(tdNaimSub);
+                tbody.appendChild(trNaimSub);
+
+
+            if(item['id_criteria'] !== null) {
+                let trNaim = document.createElement('tr');
+                let tdNaim = document.createElement('td');
+                tdNaim.setAttribute('colspan','6');
+                tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+                tdNaim.innerHTML = item['name_criteria'];
+                trNaim.appendChild(tdNaim);
+                tbody.appendChild(trNaim);
+
+
+
+                let trHeadMain2 = document.createElement('tr');
+
+                let thNum = document.createElement('th');
+                thNum.innerHTML = '№ п/п';
+                thNum.style = "border: 1px solid black";
+                thNum.setAttribute('rowspan','2');
+
+                let th1_Main2 = document.createElement('td');
+                th1_Main2.innerHTML = 'Критерий';
+                th1_Main2.style = "border: 1px solid black";
+                th1_Main2.setAttribute('rowspan','2');
+
+                let th2_Main2 = document.createElement('td');
+                th2_Main2.innerHTML = 'Класс критерия';
+                th2_Main2.style = "border: 1px solid black";
+                th2_Main2.setAttribute('rowspan','2');
+
+
+                let th3_Main2 = document.createElement('td');
+                th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+                th3_Main2.style = "border: 1px solid black; text-align: center";
+                th3_Main2.setAttribute('colspan','3');
+
+
+
+
+                let trHead2 = document.createElement('tr');
+                let th32 = document.createElement('td');
+                th32.innerHTML = 'Сведения по самооценке ОЗ';
+                th32.style = "border: 1px solid black";
+
+                let th42 = document.createElement('td');
+                th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+                th4.style = "width:350px; border: 1px solid black";
+
+
+                let th52 = document.createElement('td');
+                th52.innerHTML = 'Примечание';
+                th52.style = "border: 1px solid black";
+
+
+
+                trHeadMain2.appendChild(thNum);
+                trHeadMain2.appendChild(th1_Main2);
+                trHeadMain2.appendChild(th2_Main2);
+                trHeadMain2.appendChild(th3_Main2);
+
+
+                tbody.appendChild(trHeadMain2);
+                trHead2.appendChild(th32);
+                trHead2.appendChild(th42);
+                trHead2.appendChild(th52);
+
+                tbody.appendChild(trHead2);
+            }
+
+
+
+
+        }
+
+        numCriteria =  -1;
+
+        if(item['id_criteria'] !== null) {
+
+            let tr = document.createElement('tr');
+
+            let tdNum = document.createElement('td');
+            tdNum.innerHTML = item['str_num'];
+            tdNum.style = "border: 1px solid black";
+
+            let td1 = document.createElement('td');
+            td1.innerHTML = item['mark_name'];
+            td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+
+            let td2 = document.createElement('td');
+            td2.innerHTML = item['mark_class'];
+            td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+
+            let td3 = document.createElement('td');
+            td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td3.innerHTML = item['field4'];
+
+            let td4 = document.createElement('td');
+            td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td4.innerHTML = item['field5'];
+
+            let td5 = document.createElement('td');
+            td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td5.innerHTML = item['field6'];
+
+
+            tr.appendChild(tdNum);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+
+            tbody.appendChild(tr);
+
+            numCriteria = item['id_criteria'];
+        }
+
+
+        numSub = item['id_subvision']
+    })
+
+
+    divPrintTable.appendChild(table);
+
+    return divPrintTable;
+}
+
 
 $("#btnPrint").on("click", function () {
 
@@ -1568,22 +1857,33 @@ $("#neodobrennie-tab").on("click", () => {
 
 $("#btnSend").on("click", () => {
     let id_application = document.getElementById("id_application");
+    let divSoprovodPismo = document.getElementById("divSoprovodPismo");
+    let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
+    let divOrgStrukt = document.getElementById("divOrgStrukt");
+    let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
     if(isSend) {
-        $.ajax({
-            url: "sendApp.php",
-            method: "GET",
-            data: {id_application: id_application.innerText}
-        })
-            .done(function (response) {
-                if (response == "") {
-                    alert("Заявление отправлено");
-                    calcMarks();
-                    location.href = "/index.php?application";
-                } else {
-                    alert(response);
-                }
-            });
+        if(divSoprovodPismo.getElementsByTagName("a").length == 0 ||
+            divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
+            divOrgStrukt.getElementsByTagName("a").length == 0 ||
+            divFileReportSamoocenka.getElementsByTagName("a").length == 0){
+            alert("Не все обязательные документы заполнены!");
+        }else {
+            $.ajax({
+                url: "sendApp.php",
+                method: "GET",
+                data: {id_application: id_application.innerText}
+            })
+                .done(function (response) {
+                    if (response == "") {
+                        alert("Заявление отправлено");
+                        calcMarks();
+                        location.href = "/index.php?application";
+                    } else {
+                        alert(response);
+                    }
+                });
+        }
     }
 
 });
@@ -1923,7 +2223,9 @@ $("#soprPismo").on("change", () =>{
     let login = getCookie('login');
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let sopr = divSoprPismo.getElementsByTagName("a")[0];
-    sopr.remove();
+    if(sopr) {
+        sopr.remove();
+    }
     let soprPismo = document.getElementById("soprPismo");
     soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + soprPismo.files[0].name + "'>" + soprPismo.files[0].name + "</a>");
 
@@ -1943,7 +2245,9 @@ $("#copyRaspisanie").on("change", () =>{
     let login = getCookie('login');
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
-    copy.remove();
+    if(copy) {
+        copy.remove();
+    }
     let copyRasp = document.getElementById("copyRaspisanie");
 
     copyRasp.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + copyRasp.files[0].name + "'>" + copyRasp.files[0].name + "</a>");
@@ -1964,7 +2268,9 @@ $("#orgStrukt").on("change", () =>{
     let login = getCookie('login');
     let divOrgStrukt = document.getElementById("divOrgStrukt");
     let sopr = divOrgStrukt.getElementsByTagName("a")[0];
-    sopr.remove();
+    if(sopr) {
+        sopr.remove();
+    }
     let orgStruct = document.getElementById("orgStrukt");
     orgStruct.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + orgStruct.files[0].name + "'>" + orgStruct.files[0].name + "</a>");
 
@@ -1977,6 +2283,28 @@ $("#orgStrukt").on("change", () =>{
     form.append("orgStruct", orgStructFile);
 
     xhr.open("post", "postFileOrgStruct.php", true);
+    xhr.send(form);
+});
+
+$("#reportSamoocenka").on("change", () =>{
+    let login = getCookie('login');
+    let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
+    let sopr = divFileReportSamoocenka.getElementsByTagName("a")[0];
+    if(sopr) {
+        sopr.remove();
+    }
+    let reportSamoocenka = document.getElementById("reportSamoocenka");
+    reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + reportSamoocenka.files[0].name + "'>" + reportSamoocenka.files[0].name + "</a>");
+
+    let id_application = document.getElementById("id_application");
+
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let reportSamoocenkaFile = reportSamoocenka.files[0];
+    form.append("id_application", id_application.innerText);
+    form.append("reportSamoocenka", reportSamoocenkaFile);
+
+    xhr.open("post", "postFileReportSamoocenka.php", true);
     xhr.send(form);
 });
 

@@ -145,12 +145,28 @@
                                     <div class="card-body">
 
                                         <?php
+                                        $query = "SELECT * FROM users where login = '$login'";
 
-                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
-                                FROM applications a
-                               left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user
-                               where id_status = 2 ";
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ($role > 3){
+                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user
+                                                   where id_status = 2 and u.oblast = '$role'";
+                                        }
+                                        else {
+                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user
+                                                   where id_status = 2";
+                                        }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
@@ -199,22 +215,39 @@
                                     <div class="card-body">
 
                                         <?php
-                                        $login = $_COOKIE['login'];
-                                        $insertquery = "SELECT * FROM users WHERE login='$login'";
+//                                        $login = $_COOKIE['login'];
+//                                        $insertquery = "SELECT * FROM users WHERE login='$login'";
+//
+//                                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+//                                        $username = "";
+//                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+//                                        {
+//                                            $row = mysqli_fetch_assoc($rez);
+//                                            $id = $row['id_user'];
+//                                            $username = $row['username'];
+//                                        }
+                                        $query = "SELECT * FROM users where login = '$login'";
 
-                                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-                                        $username = "";
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
                                         if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                                         {
                                             $row = mysqli_fetch_assoc($rez);
-                                            $id = $row['id_user'];
-                                            $username = $row['username'];
+                                            $role = $row['id_role'];
                                         }
-
-                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
-                                FROM applications a
-                               left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where id_status = 3";
+                                        if ($role > 3){
+                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user
+                                                   where id_status = 3 and u.oblast = '$role'";
+                                        }
+                                        else {
+                                            $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user 
+                                                    where id_status = 3";
+                                        }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
@@ -265,22 +298,28 @@
                                     <div class="card-body">
 
                                         <?php
-                                        $login = $_COOKIE['login'];
-                                        $insertquery = "SELECT * FROM users WHERE login='$login'";
+                                        $query = "SELECT * FROM users where login = '$login'";
 
-                                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-                                        $username = "";
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
                                         if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                                         {
                                             $row = mysqli_fetch_assoc($rez);
-                                            $id = $row['id_user'];
-                                            $username = $row['username'];
+                                            $role = $row['id_role'];
                                         }
+                                        if ($role > 3){
+                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user
+                                                   where id_status = 4 and u.oblast = '$role'";
+                                        }
+                                        else {
 
-                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
-                                FROM applications a
-                               left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where id_status = 4";
+                                            $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                                FROM applications a
+                                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                left outer join users u on a.id_user =u.id_user where id_status = 4";
+                                        }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
@@ -331,22 +370,28 @@
                                     <div class="card-body">
 
                                         <?php
-                                        $login = $_COOKIE['login'];
-                                        $insertquery = "SELECT * FROM users WHERE login='$login'";
+                                        $query = "SELECT * FROM users where login = '$login'";
 
-                                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-                                        $username = "";
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
                                         if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                                         {
                                             $row = mysqli_fetch_assoc($rez);
-                                            $id = $row['id_user'];
-                                            $username = $row['username'];
+                                            $role = $row['id_role'];
                                         }
+                                        if ($role > 3){
+                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user
+                                                   where id_status = 5 and u.oblast = '$role'";
+                                        }
+                                        else {
 
-                                        $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
-                                FROM applications a
-                               left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where id_status = 5";
+                                            $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user where id_status = 5";
+                                        }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
@@ -485,6 +530,9 @@
                                             </div>
                                             <form id="formReport" >
                                                 <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
+                                                    <div style="margin-bottom:1rem">
+
+                                                    </div>
                                                     <label for="fileReport" style="font-size: 24px">Отчет</label>
                                                     <input type="file" class="form-control-file" id="fileReport" >
                                                 </div>
@@ -633,6 +681,7 @@
 
                     <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">Отклонить</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+                    <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия</button>
 
                     <!--                </form>-->

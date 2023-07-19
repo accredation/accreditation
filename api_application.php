@@ -66,7 +66,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
 ?>
                 <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
-                  <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
+                  <button class="btn bg-create p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
                 </div>
                   <?php } ?>
               </div>
@@ -490,6 +490,13 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" id="orgStrukt">
                                                 </div>
                                             </form>
+
+                                            <form id="formFileReportSamoocenka" >
+                                                <div class="form-group" id = "divFileReportSamoocenka">
+                                                    <label for="reportSamoocenka">Результат самооценки</label>
+                                                    <input type="file" class="form-control-file" id="reportSamoocenka">
+                                                </div>
+                                            </form>
                                             <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить структурное подразделение</button>
                                             <br/>
                                             <br/>
@@ -648,6 +655,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
                 <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
                 <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+                <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
                 <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>
 
 <!--                </form>-->
