@@ -108,7 +108,7 @@ function showTab(element,id_sub){
                     let divFormGroup = document.createElement("div");
                     let label_1 = document.createElement("label");
                     label_1.innerHTML = "По общим условиям оказания медицинской помощи";
-                    label_1.style="font-weight: 600";
+                    label_1.style="font-weight: 600; text-align: left";
 
 
                     let hr = document.createElement("hr");
