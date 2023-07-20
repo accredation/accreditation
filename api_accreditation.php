@@ -519,7 +519,7 @@
 
                                                 <form id="formReportSamoocenka" >
                                                     <div class="form-group" id = "divReportSamoocenka">
-                                                        <label for="reportSamoocenka">Организационная структура</label><br/>
+                                                        <label for="reportSamoocenka">Результат самооценки</label><br/>
                                                         <input type="file" class="form-control-file hiddentab" id="reportSamoocenka" disabled="true">
                                                     </div>
                                                 </form>

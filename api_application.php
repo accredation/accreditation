@@ -492,7 +492,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                             </form>
 
                                             <form id="formFileReportSamoocenka" >
-                                                <div class="form-group" id = "divFileReportSamoocenka">
+                                                <div class="form-group " id = "divFileReportSamoocenka">
                                                     <label for="reportSamoocenka">Результат самооценки</label>
                                                     <input type="file" class="form-control-file" id="reportSamoocenka">
                                                 </div>

@@ -425,7 +425,7 @@ function showModal(id_application, strMarks, strMarksAccred){
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             let login = data[0][11];
-            if(data[0][12] != null) {
+            if(data[0][13] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][13] + "'>" + data[0][13] + "</a>");
             }
             if(data[0][12] != null) {
@@ -514,7 +514,6 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     let divBtnPrintReport = document.getElementById('btnPrintReport');
     divBtnPrintReport.onclick = ()=> {
-        console.log('print');
         printReport();
     };
 
@@ -967,7 +966,7 @@ function createTableForPrintNo(tableForPrint){
     table.appendChild(tbody);
 
     numCriteria=0;
-    numSub = 0;
+    numSub = tableForPrint[0]['id_subvision'];
     tableForPrint.map((item, index) => {
 
         if(numSub !== item['id_subvision']){

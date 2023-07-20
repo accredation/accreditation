@@ -23,7 +23,7 @@
 <!--                    -->
 
 
-                  <h4 class="card-title" style="margin-bottom: 0.3rem">Диаграмма 1</h4>
+                  <h4 class="card-title" style="margin-bottom: 0.3rem">Регистрация  в личном кабинете</h4>
                   <canvas id="doughnutChart1" style="height: 250px;display: block;width: 299px;" width="350" height="200"></canvas>
                   <script>
                       let ll = <?= $countUsers ?>;
@@ -80,7 +80,8 @@
                   $countOk = $row['countOk'];
                   ?>
 <!--                  </h3>-->
-                  <h4 class="card-title" style="margin-bottom: 0.3rem">Диаграмма 2</h4>
+                  <h4 class="card-title" style="margin-bottom: 0.3rem">Процесс проведения
+                      медицинской аккредитации </h4>
                   <canvas id="doughnutChart2" style="height: 393px; display: block; width: 688px;" attr1="438"></canvas>
 
                   <script>
@@ -136,7 +137,7 @@
                     $count100 = $row['count100'];
                     ?>
                     <!--                  </h3>-->
-                    <h4 class="card-title" style="margin-bottom: 0.3rem">Диаграмма 3</h4>
+                    <h4 class="card-title" style="margin-bottom: 0.3rem">Результаты оценки соответствия первичным критериям медицинской аккредитации</h4>
                     <canvas id="doughnutChart3" style="height: 393px; display: block; width: 688px;"></canvas>
 
                     <script>

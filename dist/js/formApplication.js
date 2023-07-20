@@ -4,8 +4,6 @@
 // let tab4 = document.getElementById("tab-4");
 // let tab5 = document.getElementById("tab-5");
 
-
-
 let data_old = new Array();
 
 let status = 1;
@@ -108,7 +106,7 @@ function showTab(element,id_sub){
                     let divFormGroup = document.createElement("div");
                     let label_1 = document.createElement("label");
                     label_1.innerHTML = "По общим условиям оказания медицинской помощи";
-                    label_1.style="font-weight: 600; text-align: left";
+                    label_1.style="font-weight: 600";
 
 
                     let hr = document.createElement("hr");
@@ -499,18 +497,101 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     let divBtnPrintReport = document.getElementById('btnPrintReport');
     divBtnPrintReport.onclick = ()=> {
-        console.log('print');
         printReport();
     };
 
 
 }
 
-function printReport(){
+async function printReport(){
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
 
-    $.ajax({
+
+    let criteriaMark = document.createElement('div');
+   
+    criteriaMark.textContent = '<strong>Достигнуты следующие результаты</strong><br/>';
+    criteriaMark.style = "padding-top: 0.5rem; padding-bottom:1rem; ";
+
+    var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+    WinPrint.document.write('<style>@page {\n' +
+        'margin: 1rem;\n' +
+        '}</style>');  
+   
+   
+    let textSubCriteriaChecked = '';    
+    let divTextSubCriteriaChecked = document.createElement('div');
+    divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+
+    await $.ajax({
+        url: "getCalc.php",
+        method: "GET",
+        data: {id_application: id_application}
+    });
+
+    await checkActivCursor(id_application);
+
+    await $.ajax({
+        url: "getSubForPrintReport.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function( response ) {
+            let subCriteriaForReport = JSON.parse(response);
+            console.log(subCriteriaForReport);
+            let id_s=0;
+            let as ='';
+            subCriteriaForReport.map((item, index) => {
+                
+                if(id_s !== item['id_subvision']){
+                   
+                    if(index !=0){
+                        textSubCriteriaChecked+=`<div>${as}</div>`;
+                    }
+                    as = '';
+                    id_s = item['id_subvision']; 
+                    as = `Самооценка ${item['name']} проведена по следующим первичным критериям медицинской акредитации: `;
+                }
+                if(subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
+                    as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + "." ;
+                else
+                    as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + ", " ;
+                if(index === subCriteriaForReport.length-1){
+                    textSubCriteriaChecked+=`<div>${as}.</div>`;
+                }
+
+            });
+
+
+        });
+
+    let criteriaMark1 = document.createElement('div');
+    criteriaMark1.textContent = "";
+
+    await $.ajax({
+        url: "getCalcAppMark.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function( response ) {
+            let mainRightCard = document.getElementById("mainRightCard");
+            mainRightCard.innerHTML = "";
+            let marksSub = JSON.parse(response);
+            criteriaMark.textContent += `Количественная самооценка ${marksSub['otmetka_all_count_yes']}/(${marksSub['otmetka_all_count_all']}-${marksSub['otmetka_all_count_not_need']}) = ${marksSub['otmetka_all']}%`;
+            criteriaMark.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
+            criteriaMark.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
+            criteriaMark.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
+            criteriaMark1.textContent += `Количественная самооценка ${marksSub['otmetka_all_count_yes']}/(${marksSub['otmetka_all_count_all']}-${marksSub['otmetka_all_count_not_need']}) = ${marksSub['otmetka_all']}%`;
+            criteriaMark1.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
+            criteriaMark1.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
+            criteriaMark1.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
+
+            mainRightCard.appendChild(criteriaMark1);
+        });
+
+        let table;
+    await  $.ajax({
         url: "getAppForPrintNo.php",
         method: "GET",
         data: {id_app: id_application}
@@ -524,30 +605,84 @@ function printReport(){
                 let unp = document.getElementById("unp");
                 let naimText = naim.value;
                 let unpText = unp.value;
-                var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+          
 
-                WinPrint.document.write('<style>@page {\n' +
-                    'margin: 1rem;\n' +
-                    '}</style>');  // убрать колонтитул
-                // WinPrint.document.write('Наименование организации: ');
-                // WinPrint.document.write(naimText);
-                // WinPrint.document.write('<br/>');
-                // WinPrint.document.write('УНП: ');
-                // WinPrint.document.write(unpText);
+                table = createTableForPrintNo(tableForPrint);
 
-                let table = createTableForPrintNo(tableForPrint);
+               
 
-                WinPrint.document.write('<br/>');
-                WinPrint.document.write(table.innerHTML);
-
-                WinPrint.document.close();
-                WinPrint.focus();
-                WinPrint.print();
-                WinPrint.close();
             } else {
-                alert('Ничего нет под выбранные условия');
+                // alert('Ничего нет под выбранные условия');
             }
 
+
+        });
+
+      //  console.log('Результат самооценки "вставить краткое ниименование" организации здравоохраниения '+ now().format('LT'));
+
+        let sokr = document.getElementById('sokr');
+        let naim = document.getElementById('naim');
+        function formatDate(date) {
+
+            var dd = date.getDate();
+            if (dd < 10) dd = '0' + dd;
+
+            var mm = date.getMonth() + 1;
+            if (mm < 10) mm = '0' + mm;
+
+            var yy = date.getFullYear() % 100;
+            if (yy < 10) yy = '0' + yy;
+
+            return dd + '.' + mm + '.' + yy;
+        }
+        let divReportTitle = document.createElement('div');
+        divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+        divReportTitle.textContent = `Результат самооценки ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
+
+        WinPrint.document.write(divReportTitle.innerHTML);
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write('<br/>');
+        divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+        WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write(criteriaMark.innerText);
+        WinPrint.document.write('<br/>');
+
+      
+
+        if(table.textContent.length > 0){
+            let divReportTitleFieldNo = document.createElement('div');
+            divReportTitleFieldNo.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+            divReportTitleFieldNo.textContent = '<strong>Установлено несоответствие по следующим критериям:</strong>';
+
+
+            WinPrint.document.write(divReportTitleFieldNo.textContent);
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write(table.innerHTML);
+        }
+
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+
+        WinPrint.close();
+}
+
+function checkActivCursor(id_application){
+    $.ajax({
+        url: "getActivCursor.php",
+        method: "GET",
+        data: {id_app: id_application}
+    })
+        .done(function( response ) {
+            //  console.log(response);
+            let tableForPrint = JSON.parse(response);
+            if(tableForPrint === 1) {
+                checkActivCursor(id_application)
+            }else{
+                return
+            }
 
         });
 }
@@ -632,7 +767,8 @@ function createTableForPrintNo(tableForPrint){
     table.appendChild(tbody);
 
     numCriteria=0;
-    numSub = 0;
+    numSub = tableForPrint[0]['id_subvision'];
+
     tableForPrint.map((item, index) => {
 
         if(numSub !== item['id_subvision']){
@@ -860,7 +996,7 @@ function getTabs(name, id_sub){
 
     tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
 
-    a.innerHTML = "Самооценка " + name;
+    a.innerHTML = "" + name;
     tab.appendChild(a);
     // tab.onclick= () => {
     //   //  console.log(tab.children[0]);
@@ -1003,7 +1139,7 @@ function getMainTab(name, id_sub){
     //    // console.log(2);
     //     showTab(tab,id_sub);
     // }
-    a.innerHTML = "Самооценка " + name;
+    a.innerHTML = "" + name;
     tab.appendChild(a);
     tab.id = "tab" + id_sub;
     tablist.appendChild(tab);
@@ -1680,7 +1816,7 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
 function  isSavedMarks(){
   //  console.log('check arrChange begin', arrChange);
     if (arrChange == true) {
-        let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?"); 
+        let res = confirm("Сохранить введенные данные?");
       //  console.log('res',res);
         if(res == false){
          //   console.log('check arrChange before', arrChange);
@@ -1855,7 +1991,7 @@ $("#neodobrennie-tab").on("click", () => {
 
 });
 
-$("#btnSend").on("click", () => {
+$("#btnSend").on("click", async () => {
     let id_application = document.getElementById("id_application");
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
@@ -1867,9 +2003,10 @@ $("#btnSend").on("click", () => {
             divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
             divOrgStrukt.getElementsByTagName("a").length == 0 ||
             divFileReportSamoocenka.getElementsByTagName("a").length == 0){
-            alert("Не все обязательные документы заполнены!");
+            alert("Не все обязательные документы загружены! Заявление не отправлено.");
         }else {
-            $.ajax({
+            await printReport();
+            await $.ajax({
                 url: "sendApp.php",
                 method: "GET",
                 data: {id_application: id_application.innerText}
@@ -1888,8 +2025,8 @@ $("#btnSend").on("click", () => {
 
 });
 
-$("#btnCalc").on("click", () => {
-    calcMarks();
+$("#btnCalc").on("click",  () => {
+     calcMarks();
 });
 
 $("#button1").on("click", (e) => {
@@ -1899,16 +2036,34 @@ $("#button1").on("click", (e) => {
 
 });
 
-function calcMarks() {
+async function calcMarks() {
     let id_application = document.getElementById("id_application");
-
-    $.ajax({
+    let criteriaMark = document.createElement('div');
+    await $.ajax({
         url: "getCalc.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
+
+    await checkActivCursor(id_application.innerText);
+
+
+
+
+    await $.ajax({
+        url: "getCalcAppMark.php",
+        method: "GET",
+        data: {id_application: id_application.innerText}
+    })
         .done(function( response ) {
-            location.href = "/index.php?application";
+            let mainRightCard = document.getElementById("mainRightCard");
+            mainRightCard.innerHTML = "";
+            let marksSub = JSON.parse(response);
+            criteriaMark.textContent += `Количественная самооценка ${marksSub['otmetka_all_count_yes']}/(${marksSub['otmetka_all_count_all']}-${marksSub['otmetka_all_count_not_need']}) = ${marksSub['otmetka_all']}%`;
+            criteriaMark.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
+            criteriaMark.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
+            criteriaMark.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
+            mainRightCard.appendChild(criteriaMark);
         });
 }
 
