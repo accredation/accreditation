@@ -539,7 +539,7 @@ async function printReport(){
     })
         .done(function( response ) {
             let subCriteriaForReport = JSON.parse(response);
-            console.log(subCriteriaForReport);
+
             let id_s=0;
             let as ='';
             subCriteriaForReport.map((item, index) => {
