@@ -546,7 +546,7 @@ async function printReport(){
                 
                 if(id_s !== item['id_subvision']){
                    
-                    if(index !=0){
+                    if(index != 0){
                         textSubCriteriaChecked+=`<div>${as}</div>`;
                     }
                     as = '';
@@ -771,21 +771,18 @@ function createTableForPrintNo(tableForPrint){
 
     tableForPrint.map((item, index) => {
 
-        if(numSub !== item['id_subvision']){
+        if((numCriteria !== item['id_criteria']) && (index !==0)) {
 
-        if((numCriteria !== item['id_criteria']) && (index !==0))  {
-
+            if(numSub !== item['id_subvision']){
+            let trNaimSub = document.createElement('tr');
+            let tdNaimSub = document.createElement('td');
+            tdNaimSub.setAttribute('colspan', '6');
+            tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+            tdNaimSub.innerHTML = item['name'];
+            trNaimSub.appendChild(tdNaimSub);
+            tbody.appendChild(trNaimSub);
 
         }
-                let trNaimSub = document.createElement('tr');
-                let tdNaimSub  = document.createElement('td');
-                tdNaimSub.setAttribute('colspan','6');
-                tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-                tdNaimSub.innerHTML = item['name'];
-                trNaimSub.appendChild(tdNaimSub);
-                tbody.appendChild(trNaimSub);
-
-
             if(item['id_criteria'] !== null) {
                 let trNaim = document.createElement('tr');
                 let tdNaim = document.createElement('td');
@@ -2139,8 +2136,6 @@ function createTableForPrint(tableForPrint){
     let table = document.createElement('table');
     table.style = "border-collapse: collapse; border-spacing: 0;";
 
-    
-    
 
     let trHeadMain = document.createElement('tr');
 
@@ -2202,141 +2197,139 @@ function createTableForPrint(tableForPrint){
     numCriteria=0;
     numSub = 0;
     tableForPrint.map((item, index) => {
-  
-       
-            if((numCriteria !== item['id_criteria']) && (index !==0))  {
 
-                if(numSub !== item['id_subvision']){
 
-                    let trNaimSub = document.createElement('tr');
-                    let tdNaimSub  = document.createElement('td');
-                    tdNaimSub.setAttribute('colspan','6');
-                    tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-                    tdNaimSub.innerHTML = item['name'];
-                    trNaimSub.appendChild(tdNaimSub);
-                    tbody.appendChild(trNaimSub);
+        if((numCriteria !== item['id_criteria']) && (index !==0)) {
 
-                }
-
-                if(item['id_criteria'] !== null) {
-                    let trNaim = document.createElement('tr');
-                    let tdNaim = document.createElement('td');
-                    tdNaim.setAttribute('colspan','6');
-                    tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
-                    tdNaim.innerHTML = item['name_criteria'];
-                    trNaim.appendChild(tdNaim);
-                    tbody.appendChild(trNaim);
-    
-    
-    
-                    let trHeadMain2 = document.createElement('tr');
-    
-                    let thNum = document.createElement('th');
-                    thNum.innerHTML = '№ п/п';
-                    thNum.style = "border: 1px solid black";
-                    thNum.setAttribute('rowspan','2');
-    
-                    let th1_Main2 = document.createElement('td');
-                    th1_Main2.innerHTML = 'Критерий';
-                    th1_Main2.style = "border: 1px solid black";
-                    th1_Main2.setAttribute('rowspan','2');
-            
-                    let th2_Main2 = document.createElement('td');
-                    th2_Main2.innerHTML = 'Класс критерия';
-                    th2_Main2.style = "border: 1px solid black";
-                    th2_Main2.setAttribute('rowspan','2');
-            
-            
-                    let th3_Main2 = document.createElement('td');
-                    th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
-                    th3_Main2.style = "border: 1px solid black; text-align: center";
-                    th3_Main2.setAttribute('colspan','3');
-            
-                 
-                    
-            
-                    let trHead2 = document.createElement('tr');
-                    let th32 = document.createElement('td');
-                    th32.innerHTML = 'Сведения по самооценке ОЗ';
-                    th32.style = "border: 1px solid black";
-            
-                    let th42 = document.createElement('td');
-                    th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-                    th4.style = "width:350px; border: 1px solid black";
-            
-            
-                    let th52 = document.createElement('td');
-                    th52.innerHTML = 'Примечание';
-                    th52.style = "border: 1px solid black";
-            
-                    
-            
-                    trHeadMain2.appendChild(thNum);
-                    trHeadMain2.appendChild(th1_Main2);
-                    trHeadMain2.appendChild(th2_Main2);
-                    trHeadMain2.appendChild(th3_Main2);
-                   
-                    
-                    tbody.appendChild(trHeadMain2);
-                    trHead2.appendChild(th32);
-                    trHead2.appendChild(th42);
-                    trHead2.appendChild(th52);
-            
-                    tbody.appendChild(trHead2);
-                }
-
-              
-                
+            if(numSub !== item['id_subvision']){
+                let trNaimSub = document.createElement('tr');
+                let tdNaimSub = document.createElement('td');
+                tdNaimSub.setAttribute('colspan', '6');
+                tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+                tdNaimSub.innerHTML = item['name'];
+                trNaimSub.appendChild(tdNaimSub);
+                tbody.appendChild(trNaimSub);
 
             }
-
-            numCriteria =  -1;
-
             if(item['id_criteria'] !== null) {
+                let trNaim = document.createElement('tr');
+                let tdNaim = document.createElement('td');
+                tdNaim.setAttribute('colspan','6');
+                tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+                tdNaim.innerHTML = item['name_criteria'];
+                trNaim.appendChild(tdNaim);
+                tbody.appendChild(trNaim);
 
-                let tr = document.createElement('tr');
 
-                let tdNum = document.createElement('td');
-                tdNum.innerHTML = item['str_num'];
-                tdNum.style = "border: 1px solid black";
-    
-                let td1 = document.createElement('td');
-                td1.innerHTML = item['mark_name'];
-                td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-    
-                let td2 = document.createElement('td');
-                td2.innerHTML = item['mark_class'];
-                td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-          
-                let td3 = document.createElement('td');
-                td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td3.innerHTML = item['field4'];
-           
-                let td4 = document.createElement('td');
-                td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td4.innerHTML = item['field5'];
-    
-                let td5 = document.createElement('td');
-                td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td5.innerHTML = item['field6'];
-    
-    
-                tr.appendChild(tdNum);
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td3);
-    
-                tr.appendChild(td4);
-                tr.appendChild(td5);
-               
-                tbody.appendChild(tr);
-     
-                numCriteria = item['id_criteria'];
-             }
 
-             
-            numSub = item['id_subvision']
-         })
+                let trHeadMain2 = document.createElement('tr');
+
+                let thNum = document.createElement('th');
+                thNum.innerHTML = '№ п/п';
+                thNum.style = "border: 1px solid black";
+                thNum.setAttribute('rowspan','2');
+
+                let th1_Main2 = document.createElement('td');
+                th1_Main2.innerHTML = 'Критерий';
+                th1_Main2.style = "border: 1px solid black";
+                th1_Main2.setAttribute('rowspan','2');
+
+                let th2_Main2 = document.createElement('td');
+                th2_Main2.innerHTML = 'Класс критерия';
+                th2_Main2.style = "border: 1px solid black";
+                th2_Main2.setAttribute('rowspan','2');
+
+
+                let th3_Main2 = document.createElement('td');
+                th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+                th3_Main2.style = "border: 1px solid black; text-align: center";
+                th3_Main2.setAttribute('colspan','3');
+
+
+
+
+                let trHead2 = document.createElement('tr');
+                let th32 = document.createElement('td');
+                th32.innerHTML = 'Сведения по самооценке ОЗ';
+                th32.style = "border: 1px solid black";
+
+                let th42 = document.createElement('td');
+                th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+                th4.style = "width:350px; border: 1px solid black";
+
+
+                let th52 = document.createElement('td');
+                th52.innerHTML = 'Примечание';
+                th52.style = "border: 1px solid black";
+
+
+
+                trHeadMain2.appendChild(thNum);
+                trHeadMain2.appendChild(th1_Main2);
+                trHeadMain2.appendChild(th2_Main2);
+                trHeadMain2.appendChild(th3_Main2);
+
+
+                tbody.appendChild(trHeadMain2);
+                trHead2.appendChild(th32);
+                trHead2.appendChild(th42);
+                trHead2.appendChild(th52);
+
+                tbody.appendChild(trHead2);
+            }
+
+
+
+
+        }
+
+        numCriteria =  -1;
+
+        if(item['id_criteria'] !== null) {
+
+            let tr = document.createElement('tr');
+
+            let tdNum = document.createElement('td');
+            tdNum.innerHTML = item['str_num'];
+            tdNum.style = "border: 1px solid black";
+
+            let td1 = document.createElement('td');
+            td1.innerHTML = item['mark_name'];
+            td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+
+            let td2 = document.createElement('td');
+            td2.innerHTML = item['mark_class'];
+            td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+
+            let td3 = document.createElement('td');
+            td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td3.innerHTML = item['field4'];
+
+            let td4 = document.createElement('td');
+            td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td4.innerHTML = item['field5'];
+
+            let td5 = document.createElement('td');
+            td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td5.innerHTML = item['field6'];
+
+
+            tr.appendChild(tdNum);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+
+            tbody.appendChild(tr);
+
+            numCriteria = item['id_criteria'];
+        }
+
+
+        numSub = item['id_subvision']
+    })
 
 
     divPrintTable.appendChild(table);

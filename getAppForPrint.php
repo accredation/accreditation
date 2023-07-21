@@ -3,7 +3,7 @@ include "connection.php";
 
 $id_app = $_GET['id_app'];
 
-$query = "SELECT s.name, s.id_subvision, rc.id_criteria, CONCAT(c.name,' (', con.conditions,')') as name_criteria, IFNULL(m.str_num,'') as str_num,
+$query = "SELECT s.name, s.id_subvision, rc.id_criteria, CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, IFNULL(m.str_num,'') as str_num,
 IFNULL(m.mark_name,'') as mark_name, IFNULL(m.mark_class,'') as mark_class, 
 case when IFNULL(mr.field4,'')=1 then 'Да' when IFNULL(mr.field4,'')=2 then 'Нет' when IFNULL(mr.field4,'')=3 then 'Не требуется' else '' end as field4,
 IFNULL(mr.field5,'') as field5, IFNULL(mr.field6,'') as field6,

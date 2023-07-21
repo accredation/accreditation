@@ -5,7 +5,7 @@ $date = date('Y-m-d');
 $id_applications = $_GET['id_application'];
 
 
-$query = "SELECT sub.id_subvision, sub.name, CONCAT(c.name,' (', con.conditions,')') as name_criteria, m.mark_name, m.str_num, mr.*
+$query = "SELECT sub.id_subvision, sub.name, CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, m.mark_name, m.str_num, mr.*
 FROM `subvision` sub
 left outer join rating_criteria rc on sub.id_subvision=rc.id_subvision
 left outer join mark m on rc.id_criteria=m.id_criteria
