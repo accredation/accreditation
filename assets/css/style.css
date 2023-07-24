@@ -11988,9 +11988,8 @@ code {
   .card .card-title {
     color: #001737;
     margin-bottom: 1.625rem;
-    text-transform: capitalize;
     font-family: "nunito-regular", sans-serif;
-    font-size: 1.125rem;
+    font-size: 1.025rem;
     font-weight: 600; }
   .card .card-subtitle {
     font-family: "nunito-regular", sans-serif;

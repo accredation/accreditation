@@ -196,7 +196,7 @@ $(function() {
     legend: {
       labels: {
         // This more specific font property overrides the global property
-        fontSize: 16
+        fontSize: 14
       }
     },
     cutoutPercentage: 0,

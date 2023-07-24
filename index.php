@@ -94,7 +94,13 @@
 <!--                      <i class="mdi mdi-account-outline ml-1"></i>-->
 <!--                    </span>-->
 <!--                  </a>-->
-
+                        <?php
+                        if ($_COOKIE['login'] == "hancharou@rnpcmt.by") {?>
+                            <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/administrator/online-info.php">
+                                <i class="fa fa-user "></i>
+                                Пользователи
+                            </a>
+                        <?php } ?>
                   <div role="separator" class="dropdown-divider"></div>
                     <?php }?>
                   <h5 class="dropdown-header text-uppercase  pl-2 text-dark mt-2">Действия</h5>
