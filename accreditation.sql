@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 20 2023 г., 17:41
+-- Время создания: Июл 24 2023 г., 09:05
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -948,7 +948,7 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `id_user`, `id_status`, `date_send`, `date_accept`, `date_complete`, `fileReport`, `fileReportSamoocenka`, `activ_cursor`) VALUES
-(42, '36gp', 'Жлобинская ЦРБ', '400080424', 'Республика Беларусь, 247210, Гомельская область, Жлобинский район, г. Жлобин, ул. Воровского, д. 1', '+375 2334 4-25-40', 'zhlcrb@zhlcrb.by', 'Топчий Евгений Николаевич', 'Малиновский Евгений Леонидович', 'Брестский район_26-06-2023_12-16-13.csv', 'download.pdf', 'Справка по работе в РТМС консультирующихся организаций здравоохранения за 2023 год.xlsx', 2, 1, '2023-07-20', '2023-07-19', '2023-07-18', NULL, 'Структура таблиц критериев из приказа.docx', 0);
+(42, '36gp', 'Жлобинская ЦРБ', '400080424', 'Республика Беларусь, 247210, Гомельская область, Жлобинский район, г. Жлобин, ул. Воровского, д. 1', '+375 2334 4-25-40', 'zhlcrb@zhlcrb.by', 'Топчий Евгений Николаевич', 'Малиновский Евгений Леонидович', 'Брестский район_26-06-2023_12-16-13.csv', 'download.pdf', 'Справка по работе в РТМС консультирующихся организаций здравоохранения за 2023 год.xlsx', 2, 2, '2023-07-20', '2023-07-19', '2023-07-18', NULL, 'Структура таблиц критериев из приказа.docx', 0);
 
 -- --------------------------------------------------------
 
@@ -2180,7 +2180,120 @@ INSERT INTO `mark_rating` (`id_mark_rating`, `id_mark`, `field4`, `field5`, `fie
 (374, 331, 0, '', '', NULL, NULL, 63),
 (375, 332, 0, '', '', NULL, NULL, 63),
 (376, 333, 0, '', '', NULL, NULL, 63),
-(377, 334, 0, '', '', NULL, NULL, 63);
+(377, 334, 0, '', '', NULL, NULL, 63),
+(378, 251, 0, '', '', NULL, NULL, 63),
+(379, 252, 2, '', 'ошл', NULL, NULL, 63),
+(380, 253, 1, '', '', NULL, NULL, 63),
+(381, 254, 2, '', '123', NULL, NULL, 63),
+(382, 255, 0, '', '', NULL, NULL, 63),
+(383, 256, 0, '', '', NULL, NULL, 63),
+(384, 257, 0, '', '', NULL, NULL, 63),
+(385, 258, 0, '', '', NULL, NULL, 63),
+(386, 259, 0, '', '', NULL, NULL, 63),
+(387, 260, 0, '', '', NULL, NULL, 63),
+(388, 261, 0, '', '', NULL, NULL, 63),
+(389, 262, 0, '', '', NULL, NULL, 63),
+(390, 263, 0, '', '', NULL, NULL, 63),
+(391, 264, 0, '', '', NULL, NULL, 63),
+(392, 265, 0, '', '', NULL, NULL, 63),
+(393, 266, 0, '', '', NULL, NULL, 63),
+(394, 267, 0, '', '', NULL, NULL, 63),
+(395, 268, 0, '', '', NULL, NULL, 63),
+(396, 269, 0, '', '', NULL, NULL, 63),
+(397, 270, 0, '', '', NULL, NULL, 63),
+(398, 271, 0, '', '', NULL, NULL, 63),
+(399, 272, 0, '', '', NULL, NULL, 63),
+(400, 273, 0, '', '', NULL, NULL, 63),
+(401, 274, 0, '', '', NULL, NULL, 63),
+(402, 275, 0, '', '', NULL, NULL, 63),
+(403, 276, 0, '', '', NULL, NULL, 63),
+(404, 277, 0, '', '', NULL, NULL, 63),
+(405, 278, 0, '', '', NULL, NULL, 63),
+(406, 279, 0, '', '', NULL, NULL, 63),
+(407, 280, 0, '', '', NULL, NULL, 63),
+(408, 281, 0, '', '', NULL, NULL, 63),
+(409, 282, 0, '', '', NULL, NULL, 63),
+(410, 283, 0, '', '', NULL, NULL, 63),
+(411, 284, 0, '', '', NULL, NULL, 63),
+(412, 285, 0, '', '', NULL, NULL, 63),
+(413, 454, 2, '', 'e', NULL, NULL, 81),
+(414, 455, 1, '', '', NULL, NULL, 81),
+(415, 456, 0, '', '', NULL, NULL, 81),
+(416, 457, 0, '', '', NULL, NULL, 81),
+(417, 458, 2, '', '11113333', NULL, NULL, 81),
+(418, 459, 0, '', '', NULL, NULL, 81),
+(419, 460, 0, '', '', NULL, NULL, 81),
+(420, 461, 0, '', '', NULL, NULL, 81),
+(421, 462, 0, '', '', NULL, NULL, 81),
+(422, 463, 0, '', '', NULL, NULL, 81),
+(423, 464, 0, '', '', NULL, NULL, 81),
+(424, 465, 0, '', '', NULL, NULL, 81),
+(425, 466, 0, '', '', NULL, NULL, 81),
+(426, 467, 0, '', '', NULL, NULL, 81),
+(427, 468, 0, '', '', NULL, NULL, 81),
+(428, 469, 0, '', '', NULL, NULL, 81),
+(429, 470, 0, '', '', NULL, NULL, 81),
+(430, 471, 0, '', '', NULL, NULL, 81),
+(431, 472, 0, '', '', NULL, NULL, 81),
+(432, 473, 0, '', '', NULL, NULL, 81),
+(433, 474, 0, '', '', NULL, NULL, 81),
+(434, 475, 0, '', '', NULL, NULL, 81),
+(435, 476, 0, '', '', NULL, NULL, 81),
+(436, 477, 0, '', '', NULL, NULL, 81),
+(437, 478, 0, '', '', NULL, NULL, 81),
+(438, 479, 0, '', '', NULL, NULL, 81),
+(439, 480, 0, '', '', NULL, NULL, 81),
+(440, 481, 0, '', '', NULL, NULL, 81),
+(441, 482, 0, '', '', NULL, NULL, 81),
+(442, 483, 0, '', '', NULL, NULL, 81),
+(443, 484, 0, '', '', NULL, NULL, 81),
+(444, 485, 0, '', '', NULL, NULL, 81),
+(445, 486, 0, '', '', NULL, NULL, 81),
+(446, 487, 0, '', '', NULL, NULL, 81),
+(447, 488, 0, '', '', NULL, NULL, 81),
+(448, 489, 0, '', '', NULL, NULL, 81),
+(449, 490, 0, '', '', NULL, NULL, 81),
+(450, 491, 0, '', '', NULL, NULL, 81),
+(451, 492, 0, '', '', NULL, NULL, 81),
+(452, 493, 0, '', '', NULL, NULL, 81),
+(453, 494, 0, '', '', NULL, NULL, 81),
+(454, 495, 0, '', '', NULL, NULL, 81),
+(455, 496, 0, '', '', NULL, NULL, 81),
+(456, 251, 0, '', '', NULL, NULL, 81),
+(457, 252, 3, '', '11111', NULL, NULL, 81),
+(458, 253, 2, '', 'qqq', NULL, NULL, 81),
+(459, 254, 2, '', 'aaa', NULL, NULL, 81),
+(460, 255, 0, '', '', NULL, NULL, 81),
+(461, 256, 0, '', '', NULL, NULL, 81),
+(462, 257, 0, '', '', NULL, NULL, 81),
+(463, 258, 0, '', '', NULL, NULL, 81),
+(464, 259, 2, '', '12', NULL, NULL, 81),
+(465, 260, 2, '', '3232', NULL, NULL, 81),
+(466, 261, 0, '', '', NULL, NULL, 81),
+(467, 262, 0, '', '', NULL, NULL, 81),
+(468, 263, 0, '', '', NULL, NULL, 81),
+(469, 264, 0, '', '', NULL, NULL, 81),
+(470, 265, 0, '', '', NULL, NULL, 81),
+(471, 266, 0, '', '', NULL, NULL, 81),
+(472, 267, 0, '', '', NULL, NULL, 81),
+(473, 268, 0, '', '', NULL, NULL, 81),
+(474, 269, 0, '', '', NULL, NULL, 81),
+(475, 270, 0, '', '', NULL, NULL, 81),
+(476, 271, 0, '', '', NULL, NULL, 81),
+(477, 272, 0, '', '', NULL, NULL, 81),
+(478, 273, 0, '', '', NULL, NULL, 81),
+(479, 274, 0, '', '', NULL, NULL, 81),
+(480, 275, 0, '', '', NULL, NULL, 81),
+(481, 276, 0, '', '', NULL, NULL, 81),
+(482, 277, 0, '', '', NULL, NULL, 81),
+(483, 278, 0, '', '', NULL, NULL, 81),
+(484, 279, 0, '', '', NULL, NULL, 81),
+(485, 280, 0, '', '', NULL, NULL, 81),
+(486, 281, 0, '', '', NULL, NULL, 81),
+(487, 282, 0, '', '', NULL, NULL, 81),
+(488, 283, 0, '', '', NULL, NULL, 81),
+(489, 284, 0, '', '', NULL, NULL, 81),
+(490, 285, 0, '', '', NULL, NULL, 81);
 
 -- --------------------------------------------------------
 
@@ -2229,7 +2342,9 @@ INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteri
 (201, 63, 52, 1),
 (202, 63, 53, 1),
 (203, 63, 54, 1),
-(204, 63, 55, 1);
+(204, 63, 55, 1),
+(209, 81, 40, 1),
+(210, 81, 44, 1);
 
 -- --------------------------------------------------------
 
@@ -2286,7 +2401,7 @@ INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka
 (40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, 6, 51, 846, 0, 8, 20, 263, 0, 5, 20, 423, 0, 7, 11, 160, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(42, 6, 53, 924, 1, 7, 21, 299, 0, 5, 21, 454, 1, 6, 11, 171, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2361,7 +2476,7 @@ INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criter
 (44, 85, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (44, 85, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 63, 39, 0, 0, 172, 0, 0, 0, 50, 0, 0, 0, 95, 0, 0, 0, 27, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, 63, 40, 0, 0, 35, 0, 0, 0, 18, 0, 0, 0, 13, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 63, 40, 3, 1, 35, 0, 6, 1, 18, 0, 0, 0, 13, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 63, 41, 3, 2, 61, 0, 0, 0, 25, 0, 9, 2, 23, 0, 0, 0, 13, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 63, 42, 98, 46, 47, 0, 95, 19, 20, 0, 100, 17, 17, 0, 100, 10, 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 63, 43, 6, 3, 49, 0, 7, 1, 15, 0, 5, 1, 21, 0, 8, 1, 13, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -2376,7 +2491,9 @@ INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criter
 (42, 63, 52, 0, 0, 31, 0, 0, 0, 8, 0, 0, 0, 18, 0, 0, 0, 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 63, 53, 0, 0, 27, 0, 0, 0, 5, 0, 0, 0, 18, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 63, 54, 0, 0, 26, 0, 0, 0, 5, 0, 0, 0, 18, 0, 0, 0, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, 63, 55, 0, 0, 67, 0, 0, 0, 10, 0, 0, 0, 50, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(42, 63, 55, 0, 0, 67, 0, 0, 0, 10, 0, 0, 0, 50, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 81, 40, 0, 0, 35, 1, 0, 0, 18, 0, 0, 0, 13, 1, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 81, 44, 2, 1, 43, 0, 0, 0, 18, 0, 6, 1, 18, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2437,8 +2554,8 @@ INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_
 (41, 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (44, 85, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (44, 86, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, 63, 6, 51, 846, 0, 8, 20, 263, 0, 5, 20, 423, 0, 7, 11, 160, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 63, 6, 52, 846, 0, 8, 21, 263, 0, 5, 20, 423, 0, 7, 11, 160, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 81, 1, 1, 78, 1, 0, 0, 36, 0, 3, 1, 31, 1, 0, 0, 11, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 82, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 83, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
@@ -2538,8 +2655,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`, `oblast`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '0', '16cu55poolm06mqq70bfc3jfv7nk8egk', '2023-07-20 15:58:54', '/index.php?logout', 0),
-(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '16cu55poolm06mqq70bfc3jfv7nk8egk', '16cu55poolm06mqq70bfc3jfv7nk8egk', '2023-07-20 17:41:10', '/index.php?application', 0),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'rojctva5r4dfj78c6i3c0988v9mkmk9i', 'rojctva5r4dfj78c6i3c0988v9mkmk9i', '2023-07-21 15:34:07', '/index.php?users', 0),
+(2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', 'rojctva5r4dfj78c6i3c0988v9mkmk9i', '2023-07-21 15:33:57', '/index.php?logout', 0),
 (3, 'admin', 'hancharou@rnpcmt.by', '2c904ec0191ebc337d56194f6f9a08fa', 1, '0', 'b1su7tp9hk5ivlaokbqekarecglgf3uh', '2023-07-13 14:41:03', '/index.php?logout', 0),
 (184, 'Государственное учреждение «Университетская стоматологическая клиника»', 'univDendClinic', '11023f1e51b80bc349f9c19f056bcedf', 3, NULL, NULL, NULL, NULL, 4),
 (185, 'Государственное учреждение «Республиканский центр медицинской реабилитации и бальнеолечения»', 'republicCentermedrb', '8a7199d2b7e7c86b0bc46f16f666f1e8', 3, '0', '16cu55poolm06mqq70bfc3jfv7nk8egk', '2023-07-20 16:52:47', '/index.php?logout', 4),
@@ -2996,7 +3113,10 @@ INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `onl
 (635, 'Учреждение здравоохранения «Бобруйская городская стоматологическая поликлиника №1»', 'bobrgsp1', 'b93f7f83a5eddd2fbbf5e83e98f30130', 3, NULL, NULL, NULL, NULL, 8),
 (636, 'Коммунальное унитарное предприятие «Бобруйская лечебно-консультативная поликлиника»', 'bobrlkp', '39b4cac6ba9570cf17b1fed63e434685', 3, NULL, NULL, NULL, NULL, 8),
 (637, 'Учреждение здравоохранения «Могилевская областная станция переливания крови»', 'mogoblkrov', 'dc94d21cc6cfa6e5ed7afb288061afe6', 3, NULL, NULL, NULL, NULL, 8),
-(638, 'Учреждение здравоохранения «Бобруйская зональная станция переливания крови»', 'bobrzspkrov', '1baae61f5b1dadcbf450b91967f1aaf5', 3, NULL, NULL, NULL, NULL, 8);
+(638, 'Учреждение здравоохранения «Бобруйская зональная станция переливания крови»', 'bobrzspkrov', '1baae61f5b1dadcbf450b91967f1aaf5', 3, NULL, NULL, NULL, NULL, 8),
+(639, 'Кузнец Ольга Михайловна', 'kuznec@rnpcmt.by', 'd961437ba667ed3f97c267110a8cac09', 2, 'rtql1ea3vknlt714p4pmnk42v49c91qr', 'rtql1ea3vknlt714p4pmnk42v49c91qr', '2023-07-21 15:25:51', '/index.php?users', NULL),
+(640, 'Федорако Александра Томашевна', 'fedorako@rnpcmt.by', 'd0620ee81008084b956e5fecf8a76e64', 2, NULL, NULL, NULL, NULL, NULL),
+(641, 'Войтеховская Анна Александровна', 'voytehovskaya@rnpcmt.by', 'e45666bdf1964b4266a0a2885982f02d', 2, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -3137,13 +3257,13 @@ ALTER TABLE `mark`
 -- AUTO_INCREMENT для таблицы `mark_rating`
 --
 ALTER TABLE `mark_rating`
-  MODIFY `id_mark_rating` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=378;
+  MODIFY `id_mark_rating` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=491;
 
 --
 -- AUTO_INCREMENT для таблицы `rating_criteria`
 --
 ALTER TABLE `rating_criteria`
-  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
@@ -3167,7 +3287,7 @@ ALTER TABLE `subvision`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=639;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=642;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
