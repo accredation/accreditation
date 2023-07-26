@@ -43,7 +43,7 @@
               }
               ?>
             <li class="nav-item" id="nav3">
-              <a class="nav-link" href="#" >
+              <a class="nav-link" href="/index.php?contacts" >
                 <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
                 <span class="menu-title">Контакты</span>
               </a>
@@ -52,7 +52,7 @@
 
 
             <li class="nav-item" id="nav4">
-              <a class="nav-link" href="#" >
+              <a class="nav-link" href="/index.php?help" >
                 <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
                 <span class="menu-title">Помощь</span>
               </a>
@@ -66,6 +66,8 @@
     let url = currentUrl.pathname + currentUrl.search;
     let nav1 = document.getElementById("nav1");
     let nav2 = document.getElementById("nav2");
+    let nav3 = document.getElementById("nav3");
+    let nav4 = document.getElementById("nav4");
     let nav5 = document.getElementById("nav5");
 
 
@@ -78,6 +80,12 @@
             break;
         case "/index.php?users":
             nav5.className = "nav-item active";
+            break;
+        case "/index.php?help":
+            nav4.className = "nav-item active";
+            break;
+        case "/index.php?contacts":
+            nav3.className = "nav-item active";
             break;
         default:
             nav1.className = "nav-item active";

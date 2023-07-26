@@ -235,7 +235,12 @@
                     case 'users':
                         include 'api_accreditation.php';
                         break;
-
+                    case 'help':
+                        include 'help.php';
+                        break;
+                    case 'contacts':
+                        include 'contacts.php';
+                        break;
                 }
             }
             else{
