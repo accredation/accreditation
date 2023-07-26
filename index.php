@@ -54,7 +54,7 @@
               <span class="mdi mdi-menu" style="color: white; font-size: 1.6rem "></span>
             </button>
             <div>
-                <span style="margin-left: 3rem;font-size: 1.4rem;line-height: 3.9rem; "> Информационная система «Медицинская аккредитация»</span>
+                <span class="nameMedaccr"> Информационная система «Медицинская аккредитация»</span>
             </div>
 
           <ul class="navbar-nav navbar-nav-right">

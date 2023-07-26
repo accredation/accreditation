@@ -1,3 +1,76 @@
+<style>
+    .item {
+        display: block;
+        background: #fff;
+        /*height: 100%;*/
+        padding: 0;
+        overflow: hidden;
+        position: relative;
+        transition: background-color .3s ease;
+        /* margin: 0 auto 30px; */
+    }
+    .wrapper {
+        padding-bottom: 30px;
+    }
+    .item .preview {
+        display: block;
+        padding-bottom: 75%;
+        background-size: cover;
+        /* background-position: 50% 50%; */
+        background-repeat: no-repeat;
+        transform-origin: 50% 100%;
+        transition: transform .7s ease .1s;
+    }
+     .item a {
+        color: #444444;
+        transition: none;
+        font-size: 16px;
+    }
+    @media screen and (min-width: 1200px)
+        .item .content {
+            padding: 20px 15px 30px;
+        }
+
+     .item .content {
+        padding: 15px 15px 40px;
+        line-height: 1.1em;
+        color: #151515;
+        position: relative;
+        z-index: 10;
+    }
+
+        .item h3 {
+            margin: 0 0 15px;
+            font-size: 1.1em;
+        }
+        .item .anno {
+            font-size: 0.86em;
+            margin-bottom: 15px;
+            color: #aaa;
+        }
+
+        .section_title {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 0 auto 30px;
+            font-weight: bold;
+        }
+        .item .date {
+            color: #444444;
+            font-size: 15px;
+            display: inline-block;
+            margin-right: 20px;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+        .row-eq-height {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+        }
+</style>
 <div class="content-wrapper">
     <div class="row">
           <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
@@ -193,7 +266,55 @@
 <!--            </div>-->
 <!--          </div>-->
     </div>
+    <div class="section_title">НОВОСТИ</div>
+    <div class="row">
+
+        <?php
+        include "connection.php";
+        $query = "SELECT *
+FROM news
+ORDER BY id_news DESC
+LIMIT 5";
+                                          $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                          for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                          $i = 0;
+                                            foreach ($data as $app) {
+                                                if($i == 0){
+                                                    ?>
+        <div class="col-xs-12 col-md-6"><div class="item first"><a href="#" class="preview" style="background-image: url('<?= $app["path_img"] ?>');"></a><div class="content">
+                    <h3><a href="#"><?= $app["name_news"] ?></a></h3>
+                    <div class="anno"></div>
+                    <div class="date"><?= $app["date_news"] ?></div>
+<!--                    <a href="#" class="read_more">Подробнее</a>-->
+                </div>
+            </div>		</div>
+        <div class="col-xs-12 col-md-6">
+            <div class="row row-eq-height">
+        <?php
+                                                }
+                                                else{?>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 wrapper">
+                    <div class="item"><a href="#" class="preview" style="background-image: url('<?= $app["path_img"] ?>');"></a><div class="content">
+                            <h3><a href="#"><?= $app["name_news"] ?></a></h3>
+                            <div class="date"><?= $app["date_news"] ?></div>
+<!--                            <a href="#" class="read_more">Подробнее</a>-->
+                        </div>
+                    </div>
+                </div>
+
+                                               <?php }
+                                                $i++;
+                                            }
+
+                                          ?>
+            </div>
+        </div>
+
+                <div class="clearfix sm-visible"></div>
 
 
+
+
+    </div>
 </div>
 <script src="assets/js/chart.js"></script>

@@ -497,7 +497,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" id="reportSamoocenka">
                                                 </div>
                                             </form>
-                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить структурное подразделение</button>
+                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить структурное обособленное подразделение</button>
                                             <br/>
                                             <br/>
 

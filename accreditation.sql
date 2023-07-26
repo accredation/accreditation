@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 24 2023 г., 09:05
+-- Время создания: Июл 26 2023 г., 11:13
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -2298,6 +2298,32 @@ INSERT INTO `mark_rating` (`id_mark_rating`, `id_mark`, `field4`, `field5`, `fie
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `news`
+--
+
+CREATE TABLE `news` (
+  `id_news` int NOT NULL,
+  `path_img` text COLLATE utf8mb4_bin,
+  `name_news` text COLLATE utf8mb4_bin,
+  `text_news` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `date_news` text COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Дамп данных таблицы `news`
+--
+
+INSERT INTO `news` (`id_news`, `path_img`, `name_news`, `text_news`, `date_news`) VALUES
+(1, 'assets/images/carousel/banner_6.jpg', 'Новость 0', NULL, '01.02.2023'),
+(2, 'assets/images/carousel/banner_5.jpg', 'Новость 1', NULL, '26.05.2023'),
+(3, 'assets/images/carousel/banner_4.jpg', 'Новость 2', NULL, '30.05.2023'),
+(4, 'assets/images/carousel/banner_3.jpg', 'Новость 3', NULL, '29.06.2023'),
+(5, 'assets/images/carousel/banner_2.jpg', 'Новость 4', NULL, '05.07.2023'),
+(6, 'assets/images/carousel/banner_1.jpg', 'Новость 5', NULL, '06.07.2023');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `qwer`
 --
 
@@ -2655,9 +2681,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`, `oblast`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'rojctva5r4dfj78c6i3c0988v9mkmk9i', 'rojctva5r4dfj78c6i3c0988v9mkmk9i', '2023-07-21 15:34:07', '/index.php?users', 0),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '0', 'dl7hosqo9gbs0082eaptv9j08f3an66f', '2023-07-24 12:00:22', '/index.php?logout', 0),
 (2, '36gp', '36gp@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', 'rojctva5r4dfj78c6i3c0988v9mkmk9i', '2023-07-21 15:33:57', '/index.php?logout', 0),
-(3, 'admin', 'hancharou@rnpcmt.by', '2c904ec0191ebc337d56194f6f9a08fa', 1, '0', 'b1su7tp9hk5ivlaokbqekarecglgf3uh', '2023-07-13 14:41:03', '/index.php?logout', 0),
+(3, 'admin', 'hancharou@rnpcmt.by', '2c904ec0191ebc337d56194f6f9a08fa', 1, 'dl7hosqo9gbs0082eaptv9j08f3an66f', 'dl7hosqo9gbs0082eaptv9j08f3an66f', '2023-07-24 17:15:32', '/index.php', 0),
 (184, 'Государственное учреждение «Университетская стоматологическая клиника»', 'univDendClinic', '11023f1e51b80bc349f9c19f056bcedf', 3, NULL, NULL, NULL, NULL, 4),
 (185, 'Государственное учреждение «Республиканский центр медицинской реабилитации и бальнеолечения»', 'republicCentermedrb', '8a7199d2b7e7c86b0bc46f16f666f1e8', 3, '0', '16cu55poolm06mqq70bfc3jfv7nk8egk', '2023-07-20 16:52:47', '/index.php?logout', 4),
 (186, 'Государственное учреждение «Медицинская служба гражданской авиации»', 'medServiceCivilAvia', 'df4de89b52b74bce9bcc4803ed1f8f8d', 3, NULL, NULL, NULL, NULL, 4),
@@ -3174,6 +3200,12 @@ ALTER TABLE `mark_rating`
   ADD KEY `id_subvision` (`id_subvision`);
 
 --
+-- Индексы таблицы `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id_news`);
+
+--
 -- Индексы таблицы `qwer`
 --
 ALTER TABLE `qwer`
@@ -3258,6 +3290,12 @@ ALTER TABLE `mark`
 --
 ALTER TABLE `mark_rating`
   MODIFY `id_mark_rating` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=491;
+
+--
+-- AUTO_INCREMENT для таблицы `news`
+--
+ALTER TABLE `news`
+  MODIFY `id_news` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `rating_criteria`

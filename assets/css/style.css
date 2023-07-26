@@ -13388,14 +13388,26 @@ dl {
             margin-left: 0;
             margin-right: auto; } }
 
+.nameMedaccr{
+  margin-left: 3rem;
+  font-size: 1.4rem;
+  line-height: 3.9rem;
+}
+
+
 @media (max-width: 991px) {
+  .nameMedaccr{
+    font-size: 0.9rem;
+    margin-left: 0rem;
+    line-height: 0.9rem;
+  }
   .navbar {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row; }
     .navbar .navbar-brand-wrapper {
-      width: 75px; }
+      width: 75px; display: none !important;}
       .navbar .navbar-brand-wrapper .navbar-brand.brand-logo {
         display: none; }
       .navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini {
