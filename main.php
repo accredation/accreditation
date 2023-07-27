@@ -1,4 +1,14 @@
 <style>
+    .row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -9px;
+        margin-left: -9px;
+        justify-content: start;
+    }
     .item {
         display: block;
         background: #fff;
@@ -37,6 +47,7 @@
         color: #151515;
         position: relative;
         z-index: 10;
+         height:8rem;
     }
 
         .item h3 {
@@ -62,6 +73,9 @@
             margin-right: 20px;
             vertical-align: middle;
             font-weight: 500;
+            line-height: 2.5rem;
+            position: absolute;
+            bottom: 0;
         }
         .row-eq-height {
             display: -webkit-box;
@@ -71,7 +85,9 @@
             flex-wrap: wrap;
         }
 </style>
+
 <div class="content-wrapper">
+
     <div class="row">
           <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
@@ -281,20 +297,28 @@ LIMIT 5";
                                             foreach ($data as $app) {
                                                 if($i == 0){
                                                     ?>
-        <div class="col-xs-12 col-md-6"><div class="item first"><a href="#" class="preview" style="background-image: url('<?= $app["path_img"] ?>');"></a><div class="content">
+        <div class="col-xs-12 col-md-5" ><div class="item first">
+<!--                <a href="#" class="preview" style="background-image: url('-->
+<!--                 $app["path_img"] -->
+<!--                        ');"></a>-->
+                <div class="content">
                     <h3><a href="#"><?= $app["name_news"] ?></a></h3>
                     <div class="anno"></div>
                     <div class="date"><?= $app["date_news"] ?></div>
 <!--                    <a href="#" class="read_more">Подробнее</a>-->
                 </div>
             </div>		</div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-12" style="margin-top: 1.5rem">
             <div class="row row-eq-height">
         <?php
                                                 }
                                                 else{?>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 wrapper">
-                    <div class="item"><a href="#" class="preview" style="background-image: url('<?= $app["path_img"] ?>');"></a><div class="content">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 wrapper">
+                    <div class="item">
+<!--                        <a href="#" class="preview" style="background-image: url('-->
+<!-- $app["path_img"] -->
+<!--                                ');"></a>-->
+                        <div class="content">
                             <h3><a href="#"><?= $app["name_news"] ?></a></h3>
                             <div class="date"><?= $app["date_news"] ?></div>
 <!--                            <a href="#" class="read_more">Подробнее</a>-->
