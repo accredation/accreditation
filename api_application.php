@@ -468,6 +468,17 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                                            </form>-->
 
 
+
+                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить структурное обособленное подразделение</button>
+                                            <br/>
+                                            <br/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 grid-margin">
+                                    <div class="card">
+                                        <div class="card-body">
                                             <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
 
                                             <form id="formSoprovodPismo">
@@ -497,21 +508,13 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" id="reportSamoocenka">
                                                 </div>
                                             </form>
-                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить структурное обособленное подразделение</button>
-                                            <br/>
-                                            <br/>
-
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 grid-margin">
-                                    <div class="card">
                                         <div class="card-body" id="mainRightCard">
 
                                         </div>
                                         <form id="formReport" >
                                             <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
-                                                <label for="" style="font-size: 24px">Отчет</label><br/>
+<!--                                                <label for="" style="font-size: 24px">Отчет</label><br/>-->
                                                 <input type="file" class="form-control-file hiddentab" id="fileReport" >
                                             </div>
                                         </form>
@@ -655,8 +658,8 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
                 <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
                 <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
-                <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
-                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>
+                <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Результат самооценки</button>
+<!--                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>-->
 
 <!--                </form>-->
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>

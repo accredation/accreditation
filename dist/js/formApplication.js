@@ -539,8 +539,8 @@ async function printReport(){
     })
         .done(function( response ) {
             let subCriteriaForReport = JSON.parse(response);
-
-            let id_s=0;
+console.log(subCriteriaForReport);
+            let id_s=-1;
             let as ='';
             subCriteriaForReport.map((item, index) => {
                 
@@ -551,18 +551,21 @@ async function printReport(){
                     }
                     as = '';
                     id_s = item['id_subvision']; 
-                    as = `Самооценка ${item['name']} проведена по следующим первичным критериям медицинской акредитации: `;
+                    as = `Самооценка ${item['name']} проведена по следующим критериям медицинской акредитации: `;
                 }
-                if(subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
-                    as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + "." ;
-                else
-                    as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + ", " ;
+
                 if(index === subCriteriaForReport.length-1){
-                    textSubCriteriaChecked+=`<div>${as}.</div>`;
+                    as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + "." ;
+                    textSubCriteriaChecked+=`<div>${as}</div>`;
+                }
+                else{
+                    if(subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
+                        as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + "." ;
+                    else
+                        as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + ", " ;
                 }
 
             });
-
 
         });
 

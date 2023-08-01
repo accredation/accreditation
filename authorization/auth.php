@@ -12,6 +12,7 @@ function enter($sesId)
     if ($_POST['login'] != "" && $_POST['password'] != "") //если поля заполнены
         {
         $login       = $_POST['login'];
+        $login       = $_POST['login'];
         $password    = $_POST['password'];
         $insertquery = "SELECT * FROM users WHERE login='$login'";
 
@@ -28,7 +29,7 @@ function enter($sesId)
                 $_SESSION['id_user'] = $row['id_user']; //записываем в сессию id пользователя
 
                 $id = $_SESSION['id_user'];
-
+                    setcookie("id_user", $id, time() + 360000, '/');
                 if($row['online'] == "0"){
                     lastAct($id,$sesId);
                 }
@@ -111,6 +112,7 @@ function login()
                                     setcookie("password", md5($row['login'] . $row['password']), time() + 360000, '/');
 
                                     $id = $_SESSION['id_user'];
+                                        setcookie("id_user", $id, time() + 360000, '/');
                                     $sesId = $_COOKIE['PHPSESSID'];
                                     if($row['online'] == "0"){
                                         lastAct($id, $sesId);

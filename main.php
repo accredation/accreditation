@@ -89,7 +89,7 @@
 <div class="content-wrapper">
 
     <div class="row">
-          <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
+          <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
               <div class="card-body text-center">
 <!--                <h5 class="mb-2 text-dark font-weight-normal">Всего заявлений</h5>-->
@@ -121,7 +121,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
+          <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
               <div class="card-body text-center">
 
@@ -189,7 +189,76 @@
               </div>
             </div>
           </div>
-        <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
+        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body text-center">
+
+                    <?php
+                    $rez = mysqli_query($con, "                    SELECT (
+                                      SELECT count(*)
+                                      FROM applications a
+                                      left outer join report_application_mark ram on a.id_application=ram.id_application
+                                      where id_status = 4 and otmetka_all<26) as count25,(
+                                      select count(*)
+                                      FROM applications a
+                                      left outer join report_application_mark ram on a.id_application=ram.id_application
+                                      where id_status = 4 and otmetka_all>25 and otmetka_accred_all<51) as count50,(
+                                      select count(*)
+                                      FROM applications a
+                                      left outer join report_application_mark ram on a.id_application=ram.id_application
+                                      where id_status = 4 and otmetka_all>50 and otmetka_accred_all<76) as count75,(
+                                      select count(*)
+                                      FROM applications a
+                                      left outer join report_application_mark ram on a.id_application=ram.id_application
+                                      where id_status = 4 and otmetka_all>75) as count100,(
+                                      select count(*)
+                                      FROM applications a
+                                      left outer join report_application_mark ram on a.id_application=ram.id_application
+                                      where id_status = 4) as countStatus4") or die("Ошибка " . mysqli_error($con));
+                    if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                    {
+                        $row = mysqli_fetch_assoc($rez);
+
+                    }
+                    $count25 = $row['count25'];
+                    $count50 = $row['count50'];
+                    $count75 = $row['count75'];
+                    $count100 = $row['count100'];
+                    ?>
+                    <!--                  </h3>-->
+                    <h4 class="card-title" style="margin-bottom: 0.3rem">Результаты самооценки организаций здравоохранения</h4>
+                    <canvas id="doughnutChart4" style="height: 393px; display: block; width: 688px;"></canvas>
+
+                    <script>
+                        let count25 = <?= $count25 ?>;
+                        let count50 = <?= $count50 ?>;
+                        let count75 = <?= $count75 ?>;
+                        let count100 = <?= $count100 ?>;
+
+                        document.getElementById('doughnutChart4').setAttribute('attr1',count25);
+                        document.getElementById('doughnutChart4').setAttribute('attr2',count50);
+                        document.getElementById('doughnutChart4').setAttribute('attr3',count75);
+                        document.getElementById('doughnutChart4').setAttribute('attr4',count100);
+
+
+                    </script>
+
+                    <!--                  --><?php
+                    //                  $rez = mysqli_query($con, "Select count(*) as countOk from applications where id_status = 4") or die("Ошибка " . mysqli_error($con));
+                    //                  if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                    //                  {
+                    //                      $row = mysqli_fetch_assoc($rez);
+                    //
+                    //                  }
+                    //                  $countOk = $row['countOk'];
+                    //                  ?>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body text-center">
 
@@ -226,7 +295,7 @@
                     $count100 = $row['count100'];
                     ?>
                     <!--                  </h3>-->
-                    <h4 class="card-title" style="margin-bottom: 0.3rem">Результаты оценки соответствия первичным критериям медицинской аккредитации</h4>
+                    <h4 class="card-title" style="margin-bottom: 0.3rem">Результаты оценки соответствия критериям</h4>
                     <canvas id="doughnutChart3" style="height: 393px; display: block; width: 688px;"></canvas>
 
                     <script>
@@ -258,6 +327,8 @@
                 </div>
             </div>
         </div>
+
+
 <!--          <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">-->
 <!--            <div class="card">-->
 <!--              <div class="card-body text-center">-->
@@ -335,9 +406,6 @@ LIMIT 5";
         </div>
 
                 <div class="clearfix sm-visible"></div>
-
-
-
 
     </div>
 </div>

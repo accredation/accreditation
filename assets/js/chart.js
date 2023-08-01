@@ -186,6 +186,43 @@ $(function() {
     ]
   };
 
+  let attr1Donut4 = $("#doughnutChart4").get(0).getAttribute("attr1");
+  let attr2Donut4 = $("#doughnutChart4").get(0).getAttribute("attr2");
+  let attr3Donut4 = $("#doughnutChart4").get(0).getAttribute("attr3");
+  let attr4Donut4 = $("#doughnutChart4").get(0).getAttribute("attr4");
+
+  var doughnutPieData4 = {
+    datasets: [{
+      data: [Number(attr1Donut4),Number(attr2Donut4),Number(attr3Donut4),Number(attr4Donut4)],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(75, 192, 192, 0.5)',
+        'rgba(153, 102, 255, 0.5)',
+        'rgba(255, 159, 64, 0.5)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      weight: 20
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+      'оценены до 25%',
+      'оценены до 50%',
+      'оценены до 75%',
+      'оценены до 100%'
+    ]
+  };
+
 
   var doughnutPieOptions = {
     responsive: true,
@@ -196,7 +233,7 @@ $(function() {
     legend: {
       labels: {
         // This more specific font property overrides the global property
-        fontSize: 14
+        fontSize: 10,
       }
     },
     cutoutPercentage: 0,
@@ -422,6 +459,15 @@ $(function() {
     var doughnutChart = new Chart(doughnutChartCanvas, {
       type: 'doughnut',
       data: doughnutPieData3,
+      options: doughnutPieOptions
+    });
+  }
+
+  if ($("#doughnutChart4").length) {
+    var doughnutChartCanvas = $("#doughnutChart4").get(0).getContext("2d");
+    var doughnutChart = new Chart(doughnutChartCanvas, {
+      type: 'doughnut',
+      data: doughnutPieData4,
       options: doughnutPieOptions
     });
   }
