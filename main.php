@@ -198,23 +198,23 @@
                                       SELECT count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_all<26) as count25,(
+                                      where (id_status = 2 or id_status = 4) and otmetka_all<26) as count25,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_all>25 and otmetka_accred_all<51) as count50,(
+                                      where (id_status = 2 or id_status = 4) and otmetka_all>25 and otmetka_accred_all<51) as count50,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_all>50 and otmetka_accred_all<76) as count75,(
+                                      where (id_status = 2 or id_status = 4) and otmetka_all>50 and otmetka_accred_all<76) as count75,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_all>75) as count100,(
+                                      where (id_status = 2 or id_status = 4) and otmetka_all>75) as count100,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4) as countStatus4") or die("Ошибка " . mysqli_error($con));
+                                      where id_status = 2 or id_status = 4) as countStatus4") or die("Ошибка " . mysqli_error($con));
                     if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                     {
                         $row = mysqli_fetch_assoc($rez);

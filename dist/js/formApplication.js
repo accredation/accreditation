@@ -337,7 +337,7 @@ function showModal(id_application, strMarks, strMarksAccred){
   //  console.log(aButton);
 
 
-    document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления";
+    document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заяления";
 
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
@@ -1261,26 +1261,28 @@ function addTab(){
 }
 
 function deleteTab(id_sub){
-    $.ajax({
-        url: "deleteTab.php",
-        method: "POST",
-        data: {id_sub: id_sub}
-    })
-        .done(function( response ) {
+    let isDelete = confirm("Вы уверены, что хотите удалить текущее подразделение?");
+    if(isDelete) {
+        $.ajax({
+            url: "deleteTab.php",
+            method: "POST",
+            data: {id_sub: id_sub}
+        })
+            .done(function (response) {
 
-        });
+            });
 
 
-    let thisTab = document.getElementById("tab"+id_sub);
-    let thisTab1 = document.getElementById("tab"+id_sub+"-");
-    thisTab.remove();
-    thisTab1.remove();
+        let thisTab = document.getElementById("tab" + id_sub);
+        let thisTab1 = document.getElementById("tab" + id_sub + "-");
+        thisTab.remove();
+        thisTab1.remove();
 
-    let mainTabDiv = document.getElementById("tab1-");
-    let mainTab = document.getElementById("tab1");
-    mainTabDiv.classList.add("active");
-    mainTab.children[0].classList.add("active");
-
+        let mainTabDiv = document.getElementById("tab1-");
+        let mainTab = document.getElementById("tab1");
+        mainTabDiv.classList.add("active");
+        mainTab.children[0].classList.add("active");
+    }
 
 }
 

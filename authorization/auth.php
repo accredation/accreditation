@@ -11,7 +11,7 @@ function enter($sesId)
       $error = array(); //массив для ошибок
     if ($_POST['login'] != "" && $_POST['password'] != "") //если поля заполнены
         {
-        $login       = $_POST['login'];
+
         $login       = $_POST['login'];
         $password    = $_POST['password'];
         $insertquery = "SELECT * FROM users WHERE login='$login'";
