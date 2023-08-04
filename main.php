@@ -202,11 +202,11 @@
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status = 2 or id_status = 4) and otmetka_all>25 and otmetka_accred_all<51) as count50,(
+                                      where (id_status = 2 or id_status = 4) and otmetka_all>25 and otmetka_all<51) as count50,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status = 2 or id_status = 4) and otmetka_all>50 and otmetka_accred_all<76) as count75,(
+                                      where (id_status = 2 or id_status = 4) and otmetka_all>50 and otmetka_all<76) as count75,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
