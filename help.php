@@ -180,9 +180,9 @@
     <section class="content">
 
 
-        <div class="card direct-chat direct-chat-primary" style="height: 500px;margin-top: 2rem">
+        <div class="card direct-chat direct-chat-primary" style="margin-top: 2rem">
 
-            <div class="card direct-chat direct-chat-primary" style="height: 700px">
+            <div class="card direct-chat direct-chat-primary" >
                 <div class="card-header" style="background-color: #148A8A; color: white; height: 3rem">
                     <h3 class="card-title" style=" color: white;">Часто задаваемые вопросы</h3>
 
@@ -217,6 +217,20 @@
         <?php if (isset($_COOKIE['login'])) { ?>
             <h2 for="quastion" style = "margin-top: 2rem">Задать вопрос</h2><br/>
             <textarea name="" id="question"  rows="7" style="width: 100%;"></textarea><br/>
+
+            <div>
+            <label for="typeQuestion">Тип вопроса</label><br/>
+            <select id="typeQuestion">
+                <option selected disabled>Выберите тип</option>
+                <option value="">по использованию программы</option>
+                <option value="">по самооценке и заполнению таблиц критериев</option>
+                <option value="">предложения по программе или критериям</option>
+            </select>
+            </div>
+            <br/>
+            <input type="file" id="screenQuestion"/>
+            <br/>
+            <br/>
             <button type="submit" class="btn btn-success btn-fw" id="btnQuestion">Отправить</button>
         <?php }?>
     </div>
@@ -243,15 +257,25 @@
 
     let txtArea = document.getElementById("question");
     $("#btnQuestion").on("click", () => {
-        $.ajax({
-            url: "sendQuestion.php",
-            method: "GET",
-            data: {id_user: getCookie('id_user'), question: txtArea.value}
-        })
-            .done(function( response ) {
-                alert("Ваш вопрос отправлен.");
-                location.href = "index.php?help";
-            });
+        let screenQuestionInput = document.getElementById("screenQuestion");
+        let screenQuestion = screenQuestionInput.files[0];
+
+        let selectType = document.getElementById("typeQuestion");
+        if(selectType.selectedIndex === 0){
+            alert("Выберите тип вопроса.");
+        }else{
+            let xhr = new XMLHttpRequest(),
+                form = new FormData();
+            form.append("id_user",getCookie('id_user'));
+            form.append("question",txtArea.value);
+            form.append("typeQuestion",selectType.options[selectType.selectedIndex].innerText);
+            form.append("screenQuestion", screenQuestion);
+            xhr.open("post", "sendQuestion.php", true);
+            xhr.send(form);
+            alert("Ваш вопрос отправлен.");
+            location.href = "index.php?help";
+        }
+
     });
 
       let itemMenu = document.querySelector("[href='help.php']");
