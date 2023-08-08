@@ -718,6 +718,23 @@
     <!--<script>console.log(filesName)</script>-->
     <script src="dist/js/formAccreditation.js"></script>
 
+
+    
+    <script>
+        let tabLink = document.querySelector('#home-tab');
+        let tabPane = document.querySelector('#allApps');
+
+        tabLink.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Проверяем, есть ли у вкладки класс 'active'
+            if (!tabPane.classList.contains('active')) {
+                // Если нет, то устанавливаем класс 'active'
+                tabPane.classList.add('active');
+            }
+        });
+    </script>
+
 <?php } else { ?>
     <div class="content-wrapper">
         <div class="row" id="proBanner">

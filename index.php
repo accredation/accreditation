@@ -241,6 +241,9 @@
                     case 'contacts':
                         include 'contacts.php';
                         break;
+                    case 'support':
+                        include 'support.php';
+                        break;    
                 }
             }
             else{

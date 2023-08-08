@@ -58,6 +58,33 @@
               </a>
             </li>
 
+
+            <?php
+
+            if (isset($_SESSION['id_user'])) {
+
+            //$query = "SELECT * FROM view_categ_user, category, users WHERE users.id_user = view_categ_user.id_user AND category.id_category = view_categ_user.id_categ AND users.id_user = '{$_SESSION['id_user']}'";
+            $query = "SELECT id_role FROM users WHERE users.id_user = '{$_SESSION['id_user']}'";
+
+            $result = mysqli_query($con, $query) or die (mysqli_error($con));
+
+            if (mysqli_num_rows($result) == 1) //если получена одна строка
+            {
+            $row = mysqli_fetch_assoc($result);
+            if($row['id_role'] == 3){?>
+            <li class="nav-item" id="nav6">
+            <a class="nav-link"  href="/index.php?support" >
+              <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+              <span class="menu-title">Тех поддержка</span>
+            </a>
+            </li>
+                <?php
+            }
+           
+            }
+            }
+            ?>
+
           </ul>
         </nav>
 
@@ -69,6 +96,7 @@
     let nav3 = document.getElementById("nav3");
     let nav4 = document.getElementById("nav4");
     let nav5 = document.getElementById("nav5");
+    let nav6 = document.getElementById("nav6");
 
 
     switch(url){
@@ -87,6 +115,9 @@
         case "/index.php?contacts":
             nav3.className = "nav-item active";
             break;
+        case "/index.php?support":
+            nav6.className = "nav-item active";
+            break;    
         default:
             nav1.className = "nav-item active";
             break;

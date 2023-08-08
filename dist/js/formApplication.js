@@ -382,6 +382,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         soprPismo.setAttribute("disabled","true");
         copyRaspisanie.setAttribute("disabled","true");
         orgStrukt.setAttribute("disabled","true");
+        reportSamoocenka.setAttribute("disabled","true");
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
         btnSend.classList.add("hiddentab");
