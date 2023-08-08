@@ -1168,7 +1168,7 @@ function onInputAdress() {
     if (isAdressValid(input.value)) {
         input.style.borderColor = 'green';
     } else {
-        input.style.borderColor = 'red';
+        input.style.borderColor = 'green';
     }
 }
 function isAdressValid(value) {

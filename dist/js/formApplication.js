@@ -653,7 +653,7 @@ console.log(subCriteriaForReport);
 
       
 
-        if(table.textContent.length > 0){
+        if(table && table.textContent && table.textContent.length > 0){
             let divReportTitleFieldNo = document.createElement('div');
             divReportTitleFieldNo.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
             divReportTitleFieldNo.textContent = '<strong>Установлено несоответствие по следующим критериям:</strong>';
@@ -664,11 +664,20 @@ console.log(subCriteriaForReport);
             WinPrint.document.write('<br/>');
             WinPrint.document.write(table.innerHTML);
         }
+        else{
+            WinPrint.document.write(divReportTitle.innerHTML);
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write('<br/>');
+            divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            WinPrint.close();
+        }
 
         WinPrint.document.close();
         WinPrint.focus();
         WinPrint.print();
-
         WinPrint.close();
 }
 
@@ -954,7 +963,7 @@ function onInputAdress() {
     if (isAdressValid(input.value)) {
         input.style.borderColor = 'green';
     } else {
-        input.style.borderColor = 'red';
+        input.style.borderColor = 'green';
     }
 }
 function isAdressValid(value) {

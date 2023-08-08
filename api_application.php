@@ -183,7 +183,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           ?>
 
 
-                                          <tr onclick="showModal('<?= $id_application ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                          <tr onclick="showModal('<?= $app['app_id'] ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
 
@@ -204,8 +204,8 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                         </div>
                       </div>
                     </div>
-
                   </div>
+
                 </div>
 
                   <div class="tab-content tab-transparent-content">
@@ -682,10 +682,27 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
     });
 </script>
 
+
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formApplication.js"></script>
+
+<script>
+    let tabLink = document.querySelector('#home-tab');
+    let tabPane = document.querySelector('#allApps');
+
+    tabLink.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Проверяем, есть ли у вкладки класс 'active'
+        if (!tabPane.classList.contains('active')) {
+            // Если нет, то устанавливаем класс 'active'
+            tabPane.classList.add('active');
+        }
+    });
+</script>
 
 <?php } else { ?>
     <div class="content-wrapper">

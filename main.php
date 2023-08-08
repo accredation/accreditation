@@ -299,10 +299,10 @@
                     <canvas id="doughnutChart3" style="height: 393px; display: block; width: 688px;"></canvas>
 
                     <script>
-                        let count25 = <?= $count25 ?>;
-                        let count50 = <?= $count50 ?>;
-                        let count75 = <?= $count75 ?>;
-                        let count100 = <?= $count100 ?>;
+                         count25 = <?= $count25 ?>;
+                         count50 = <?= $count50 ?>;
+                         count75 = <?= $count75 ?>;
+                         count100 = <?= $count100 ?>;
 
                         document.getElementById('doughnutChart3').setAttribute('attr1',count25);
                         document.getElementById('doughnutChart3').setAttribute('attr2',count50);
