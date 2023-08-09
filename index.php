@@ -101,12 +101,26 @@
                                 Пользователи
                             </a>
                         <?php } ?>
-                    <?php  if ($_COOKIE['login'] == "test2@mail.ru") {?>
+                    <?php
+
+                    $query = "SELECT login FROM users where id_role =3";
+                    $result = mysqli_query($con, $query) or die(mysqli_error($con));
+                    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+                    foreach ($rows as $row) {
+
+
+
+                        if ($_COOKIE['login'] == $row['login']) {?>
                         <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/index.php?messages_users">
                             <i class="fa fa-envelope-open"></i>
                             Мои сообщения
                         </a>
+                    <?php  break; //при первом совпадении
+                    }
+                     ?>
                         <?php } ?>
+
 
                   <div role="separator" class="dropdown-divider"></div>
                     <?php }?>
