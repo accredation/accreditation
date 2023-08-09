@@ -187,7 +187,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
 
 
-                                              <td>Заявление <?= $username ?>  </td>
+                                              <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
 
 
                                           </tr>
@@ -252,7 +252,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                   <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
-                                                      <td>Заявление <?= $username ?></td>
+                                                      <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
 
 
                                                   </tr>
@@ -319,7 +319,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                   <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
-                                                      <td>Заявление <?= $username ?></td>
+                                                      <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
 
 
                                                   </tr>
@@ -386,7 +386,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                   <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
-                                                      <td>Заявление <?= $username ?></td>
+                                                      <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
 
 
                                                   </tr>

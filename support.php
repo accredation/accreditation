@@ -102,6 +102,7 @@
                                       <th>Ответ</th>
                                       <th>Файл</th>
                                       <th>Пользователь</th>
+                                      <th></th>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -112,9 +113,11 @@
                                            <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                           <tr  style="cursor: pointer; height: 100px;">
                                               <td style="width: 20%;"><?= $app['question'] ?></td>
-                                              <td style="width: 30%"><textarea style="width: 100%; height: 100%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5" ><?= $app['answer'] ?></textarea></td>
+                                              <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
                                               <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                               <td><?= $app['username'] ?></td>
+                                              <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('<?= $app['id_question'] ?>').value)">Ответить</button></td>
+
                                           </tr>
                                           <?php
                                       }
@@ -456,6 +459,11 @@
 
     <script>
         function sendAnswerQuestion(id, answer){
+            if((!answer) || (answer===null) || (answer.trim()==='')){
+                alert('Поле ответа пусто');
+                return
+            }
+
             $.ajax({
                 url: "sendAnswer.php",
                 method: "GET",
@@ -463,7 +471,7 @@
 
             })
                 .done(function (response) {
-                    // alert("123");
+                     alert("Ответ отправлен.");
                 })
         }
 

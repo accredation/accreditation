@@ -74,6 +74,7 @@ function showTab(element,id_sub){
     let id = element.id;
     let tabDiv = document.getElementById(id+"-");
     let myModal = document.getElementById("myModal");
+
     let activeTabDiv = myModal.getElementsByClassName("tab-pane fade show active")[0];
     if(tabDiv && activeTabDiv) {
         activeTabDiv.classList.remove("active");
@@ -197,19 +198,20 @@ function showTab(element,id_sub){
                     divFormGroup.appendChild(divFormCheck);
                     row.appendChild(divFormGroup);
                 }
+
+
                 createAccordionCards(id_sub);
 
                 let mainTab = document.getElementById("button1");
 
                 let footer = document.getElementsByClassName("modal-footer")[0];
                 if(!mainTab.classList.contains("active")){
-
                     footer.classList.add("hiddentab");
 
                 }
-                else{
-                    footer.classList.remove("hiddentab");
-                }
+                // else{
+                //     footer.classList.remove("hiddentab");
+                // }
             });
         let submark = document.getElementById("subMark"+id_sub);
         if(submark){
@@ -218,6 +220,7 @@ function showTab(element,id_sub){
         let calcSubMark = document.createElement('div');
         calcSubMark.id = "subMark"+id_sub;
         calcSubMark.style = "text-align: right";
+        calcSubMark.classList.add('subMark');
         let id_application = document.getElementById("id_application").innerText;
         let calcRow = document.getElementById("tab"+id_sub+"-");
         $.ajax({
@@ -349,7 +352,40 @@ function createApplication(){
 
 
 function showModal(id_application, strMarks, strMarksAccred){
+    let footer = document.getElementsByClassName("modal-footer")[0];
+    if(footer.classList.contains('hiddentab')){
+        footer.classList.remove('hiddentab');
+    }
 
+    let apppp = document.getElementsByClassName('accordion');
+
+    if(apppp.length!==0){
+        for(let i=0;i<apppp.length;i++){
+            apppp[i].remove();
+        }
+    }
+    let remAccTab = document.getElementsByClassName('remAccTab');
+
+    if(remAccTab.length!==0){
+        for(let i=0;i<remAccTab.length;i++){
+            remAccTab[i].remove();
+        }
+    }
+
+
+    let remSubMark = document.getElementsByClassName('subMark');
+    if(remSubMark.length!==0){
+        for(let i=0;i<remSubMark.length;i++){
+            remSubMark[i].remove();
+        }
+    }
+
+    let tab = document.getElementById("tab1");
+    let pane = document.getElementById("tab1-");
+    if(!tab.children[0].classList.contains("active")) {
+        tab.children[0].classList.add("active");
+        pane.classList.add("active");
+    }
     let btnChecking = document.getElementById("btnChecking");
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
@@ -405,6 +441,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
+
     let data = new Array();
     $.ajax({
         url: "getApplication.php",
@@ -509,6 +546,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         for(let i = tablist.children.length - 1; i > 0; i--){
             tablist.children[i].remove();
         }
+
     });
 
 
@@ -1219,7 +1257,7 @@ function getTabs(name, id_sub){
 
     let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
     let tabPane = document.createElement("div");
-    tabPane.className = "tab-pane fade show";
+    tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
     let row1 = document.createElement("div");
     row1.className = "row";
@@ -1314,7 +1352,7 @@ function getMainTab(name, id_sub){
 
     let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
     let tabPane = document.createElement("div");
-    tabPane.className = "tab-pane fade show";
+    tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
     let row1 = document.createElement("div");
     row1.className = "row";
@@ -1625,9 +1663,10 @@ function createAccordionCards(id_sub) {
             btnCollapse.setAttribute("data-target", "#collapse"+id_criteria);
             btnCollapse.setAttribute("aria-expanded", "false");
             btnCollapse.setAttribute("aria-controls", "collapse"+id_criteria);
-            btnCollapse.innerHTML = name_criteria.innerHTML;
-            btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
 
+            btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
+            var filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
+            btnCollapse.innerHTML = filteredOutput;
 
             divCardHeader.appendChild(btnCollapse);
 

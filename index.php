@@ -101,6 +101,13 @@
                                 Пользователи
                             </a>
                         <?php } ?>
+                    <?php  if ($_COOKIE['login'] == "test2@mail.ru") {?>
+                        <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="/index.php?messages_users">
+                            <i class="fa fa-envelope-open"></i>
+                            Мои сообщения
+                        </a>
+                        <?php } ?>
+
                   <div role="separator" class="dropdown-divider"></div>
                     <?php }?>
                   <h5 class="dropdown-header text-uppercase  pl-2 text-dark mt-2">Действия</h5>
@@ -243,7 +250,10 @@
                         break;
                     case 'support':
                         include 'support.php';
-                        break;    
+                        break;
+                    case 'messages_users':
+                        include 'messages_users.php';
+                        break;
                 }
             }
             else{

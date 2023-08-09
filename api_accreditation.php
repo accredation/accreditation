@@ -186,7 +186,7 @@
 
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
-                                                    <td>Заявление <?= $app['username'] ?></td>
+                                                    <td>Заявление <?= $app['username'] ?>  №<?= $app['app_id'] ?></td>
 
 
                                                 </tr>
@@ -268,7 +268,7 @@
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
-                                                    <td>Заявление <?= $app['username'] ?></td>
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
 
 
                                                 </tr>
@@ -340,7 +340,7 @@
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
-                                                    <td>Заявление <?= $app['username'] ?></td>
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
 
 
                                                 </tr>
@@ -412,7 +412,7 @@
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
 
-                                                    <td>Заявление <?= $app['username'] ?></td>
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
 
 
                                                 </tr>

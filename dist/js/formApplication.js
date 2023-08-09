@@ -242,6 +242,7 @@ function showTab(element,id_sub){
         let calcSubMark = document.createElement('div');
         calcSubMark.id = "subMark"+id_sub;
         calcSubMark.style = "text-align: right";
+        calcSubMark.classList.add('subMark');
         let id_application = document.getElementById("id_application").innerText;
         let calcRow = document.getElementById("tab"+id_sub+"-");
         $.ajax({
@@ -325,6 +326,39 @@ function createApplication(){
 }
 
 function showModal(id_application, strMarks, strMarksAccred){
+    let footer = document.getElementsByClassName("modal-footer")[0];
+    if(footer.classList.contains('hiddentab')){
+        footer.classList.remove('hiddentab');
+    }
+
+    let apppp = document.getElementsByClassName('accordion');
+
+    if(apppp.length!==0){
+        for(let i=0;i<apppp.length;i++){
+            apppp[i].remove();
+        }
+    }
+    let remAccTab = document.getElementsByClassName('remAccTab');
+
+    if(remAccTab.length!==0){
+        for(let i=0;i<remAccTab.length;i++){
+            remAccTab[i].remove();
+        }
+    }
+
+
+    let remSubMark = document.getElementsByClassName('subMark');
+    if(remSubMark.length!==0){
+        for(let i=0;i<remSubMark.length;i++){
+            remSubMark[i].remove();
+        }
+    }
+    let tab = document.getElementById("tab1");
+    let pane = document.getElementById("tab1-");
+    if(!tab.children[0].classList.contains("active")) {
+        tab.children[0].classList.add("active");
+        pane.classList.add("active");
+    }
     openTabId=0;
    let mainRightCard = document.getElementById("mainRightCard");
     mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
@@ -1031,7 +1065,7 @@ function getTabs(name, id_sub){
 
     let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
     let tabPane = document.createElement("div");
-    tabPane.className = "tab-pane fade show";
+    tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
     let row1 = document.createElement("div");
     row1.className = "row";
@@ -1157,7 +1191,7 @@ function getMainTab(name, id_sub){
 
     let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
     let tabPane = document.createElement("div");
-    tabPane.className = "tab-pane fade show";
+    tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
     let row1 = document.createElement("div");
     row1.className = "row";
@@ -2009,27 +2043,60 @@ $("#btnSend").on("click", async () => {
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let divOrgStrukt = document.getElementById("divOrgStrukt");
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
+
+    let sokr = document.getElementById("sokr");
+    let unp = document.getElementById("unp");
+    let adress = document.getElementById("adress");
+    let tel = document.getElementById("tel");
+    let email = document.getElementById("email");
+    let rukovoditel = document.getElementById("rukovoditel");
+    let predstavitel = document.getElementById("predstavitel");
+
     let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
     if(isSend) {
         if(divSoprovodPismo.getElementsByTagName("a").length == 0 ||
             divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
             divOrgStrukt.getElementsByTagName("a").length == 0 ||
-            divFileReportSamoocenka.getElementsByTagName("a").length == 0){
+            divFileReportSamoocenka.getElementsByTagName("a").length == 0
+        ){
             alert("Не все обязательные документы загружены! Заявление не отправлено.");
+        }else if(sokr.value.trim() === "" ||
+            unp.value.trim() === "" ||
+            adress.value.trim() === "" ||
+            tel.value.trim() === "" ||
+            email.value.trim() === "" ||
+            rukovoditel.value.trim() === "" ||
+            predstavitel.value.trim() === ""
+        ){
+            alert("Не все обязательные поля заполнены.");
+
         }else {
-            await printReport();
             await $.ajax({
-                url: "sendApp.php",
+                url: "checkEmptyCrits.php",
                 method: "GET",
                 data: {id_application: id_application.innerText}
             })
-                .done(function (response) {
-                    if (response == "") {
-                        alert("Заявление отправлено");
-                        calcMarks();
-                        location.href = "/index.php?application";
-                    } else {
-                        alert(response);
+                .done(async function (response) {
+                    if(response == 0) {
+
+                        await printReport();
+                        await $.ajax({
+                            url: "sendApp.php",
+                            method: "GET",
+                            data: {id_application: id_application.innerText}
+                        })
+                            .done(function (response) {
+                                if (response == "") {
+                                    alert("Заявление отправлено");
+                                    calcMarks();
+                                    location.href = "/index.php?application";
+                                } else {
+                                    alert(response);
+                                }
+                            });
+                    }
+                    else{
+                        alert("Не выбраны критерии в подразделении.");
                     }
                 });
         }
