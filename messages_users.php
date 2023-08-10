@@ -100,7 +100,9 @@
                                             <thead>
                                             <tr>
                                                 <th>Вопрос</th>
+                                                <th>Дата вопроса</th>
                                                 <th>Ответ</th>
+                                                <th>Дата ответа</th>
                                                 <th>Файл</th>
                                                 <th>Тип вопроса</th>
 
@@ -114,7 +116,9 @@
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer; height: 100px;">
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                    <td style="width: 30%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5"> <?= $app['answer'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['date_question'] ?></td>
+                                                    <td style="width: 30%" > <?= $app['answer'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['date_answer'] ?></td>
                                                     <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                     <td style="width: 20%;"><?= $app['type_question'] ?></td>
 
@@ -158,7 +162,9 @@
                                             <thead>
                                             <tr>
                                                 <th>Вопрос</th>
+                                                <th>Дата вопроса</th>
                                                 <th>Ответ</th>
+                                                <th>Дата ответа</th>
                                                 <th>Файл</th>
                                                 <th>Тип вопроса</th>
 
@@ -172,7 +178,9 @@
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer; height: 100px;">
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                    <td style="width: 30%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5"> <?= $app['answer'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['date_question'] ?></td>
+                                                    <td style="width: 30%" > <?= $app['answer'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['date_answer'] ?></td>
                                                     <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                     <td style="width: 20%;"><?= $app['type_question'] ?></td>
 
@@ -216,7 +224,9 @@
                                             <thead>
                                             <tr>
                                                 <th>Вопрос</th>
+                                                <th>Дата вопроса</th>
                                                 <th>Ответ</th>
+                                                <th>Дата ответа</th>
                                                 <th>Файл</th>
                                                 <th>Тип вопроса</th>
 
@@ -230,7 +240,9 @@
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer; height: 100px;">
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                    <td style="width: 30%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5"> <?= $app['answer'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['date_question'] ?></td>
+                                                    <td style="width: 30%" > <?= $app['answer'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['date_answer'] ?></td>
                                                     <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                     <td style="width: 20%;"><?= $app['type_question'] ?></td>
 

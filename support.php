@@ -69,6 +69,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="answer-qestion-tab" data-toggle="tab" href="#answerQestions" role="tab" aria-selected="false">Обработанные</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="faq-tab" data-toggle="tab" href="#faq" role="tab" aria-selected="false">Часто задаваемые</a>
+                        </li>
                         <!-- <li class="nav-item">
                           <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Отклоненные</a>
                         </li> -->
@@ -89,7 +92,7 @@
 
                                         $query = "SELECT * 
                               FROM questions q 
-                              left outer join users u on q.id_user =u.id_user 
+                              left outer join users u on q.id_user =u.id_user where important <> 1
                                ";
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -98,11 +101,13 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Вопрос</th>
-                                                <th>Ответ</th>
-						<th>Тип вопроса</th>
-                                                <th>Файл</th>
                                                 <th>Пользователь</th>
+                                                <th>Вопрос</th>
+                                                <th>Дата вопроса</th>
+                                                <th>Ответ</th>
+                                                <th>Дата ответа</th>
+						                        <th>Тип вопроса</th>
+                                                <th>Файл</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
@@ -113,11 +118,14 @@
                                                 ?>
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer; height: 100px;">
-                                                    <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                    <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
-						    <td style="width: 20%;"><?= $app['type_question'] ?></td>
-                                                    <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                     <td><?= $app['username'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['question'] ?></td>
+                                                    <td style="width: 20%;"><?= $app['date_question'] ?></td>
+                                                    <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
+						                            <td style="width: 20%;"><?= $app['date_answer'] ?></td>
+						                            <td style="width: 20%;"><?= $app['type_question'] ?></td>
+                                                    <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
+
                                                     <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('<?= $app['id_question'] ?>').value)">Ответить</button></td>
 
                                                 </tr>
@@ -173,10 +181,11 @@
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer;">
                                                       <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                      <td style="width: 30%"><textarea style="width: 100%; height: 100%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5" ><?= $app['answer'] ?></textarea></td>
+                                                      <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="n<?= $app['id_question'] ?>"><?= $app['answer'] ?></textarea></td>
                                                       <td style="width: 20%;"><?= $app['type_question'] ?></td>
                                                       <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                       <td><?= $app['username'] ?></td>
+                                                    <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('n<?= $app['id_question'] ?>').value)">Ответить</button></td>
                                                 </tr>
                                                 <?php
                                             }
@@ -207,7 +216,7 @@
 
                                         $query = "SELECT * 
                                         FROM questions q 
-                                        left outer join users u on q.id_user =u.id_user where q.answer != ''
+                                        left outer join users u on q.id_user =u.id_user where q.answer != '' and important <> 1
                                         ";
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -231,7 +240,7 @@
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr style="cursor: pointer;">
                                                       <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                      <td style="width: 30%"><textarea style="width: 100%; height: 100%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5" ><?= $app['answer'] ?></textarea></td>
+                                                      <td style="width: 30%"><?= $app['answer'] ?></td>
                                                       <td style="width: 20%;"><?= $app['type_question'] ?></td>
                                                       <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                       <td><?= $app['username'] ?></td>
@@ -254,7 +263,65 @@
                 </div>
 
 
+                <div class="tab-content tab-transparent-content">
+                    <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
 
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <?php
+
+                                        $query = "SELECT * 
+                              FROM questions q 
+                              left outer join users u on q.id_user =u.id_user where important = 1
+                               ";
+                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        ?>
+
+                                        <table id="impTable" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Вопрос</th>
+                                                <th>Ответ</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+
+                                            foreach ($data as $app) {
+                                                ?>
+                                                <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
+                                                <tr  style="cursor: pointer; height: 100px;">
+                                                    <td style="width: 40%;"><textarea style="width: 100%; height: 100%" id="question_<?= $app['id_question'] ?>" rows="5" ><?= $app['question'] ?></textarea></td>
+                                                    <td style="width: 40%"><textarea style="width: 100%; height: 100%" id="answer_<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
+
+                                                    <td style="width: 10%"><button class="btn btn-success btn-fw" onclick="sendAnswerFaqQuestion('<?= $app['id_question'] ?>', document.getElementById('question_'+'<?= $app['id_question'] ?>').value), document.getElementById('answer_'+'<?= $app['id_question'] ?>').value)">Сохранить</button></td>
+                                                    <td style="width: 10%"><button class="btn btn-danger btn-fw" onclick="deleteFaqQuestion('<?= $app['id_question'] ?>')">Удалить</button></td>
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            </tbody>
+
+                                        </table>
+
+                                        <div style="margin-top: 0.5rem">
+                                            <button id="btnAddFaq" class="btn btn-success btn-fw" onclick="addQuestion()">Добавить новый вопрос</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
 
             </div>
@@ -452,6 +519,21 @@
 
         });
 
+        $("#faq-tab").on("click", () => {
+
+            for (let i = 0 ; i < 4; i++){
+                allTabsMainPage[i].children[0].classList.remove("show");
+                allTabsMainPage[i].children[0].classList.remove("active");
+                allTabsMainPage[i].classList.add("hiddentab");
+            }
+            allTabsMainPage[3].children[0].classList.add("show");
+            allTabsMainPage[3].children[0].classList.add("active");
+            allTabsMainPage[3].classList.remove("hiddentab");
+            status = 4;
+            //  console.log(status);
+
+        });
+
 
 
     </script>
@@ -493,6 +575,117 @@
                 })
         }
 
+    </script>
+
+    <script>
+        function sendAnswerFaqQuestion(id, question, answer){
+            if((!answer) || (answer===null) || (answer.trim()==='')){
+                alert('Поле ответа пусто');
+                return
+            }
+
+            if((!question) || (question===null) || (question.trim()==='')){
+                alert('Поле вопроса пусто');
+                return
+            }
+
+            $.ajax({
+                url: "sendFaqAnswer.php",
+                method: "GET",
+                data: {id_question: id, question: question, answer: answer}
+
+            })
+                .done(function (response) {
+                    alert("Вопрос сохранен.");
+                })
+        }
+
+    </script>
+
+    <script>
+        function deleteFaqQuestion(id){
+            if(confirm("Вопрос будет удален. Удалить?")) {
+                $.ajax({
+                    url: "deleteFaq.php",
+                    method: "GET",
+                    data: {id_question: id}
+
+                })
+                    .done(function (response) {
+                        alert("Вопрос удален.");
+                        location.href = "/index.php?support";
+                    })
+            }
+        }
+
+        function addQuestion(){
+            let impTable = document.getElementById("impTable");
+            let tr = impTable.getElementsByTagName("tr");
+            let newTr = document.createElement("tr");
+            newTr.id = "newTr";
+            newTr.style = "cursor: pointer; height: 100px;";
+            let td1 = document.createElement("td");
+            td1.style = "width: 20%;";
+            let textAr1 = document.createElement("textarea");
+            textAr1.setAttribute("rows", "5");
+            textAr1.style = "width: 100%; height: 100%";
+            textAr1.id = "newQuestion";
+            td1.appendChild(textAr1);
+            let td2 = document.createElement("td");
+            td2.style = "width: 30%";
+            let textAr2 = document.createElement("textarea");
+            textAr2.setAttribute("rows", "5");
+            textAr2.style = "width: 100%; height: 100%";
+            textAr2.id = "newAnswer";
+            td2.appendChild(textAr2);
+            let td3 = document.createElement("td");
+            let btn3 = document.createElement("button");
+            btn3.className = "btn btn-success btn-fw";
+            btn3.innerHTML='Сохранить';
+            btn3.onclick = () => {addNewQuestion(textAr1.value, textAr2.value)};
+            td3.appendChild(btn3);
+
+            let td4 = document.createElement("td");
+            let btn4 = document.createElement("button");
+            btn4.className = "btn btn-danger btn-fw";
+            btn4.innerHTML='Отмена';
+            btn4.onclick = () =>{
+                newTr.remove();
+                let btnAddFaq=document.getElementById('btnAddFaq');
+                btnAddFaq.removeAttribute('disabled');
+            }
+            td4.appendChild(btn4);
+            newTr.appendChild(td1);
+            newTr.appendChild(td2);
+            newTr.appendChild(td3);
+            newTr.appendChild(td4);
+
+         //   impTable.appendChild(newTr);
+            tr[tr.length-1].insertAdjacentElement("afterend",newTr);
+
+
+
+            let btnAddFaq=document.getElementById('btnAddFaq');
+            btnAddFaq.setAttribute('disabled','True');
+        }
+
+        function addNewQuestion(quest, answ){
+            console.log('asdasda ',quest, answ);
+
+            $.ajax({
+                url: "addFaq.php",
+                method: "GET",
+                data: {question: quest, answer: answ}
+
+            })
+                .done(function (response) {
+                    alert("Вопрос добавлен.");
+                    location.href = "/index.php?support";
+                })
+
+
+
+        }
     </script>
 <?php }
 

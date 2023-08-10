@@ -215,7 +215,10 @@
         <!-- Main row -->
 
         <?php if (isset($_COOKIE['login'])) { ?>
-            <h2 for="quastion" style = "margin-top: 2rem">Задать вопрос</h2><br/>
+            <h2 for="quastion" style = "margin-top: 2rem">Задать вопрос</h2>
+            <span>Есть вопросы? Пожалуйста, сформулируйте Ваш вопрос достаточно подробно и воспользуйтесь при необходимости функцией для присоединения файла (документ или снимок экрана). При ответе сотрудника отдела сопровождения Вы получите уведомление на электронную почту, которую укажете при отправке вопроса.</span>
+            <br/>
+            <br/>
             <textarea name="" id="question"  rows="7" style="width: 100%;"></textarea><br/>
 
             <div>
@@ -233,6 +236,17 @@
             <br/>
             <button type="submit" class="btn btn-success btn-fw" id="btnQuestion">Отправить</button>
         <?php }?>
+    </div>
+    <div class="container-fluid1" style="margin-top: 2rem">
+    <h2>Колл-центр</h2>
+    <div class="row" style="margin-top: 2rem">
+
+        <!-- Left col -->
+        <section class="col-lg-12" style="padding-left: 2%">
+            <p style="display:inline; font-size: 1.1rem">Контакты: тут будет телефон</p><br>
+            <p style="display:inline;font-size: 1.1rem">График работы: 9:00 - 18:00</p>
+        </section>
+    </div>
     </div>
 </div>
 
@@ -264,16 +278,30 @@
         if(selectType.selectedIndex === 0){
             alert("Выберите тип вопроса.");
         }else{
-            let xhr = new XMLHttpRequest(),
-                form = new FormData();
-            form.append("id_user",getCookie('id_user'));
-            form.append("question",txtArea.value);
-            form.append("typeQuestion",selectType.options[selectType.selectedIndex].innerText);
-            form.append("screenQuestion", screenQuestion);
-            xhr.open("post", "sendQuestion.php", true);
-            xhr.send(form);
-            alert("Ваш вопрос отправлен.");
-            location.href = "index.php?help";
+            let mail = prompt("Введите почту, на которую хотите получить ответ от технической поддержки.");
+
+                let xhr = new XMLHttpRequest(),
+                    form = new FormData();
+                form.append("id_user", getCookie('id_user'));
+                form.append("question", txtArea.value);
+                form.append("typeQuestion", selectType.options[selectType.selectedIndex].innerText);
+                form.append("screenQuestion", screenQuestion);
+                console.log(mail);
+                if(mail !== null) {
+                    if (mail !== "") {
+                        form.append("email", mail);
+                    } else {
+                        form.append("email", "hancharou@rnpcmt.by");
+                    }
+                }
+                else{
+                    form.append("email", "hancharou@rnpcmt.by");
+                }
+                xhr.open("post", "sendQuestion.php", true);
+                xhr.send(form);
+                alert("Ваш вопрос передан сотрудникам отдела сопровождения. При ответе сотрудника отдела сопровождения Вы получите уведомление на электронную почту Вашей организации.");
+                location.href = "index.php?help";
+
         }
 
     });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 09 2023 г., 08:54
+-- Время создания: Авг 10 2023 г., 16:49
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -950,33 +950,9 @@ CREATE TABLE `applications` (
 INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `id_user`, `id_status`, `date_send`, `date_accept`, `date_complete`, `fileReport`, `fileReportSamoocenka`, `activ_cursor`) VALUES
 (47, 'Учреждение здравоохранения «1-я городская клиническая больница»', '', '', '', '', '', '', '', NULL, NULL, '2022 инф 1.docx', 431, 1, NULL, NULL, NULL, NULL, '2022 инф 1.docx', 0),
 (48, '36gp', '36 ГП', '507123453', '220022, минск рокоссовского 76', '80173334455', '36@gp.by', 'Иванов Иван Иванович', 'Петров Петр Петрович', 'ТестИС.docx', 'ТестИС.docx', 'ТестИС.docx', 2, 4, '2023-08-07', '2023-08-07', '2023-08-07', 'ТестИС.docx', 'Тест2.docx', 0),
-(49, 'Тестовая организация здравоохранения', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(50, 'Тестовая организация здравоохранения', 'ОЗ №1', '500265483', '200000, Минск Независимости 299', '801702020202', 'OZ1@mail.by', 'Иванов ИИ', 'Петров ИИ', 'Отчет.txt', 'Отчет.txt', 'Отчет.txt', 642, 2, '2023-08-08', NULL, NULL, NULL, 'Отчет.txt', 0);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `cells`
---
-
-CREATE TABLE `cells` (
-  `id_cell` int NOT NULL,
-  `id_criteria` int NOT NULL,
-  `id_column` int NOT NULL,
-  `cell` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `id_application` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `columns`
---
-
-CREATE TABLE `columns` (
-  `id_column` int NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(49, 'Тестовая организация здравоохранения', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '100lab (1).csv', '100lab.csv', '89л.csv', 2, 4, NULL, NULL, NULL, NULL, '82гастрочтото.csv', 0),
+(50, 'Тестовая организация здравоохранения', 'ОЗ №1', '500265483', '200000, Минск Независимости 299', '801702020202', 'OZ1@mail.by', 'Иванов ИИ', 'Петров ИИ', 'Отчет.txt', 'Отчет.txt', 'Отчет.txt', 642, 1, '2023-08-08', NULL, NULL, NULL, 'Отчет.txt', 0),
+(52, 'Тестовая организация здравоохранения', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4647,11 +4623,14 @@ INSERT INTO `news` (`id_news`, `path_img`, `name_news`, `text_news`, `date_news`
 
 CREATE TABLE `questions` (
   `id_question` int NOT NULL,
+  `email` text COLLATE utf8mb4_bin,
   `question` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `id_user` int NOT NULL,
   `type_question` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `file` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `date_question` datetime DEFAULT NULL,
+  `date_answer` datetime DEFAULT NULL,
   `important` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -4659,22 +4638,24 @@ CREATE TABLE `questions` (
 -- Дамп данных таблицы `questions`
 --
 
-INSERT INTO `questions` (`id_question`, `question`, `answer`, `id_user`, `type_question`, `file`, `important`) VALUES
-(1, 'Как получить пароль логин?', 'Логин/пароль будут отправлены по СМДО в информационном письме в каждую организацию в сроки определенные приказом Минздрава.', 3, NULL, NULL, 1),
-(2, 'Сколько пользователей может одновременно работать в ИС?', 'Только один пользователь  может одномоментно работать в ИС используя один логин и пароль. При входе с этим паролем другого лица будет автоматически выполнен выход первого пользователя. Рекомендуем регламентировать работу с ИС приказом по учреждению.', 3, NULL, NULL, 1),
-(3, 'Как создать заявление?', 'Создание заявления происходит после нажатия на кнопку «Создать заявление». Далее доступ к нем возможен во вкладке «Самооценка»', 3, NULL, NULL, 1),
-(4, 'Кто будет вносить данные в заявления и таблицы критериев?', 'Рекомендуем регламентировать работу с ИС приказом по учреждению. Ответственное лицо(лица), определённое(ые) приказом вносит информацию в заявление, создает структуру таблиц критериев и вносит информацию общего характера. Информацию по видам и профилям вносят руководители структурных подразделений.', 3, NULL, NULL, 1),
-(5, 'Как  правильно заполнить общие сведения?', 'Информацию вносит ответственно лицо согласно Единого государственного регистра юридических лиц и индивидуальных предпринимателей. ', 3, NULL, NULL, 1),
-(6, 'Как заполнить таблицу?', 'В таблице в выпадающем окне столбца «Сведения по самооценке ОЗ» выбирается необходимый вариант ответа (Да, Нет, Не требует) и заполняются поля в столбцах «Документы» или «Примечания».', 3, NULL, NULL, 1),
-(7, 'Как создать вкладку с обособленным структурным подразделением?', 'Если структурное подразделение подходит к критериям в списке «по общим условиям оказания медицинской помощи», то добавляется с помощью кнопки «+добавить структурное обособленное подразделение». Она расположена внизу списка критериев.\r\nНеобходимо указать в открывшемся окне название данного подразделения \r\n', 3, NULL, NULL, 1),
-(8, 'Как удалить обособленное структурное подразделение?', 'С помощью кнопки «удалить подразделение» справа вверху над списком разделов критериев.', 3, NULL, NULL, 1),
-(9, 'Как сохранить данные в таблице критериев?', 'Данные в таблице сохраняются при нажатии кнопки «сохранить» внизу таблицы или при переходе в другие разделы таблиц. После этого появится окно с вопросом о сохранении изменений.', 3, NULL, NULL, 1),
-(10, 'Можно ли просмотреть и редактировать заявление после отправки?', 'Просмотр заявления возможен. Редактирование запрещено.', 3, NULL, NULL, 1),
-(11, 'Можно ли посмотреть информацию по медицинской аккредитации организации после рассмотрения заявления и самооценки?', 'Да, информация будет доступна в разделе «Заявления», во вкладке «Завершенная оценка»', 3, NULL, NULL, 1),
-(12, 'Если я не заполню одну из таблиц, или их раздел, или не загружу один из необходимых документов, будет ли мое заявление отправлено', 'Нет, не будет. Программа проверяет полноту пакета необходимых документов и не позволит отправить не до конца заполненное заявление.', 3, NULL, NULL, 1),
-(13, 'Если мое заявление отправят на доработку, нужно ли будет повторно вносить все данные?', 'Нет, вы сможете продолжить работу с заполненным заявлением, отправленным на доработку. Заявление будет вновь доступно к редактированию в разделе «Заявление» во вкладке «самооценка».  Заявление будет дополнено информацией о причине  отправки на доработку.', 3, NULL, NULL, 1),
-(14, 'ываыва', '333344', 642, 'по использованию программы', '/documents/Вопросы/pptx-icon.png', 0),
-(15, 'hfjvj', '1234567891234', 642, 'по использованию программы', '/documents/Вопросы/3d-map-of-vitebsk-oblast-is-a-region-of-belarus_97886-11977.jpg', 0);
+INSERT INTO `questions` (`id_question`, `email`, `question`, `answer`, `id_user`, `type_question`, `file`, `date_question`, `date_answer`, `important`) VALUES
+(1, NULL, 'Как получить пароль логин?', 'Логин/пароль будут отправлены по СМДО в информационном письме в каждую организацию в сроки определенные приказом Минздрава.', 3, NULL, NULL, NULL, NULL, 1),
+(2, NULL, 'Сколько пользователей может одновременно работать в ИС?', 'Только один пользователь  может одномоментно работать в ИС используя один логин и пароль. При входе с этим паролем другого лица будет автоматически выполнен выход первого пользователя. Рекомендуем регламентировать работу с ИС приказом по учреждению.', 3, NULL, NULL, NULL, NULL, 1),
+(3, NULL, 'Как создать заявление?', 'Создание заявления происходит после нажатия на кнопку «Создать заявление». Далее доступ к нем возможен во вкладке «Самооценка»', 3, NULL, NULL, NULL, NULL, 1),
+(4, NULL, 'Кто будет вносить данные в заявления и таблицы критериев?', 'Рекомендуем регламентировать работу с ИС приказом по учреждению. Ответственное лицо(лица), определённое(ые) приказом вносит информацию в заявление, создает структуру таблиц критериев и вносит информацию общего характера. Информацию по видам и профилям вносят руководители структурных подразделений.', 3, NULL, NULL, NULL, NULL, 1),
+(5, NULL, 'Как  правильно заполнить общие сведения?', 'Информацию вносит ответственно лицо согласно Единого государственного регистра юридических лиц и индивидуальных предпринимателей. ', 3, NULL, NULL, NULL, NULL, 1),
+(6, NULL, 'Как заполнить таблицу?', 'В таблице в выпадающем окне столбца «Сведения по самооценке ОЗ» выбирается необходимый вариант ответа (Да, Нет, Не требует) и заполняются поля в столбцах «Документы» или «Примечания».', 3, NULL, NULL, NULL, NULL, 1),
+(7, NULL, 'Как создать вкладку с обособленным структурным подразделением?', 'Если структурное подразделение подходит к критериям в списке «по общим условиям оказания медицинской помощи», то добавляется с помощью кнопки «+добавить структурное обособленное подразделение». Она расположена внизу списка критериев.\r\nНеобходимо указать в открывшемся окне название данного подразделения \r\n', 3, NULL, NULL, NULL, NULL, 1),
+(8, NULL, 'Как удалить обособленное структурное подразделение?', 'С помощью кнопки «удалить подразделение» справа вверху над списком разделов критериев.', 3, NULL, NULL, NULL, NULL, 1),
+(9, NULL, 'Как сохранить данные в таблице критериев?', 'Данные в таблице сохраняются при нажатии кнопки «сохранить» внизу таблицы или при переходе в другие разделы таблиц. После этого появится окно с вопросом о сохранении изменений.', 3, NULL, NULL, NULL, NULL, 1),
+(10, NULL, 'Можно ли просмотреть и редактировать заявление после отправки?', 'Просмотр заявления возможен. Редактирование запрещено.', 3, NULL, NULL, NULL, NULL, 1),
+(11, NULL, 'Можно ли посмотреть информацию по медицинской аккредитации организации после рассмотрения заявления и самооценки?', 'Да, информация будет доступна в разделе «Заявления», во вкладке «Завершенная оценка»', 3, NULL, NULL, NULL, NULL, 1),
+(12, NULL, 'Если я не заполню одну из таблиц, или их раздел, или не загружу один из необходимых документов, будет ли мое заявление отправлено', 'Нет, не будет. Программа проверяет полноту пакета необходимых документов и не позволит отправить не до конца заполненное заявление.', 3, NULL, NULL, NULL, NULL, 1),
+(13, NULL, 'Если мое заявление отправят на доработку, нужно ли будет повторно вносить все данные?', 'Нет, вы сможете продолжить работу с заполненным заявлением, отправленным на доработку. Заявление будет вновь доступно к редактированию в разделе «Заявление» во вкладке «самооценка».  Заявление будет дополнено информацией о причине  отправки на доработку.', 3, NULL, NULL, NULL, NULL, 1),
+(33, NULL, 'где?', NULL, 643, 'по использованию программы', NULL, '2023-08-10 15:33:19', NULL, 0),
+(34, NULL, 'Кто', NULL, 643, 'предложения по программе или критериям', NULL, '2023-08-10 15:34:20', NULL, 0),
+(35, 'sydykav@rnpcmt.by', 'вопрос 2', 'ответ 3', 642, 'по самооценке и заполнению таблиц критериев', NULL, '2023-08-10 15:54:46', '2023-08-10 16:01:34', 0),
+(45, 'sydykav@rnpcmt.by', '4444', 'qwe\nasd', 642, 'по самооценке и заполнению таблиц критериев', NULL, '2023-08-10 16:20:45', '2023-08-10 16:31:42', 0);
 
 -- --------------------------------------------------------
 
@@ -4830,7 +4811,8 @@ INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka
 (42, 60, 52, 87, 0, 70, 21, 30, 0, 46, 19, 41, 0, 75, 12, 16, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (48, 90, 52, 58, 0, 100, 13, 13, 0, 86, 31, 36, 0, 89, 8, 9, 0, 76, 44, 58, 0, 77, 10, 13, 0, 75, 27, 36, 0, 78, 7, 9, 0, 34, 20, 58, 0),
-(50, 100, 27, 27, 0, 100, 5, 5, 0, 100, 18, 18, 0, 100, 4, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(49, 0, 0, 200, 0, 0, 0, 61, 0, 0, 0, 110, 0, 0, 0, 29, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 1, 27, 3446, 0, 0, 5, 1095, 0, 1, 18, 1711, 0, 1, 4, 640, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4930,7 +4912,71 @@ INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criter
 (48, 97, 88, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (48, 97, 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (48, 97, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(50, 107, 53, 100, 27, 27, 0, 100, 5, 5, 0, 100, 18, 18, 0, 100, 4, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(49, 106, 39, 0, 0, 172, 0, 0, 0, 50, 0, 0, 0, 95, 0, 0, 0, 27, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, 106, 56, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, 106, 57, 0, 0, 18, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 39, 0, 0, 172, 0, 0, 0, 50, 0, 0, 0, 95, 0, 0, 0, 27, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 56, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 57, 0, 0, 18, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 58, 0, 0, 23, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 59, 0, 0, 144, 0, 0, 0, 49, 0, 0, 0, 72, 0, 0, 0, 23, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 60, 0, 0, 167, 0, 0, 0, 44, 0, 0, 0, 98, 0, 0, 0, 25, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 61, 0, 0, 139, 0, 0, 0, 45, 0, 0, 0, 73, 0, 0, 0, 21, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 62, 0, 0, 140, 0, 0, 0, 41, 0, 0, 0, 82, 0, 0, 0, 17, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 63, 0, 0, 107, 0, 0, 0, 23, 0, 0, 0, 47, 0, 0, 0, 37, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 64, 0, 0, 18, 0, 0, 0, 5, 0, 0, 0, 10, 0, 0, 0, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 65, 0, 0, 103, 0, 0, 0, 33, 0, 0, 0, 55, 0, 0, 0, 15, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 66, 0, 0, 91, 0, 0, 0, 29, 0, 0, 0, 55, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 67, 0, 0, 66, 0, 0, 0, 15, 0, 0, 0, 20, 0, 0, 0, 31, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 68, 0, 0, 73, 0, 0, 0, 41, 0, 0, 0, 29, 0, 0, 0, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 40, 0, 0, 35, 0, 0, 0, 18, 0, 0, 0, 13, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 41, 0, 0, 61, 0, 0, 0, 25, 0, 0, 0, 23, 0, 0, 0, 13, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 42, 0, 0, 47, 0, 0, 0, 20, 0, 0, 0, 17, 0, 0, 0, 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 43, 0, 0, 49, 0, 0, 0, 15, 0, 0, 0, 21, 0, 0, 0, 13, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 44, 0, 0, 43, 0, 0, 0, 18, 0, 0, 0, 18, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 45, 0, 0, 47, 0, 0, 0, 15, 0, 0, 0, 21, 0, 0, 0, 11, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 46, 0, 0, 25, 0, 0, 0, 8, 0, 0, 0, 12, 0, 0, 0, 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 47, 0, 0, 39, 0, 0, 0, 14, 0, 0, 0, 16, 0, 0, 0, 9, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 48, 0, 0, 73, 0, 0, 0, 26, 0, 0, 0, 28, 0, 0, 0, 19, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 49, 0, 0, 34, 0, 0, 0, 10, 0, 0, 0, 14, 0, 0, 0, 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 50, 0, 0, 30, 0, 0, 0, 9, 0, 0, 0, 14, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 69, 0, 0, 35, 0, 0, 0, 18, 0, 0, 0, 13, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 70, 0, 0, 52, 0, 0, 0, 9, 0, 0, 0, 24, 0, 0, 0, 19, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 71, 0, 0, 29, 0, 0, 0, 12, 0, 0, 0, 10, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 72, 0, 0, 40, 0, 0, 0, 9, 0, 0, 0, 24, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 73, 0, 0, 47, 0, 0, 0, 15, 0, 0, 0, 23, 0, 0, 0, 9, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 74, 0, 0, 59, 0, 0, 0, 30, 0, 0, 0, 24, 0, 0, 0, 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 75, 0, 0, 41, 0, 0, 0, 5, 0, 0, 0, 32, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 76, 0, 0, 55, 0, 0, 0, 9, 0, 0, 0, 37, 0, 0, 0, 9, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 77, 0, 0, 25, 0, 0, 0, 8, 0, 0, 0, 12, 0, 0, 0, 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 78, 0, 0, 35, 0, 0, 0, 12, 0, 0, 0, 17, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 79, 0, 0, 39, 0, 0, 0, 15, 0, 0, 0, 14, 0, 0, 0, 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 80, 0, 0, 110, 0, 0, 0, 28, 0, 0, 0, 54, 0, 0, 0, 28, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 81, 0, 0, 59, 0, 0, 0, 18, 0, 0, 0, 27, 0, 0, 0, 14, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 82, 0, 0, 39, 0, 0, 0, 16, 0, 0, 0, 15, 0, 0, 0, 8, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 83, 0, 0, 42, 0, 0, 0, 19, 0, 0, 0, 15, 0, 0, 0, 8, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 84, 0, 0, 88, 0, 0, 0, 18, 0, 0, 0, 44, 0, 0, 0, 26, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 85, 0, 0, 47, 0, 0, 0, 12, 0, 0, 0, 25, 0, 0, 0, 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 86, 0, 0, 30, 0, 0, 0, 13, 0, 0, 0, 12, 0, 0, 0, 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 87, 0, 0, 47, 0, 0, 0, 24, 0, 0, 0, 15, 0, 0, 0, 8, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 88, 0, 0, 32, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 12, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 89, 0, 0, 39, 0, 0, 0, 15, 0, 0, 0, 20, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 90, 0, 0, 28, 0, 0, 0, 16, 0, 0, 0, 9, 0, 0, 0, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 91, 0, 0, 42, 0, 0, 0, 17, 0, 0, 0, 18, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 92, 0, 0, 37, 0, 0, 0, 10, 0, 0, 0, 16, 0, 0, 0, 11, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 93, 0, 0, 42, 0, 0, 0, 10, 0, 0, 0, 24, 0, 0, 0, 8, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 94, 0, 0, 33, 0, 0, 0, 12, 0, 0, 0, 14, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 95, 0, 0, 46, 0, 0, 0, 16, 0, 0, 0, 20, 0, 0, 0, 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 96, 0, 0, 49, 0, 0, 0, 9, 0, 0, 0, 28, 0, 0, 0, 12, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 97, 0, 0, 48, 0, 0, 0, 8, 0, 0, 0, 28, 0, 0, 0, 12, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 98, 0, 0, 104, 0, 0, 0, 57, 0, 0, 0, 43, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 51, 0, 0, 40, 0, 0, 0, 7, 0, 0, 0, 27, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 52, 0, 0, 31, 0, 0, 0, 8, 0, 0, 0, 18, 0, 0, 0, 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 53, 100, 27, 27, 0, 100, 5, 5, 0, 100, 18, 18, 0, 100, 4, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 54, 0, 0, 26, 0, 0, 0, 5, 0, 0, 0, 18, 0, 0, 0, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 55, 0, 0, 67, 0, 0, 0, 10, 0, 0, 0, 50, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 99, 0, 0, 31, 0, 0, 0, 8, 0, 0, 0, 17, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 100, 0, 0, 51, 0, 0, 0, 8, 0, 0, 0, 37, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4999,7 +5045,8 @@ INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_
 (47, 95, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (48, 97, 90, 52, 58, 0, 100, 13, 13, 0, 86, 31, 36, 0, 89, 8, 9, 0, 76, 44, 58, 0, 77, 10, 13, 0, 75, 27, 36, 0, 78, 7, 9, 0, 34, 20, 58, 0),
-(50, 107, 100, 27, 27, 0, 100, 5, 5, 0, 100, 18, 18, 0, 100, 4, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(49, 106, 0, 0, 200, 0, 0, 0, 61, 0, 0, 0, 110, 0, 0, 0, 29, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 107, 1, 27, 3446, 0, 0, 5, 1095, 0, 1, 18, 1711, 0, 1, 4, 640, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5027,7 +5074,8 @@ INSERT INTO `roles` (`id_role`, `name`) VALUES
 (8, 'Аккредитация Могилев'),
 (9, 'Аккредитация Витебск'),
 (10, 'Аккредитация Гродно'),
-(11, 'Аккредитация Брест');
+(11, 'Аккредитация Брест'),
+(12, 'Техподдержка');
 
 -- --------------------------------------------------------
 
@@ -5073,7 +5121,8 @@ INSERT INTO `subvision` (`id_subvision`, `name`, `id_application`) VALUES
 (96, 'кардиолгия', 47),
 (97, '36gp', 48),
 (106, 'Тестовая организация здравоохранения', 49),
-(107, 'Тестовая организация здравоохранения', 50);
+(107, 'Тестовая организация здравоохранения', 50),
+(112, 'Тестовая организация здравоохранения', 52);
 
 -- --------------------------------------------------------
 
@@ -5099,9 +5148,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`, `oblast`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'rojctva5r4dfj78c6i3c0988v9mkmk9i', 'rojctva5r4dfj78c6i3c0988v9mkmk9i', '2023-07-21 15:34:07', '/index.php?users', 0),
-(2, 'Тестовая организация здравоохранения', 'test@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, 'ahp980mqjrghc3drpitt7n1qm0auflk1', 'ahp980mqjrghc3drpitt7n1qm0auflk1', '2023-08-08 13:49:36', '/index.php?application', 0),
-(3, 'admin', 'hancharou@rnpcmt.by', '2c904ec0191ebc337d56194f6f9a08fa', 1, '0', '266jacil1jmu9laac26r9t4brpppp82m', '2023-08-08 16:10:14', '/index.php?logout', 0),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '2023-08-10 16:35:54', '/index.php?users', 0),
+(2, 'Тестовая организация здравоохранения', 'test@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '2023-08-09 17:26:47', '/index.php?logout', 0),
+(3, 'admin', 'hancharou@rnpcmt.by', '2c904ec0191ebc337d56194f6f9a08fa', 1, '0', '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '2023-08-10 09:17:21', '/index.php?logout', 0),
 (184, 'Государственное учреждение «Университетская стоматологическая клиника»', 'univDendClinic', '11023f1e51b80bc349f9c19f056bcedf', 3, NULL, NULL, NULL, NULL, 4),
 (185, 'Государственное учреждение «Республиканский центр медицинской реабилитации и бальнеолечения»', 'republicCentermedrb', '8a7199d2b7e7c86b0bc46f16f666f1e8', 3, NULL, NULL, '2023-07-20 16:52:47', '/index.php?logout', 4),
 (186, 'Государственное учреждение «Медицинская служба гражданской авиации»', 'medServiceCivilAvia', 'df4de89b52b74bce9bcc4803ed1f8f8d', 3, NULL, NULL, NULL, NULL, 4),
@@ -5561,7 +5610,8 @@ INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `onl
 (639, 'Кузнец Ольга Михайловна', 'kuznec@rnpcmt.by', 'd961437ba667ed3f97c267110a8cac09', 2, '0', '8l3ebouo35kbuanoblomhmkiui63aj2g', '2023-08-07 13:25:43', '/index.php?logout', NULL),
 (640, 'Федорако Александра Томашевна', 'fedorako@rnpcmt.by', 'd0620ee81008084b956e5fecf8a76e64', 2, NULL, NULL, NULL, NULL, NULL),
 (641, 'Войтеховская Анна Александровна', 'voytehovskaya@rnpcmt.by', 'e45666bdf1964b4266a0a2885982f02d', 2, NULL, NULL, NULL, NULL, NULL),
-(642, 'Тестовая организация здравоохранения', 'test2@mail.ru', 'ad0234829205b9033196ba818f7a872b', 3, '266jacil1jmu9laac26r9t4brpppp82m', '266jacil1jmu9laac26r9t4brpppp82m', '2023-08-08 17:37:48', '/index.php?support', NULL);
+(642, 'Тестовая организация здравоохранения', 'test2@mail.ru', 'ad0234829205b9033196ba818f7a872b', 3, 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', '2023-08-10 16:44:29', '/index.php?messages_users', NULL),
+(643, 'Техподдержка', 'support@rnpcmt.by', '434990c8a25d2be94863561ae98bd682', 12, '0', '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '2023-08-10 16:35:43', '/index.php?logout', NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -5574,21 +5624,6 @@ ALTER TABLE `applications`
   ADD PRIMARY KEY (`id_application`),
   ADD KEY `id_user` (`id_user`),
   ADD KEY `id_status` (`id_status`);
-
---
--- Индексы таблицы `cells`
---
-ALTER TABLE `cells`
-  ADD PRIMARY KEY (`id_cell`),
-  ADD KEY `id_application` (`id_application`),
-  ADD KEY `id_column` (`id_column`),
-  ADD KEY `id_criteria` (`id_criteria`);
-
---
--- Индексы таблицы `columns`
---
-ALTER TABLE `columns`
-  ADD PRIMARY KEY (`id_column`);
 
 --
 -- Индексы таблицы `conditions`
@@ -5673,19 +5708,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
-
---
--- AUTO_INCREMENT для таблицы `cells`
---
-ALTER TABLE `cells`
-  MODIFY `id_cell` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT для таблицы `columns`
---
-ALTER TABLE `columns`
-  MODIFY `id_column` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_application` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT для таблицы `conditions`
@@ -5721,19 +5744,19 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT для таблицы `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id_question` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_question` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT для таблицы `rating_criteria`
 --
 ALTER TABLE `rating_criteria`
-  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=541;
+  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=544;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_role` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_role` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT для таблицы `status`
@@ -5745,13 +5768,13 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `subvision`
 --
 ALTER TABLE `subvision`
-  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=643;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=644;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -5763,14 +5786,6 @@ ALTER TABLE `users`
 ALTER TABLE `applications`
   ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`) ON DELETE CASCADE ON UPDATE RESTRICT;
-
---
--- Ограничения внешнего ключа таблицы `cells`
---
-ALTER TABLE `cells`
-  ADD CONSTRAINT `cells_ibfk_1` FOREIGN KEY (`id_application`) REFERENCES `applications` (`id_application`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `cells_ibfk_2` FOREIGN KEY (`id_column`) REFERENCES `columns` (`id_column`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `cells_ibfk_3` FOREIGN KEY (`id_criteria`) REFERENCES `criteria` (`id_criteria`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `criteria`
