@@ -100,6 +100,7 @@
                                             <tr>
                                                 <th>Вопрос</th>
                                                 <th>Ответ</th>
+						<th>Тип вопроса</th>
                                                 <th>Файл</th>
                                                 <th>Пользователь</th>
                                                 <th></th>
@@ -114,6 +115,7 @@
                                                 <tr  style="cursor: pointer; height: 100px;">
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
                                                     <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
+						    <td style="width: 20%;"><?= $app['type_question'] ?></td>
                                                     <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                     <td><?= $app['username'] ?></td>
                                                     <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('<?= $app['id_question'] ?>').value)">Ответить</button></td>
@@ -147,7 +149,7 @@
 
                                         $query = "SELECT * 
                                         FROM questions q 
-                                        left outer join users u on q.id_user =u.id_user 
+                                        left outer join users u on q.id_user =u.id_user where q.answer = '' or q.answer IS NULL
                                         ";
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -156,7 +158,11 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Вопросы</th>
+                                                  <th>Вопрос</th>
+                                                  <th>Ответ</th>
+                                                  <th>Тип вопроса</th>
+                                                  <th>Файл</th>
+                                                  <th>Пользователь</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -166,7 +172,11 @@
                                                 ?>
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer;">
-                                                    <td>от <?= $app['username'] ?></td>
+                                                      <td style="width: 20%;"><?= $app['question'] ?></td>
+                                                      <td style="width: 30%"><textarea style="width: 100%; height: 100%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5" ><?= $app['answer'] ?></textarea></td>
+                                                      <td style="width: 20%;"><?= $app['type_question'] ?></td>
+                                                      <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
+                                                      <td><?= $app['username'] ?></td>
                                                 </tr>
                                                 <?php
                                             }
@@ -197,7 +207,7 @@
 
                                         $query = "SELECT * 
                                         FROM questions q 
-                                        left outer join users u on q.id_user =u.id_user 
+                                        left outer join users u on q.id_user =u.id_user where q.answer != ''
                                         ";
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -206,7 +216,11 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Вопросы</th>
+                                                  <th>Вопрос</th>
+                                                  <th>Ответ</th>
+                                                  <th>Тип вопроса</th>
+                                                  <th>Файл</th>
+                                                  <th>Пользователь</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -216,7 +230,11 @@
                                                 ?>
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr style="cursor: pointer;">
-                                                    <td>от <?= $app['username'] ?></td>
+                                                      <td style="width: 20%;"><?= $app['question'] ?></td>
+                                                      <td style="width: 30%"><textarea style="width: 100%; height: 100%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5" ><?= $app['answer'] ?></textarea></td>
+                                                      <td style="width: 20%;"><?= $app['type_question'] ?></td>
+                                                      <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
+                                                      <td><?= $app['username'] ?></td>
                                                 </tr>
                                                 <?php
                                             }
@@ -242,7 +260,127 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="myModal">
+        <div class="modal-dialog modal-lg" style="max-width: none; margin: 0;">
+            <div class="modal-content">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Создание заявления</h4>
+                    <h4 id="id_application"></h4>
+                    <button type="button" class="btn  btn-danger btn-close" data-bs-dismiss="modal">x</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+
+
+
+                    <div class="col-md-12">
+                        <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
+                            <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
+                                <li class="nav-item" id="tab1" onclick="showTab(this)">
+                                    <button class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true" id = "button1" ;>Общие сведения о заявителе</button>
+                                </li>
+
+
+                                <!--                            ...-->
+                            </ul>
+                            <div class="d-md-block d-none">
+                                <!--                            <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
+                                <!--                            <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
+                            </div>
+                        </div>
+                        <div class="tab-content tab-transparent-content">
+                            <div class="tab-pane fade show active" id="tab1-" role="tabpanel" aria-labelledby="business-tab" >
+
+                                <div class="row">
+                                    <div class="col-6 grid-margin">
+                                        <div class="card">
+                                            <div class="card-body">
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 grid-margin">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
+
+                                                <form id="formSoprovodPismo">
+                                                    <div class="form-group" id = "divSoprovodPismo">
+                                                        <label for="soprPismo">Сопроводительное письмо</label>
+                                                        <input type="file" class="form-control-file" name="Name" id="soprPismo" content="">
+                                                    </div>
+                                                </form>
+
+                                                <form id="formCopyRaspisanie">
+                                                    <div class="form-group" id = "divCopyRaspisanie">
+                                                        <label for="copyRaspisanie" >Копия штатного расписания</label>
+                                                        <input type="file" class="form-control-file" name="Name" id="copyRaspisanie">
+                                                    </div>
+                                                </form>
+
+                                                <form id="formOrgStrukt" >
+                                                    <div class="form-group" id = "divOrgStrukt">
+                                                        <label for="orgStrukt">Организационная структура</label>
+                                                        <input type="file" class="form-control-file" id="orgStrukt">
+                                                    </div>
+                                                </form>
+
+                                                <form id="formFileReportSamoocenka" >
+                                                    <div class="form-group " id = "divFileReportSamoocenka">
+                                                        <label for="reportSamoocenka">Результат самооценки</label>
+                                                        <input type="file" class="form-control-file" id="reportSamoocenka">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="card-body" id="mainRightCard">
+
+                                            </div>
+                                            <form id="formReport" >
+                                                <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
+                                                    <input type="file" class="form-control-file hiddentab" id="fileReport" >
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%">
+                                        <div style="display:flex; justify-content: flex-end;">
+                                            <button type="submit" class="btn btn-warning btn-fw" id="btnSuc" >Сохранить</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
+                    <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+                    <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Результат самооценки</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <script>
 
