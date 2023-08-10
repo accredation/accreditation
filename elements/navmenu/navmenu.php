@@ -29,7 +29,7 @@
             </li>
                   <?php
               }
-              else if($row['id_role'] !== 3){
+              else if(($row['id_role'] < 3) || ($row['id_role'] > 3 && $row['id_role'] < 12)){
                   ?>
               <li class="nav-item" id="nav5">
                   <a class="nav-link" href="/index.php?users" >
@@ -71,7 +71,7 @@
             if (mysqli_num_rows($result) == 1) //если получена одна строка
             {
             $row = mysqli_fetch_assoc($result);
-            if($row['id_role'] == 3){?>
+            if($row['id_role'] == 12){?>
             <li class="nav-item" id="nav6">
             <a class="nav-link"  href="/index.php?support" >
               <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>

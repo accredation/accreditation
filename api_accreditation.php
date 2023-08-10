@@ -153,7 +153,7 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3){
+                                        if ($role > 3 && $role < 12){
                                             $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
@@ -234,7 +234,7 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3){
+                                        if ($role > 3 && $role < 12){
                                             $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
@@ -306,7 +306,7 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3){
+                                        if ($role > 3 && $role < 12){
                                             $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
@@ -378,7 +378,7 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3){
+                                        if ($role > 3 && $role < 12){
                                             $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
