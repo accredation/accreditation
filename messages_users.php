@@ -115,7 +115,7 @@
                                                 <tr  style="cursor: pointer; height: 100px;">
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
                                                     <td style="width: 30%" onblur="sendAnswerQuestion('<?= $app['id_question'] ?>', this.value)" rows="5"> <?= $app['answer'] ?></td>
-                                                    <td><a href="documents/Вопросы/<?= $app['file'] ?>" target="_blank">файл</a></td>
+                                                    <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                     <td style="width: 20%;"><?= $app['type_question'] ?></td>
 
 
