@@ -269,7 +269,7 @@
                         include 'messages_users.php';
                         break;
                     case 'tasks_accred':
-                        include 'tasks_accred.php';
+                        include 'modules/accred_tasks/tasks_accred.php';
                         break;
                 }
             }

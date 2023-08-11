@@ -194,11 +194,13 @@
                 $query = "SELECT * FROM `questions` where important  = 1";
                 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                $i=0;
                 foreach ($data as $app) {
+                    $i++;
                 ?>
                 <div class="faq">
                     <div class="question" style="cursor: pointer">
-                        <p><?= $app['id_question']?>. <span>   <?= $app['question']?></span></p>
+                        <p><?= $i?>. <span>   <?= $app['question']?></span></p>
                         <div class="content1"><?= $app['answer']?></div>
                     </div>
                 </div>
