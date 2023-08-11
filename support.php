@@ -121,7 +121,12 @@
                                                     <td><?= $app['username'] ?></td>
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
                                                     <td style="width: 20%;"><?= $app['date_question'] ?></td>
-                                                    <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
+                                                    <td style="width: 30%"> <?php if (!empty($app['answer'])) { ?>
+                                                            <textarea style="width: 100%; height: 100%" id="<?= $app['id_question'] ?>" rows="5" disabled><?= $app['answer'] ?></textarea>
+                                                        <?php } else { ?>
+                                                            <textarea style="width: 100%; height: 100%" id="<?= $app['id_question'] ?>" rows="5"><?= $app['answer'] ?></textarea>
+                                                        <?php } ?>
+                                                    </td>
 						                            <td style="width: 20%;"><?= $app['date_answer'] ?></td>
 						                            <td style="width: 20%;"><?= $app['type_question'] ?></td>
                                                     <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
