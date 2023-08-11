@@ -29,28 +29,27 @@
             </li>
                   <?php
               }
-              else if(($row['id_role'] < 3) || ($row['id_role'] > 3 && $row['id_role'] < 12)){
+              else if(($row['id_role'] < 3) || ($row['id_role'] > 3 && $row['id_role'] < 12))
+              {
+                  if($row['id_role'] == 2)
+                  {
                   ?>
+                      <li class="nav-item" id="nav7">
+                          <a class="nav-link" href="/index.php?tasks_accred" >
+                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                              <span class="menu-title">Задачи</span>
+                          </a>
+                      </li>
+                      <?php
+              }?>
               <li class="nav-item" id="nav5">
                   <a class="nav-link" href="/index.php?users" >
                       <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
                       <span class="menu-title">Заявки</span>
                   </a>
               </li>
-              <?php
-              }
-
-              else if($row['id_role'] == 2){
-                  ?>
-                  <li class="nav-item" id="nav7">
-                      <a class="nav-link" href="/index.php?tasks_accred" >
-                          <span class="icon-bg"><i class="mdi mdi-calendar-check-outline menu-icon"></i></span>
-                          <span class="menu-title">Задачи</span>
-                      </a>
-                  </li>
                   <?php
               }
-
               }
               }
               ?>

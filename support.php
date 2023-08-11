@@ -131,8 +131,11 @@
 						                            <td style="width: 20%;"><?= $app['type_question'] ?></td>
                                                     <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
 
-                                                    <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('<?= $app['id_question'] ?>').value)">Ответить</button></td>
-
+                                                    <?php if (empty($app['answer'])) { ?>
+                                                        <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('<?= $app['id_question'] ?>').value)">Ответить</button></td>
+                                                    <?php } else { ?>
+                                                        <td><button class="btn btn-success btn-fw" disabled>Ответить</button></td>
+                                                    <?php } ?>
                                                 </tr>
                                                 <?php
                                             }
