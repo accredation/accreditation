@@ -268,6 +268,9 @@
                     case 'messages_users':
                         include 'messages_users.php';
                         break;
+                    case 'tasks_accred':
+                        include 'tasks_accred.php';
+                        break;
                 }
             }
             else{

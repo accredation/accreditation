@@ -39,6 +39,18 @@
               </li>
               <?php
               }
+
+              else if($row['id_role'] == 2){
+                  ?>
+                  <li class="nav-item" id="nav7">
+                      <a class="nav-link" href="/index.php?tasks_accred" >
+                          <span class="icon-bg"><i class="mdi mdi-calendar-check-outline menu-icon"></i></span>
+                          <span class="menu-title">Задачи</span>
+                      </a>
+                  </li>
+                  <?php
+              }
+
               }
               }
               ?>
@@ -97,6 +109,7 @@
     let nav4 = document.getElementById("nav4");
     let nav5 = document.getElementById("nav5");
     let nav6 = document.getElementById("nav6");
+    let nav7 = document.getElementById("nav7");
 
 
     switch(url){
@@ -117,7 +130,10 @@
             break;
         case "/index.php?support":
             nav6.className = "nav-item active";
-            break;    
+            break;
+        case "/index.php?tasks_accred":
+            nav7.className = "nav-item active";
+            break;
         default:
             nav1.className = "nav-item active";
             break;
