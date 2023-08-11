@@ -83,7 +83,7 @@
                             <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Завершена оценка</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Отклоненные</a>
+                            <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">На доработке</a>
                         </li>
                     </ul>
                     <div class="d-md-block d-none">
@@ -683,10 +683,10 @@
                     <!--                <form action="getApplication.php" method="post">-->
                     <!--                    <input type="text" name="count" id="count"/>-->
                     <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">Проверяется</button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение</button>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
 
-                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">Отклонить</button>
+                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
                     <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия</button>
