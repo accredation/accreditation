@@ -85,7 +85,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                       <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Завершена оценка</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Отклоненные</a>
+                      <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">На доработке</a>
                     </li>
                   </ul>
                   <div class="d-md-block d-none">

@@ -52,12 +52,12 @@
         display: flex;
         margin-bottom: 20px;
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: 0.8rem;
     }
 
     .chart-wrapper .chart-values li {
         flex: 1;
-        min-width: 80px;
+        min-width: 50px;
         text-align: center;
     }
 
@@ -121,132 +121,86 @@
                 <div class="col-12 grid-margin">
                     <div class="card">
                         <div class="card-body">
-                            <?php
-                            $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+
+                            <table border="1" style="border-color: #dee2e6">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+
+                                <?php
+                                $query = "SELECT a.*, u.username, s.name_status, ram.*, a.id_application as app_id
                                                                 FROM applications a
+                                                                left outer join status s on a.id_status=s.id_status    
                                                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                                                 left outer join users u on a.id_user =u.id_user 
                                                                 
-                                                                where id_status = 3";
-                            $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                            for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                                                where a.id_status = 3";
+                                $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
                                 foreach ($data as $app) {
                                     ?>
-                                    <div class="faq">
-                                        <div class="question" id="<?= $app['app_id']?>" >
-                                            <div style="display: flex">
-                                                <div onclick="collaps(this)" id_app="<?= $app['app_id']?>" style="font-size: 1rem;cursor: pointer;width: 18rem" >   <?= $app['username']?> №<?= $app['app_id'] ?></div>
-                                                <div style="padding-right: 1rem; padding-left: 1rem">Статус</div>
-                                                <div style="padding-right: 1rem">дата подачи</div>
-                                                <div style="padding-right: 1rem">ФИО ответственного</div>
-                                                <div style="padding-right: 1rem">Начало</div>
-                                                <div style="padding-right: 1rem">Завершение</div>
-                                                <div style="padding-right: 1rem">Совет</div>
-                                                <div style="padding-right: 1rem">Прогресс</div>
-
-                                            </div>
-
-                                            <?php
-                                            $id_app = $app['app_id'];
-                                            $query1 = "SELECT * FROM subvision where id_application = '$id_app'";
-                                            $result1=mysqli_query($con, $query1) or die ( mysqli_error($con));
-                                            for ($data1 = []; $row1 = mysqli_fetch_assoc($result1); $data1[] = $row1);
-
-                                            foreach ($data1 as $app1) {
-                                            ?>
-                                            <div class="content1" style="margin-left:2rem; margin-top: 1rem">
-                                                <div><?= $app1['name']?></div>
-                                                <div style="padding-right: 1rem; padding-left: 1rem">Статус</div>
-                                                <div style="padding-right: 1rem">дата подачи</div>
-                                                <div style="padding-right: 1rem">ФИО ответственного</div>
-                                                <div style="padding-right: 1rem">Начало</div>
-                                                <div style="padding-right: 1rem">Завершение</div>
-                                                <div style="padding-right: 1rem">Совет</div>
-                                                <div style="padding-right: 1rem">Прогресс</div>
-                                                <div style="padding-right: 1rem">Тайм лайн</div>
-
-                                            </div>
-                                            <?php
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
-
+                                    <tr class="question" id="<?= $app['app_id']?>" >
+                                        <td onclick="collapsTable(<?= $app['app_id']?>)" style="cursor: pointer" ><?= $app['username']?> №<?= $app['app_id'] ?></td>
+                                        <td><?= $app['name_status']?></td>
+                                        <td><?= $app['date_send']?></td>
+                                        <td>FIO otvetstennogo</td>
+                                        <td>data_work_begin</td>
+                                        <td>data_work_end</td>
+                                        <td>data_sovet</td>
+                                        <td>progress</td>
+                                    </tr>
+                                    <tr id="hidden_<?= $app['app_id']?>"  class="content1" style="margin-left:2rem; margin-top: 1rem;" >
+                                        <td>sub</td>
+                                        <td>status</td>
+                                        <td>date_send</td>
+                                        <td>FIO otvetstennogo</td>
+                                        <td>data_work_begin</td>
+                                        <td>data_work_end</td>
+                                        <td>data_sovet</td>
+                                        <td>progress</td>
+                                    </tr>
                                     <?php
                                 }
                                 ?>
-                         </div>
+
+
+                                </tbody>
+                            </table>
+
+
+
                     </div>
                 </div>
 
         </div>
-        <div class = "row">
-            <div >
-
-
-            </div>
         <div class="chart-wrapper" style="width: 100%; overflow: auto" >
 
             <ul class="chart-values">
-                <li>01.08</li>
-                <li>02.08</li>
-                <li>03.08</li>
-                <li>04.08</li>
-                <li>05.08</li>
-                <li>06.08</li>
-                <li>07.08</li>
 
-                <li>08.08</li>
-                <li>09.08</li>
-                <li>10.08</li>
-                <li>11.08</li>
-                <li>12.08</li>
-                <li>13.08</li>
-                <li>14.08</li>
-
-
-                <li>15.08</li>
-                <li>16.08</li>
-                <li>17.08</li>
-                <li>18.08</li>
-                <li>19.08</li>
-                <li>20.08</li>
-                <li>21.08</li>
-
-
-                <li>22.08</li>
-                <li>23.08</li>
-                <li>24.08</li>
-                <li>25.08</li>
-                <li>26.08</li>
-                <li>27.08</li>
-                <li>28.08</li>
-                <li>29.08</li>
-                <li>30.08</li>
-                <li>31.08</li>
-                <li>01.09</li>
             </ul>
 
             <div style="display: flex; position: relative; z-index: 100; top:-25px">
                 <ul class="chart-bars visib"  id = "nowDate" style="margin: 0">
-                    <li data-duration="13.08-13.08" data-color="red"
+                    <li data-duration="30.08-30.08" data-color="red" id = "nowDateli"
                         style="margin: 0; position: absolute; padding: 1px;  width: 0; height: 0px; z-index: 1"></li>
                 </ul>
             </div>
 
             <div id="mytask" style="width: fit-content">
                 <ul class="chart-bars hidden"  id = "ul48" >
-                    <li data-duration="02.08-31.08" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Task11</li>
+                    <li data-duration="02.08-30.08" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Task11</li>
 
                 </ul>
                 <ul class="chart-bars hidden"  id = "ul50">
                     <li data-duration="03.08-05.08" data-color="#4464a1" style="padding: 5px 10px">Task12</li>
-                    <li data-duration="06.08-06.08" data-color="#6a478f" style="padding: 5px 10px" >Совет</li>
+                    <li data-duration="06.08-06.08" data-color="#6a478f" style="padding: 5px 10px" ></li>
                 </ul>
                 <ul class="chart-bars hidden" id = "ul52">
                     <li data-duration="10.08-12.08" data-color="#4464a1" style="padding: 5px 10px">Task13</li>
-                    <li data-duration="19.08-19.08" data-color="#6a478f" style="padding: 5px 10px" >Совет</li>
+                    <li data-duration="19.08-19.08" data-color="#6a478f" style="padding: 5px 10px" ></li>
                 </ul>
 
 
@@ -255,9 +209,9 @@
 
 
         </div>
-        </div>
 
 
+    </div>
     </div>
 
 <!---->
@@ -280,7 +234,13 @@
 <!--    <li data-duration="06.08-06.08" data-color="#e03f3f" > Task23</li>-->
 <!--</ul>-->
 
+
 <script>
+    let day = new Date("2023-10-01");
+    day.setDate(day.getDate());
+    day = day.toLocaleDateString().slice(0, 5);
+    let nowdateli = document.getElementById("nowDateli");
+    nowdateli.setAttribute("data-duration", day+"-"+day);
 
     function createChart(e) {
         const days = document.querySelectorAll(".chart-values li");
@@ -354,7 +314,7 @@
                         width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth - left - 30;
                         if(index ===0) {
                             width = 0;
-                            left = left+ 40;
+                            left = left+ 25;
                         }
                     }
                     widthPrev = width;
@@ -408,10 +368,8 @@
 
     function collaps(el){
         let id_app = el.getAttribute("id_app");
-        console.log(id_app);
 
         let myUl = document.getElementById("ul"+id_app);
-        console.log(myUl);
         if(myUl.classList.contains("hidden")){
             myUl.classList.remove("hidden");
             myUl.classList.add("visib");
@@ -427,7 +385,6 @@
         //     myUl.style = "display: none;";
         // }
 
-        console.log(el.parentElement.parentElement.getElementsByClassName('content1'));
       //  el.parent().find('.content1').toggle(200); //скрытие, показ ответа
         if (el.parentElement.parentElement.classList.contains('open')) {
             el.parentElement.parentElement.classList.remove('open');
@@ -443,12 +400,92 @@
 
         let ulhline = document.getElementById("nowDate");
         let hline = ulhline.getElementsByTagName("li")[0];
-        console.log(hline);
 
         let mytask = document.getElementById("mytask");
-        console.log("height: ", mytask.offsetHeight);
         hline.style.height = (mytask.offsetHeight + 20).toString()+'px';
+        //
+        // let dateAt = new Date('2023-01-01');
+        // let dateTo = new Date('2023-01-04');
+        //
+        // while(dateAt < dateTo){
+        //     console.log(dateAt.toLocaleDateString().slice(0,5));
+        //     dateAt.setDate(dateAt.getDate() + 1);
+        // }
+        //
+        //
+        // console.log(dateAt.toLocaleDateString());
+        // console.log(dateAt.getDay());
+
+
     }
+
+
+    function collapsTable(id){
+        let myUl = document.getElementById("ul"+id);
+        if(myUl.classList.contains("hidden")){
+            myUl.classList.remove("hidden");
+            myUl.classList.add("visib");
+        }
+        else{
+            myUl.classList.remove("visib");
+            myUl.classList.add("hidden");
+        }
+
+       // console.log(el);
+       // let parent = el.parentElement;
+        let parent = document.getElementById(`${id}`);
+        let hidden = document.getElementById(`hidden_${id}`);
+
+        let table = parent.parentElement;
+
+        let arrEl = [...table.getElementsByClassName('question')];
+        if(arrEl.length>0){
+            arrEl.forEach((item)=> {
+                if((item.classList.contains('open') && (item.id != id ) )){
+                    item.classList.remove('open');
+                    document.getElementById(`hidden_${item.id}`).style='display:none';
+
+                    document.getElementById("ul"+item.id).classList.remove("visib");
+                    document.getElementById("ul"+item.id).classList.add("hidden");
+
+                }
+            } );
+        }
+
+        if(parent.classList.contains('open')){
+            parent.classList.remove('open');
+            hidden.style='display:none';
+        } else {
+            parent.classList.add('open');
+            hidden.style='display:contents';
+        }
+
+
+
+//        console.log(hidden);
+
+
+        // if (el.parentElement.parentElement.classList.contains('open')) {
+        //     el.parentElement.parentElement.classList.remove('open');
+        //     let arrEl = [...el.parentElement.parentElement.getElementsByClassName('content1')];
+        //     arrEl.forEach((item)=>item.style='display:none');
+        // } else {
+        //     el.parentElement.parentElement.classList.add('open');
+        //     //  el.parentElement.style='animation-timing-function: linear; cursor: pointer';
+        //     let arrEl = [...el.parentElement.parentElement.getElementsByClassName('content1')];
+        //     arrEl.forEach((item)=>item.style='display:flex; margin-left:2rem; margin-top: 1rem');
+        // };
+
+
+        let ulhline = document.getElementById("nowDate");
+        let hline = ulhline.getElementsByTagName("li")[0];
+
+        let mytask = document.getElementById("mytask");
+        hline.style.height = (mytask.offsetHeight + 20).toString()+'px';
+
+    }
+
+
 
     //
     // $('.question').click(function() {
@@ -460,3 +497,44 @@
     //     };
     // });
 </script>
+
+        <script>
+            //скрипт формируем даты
+            var startDate = new Date('2023-08-01'); // текущая дата yy mm dd
+            var endDate = new Date('2023-10-31'); // конечная дата
+            // startDate.setMonth(startDate.getMonth()-2);
+            // endDate.setMonth(endDate.getMonth() + 2); // добавляем 2 мес
+
+            var currentDate = startDate;
+            while (currentDate <= endDate) {
+                // получаем дату в формате
+
+                var date = currentDate.toLocaleDateString().slice(0,5);
+
+                //  в список
+                var li = document.createElement('li');
+                li.textContent = date;
+                li.id = date; // добавляем id
+
+                document.querySelector('.chart-values').appendChild(li);
+
+                // увеличиваем тек дату на 1
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+        </script>
+
+        <script>
+
+            var targetElement = document.getElementById(day);
+            window.onload = () =>{
+
+                console.log(nowdateli.getAttribute("data-duration"));
+                // Проверяем, находится ли элемент в видимой области экрана
+                if (!targetElement.getBoundingClientRect().top >= 0 && targetElement.getBoundingClientRect().bottom <= window.innerHeight) {
+                    targetElement.scrollIntoViewIfNeeded({block: "center", behavior: "smooth"});
+                }
+                console.log(day);
+            }
+
+        </script>
