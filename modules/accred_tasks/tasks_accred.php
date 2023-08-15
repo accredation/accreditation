@@ -66,53 +66,6 @@
         position: relative;
     }
 
-    .chart-wrapper .chart-values li:not(:last-child)::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        height: 100%;
-        border-right: 1px solid var(--divider);
-    }
-
-
-    /* CHART-BARS
-    –––––––––––––––––––––––––––––––––––––––––––––––––– */
-    .chart-wrapper .chart-bars li {
-        position: relative;
-        color: var(--white);
-        margin-bottom: 15px;
-        font-size: 12px;
-        border-radius: 20px;
-        padding: 5px 20px;
-        width: 0;
-        opacity: 0;
-        transition: all 0.65s linear 0.2s;
-    }
-
-    .chart-wrapper .chart-barsV{
-        display: flex;
-
-    }
-
-    @media screen and (max-width: 600px) {
-        .chart-wrapper .chart-bars li {
-            padding: 10px;
-        }
-    }
-
-
-    /* FOOTER
-    –––––––––––––––––––––––––––––––––––––––––––––––––– */
-    .page-footer {
-        font-size: 0.85rem;
-        padding: 10px;
-        text-align: right;
-        color: var(--black);
-    }
-
-    .page-footer span {
-        color: #e31b23;
-    }
 </style>
     <div class="content-wrapper">
 
@@ -130,20 +83,21 @@
 
 
                                 <?php
-                                $query = "SELECT a.*, u.username, s.name_status, ram.*, a.id_application as app_id
+                                $query = "SELECT a.*, u.username, s.name_status, a.id_application as app_id
                                                                 FROM applications a
                                                                 left outer join status s on a.id_status=s.id_status    
-                                                               left outer join report_application_mark ram on a.id_application=ram.id_application
                                                                 left outer join users u on a.id_user =u.id_user 
                                                                 
+
                                                                 where a.id_status = 3";
                                 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
                                 foreach ($data as $app) {
+                                    $app_id = $app['app_id'];
                                     ?>
-                                    <tr class="question" id="<?= $app['app_id']?>" >
-                                        <td onclick="collapsTable(<?= $app['app_id']?>)" style="cursor: pointer" ><?= $app['username']?> №<?= $app['app_id'] ?></td>
+                                    <tr class="question" id="<?= $app_id?>" >
+                                        <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer" ><?= $app['username']?> №<?= $app_id ?></td>
                                         <td><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
                                         <td>FIO otvetstennogo</td>
@@ -152,16 +106,78 @@
                                         <td>data_sovet</td>
                                         <td>progress</td>
                                     </tr>
-                                    <tr id="hidden_<?= $app['app_id']?>"  class="content1" style="margin-left:2rem; margin-top: 1rem;" >
-                                        <td>sub</td>
-                                        <td>status</td>
-                                        <td>date_send</td>
-                                        <td>FIO otvetstennogo</td>
-                                        <td>data_work_begin</td>
-                                        <td>data_work_end</td>
-                                        <td>data_sovet</td>
-                                        <td>progress</td>
-                                    </tr>
+                                    <?php
+                                    $query1 = "SELECT s.id_subvision, `name`, CONCAT(IFNULL(count_crit_complit.countt,0), '/', IFNULL(count_crit.countt,0)) as progress
+                                                FROM subvision s  
+                                                left outer join (SELECT count(*) as countt, rc.id_subvision 
+                                                FROM `rating_criteria` rc
+                                                left outer join subvision s on rc.id_subvision=s.id_subvision
+                                                WHERE id_application='$app_id' and rc.status=1
+                                                group by rc.id_subvision 
+                                                    ) count_crit_complit on s.id_subvision=count_crit_complit.id_subvision
+                                                
+                                                
+                                                left outer join (SELECT count(*) as countt, rc.id_subvision 
+                                                FROM `rating_criteria` rc
+                                                left outer join subvision s on rc.id_subvision=s.id_subvision
+                                                WHERE id_application='$app_id'
+                                                group by rc.id_subvision 
+                                                    ) count_crit on s.id_subvision=count_crit.id_subvision
+                                                    
+                                                where id_application = '$app_id'";
+                                    $result1=mysqli_query($con, $query1) or die ( mysqli_error($con));
+                                    for ($data1 = []; $row = mysqli_fetch_assoc($result1); $data1[] = $row);
+
+                                    foreach ($data1 as $app1) {
+                                        $id_subvision = $app1['id_subvision'];
+                                    ?>
+                                        <tr  class="content1 hidden_<?= $app_id?> fill_sub" style="margin-left:2rem; margin-top: 1rem; background-color: lightslategrey" >
+                                            <td><?= $app1['name']?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>FIO otvetstennogo</td>
+                                            <td>data_work_begin</td>
+                                            <td>data_work_end</td>
+                                            <td></td>
+                                            <td><?= $app1['progress']?></td>
+
+                                        </tr>
+
+
+                                        <?php
+                                        $query2 = "SELECT id_rating_criteria,  CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, status, date_complete
+                                                                FROM rating_criteria rc
+                                                                left outer join criteria c on rc.id_criteria=c.id_criteria 
+                                                                left outer join conditions con on c.conditions_id=con.conditions_id
+                                                                where rc.id_subvision = '$id_subvision'
+                                                                order by name_criteria
+                                                                ";
+                                        $result2=mysqli_query($con, $query2) or die ( mysqli_error($con));
+                                        for ($data2 = []; $row = mysqli_fetch_assoc($result2); $data2[] = $row);
+
+                                        foreach ($data2 as $app2) {
+
+                                            ?>
+                                            <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
+                                                <td style="max-width: 400px"><?= $app2['name_criteria']?></td>
+                                                <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
+                                                <td></td>
+                                                <td>FIO otvetstennogo</td>
+                                                <td>data_work_begin</td>
+                                                <td>data_work_end</td>
+                                                <td></td>
+                                                <td><?= $app2['status'] ==1 ? $app2['date_complete'] : '' ?> </td>
+
+                                            </tr>
+
+
+
+
+                                        <?php }?>
+
+
+
+                                    <?php }?>
                                     <?php
                                 }
                                 ?>
@@ -214,327 +230,6 @@
     </div>
     </div>
 
-<!---->
-<!--<ul class="chart-bars">-->
-<!--    <li data-duration="tue½-wed" data-color="#b03532">Task1</li>-->
-<!--    <li data-duration="wed-sat" data-color="#33a8a5">Task2</li>-->
-<!--                   <li data-duration="01.08-06.08" data-color="#30997a">Task</li>-->
-<!--                   <li data-duration="06.08-06.08" data-color="#4464a1">дата совета</li>-->
-<!--    <li data-duration="tue½-thu" data-color="#6a478f">Task3</li>-->
-<!--    <li data-duration="mon-tue½" data-color="#da6f2b">Task4</li>-->
-<!--    <li data-duration="wed-wed" data-color="#3d8bb1">Task5</li>-->
-<!--    <li data-duration="thu-06.08½" data-color="#e03f3f">Task6</li>-->
-<!--    <li data-duration="01.08½-wed½" data-color="#59a627">Task7</li>-->
-<!--    <li data-duration="06.08-sat" data-color="#4464a1">Task8</li>-->
-<!--    <li data-duration="01.08-06.08" data-color="#4464a1">-->
-<!--        <span style="background-color: #148a8a">asd</span>-->
-<!--        <span style="background-color: #0c84ff">xcvb</span>-->
-<!--    </li>-->
-<!--    <li data-duration="01.08-01.08" data-color="#4464a1">Task11</li>-->
-<!--    <li data-duration="06.08-06.08" data-color="#e03f3f" > Task23</li>-->
-<!--</ul>-->
+<script src="modules/accred_tasks/tasks_accred.js"></script>
 
 
-<script>
-    let day = new Date("2023-10-01");
-    day.setDate(day.getDate());
-    day = day.toLocaleDateString().slice(0, 5);
-    let nowdateli = document.getElementById("nowDateli");
-    nowdateli.setAttribute("data-duration", day+"-"+day);
-
-    function createChart(e) {
-        const days = document.querySelectorAll(".chart-values li");
-        const tasks = document.querySelectorAll(".chart-bars li");
-        const tasks2 = document.querySelectorAll(".chart-barsV li ");
-        const daysArray = [...days];
-        let widthPrev = 0;
-        tasks.forEach((el,index) => {
-           // if(index!==0){
-                const duration = el.dataset.duration.split("-");
-                const startDay = duration[0];
-                const endDay = duration[1];
-                let left = 0,
-                    width = 0;
-
-                if(tasks[index-1] !== undefined) {
-                    if(el.nextElementSibling !== null){
-                        if (startDay.endsWith("½")) {
-                            const filteredArray = daysArray.filter(day => day.textContent == startDay.slice(0, -1));
-                            left = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2;
-                        } else {
-                            const filteredArray = daysArray.filter(day => day.textContent == startDay);
-                            left = filteredArray[0].offsetLeft;
-                        }
-
-                        if (endDay.endsWith("½")) {
-                            const filteredArray = daysArray.filter(day => day.textContent == endDay.slice(0, -1));
-                            width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2 - left - 10;
-                        } else {
-                            const filteredArray = daysArray.filter(day => day.textContent == endDay);
-
-                                width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth - left - 30;
-
-                        }
-                        widthPrev = width;
-                    }
-                    else {
-                        if (startDay.endsWith("½")) {
-                            const filteredArray = daysArray.filter(day => day.textContent == startDay.slice(0, -1));
-                            left = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2;
-                        } else {
-                            const filteredArray = daysArray.filter(day => day.textContent == startDay);
-                            left = filteredArray[0].offsetLeft - widthPrev;
-                        }
-
-                        if (endDay.endsWith("½")) {
-                            const filteredArray = daysArray.filter(day => day.textContent == endDay.slice(0, -1));
-                            width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2 - left - 10;
-                        } else {
-                            const filteredArray = daysArray.filter(day => day.textContent == endDay);
-
-                            width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth - left - 30 - widthPrev;
-
-                        }
-                    }
-
-                } else {
-                    if (startDay.endsWith("½")) {
-                        const filteredArray = daysArray.filter(day => day.textContent == startDay.slice(0, -1));
-                        left = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2;
-                    } else {
-                        const filteredArray = daysArray.filter(day => day.textContent == startDay);
-                        left = filteredArray[0].offsetLeft;
-                    }
-
-                    if (endDay.endsWith("½")) {
-                        const filteredArray = daysArray.filter(day => day.textContent == endDay.slice(0, -1));
-                        width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2 - left - 10;
-                    } else {
-                        const filteredArray = daysArray.filter(day => day.textContent == endDay);
-                        width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth - left - 30;
-                        if(index ===0) {
-                            width = 0;
-                            left = left+ 25;
-                        }
-                    }
-                    widthPrev = width;
-                }
-
-                // apply css
-                el.style.left = `${left}px`;
-                el.style.width = `${width}px`;
-
-                // let dd = document.getElementById('mytask');
-                // console.log(dd);
-                // if(el.parentElement.id==='nowDate'){
-                //     el.style.width = '1px';
-                //     el.style.height = dd.style.height;
-                //     el.style.padding = '0';
-                //
-                // }
-
-                if (e.type == "load") {
-                    el.style.backgroundColor = el.dataset.color;
-                    el.style.opacity = 1;
-                }
-            // } else {
-            //     const duration = el.dataset.duration.split("-");
-            //     const startDay = duration[0];
-            //     const endDay = duration[1];
-            //
-            //     const filteredArray1 = daysArray.filter(day => day.textContent == startDay);
-            //     let left = filteredArray1[0].offsetLeft;
-            //     let  width = 5;
-            //
-            //     el.style.left = `${left}px`;
-            //     el.style.width = `${width}px`;
-            //     el.style.height = '100px';
-            //
-            //     console.log('123');
-            // }
-
-
-
-        });
-
-
-
-    }
-    window.addEventListener("load", createChart);
-    window.addEventListener("resize", createChart);
-
-
-
-
-    function collaps(el){
-        let id_app = el.getAttribute("id_app");
-
-        let myUl = document.getElementById("ul"+id_app);
-        if(myUl.classList.contains("hidden")){
-            myUl.classList.remove("hidden");
-            myUl.classList.add("visib");
-        }
-        else{
-            myUl.classList.remove("visib");
-            myUl.classList.add("hidden");
-        }
-
-        // if(myUl.style === "display: none;") {
-        //
-        // }else{
-        //     myUl.style = "display: none;";
-        // }
-
-      //  el.parent().find('.content1').toggle(200); //скрытие, показ ответа
-        if (el.parentElement.parentElement.classList.contains('open')) {
-            el.parentElement.parentElement.classList.remove('open');
-            let arrEl = [...el.parentElement.parentElement.getElementsByClassName('content1')];
-            arrEl.forEach((item)=>item.style='display:none');
-        } else {
-            el.parentElement.parentElement.classList.add('open');
-           //  el.parentElement.style='animation-timing-function: linear; cursor: pointer';
-           let arrEl = [...el.parentElement.parentElement.getElementsByClassName('content1')];
-            arrEl.forEach((item)=>item.style='display:flex; margin-left:2rem; margin-top: 1rem');
-        };
-
-
-        let ulhline = document.getElementById("nowDate");
-        let hline = ulhline.getElementsByTagName("li")[0];
-
-        let mytask = document.getElementById("mytask");
-        hline.style.height = (mytask.offsetHeight + 20).toString()+'px';
-        //
-        // let dateAt = new Date('2023-01-01');
-        // let dateTo = new Date('2023-01-04');
-        //
-        // while(dateAt < dateTo){
-        //     console.log(dateAt.toLocaleDateString().slice(0,5));
-        //     dateAt.setDate(dateAt.getDate() + 1);
-        // }
-        //
-        //
-        // console.log(dateAt.toLocaleDateString());
-        // console.log(dateAt.getDay());
-
-
-    }
-
-
-    function collapsTable(id){
-        let myUl = document.getElementById("ul"+id);
-        if(myUl.classList.contains("hidden")){
-            myUl.classList.remove("hidden");
-            myUl.classList.add("visib");
-        }
-        else{
-            myUl.classList.remove("visib");
-            myUl.classList.add("hidden");
-        }
-
-       // console.log(el);
-       // let parent = el.parentElement;
-        let parent = document.getElementById(`${id}`);
-        let hidden = document.getElementById(`hidden_${id}`);
-
-        let table = parent.parentElement;
-
-        let arrEl = [...table.getElementsByClassName('question')];
-        if(arrEl.length>0){
-            arrEl.forEach((item)=> {
-                if((item.classList.contains('open') && (item.id != id ) )){
-                    item.classList.remove('open');
-                    document.getElementById(`hidden_${item.id}`).style='display:none';
-
-                    document.getElementById("ul"+item.id).classList.remove("visib");
-                    document.getElementById("ul"+item.id).classList.add("hidden");
-
-                }
-            } );
-        }
-
-        if(parent.classList.contains('open')){
-            parent.classList.remove('open');
-            hidden.style='display:none';
-        } else {
-            parent.classList.add('open');
-            hidden.style='display:contents';
-        }
-
-
-
-//        console.log(hidden);
-
-
-        // if (el.parentElement.parentElement.classList.contains('open')) {
-        //     el.parentElement.parentElement.classList.remove('open');
-        //     let arrEl = [...el.parentElement.parentElement.getElementsByClassName('content1')];
-        //     arrEl.forEach((item)=>item.style='display:none');
-        // } else {
-        //     el.parentElement.parentElement.classList.add('open');
-        //     //  el.parentElement.style='animation-timing-function: linear; cursor: pointer';
-        //     let arrEl = [...el.parentElement.parentElement.getElementsByClassName('content1')];
-        //     arrEl.forEach((item)=>item.style='display:flex; margin-left:2rem; margin-top: 1rem');
-        // };
-
-
-        let ulhline = document.getElementById("nowDate");
-        let hline = ulhline.getElementsByTagName("li")[0];
-
-        let mytask = document.getElementById("mytask");
-        hline.style.height = (mytask.offsetHeight + 20).toString()+'px';
-
-    }
-
-
-
-    //
-    // $('.question').click(function() {
-    //     $(this).find('.content1').toggle(200); //скрытие, показ ответа
-    //     if ($(this).hasClass('open')) {
-    //         $(this).removeClass('open');
-    //     } else {
-    //         $(this).addClass('open');
-    //     };
-    // });
-</script>
-
-        <script>
-            //скрипт формируем даты
-            var startDate = new Date('2023-08-01'); // текущая дата yy mm dd
-            var endDate = new Date('2023-10-31'); // конечная дата
-            // startDate.setMonth(startDate.getMonth()-2);
-            // endDate.setMonth(endDate.getMonth() + 2); // добавляем 2 мес
-
-            var currentDate = startDate;
-            while (currentDate <= endDate) {
-                // получаем дату в формате
-
-                var date = currentDate.toLocaleDateString().slice(0,5);
-
-                //  в список
-                var li = document.createElement('li');
-                li.textContent = date;
-                li.id = date; // добавляем id
-
-                document.querySelector('.chart-values').appendChild(li);
-
-                // увеличиваем тек дату на 1
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
-
-        </script>
-
-        <script>
-
-            var targetElement = document.getElementById(day);
-            window.onload = () =>{
-
-                console.log(nowdateli.getAttribute("data-duration"));
-                // Проверяем, находится ли элемент в видимой области экрана
-                if (!targetElement.getBoundingClientRect().top >= 0 && targetElement.getBoundingClientRect().bottom <= window.innerHeight) {
-                    targetElement.scrollIntoViewIfNeeded({block: "center", behavior: "smooth"});
-                }
-                console.log(day);
-            }
-
-        </script>

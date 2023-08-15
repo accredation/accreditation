@@ -656,30 +656,31 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                <form action="getApplication.php" method="post">-->
 <!--                    <input type="text" name="count" id="count"/>-->
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
-                <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
-                <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
-                <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Результат самооценки</button>
+
+             <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
+             <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+             <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Результат самооценки</button>
 <!--                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>-->
 
 <!--                </form>-->
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
-            </div>
+             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+         </div>
 
-        </div>
-    </div>
+     </div>
+ </div>
 </div>
 
 <script>
 
-    $(document).ready(function () {
+ $(document).ready(function () {
 
-        // var files;
-        // $('#pril1').change(function(){
-        //     files = this.files;
-        // });
+     // var files;
+     // $('#pril1').change(function(){
+     //     files = this.files;
+     // });
 
 
-    });
+ });
 </script>
 
 

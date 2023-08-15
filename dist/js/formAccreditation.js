@@ -352,6 +352,13 @@ function createApplication(){
 
 
 function showModal(id_application, strMarks, strMarksAccred){
+    let homeTab = document.getElementById("home-tab");
+    let btnSend = document.getElementById("btnSend");
+    if(homeTab.classList.contains("active")){
+        if(btnSend.classList.contains("hiddentab")){
+            btnSend.classList.remove("hiddentab");
+        }
+    }
     let footer = document.getElementsByClassName("modal-footer")[0];
     if(footer.classList.contains('hiddentab')){
         footer.classList.remove('hiddentab');
@@ -1644,7 +1651,27 @@ function createAccordionCards(id_sub) {
                     
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
+                    let btnNotReady = document.createElement("button");
+                    btnNotReady.setAttribute("type", "submit");
+                    btnNotReady.className = "btn btn-light btn-fw";
+                    btnNotReady.id = "btnNotReady";
+                    btnNotReady.innerHTML = "Готово";
+                    btnNotReady.style = "float: right";
+                    btnNotReady.onclick = () => {
+                        //   id_sub
+                        //    id_criteria
+                        if(btnNotReady.innerHTML === "Готово") {
 
+                            btnNotReady.innerHTML = "Не готово";
+                            sendDataToServer(id_sub,id_criteria,1); // Update to 1
+                            console.log(id_criteria);
+                        } else {
+
+                            btnNotReady.innerHTML = "Готово";
+                            sendDataToServer(id_sub,id_criteria,0); // Update to 0
+                        }
+                    }
+                    divCardHeader.appendChild(btnNotReady);
                     divCardHeader.appendChild(divCardHeaderMark);
                     // let marks = JSON.parse(response);
 
@@ -2284,5 +2311,21 @@ $("#formReport").on("change", () =>{
     xhr.open("post", "postFileReport.php", true);
     xhr.send(form);
 });
+
+function sendDataToServer(id_sub,id_criteria, value) {
+
+    $.ajax({
+        url: "readyupdate.php",
+        method: "POST",
+        data: {id_sub: id_sub, id_criteria: id_criteria , value}
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
 
 

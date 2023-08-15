@@ -326,6 +326,17 @@ function createApplication(){
 }
 
 function showModal(id_application, strMarks, strMarksAccred){
+    let homeTab = document.getElementById("home-tab");
+    let btnSen = document.getElementById("btnSend");
+    let btnSu = document.getElementById("btnSuc");
+    if(homeTab.classList.contains("active")){
+        if(btnSen.classList.contains("hiddentab")){
+            btnSen.classList.remove("hiddentab");
+        }
+        if(btnSu.classList.contains("hiddentab")){
+            btnSu.classList.remove("hiddentab");
+        }
+    }
     let footer = document.getElementsByClassName("modal-footer")[0];
     if(footer.classList.contains('hiddentab')){
         footer.classList.remove('hiddentab');
@@ -399,7 +410,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     let tablist = document.getElementById("tablist");
 
   //  naim.value = username;
-    if(status == 1){
+    if(status == 1 || status == 5){
 
     }else{
 
