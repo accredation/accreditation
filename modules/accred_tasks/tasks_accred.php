@@ -154,6 +154,9 @@
                     $app_id = $app['app_id'];
                     $date_accept = $app['date_accept'];
                     $date_complete = $app['date_complete'];
+
+
+
                     $date_council = $app['date_council'];
                 ?>
                     <ul class="chart-bars hidden"  id = "ul<?= $app_id?>" >
