@@ -21,7 +21,7 @@
                                                                 left outer join users u on a.id_user =u.id_user 
                                                                 
 
-                                                                where a.id_status = 3";
+                                                                where a.id_status = 3 or a.id_status = 4";
                                 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
