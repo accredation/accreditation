@@ -1697,8 +1697,6 @@ function createAccordionCards(id_sub) {
 
             divCardHeader.appendChild(btnCollapse);
 
-
-
           //  divCardHeader.innerHTML += "<br/>";
             divCard.appendChild(divCardHeader);
 
