@@ -352,13 +352,7 @@ function createApplication(){
 
 
 function showModal(id_application, strMarks, strMarksAccred){
-    let homeTab = document.getElementById("home-tab");
-    let btnSend = document.getElementById("btnSend");
-    if(homeTab.classList.contains("active")){
-        if(btnSend.classList.contains("hiddentab")){
-            btnSend.classList.remove("hiddentab");
-        }
-    }
+
     let footer = document.getElementsByClassName("modal-footer")[0];
     if(footer.classList.contains('hiddentab')){
         footer.classList.remove('hiddentab');
@@ -437,12 +431,16 @@ function showModal(id_application, strMarks, strMarksAccred){
     let soprPismo = document.getElementById("soprPismo");
     let copyRaspisanie = document.getElementById("copyRaspisanie");
     let orgStrukt = document.getElementById("orgStrukt");
+    let ucomplect = document.getElementById("ucomplect");
+    let techOsn = document.getElementById("techOsn");
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let divOrgStrukt = document.getElementById("divOrgStrukt");
+    let divUcomplect = document.getElementById("divUcomplect");
+    let divTechOsn = document.getElementById("divTechOsn");
     let divReport = document.getElementById("divReport");
     let divReportSamoocenka = document.getElementById("divReportSamoocenka");
     number_app.innerHTML = id_application;
@@ -468,12 +466,12 @@ function showModal(id_application, strMarks, strMarksAccred){
             email.value = data[0][5];
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
-            let login = data[0][11];
-            if(data[0][13] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][13] + "'>" + data[0][13] + "</a>");
+            let login = data[0][13];
+            if(data[0][15] != null) {
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
-            if(data[0][12] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][12] + "'>" + data[0][12] + "</a>");
+            if(data[0][14] != null) {
+                fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
 
             if(data[0][8] != null) {
@@ -484,6 +482,12 @@ function showModal(id_application, strMarks, strMarksAccred){
             }
             if(data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+            }
+            if(data[0][11] != null) {
+                ucomplect.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+            }
+            if(data[0][12] != null) {
+                techOsn.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
@@ -503,6 +507,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
+        let ucompl = divUcomplect.getElementsByTagName("a")[0];
+        let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let sam = divReportSamoocenka.getElementsByTagName("a")[0];
         if(sam) {
@@ -519,6 +525,12 @@ function showModal(id_application, strMarks, strMarksAccred){
         }
         if(rep) {
             rep.remove();
+        }
+        if(ucompl) {
+            ucompl.remove();
+        }
+        if(tech) {
+            tech.remove();
         }
         modal.classList.remove("show");
         modal.style = "display: none";
@@ -531,6 +543,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
+        let ucompl = divUcomplect.getElementsByTagName("a")[0];
+        let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let sam = divReportSamoocenka.getElementsByTagName("a")[0];
         if(sam) {
@@ -547,6 +561,12 @@ function showModal(id_application, strMarks, strMarksAccred){
         }
         if(rep) {
             rep.remove();
+        }
+        if(ucompl) {
+            ucompl.remove();
+        }
+        if(tech) {
+            tech.remove();
         }
         modal.classList.remove("show");
         modal.style = "display: none";

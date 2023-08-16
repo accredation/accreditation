@@ -22,6 +22,8 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
     $soprovod_pismo = $row['soprovod_pismo'];
     $copy_rasp = $row['copy_rasp'];
     $org_structure = $row['org_structure'];
+    $ucomplect = $row['ucomplect'];
+    $tech_osn = $row['tech_osn'];
     $login = $row['login'];
     $report = $row['fileReport'];
     $reportSamoocenka = $row['fileReportSamoocenka'];
@@ -38,6 +40,8 @@ array_push($cells,$predstavitel);
 array_push($cells,$soprovod_pismo);
 array_push($cells,$copy_rasp);
 array_push($cells,$org_structure);
+array_push($cells,$ucomplect);
+array_push($cells,$tech_osn);
 array_push($cells,$login);
 array_push($cells,$report);
 array_push($cells,$reportSamoocenka);
