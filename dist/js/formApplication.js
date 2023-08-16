@@ -397,12 +397,16 @@ function showModal(id_application, strMarks, strMarksAccred){
     let soprPismo = document.getElementById("soprPismo");
     let copyRaspisanie = document.getElementById("copyRaspisanie");
     let orgStrukt = document.getElementById("orgStrukt");
+    let ucomplect = document.getElementById("ucomplect");
+    let techOsn = document.getElementById("techOsn");
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let divOrgStrukt = document.getElementById("divOrgStrukt");
+    let divUcomplect = document.getElementById("divUcomplect");
+    let divTechOsn = document.getElementById("divTechOsn");
     let divReport = document.getElementById("divReport");
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     number_app.innerHTML = id_application;
@@ -427,6 +431,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         soprPismo.setAttribute("disabled","true");
         copyRaspisanie.setAttribute("disabled","true");
         orgStrukt.setAttribute("disabled","true");
+        ucomplect.setAttribute("disabled","true");
+        techOsn.setAttribute("disabled","true");
         reportSamoocenka.setAttribute("disabled","true");
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
@@ -455,11 +461,11 @@ function showModal(id_application, strMarks, strMarksAccred){
             email.value = data[0][5];
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
-            if(data[0][12] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][12] + "'>" + data[0][12] + "</a>");
+            if(data[0][14] != null) {
+                fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
-            if(data[0][13] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][13] + "'>" + data[0][13] + "</a>");
+            if(data[0][15] != null) {
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             let login = getCookie('login');
             if(data[0][8] != null) {
@@ -470,6 +476,12 @@ function showModal(id_application, strMarks, strMarksAccred){
             }
             if(data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+            }
+            if(data[0][11] != null) {
+                ucomplect.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+            }
+            if(data[0][12] != null) {
+                techOsn.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
@@ -489,6 +501,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
+        let ucompl = divUcomplect.getElementsByTagName("a")[0];
+        let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         if(samoocenka) {
@@ -505,6 +519,12 @@ function showModal(id_application, strMarks, strMarksAccred){
         }
         if(org) {
             org.remove();
+        }
+        if(ucompl) {
+            ucompl.remove();
+        }
+        if(tech) {
+            tech.remove();
         }
         modal.classList.remove("show");
         modal.style = "display: none";
@@ -517,6 +537,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
+        let ucompl = divUcomplect.getElementsByTagName("a")[0];
+        let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         if(samoocenka) {
@@ -533,6 +555,12 @@ function showModal(id_application, strMarks, strMarksAccred){
         }
         if(org) {
             org.remove();
+        }
+        if(ucompl) {
+            ucompl.remove();
+        }
+        if(tech) {
+            tech.remove();
         }
         modal.classList.remove("show");
         modal.style = "display: none";
@@ -1354,6 +1382,8 @@ $("#btnSuc").on("click", function () {
     let soprPismo = document.getElementById("soprPismo");
     let copyRaspisanie = document.getElementById("copyRaspisanie");
     let orgStrukt = document.getElementById("orgStrukt");
+    let ucomplect = document.getElementById("ucomplect");
+    let techOsn = document.getElementById("techOsn");
 
     let naimText = naim.value;
     let sokrText = sokr.value;
@@ -1390,6 +1420,10 @@ $("#btnSuc").on("click", function () {
     form.append("copyRaspisanie", copyRaspisanieFile);
     let orgStruktFile = orgStrukt.files[0];
     form.append("orgStrukt", orgStruktFile);
+    let ucomplectFile = ucomplect.files[0];
+    form.append("ucomplect", ucomplectFile);
+    let techOsnFile = techOsn.files[0];
+    form.append("techOsn", techOsnFile);
 
     xhr.open("post", "saveApplication.php", true);
     xhr.send(form);
@@ -2524,6 +2558,50 @@ $("#orgStrukt").on("change", () =>{
     form.append("orgStruct", orgStructFile);
 
     xhr.open("post", "postFileOrgStruct.php", true);
+    xhr.send(form);
+});
+
+$("#ucomplect").on("change", () =>{
+    let login = getCookie('login');
+    let divUcomplect = document.getElementById("divUcomplect");
+    let sopr = divUcomplect.getElementsByTagName("a")[0];
+    if(sopr) {
+        sopr.remove();
+    }
+    let ucomplect = document.getElementById("ucomplect");
+    ucomplect.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + ucomplect.files[0].name + "'>" + ucomplect.files[0].name + "</a>");
+
+    let id_application = document.getElementById("id_application");
+
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let ucomplectFile = ucomplect.files[0];
+    form.append("id_application", id_application.innerText);
+    form.append("ucomplect", ucomplectFile);
+
+    xhr.open("post", "postFileUcomplect.php", true);
+    xhr.send(form);
+});
+
+$("#techOsn").on("change", () =>{
+    let login = getCookie('login');
+    let divTechOsn = document.getElementById("divTechOsn");
+    let sopr = divTechOsn.getElementsByTagName("a")[0];
+    if(sopr) {
+        sopr.remove();
+    }
+    let techOsn = document.getElementById("techOsn");
+    techOsn.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+
+    let id_application = document.getElementById("id_application");
+
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let techOsnFile = techOsn.files[0];
+    form.append("id_application", id_application.innerText);
+    form.append("techOsn", techOsnFile);
+
+    xhr.open("post", "postFileTechOsn.php", true);
     xhr.send(form);
 });
 

@@ -517,6 +517,20 @@
                                                     </div>
                                                 </form>
 
+                                                <form id="formUcomplect" >
+                                                    <div class="form-group" id = "divUcomplect">
+                                                        <label for="ucomplect">Укомплектованность</label><br/>
+                                                        <input type="file" class="form-control-file hiddentab" id="ucomplect">
+                                                    </div>
+                                                </form>
+
+                                                <form id="formTechOsn" >
+                                                    <div class="form-group" id = "divTechOsn">
+                                                        <label for="techOsn">Техническое оснащение</label><br/>
+                                                        <input type="file" class="form-control-file hiddentab" id="techOsn">
+                                                    </div>
+                                                </form>
+
                                                 <form id="formReportSamoocenka" >
                                                     <div class="form-group" id = "divReportSamoocenka">
                                                         <label for="reportSamoocenka">Результат самооценки</label><br/>
