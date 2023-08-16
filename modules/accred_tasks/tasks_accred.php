@@ -9,7 +9,15 @@
 
                             <table border="1" style="border-color: #dee2e6; width: 100%">
                                 <thead>
-
+                                    <th> Наименование</th>
+                                    <th>Статус</th>
+                                    <th>Дата подачи</th>
+                                    <th>ФИО ответственного</th>
+                                    <th>Начало проверки</th>
+                                    <th>Завершение проверки</th>
+                                    <th>Дата совета</th>
+                                    <th>Прогресс</th>
+                                    <th></th>
                                 </thead>
                                 <tbody>
 
@@ -27,15 +35,18 @@
 
                                 foreach ($data as $app) {
                                     $app_id = $app['app_id'];
+                                    $date_accept = $app['date_accept'];
+                                    $date_complete = $app['date_complete'];
+
                                     ?>
                                     <tr class="question" id="<?= $app_id?>" style=" background-color: #a8e9e9; ">
                                         <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer;text-align: center" ><?= $app['username']?> №<?= $app_id ?></td>
                                         <td style ="text-align: center"><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
                                         <td style ="text-align: center">FIO otvetstennogo</td>
-                                        <td style ="text-align: center"><?=$app['date_accept']?></td>
-                                        <td style ="text-align: center"><?=$app['date_complete']?></td>
-                                        <td style ="text-align: center"><?=$app['date_council']?></td>
+                                        <td id="date_accept_<?= $app_id?>" style ="text-align: center"><?=$app['date_accept']?></td>
+                                        <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_complete']?></td>
+                                        <td id="date_council_<?= $app_id?>" style ="text-align: center"><?=$app['date_council']?></td>
                                         <td style ="text-align: center">progress</td>
                                         <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app_id?>')">Изменить</button></td>
                                     </tr>
@@ -153,11 +164,11 @@
                 foreach ($data as $app) {
                     $app_id = $app['app_id'];
                     $date_accept = $app['date_accept'];
+                    if($date_accept==''){$date_accept='';}
                     $date_complete = $app['date_complete'];
-
-
-
+                    if($date_complete==''){$date_complete='';}
                     $date_council = $app['date_council'];
+                    if($date_council==''){$date_council='';}
                 ?>
                     <ul class="chart-bars hidden"  id = "ul<?= $app_id?>" >
                         <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Задание заявления №<?= $app_id?></li>
@@ -166,6 +177,10 @@
                 ?>
                         <li data-duration="<?=substr(date_format(date_create($date_council), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_council), "d.m.Y"), 0, 5)?>" data-color="#6a478f" style="padding: 5px 10px; z-index: 9999 "></li>
                         <?php
+                    } else {
+                        ?>
+                        <li data-duration="<?=substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999; "></li>
+                   <?php
                     }
                 ?>
                     </ul>

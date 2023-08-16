@@ -12,6 +12,12 @@ let dateCouncil = document.getElementById("dateCouncil");
 
 function showModal(id_app){
     this.id_app = id_app;
+
+    let parent = document.getElementById(`${id_app}`);
+    if(parent.classList.contains('open')){
+        collapsTable(id_app);
+    }
+
     let data = new Array();
 
 
@@ -69,8 +75,18 @@ function saveChanges(btn){
         trId.children[6].innerHTML = dateCouncil.value;
         console.log(dateCouncil.value);
 
+
         ulId.children[0].setAttribute("data-duration", dateAc.toLocaleDateString().slice(0,5) + "-" + dateCompl.toLocaleDateString().slice(0,5));
-        ulId.children[1].setAttribute("data-duration", dateCounc.toLocaleDateString().slice(0,5) + "-" + dateCounc.toLocaleDateString().slice(0,5));
+        if(dateCouncil.value === "") {
+            if(dateCompl === ""){
+                dateCompl = new Date();
+            }
+            ulId.children[1].setAttribute("data-duration", dateCompl.toLocaleDateString().slice(0, 5) + "-" + dateCompl.toLocaleDateString().slice(0, 5));
+            ulId.children[1].style.backgroundColor = "#4464a1";
+        }else{
+            ulId.children[1].setAttribute("data-duration", dateCounc.toLocaleDateString().slice(0, 5) + "-" + dateCounc.toLocaleDateString().slice(0, 5));
+            ulId.children[1].style.backgroundColor = "#6a478f";
+        }
         btn.addEventListener("mouseout", createChart);
 
         alert("Задача сохранена");
@@ -173,14 +189,31 @@ window.addEventListener("resize", createChart);
 
 
 function collapsTable(id) {
-    let myUl = document.getElementById("ul" + id);
-    if (myUl.classList.contains("hidden")) {
-        myUl.classList.remove("hidden");
-        myUl.classList.add("visib");
-    } else {
-        myUl.classList.remove("visib");
-        myUl.classList.add("hidden");
-    }
+        //console.log(id, date_accept, date_complete);
+        let date_accept = document.getElementById('date_accept_'+id);
+        let date_complete = document.getElementById('date_complete_'+id);
+
+             // console.log(date_accept.innerText)
+        date_accept =  date_accept.innerText;
+        date_complete=  date_complete.innerText;
+
+        if(date_accept!=='' && date_complete!==''){
+
+
+
+            let myUl = document.getElementById("ul" + id);
+            if (myUl.classList.contains("hidden")) {
+                myUl.classList.remove("hidden");
+                myUl.classList.add("visib");
+            } else {
+                myUl.classList.remove("visib");
+                myUl.classList.add("hidden");
+            }
+        }
+
+
+
+
 
 
     let parent = document.getElementById(`${id}`);
@@ -207,9 +240,10 @@ function collapsTable(id) {
                         hidenItem.style = 'display:none';
                     });
                 }
-
-                document.getElementById("ul" + item.id).classList.remove("visib");
-                document.getElementById("ul" + item.id).classList.add("hidden");
+                if(date_accept!=='' && date_complete!=='') {
+                    document.getElementById("ul" + item.id).classList.remove("visib");
+                    document.getElementById("ul" + item.id).classList.add("hidden");
+                }
 
             }
         });
@@ -240,21 +274,13 @@ function collapsTable(id) {
 
     }
 
+    if(date_accept!=='' && date_complete!=='') {
+        let ulhline = document.getElementById("nowDate");
+        let hline = ulhline.getElementsByTagName("li")[0];
 
-
-
-
-
-    let ulhline = document.getElementById("nowDate");
-    let hline = ulhline.getElementsByTagName("li")[0];
-
-    let mytask = document.getElementById("mytask");
-    hline.style.height = (mytask.offsetHeight + 20).toString() + 'px';
-
-
-
-
-
+        let mytask = document.getElementById("mytask");
+        hline.style.height = (mytask.offsetHeight + 20).toString() + 'px';
+    }
 }
 
 
