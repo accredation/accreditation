@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <table border="1" style="border-color: #dee2e6">
+                            <table border="1" style="border-color: #dee2e6; width: 100%">
                                 <thead>
 
                                 </thead>
@@ -28,15 +28,16 @@
                                 foreach ($data as $app) {
                                     $app_id = $app['app_id'];
                                     ?>
-                                    <tr class="question" id="<?= $app_id?>" >
-                                        <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer" ><?= $app['username']?> №<?= $app_id ?></td>
-                                        <td><?= $app['name_status']?></td>
+                                    <tr class="question" id="<?= $app_id?>" style=" background-color: #a8e9e9; ">
+                                        <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer;text-align: center" ><?= $app['username']?> №<?= $app_id ?></td>
+                                        <td style ="text-align: center"><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
-                                        <td>FIO otvetstennogo</td>
-                                        <td>data_work_begin</td>
-                                        <td>data_work_end</td>
-                                        <td>data_sovet</td>
-                                        <td>progress</td>
+                                        <td style ="text-align: center">FIO otvetstennogo</td>
+                                        <td style ="text-align: center"><?=$app['date_accept']?></td>
+                                        <td style ="text-align: center"><?=$app['date_complete']?></td>
+                                        <td style ="text-align: center"><?=$app['date_council']?></td>
+                                        <td style ="text-align: center">progress</td>
+                                        <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app_id?>')">Изменить</button></td>
                                     </tr>
                                     <?php
                                     $query1 = "SELECT s.id_subvision, `name`, CONCAT(IFNULL(count_crit_complit.countt,0), '/', IFNULL(count_crit.countt,0)) as progress
@@ -63,13 +64,13 @@
                                     foreach ($data1 as $app1) {
                                         $id_subvision = $app1['id_subvision'];
                                     ?>
-                                        <tr  class="content1 hidden_<?= $app_id?> fill_sub" style="margin-left:2rem; margin-top: 1rem; background-color: lightslategrey" >
+                                        <tr  class="content1 hidden_<?= $app_id?> fill_sub" style="margin-left:2rem; margin-top: 1rem; background-color: #a2e7d6" >
                                             <td><?= $app1['name']?></td>
                                             <td></td>
                                             <td></td>
                                             <td>FIO otvetstennogo</td>
-                                            <td>data_work_begin</td>
-                                            <td>data_work_end</td>
+                                            <td></td>
+                                            <td></td>
                                             <td></td>
                                             <td><?= $app1['progress']?></td>
 
@@ -95,8 +96,8 @@
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
                                                 <td></td>
                                                 <td>FIO otvetstennogo</td>
-                                                <td>data_work_begin</td>
-                                                <td>data_work_end</td>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td><?= $app2['status'] ==1 ? $app2['date_complete'] : '' ?> </td>
 
@@ -132,24 +133,43 @@
 
             <div style="display: flex; position: relative; z-index: 100; top:-25px">
                 <ul class="chart-bars visib"  id = "nowDate" style="margin: 0">
-                    <li data-duration="30.08-30.08" data-color="red" id = "nowDateli"
+                    <li data-duration="" data-color="red" id = "nowDateli"
                         style="margin: 0; position: absolute; padding: 1px;  width: 0; height: 0px; z-index: 1"></li>
                 </ul>
             </div>
 
             <div id="mytask" style="width: fit-content">
-                <ul class="chart-bars hidden"  id = "ul48" >
-                    <li data-duration="02.08-30.08" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Task11</li>
+                <?php
+                $query = "SELECT a.*, u.username, s.name_status, a.id_application as app_id
+                                                                FROM applications a
+                                                                left outer join status s on a.id_status=s.id_status    
+                                                                left outer join users u on a.id_user =u.id_user 
+                                                                
 
-                </ul>
-                <ul class="chart-bars hidden"  id = "ul50">
-                    <li data-duration="03.08-05.08" data-color="#4464a1" style="padding: 5px 10px">Task12</li>
-                    <li data-duration="06.08-06.08" data-color="#6a478f" style="padding: 5px 10px" ></li>
-                </ul>
-                <ul class="chart-bars hidden" id = "ul52">
-                    <li data-duration="10.08-12.08" data-color="#4464a1" style="padding: 5px 10px">Task13</li>
-                    <li data-duration="19.08-19.08" data-color="#6a478f" style="padding: 5px 10px" ></li>
-                </ul>
+                                                                where a.id_status = 3 or a.id_status = 4";
+                $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+
+                foreach ($data as $app) {
+                    $app_id = $app['app_id'];
+                    $date_accept = $app['date_accept'];
+                    $date_complete = $app['date_complete'];
+                    $date_council = $app['date_council'];
+                ?>
+                    <ul class="chart-bars hidden"  id = "ul<?= $app_id?>" >
+                        <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Задание заявления №<?= $app_id?></li>
+                <?php
+                    if($date_council != null || $date_council != ""){
+                ?>
+                        <li data-duration="<?=substr(date_format(date_create($date_council), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_council), "d.m.Y"), 0, 5)?>" data-color="#6a478f" style="padding: 5px 10px; z-index: 9999 "></li>
+                        <?php
+                    }
+                ?>
+                    </ul>
+                <?php
+                }
+                ?>
+
 
 
             </div>
@@ -161,6 +181,52 @@
 
     </div>
     </div>
+
+<div class="modal" id="modalTask">
+    <div class="modal-dialog modal-xs" >
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Изменение задачи №</h4><h4 class="modal-title" id="id_application"></h4>
+                <button type="button" class="btn  btn-danger btn-close" data-bs-dismiss="modal">x</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="inputDate">Дата начала проверки</label>
+                        <input type="date" class="form-control" id="dateAccept">
+                    </div>
+                </form>
+                <form>
+                    <div class="form-group">
+                        <label for="inputDate" >Дата завершения проверки</label>
+                        <input type="date" class="form-control" id="dateComplete">
+                    </div>
+                </form>
+                <form>
+                    <div class="form-group">
+                        <label for="inputDate" >Дата совета</label>
+                        <input type="date" class="form-control" id="dateCouncil">
+                    </div>
+                </form>
+
+
+
+
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success btn-fw" id="btnSave" onclick="saveChanges(this)">Сохранить</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script src="modules/accred_tasks/tasks_accred.js"></script>
 

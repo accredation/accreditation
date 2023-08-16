@@ -1,8 +1,77 @@
-let day = new Date("2023-10-01");
+let day = new Date();
 day.setDate(day.getDate());
 day = day.toLocaleDateString().slice(0, 5);
 let nowdateli = document.getElementById("nowDateli");
 nowdateli.setAttribute("data-duration", day + "-" + day);
+
+let id_app;
+
+let dateAccept = document.getElementById("dateAccept");
+let dateComplete = document.getElementById("dateComplete");
+let dateCouncil = document.getElementById("dateCouncil");
+
+function showModal(id_app){
+    this.id_app = id_app;
+    let data = new Array();
+
+
+    $.ajax({
+        url: "modules/accred_tasks/getTask.php",
+        method: "GET",
+        data: {id_application: id_app}
+    }).done(function (response){
+        console.log(response);
+        for (let i of JSON.parse(response)){
+            data.push(i);
+        }
+        dateAccept.value = data[0];
+        dateComplete.value = data[1];
+        dateCouncil.value = data[2];
+    });
+
+    let modal = document.getElementById("modalTask");
+    let id_application = document.getElementById("id_application");
+    modal.classList.add("show");
+    id_application.innerHTML = id_app;
+
+    $(".btn-close").on("click",() => {
+
+        modal.classList.remove("show");
+
+
+    });
+    $(".btn-danger").on("click",() => {
+
+        modal.classList.remove("show");
+
+    });
+}
+
+function saveChanges(btn){
+    let trId = document.getElementById(this.id_app);
+    let ulId = document.getElementById("ul"+this.id_app);
+    let dateAc = new Date(dateAccept.value);
+    let dateCompl = new Date(dateComplete.value);
+    let dateCounc = new Date(dateCouncil.value);
+    $.ajax({
+        url: "modules/accred_tasks/saveTask.php",
+        method: "POST",
+        data: {id_application: this.id_app, date_accept: dateAccept.value, date_complete: dateComplete.value, date_council: dateCouncil.value}
+    }).done(function (response){
+        trId.children[4].innerHTML = dateAccept.value;
+        console.log(dateAccept.value);
+        trId.children[5].innerHTML = dateComplete.value;
+        console.log(dateComplete.value);
+        trId.children[6].innerHTML = dateCouncil.value;
+        console.log(dateCouncil.value);
+
+        ulId.children[0].setAttribute("data-duration", dateAc.toLocaleDateString().slice(0,5) + "-" + dateCompl.toLocaleDateString().slice(0,5));
+        ulId.children[1].setAttribute("data-duration", dateCounc.toLocaleDateString().slice(0,5) + "-" + dateCounc.toLocaleDateString().slice(0,5));
+        btn.addEventListener("mouseout", createChart);
+
+        alert("Задача сохранена");
+    });
+}
 
 function createChart(e) {
     const days = document.querySelectorAll(".chart-values li");
