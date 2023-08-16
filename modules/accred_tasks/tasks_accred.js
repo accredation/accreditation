@@ -53,6 +53,10 @@ function saveChanges(btn){
     let dateAc = new Date(dateAccept.value);
     let dateCompl = new Date(dateComplete.value);
     let dateCounc = new Date(dateCouncil.value);
+
+
+    console.log('dateAccept.value ', dateAccept.value);
+
     $.ajax({
         url: "modules/accred_tasks/saveTask.php",
         method: "POST",
