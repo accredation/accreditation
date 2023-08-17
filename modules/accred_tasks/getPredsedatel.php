@@ -2,26 +2,29 @@
 
 include "../../connection.php";
 
-$id_application = $_GET['id_application'];
-$id_role = $_GET['id_role'];
-$query = "SELECT u.id_user, u.username
+class User{
+    public $id_user ,$username;
+
+}
+
+$id_user = $_COOKIE['id_user'];
+$query = "SELECT u.id_user, u.username, u.id_role
 FROM users u 
-WHERE u.predsedatel = 1 and 
-(('$id_role' < 3 ) 
-or ('$id_role' > 2 and '$id_role'=u.id_role )) ";
+left outer join users u2 on u2.id_user='$id_user'
+WHERE 
+u.predsedatel = 1 
+and ((u2.id_role < 3 ) 
+or (u2.id_role > 2 and u.id_role=u2.id_role )) ";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
-$data = array();
-if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
-{
-    $row = mysqli_fetch_assoc($rez);
-
-    $date_accept = $row['date_accept'];
-    $date_complete = $row['date_complete'];
-    $date_council = $row['date_council'];
+$predsedateli = array();
+for ($data = []; $row = mysqli_fetch_assoc($rez); $data[] = $row);
+foreach ($data as $app) {
+    $user = new User();
+    $user->id_user = $app['id_user'];
+    $user->username = $app['username'];
+    array_push($predsedateli,$user);
 }
-array_push($data,$date_accept);
-array_push($data,$date_complete);
-array_push($data,$date_council);
-echo json_encode($data);
+
+echo json_encode($predsedateli);
 ?>

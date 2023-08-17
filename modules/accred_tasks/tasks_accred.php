@@ -89,7 +89,7 @@
 
 
                                         <?php
-                                        $query2 = "SELECT id_rating_criteria,  CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, status, date_complete
+                                        $query2 = "SELECT id_rating_criteria, c.id_criteria,  CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, status, date_complete
                                                                 FROM rating_criteria rc
                                                                 left outer join criteria c on rc.id_criteria=c.id_criteria 
                                                                 left outer join conditions con on c.conditions_id=con.conditions_id
@@ -103,7 +103,7 @@
 
                                             ?>
                                             <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
-                                                <td style="max-width: 400px"><?= $app2['name_criteria']?></td>
+                                                <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
                                                 <td></td>
                                                 <td>FIO otvetstennogo</td>
