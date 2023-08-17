@@ -232,6 +232,15 @@
                     </div>
                 </form>
 
+                <form>
+                    <div class="form-group">
+                        <label for="inputDate" >Председатель</label>
+                        <select name="predsedatel" id="predsedatel">
+
+                        </select>
+                    </div>
+                </form>
+
 
 
 
