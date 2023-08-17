@@ -205,7 +205,7 @@
         <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header">
+            <div class="modal-header" >
                 <h4 class="modal-title">Изменение задачи №</h4><h4 class="modal-title" id="id_application"></h4>
                 <button type="button" class="btn  btn-danger btn-close" data-bs-dismiss="modal">x</button>
             </div>
@@ -258,3 +258,43 @@
 <script src="modules/accred_tasks/tasks_accred.js"></script>
 
 
+<script>
+    var modal = document.getElementById("modalTask");
+    
+    var header = modal.querySelector(".modal-header");
+    var mouseX = 0;
+    var mouseY = 0;
+    var modalLeft = 0;
+    var modalTop = 0;
+    
+    function startDrag(event) {
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        modalLeft = parseInt(window.getComputedStyle(modal).getPropertyValue("left"));
+        modalTop = parseInt(window.getComputedStyle(modal).getPropertyValue("top"));
+
+
+        document.addEventListener("mousemove", dragModal);
+        document.addEventListener("mouseup", stopDrag);
+    }
+
+
+    function dragModal(event) {
+
+        var deltaX = event.clientX - mouseX;
+        var deltaY = event.clientY - mouseY;
+        
+        modal.style.left = modalLeft + deltaX + "px";
+        modal.style.top = modalTop + deltaY + "px";
+    }
+
+
+    function stopDrag() {
+
+        document.removeEventListener("mousemove", dragModal);
+        document.removeEventListener("mouseup", stopDrag);
+    }
+    
+    header.addEventListener("mousedown", startDrag);
+</script>
