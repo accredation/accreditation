@@ -1619,6 +1619,9 @@ function createAccordionCards(id_sub) {
     divAccordion.className = "accordion";
     let divCard = document.createElement("div");
     divCard.className = "card";
+    let arrStat = getStatusFromDB1(id_sub);
+    console.log(arrStat + "arrstat");
+    let i = 0;
     for (let input of arrCheckInputs) {
 
         if (input.checked === true) {
@@ -1673,26 +1676,57 @@ function createAccordionCards(id_sub) {
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
                     let btnNotReady = document.createElement("button");
                     btnNotReady.setAttribute("type", "submit");
-                    btnNotReady.className = "btn btn-light btn-fw";
-                    btnNotReady.id = "btnNotReady";
-                    btnNotReady.innerHTML = "Готово";
-                    btnNotReady.style = "float: right";
-                    btnNotReady.onclick = () => {
-                        //   id_sub
-                        //    id_criteria
-                        if(btnNotReady.innerHTML === "Готово") {
+                    btnNotReady.className = "floating-button";
 
-                            btnNotReady.innerHTML = "Не готово";
-                            sendDataToServer(id_sub,id_criteria,1); // Update to 1
+                    btnNotReady.id = "btnNotReady";
+                    //console.log (arrStat[i]);
+                    if(arrStat[i] == null || arrStat[i] == 0) {
+                        btnNotReady.innerHTML = "Готово";
+                    }
+                    else {
+                        btnNotReady.innerHTML = "Не готово";
+                    }
+
+
+
+                    i++;
+
+                    btnNotReady.style.width = "100px";
+                    btnNotReady.style.height = "35px";
+                    btnNotReady.style.backgroundColor = "blue";
+                    btnNotReady.style.color = "white";
+
+
+                    btnNotReady.style.position = "relative";
+                    btnNotReady.style.left ="50%";
+
+
+                    btnNotReady.onmouseover = () => {
+                        btnNotReady.style.backgroundColor = "red";
+                    };
+
+                    btnNotReady.onmouseout = () => {
+                        btnNotReady.style.backgroundColor = "blue";
+                    };
+
+                    btnNotReady.onclick = (event) => {
+                        event.stopPropagation();
+                        if(btnNotReady.innerHTML === "Не готово") {
+
+                            btnNotReady.innerHTML = "Готово";
+                            sendDataToServer(id_sub,id_criteria,0); // Update to 1
                             console.log(id_criteria);
                         } else {
 
-                            btnNotReady.innerHTML = "Готово";
-                            sendDataToServer(id_sub,id_criteria,0); // Update to 0
+                            btnNotReady.innerHTML = "Не готово";
+                            sendDataToServer(id_sub,id_criteria,1); // Update to 0
                         }
                     }
-                    divCardHeader.appendChild(btnNotReady);
+
+
                     divCardHeader.appendChild(divCardHeaderMark);
+                    divCardHeader.appendChild(btnNotReady);
+
                     // let marks = JSON.parse(response);
 
                   //  console.log(JSON.parse(response));
@@ -2346,6 +2380,24 @@ function sendDataToServer(id_sub,id_criteria, value) {
         .catch(error => {
             console.error(error);
         });
+}
+
+function getStatusFromDB1(id_sub)
+{
+    let arr = new Array();
+    $.ajax({
+        url: "getstatus.php",
+        method: "POST",
+        data: { id_sub: id_sub},
+        dataType: "json",
+        success: function(data)  {
+            for (var i = 0; i < data.length; i++) {
+                arr.push(data[i]);
+
+            }
+        }
+    });
+    return arr;
 }
 
 
