@@ -35,6 +35,29 @@ function showModal(id_app){
         dateCouncil.value = data[2];
     });
 
+    let predsedatel = document.getElementById('predsedatel');
+    $.ajax({
+        url: "modules/accred_tasks/getPredsedatel.php",
+        method: "GET",
+        data: {id_application: id_app}
+    }).done(function (response){
+        console.log(response);
+        for (let i of JSON.parse(response)){
+            data.push(i);
+
+            let newOption = document.createElement('option');
+            newOption.id=i.user_id;
+            newOption.value=i.username;
+            predsedatel.appendChild(newOption);
+
+        }
+        dateAccept.value = data[0];
+        dateComplete.value = data[1];
+        dateCouncil.value = data[2];
+    });
+
+
+
     let modal = document.getElementById("modalTask");
     let id_application = document.getElementById("id_application");
     modal.classList.add("show");
