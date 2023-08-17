@@ -289,9 +289,7 @@
         modal.style.top = modalTop + deltaY + "px";
     }
 
-
     function stopDrag() {
-
         document.removeEventListener("mousemove", dragModal);
         document.removeEventListener("mouseup", stopDrag);
     }
