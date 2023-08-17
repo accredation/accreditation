@@ -26,7 +26,6 @@ function showModal(id_app){
         method: "GET",
         data: {id_application: id_app}
     }).done(function (response){
-        console.log(response);
         for (let i of JSON.parse(response)){
             data.push(i);
         }
@@ -36,25 +35,34 @@ function showModal(id_app){
     });
 
     let predsedatel = document.getElementById('predsedatel');
+    predsedatel.innerHTML = "";
+    let arrPreds = new Array();
     $.ajax({
         url: "modules/accred_tasks/getPredsedatel.php",
         method: "GET",
-        data: {id_application: id_app}
+        data: {}
     }).done(function (response){
-        console.log(response);
         for (let i of JSON.parse(response)){
-            data.push(i);
 
+            arrPreds.push(i);
             let newOption = document.createElement('option');
-            newOption.id=i.user_id;
-            newOption.value=i.username;
+            newOption.id="pr" + i['id_user'];
+            newOption.innerHTML = i['username'];
             predsedatel.appendChild(newOption);
 
         }
+        console.log(arrPreds);
         dateAccept.value = data[0];
         dateComplete.value = data[1];
         dateCouncil.value = data[2];
     });
+    // let data2 = data.filter((item)=> item.id_criteria===id_criteria)
+    // data2.map((item)=>{
+    //     // let newOption = document.createElement('option');
+    //     // newOption.id=item.user_id;
+    //     // newOption.value=item.username;
+    //     // predsedatel.appendChild(newOption);
+    // })
 
 
 
@@ -78,25 +86,25 @@ function showModal(id_app){
 
 function saveChanges(btn){
     let trId = document.getElementById(this.id_app);
+    let selectPreds = document.getElementById("predsedatel");
     let ulId = document.getElementById("ul"+this.id_app);
     let dateAc = new Date(dateAccept.value);
     let dateCompl = new Date(dateComplete.value);
     let dateCounc = new Date(dateCouncil.value);
-
+    let id_responsible = selectPreds.options[selectPreds.selectedIndex].id.substring(2);
+    let predsName = selectPreds.options[selectPreds.selectedIndex].value;
 
     console.log('dateAccept.value ', dateAccept.value);
 
     $.ajax({
         url: "modules/accred_tasks/saveTask.php",
         method: "POST",
-        data: {id_application: this.id_app, date_accept: dateAccept.value, date_complete: dateComplete.value, date_council: dateCouncil.value}
+        data: {id_application: this.id_app, date_accept: dateAccept.value, date_complete: dateComplete.value, date_council: dateCouncil.value, id_responsible: id_responsible}
     }).done(function (response){
+        trId.children[3].innerHTML = predsName;
         trId.children[4].innerHTML = dateAccept.value;
-        console.log(dateAccept.value);
         trId.children[5].innerHTML = dateComplete.value;
-        console.log(dateComplete.value);
         trId.children[6].innerHTML = dateCouncil.value;
-        console.log(dateCouncil.value);
 
 
         ulId.children[0].setAttribute("data-duration", dateAc.toLocaleDateString().slice(0,5) + "-" + dateCompl.toLocaleDateString().slice(0,5));
