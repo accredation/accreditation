@@ -23,10 +23,12 @@
 
 
                                 <?php
-                                $query = "SELECT a.*, u.username, s.name_status, a.id_application as app_id
+                                $id_user = $_COOKIE['id_user'];
+                                $query = "SELECT u1.username as preds,a.*, u.username, s.name_status, a.id_application as app_id
                                                                 FROM applications a
                                                                 left outer join status s on a.id_status=s.id_status    
                                                                 left outer join users u on a.id_user =u.id_user 
+                                                                left outer join users u1 on a.id_responsible =u1.id_user 
                                                                 
 
                                                                 where a.id_status = 3 or a.id_status = 4";
@@ -43,7 +45,7 @@
                                         <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer;text-align: center" ><?= $app['username']?> №<?= $app_id ?></td>
                                         <td style ="text-align: center"><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
-                                        <td style ="text-align: center">FIO otvetstennogo</td>
+                                        <td style ="text-align: center"><?= $app['preds']?></td>
                                         <td id="date_accept_<?= $app_id?>" style ="text-align: center"><?=$app['date_accept']?></td>
                                         <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_complete']?></td>
                                         <td id="date_council_<?= $app_id?>" style ="text-align: center"><?=$app['date_council']?></td>
@@ -106,7 +108,32 @@
                                                 <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
                                                 <td></td>
-                                                <td>FIO otvetstennogo</td>
+                                                <td><select onchange="changeOtv(this)" name="" id="<?= $app1['id_subvision']?>-<?= $app2['id_criteria']?>">
+                                            <?php
+                                            $id_criteria = $app2['id_criteria'];
+                                            $query3 = "SELECT u.id_user, u.username, sd.id_criteria
+                                                        FROM spr_doctor_expert_for_criteria sd 
+                                                        left outer join users u on sd.id_user=u.id_user
+                                                        left outer join users u2 on u2.id_user='$id_user'
+                                                        WHERE u.doctor_expert = 1 and 
+                                                         ((u2.id_role < 3 ) 
+                                                        or (u2.id_role > 2 and u.id_role=u2.id_role ))
+                                                        and sd.id_user is not null
+                                                        
+                                                        and sd.id_criteria in (select id_criteria
+                                                        from rating_criteria rc
+                                                        left outer join subvision sub on rc.id_subvision=sub.id_subvision
+                                                        where sub.id_application = '$app_id' and 
+                                                            rc.id_criteria = '$id_criteria')";
+                                            $result3=mysqli_query($con, $query3) or die ( mysqli_error($con));
+                                            for ($data3 = []; $row = mysqli_fetch_assoc($result3); $data3[] = $row);
+
+                                            foreach ($data3 as $app3) {
+
+                                                ?>
+                                                <option value="<?= $app3['id_user']?>"><?= $app3['username']?></option>
+                                                    <?php }?>
+                                                    </select></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -258,3 +285,53 @@
 <script src="modules/accred_tasks/tasks_accred.js"></script>
 
 
+<script>
+    function changeOtv(el){
+        let id = el.id.split("-");
+        let id_sub = id[0];
+        let id_cr = id[1];
+        $.ajax({
+            url:
+            method:
+            data:{}
+        }).done(function (response){
+
+        })
+    }
+    var modal = document.getElementById("modalTask");
+
+    var header = modal.querySelector(".modal-header");
+    var mouseX = 0;
+    var mouseY = 0;
+    var modalLeft = 0;
+    var modalTop = 0;
+
+    function startDrag(event) {
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        modalLeft = parseInt(window.getComputedStyle(modal).getPropertyValue("left"));
+        modalTop = parseInt(window.getComputedStyle(modal).getPropertyValue("top"));
+
+
+        document.addEventListener("mousemove", dragModal);
+        document.addEventListener("mouseup", stopDrag);
+    }
+
+
+    function dragModal(event) {
+
+        var deltaX = event.clientX - mouseX;
+        var deltaY = event.clientY - mouseY;
+
+        modal.style.left = modalLeft + deltaX + "px";
+        modal.style.top = modalTop + deltaY + "px";
+    }
+
+    function stopDrag() {
+        document.removeEventListener("mousemove", dragModal);
+        document.removeEventListener("mouseup", stopDrag);
+    }
+
+    header.addEventListener("mousedown", startDrag);
+</script>

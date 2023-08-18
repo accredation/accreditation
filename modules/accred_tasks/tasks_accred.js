@@ -6,6 +6,7 @@ nowdateli.setAttribute("data-duration", day + "-" + day);
 
 let id_app;
 
+
 let dateAccept = document.getElementById("dateAccept");
 let dateComplete = document.getElementById("dateComplete");
 let dateCouncil = document.getElementById("dateCouncil");
@@ -246,11 +247,50 @@ function collapsTable(id) {
 
 
 
-
     let parent = document.getElementById(`${id}`);
     let hidden = document.getElementsByClassName(`hidden_${id}`);
 
     let arrHiden = [...hidden];
+
+    let  filteredHidden = arrHiden.filter((item)=> item.classList.contains("fill_sub") === false)
+
+
+    let arrOtv = new Array();
+    $.ajax({
+        url: "modules/accred_tasks/getDoctorExpert.php",
+        method: "GET",
+        data: {id_application: id}
+    }).done(function (response){
+        for (let i of JSON.parse(response)){
+            arrOtv.push(i);
+        }
+
+
+        if (arrOtv.length > 0) {
+            filteredHidden.forEach((hidenTrItem) => {
+                let idCr = hidenTrItem.children[0].id.substring(2);
+
+                let select = hidenTrItem.getElementsByTagName('select')[0];
+              //  select.innerHTML ='';
+
+                let filtDoctor = arrOtv.filter((item)=>item['id_criteria'] == idCr);
+
+                if(filtDoctor.length>0){
+                    filtDoctor.map(item=>{
+                        let newOption = document.createElement('option');
+                        newOption.id="otv" + item['id_user'];
+                        newOption.value= item['id_user'];
+                        newOption.text = item['username'];
+                        select.appendChild(newOption);
+                    })
+                }
+
+
+            });
+        }
+
+    });
+
 
     let table = parent.parentElement;
 
