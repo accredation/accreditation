@@ -268,11 +268,18 @@ function collapsTable(id) {
 
         if (arrOtv.length > 0) {
             filteredHidden.forEach((hidenTrItem) => {
+
                 let idCr = hidenTrItem.children[0].id.substring(2);
 
                 let select = hidenTrItem.getElementsByTagName('select')[0];
-              //  select.innerHTML ='';
+                let selInd = select.value;
 
+                select.innerHTML ='';
+                let firstOption = document.createElement('option');
+                firstOption.id="otv" + 0;
+                firstOption.value= "0";
+                firstOption.text = "";
+                select.appendChild(firstOption);
                 let filtDoctor = arrOtv.filter((item)=>item['id_criteria'] == idCr);
 
                 if(filtDoctor.length>0){
@@ -284,9 +291,10 @@ function collapsTable(id) {
                         select.appendChild(newOption);
                     })
                 }
-
+                select.value = selInd;
 
             });
+
         }
 
     });
