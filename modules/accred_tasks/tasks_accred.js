@@ -6,6 +6,35 @@ nowdateli.setAttribute("data-duration", day + "-" + day);
 
 let id_app;
 
+let table = document.getElementsByTagName("table")[0];
+let btns = table.getElementsByTagName("button");
+let slcts = table.getElementsByTagName("select");
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+if(getCookie("isMA") === "0") {
+    [...btns].forEach(item => {
+        item.disabled = true;
+    });
+
+    [...slcts].forEach(item => {
+        item.disabled = true;
+    });
+}
 
 let dateAccept = document.getElementById("dateAccept");
 let dateComplete = document.getElementById("dateComplete");
@@ -367,8 +396,8 @@ function collapsTable(id) {
 
 
 //скрипт формируем даты
-var startDate = new Date('2023-08-01'); // текущая дата yy mm dd
-var endDate = new Date('2023-10-31'); // конечная дата
+var startDate = new Date('2023-01-01'); // текущая дата yy mm dd
+var endDate = new Date('2023-12-31'); // конечная дата
 // startDate.setMonth(startDate.getMonth()-2);
 // endDate.setMonth(endDate.getMonth() + 2); // добавляем 2 мес
 
@@ -392,9 +421,9 @@ while (currentDate <= endDate) {
 
 
 var targetElement = document.getElementById(day);
+
 window.onload = () => {
 
-    console.log(nowdateli.getAttribute("data-duration"));
     // Проверяем, находится ли элемент в видимой области экрана
     if (!targetElement.getBoundingClientRect().top >= 0 && targetElement.getBoundingClientRect().bottom <= window.innerHeight) {
         targetElement.scrollIntoViewIfNeeded({
@@ -402,5 +431,94 @@ window.onload = () => {
             behavior: "smooth"
         });
     }
-    console.log(day);
+
+    let apps = document.getElementsByClassName("question");
+    let arrIdApps = new Array();
+    [...apps].forEach(el => {
+        arrIdApps.push(el.id);
+    })
+    console.log(arrIdApps);
+    let arrStrProgs = new Array();
+    let trsApp;
+    let arrsResult = new Array();
+    arrIdApps.forEach(id =>{
+        trsApp = document.getElementsByClassName(`hidden_${id} fill_sub`);
+        let res = 0;
+        let lrs = 0;
+        let rrs = 0;
+        [...trsApp].forEach(el => {
+
+            let strRes = el.getElementsByClassName("progr")[0].innerText;
+            arrStrProgs.push(strRes);
+            let lr = strRes.split("/");
+            console.log('lr = ',lr);
+
+
+            lrs += Number(lr[0]);
+            rrs += Number(lr[1]);
+
+
+        })
+      //  arrsResult.push(res);
+        console.log('lrs rrs ',lrs, rrs);
+        res = ( lrs/ rrs) ;
+        if(Number(res)){
+            document.getElementById(`${id}`).children[7].innerHTML = (res * 100).toFixed(2) +'%' ;
+        } else {
+            document.getElementById(`${id}`).children[7].innerHTML = '0' +'%';
+        }
+
+    });
+    // console.log(arrStrProgs);
+    //console.log(arrsResult);
+
 }
+
+function changeOtv(el){
+    let id = el.id.substring(2);
+    let id_userotv = el.options[el.selectedIndex].value;
+    $.ajax({
+        url:"modules/accred_tasks/update_otvetstveni.php",
+        method:"POST",
+        data:{id_cr:id, id_userotv:id_userotv}
+
+    }).done(function (response){
+
+    })
+}
+var modal = document.getElementById("modalTask");
+
+var header = modal.querySelector(".modal-header");
+var mouseX = 0;
+var mouseY = 0;
+var modalLeft = 0;
+var modalTop = 0;
+
+function startDrag(event) {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    modalLeft = parseInt(window.getComputedStyle(modal).getPropertyValue("left"));
+    modalTop = parseInt(window.getComputedStyle(modal).getPropertyValue("top"));
+
+
+    document.addEventListener("mousemove", dragModal);
+    document.addEventListener("mouseup", stopDrag);
+}
+
+
+function dragModal(event) {
+
+    var deltaX = event.clientX - mouseX;
+    var deltaY = event.clientY - mouseY;
+
+    modal.style.left = modalLeft + deltaX + "px";
+    modal.style.top = modalTop + deltaY + "px";
+}
+
+function stopDrag() {
+    document.removeEventListener("mousemove", dragModal);
+    document.removeEventListener("mouseup", stopDrag);
+}
+
+header.addEventListener("mousedown", startDrag);
