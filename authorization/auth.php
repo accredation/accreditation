@@ -30,6 +30,11 @@ function enter($sesId)
 
                 $id = $_SESSION['id_user'];
                     setcookie("id_user", $id, time() + 360000, '/');
+                    if($row['sotrudnik_MA'] == 1) {
+                        setcookie("isMA", 1, time() + 360000, '/');
+                    }else{
+                        setcookie("isMA", 0, time() + 360000, '/');
+                    }
                 if($row['online'] == "0"){
                     lastAct($id,$sesId);
                 }
@@ -91,9 +96,15 @@ function login()
 
                                             SetCookie("password", ""); //удаляются cookie с паролем
                                             SetCookie("PHPSESSID", ""); //удаляются cookie с паролем
+                                            SetCookie("isMA", 0); //удаляются cookie с паролем
                                             header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');
 
                                             return false;
+                                        }
+                                        if($row['sotrudnik_MA'] == 1) {
+                                            setcookie("isMA", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("isMA", 0, time() + 360000, '/');
                                         }
                                         lastAct($id,$sesId);
                                     }
@@ -113,6 +124,11 @@ function login()
 
                                     $id = $_SESSION['id_user'];
                                         setcookie("id_user", $id, time() + 360000, '/');
+                                        if($row['sotrudnik_MA'] == "1") {
+                                            setcookie("isMA", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("isMA", 0, time() + 360000, '/');
+                                        }
                                     $sesId = $_COOKIE['PHPSESSID'];
                                     if($row['online'] == "0"){
                                         lastAct($id, $sesId);
@@ -147,6 +163,7 @@ function login()
                                 else{
                                     phpAlert("Уже занято");
                                     SetCookie("login", ""); //удаляются cookie с логином
+                                    SetCookie("isMA", "0"); //удаляются cookie с логином
 
                                     SetCookie("password", ""); //удаляются cookie с паролем
                                     header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');

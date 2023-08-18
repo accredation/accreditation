@@ -85,7 +85,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><?= $app1['progress']?></td>
+                                            <td class = "progr"><?= $app1['progress']?></td>
 
                                         </tr>
 
@@ -182,6 +182,13 @@
                     $date_accept = $app['date_accept'];
                     if($date_accept==''){$date_accept='';}
                     $date_complete = $app['date_complete'];
+
+                    $endDate = date('2023-12-31');
+
+                    if($date_complete > $endDate ) {
+                        $date_complete = $endDate;
+                    }
+
                     if($date_complete==''){$date_complete='';}
                     $date_council = $app['date_council'];
                     if($date_council==''){$date_council='';}
@@ -273,59 +280,3 @@
 
 <script src="modules/accred_tasks/tasks_accred.js"></script>
 
-
-<script>
-    function changeOtv(el){
-        let id = el.id.substring(2);
-        console.log(id);
-        let id_userotv = el.options[el.selectedIndex].value;
-        $.ajax({
-            url:"modules/accred_tasks/update_otvetstveni.php",
-            method:"POST",
-            data:{id_cr:id, id_userotv:id_userotv}
-
-        }).done(function (response){
-
-        })
-        }
-        //  console.log ("idsub:"+ id_sub + "idcr:" + id_cr + "iduser:" + id_userotv );
-</script>
-
-<script>
-    var modal = document.getElementById("modalTask");
-
-    var header = modal.querySelector(".modal-header");
-    var mouseX = 0;
-    var mouseY = 0;
-    var modalLeft = 0;
-    var modalTop = 0;
-
-    function startDrag(event) {
-
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-        modalLeft = parseInt(window.getComputedStyle(modal).getPropertyValue("left"));
-        modalTop = parseInt(window.getComputedStyle(modal).getPropertyValue("top"));
-
-
-        document.addEventListener("mousemove", dragModal);
-        document.addEventListener("mouseup", stopDrag);
-    }
-
-
-    function dragModal(event) {
-
-        var deltaX = event.clientX - mouseX;
-        var deltaY = event.clientY - mouseY;
-
-        modal.style.left = modalLeft + deltaX + "px";
-        modal.style.top = modalTop + deltaY + "px";
-    }
-
-    function stopDrag() {
-        document.removeEventListener("mousemove", dragModal);
-        document.removeEventListener("mouseup", stopDrag);
-    }
-
-    header.addEventListener("mousedown", startDrag);
-</script>
