@@ -3,7 +3,7 @@
 include "../../connection.php";
 
 $id_application = $_GET['id_application'];
-$id_user = $_GET['id_user'];
+$id_user = $_COOKIE['id_user'];
 
 $query = "SELECT u.id_user, u.username, sd.id_criteria
 FROM spr_doctor_expert_for_criteria sd 
@@ -19,18 +19,20 @@ from rating_criteria rc
 left outer join subvision sub on rc.id_subvision=sub.id_subvision
 where sub.id_application = '$id_application')";
 
-$rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
-$data = array();
-if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
-{
-    $row = mysqli_fetch_assoc($rez);
-
-    $date_accept = $row['date_accept'];
-    $date_complete = $row['date_complete'];
-    $date_council = $row['date_council'];
+class Otv{
+    public $id_user, $username, $id_criteria;
 }
-array_push($data,$date_accept);
-array_push($data,$date_complete);
-array_push($data,$date_council);
-echo json_encode($data);
+
+$rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+$otvetstv = array();
+for ($data = []; $row = mysqli_fetch_assoc($rez); $data[] = $row);
+foreach ($data as $app) {
+    $user = new Otv();
+    $user->id_user = $app['id_user'];
+    $user->username = $app['username'];
+    $user->id_criteria = $app['id_criteria'];
+    array_push($otvetstv,$user);
+}
+
+echo json_encode($otvetstv);
 ?>
