@@ -91,10 +91,11 @@
 
 
                                         <?php
-                                        $query2 = "SELECT id_rating_criteria, c.id_criteria,  CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, status, date_complete
+                                        $query2 = "SELECT id_rating_criteria, c.id_criteria,  CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, status, date_complete, id_otvetstvennogo, u.username
                                                                 FROM rating_criteria rc
                                                                 left outer join criteria c on rc.id_criteria=c.id_criteria 
                                                                 left outer join conditions con on c.conditions_id=con.conditions_id
+                                                                left outer join users u on rc.id_otvetstvennogo=u.id_user
                                                                 where rc.id_subvision = '$id_subvision'
                                                                 order by name_criteria
                                                                 ";
@@ -102,37 +103,25 @@
                                         for ($data2 = []; $row = mysqli_fetch_assoc($result2); $data2[] = $row);
 
                                         foreach ($data2 as $app2) {
+                                            $id_otvetstvennogo = $app2['id_otvetstvennogo'];
 
                                             ?>
                                             <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
                                                 <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
                                                 <td></td>
-                                                <td><select onchange="changeOtv(this)" name="" id="<?= $app1['id_subvision']?>-<?= $app2['id_criteria']?>">
-                                            <?php
-                                            $id_criteria = $app2['id_criteria'];
-                                            $query3 = "SELECT u.id_user, u.username, sd.id_criteria
-                                                        FROM spr_doctor_expert_for_criteria sd 
-                                                        left outer join users u on sd.id_user=u.id_user
-                                                        left outer join users u2 on u2.id_user='$id_user'
-                                                        WHERE u.doctor_expert = 1 and 
-                                                         ((u2.id_role < 3 ) 
-                                                        or (u2.id_role > 2 and u.id_role=u2.id_role ))
-                                                        and sd.id_user is not null
-                                                        
-                                                        and sd.id_criteria in (select id_criteria
-                                                        from rating_criteria rc
-                                                        left outer join subvision sub on rc.id_subvision=sub.id_subvision
-                                                        where sub.id_application = '$app_id' and 
-                                                            rc.id_criteria = '$id_criteria')";
-                                            $result3=mysqli_query($con, $query3) or die ( mysqli_error($con));
-                                            for ($data3 = []; $row = mysqli_fetch_assoc($result3); $data3[] = $row);
+                                                <td><select id="rt<?= $app2['id_rating_criteria']?>">
+                                                        <?php
 
-                                            foreach ($data3 as $app3) {
+                                                        if(isset($id_otvetstvennogo)){?>
+                                                             <option id="otv0" value="0">             </option>
+                                                             <option selected id="otv<?= $id_otvetstvennogo?>" value="<?=$id_otvetstvennogo?>"><?= $app2['username']?></option>
+                                                        <?php } else { ?>
+                                                            <option id="otv0" value="0">             </option>
+                                                        <?php }
 
-                                                ?>
-                                                <option value="<?= $app3['id_user']?>"><?= $app3['username']?></option>
-                                                    <?php }?>
+                                                        ?>
+
                                                     </select></td>
                                                 <td></td>
                                                 <td></td>
