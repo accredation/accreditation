@@ -110,7 +110,7 @@
                                                 <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
                                                 <td></td>
-                                                <td><select id="rt<?= $app2['id_rating_criteria']?>">
+                                                <td><select onchange="changeOtv(this)" id="rt<?= $app2['id_rating_criteria']?>">
                                                         <?php
 
                                                         if(isset($id_otvetstvennogo)){?>
@@ -276,17 +276,22 @@
 
 <script>
     function changeOtv(el){
-        let id = el.id.split("-");
-        let id_sub = id[0];
-        let id_cr = id[1];
+        let id = el.id.substring(2);
+        console.log(id);
+        let id_userotv = el.options[el.selectedIndex].value;
         $.ajax({
-            url:
-            method:
-            data:{}
+            url:"modules/accred_tasks/update_otvetstveni.php",
+            method:"POST",
+            data:{id_cr:id, id_userotv:id_userotv}
+
         }).done(function (response){
 
         })
-    }
+        }
+        //  console.log ("idsub:"+ id_sub + "idcr:" + id_cr + "iduser:" + id_userotv );
+</script>
+
+<script>
     var modal = document.getElementById("modalTask");
 
     var header = modal.querySelector(".modal-header");
