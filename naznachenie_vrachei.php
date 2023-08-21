@@ -67,7 +67,6 @@
                         </li>
                     </ul>
                     <div class="d-md-block d-none">
-
                     </div>
                 </div>
                 <div class="tab-content tab-transparent-content">

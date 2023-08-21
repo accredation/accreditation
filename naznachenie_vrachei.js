@@ -1,7 +1,6 @@
 
 let id_user;
 
-
 function showModal(id_user){
     this.id_user = id_user;
     let modal = document.getElementById("modalvrachi");
