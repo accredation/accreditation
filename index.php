@@ -265,6 +265,9 @@
                     case 'support':
                         include 'support.php';
                         break;
+                    case 'naznachenie_vrachei':
+                        include 'naznachenie_vrachei.php';
+                        break;
                     case 'messages_users':
                         include 'messages_users.php';
                         break;
