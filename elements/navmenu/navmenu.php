@@ -1,4 +1,3 @@
-
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-category"></li>
@@ -89,6 +88,17 @@
               <span class="menu-title">Тех поддержка</span>
             </a>
             </li>
+
+
+                <li class="nav-item" id="nav77">
+                    <a class="nav-link"  href="/index.php?naznachenie_vrachei" >
+                        <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>
+                        <span class="menu-title">Врачи-эксперты</span>
+                    </a>
+                </li>
+
+
+
                 <?php
             }
            
@@ -109,6 +119,7 @@
     let nav5 = document.getElementById("nav5");
     let nav6 = document.getElementById("nav6");
     let nav7 = document.getElementById("nav7");
+    let nav77 = document.getElementById("nav77");
 
 
     switch(url){
@@ -132,6 +143,9 @@
             break;
         case "/index.php?tasks_accred":
             nav7.className = "nav-item active";
+            break;
+        case "/index.php?naznachenie_vrachei":
+            nav77.className = "nav-item active";
             break;
         default:
             nav1.className = "nav-item active";
