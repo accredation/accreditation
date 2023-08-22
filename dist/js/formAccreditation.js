@@ -1598,7 +1598,7 @@ function saveTab(id_sub){
 
 let id_open_criteria = 0;
 
-function createAccordionCards(id_sub) {
+async function createAccordionCards(id_sub) {
 
  //   let marks_app = [];
 /*
@@ -1619,8 +1619,8 @@ function createAccordionCards(id_sub) {
     divAccordion.className = "accordion";
     let divCard = document.createElement("div");
     divCard.className = "card";
-    let arrStat = getStatusFromDB1(id_sub);
-    console.log(arrStat + "arrstat");
+    await getStatusFromDB1(id_sub);
+    //console.log(arr[0].id_criteria + "arrstat");
     let i = 0;
     for (let input of arrCheckInputs) {
 
@@ -1650,7 +1650,7 @@ function createAccordionCards(id_sub) {
                     let criteriaMark ='';
                     let criteriaMarkAccred ='';
                     let marksSub = JSON.parse(response);
-                 
+
                     criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
                                             + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
                     criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
@@ -1680,16 +1680,25 @@ function createAccordionCards(id_sub) {
 
                     btnNotReady.id = "btnNotReady";
                     //console.log (arrStat[i]);
-                    if(arrStat[i] == null || arrStat[i] == 0) {
-                        btnNotReady.innerHTML = "Готово";
+                    // if(arrStat[i] == null || arrStat[i] == 0) {
+                    //     btnNotReady.innerHTML = "Готово";
+                    // }
+                    // else {
+                    //     btnNotReady.innerHTML = "Не готово";
+                    // }
+                    // i++;
+
+                    for(let i = 0; i < arr.length; i++) {
+                        if (arr[i].id_criteria.includes(id_criteria)) {
+                            if (arr[i].status == null || arr[i].status == 0) {
+                                btnNotReady.innerHTML = "Готово";
+                            }
+                            else {
+                                btnNotReady.innerHTML = "Не готово";
+                            }
+                        }
                     }
-                    else {
-                        btnNotReady.innerHTML = "Не готово";
-                    }
 
-
-
-                    i++;
 
                     btnNotReady.style.width = "100px";
                     btnNotReady.style.height = "35px";
@@ -2381,11 +2390,10 @@ function sendDataToServer(id_sub,id_criteria, value) {
             console.error(error);
         });
 }
-
-function getStatusFromDB1(id_sub)
+let arr = new Array();
+async function getStatusFromDB1(id_sub)
 {
-    let arr = new Array();
-    $.ajax({
+    await $.ajax({
         url: "getstatus.php",
         method: "POST",
         data: { id_sub: id_sub},
@@ -2393,11 +2401,11 @@ function getStatusFromDB1(id_sub)
         success: function(data)  {
             for (var i = 0; i < data.length; i++) {
                 arr.push(data[i]);
-
+                //console.log(data[i]);
             }
+            // console.log(arr);
         }
     });
-    return arr;
 }
 
 

@@ -145,7 +145,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Изменение врача</h4><h4 class="modal-title hiddentab" id="id_user"></h4>
+                    <h4 class="modal-title" style="text-align: center">Изменение связанных критериев оценки врача-эксперта</h4><h4 class="modal-title hiddentab" id="id_user"></h4>
                     <button type="button" class="btn  btn-danger btn-close" data-bs-dismiss="modal">x</button>
                 </div>
 
@@ -156,7 +156,7 @@
 
                     <?php
 
-                    $query = "SELECT * FROM criteria";
+                    $query = "SELECT * FROM criteria order by name  ";
                     $result=mysqli_query($con, $query) or die ( mysqli_error($con));
 
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -166,8 +166,8 @@
 
                         ?>
                         <div>
-                            <input onchange="saveCheckboxCriteria(this,'<?= $id_criteria ?>')" type="checkbox" name="crit" id="criteri<?= $id_criteria ?>"  />
-                            <label for="criteri+<?= $id_criteria ?>"> <?= $name_crit ?><?= ($cond_id == 1) ? '(амбулаторная)' : (($cond_id == 2) ? '(стационарная)' : '') ?></label>
+                            <input style="vertical-align: top; margin-top: 0.25rem;" onchange="saveCheckboxCriteria(this,'<?= $id_criteria ?>')" type="checkbox" name="crit" id="criteri<?= $id_criteria ?>"  />
+                            <label for="criteri+<?= $id_criteria ?>" style="max-width: 500px"> <?= $name_crit ?><?= ($cond_id == 1) ? '(амбулаторная)' : (($cond_id == 2) ? '(стационарная)' : '') ?></label>
                         </div>
                         <?php
                     }

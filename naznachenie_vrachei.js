@@ -192,7 +192,7 @@ function deleteDoctor(id_user) {
     let newtd1 = document.createElement("td");
     let newtd2 = document.createElement("td");
     let tbody = tablenewdoctor.getElementsByTagName("tbody")[0];
-
+    newtd1.style = "text-align: center";
     newtd1.innerHTML = ustd.innerText;
     newtr.appendChild(newtd1);
 
