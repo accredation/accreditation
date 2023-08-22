@@ -45,6 +45,8 @@
 
 </style>
 
+
+
 <link rel="stylesheet" href="naznachenie_vrachi.css">
 <?php if(isset($_COOKIE['login'])){?>
     <div class="content-wrapper">
@@ -78,13 +80,28 @@
                                     <div class="card-body">
                                         <button class="btn btn-primary" onclick="addDoctor()">Добавить врача</button>
                                         <?php
-                                        $query = "SELECT * FROM users AS us WHERE us.doctor_expert = 1";
+                                        $idlogin = $_COOKIE['login'];
+                                        $queryroles = "SELECT id_role FROM users where id_role < 12 and id_role >= 4 and login = '$idlogin'";
+
+                                        $resultroles=mysqli_query($con, $queryroles) or die ( mysqli_error($con));
+                                        if (mysqli_num_rows($resultroles) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $rowroles = mysqli_fetch_assoc($resultroles);
+                                            $idrole = $rowroles['id_role'];
+
+                                                $query = "SELECT * FROM users AS us WHERE us.doctor_expert = 1 and us.id_role = '$idrole' ";
+
+                                        }
+                                        else{
+                                            $query = "SELECT * FROM users AS us WHERE us.doctor_expert = 1";
+                                        }
+
 
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
 
-                                        <table id="vsevrachi" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Пользователь</th>
@@ -192,10 +209,10 @@
                 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                 ?>
 
-                <table id = "newdoctor">
+                <table id = "newdoctor" class="table table-striped table-bordered">
                     <tr>
-                        <th>Имя врача</th>
-                        <th>Действие</th>
+                        <th style ="text-align: center">Имя врача</th>
+                        <th style ="text-align: center">Действие</th>
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
@@ -221,6 +238,46 @@
 
 
     <script src="/naznachenie_vrachei.js"></script>
+    <script>
+        var modals = document.getElementsByClassName("modal");
+
+        function attachModalDrag(modal) {
+            var header = modal.querySelector(".modal-header");
+            var mouseX = 0;
+            var mouseY = 0;
+            var modalLeft = 0;
+            var modalTop = 0;
+
+            function startDrag(event) {
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+                modalLeft = parseInt(window.getComputedStyle(modal).getPropertyValue("left"));
+                modalTop = parseInt(window.getComputedStyle(modal).getPropertyValue("top"));
+
+                document.addEventListener("mousemove", dragModal);
+                document.addEventListener("mouseup", stopDrag);
+            }
+
+            function dragModal(event) {
+                var deltaX = event.clientX - mouseX;
+                var deltaY = event.clientY - mouseY;
+
+                modal.style.left = modalLeft + deltaX + "px";
+                modal.style.top = modalTop + deltaY + "px";
+            }
+
+            function stopDrag() {
+                document.removeEventListener("mousemove", dragModal);
+                document.removeEventListener("mouseup", stopDrag);
+            }
+
+            header.addEventListener("mousedown", startDrag);
+        }
+
+        for (var i = 0; i < modals.length; i++) {
+            attachModalDrag(modals[i]);
+        }
+    </script>
 <?php }
 
 ?>

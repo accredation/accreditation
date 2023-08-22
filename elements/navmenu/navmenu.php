@@ -39,6 +39,15 @@
                               <span class="menu-title">Задачи</span>
                           </a>
                       </li>
+
+                      <li class="nav-item" id="nav77">
+                          <a class="nav-link"  href="/index.php?naznachenie_vrachei" >
+                              <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>
+                              <span class="menu-title">Врачи-эксперты</span>
+                          </a>
+                      </li>
+
+
                       <?php
               }?>
               <li class="nav-item" id="nav5">

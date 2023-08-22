@@ -122,6 +122,7 @@ function saveVrach(id_user) {
         }).done(function (response){
 
             console.log('savevrach' + response);
+            alert("Добавлен врач-эксперт");
 
         });
 
@@ -130,7 +131,7 @@ function saveVrach(id_user) {
         let ntd1 = document.createElement("td");
         let ntd2 = document.createElement("td");
         let ntd3 = document.createElement("td");
-        let tble = document.getElementById('vsevrachi');
+        let tble = document.getElementById('example');
         let tbody = tble.getElementsByTagName("tbody")[0];
 
         let td = document.getElementById("nam"+id_user);
@@ -161,6 +162,8 @@ function saveVrach(id_user) {
         td.parentElement.remove();
 
 
+       al
+
     }
 
 function deleteDoctor(id_user) {
@@ -173,6 +176,7 @@ function deleteDoctor(id_user) {
 
     }).done(function (response){
         console.log('deletevrach' + response);
+        alert("Удален врач-эксперт");
     });
 
 
