@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 18 2023 г., 10:40
+-- Время создания: Авг 22 2023 г., 09:29
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -953,10 +953,10 @@ CREATE TABLE `applications` (
 
 INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `ucomplect`, `tech_osn`, `id_user`, `id_status`, `date_send`, `date_accept`, `date_complete`, `date_council`, `fileReport`, `fileReportSamoocenka`, `activ_cursor`, `id_responsible`) VALUES
 (47, 'Учреждение здравоохранения «1-я городская клиническая больница»', '', '', '', '', '', '', '', NULL, NULL, '2022 инф 1.docx', NULL, NULL, 431, 1, NULL, NULL, NULL, NULL, NULL, '2022 инф 1.docx', 0, NULL),
-(48, '36gp', '36 ГП', '507123453', '220022, минск рокоссовского 76', '80173334455', '36@gp.by', 'Иванов Иван Иванович', 'Петров Петр Петрович', 'ТестИС.docx', 'ТестИС.docx', 'ТестИС.docx', NULL, NULL, 2, 3, NULL, '2023-08-14', '2023-08-18', NULL, 'ТестИС.docx', 'Тест2.docx', 0, 639),
+(48, '36gp', '36 ГП', '507123453', '220022, минск рокоссовского 76', '80173334455', '36@gp.by', 'Иванов Иван Иванович', 'Петров Петр Петрович', 'ТестИС.docx', 'ТестИС.docx', 'ТестИС.docx', NULL, NULL, 2, 3, NULL, '2023-08-11', '2023-08-18', '2023-08-29', 'ТестИС.docx', 'Тест2.docx', 0, 639),
 (49, 'Тестовая организация здравоохранения', '', '', '', '', '', '', '', '100lab (1).csv', '100lab.csv', '89л.csv', 'Руководство администратора.doc', 'ТЗ Работа комиссии 09.08.23 Кузнец.docx', 2, 2, NULL, NULL, NULL, NULL, NULL, '82гастрочтото.csv', 0, NULL),
 (50, 'Тестовая организация здравоохранения', 'ОЗ №1', '500265483', '200000, Минск Независимости 299', '801702020202', 'OZ1@mail.by', 'Иванов ИИ', 'Петров ИИ', 'Отчет.txt', 'Отчет.txt', 'Отчет.txt', NULL, NULL, 642, 3, '2023-08-08', '2023-08-18', '2023-08-21', '2023-08-23', NULL, 'Отчет.txt', 0, 1),
-(52, 'Тестовая организация здравоохранения', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, '2023-08-01', '2023-08-18', NULL, NULL, NULL, NULL, 639);
+(52, 'Тестовая организация здравоохранения', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, '2023-12-19', '2024-01-18', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -4784,7 +4784,7 @@ CREATE TABLE `rating_criteria` (
 
 INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteria`, `value`, `status`, `date_complete`, `id_otvetstvennogo`) VALUES
 (388, 94, 45, 1, NULL, NULL, NULL),
-(439, 97, 60, 1, 1, '2023-08-16', 640),
+(439, 97, 60, 1, 1, '2023-08-16', 639),
 (440, 97, 69, 1, 1, '2023-08-15', 1),
 (441, 97, 70, 1, 0, '2023-08-15', 1),
 (442, 97, 71, 1, 0, '2023-08-16', NULL),
@@ -4794,12 +4794,12 @@ INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteri
 (446, 97, 52, 1, NULL, NULL, NULL),
 (447, 97, 53, 1, NULL, NULL, NULL),
 (448, 97, 100, 1, 0, '2023-08-16', NULL),
-(476, 107, 39, 1, NULL, NULL, NULL),
+(476, 107, 39, 1, NULL, NULL, 639),
 (477, 107, 56, 1, NULL, NULL, NULL),
 (478, 107, 57, 1, NULL, NULL, NULL),
 (479, 107, 58, 1, NULL, NULL, NULL),
 (480, 107, 59, 1, NULL, NULL, NULL),
-(481, 107, 60, 1, NULL, NULL, NULL),
+(481, 107, 60, 1, NULL, NULL, 640),
 (482, 107, 61, 1, NULL, NULL, NULL),
 (483, 107, 62, 1, NULL, NULL, NULL),
 (484, 107, 63, 1, NULL, NULL, NULL),
@@ -4859,7 +4859,14 @@ INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteri
 (538, 106, 39, 1, NULL, NULL, NULL),
 (539, 106, 56, 1, NULL, NULL, NULL),
 (540, 106, 57, 1, NULL, NULL, NULL),
-(544, 112, 39, 1, NULL, NULL, NULL);
+(544, 112, 39, 1, NULL, NULL, NULL),
+(545, 120, 39, 1, 1, NULL, NULL),
+(546, 120, 56, 1, 1, NULL, NULL),
+(547, 120, 57, 1, 1, NULL, NULL),
+(548, 121, 39, 1, 1, NULL, NULL),
+(549, 121, 56, 1, 1, NULL, NULL),
+(550, 121, 57, 1, NULL, NULL, NULL),
+(551, 121, 58, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5197,18 +5204,6 @@ CREATE TABLE `spr_doctor_expert_for_criteria` (
   `id_criteria` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
---
--- Дамп данных таблицы `spr_doctor_expert_for_criteria`
---
-
-INSERT INTO `spr_doctor_expert_for_criteria` (`id_user`, `id_criteria`) VALUES
-(1, 60),
-(1, 69),
-(1, 70),
-(639, 39),
-(639, 60),
-(640, 60);
-
 -- --------------------------------------------------------
 
 --
@@ -5256,7 +5251,9 @@ INSERT INTO `subvision` (`id_subvision`, `name`, `id_application`) VALUES
 (107, 'Тестовая организация здравоохранения', 50),
 (112, 'Тестовая организация здравоохранения', 52),
 (118, 'фап123', 52),
-(119, 'qwerqwer', 52);
+(119, 'qwerqwer', 52),
+(120, '1afg', 48),
+(121, '2afg', 48);
 
 -- --------------------------------------------------------
 
@@ -5287,8 +5284,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`, `oblast`, `predsedatel`, `secretar`, `sotrudnik_MA`, `ne_sotrudnik_MA`, `doctor_expert`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, 'ab8ea5r750p0ubt8dihjf6vn3e3iu9o5', 'ab8ea5r750p0ubt8dihjf6vn3e3iu9o5', '2023-08-18 10:39:08', '/index.php?tasks_accred', 0, 1, NULL, NULL, NULL, 1),
-(2, 'Тестовая организация здравоохранения', 'test@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', 'ab8ea5r750p0ubt8dihjf6vn3e3iu9o5', '2023-08-16 10:33:52', '/index.php?logout', 8, NULL, NULL, NULL, NULL, NULL),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '15stfhfpm30ho8lf7hnt1c054cd471hg', '15stfhfpm30ho8lf7hnt1c054cd471hg', '2023-08-22 09:27:24', '/index.php?naznachenie_vrachei', 0, 1, NULL, 1, NULL, 1),
+(2, 'Тестовая организация здравоохранения', 'test@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', '15stfhfpm30ho8lf7hnt1c054cd471hg', '2023-08-18 12:07:05', '/index.php?logout', 8, NULL, NULL, NULL, NULL, NULL),
 (3, 'admin', 'hancharou@rnpcmt.by', '2c904ec0191ebc337d56194f6f9a08fa', 1, '0', '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '2023-08-10 09:17:21', '/index.php?logout', 0, NULL, NULL, NULL, NULL, NULL),
 (184, 'Государственное учреждение «Университетская стоматологическая клиника»', 'univDendClinic', '11023f1e51b80bc349f9c19f056bcedf', 3, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL),
 (185, 'Государственное учреждение «Республиканский центр медицинской реабилитации и бальнеолечения»', 'republicCentermedrb', '8a7199d2b7e7c86b0bc46f16f666f1e8', 3, NULL, NULL, '2023-07-20 16:52:47', '/index.php?logout', 4, NULL, NULL, NULL, NULL, NULL),
@@ -5747,10 +5744,10 @@ INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `onl
 (637, 'Учреждение здравоохранения «Могилевская областная станция переливания крови»', 'mogoblkrov', 'dc94d21cc6cfa6e5ed7afb288061afe6', 3, NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, NULL),
 (638, 'Учреждение здравоохранения «Бобруйская зональная станция переливания крови»', 'bobrzspkrov', '1baae61f5b1dadcbf450b91967f1aaf5', 3, NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, NULL),
 (639, 'Кузнец Ольга Михайловна', 'kuznec@rnpcmt.by', 'd961437ba667ed3f97c267110a8cac09', 8, '0', '8l3ebouo35kbuanoblomhmkiui63aj2g', '2023-08-07 13:25:43', '/index.php?logout', 0, 1, NULL, NULL, NULL, 1),
-(640, 'Федорако Александра Томашевна', 'fedorako@rnpcmt.by', 'd0620ee81008084b956e5fecf8a76e64', 2, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1),
-(641, 'Войтеховская Анна Александровна', 'voytehovskaya@rnpcmt.by', 'e45666bdf1964b4266a0a2885982f02d', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(640, 'Федорако Александра Томашевна', 'fedorako@rnpcmt.by', 'd0620ee81008084b956e5fecf8a76e64', 2, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 0),
+(641, 'Войтеховская Анна Александровна', 'voytehovskaya@rnpcmt.by', 'e45666bdf1964b4266a0a2885982f02d', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (642, 'Тестовая организация здравоохранения', 'test2@mail.ru', 'ad0234829205b9033196ba818f7a872b', 3, '0', 'q4a6g38fgbpi8de8qjv9gfe5jua2jnj9', '2023-08-16 09:35:44', '/index.php?logout', NULL, NULL, NULL, NULL, NULL, NULL),
-(643, 'Техподдержка', 'support@rnpcmt.by', '434990c8a25d2be94863561ae98bd682', 12, '0', '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '2023-08-15 09:01:41', '/index.php?logout', NULL, NULL, NULL, NULL, NULL, NULL);
+(643, 'Техподдержка', 'support@rnpcmt.by', '434990c8a25d2be94863561ae98bd682', 12, '0', '15stfhfpm30ho8lf7hnt1c054cd471hg', '2023-08-22 09:27:18', '/index.php?logout', NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -5890,7 +5887,7 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT для таблицы `rating_criteria`
 --
 ALTER TABLE `rating_criteria`
-  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=545;
+  MODIFY `id_rating_criteria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=552;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
@@ -5908,7 +5905,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `subvision`
 --
 ALTER TABLE `subvision`
-  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id_subvision` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
