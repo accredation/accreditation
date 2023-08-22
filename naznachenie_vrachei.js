@@ -123,6 +123,7 @@ function saveVrach(id_user) {
         }).done(function (response){
 
             console.log('savevrach' + response);
+            alert("Добавлен врач-эксперт");
 
         });
 
@@ -162,6 +163,8 @@ function saveVrach(id_user) {
         td.parentElement.remove();
 
 
+       al
+
     }
 
 function deleteDoctor(id_user) {
@@ -174,6 +177,7 @@ function deleteDoctor(id_user) {
 
     }).done(function (response){
         console.log('deletevrach' + response);
+        alert("Удален врач-эксперт");
     });
 
 

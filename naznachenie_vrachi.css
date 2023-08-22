@@ -1,7 +1,8 @@
-.modal{
+.modal {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1050;
     display: none;
     width: 38%;
@@ -14,10 +15,9 @@
     width: 640px;
     overflow-y: auto;
 }
-
-.show{
+.show {
     display: block;
 }
-.hiddentab{
+.hiddentab {
     display: none;
 }
