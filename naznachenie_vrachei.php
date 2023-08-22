@@ -85,7 +85,7 @@
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
 
-                                        <table id="vsevrachi" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Пользователь</th>
