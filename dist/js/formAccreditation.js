@@ -5,6 +5,7 @@
 // let tab5 = document.getElementById("tab-5");
 
 let data_old = new Array();
+let data_old1 = new Array();
 let openTabId = 0;
 
 let status = 2;
@@ -76,6 +77,7 @@ function showTab(element,id_sub){
     let myModal = document.getElementById("myModal");
 
     let activeTabDiv = myModal.getElementsByClassName("tab-pane fade show active")[0];
+    console.log(activeTabDiv);
     if(tabDiv && activeTabDiv) {
         activeTabDiv.classList.remove("active");
         tabDiv.classList.add("active");
@@ -353,6 +355,7 @@ function createApplication(){
 
 function showModal(id_application, strMarks, strMarksAccred){
 
+
     let footer = document.getElementsByClassName("modal-footer")[0];
     if(footer.classList.contains('hiddentab')){
         footer.classList.remove('hiddentab');
@@ -390,27 +393,63 @@ function showModal(id_application, strMarks, strMarksAccred){
     let btnChecking = document.getElementById("btnChecking");
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
+    let btncalc = document.getElementById("btnCalc");
+    let btnreport = document.getElementById("btnPrintReport");
+    let btnOkReshenie =  document.getElementById("btnOkReshenie");
 
     let tabOdobrenie = document.getElementById("odobrennie-tab");
     let tabNeodobrennie = document.getElementById("neodobrennie-tab");
     let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
+    let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
     let tabHome = document.getElementById("home-tab");
+    let informgr = document.getElementById("informgr");
 
     if(tabOdobrenie.classList.contains("active")){
         btnChecking.classList.remove("hiddentab");
         btnNeOk.classList.remove("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
+
+
     }else if(tabNeodobrennie.classList.contains("active")){
         btnChecking.classList.remove("hiddentab");
         btnOk.classList.remove("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
+
     }
     else if(tabRassmotrenie.classList.contains("active")){
-        // btnNeOk.classList.remove("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
+
     }
+    else if(tabReshenieSoveta.classList.contains("active")){
+        btncalc.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.remove("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "none";
+        sovetgr.style.display = "block";
+
+    }
+
     else{
+        sovetgr.style.display = "none";
+        informgr.style.display = "block";
         btnNeOk.classList.remove("hiddentab");
-        // btnOk.classList.remove("hiddentab");
+         btnOk.classList.add ("hiddentab");
         btnChecking.classList.remove("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
     }
 
     let mainRightCard = document.getElementById("mainRightCard");
@@ -435,6 +474,10 @@ function showModal(id_application, strMarks, strMarksAccred){
     let techOsn = document.getElementById("techOsn");
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
+
+
+
+
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
@@ -502,6 +545,49 @@ function showModal(id_application, strMarks, strMarksAccred){
             }
         });
      // выводим полученный ответ на консоль браузер
+
+    let fileInputProtokol = document.getElementById("fileInputProtokol");
+    let fileInputZakl = document.getElementById("fileInputZakl");
+    let dateInputPlan = document.getElementById("dateInputPlan");
+    let resolution = document.getElementById("resolution");
+    let dateInputSrok = document.getElementById("dateInputSrok");
+
+// Получаем актуальные значения из базы данных
+    let datasovet = new Array();
+    $.ajax({
+        url: "getSovet.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function( response ) {
+            for (let i of JSON.parse(response)){
+                datasovet.push(i);
+                data_old1.push(i);
+            }
+            let login = getCookie('login');
+            dateInputPlan.value = datasovet[0][1];
+            resolution.value = datasovet[0][2];
+            dateInputSrok.value = datasovet[0][3];
+
+
+            if(datasovet[0][4] != null) {
+                document.getElementById("protokolsoveta").value = datasovet[0][4];
+
+                    fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][4] + "'>" + datasovet[0][4] + "</a>");
+
+            }
+
+            if(datasovet[0][5] != null) {
+                document.getElementById("zaklsoveta").value = datasovet[0][5];
+
+                fileInputZakl.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][5] + "'>" + datasovet[0][5] + "</a>");
+
+            }
+        });
+
+
+
+
 
     $(".btn-close").on("click",() => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
@@ -583,6 +669,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     };
 
 }
+
 
 function printReport(){
     let number_app = document.getElementById("id_application");
@@ -1282,7 +1369,7 @@ function getTabs(name, id_sub){
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1377,7 +1464,7 @@ function getMainTab(name, id_sub){
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1598,7 +1685,7 @@ function saveTab(id_sub){
 
 let id_open_criteria = 0;
 
-function createAccordionCards(id_sub) {
+async function createAccordionCards(id_sub) {
 
  //   let marks_app = [];
 /*
@@ -1619,8 +1706,8 @@ function createAccordionCards(id_sub) {
     divAccordion.className = "accordion";
     let divCard = document.createElement("div");
     divCard.className = "card";
-    let arrStat = getStatusFromDB1(id_sub);
-    console.log(arrStat + "arrstat");
+    await getStatusFromDB1(id_sub);
+    //console.log(arr[0].id_criteria + "arrstat");
     let i = 0;
     for (let input of arrCheckInputs) {
 
@@ -1680,16 +1767,28 @@ function createAccordionCards(id_sub) {
 
                     btnNotReady.id = "btnNotReady";
                     //console.log (arrStat[i]);
-                    if(arrStat[i] == null || arrStat[i] == 0) {
-                        btnNotReady.innerHTML = "Готово";
+                    // if(arrStat[i] == null || arrStat[i] == 0) {
+                    //     btnNotReady.innerHTML = "Готово";
+                    // }
+                    // else {
+                    //     btnNotReady.innerHTML = "Не готово";
+                    // }
+                    // i++;
+
+
+                    for(let i = 0; i < arr.length; i++) {
+                            if (arr[i].id_criteria.includes(id_criteria)) {
+                                if (arr[i].status == null || arr[i].status == 0) {
+                                    btnNotReady.innerHTML = "Готово";
+                                }
+                                else {
+                                    btnNotReady.innerHTML = "Не готово";
+                                }
+                            }
                     }
-                    else {
-                        btnNotReady.innerHTML = "Не готово";
-                    }
 
 
 
-                    i++;
 
                     btnNotReady.style.width = "100px";
                     btnNotReady.style.height = "35px";
@@ -2232,7 +2331,14 @@ function saveMarks(id_sub){
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=0)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2243,8 +2349,14 @@ $("#home-tab").on("click", () => {
 });
 
 $("#rassmotrenie-tab").on("click", () => {
-
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=1)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2257,7 +2369,14 @@ $("#rassmotrenie-tab").on("click", () => {
 
 $("#odobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=2)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2270,7 +2389,14 @@ $("#odobrennie-tab").on("click", () => {
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=3)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2280,6 +2406,59 @@ $("#neodobrennie-tab").on("click", () => {
  //   console.log(status);
 
 });
+
+
+$("#reshenieSoveta-tab").on("click", () => {
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=4)
+        allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[4].children[0].classList.add("show");
+    allTabsMainPage[4].children[0].classList.add("active");
+    status = 2;
+    //  console.log(status);
+
+});
+
+
+$("#btnSaveSovet").on("click", () => {
+    let id_application = document.getElementById("id_application");
+    var protokolsoveta = document.getElementById("fileInputProtokol");
+    var zaklsoveta = document.getElementById("fileInputZakl");
+    var dateInputPlan = document.getElementById("dateInputPlan").value;
+    var resolution = document.getElementById("resolution").value;
+    var dateInputSrok = document.getElementById("dateInputSrok").value;
+    let xhr = new XMLHttpRequest(),
+    form = new FormData();
+    let protokolsovetaFile = protokolsoveta.files[0];
+    let zaklsovetaFile = zaklsoveta.files[0];
+
+    form.append("id_application", id_application.innerText);
+    form.append("dateInputPlan", dateInputPlan);
+    form.append("resolution", resolution);
+    form.append("dateInputSrok", dateInputSrok);
+    form.append("protokolsoveta", protokolsovetaFile);
+    form.append("zaklsoveta", zaklsovetaFile);
+
+    xhr.open("post", "saveSovet.php", true);
+    xhr.send(form);
+    alert("Данные сохранены");
+});
+
+
+
+
+
+
+
+
 
 $("#btnChecking").on("click", () => {
     let id_application = document.getElementById("id_application");
@@ -2366,6 +2545,45 @@ $("#formReport").on("change", () =>{
     xhr.send(form);
 });
 
+
+$("#protfile").on("change", () =>{
+    let login = getCookie('login');
+    let id_application = document.getElementById("id_application");
+    let protfile = document.getElementById("protfile");
+
+    let prot = protfile.getElementsByTagName("a")[0];
+
+
+
+    if(prot){
+        prot.remove();
+    let fileInputProtokol = document.getElementById("fileInputProtokol");
+
+    fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/documents/"+ login + "/sovets/" + id_application +"/" + fileInputProtokol.files[0].name + "'>" + fileInputProtokol.files[0].name + "</a>");
+    }
+
+
+});
+$("#zaklfile").on("change", () =>{
+    let login = getCookie('login');
+    let id_application = document.getElementById("id_application");
+
+    let zaklfile = document.getElementById("zaklfile");
+
+    let zakl = zaklfile.getElementsByTagName("a")[0];
+
+    if (zakl)
+    {
+        zakl.remove();
+        let fileInputZakl = document.getElementById("fileInputZakl");
+
+        fileInputZakl.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + fileInputZakl.files[0].name + "'>" + fileInputZakl.files[0].name + "</a>");
+    }
+
+});
+
+
+
 function sendDataToServer(id_sub,id_criteria, value) {
 
     $.ajax({
@@ -2381,11 +2599,10 @@ function sendDataToServer(id_sub,id_criteria, value) {
             console.error(error);
         });
 }
-
-function getStatusFromDB1(id_sub)
+let arr = new Array();
+async function getStatusFromDB1(id_sub)
 {
-    let arr = new Array();
-    $.ajax({
+    await $.ajax({
         url: "getstatus.php",
         method: "POST",
         data: { id_sub: id_sub},
@@ -2393,11 +2610,11 @@ function getStatusFromDB1(id_sub)
         success: function(data)  {
             for (var i = 0; i < data.length; i++) {
                 arr.push(data[i]);
-
+                //console.log(data[i]);
             }
+            // console.log(arr);
         }
     });
-    return arr;
 }
 
 

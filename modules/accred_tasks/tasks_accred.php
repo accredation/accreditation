@@ -81,7 +81,7 @@
                                             <td><?= $app1['name']?></td>
                                             <td></td>
                                             <td></td>
-                                            <td>FIO otvetstennogo</td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

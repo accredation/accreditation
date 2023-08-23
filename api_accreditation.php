@@ -20,6 +20,42 @@
     .margleft{
         padding-left: 20px;
     }
+    .inform{
+        height: 20%;
+        position: relative;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.3125rem;
+        padding: 2.5rem 2.5rem;
+    }
+
+    .sovet{
+        height: 60%;
+        position: relative;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.3125rem;
+        padding: 2.5rem 2.5rem;
+    }
+
+    #checkboxInput {
+        transform: scale(1.2);
+        font-weight: bold;
+    }
 </style>
 
 <style>
@@ -84,6 +120,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">На доработке</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="reshenieSoveta-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Решение совета</a>
                         </li>
                     </ul>
                     <div class="d-md-block d-none">
@@ -206,6 +245,12 @@
 
                     </div>
                 </div>
+
+
+
+
+
+
 
                 <div class="tab-content tab-transparent-content">
                     <div class="tab-pane fade" id="rassmotrenie" role="tabpanel" aria-labelledby="rassmotrenie-tab">
@@ -434,6 +479,82 @@
                 </div>
 
 
+
+
+
+
+                <div class="tab-content tab-transparent-content">
+                    <div class="tab-pane fade" id="reshenieSoveta" role="tabpanel" aria-labelledby="reshenieSoveta-tab">
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <?php
+                                        $query = "SELECT * FROM users where login = '$login'";
+
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ($role > 3 && $role < 12){
+                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user
+                                                   where id_status = 2 and u.oblast = '$role'";
+                                        }
+                                        else {
+                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join users u on a.id_user =u.id_user
+                                                   where id_status = 2";
+                                        }
+                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        ?>
+
+                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Заявления</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+
+                                            foreach ($data as $app) {
+                                                include "mainMark.php"
+                                                ?>
+
+                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
+
+                                                    <td>Заявление <?= $app['username'] ?>  №<?= $app['app_id'] ?></td>
+
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
     </div>
@@ -545,10 +666,76 @@
                                         </div>
                                     </div>
                                     <div class="col-6 grid-margin">
+
+
+                                    <div class = "inform" id = "informgr" >
+                                        <div class="newform-group">
+                                            <label>Информация о необходимости доработки(нажмите на поле ввода, чтобы присоединить файл)</label>
+                                            <input id="infdorabotki" type="text" class="form-control" readonly/>
+                                            <input type="file" id="fileInputDorabotka" style="display: none;" accept=".pdf">
+                                            </div>
+
+                                        <div class="newform-group">
+                                            <label>Срок доработки (дата)</label>
+                                            <input id="dateInputDorabotki" type="date" class="form-control">
+                                        </div>
+
+                                        <div class="newform-group">
+                                        <label>Отправить уведомление на электронную почту ОЗ</label><br>
+                                        <input type="checkbox" id="checkboxInput">
+                                    </div>
+
+
+                                    </div>
+
+                                        <form class = "sovet"  id="sovetgr" >
+
+                                            <div class="newform-group" id = "protfile">
+                                                <label>Протокол Совета (Проект)</label>
+                                                <input id="protokolsoveta" type="text" class="form-control" readonly/>
+                                                <input type="file" id="fileInputProtokol" style="display: none;" accept=".pdf">
+                                            </div>
+                                            <br>
+                                            <div class="newform-group" id = "zaklfile">
+                                                <label>Заключение Совета (Проект)</label>
+                                                <input id="zaklsoveta" type="text" class="form-control" readonly/>
+                                                <input type="file" id="fileInputZakl" style="display: none;" accept=".pdf">
+                                            </div>
+                                            <br>
+                                            <div class="newform-group">
+                                                <label>Запланировать дату Совета</label>
+                                                <input id="dateInputPlan" type="date" class="form-control">
+                                            </div>
+                                            <br>
+                                            <div class="newform-group">
+                                                <label for="resolution">Решение совета</label>
+                                                <select id="resolution" class="form-control">
+                                                    <option value="Соответствует">Соответствует</option>
+                                                    <option value="Частично соответствует">Частично соответствует</option>
+                                                    <option value="Не соответствует">Не соответствует</option>
+                                                </select>
+
+                                            </div>
+                                             <br>
+                                            <div class="newform-group">
+                                                <label>Срок решения</label>
+                                                <input id="dateInputSrok" type="date" class="form-control">
+                                            </div>
+                                            <br>
+                                            <button type="submit" class="btn btn-light btn-fw" id="btnSaveSovet">Сохранить</button>
+                                        </div>
+                                </form>
+
+
+
+
+
+
                                         <div class="card">
                                             <div class="card-body" id="mainRightCard">
 
                                             </div>
+
                                             <form id="formReport" >
                                                 <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
                                                     <div style="margin-bottom:1rem">
@@ -697,8 +884,10 @@
                     <!--                <form action="getApplication.php" method="post">-->
                     <!--                    <input type="text" name="count" id="count"/>-->
                     <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
+
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение</button>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета</button>
 
                     <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
@@ -748,6 +937,57 @@
             }
         });
     </script>
+
+
+
+    <script>
+
+        document.getElementById("infdorabotki").addEventListener("click", function() {
+            document.getElementById("fileInputDorabotka").click();
+        });
+
+        document.getElementById("fileInputDorabotka").addEventListener("change", function() {
+            var file = this.files[0];
+            if (file) {
+                document.getElementById("infdorabotki").value = file.name;
+            }
+        });
+    </script>
+
+
+
+    <script>
+
+        document.getElementById("protokolsoveta").addEventListener("click", function() {
+            document.getElementById("fileInputProtokol").click();
+        });
+
+        document.getElementById("fileInputProtokol").addEventListener("change", function() {
+            var file = this.files[0];
+            if (file) {
+                document.getElementById("protokolsoveta").value = file.name;
+            }
+        });
+    </script>
+
+
+
+
+    <script>
+
+        document.getElementById("zaklsoveta").addEventListener("click", function() {
+            document.getElementById("fileInputZakl").click();
+        });
+
+        document.getElementById("fileInputZakl").addEventListener("change", function() {
+            var file = this.files[0];
+            if (file) {
+                document.getElementById("zaklsoveta").value = file.name;
+            }
+        });
+    </script>
+
+
 
 <?php } else { ?>
     <div class="content-wrapper">
