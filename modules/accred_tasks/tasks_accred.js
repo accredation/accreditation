@@ -81,7 +81,6 @@ function showModal(id_app){
             predsedatel.appendChild(newOption);
 
         }
-        console.log(arrPreds);
         dateAccept.value = data[0];
         dateComplete.value = data[1];
         dateCouncil.value = data[2];
@@ -118,9 +117,27 @@ function saveChanges(btn){
     let trId = document.getElementById(this.id_app);
     let selectPreds = document.getElementById("predsedatel");
     let ulId = document.getElementById("ul"+this.id_app);
-    let dateAc = new Date(dateAccept.value);
-    let dateCompl = new Date(dateComplete.value);
-    let dateCounc = new Date(dateCouncil.value);
+    let dateAc
+    if(dateAccept.value === ''){
+        dateAc = '';
+    } else {
+        dateAc = new Date(dateAccept.value);
+    }
+
+    let dateCompl
+    if(dateComplete.value === ''){
+        dateCompl = '';
+    } else {
+        dateCompl = new Date(dateComplete.value);
+    }
+
+    let dateCounc
+    if(dateCouncil.value === ''){
+        dateCounc = '';
+    } else {
+        dateCounc = new Date(dateCouncil.value);
+    }
+
     let id_responsible = selectPreds.options[selectPreds.selectedIndex].id.substring(2);
     let predsName = selectPreds.options[selectPreds.selectedIndex].value;
 
@@ -136,16 +153,55 @@ function saveChanges(btn){
         trId.children[5].innerHTML = dateComplete.value;
         trId.children[6].innerHTML = dateCouncil.value;
 
+        let startDate2 = new Date(); // текущая дата yy mm dd
+        let endDate2 = new Date(); // конечная дата
+        startDate2.setMonth(startDate2.getMonth() - 5);
+        endDate2.setMonth(endDate2.getMonth() + 5);
 
-        ulId.children[0].setAttribute("data-duration", dateAc.toLocaleDateString().slice(0,5) + "-" + dateCompl.toLocaleDateString().slice(0,5));
+        let dateAcF = dateAc; //.toLocaleString('ru-RU').slice(0, 10) ;
+        let dateComplF = dateCompl;//.toLocaleDateString();
+        let dateCouncF = dateCounc;//.toLocaleDateString();
+
+        // console.log('dateStartF2', typeof dateAcF);
+        // console.log('dateStartF2', dateAcF);
+    //    console.log(new Date(dateAcF.trim())<  new Date(dateStartF.trim()));
+
+        if(dateAcF === ''){
+            dateAcF = day;
+        } else
+        {
+
+            if (dateAcF.toISOString() < startDate2.toISOString()) {
+                dateAcF = startDate2
+            }
+        }
+
+        if(dateComplF === ''){
+            dateComplF = day;
+        } else {
+            if (dateComplF.toISOString() > endDate2.toISOString()) {
+                dateComplF = endDate2
+            }
+        }
+
+
+        if(dateCouncF === ''){
+            dateCouncF = day;
+        } else {
+            if (dateCouncF.toISOString() > endDate2.toISOString()) {
+                dateCouncF = endDate2
+            }
+        }
+
+        ulId.children[0].setAttribute("data-duration", dateAcF.toLocaleString('ru-RU').slice(0,5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0,5));
         if(dateCouncil.value === "") {
             if(dateCompl === ""){
                 dateCompl = new Date();
             }
-            ulId.children[1].setAttribute("data-duration", dateCompl.toLocaleDateString().slice(0, 5) + "-" + dateCompl.toLocaleDateString().slice(0, 5));
+            ulId.children[1].setAttribute("data-duration", dateComplF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0, 5));
             ulId.children[1].style.backgroundColor = "#4464a1";
         }else{
-            ulId.children[1].setAttribute("data-duration", dateCounc.toLocaleDateString().slice(0, 5) + "-" + dateCounc.toLocaleDateString().slice(0, 5));
+            ulId.children[1].setAttribute("data-duration", dateCouncF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateCouncF.toLocaleString('ru-RU').slice(0, 5));
             ulId.children[1].style.backgroundColor = "#6a478f";
         }
         btn.addEventListener("mouseout", createChart);
@@ -254,7 +310,6 @@ function collapsTable(id) {
         let date_accept = document.getElementById('date_accept_'+id);
         let date_complete = document.getElementById('date_complete_'+id);
 
-             // console.log(date_accept.innerText)
         date_accept =  date_accept.innerText;
         date_complete=  date_complete.innerText;
 
@@ -341,14 +396,13 @@ function collapsTable(id) {
 
                 let arrHiden2 = [...document.getElementsByClassName(`hidden_${item.id}`)];
 
-                console.log(item);
                 if (arrHiden2.length > 0) {
                     arrHiden2.forEach((hidenItem) => {
 
                         hidenItem.style = 'display:none';
                     });
                 }
-                if(date_accept!=='' && date_complete!=='') {
+                if(date_accept!=='' || date_complete!=='') {
                     document.getElementById("ul" + item.id).classList.remove("visib");
                     document.getElementById("ul" + item.id).classList.add("hidden");
                 }
@@ -396,12 +450,13 @@ function collapsTable(id) {
 
 
 //скрипт формируем даты
-var startDate = new Date('2023-01-01'); // текущая дата yy mm dd
-var endDate = new Date('2023-12-31'); // конечная дата
-// startDate.setMonth(startDate.getMonth()-2);
-// endDate.setMonth(endDate.getMonth() + 2); // добавляем 2 мес
+var startDate = new Date(); // текущая дата yy mm dd
+var endDate = new Date(); // конечная дата
+startDate.setMonth(startDate.getMonth() - 5);
+endDate.setMonth(endDate.getMonth() + 5); // добавляем 2 мес
 
 var currentDate = startDate;
+
 while (currentDate <= endDate) {
     // получаем дату в формате
 
@@ -437,7 +492,6 @@ window.onload = () => {
     [...apps].forEach(el => {
         arrIdApps.push(el.id);
     })
-    console.log(arrIdApps);
     let arrStrProgs = new Array();
     let trsApp;
     let arrsResult = new Array();
@@ -451,16 +505,9 @@ window.onload = () => {
             let strRes = el.getElementsByClassName("progr")[0].innerText;
             arrStrProgs.push(strRes);
             let lr = strRes.split("/");
-            console.log('lr = ',lr);
-
-
             lrs += Number(lr[0]);
             rrs += Number(lr[1]);
-
-
         })
-      //  arrsResult.push(res);
-        console.log('lrs rrs ',lrs, rrs);
         res = ( lrs/ rrs) ;
         if(Number(res)){
             document.getElementById(`${id}`).children[7].innerHTML = (res * 100).toFixed(2) +'%' ;
@@ -469,8 +516,6 @@ window.onload = () => {
         }
 
     });
-    // console.log(arrStrProgs);
-    //console.log(arrsResult);
 
 }
 

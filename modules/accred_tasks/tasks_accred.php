@@ -81,7 +81,7 @@
                                             <td><?= $app1['name']?></td>
                                             <td></td>
                                             <td></td>
-                                            <td>FIO otvetstennogo</td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -178,11 +178,18 @@
                 foreach ($data as $app) {
                     $app_id = $app['app_id'];
                     $date_accept = $app['date_accept'];
+                    $startDate = date('Y-m-d', strtotime("-5 month"));
+
+                    if($date_accept < $startDate ) {
+                        $date_accept = $startDate;
+                    }
+
                     if($date_accept==''){$date_accept='';}
+
+
+
                     $date_complete = $app['date_complete'];
-
-                    $endDate = date('2023-12-31');
-
+                    $endDate = date('Y-m-d', strtotime("5 month"));
                     if($date_complete > $endDate ) {
                         $date_complete = $endDate;
                     }
@@ -190,11 +197,15 @@
                     if($date_complete==''){$date_complete='';}
                     $date_council = $app['date_council'];
                     if($date_council==''){$date_council='';}
+                    if($date_council > $endDate ) {
+                        $date_council = $endDate;
+                    }
+
                 ?>
                     <ul class="chart-bars hidden"  id = "ul<?= $app_id?>" >
                         <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Задание заявления №<?= $app_id?></li>
                 <?php
-                    if($date_council != null || $date_council != ""){
+                    if(($date_council != null || $date_council != "")&&($date_council != $endDate)){
                 ?>
                         <li data-duration="<?=substr(date_format(date_create($date_council), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_council), "d.m.Y"), 0, 5)?>" data-color="#6a478f" style="padding: 5px 10px; z-index: 9999 "></li>
                         <?php
