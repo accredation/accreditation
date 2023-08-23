@@ -104,8 +104,8 @@
 
                                         foreach ($data2 as $app2) {
                                             $id_otvetstvennogo = $app2['id_otvetstvennogo'];
-
                                             ?>
+
                                             <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
                                                 <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>

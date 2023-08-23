@@ -132,4 +132,12 @@ a {
     display: block;
 }
 
+.trColor{
+    background: lime
+}
+
+
+.tdMainColor{
+    color: darkorchid;
+}
 

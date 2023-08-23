@@ -36,6 +36,20 @@ if(getCookie("isMA") === "0") {
     });
 }
 
+let id_user = getCookie("id_user");
+    [...slcts].forEach(item => {
+        if(item.value == id_user ) {
+            let td = item.parentElement.parentElement;
+            td.classList.add('trColor');
+
+            let id = td.classList[1].substring(7,td.classList[1].length)
+            let mainTd = document.getElementById(id);
+            mainTd.classList.add('tdMainColor');
+            console.log(id)
+        } else {
+        }
+    });
+
 let dateAccept = document.getElementById("dateAccept");
 let dateComplete = document.getElementById("dateComplete");
 let dateCouncil = document.getElementById("dateCouncil");
@@ -306,29 +320,25 @@ window.addEventListener("resize", createChart);
 
 
 function collapsTable(id) {
-        //console.log(id, date_accept, date_complete);
-        let date_accept = document.getElementById('date_accept_'+id);
-        let date_complete = document.getElementById('date_complete_'+id);
+    //console.log(id, date_accept, date_complete);
+    let date_accept = document.getElementById('date_accept_' + id);
+    let date_complete = document.getElementById('date_complete_' + id);
 
-        date_accept =  date_accept.innerText;
-        date_complete=  date_complete.innerText;
+    date_accept = date_accept.innerText;
+    date_complete = date_complete.innerText;
 
-        if(date_accept!=='' && date_complete!==''){
+    if (date_accept !== '' && date_complete !== '') {
 
 
-
-            let myUl = document.getElementById("ul" + id);
-            if (myUl.classList.contains("hidden")) {
-                myUl.classList.remove("hidden");
-                myUl.classList.add("visib");
-            } else {
-                myUl.classList.remove("visib");
-                myUl.classList.add("hidden");
-            }
+        let myUl = document.getElementById("ul" + id);
+        if (myUl.classList.contains("hidden")) {
+            myUl.classList.remove("hidden");
+            myUl.classList.add("visib");
+        } else {
+            myUl.classList.remove("visib");
+            myUl.classList.add("hidden");
         }
-
-
-
+    }
 
 
     let parent = document.getElementById(`${id}`);
@@ -336,19 +346,19 @@ function collapsTable(id) {
 
     let arrHiden = [...hidden];
 
-    let  filteredHidden = arrHiden.filter((item)=> item.classList.contains("fill_sub") === false)
+    let filteredHidden = arrHiden.filter((item) => item.classList.contains("fill_sub") === false)
 
+    if(getCookie("isMA") === "1") {
 
     let arrOtv = new Array();
     $.ajax({
         url: "modules/accred_tasks/getDoctorExpert.php",
         method: "GET",
         data: {id_application: id}
-    }).done(function (response){
-        for (let i of JSON.parse(response)){
+    }).done(function (response) {
+        for (let i of JSON.parse(response)) {
             arrOtv.push(i);
         }
-
 
         if (arrOtv.length > 0) {
             filteredHidden.forEach((hidenTrItem) => {
@@ -358,19 +368,26 @@ function collapsTable(id) {
                 let select = hidenTrItem.getElementsByTagName('select')[0];
                 let selInd = select.value;
 
-                select.innerHTML ='';
-                let firstOption = document.createElement('option');
-                firstOption.id="otv" + 0;
-                firstOption.value= "0";
-                firstOption.text = "";
-                select.appendChild(firstOption);
-                let filtDoctor = arrOtv.filter((item)=>item['id_criteria'] == idCr);
 
-                if(filtDoctor.length>0){
-                    filtDoctor.map(item=>{
+                let opt = [...select.options];
+
+                let firstOption = document.createElement('option');
+                firstOption.id = "otv" + 0;
+                firstOption.value = "0";
+                firstOption.text = "";
+
+                let filtDoctor = arrOtv.filter((item) => item['id_criteria'] == idCr);
+                let newarr = [...filtDoctor];
+
+                opt.map(optItem=> {
+                    newarr = newarr.filter((item) => item['id_user'] != optItem.value);
+                })
+
+                if (newarr.length > 0) {
+                    newarr.map(item => {
                         let newOption = document.createElement('option');
-                        newOption.id="otv" + item['id_user'];
-                        newOption.value= item['id_user'];
+                        newOption.id = "otv" + item['id_user'];
+                        newOption.value = item['id_user'];
                         newOption.text = item['username'];
                         select.appendChild(newOption);
                     })
@@ -382,6 +399,8 @@ function collapsTable(id) {
         }
 
     });
+
+}
 
 
     let table = parent.parentElement;

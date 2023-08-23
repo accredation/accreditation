@@ -404,7 +404,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         btnOk.classList.remove("hiddentab");
     }
     else if(tabRassmotrenie.classList.contains("active")){
-        // btnNeOk.classList.remove("hiddentab");
+         btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
     }
     else{
