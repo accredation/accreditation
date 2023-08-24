@@ -37,18 +37,18 @@ if(getCookie("isMA") === "0") {
 }
 
 let id_user = getCookie("id_user");
-    [...slcts].forEach(item => {
-        if(item.value == id_user ) {
-            let td = item.parentElement.parentElement;
-            td.classList.add('trColor');
+[...slcts].forEach(item => {
+    if(item.value == id_user ) {
+        let td = item.parentElement.parentElement;
+        td.classList.add('trColor');
 
-            let id = td.classList[1].substring(7,td.classList[1].length)
-            let mainTd = document.getElementById(id);
-            mainTd.classList.add('tdMainColor');
-            console.log(id)
-        } else {
-        }
-    });
+        let id = td.classList[1].substring(7,td.classList[1].length)
+        let mainTd = document.getElementById(id);
+        mainTd.classList.add('tdMainColor');
+        console.log(id)
+    } else {
+    }
+});
 
 let dateAccept = document.getElementById("dateAccept");
 let dateComplete = document.getElementById("dateComplete");
@@ -131,7 +131,7 @@ function saveChanges(btn){
     let trId = document.getElementById(this.id_app);
     let selectPreds = document.getElementById("predsedatel");
     let ulId = document.getElementById("ul"+this.id_app);
-    let dateAc
+    let dateAc;
     if(dateAccept.value === ''){
         dateAc = '';
     } else {
@@ -178,13 +178,11 @@ function saveChanges(btn){
 
         // console.log('dateStartF2', typeof dateAcF);
         // console.log('dateStartF2', dateAcF);
-    //    console.log(new Date(dateAcF.trim())<  new Date(dateStartF.trim()));
-
+        //    console.log(new Date(dateAcF.trim())<  new Date(dateStartF.trim()));
         if(dateAcF === ''){
             dateAcF = day;
         } else
         {
-
             if (dateAcF.toISOString() < startDate2.toISOString()) {
                 dateAcF = startDate2
             }
@@ -320,25 +318,27 @@ window.addEventListener("resize", createChart);
 
 
 function collapsTable(id) {
-    //console.log(id, date_accept, date_complete);
-    let date_accept = document.getElementById('date_accept_' + id);
-    let date_complete = document.getElementById('date_complete_' + id);
+        //console.log(id, date_accept, date_complete);
+        let date_accept = document.getElementById('date_accept_'+id);
+        let date_complete = document.getElementById('date_complete_'+id);
 
-    date_accept = date_accept.innerText;
-    date_complete = date_complete.innerText;
+             // console.log(date_accept.innerText)
+        date_accept =  date_accept.innerText;
+        date_complete=  date_complete.innerText;
 
-    if (date_accept !== '' && date_complete !== '') {
+        if(date_accept!=='' && date_complete!==''){
 
 
-        let myUl = document.getElementById("ul" + id);
-        if (myUl.classList.contains("hidden")) {
-            myUl.classList.remove("hidden");
-            myUl.classList.add("visib");
-        } else {
-            myUl.classList.remove("visib");
-            myUl.classList.add("hidden");
+
+            let myUl = document.getElementById("ul" + id);
+            if (myUl.classList.contains("hidden")) {
+                myUl.classList.remove("hidden");
+                myUl.classList.add("visib");
+            } else {
+                myUl.classList.remove("visib");
+                myUl.classList.add("hidden");
+            }
         }
-    }
 
 
     let parent = document.getElementById(`${id}`);
@@ -346,19 +346,19 @@ function collapsTable(id) {
 
     let arrHiden = [...hidden];
 
-    let filteredHidden = arrHiden.filter((item) => item.classList.contains("fill_sub") === false)
+    let  filteredHidden = arrHiden.filter((item) => item.classList.contains("fill_sub") === false)
 
     if(getCookie("isMA") === "1") {
-
     let arrOtv = new Array();
     $.ajax({
         url: "modules/accred_tasks/getDoctorExpert.php",
         method: "GET",
         data: {id_application: id}
-    }).done(function (response) {
-        for (let i of JSON.parse(response)) {
+    }).done(function (response){
+        for (let i of JSON.parse(response)){
             arrOtv.push(i);
         }
+
 
         if (arrOtv.length > 0) {
             filteredHidden.forEach((hidenTrItem) => {
@@ -400,8 +400,7 @@ function collapsTable(id) {
 
     });
 
-}
-
+    }
 
     let table = parent.parentElement;
 
@@ -472,10 +471,9 @@ function collapsTable(id) {
 var startDate = new Date(); // текущая дата yy mm dd
 var endDate = new Date(); // конечная дата
 startDate.setMonth(startDate.getMonth() - 5);
-endDate.setMonth(endDate.getMonth() + 5); // добавляем 2 мес
+endDate.setMonth(endDate.getMonth() + 5);
 
 var currentDate = startDate;
-
 while (currentDate <= endDate) {
     // получаем дату в формате
 
@@ -495,8 +493,8 @@ while (currentDate <= endDate) {
 
 
 var targetElement = document.getElementById(day);
-
 window.onload = () => {
+
 
     // Проверяем, находится ли элемент в видимой области экрана
     if (!targetElement.getBoundingClientRect().top >= 0 && targetElement.getBoundingClientRect().bottom <= window.innerHeight) {
@@ -505,7 +503,6 @@ window.onload = () => {
             behavior: "smooth"
         });
     }
-
     let apps = document.getElementsByClassName("question");
     let arrIdApps = new Array();
     [...apps].forEach(el => {
@@ -535,9 +532,7 @@ window.onload = () => {
         }
 
     });
-
 }
-
 function changeOtv(el){
     let id = el.id.substring(2);
     let id_userotv = el.options[el.selectedIndex].value;

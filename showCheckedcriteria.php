@@ -9,4 +9,5 @@ while ($criteriaRow = mysqli_fetch_assoc($criteriaResult)) {
     array_push($selectedCriteria, $criteriaRow['id_criteria'] );
 }
 echo json_encode($selectedCriteria);
+
 ?>

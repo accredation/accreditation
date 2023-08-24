@@ -81,7 +81,7 @@
                                             <td><?= $app1['name']?></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
+                                            <td>FIO otvetstennogo</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -104,8 +104,8 @@
 
                                         foreach ($data2 as $app2) {
                                             $id_otvetstvennogo = $app2['id_otvetstvennogo'];
-                                            ?>
 
+                                            ?>
                                             <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
                                                 <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
@@ -200,7 +200,6 @@
                     if($date_council > $endDate ) {
                         $date_council = $endDate;
                     }
-
                 ?>
                     <ul class="chart-bars hidden"  id = "ul<?= $app_id?>" >
                         <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Задание заявления №<?= $app_id?></li>
