@@ -45,7 +45,6 @@ let id_user = getCookie("id_user");
         let id = td.classList[1].substring(7,td.classList[1].length)
         let mainTd = document.getElementById(id);
         mainTd.classList.add('tdMainColor');
-        console.log(id)
     } else {
     }
 });

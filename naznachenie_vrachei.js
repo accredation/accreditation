@@ -162,7 +162,6 @@ function saveVrach(id_user) {
         td.parentElement.remove();
 
 
-       al
 
     }
 

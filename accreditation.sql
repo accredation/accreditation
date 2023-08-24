@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 22 2023 г., 09:29
+-- Время создания: Авг 24 2023 г., 10:39
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -933,8 +933,8 @@ CREATE TABLE `applications` (
   `soprovod_pismo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `copy_rasp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `org_structure` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `ucomplect` text COLLATE utf8mb4_general_ci,
-  `tech_osn` text COLLATE utf8mb4_general_ci,
+  `ucomplect` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `tech_osn` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `id_user` int NOT NULL,
   `id_status` int DEFAULT NULL,
   `date_send` date DEFAULT NULL,
@@ -944,19 +944,24 @@ CREATE TABLE `applications` (
   `fileReport` varchar(555) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fileReportSamoocenka` varchar(555) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `activ_cursor` tinyint(1) DEFAULT NULL,
-  `id_responsible` int DEFAULT NULL
+  `id_responsible` int DEFAULT NULL,
+  `ProtokolSoveta` varchar(555) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ZaklSoveta` varchar(555) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `PlanDateSoveta` date DEFAULT NULL,
+  `ReshenieSoveta` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `SrokResheniaSoveta` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `applications`
 --
 
-INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `ucomplect`, `tech_osn`, `id_user`, `id_status`, `date_send`, `date_accept`, `date_complete`, `date_council`, `fileReport`, `fileReportSamoocenka`, `activ_cursor`, `id_responsible`) VALUES
-(47, 'Учреждение здравоохранения «1-я городская клиническая больница»', '', '', '', '', '', '', '', NULL, NULL, '2022 инф 1.docx', NULL, NULL, 431, 1, NULL, NULL, NULL, NULL, NULL, '2022 инф 1.docx', 0, NULL),
-(48, '36gp', '36 ГП', '507123453', '220022, минск рокоссовского 76', '80173334455', '36@gp.by', 'Иванов Иван Иванович', 'Петров Петр Петрович', 'ТестИС.docx', 'ТестИС.docx', 'ТестИС.docx', NULL, NULL, 2, 3, NULL, '2023-08-11', '2023-08-18', '2023-08-29', 'ТестИС.docx', 'Тест2.docx', 0, 639),
-(49, 'Тестовая организация здравоохранения', '', '', '', '', '', '', '', '100lab (1).csv', '100lab.csv', '89л.csv', 'Руководство администратора.doc', 'ТЗ Работа комиссии 09.08.23 Кузнец.docx', 2, 2, NULL, NULL, NULL, NULL, NULL, '82гастрочтото.csv', 0, NULL),
-(50, 'Тестовая организация здравоохранения', 'ОЗ №1', '500265483', '200000, Минск Независимости 299', '801702020202', 'OZ1@mail.by', 'Иванов ИИ', 'Петров ИИ', 'Отчет.txt', 'Отчет.txt', 'Отчет.txt', NULL, NULL, 642, 3, '2023-08-08', '2023-08-18', '2023-08-21', '2023-08-23', NULL, 'Отчет.txt', 0, 1),
-(52, 'Тестовая организация здравоохранения', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, '2023-12-19', '2024-01-18', NULL, NULL, NULL, NULL, 1);
+INSERT INTO `applications` (`id_application`, `naim`, `sokr_naim`, `unp`, `ur_adress`, `tel`, `email`, `rukovoditel`, `predstavitel`, `soprovod_pismo`, `copy_rasp`, `org_structure`, `ucomplect`, `tech_osn`, `id_user`, `id_status`, `date_send`, `date_accept`, `date_complete`, `date_council`, `fileReport`, `fileReportSamoocenka`, `activ_cursor`, `id_responsible`, `ProtokolSoveta`, `ZaklSoveta`, `PlanDateSoveta`, `ReshenieSoveta`, `SrokResheniaSoveta`) VALUES
+(47, 'Учреждение здравоохранения «1-я городская клиническая больница»', '', '', '', '', '', '', '', NULL, NULL, '2022 инф 1.docx', NULL, NULL, 431, 1, NULL, NULL, NULL, NULL, NULL, '2022 инф 1.docx', 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, '36gp', '36 ГП', '507123453', '220022, минск рокоссовского 76', '80173334455', '36@gp.by', 'Иванов Иван Иванович', 'Петров Петр Петрович', 'ТестИС.docx', 'ТестИС.docx', 'ТестИС.docx', NULL, NULL, 2, 3, NULL, '2023-08-24', '2023-08-28', '2023-08-29', '02.08 23 сайт грипп.pptx', 'Тест2.docx', 0, 1, NULL, NULL, NULL, NULL, NULL),
+(49, 'Тестовая организация здравоохранения', '', '', '', '', '', '', '', '100lab (1).csv', '100lab.csv', '89л.csv', 'Руководство администратора.doc', 'ТЗ Работа комиссии 09.08.23 Кузнец.docx', 2, 2, NULL, '2023-08-24', NULL, NULL, NULL, '82гастрочтото.csv', 0, NULL, 'Хостинг Надежные программы Договор.pdf', 'постановление_МЗ_2023_59.pdf', '2023-08-02', 'Частично соответствует', '2023-08-27'),
+(50, 'Тестовая организация здравоохранения', 'ОЗ №1', '500265483', '200000, Минск Независимости 299', '801702020202', 'OZ1@mail.by', 'Иванов ИИ', 'Петров ИИ', 'Отчет.txt', 'Отчет.txt', 'Отчет.txt', NULL, NULL, 642, 3, '2023-08-08', '2023-08-18', '2023-08-21', '2023-08-23', NULL, 'Отчет.txt', 0, 1, NULL, NULL, NULL, NULL, NULL),
+(52, 'Тестовая организация здравоохранения', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, '2023-12-19', '2024-01-18', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4727,7 +4732,7 @@ INSERT INTO `news` (`id_news`, `path_img`, `name_news`, `text_news`, `date_news`
 
 CREATE TABLE `questions` (
   `id_question` int NOT NULL,
-  `email` text COLLATE utf8mb4_bin,
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `question` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `id_user` int NOT NULL,
@@ -4784,16 +4789,16 @@ CREATE TABLE `rating_criteria` (
 
 INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteria`, `value`, `status`, `date_complete`, `id_otvetstvennogo`) VALUES
 (388, 94, 45, 1, NULL, NULL, NULL),
-(439, 97, 60, 1, 1, '2023-08-16', 639),
-(440, 97, 69, 1, 1, '2023-08-15', 1),
-(441, 97, 70, 1, 0, '2023-08-15', 1),
-(442, 97, 71, 1, 0, '2023-08-16', NULL),
-(443, 97, 72, 1, NULL, NULL, NULL),
+(439, 97, 60, 1, 1, '2023-08-22', 639),
+(440, 97, 69, 1, 0, '2023-08-22', 1),
+(441, 97, 70, 1, 1, '2023-08-22', 1),
+(442, 97, 71, 1, 0, '2023-08-22', NULL),
+(443, 97, 72, 1, 1, '2023-08-22', NULL),
 (444, 97, 88, 1, NULL, NULL, NULL),
 (445, 97, 93, 1, NULL, NULL, NULL),
-(446, 97, 52, 1, NULL, NULL, NULL),
-(447, 97, 53, 1, NULL, NULL, NULL),
-(448, 97, 100, 1, 0, '2023-08-16', NULL),
+(446, 97, 52, 1, 0, '2023-08-22', NULL),
+(447, 97, 53, 1, 0, '2023-08-22', NULL),
+(448, 97, 100, 1, 0, '2023-08-22', NULL),
 (476, 107, 39, 1, NULL, NULL, 639),
 (477, 107, 56, 1, NULL, NULL, NULL),
 (478, 107, 57, 1, NULL, NULL, NULL),
@@ -4857,7 +4862,7 @@ INSERT INTO `rating_criteria` (`id_rating_criteria`, `id_subvision`, `id_criteri
 (536, 107, 99, 1, NULL, NULL, NULL),
 (537, 107, 100, 1, NULL, NULL, NULL),
 (538, 106, 39, 1, NULL, NULL, NULL),
-(539, 106, 56, 1, NULL, NULL, NULL),
+(539, 106, 56, 1, 1, '2023-08-24', NULL),
 (540, 106, 57, 1, NULL, NULL, NULL),
 (544, 112, 39, 1, NULL, NULL, NULL),
 (545, 120, 39, 1, 1, NULL, NULL),
@@ -4926,9 +4931,9 @@ INSERT INTO `report_application_mark` (`id_application`, `otmetka_all`, `otmetka
 (46, 0, 0, 550, 0, 0, 0, 171, 0, 0, 0, 280, 0, 0, 0, 99, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42, 60, 52, 87, 0, 70, 21, 30, 0, 46, 19, 41, 0, 75, 12, 16, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(48, 90, 52, 58, 0, 100, 13, 13, 0, 86, 31, 36, 0, 89, 8, 9, 0, 76, 44, 58, 0, 77, 10, 13, 0, 75, 27, 36, 0, 78, 7, 9, 0, 34, 20, 58, 0),
 (49, 0, 0, 200, 0, 0, 0, 61, 0, 0, 0, 110, 0, 0, 0, 29, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(50, 1, 27, 3446, 0, 0, 5, 1095, 0, 1, 18, 1711, 0, 1, 4, 640, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(50, 1, 27, 3446, 0, 0, 5, 1095, 0, 1, 18, 1711, 0, 1, 4, 640, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 0, 0, 929, 0, 0, 0, 265, 0, 0, 0, 507, 0, 0, 0, 157, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5018,16 +5023,6 @@ INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criter
 (42, 82, 41, 82, 50, 61, 0, 84, 21, 25, 0, 78, 18, 23, 0, 85, 11, 13, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, 94, 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, 94, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(48, 97, 52, 100, 31, 31, 0, 100, 8, 8, 0, 100, 18, 18, 0, 100, 5, 5, 0, 55, 17, 31, 0, 63, 5, 8, 0, 50, 9, 18, 0, 60, 3, 5, 0, 45, 14, 31, 0),
-(48, 97, 53, 78, 21, 27, 0, 100, 5, 5, 0, 72, 13, 18, 0, 75, 3, 4, 0, 100, 27, 27, 0, 100, 5, 5, 0, 100, 18, 18, 0, 100, 4, 4, 0, 22, 6, 27, 0),
-(48, 97, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(48, 97, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(48, 97, 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(48, 97, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(48, 97, 72, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(48, 97, 88, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(48, 97, 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(48, 97, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (49, 106, 39, 0, 0, 172, 0, 0, 0, 50, 0, 0, 0, 95, 0, 0, 0, 27, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (49, 106, 56, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (49, 106, 57, 0, 0, 18, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -5092,7 +5087,24 @@ INSERT INTO `report_criteria_mark` (`id_application`, `id_subvision`, `id_criter
 (50, 107, 54, 0, 0, 26, 0, 0, 0, 5, 0, 0, 0, 18, 0, 0, 0, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (50, 107, 55, 0, 0, 67, 0, 0, 0, 10, 0, 0, 0, 50, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (50, 107, 99, 0, 0, 31, 0, 0, 0, 8, 0, 0, 0, 17, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(50, 107, 100, 0, 0, 51, 0, 0, 0, 8, 0, 0, 0, 37, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(50, 107, 100, 0, 0, 51, 0, 0, 0, 8, 0, 0, 0, 37, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 60, 0, 0, 167, 0, 0, 0, 44, 0, 0, 0, 98, 0, 0, 0, 25, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 69, 0, 0, 35, 0, 0, 0, 18, 0, 0, 0, 13, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 70, 0, 0, 52, 0, 0, 0, 9, 0, 0, 0, 24, 0, 0, 0, 19, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 71, 0, 0, 29, 0, 0, 0, 12, 0, 0, 0, 10, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 72, 0, 0, 40, 0, 0, 0, 9, 0, 0, 0, 24, 0, 0, 0, 7, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 88, 0, 0, 32, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 12, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 93, 0, 0, 42, 0, 0, 0, 10, 0, 0, 0, 24, 0, 0, 0, 8, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 52, 0, 0, 31, 0, 0, 0, 8, 0, 0, 0, 18, 0, 0, 0, 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 53, 0, 0, 27, 0, 0, 0, 5, 0, 0, 0, 18, 0, 0, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 100, 0, 0, 51, 0, 0, 0, 8, 0, 0, 0, 37, 0, 0, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 120, 39, 0, 0, 172, 0, 0, 0, 50, 0, 0, 0, 95, 0, 0, 0, 27, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 120, 56, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 120, 57, 0, 0, 18, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 121, 39, 0, 0, 172, 0, 0, 0, 50, 0, 0, 0, 95, 0, 0, 0, 27, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 121, 56, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 121, 57, 0, 0, 18, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 121, 58, 0, 0, 23, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5160,9 +5172,11 @@ INSERT INTO `report_subvision_mark` (`id_application`, `id_subvision`, `otmetka_
 (47, 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, 95, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (47, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(48, 97, 90, 52, 58, 0, 100, 13, 13, 0, 86, 31, 36, 0, 89, 8, 9, 0, 76, 44, 58, 0, 77, 10, 13, 0, 75, 27, 36, 0, 78, 7, 9, 0, 34, 20, 58, 0),
 (49, 106, 0, 0, 200, 0, 0, 0, 61, 0, 0, 0, 110, 0, 0, 0, 29, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(50, 107, 1, 27, 3446, 0, 0, 5, 1095, 0, 1, 18, 1711, 0, 1, 4, 640, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(50, 107, 1, 27, 3446, 0, 0, 5, 1095, 0, 1, 18, 1711, 0, 1, 4, 640, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 97, 0, 0, 506, 0, 0, 0, 133, 0, 0, 0, 276, 0, 0, 0, 97, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 120, 0, 0, 200, 0, 0, 0, 61, 0, 0, 0, 110, 0, 0, 0, 29, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 121, 0, 0, 223, 0, 0, 0, 71, 0, 0, 0, 121, 0, 0, 0, 31, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5204,6 +5218,15 @@ CREATE TABLE `spr_doctor_expert_for_criteria` (
   `id_criteria` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+--
+-- Дамп данных таблицы `spr_doctor_expert_for_criteria`
+--
+
+INSERT INTO `spr_doctor_expert_for_criteria` (`id_user`, `id_criteria`) VALUES
+(639, 40),
+(639, 69),
+(639, 60);
+
 -- --------------------------------------------------------
 
 --
@@ -5224,7 +5247,8 @@ INSERT INTO `status` (`id_status`, `name_status`) VALUES
 (2, 'новое'),
 (3, 'проверяется'),
 (4, 'проверено'),
-(5, 'отклонено');
+(5, 'отклонено'),
+(6, 'решение совета');
 
 -- --------------------------------------------------------
 
@@ -5284,8 +5308,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `login`, `password`, `id_role`, `online`, `last_act`, `last_time_online`, `last_page`, `oblast`, `predsedatel`, `secretar`, `sotrudnik_MA`, `ne_sotrudnik_MA`, `doctor_expert`) VALUES
-(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '15stfhfpm30ho8lf7hnt1c054cd471hg', '15stfhfpm30ho8lf7hnt1c054cd471hg', '2023-08-22 09:27:24', '/index.php?naznachenie_vrachei', 0, 1, NULL, 1, NULL, 1),
-(2, 'Тестовая организация здравоохранения', 'test@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', '15stfhfpm30ho8lf7hnt1c054cd471hg', '2023-08-18 12:07:05', '/index.php?logout', 8, NULL, NULL, NULL, NULL, NULL),
+(1, 'Аккредитация', 'accred@mail.ru', '6534cb7340066e972846eaf508de6224', 2, '64j11bg6shaf03vndlgs42g4btjfgaqs', '64j11bg6shaf03vndlgs42g4btjfgaqs', '2023-08-24 10:37:53', '/index.php?help', 0, 1, NULL, 1, NULL, 1),
+(2, 'Тестовая организация здравоохранения', 'test@mail.ru', 'ba258829bb23dce283867bb2f8b78d7f', 3, '0', 'ftm2v18cd93m3jk0qtktbjcv7oj7hejc', '2023-08-23 17:53:09', '/index.php?logout', 8, NULL, NULL, NULL, NULL, NULL),
 (3, 'admin', 'hancharou@rnpcmt.by', '2c904ec0191ebc337d56194f6f9a08fa', 1, '0', '1a9pmhpb0tkt44v4q9869thpjcj8jm6g', '2023-08-10 09:17:21', '/index.php?logout', 0, NULL, NULL, NULL, NULL, NULL),
 (184, 'Государственное учреждение «Университетская стоматологическая клиника»', 'univDendClinic', '11023f1e51b80bc349f9c19f056bcedf', 3, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL),
 (185, 'Государственное учреждение «Республиканский центр медицинской реабилитации и бальнеолечения»', 'republicCentermedrb', '8a7199d2b7e7c86b0bc46f16f666f1e8', 3, NULL, NULL, '2023-07-20 16:52:47', '/index.php?logout', 4, NULL, NULL, NULL, NULL, NULL),
@@ -5899,7 +5923,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT для таблицы `status`
 --
 ALTER TABLE `status`
-  MODIFY `id_status` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_status` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `subvision`

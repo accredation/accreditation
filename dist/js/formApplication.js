@@ -8,6 +8,7 @@ let data_old = new Array();
 
 let status = 1;
 let openTabId = 0;
+
 let marks_app = {
     arr_marks : new Array(),
     getArr(){
@@ -292,8 +293,6 @@ function showTab(element,id_sub){
 
             });
     }
-
-
 }
 
 function getCookie(cname) {

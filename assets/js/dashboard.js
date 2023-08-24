@@ -4,8 +4,8 @@
 //	});
 	'use strict';
 	$(function() {
-		let allApps = document.getElementsByClassName("mb-4 text-dark font-weight-bold")[0].innerText;
-		let appsComplete = document.getElementsByClassName("mb-0 font-weight-bold mt-2 text-dark")[0].innerText;
+		// let allApps = document.getElementsByClassName("mb-4 text-dark font-weight-bold")[0].innerText;
+		// let appsComplete = document.getElementsByClassName("mb-0 font-weight-bold mt-2 text-dark")[0].innerText;
 		if ($(".dashboard-progress-1").length) {
 			$('.dashboard-progress-1').circleProgress({
 				value: 0.4,
