@@ -155,15 +155,39 @@
 
                     <?php
 
-                    $query = "SELECT * FROM criteria order by name  ";
+                    $query = "SELECT * FROM criteria order by type_criteria, name  ";
                     $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                    $type_crit = 0;
 
                     while ($row = mysqli_fetch_assoc($result)) {
                     $id_criteria = $row['id_criteria'];
                     $name_crit = $row['name'];
                     $cond_id = $row['conditions_id'];
 
+                    $type_criteria = $row['type_criteria'];
+                    $nameType = "";
+                    if($type_criteria !== $type_crit) {
+                        $type_crit = $type_criteria;
+                        switch ($type_criteria){
+                            case 1:
+                                $nameType = "По общим условиям оказания медицинской помощи";
+                                break;
+                            case 2:
+                                $nameType = "По видам оказания медицинской помощи";
+                                break;
+                            case 3:
+                                $nameType = "Вспомогательные подразделения (диагностические)";
+                                break;
+                        }
+?>
+                        <hr style="margin-bottom: 0.5rem; margin-top: 0" />
+                        <div style="font-weight: 600; margin-bottom: 0.5rem"> <?= $nameType ?> </div>
+                        <hr style="margin-bottom: 0.5rem; margin-top: 0"/>
+                        <?php
+                    }
+
                         ?>
+
                         <div>
                             <input style="vertical-align: top; margin-top: 0.25rem;" onchange="saveCheckboxCriteria(this,'<?= $id_criteria ?>')" type="checkbox" name="crit" id="criteri<?= $id_criteria ?>"  />
                             <label for="criteri+<?= $id_criteria ?>" style="max-width: 500px"> <?= $name_crit ?><?= ($cond_id == 1) ? '(амбулаторная)' : (($cond_id == 2) ? '(стационарная)' : '') ?></label>
