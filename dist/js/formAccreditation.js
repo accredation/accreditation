@@ -5,6 +5,7 @@
 // let tab5 = document.getElementById("tab-5");
 
 let data_old = new Array();
+let data_old1 = new Array();
 let openTabId = 0;
 
 let status = 2;
@@ -22,7 +23,6 @@ let marks_app = {
     },
     arClear(){
         for (let i=this.arr_marks.length-1; i>-1 ; i--) {
-            //  console.log(marks_app[i]);
             this.arr_marks.pop();
         }
     }
@@ -47,7 +47,6 @@ function showTab(element,id_sub){
     let tablist = document.getElementById("tablist");
 
     if(isSavedMarks()) {
-        //  console.log(OpenSub);
         // arrChange=false;
       //  saveMarks(OpenSub);
         if (saveMarks(OpenSub) === false) {
@@ -257,7 +256,6 @@ function showTab(element,id_sub){
 
 
                 // JSON.parse(response).map((item, index) =>{
-                //     console.log(item);
                 //     if(item !== 0){
                 //         if(index == 0){
                 //             criteriaMark = criteriaMark + 'Количественная оценка самооценки=' + item +'%';
@@ -313,7 +311,6 @@ function showTab(element,id_sub){
     let mainTab = document.getElementById("button1");
 
     let footer = document.getElementsByClassName("modal-footer")[0];
-    // console.log(mainTab.classList.contains("active"));
     if(footer.classList.contains("hiddentab")){
 
         footer.classList.remove("hiddentab");
@@ -344,7 +341,6 @@ function createApplication(){
         data: ""
     })
         .done(function( response ) {
-            console.log(response);
         });
     alert("Заявление создано");
     location.href = "/index.php?application";
@@ -390,27 +386,60 @@ function showModal(id_application, strMarks, strMarksAccred){
     let btnChecking = document.getElementById("btnChecking");
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
+    let btncalc = document.getElementById("btnCalc");
+    let btnreport = document.getElementById("btnPrintReport");
+    let btnOkReshenie =  document.getElementById("btnOkReshenie");
 
     let tabOdobrenie = document.getElementById("odobrennie-tab");
     let tabNeodobrennie = document.getElementById("neodobrennie-tab");
     let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
+    let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
     let tabHome = document.getElementById("home-tab");
+    let informgr = document.getElementById("informgr");
 
     if(tabOdobrenie.classList.contains("active")){
         btnChecking.classList.remove("hiddentab");
         btnNeOk.classList.remove("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
     }else if(tabNeodobrennie.classList.contains("active")){
         btnChecking.classList.remove("hiddentab");
         btnOk.classList.remove("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
     }
     else if(tabRassmotrenie.classList.contains("active")){
-        // btnNeOk.classList.remove("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
+
     }
+    else if(tabReshenieSoveta.classList.contains("active")){
+        btncalc.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.remove("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "none";
+        sovetgr.style.display = "block";
+
+    }
+
     else{
+        sovetgr.style.display = "none";
+        informgr.style.display = "block";
         btnNeOk.classList.remove("hiddentab");
-        // btnOk.classList.remove("hiddentab");
+        btnOk.classList.add ("hiddentab");
         btnChecking.classList.remove("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
     }
 
     let mainRightCard = document.getElementById("mainRightCard");
@@ -503,6 +532,45 @@ function showModal(id_application, strMarks, strMarksAccred){
         });
      // выводим полученный ответ на консоль браузер
 
+    let fileInputProtokol = document.getElementById("fileInputProtokol");
+    let fileInputZakl = document.getElementById("fileInputZakl");
+    let dateInputPlan = document.getElementById("dateInputPlan");
+    let resolution = document.getElementById("resolution");
+    let dateInputSrok = document.getElementById("dateInputSrok");
+
+// Получаем актуальные значения из базы данных
+    let datasovet = new Array();
+    $.ajax({
+        url: "getSovet.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function( response ) {
+            for (let i of JSON.parse(response)){
+                datasovet.push(i);
+                data_old1.push(i);
+            }
+            let login = getCookie('login');
+            dateInputPlan.value = datasovet[0][1];
+            resolution.value = datasovet[0][2];
+            dateInputSrok.value = datasovet[0][3];
+
+
+            if(datasovet[0][4] != null) {
+                document.getElementById("protokolsoveta").value = datasovet[0][4];
+
+                fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][4] + "'>" + datasovet[0][4] + "</a>");
+
+            }
+
+            if(datasovet[0][5] != null) {
+                document.getElementById("zaklsoveta").value = datasovet[0][5];
+
+                fileInputZakl.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][5] + "'>" + datasovet[0][5] + "</a>");
+
+            }
+        });
+
     $(".btn-close").on("click",() => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
@@ -594,7 +662,6 @@ function printReport(){
         data: {id_app: id_application}
     })
         .done(function( response ) {
-            //  console.log(response);
             let tableForPrint = JSON.parse(response);
 
             if(tableForPrint.length !==0){
@@ -634,7 +701,6 @@ function printReport(){
     $("#btnPrint").on("click", () => {
 
 
-  //  console.log('openTabId =',openTabId);
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
 
@@ -644,7 +710,6 @@ function printReport(){
         data: {id_app: id_application}
     })
         .done(function( response ) {
-            //  console.log(response);
             let tableForPrint = JSON.parse(response);
 
 
@@ -1253,7 +1318,6 @@ function getTabs(name, id_sub){
 
 /*
     if(isSavedMarks()) {
-        //  console.log(OpenSub);
         // arrChange=false;
         if (saveMarks(OpenSub) === false) {
             return;
@@ -1282,7 +1346,7 @@ function getTabs(name, id_sub){
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1377,7 +1441,7 @@ function getMainTab(name, id_sub){
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[4];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1459,7 +1523,6 @@ function addTab(){
     })
         .done(function( response ) {
             let id = response;
-         //   console.log(nameTab + " " + id);
             getTabs(nameTab, id);
         });
 
@@ -1551,7 +1614,6 @@ $("#btnSuc").on("click", function () {
 function saveTab(id_sub){
 
     if(isSavedMarks()) {
-        //  console.log(OpenSub);
         // arrChange=false;
       //  saveMarks(OpenSub);
         if (saveMarks(OpenSub) === false) {
@@ -1598,12 +1660,11 @@ function saveTab(id_sub){
 
 let id_open_criteria = 0;
 
-function createAccordionCards(id_sub) {
+async function createAccordionCards(id_sub) {
 
  //   let marks_app = [];
 /*
     for (let i=marks_app.length-1; i>-1 ; i--) {
-        //  console.log(marks_app[i]);
         marks_app.pop();
     }
 */
@@ -1619,9 +1680,8 @@ function createAccordionCards(id_sub) {
     divAccordion.className = "accordion";
     let divCard = document.createElement("div");
     divCard.className = "card";
-    let arrStat = getStatusFromDB1(id_sub);
-    console.log(arrStat + "arrstat");
-    let i = 0;
+    await getStatusFromDB1(id_sub);
+
     for (let input of arrCheckInputs) {
 
         if (input.checked === true) {
@@ -1679,17 +1739,19 @@ function createAccordionCards(id_sub) {
                     btnNotReady.className = "floating-button";
 
                     btnNotReady.id = "btnNotReady";
-                    //console.log (arrStat[i]);
-                    if(arrStat[i] == null || arrStat[i] == 0) {
-                        btnNotReady.innerHTML = "Готово";
+                    for(let i = 0; i < arr.length; i++) {
+                        if (arr[i].id_criteria.includes(id_criteria)) {
+                            if (arr[i].status == null || arr[i].status == 0) {
+                                btnNotReady.innerHTML = "Готово";
+                            }
+                            else {
+                                btnNotReady.innerHTML = "Не готово";
+                            }
+                        }
                     }
-                    else {
-                        btnNotReady.innerHTML = "Не готово";
-                    }
 
 
 
-                    i++;
 
                     btnNotReady.style.width = "100px";
                     btnNotReady.style.height = "35px";
@@ -1715,7 +1777,6 @@ function createAccordionCards(id_sub) {
 
                             btnNotReady.innerHTML = "Готово";
                             sendDataToServer(id_sub,id_criteria,0); // Update to 1
-                            console.log(id_criteria);
                         } else {
 
                             btnNotReady.innerHTML = "Не готово";
@@ -1729,7 +1790,6 @@ function createAccordionCards(id_sub) {
 
                     // let marks = JSON.parse(response);
 
-                  //  console.log(JSON.parse(response));
                     //  marks.map((item, index) => {
 
                     //  });
@@ -1771,7 +1831,6 @@ function createAccordionCards(id_sub) {
             divCardHeader.onclick=() =>{
                 let collapses = divCard.getElementsByClassName("collapse");
 
-             //   console.log(thisTab.getElementsByClassName('collapse show'));
 
                 if (arrChange == false) {
                     let openedDiv = thisTab.getElementsByClassName('collapse show');
@@ -1852,13 +1911,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
    // marks_app.splice(0, marks_app.length);
 /*
     for (let i=marks_app.length-1; i>-1 ; i--) {
-      //  console.log(marks_app[i]);
         marks_app.pop();
     }
 
  */
 
-   // console.log('status',status);
 
     marks_app.arClear();
 
@@ -2060,7 +2117,6 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 tbody.appendChild(tr);
 
             });
-       //     console.log(marks_app);
 
         });
     divCardBody.appendChild(table);
@@ -2133,7 +2189,6 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
             marks_app.setValueByIndex([index],[field_name],value);
         }
     })
-  //  console.log(marks_app.getArr());
     OpenSub = id_sub;
     setDisabledOnChange(true);
 }
@@ -2141,9 +2196,7 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
 function isSavedMarks(){
     if (arrChange == true) {
         let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?"); 
-        console.log('res',res);
         if(res == false){
-            console.log('check');
             setDisabledOnChange(false);
         }
 
@@ -2177,7 +2230,6 @@ function validateDataMarks(){
 
    // let emptyVall = marks_app.getArr().filter(item =>  (Number(item['field4'])===0) );
 
- //  console.log(emptyVall);
 
    if(vall.length >0){
        alert(`Не заполнено поле "Примечание" в критерии ${vall[0]['mark_name']}`);
@@ -2205,7 +2257,6 @@ function saveMarks(id_sub){
         arr.push(item);
     })
 
-    console.log(arr);
 
     let result = true;
 
@@ -2232,53 +2283,121 @@ function saveMarks(id_sub){
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=0)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
     allTabsMainPage[0].children[0].classList.add("show");
     allTabsMainPage[0].children[0].classList.add("show");
     status = 1;
-  //  console.log(status);
 });
 
 $("#rassmotrenie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=1)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
     allTabsMainPage[1].children[0].classList.add("show");
     allTabsMainPage[1].children[0].classList.add("active");
     status = 2;
-  //  console.log(status);
 
 });
 
 $("#odobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=2)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
     allTabsMainPage[2].children[0].classList.add("show");
     allTabsMainPage[2].children[0].classList.add("active");
     status = 4;
-  //  console.log(status);
 
 });
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=3)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
     allTabsMainPage[3].children[0].classList.add("show");
     allTabsMainPage[3].children[0].classList.add("active");
     status = 5;
- //   console.log(status);
 
+});
+
+$("#reshenieSoveta-tab").on("click", () => {
+    for (let i = 0 ; i < 5; i++) {
+        if(i!=4)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0 ; i < 5; i++){
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[4].children[0].classList.add("show");
+    allTabsMainPage[4].children[0].classList.add("active");
+    status = 2;
+    //  console.log(status);
+
+});
+
+
+$("#btnSaveSovet").on("click", () => {
+    let id_application = document.getElementById("id_application");
+    var protokolsoveta = document.getElementById("fileInputProtokol");
+    var zaklsoveta = document.getElementById("fileInputZakl");
+    var dateInputPlan = document.getElementById("dateInputPlan").value;
+    var resolution = document.getElementById("resolution").value;
+    var dateInputSrok = document.getElementById("dateInputSrok").value;
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let protokolsovetaFile = protokolsoveta.files[0];
+    let zaklsovetaFile = zaklsoveta.files[0];
+
+    form.append("id_application", id_application.innerText);
+    form.append("dateInputPlan", dateInputPlan);
+    form.append("resolution", resolution);
+    form.append("dateInputSrok", dateInputSrok);
+    form.append("protokolsoveta", protokolsovetaFile);
+    form.append("zaklsoveta", zaklsovetaFile);
+
+    xhr.open("post", "saveSovet.php", true);
+    xhr.send(form);
+    alert("Данные сохранены");
 });
 
 $("#btnChecking").on("click", () => {
@@ -2366,6 +2485,42 @@ $("#formReport").on("change", () =>{
     xhr.send(form);
 });
 
+$("#protfile").on("change", () =>{
+    let login = getCookie('login');
+    let id_application = document.getElementById("id_application");
+    let protfile = document.getElementById("protfile");
+
+    let prot = protfile.getElementsByTagName("a")[0];
+
+
+
+    if(prot){
+        prot.remove();
+        let fileInputProtokol = document.getElementById("fileInputProtokol");
+
+        fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/documents/"+ login + "/sovets/" + id_application +"/" + fileInputProtokol.files[0].name + "'>" + fileInputProtokol.files[0].name + "</a>");
+    }
+
+
+});
+$("#zaklfile").on("change", () =>{
+    let login = getCookie('login');
+    let id_application = document.getElementById("id_application");
+
+    let zaklfile = document.getElementById("zaklfile");
+
+    let zakl = zaklfile.getElementsByTagName("a")[0];
+
+    if (zakl)
+    {
+        zakl.remove();
+        let fileInputZakl = document.getElementById("fileInputZakl");
+
+        fileInputZakl.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + fileInputZakl.files[0].name + "'>" + fileInputZakl.files[0].name + "</a>");
+    }
+
+});
+
 function sendDataToServer(id_sub,id_criteria, value) {
 
     $.ajax({
@@ -2375,17 +2530,16 @@ function sendDataToServer(id_sub,id_criteria, value) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
         })
         .catch(error => {
             console.error(error);
         });
 }
 
-function getStatusFromDB1(id_sub)
+let arr = new Array();
+async function getStatusFromDB1(id_sub)
 {
-    let arr = new Array();
-    $.ajax({
+    await $.ajax({
         url: "getstatus.php",
         method: "POST",
         data: { id_sub: id_sub},
@@ -2395,9 +2549,9 @@ function getStatusFromDB1(id_sub)
                 arr.push(data[i]);
 
             }
+
         }
     });
-    return arr;
 }
 
 

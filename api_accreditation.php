@@ -688,7 +688,7 @@
 
                                     </div>
 
-                                        <form class = "sovet"  id="sovetgr" >
+                                        <div class = "sovet"  id="sovetgr" >
 
                                             <div class="newform-group" id = "protfile">
                                                 <label>Протокол Совета (Проект)</label>
@@ -724,10 +724,6 @@
                                             <br>
                                             <button type="submit" class="btn btn-light btn-fw" id="btnSaveSovet">Сохранить</button>
                                         </div>
-                                </form>
-
-
-
 
 
 
@@ -746,8 +742,10 @@
                                                 </div>
                                             </form>
                                         </div>
-
                                     </div>
+
+
+
                                     <div style="width: 100%">
                                         <div style="display:flex; justify-content: flex-end;">
 <!--                                            <button type="submit" class="btn btn-warning btn-fw" id="btnSuc" >Сохранить</button>-->
@@ -758,126 +756,8 @@
 
                             </div>
 
-
-
-                            <!--                        <div class="tab-pane fade show " id="tab2-" role="tabpanel" aria-labelledby="business-tab" >-->
-                            <!---->
-                            <!--                            <div class="row">-->
-                            <!--                                <div class="col-12 grid-margin">-->
-                            <!--                                    <div class="card">-->
-                            <!--                                        <div class="card-body">-->
-                            <!--                                            <div class="container">-->
-                            <!--                                                <div class="row">-->
-                            <!--                                                    <div class="col-12">-->
-                            <!--                                                        <table class="table table-bordered">-->
-                            <!--                                                            <thead>-->
-                            <!--                                                            <tr>-->
-                            <!--                                                                <th scope="col">№ п/п</th>-->
-                            <!--                                                                <th scope="col">Наименование критерия </th>-->
-                            <!--                                                                <th scope="col">Класс</th>-->
-                            <!--                                                                <th scope="col">Наименование ЛПА</th>-->
-                            <!--                                                                <th scope="col">Приложения</th>-->
-                            <!--                                                                <th scope="col">Соответствие критерию (выполнено / не выполнено)</th>-->
-                            <!--                                                            </tr>-->
-                            <!--                                                            </thead>-->
-                            <!--                                                            <tbody>-->
-                            <!--                                                            <tr>-->
-                            <!--                                                                <th scope="row">1</th>-->
-                            <!--                                                                <td>Первый критерий</td>-->
-                            <!--                                                                <td></td>-->
-                            <!--                                                                <td class = "lpa" contenteditable ></td>-->
-                            <!--                                                                <td ></td>-->
-                            <!--                                                            </tr>-->
-                            <!--                                                            <tr>-->
-                            <!--                                                                <th scope="row">2</th>-->
-                            <!--                                                                <td>Второй критерий</td>-->
-                            <!--                                                                <td></td>-->
-                            <!--                                                                <td class="lpa" contenteditable ></td>-->
-                            <!--                                                                <td ></td>-->
-                            <!--                                                            </tr>-->
-                            <!---->
-                            <!--                                                            <tr>-->
-                            <!--                                                                <th scope="row">3</th>-->
-                            <!--                                                                <td>Третий критерий</td>-->
-                            <!--                                                                <td></td>-->
-                            <!--                                                                <td class="lpa" contenteditable ></td>-->
-                            <!--                                                                <td ></td>-->
-                            <!--                                                            </tr>-->
-                            <!---->
-                            <!--                                                            <tr>-->
-                            <!--                                                                <th scope="row">4</th>-->
-                            <!--                                                                <td>Четвертый критерий</td>-->
-                            <!--                                                                <td></td>-->
-                            <!--                                                                <td class="lpa" contenteditable ></td>-->
-                            <!--                                                                <td ></td>-->
-                            <!--                                                            </tr>-->
-                            <!---->
-                            <!--                                                            <tr>-->
-                            <!--                                                                <th scope="row">5</th>-->
-                            <!--                                                                <td>Пятый критерий</td>-->
-                            <!--                                                                <td></td>-->
-                            <!--                                                                <td class="lpa" contenteditable ></td>-->
-                            <!--                                                                <td ></td>-->
-                            <!--                                                            </tr>-->
-                            <!---->
-                            <!--                                                            </tbody>-->
-                            <!--                                                        </table>-->
-                            <!--                                                    </div>-->
-                            <!--                                                </div>-->
-                            <!--                                            </div>-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <!--                        </div>-->
-
-                            <!--                        <div class="tab-pane fade show " id="tab-3" role="tabpanel" aria-labelledby="business-tab" >-->
-                            <!--                            <div class="row">-->
-                            <!--                                <div class="col-12 grid-margin">-->
-                            <!--                                    <div class="card">-->
-                            <!--                                        <div class="card-body">-->
-                            <!--                                            3-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <!--                        </div>-->
-                            <!---->
-                            <!---->
-                            <!--                        <div class="tab-pane fade show " id="tab-4" role="tabpanel" aria-labelledby="business-tab" >-->
-                            <!---->
-                            <!--                            <div class="row">-->
-                            <!--                                <div class="col-12 grid-margin">-->
-                            <!--                                    <div class="card">-->
-                            <!--                                        <div class="card-body">-->
-                            <!--                                            4-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <!--                        </div>-->
-                            <!---->
-                            <!--                        <div class="tab-pane fade show" id="tab-5" role="tabpanel" aria-labelledby="business-tab" >-->
-                            <!---->
-                            <!--                            <div class="row">-->
-                            <!--                                <div class="col-12 grid-margin">-->
-                            <!--                                    <div class="card">-->
-                            <!--                                        <div class="card-body">-->
-                            <!--                                            5-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <!--                        </div>-->
-
-
                         </div>
                     </div>
-
-
-
-
-
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
