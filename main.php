@@ -112,7 +112,7 @@
                     <!--                    -->
 
 
-                    <h4 class="card-title" style="margin-bottom: 0.3rem">Регистрация в личном кабинете</h4>
+                    <h4 class="card-title" style="margin-bottom: 0.3rem">Авторизация в личном кабинете</h4>
                     <canvas id="doughnutChart1" style="height: 250px;display: block;width: 299px;" width="350" height="200"></canvas>
                     <script>
                         let ll = <?= $countUsers ?>;

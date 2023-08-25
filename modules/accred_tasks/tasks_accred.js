@@ -154,71 +154,99 @@ function saveChanges(btn){
     let id_responsible = selectPreds.options[selectPreds.selectedIndex].id.substring(2);
     let predsName = selectPreds.options[selectPreds.selectedIndex].value;
 
-    console.log('dateAccept.value ', dateAccept.value);
+    if (new Date(dateAccept.value) > new Date(dateComplete.value)) {
+        alert("Дата начала проверки не может быть больше даты завершения проверки");
+        return;
+    }
 
-    $.ajax({
-        url: "modules/accred_tasks/saveTask.php",
-        method: "POST",
-        data: {id_application: this.id_app, date_accept: dateAccept.value, date_complete: dateComplete.value, date_council: dateCouncil.value, id_responsible: id_responsible}
-    }).done(function (response){
-        trId.children[3].innerHTML = predsName;
-        trId.children[4].innerHTML = dateAccept.value;
-        trId.children[5].innerHTML = dateComplete.value;
-        trId.children[6].innerHTML = dateCouncil.value;
-
-        let startDate2 = new Date(); // текущая дата yy mm dd
-        let endDate2 = new Date(); // конечная дата
-        startDate2.setMonth(startDate2.getMonth() - 5);
-        endDate2.setMonth(endDate2.getMonth() + 5);
-
-        let dateAcF = dateAc; //.toLocaleString('ru-RU').slice(0, 10) ;
-        let dateComplF = dateCompl;//.toLocaleDateString();
-        let dateCouncF = dateCounc;//.toLocaleDateString();
-
-        // console.log('dateStartF2', typeof dateAcF);
-        // console.log('dateStartF2', dateAcF);
-        //    console.log(new Date(dateAcF.trim())<  new Date(dateStartF.trim()));
-        if(dateAcF === ''){
-            dateAcF = day;
-        } else
-        {
-            if (dateAcF.toISOString() < startDate2.toISOString()) {
-                dateAcF = startDate2
-            }
-        }
-
-        if(dateComplF === ''){
-            dateComplF = day;
-        } else {
-            if (dateComplF.toISOString() > endDate2.toISOString()) {
-                dateComplF = endDate2
-            }
-        }
+    if (new Date(dateComplete.value) > new Date(dateCouncil.value)) {
+        alert("Дата совета не может быть меньше даты завершения проверки");
+        return;
+    }
 
 
-        if(dateCouncF === ''){
-            dateCouncF = day;
-        } else {
-            if (dateCouncF.toISOString() > endDate2.toISOString()) {
-                dateCouncF = endDate2
-            }
-        }
+    if ((new Date(dateCouncil.value)) && (dateComplete.value ==='')) {
+        alert("Дата завершения проверки не заполнена");
+        return;
+    }
 
-        ulId.children[0].setAttribute("data-duration", dateAcF.toLocaleString('ru-RU').slice(0,5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0,5));
-        if(dateCouncil.value === "") {
-            if(dateCompl === ""){
-                dateCompl = new Date();
-            }
-            ulId.children[1].setAttribute("data-duration", dateComplF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0, 5));
-            ulId.children[1].style.backgroundColor = "#4464a1";
-        }else{
-            ulId.children[1].setAttribute("data-duration", dateCouncF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateCouncF.toLocaleString('ru-RU').slice(0, 5));
-            ulId.children[1].style.backgroundColor = "#6a478f";
-        }
-        btn.addEventListener("mouseout", createChart);
 
-        alert("Задача сохранена");
-    });
+     // if(dateCouncil.value !== "")
+    // if (new Date(dateComplete.value) < new Date(dateCouncil.value)) {
+    //     if(dateCouncil.value === "" && dateComplete.value !== "") {
+            $.ajax({
+                url: "modules/accred_tasks/saveTask.php",
+                method: "POST",
+                data: {
+                    id_application: this.id_app,
+                    date_accept: dateAccept.value,
+                    date_complete: dateComplete.value,
+                    date_council: dateCouncil.value,
+                    id_responsible: id_responsible
+                }
+            }).done(function (response) {
+                trId.children[3].innerHTML = predsName;
+                trId.children[4].innerHTML = dateAccept.value;
+                trId.children[5].innerHTML = dateComplete.value;
+                trId.children[6].innerHTML = dateCouncil.value;
+
+                let startDate2 = new Date(); // текущая дата yy mm dd
+                let endDate2 = new Date(); // конечная дата
+                startDate2.setMonth(startDate2.getMonth() - 5);
+                endDate2.setMonth(endDate2.getMonth() + 5);
+
+                let dateAcF = dateAc; //.toLocaleString('ru-RU').slice(0, 10) ;
+                let dateComplF = dateCompl;//.toLocaleDateString();
+                let dateCouncF = dateCounc;//.toLocaleDateString();
+
+                // console.log('dateStartF2', typeof dateAcF);
+                // console.log('dateStartF2', dateAcF);
+                //    console.log(new Date(dateAcF.trim())<  new Date(dateStartF.trim()));
+                if (dateAcF === '') {
+                    dateAcF = day;
+                } else {
+                    if (dateAcF.toISOString() < startDate2.toISOString()) {
+                        dateAcF = startDate2
+                    }
+                }
+
+                if (dateComplF === '') {
+                    dateComplF = day;
+                } else {
+                    if (dateComplF.toISOString() > endDate2.toISOString()) {
+                        dateComplF = endDate2
+                    }
+                }
+
+
+                if (dateCouncF === '') {
+                    dateCouncF = day;
+                } else {
+                    if (dateCouncF.toISOString() > endDate2.toISOString()) {
+                        dateCouncF = endDate2
+                    }
+                }
+
+                ulId.children[0].setAttribute("data-duration", dateAcF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0, 5));
+                if (dateCouncil.value === "") {
+                    if (dateCompl === "") {
+                        dateCompl = new Date();
+                    }
+                    ulId.children[1].setAttribute("data-duration", dateComplF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0, 5));
+                    ulId.children[1].style.backgroundColor = "#4464a1";
+                } else {
+                    ulId.children[1].setAttribute("data-duration", dateCouncF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateCouncF.toLocaleString('ru-RU').slice(0, 5));
+                    ulId.children[1].style.backgroundColor = "#6a478f";
+                }
+                btn.addEventListener("mouseout", createChart);
+
+                alert("Задача сохранена");
+
+                modal.classList.remove("show");
+            });
+    //     }
+    // }
+    // else alert("Дата совета не может быть меньше даты завершения проверки");
 }
 
 function createChart(e) {

@@ -400,6 +400,8 @@ function showModal(id_application, strMarks, strMarksAccred){
     let techOsn = document.getElementById("techOsn");
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
+    let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
+    let divDateDorabotka = document.getElementById("divDateDorabotka");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
@@ -452,6 +454,7 @@ function showModal(id_application, strMarks, strMarksAccred){
                 data.push(i);
                 data_old.push(i);
             }
+            let login = getCookie('login');
              naim.value = data[0][0];
             sokr.value = data[0][1];
             unp.value = data[0][2];
@@ -460,13 +463,18 @@ function showModal(id_application, strMarks, strMarksAccred){
             email.value = data[0][5];
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
+            if(data[0][17] != null) {
+                divDateDorabotka.insertAdjacentHTML("afterend", "<label>"+data[0][17]+"</label>");
+            }
             if(data[0][14] != null) {
                 fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if(data[0][15] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
-            let login = getCookie('login');
+            if(data[0][16] != null) {
+                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
+            }
             if(data[0][8] != null) {
                 soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
@@ -2032,6 +2040,13 @@ function  saveMarks(id_sub, divCardBody, flag){
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
+    for (let i = 0 ; i < 4; i++) {
+        if(i!=0)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
     for (let i = 0 ; i < 4; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
@@ -2043,6 +2058,14 @@ $("#home-tab").on("click", () => {
 });
 
 $("#rassmotrenie-tab").on("click", () => {
+
+    for (let i = 0 ; i < 4; i++) {
+        if(i!=1)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
 
     for (let i = 0 ; i < 4; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
@@ -2057,6 +2080,14 @@ $("#rassmotrenie-tab").on("click", () => {
 
 $("#odobrennie-tab").on("click", () => {
 
+    for (let i = 0 ; i < 4; i++) {
+        if(i!=2)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+
     for (let i = 0 ; i < 4; i++){
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
@@ -2069,6 +2100,14 @@ $("#odobrennie-tab").on("click", () => {
 });
 
 $("#neodobrennie-tab").on("click", () => {
+
+    for (let i = 0 ; i < 4; i++) {
+        if(i!=3)
+            allTabsMainPage[i].style = "display:none";
+        else{
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
 
     for (let i = 0 ; i < 4; i++){
         allTabsMainPage[i].children[0].classList.remove("show");

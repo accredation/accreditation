@@ -469,7 +469,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
 
 
-                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить структурное обособленное подразделение</button>
+                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить обособленное структурное подразделение</button>
                                             <br/>
                                             <br/>
 
@@ -522,6 +522,18 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" id="reportSamoocenka">
                                                 </div>
                                             </form>
+                                            <form id="formFileReportDorabotka" >
+                                                <div class="form-group " id = "divFileReportDorabotka" style="margin-bottom: 0px;" >
+                                                    <label for="reportDorabotka">Информация о необходимости доработки</label>
+                                                </div>
+                                            </form>
+                                            <br>
+                                            <form id="formDateDorabotka" >
+                                                <div class="form-group " id = "divDateDorabotka"  style="margin-bottom: 0px;">
+                                                    <label for="dateDorabotka">Срок доработки</label>
+                                                </div>
+                                            </form>
+                                            <br>
                                         </div>
                                         <div class="card-body" id="mainRightCard">
 

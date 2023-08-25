@@ -29,9 +29,11 @@
                                                                 left outer join status s on a.id_status=s.id_status    
                                                                 left outer join users u on a.id_user =u.id_user 
                                                                 left outer join users u1 on a.id_responsible =u1.id_user 
-                                                                
+                                                                left outer join users u2 on u2.id_user='$id_user'
 
-                                                                where a.id_status = 3 or a.id_status = 4";
+                                                                where (a.id_status = 3 or a.id_status = 4) and 
+                                                                         ((u2.id_role < 3 ) 
+                                                                        or (u2.id_role > 3 and u.oblast=u2.id_role ))";
                                 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
@@ -39,6 +41,7 @@
                                     $app_id = $app['app_id'];
                                     $date_accept = $app['date_accept'];
                                     $date_complete = $app['date_complete'];
+
 
                                     ?>
                                     <tr class="question" id="<?= $app_id?>" style=" background-color: #a8e9e9; ">

@@ -106,7 +106,7 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'Зарегистрировано',
+      'Авторизовано',
       'Подлежащих организаций здравоохранения',
 
     ]

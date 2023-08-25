@@ -129,8 +129,9 @@
                                                     </td>
 						                            <td style="width: 20%;"><?= $app['date_answer'] ?></td>
 						                            <td style="width: 20%;"><?= $app['type_question'] ?></td>
-                                                    <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
-
+                                                    <td><?php if(!empty($app['file'])){ ?>
+                                                        <a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
+                                                    <?php } ?>
                                                     <?php if (empty($app['answer'])) { ?>
                                                         <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('<?= $app['id_question'] ?>').value)">Ответить</button></td>
                                                     <?php } else { ?>

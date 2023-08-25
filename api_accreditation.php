@@ -669,17 +669,17 @@
 
 
                                     <div class = "inform" id = "informgr" >
-                                        <div class="newform-group">
+                                        <div class="newform-group" id = "infile">
                                             <label>Информация о необходимости доработки(нажмите на поле ввода, чтобы присоединить файл)</label>
                                             <input id="infdorabotki" type="text" class="form-control" readonly/>
                                             <input type="file" id="fileInputDorabotka" style="display: none;" accept=".pdf">
                                             </div>
-
+                                        <br>
                                         <div class="newform-group">
                                             <label>Срок доработки (дата)</label>
                                             <input id="dateInputDorabotki" type="date" class="form-control">
                                         </div>
-
+                                        <br>
                                         <div class="newform-group">
                                         <label>Отправить уведомление на электронную почту ОЗ</label><br>
                                         <input type="checkbox" id="checkboxInput">
@@ -775,7 +775,7 @@
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия</button>
 
                     <!--                </form>-->
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-danger" id="closerModal" data-bs-dismiss="modal">Закрыть</button>
                 </div>
 
             </div>

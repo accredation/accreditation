@@ -167,46 +167,47 @@ function saveVrach(id_user) {
 
 function deleteDoctor(id_user) {
     //var userId = document.getElementById('id_user').innerText;
-    console.log("usersId" , id_user );
-    $.ajax({
-        url:"deleteVrach.php",
-        method:"POST",
-        data:{id_user: id_user}
+    let isDelete = confirm("Выбранный врач-эксперт будет освобожден. Освободить?");
+    if(isDelete) {
+        $.ajax({
+            url: "deleteVrach.php",
+            method: "POST",
+            data: {id_user: id_user}
 
-    }).done(function (response){
-        console.log('deletevrach' + response);
-        alert("Удален врач-эксперт");
-    });
-
-
-    let ntr = document.getElementById("optname"+id_user);
+        }).done(function (response) {
+            console.log('deletevrach' + response);
+            alert("Удален врач-эксперт");
+        });
 
 
-
-    let td = document.getElementById("nam"+id_user);
-    let ustd = document.getElementById("usnam"+id_user);
-    let tablenewdoctor = document.getElementById("newdoctor");
-    let newtr = document.createElement("tr");
-    let newtd1 = document.createElement("td");
-    let newtd2 = document.createElement("td");
-    let tbody = tablenewdoctor.getElementsByTagName("tbody")[0];
-    newtd1.style = "text-align: center";
-    newtd1.innerHTML = ustd.innerText;
-    newtr.appendChild(newtd1);
+        let ntr = document.getElementById("optname" + id_user);
 
 
-    let nbutton1 = document.createElement("button");
-    newtd2.style = "text-align: center";
-    nbutton1.className = "btn btn-success";
-    nbutton1.setAttribute("onclick" , `saveVrach('${id_user}')`)
-    nbutton1.innerHTML = 'Добавить';
-    newtd2.appendChild(nbutton1);
-    newtr.appendChild(newtd2);
-    tbody.appendChild(newtr);
-    newtd1.id = "nam"+id_user;
+        let td = document.getElementById("nam" + id_user);
+        let ustd = document.getElementById("usnam" + id_user);
+        let tablenewdoctor = document.getElementById("newdoctor");
+        let newtr = document.createElement("tr");
+        let newtd1 = document.createElement("td");
+        let newtd2 = document.createElement("td");
+        let tbody = tablenewdoctor.getElementsByTagName("tbody")[0];
+        newtd1.style = "text-align: center";
+        newtd1.innerHTML = ustd.innerText;
+        newtr.appendChild(newtd1);
 
 
-    ntr.remove();
+        let nbutton1 = document.createElement("button");
+        newtd2.style = "text-align: center";
+        nbutton1.className = "btn btn-success";
+        nbutton1.setAttribute("onclick", `saveVrach('${id_user}')`)
+        nbutton1.innerHTML = 'Добавить';
+        newtd2.appendChild(nbutton1);
+        newtr.appendChild(newtd2);
+        tbody.appendChild(newtr);
+        newtd1.id = "nam" + id_user;
+
+
+        ntr.remove();
+    }
 
 
 }

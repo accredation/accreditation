@@ -607,7 +607,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         }
 
     });
-    $(".btn-danger").on("click",() => {
+    $("#closerModal").on("click",() => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -1742,25 +1742,31 @@ async function createAccordionCards(id_sub) {
                     for(let i = 0; i < arr.length; i++) {
                         if (arr[i].id_criteria.includes(id_criteria)) {
                             if (arr[i].status == null || arr[i].status == 0) {
-                                btnNotReady.innerHTML = "Готово";
+                                btnNotReady.innerHTML = "Подтвердить выполнение";
                             }
                             else {
-                                btnNotReady.innerHTML = "Не готово";
+                                btnNotReady.innerHTML = "Взять в работу";
                             }
                         }
                     }
 
 
 
+                    if (btnNotReady.innerText === "Взять в работу"){
+                        btnNotReady.style.width = "150px";
+                        btnNotReady.style.left ="45%";
+                    }
+                    else{
+                        btnNotReady.style.width = "220px";
+                        btnNotReady.style.left ="42.5%";
+                    }
 
-                    btnNotReady.style.width = "100px";
                     btnNotReady.style.height = "35px";
                     btnNotReady.style.backgroundColor = "blue";
                     btnNotReady.style.color = "white";
 
 
                     btnNotReady.style.position = "relative";
-                    btnNotReady.style.left ="50%";
 
 
                     btnNotReady.onmouseover = () => {
@@ -2428,7 +2434,7 @@ $("#btnOk").on("click", () => {
         })
             .done(function (response) {
 
-                alert("Заявка принята");
+                alert("Оценка завершена");
                 location.href = "/index.php?users";
             });
     }
@@ -2437,19 +2443,37 @@ $("#btnOk").on("click", () => {
 });
 
 $("#btnNeOk").on("click", () => {
+ //   event.preventDefault(); // Отменяем переход на другую страницу
     let id_application = document.getElementById("id_application");
+    var fileInputDorabotka = document.getElementById("fileInputDorabotka");
+    var dateInputDorabotki = document.getElementById("dateInputDorabotki").value;
 
-    $.ajax({
-        url: "changeStatusNeOk.php",
-        method: "GET",
-        data: {id_application: id_application.innerText}
-    })
-        .done(function( response ) {
+    // Проверка полей на пустое значение
+    if (dateInputDorabotki.trim() === "") {
+        alert("Пожалуйста, заполните поле 'Дата доработки'.");
+        document.getElementById("dateInputDorabotki").style.backgroundColor = "yellow";
+    //    return;
+    }
+    else
+    if (fileInputDorabotka.files.length === 0) {
+        alert("Пожалуйста, выберите файл для доработки.");
+        document.getElementById("fileInputDorabotka").style.backgroundColor = "yellow";
+     //   return;
+    }else {
 
-            alert("Заявка отклонена");
-            location.href = "/index.php?users";
-        });
 
+        let xhr = new XMLHttpRequest(),
+            form = new FormData();
+        let fileDorabotka = fileInputDorabotka.files[0];
+
+        form.append("id_application", id_application.innerText);
+        form.append("dateInputDorabotki", dateInputDorabotki);
+        form.append("fileDorabotka", fileDorabotka);
+
+        xhr.open("post", "changeStatusNeOk.php", true);
+        xhr.send(form);
+        alert("Заявление отправлено на доработку");
+    }
 });
 
 $("#btnCalc").on("click", () => {
@@ -2518,6 +2542,25 @@ $("#zaklfile").on("change", () =>{
 
         fileInputZakl.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + fileInputZakl.files[0].name + "'>" + fileInputZakl.files[0].name + "</a>");
     }
+
+});
+
+$("#infile").on("change", () =>{
+    let login = getCookie('login');
+    let id_application = document.getElementById("id_application");
+    let infile = document.getElementById("infile");
+
+    let dorfile = infile.getElementsByTagName("a")[0];
+
+
+
+    if(dorfile){
+        dorfile.remove();
+        let fileInputDorabotka = document.getElementById("fileInputDorabotka");
+
+        fileInputDorabotka.insertAdjacentHTML("afterend", "<a href='/documents/"+ login + "/dorabotka/" + id_application +"/" + fileInputDorabotka.files[0].name + "'>" + fileInputDorabotka.files[0].name + "</a>");
+    }
+
 
 });
 

@@ -27,6 +27,8 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
     $login = $row['login'];
     $report = $row['fileReport'];
     $reportSamoocenka = $row['fileReportSamoocenka'];
+    $infDorabotkiFile = $row['infDorabotkiFile'];
+    $dateInputDorabotki = $row['dateInputDorabotki'];
 }
 
 array_push($cells,$naim);
@@ -45,6 +47,8 @@ array_push($cells,$tech_osn);
 array_push($cells,$login);
 array_push($cells,$report);
 array_push($cells,$reportSamoocenka);
+array_push($cells,$infDorabotkiFile);
+array_push($cells,$dateInputDorabotki);
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
 

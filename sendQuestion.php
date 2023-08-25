@@ -26,6 +26,7 @@ else {
     echo "3";
     mysqli_query($con, "Insert into questions(`question`, `email`, `id_user`, `type_question`, `date_question`, `important`) values ('$question', '$email', '$id_user', '$typeQuestion','$date', 0)");
 }
+
 $textSubj = "Поступил новый вопрос в ТП мед.аккредитации";
 $subj = iconv("utf-8","cp1251",$textSubj);
 $text = $question;
