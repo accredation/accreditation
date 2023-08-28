@@ -2447,6 +2447,8 @@ $("#btnNeOk").on("click", () => {
     let id_application = document.getElementById("id_application");
     var fileInputDorabotka = document.getElementById("fileInputDorabotka");
     var dateInputDorabotki = document.getElementById("dateInputDorabotki").value;
+    var notifyByEmail = document.getElementById("checkboxInput").checked;
+    var email = document.getElementById("email").value;
 
     // Проверка полей на пустое значение
     if (dateInputDorabotki.trim() === "") {
@@ -2469,6 +2471,8 @@ $("#btnNeOk").on("click", () => {
         form.append("id_application", id_application.innerText);
         form.append("dateInputDorabotki", dateInputDorabotki);
         form.append("fileDorabotka", fileDorabotka);
+        form.append("notifyByEmail", notifyByEmail);
+        form.append("email", email);
 
         xhr.open("post", "changeStatusNeOk.php", true);
         xhr.send(form);

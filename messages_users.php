@@ -29,6 +29,7 @@
         padding: 0rem 0rem;
     }
 
+
     .leftSide {
         margin-left: 0;
         margin-right: 0;
@@ -82,7 +83,7 @@
                     <div class="tab-pane fade show active" id="allQuestions" role="tabpanel" aria-labelledby="all-question-tab">
 
                         <div class="row">
-                            <div class="col-12 grid-margin">
+                            <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
 
@@ -99,12 +100,12 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Вопрос</th>
-                                                <th>Дата вопроса</th>
-                                                <th>Ответ</th>
-                                                <th>Дата ответа</th>
+                                                <th style="max-width: 30%;">Вопрос</th>
+                                                <th style="max-width: 10%;">Дата вопроса</th>
+                                                <th style="max-width: 30%;">Ответ</th>
+                                                <th style="max-width: 10%;">Дата ответа</th>
                                                 <th>Файл</th>
-                                                <th>Тип вопроса</th>
+                                                <th style="max-width: 20%;">Тип вопроса</th>
 
                                             </tr>
                                             </thead>
@@ -113,14 +114,16 @@
 
                                             foreach ($data as $app) {
                                                 ?>
-                                                <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
+
                                                 <tr  style="cursor: pointer; height: 100px;">
-                                                    <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                    <td style="width: 20%;"><?= $app['date_question'] ?></td>
-                                                    <td style="width: 30%" > <?= $app['answer'] ?></td>
-                                                    <td style="width: 20%;"><?= $app['date_answer'] ?></td>
-                                                    <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
-                                                    <td style="width: 20%;"><?= $app['type_question'] ?></td>
+                                                    <td style="max-width: 30%;"><?= $app['question'] ?></td>
+                                                    <td style="max-width: 10%;"><?= $app['date_question'] ?></td>
+                                                    <td style="max-width: 30%" > <?= $app['answer'] ?></td>
+                                                    <td style="max-width: 10%;"><?= $app['date_answer'] ?></td>
+                                                    <td><?php if(!empty($app['file'])){ ?>
+                                                        <a href="<?= $app['file'] ?>" target="_blank">файл</a>
+                                                    <?php } ?></td>
+                                                    <td style="max-width: 20%;"><?= $app['type_question'] ?></td>
 
 
                                                 </tr>
@@ -158,15 +161,15 @@
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Вопрос</th>
-                                                <th>Дата вопроса</th>
-                                                <th>Ответ</th>
-                                                <th>Дата ответа</th>
+                                                <th style="width: 30%;">Вопрос</th>
+                                                <th style="width: 10%;">Дата вопроса</th>
+                                                <th style="width: 30%;">Ответ</th>
+                                                <th style="width: 10%;">Дата ответа</th>
                                                 <th>Файл</th>
-                                                <th>Тип вопроса</th>
+                                                <th style="width: 20%;">Тип вопроса</th>
 
                                             </tr>
                                             </thead>
@@ -175,13 +178,15 @@
 
                                             foreach ($data as $app) {
                                                 ?>
-                                                <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
+
                                                 <tr  style="cursor: pointer; height: 100px;">
-                                                    <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                    <td style="width: 20%;"><?= $app['date_question'] ?></td>
+                                                    <td style="width: 30%;"><?= $app['question'] ?></td>
+                                                    <td style="width: 10%;"><?= $app['date_question'] ?></td>
                                                     <td style="width: 30%" > <?= $app['answer'] ?></td>
-                                                    <td style="width: 20%;"><?= $app['date_answer'] ?></td>
-                                                    <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
+                                                    <td style="width: 10%;"><?= $app['date_answer'] ?></td>
+                                                    <td><?php if(!empty($app['file'])){ ?>
+                                                            <a href="<?= $app['file'] ?>" target="_blank">файл</a>
+                                                        <?php } ?></td>
                                                     <td style="width: 20%;"><?= $app['type_question'] ?></td>
 
                                                 </tr>
@@ -220,15 +225,15 @@
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example2" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Вопрос</th>
-                                                <th>Дата вопроса</th>
-                                                <th>Ответ</th>
-                                                <th>Дата ответа</th>
+                                                <th style="width: 30%;">Вопрос</th>
+                                                <th style="width: 10%;">Дата вопроса</th>
+                                                <th style="width: 30%;">Ответ</th>
+                                                <th style="width: 10%;">Дата ответа</th>
                                                 <th>Файл</th>
-                                                <th>Тип вопроса</th>
+                                                <th style="width: 20%;">Тип вопроса</th>
 
                                             </tr>
                                             </thead>
@@ -237,13 +242,15 @@
 
                                             foreach ($data as $app) {
                                                 ?>
-                                                <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
+
                                                 <tr  style="cursor: pointer; height: 100px;">
-                                                    <td style="width: 20%;"><?= $app['question'] ?></td>
-                                                    <td style="width: 20%;"><?= $app['date_question'] ?></td>
+                                                    <td style="width: 30%;"><?= $app['question'] ?></td>
+                                                    <td style="width: 10%;"><?= $app['date_question'] ?></td>
                                                     <td style="width: 30%" > <?= $app['answer'] ?></td>
-                                                    <td style="width: 20%;"><?= $app['date_answer'] ?></td>
-                                                    <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
+                                                    <td style="width: 10%;"><?= $app['date_answer'] ?></td>
+                                                    <td><?php if(!empty($app['file'])){ ?>
+                                                            <a href="<?= $app['file'] ?>" target="_blank">файл</a>
+                                                        <?php } ?></td>
                                                     <td style="width: 20%;"><?= $app['type_question'] ?></td>
 
                                                 </tr>
@@ -292,7 +299,7 @@
                         <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                             <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
                                 <li class="nav-item" id="tab1" onclick="showTab(this)">
-                                    <button class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true" id = "button1" ;>Общие сведения о заявителе</button>
+                                    <button class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true" id = "button1" >Общие сведения о заявителе</button>
                                 </li>
 
 

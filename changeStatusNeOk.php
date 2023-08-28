@@ -3,7 +3,8 @@ include "connection.php";
 $login = $_COOKIE['login'];
 $id_application = $_POST['id_application'];
 $dateInputDorabotki = $_POST['dateInputDorabotki'];
-
+$notifyByEmail =  $_POST['notifyByEmail'];
+$email =  $_POST['email'];
 
 $query1 = "Update applications  set `id_status` = 5,  `date_complete` = CURDATE() , dateInputDorabotki = '$dateInputDorabotki'  where id_application = '$id_application'";
 
@@ -26,4 +27,16 @@ if (isset($_FILES['fileDorabotka']['name'])) {
 }
 
 echo ("Данные сохранены");
+
+if ($notifyByEmail === "true") {
+    $textSubj = "Информация о доработке";
+    $subj = iconv("utf-8", "cp1251", $textSubj);
+    $text = "Необходимо доработать заявление";
+    $message = iconv("utf-8", "cp1251", $text);
+    if (mail($email, $subj, $message, "From:" . "hancharou@rnpcmt.by" . "\r\n")) {
+        echo "Сообщение успешно отправлено";
+    } else {
+        echo "При отправке сообщения возникли ошибки";
+    }
+}
 ?>

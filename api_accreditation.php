@@ -681,8 +681,8 @@
                                         </div>
                                         <br>
                                         <div class="newform-group">
-                                        <label>Отправить уведомление на электронную почту ОЗ</label><br>
-                                        <input type="checkbox" id="checkboxInput">
+                                            <input type="checkbox" id="checkboxInput" style="margin-right: 1rem"><label>Отправить уведомление на электронную почту ОЗ</label>
+
                                     </div>
 
 

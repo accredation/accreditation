@@ -1913,9 +1913,14 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
 
 function  isSavedMarks(){
   //  console.log('check arrChange begin', arrChange);
+    let tab1 = document.getElementById("tab1");
+    let btnTab = tab1.children[0];
+    if(btnTab.classList.contains("active"))
+        arrChange = false;
     if (arrChange == true) {
         let res = confirm("Сохранить введенные данные?");
       //  console.log('res',res);
+
         if(res == false){
          //   console.log('check arrChange before', arrChange);
             arrChange = false;
