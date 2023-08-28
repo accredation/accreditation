@@ -398,8 +398,9 @@ function showModal(id_application, strMarks, strMarksAccred){
     let informgr = document.getElementById("informgr");
 
     if(tabOdobrenie.classList.contains("active")){
-        btnChecking.classList.remove("hiddentab");
-        btnNeOk.classList.remove("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
     }else if(tabNeodobrennie.classList.contains("active")){
