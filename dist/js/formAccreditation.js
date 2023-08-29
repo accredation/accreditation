@@ -1682,7 +1682,7 @@ async function createAccordionCards(id_sub) {
     let divCard = document.createElement("div");
     divCard.className = "card";
     await getStatusFromDB1(id_sub);
-
+    let id_user = getCookie('id_user');
     for (let input of arrCheckInputs) {
 
         if (input.checked === true) {
@@ -1711,28 +1711,28 @@ async function createAccordionCards(id_sub) {
                     let criteriaMark ='';
                     let criteriaMarkAccred ='';
                     let marksSub = JSON.parse(response);
-                 
-                    criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
+
+                    criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
                                             + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-                    criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+                    criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
                     + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
-                    criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
+                    criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
                     + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
-                    criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
+                    criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
                     + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
-    
-                    criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
+
+                    criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('
                     + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
-                    criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
+                    criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('
                     + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
-                    criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('  
+                    criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
                     + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
-                    criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
+                    criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('
                     + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
-                    criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
+                    criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('
                     + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
 
-                    
+
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
                     let btnNotReady = document.createElement("button");
@@ -1740,8 +1740,13 @@ async function createAccordionCards(id_sub) {
                     btnNotReady.className = "floating-button";
 
                     btnNotReady.id = "btnNotReady";
+
+
                     for(let i = 0; i < arr.length; i++) {
                         if (arr[i].id_criteria.includes(id_criteria)) {
+
+
+
                             if (arr[i].status == null || arr[i].status == 0) {
                                 btnNotReady.innerHTML = "Подтвердить выполнение";
                             }
@@ -1749,6 +1754,8 @@ async function createAccordionCards(id_sub) {
                                 btnNotReady.innerHTML = "Взять в работу";
                             }
                         }
+
+
                     }
 
 
@@ -1757,9 +1764,12 @@ async function createAccordionCards(id_sub) {
                         btnNotReady.style.width = "150px";
                         btnNotReady.style.left ="45%";
                     }
-                    else{
+                    else if(btnNotReady.innerText === "Подтвердить выполнение"){
                         btnNotReady.style.width = "220px";
                         btnNotReady.style.left ="42.5%";
+                    }
+                    else{
+                        btnNotReady.classList.add("hiddentab");
                     }
 
                     btnNotReady.style.height = "35px";
@@ -1955,7 +1965,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th4_Main.innerHTML = 'Сведения об оценке критериев';
     th4_Main.style = "border: 1px solid black; text-align: center";
     th4_Main.setAttribute('colspan','2');
-    
+
 
     let trHead = document.createElement('tr');
     //trHead.style = "border: 1px solid black; width:100%";
@@ -1989,7 +1999,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let th7 = document.createElement('th');
     th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
     th7.style = "border: 1px solid black";
-    
+
     let thNum = document.createElement('th');
     thNum.innerHTML = '№ п/п';
     thNum.style = "border: 1px solid black";
@@ -2002,7 +2012,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
     trHeadMain.appendChild(th4_Main);
-    
+
     table.appendChild(trHeadMain);
     // trHead.appendChild(th1);
     // trHead.appendChild(th2);
@@ -2014,7 +2024,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
     table.appendChild(trHead);
 
-    
+
 
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
@@ -2075,7 +2085,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['id_mark_rating'], index,id_sub)};
               //  input5.setAttribute("type","text-area");
                 td5.appendChild(input5);
-                
+
 
 
                 let td6 = document.createElement('td');
@@ -2204,13 +2214,13 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
 
 function isSavedMarks(){
     if (arrChange == true) {
-        let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?"); 
+        let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?");
         if(res == false){
             setDisabledOnChange(false);
         }
 
         return res
-                 
+
     } else return false;
 
     // if (arrChange == true) {
@@ -2589,10 +2599,11 @@ function sendDataToServer(id_sub,id_criteria, value) {
 let arr = new Array();
 async function getStatusFromDB1(id_sub)
 {
+    let id_user = getCookie('id_user')
     await $.ajax({
         url: "getstatus.php",
         method: "POST",
-        data: { id_sub: id_sub},
+        data: { id_sub: id_sub , id_user : id_user},
         dataType: "json",
         success: function(data)  {
             for (var i = 0; i < data.length; i++) {
@@ -2602,6 +2613,7 @@ async function getStatusFromDB1(id_sub)
 
         }
     });
+    console.log(arr);
 }
 
 
