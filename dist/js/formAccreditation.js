@@ -1682,7 +1682,7 @@ async function createAccordionCards(id_sub) {
     let divCard = document.createElement("div");
     divCard.className = "card";
     await getStatusFromDB1(id_sub);
-
+    let id_user = getCookie('id_user');
     for (let input of arrCheckInputs) {
 
         if (input.checked === true) {
@@ -1757,9 +1757,12 @@ async function createAccordionCards(id_sub) {
                         btnNotReady.style.width = "150px";
                         btnNotReady.style.left ="45%";
                     }
-                    else{
+                    else if(btnNotReady.innerText === "Подтвердить выполнение"){
                         btnNotReady.style.width = "220px";
                         btnNotReady.style.left ="42.5%";
+                    }
+                    else{
+                        btnNotReady.classList.add("hiddentab");
                     }
 
                     btnNotReady.style.height = "35px";
@@ -2589,10 +2592,11 @@ function sendDataToServer(id_sub,id_criteria, value) {
 let arr = new Array();
 async function getStatusFromDB1(id_sub)
 {
+    let id_user = getCookie('id_user')
     await $.ajax({
         url: "getstatus.php",
         method: "POST",
-        data: { id_sub: id_sub},
+        data: { id_sub: id_sub , id_user : id_user},
         dataType: "json",
         success: function(data)  {
             for (var i = 0; i < data.length; i++) {
