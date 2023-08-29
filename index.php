@@ -140,58 +140,28 @@
                 </div>
               </div>
             </li>
+              <?php
+              if (isset($_COOKIE['login'])) {?>
+              <li class="nav-item dropdown">
+                  <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                      <i class="mdi mdi-bell-outline"></i>
+                      <span class="count-symbol bg-danger" id = "symb"></span>
+                  </a>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i class="mdi mdi-bell-outline"></i>
-                <span class="count-symbol bg-danger"></span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <h6 class="p-3 mb-0 bg-primary text-white py-4">Notifications</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-success">
-                      <i class="mdi mdi-calendar"></i>
-                    </div>
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" id = "notifications" aria-labelledby="notificationDropdown">
+                      <h6 class="p-3 mb-0 bg-primary text-white py-4">Уведомления</h6>
+                      <div class="dropdown-divider"></div>
+
+
                   </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
-                    <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-warning">
-                      <i class="mdi mdi-settings"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
-                    <p class="text-gray ellipsis mb-0"> Update dashboard </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-info">
-                      <i class="mdi mdi-link-variant"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                    <p class="text-gray ellipsis mb-0"> New admin wow! </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
-              </div>
-            </li>
+              </li>
+              <?php } else {?>
+              <?php } ?>
+
           </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span class="mdi mdi-menu" style="color: white; font-size: 1.6rem "></span>
-          </button>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                <span class="mdi mdi-menu" style="color: white; font-size: 1.6rem "></span>
+            </button>
         </div>
       </nav>
       <!-- partial -->
@@ -374,6 +344,103 @@
       // .then(response => response.json())
       // .then(data => console.log(data));
   </script>
+  <script>
+      function getCookie(cname) {
+          let name = cname + "=";
+          let decodedCookie = decodeURIComponent(document.cookie);
+          let ca = decodedCookie.split(';');
+          for(let i = 0; i <ca.length; i++) {
+              let c = ca[i];
+              while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+              }
+          }
+          return "";
+      }
+  </script>
 
+  <script>
+      // Функция для получения и отображения уведомлений
+      function getNotifications() {
+          let id_user = getCookie('id_user');
+          let notif = document.getElementById("notifications");
+          let symbol = document.getElementById("symb");
+          $.ajax({
+              url: "getNotifications.php",
+              method: "GET",
+              data: {id_user: id_user}
+
+          })
+              .done(function (response) {
+                  // Очистка уведомлений
+                  notif.innerHTML = " <h6 class='p-3 mb-0 bg-primary text-white py-4'>Уведомления</h6><div class='dropdown-divider'></div>";
+
+                  var notifications = JSON.parse(response);
+                  console.log (notifications);
+                  if (notifications.length === 0) {
+                      symbol.style.display = "none";
+                      notif.innerHTML += "<p class='text-muted p-3'>Нет уведомлений</p>";
+                  } else {
+                      symbol.style.display = "block";
+                      for (var i = 0; i < notifications.length; i++) {
+                          var notification = notifications[i];
+                          let idNot = notification['id_notifications'];
+                          var html = "<a class='dropdown-item preview-item' onclick='markAsRead(" + idNot + ")'>";
+                          html += '<div class="preview-thumbnail">';
+                          html += '<div class="preview-icon bg-success">';
+                          html += '<i class="mdi mdi-calendar"></i>';
+                          html += '</div>';
+                          html += '</div>';
+                          html += '<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">';
+                          html += '<h6 class="preview-subject font-weight-normal mb-1">Доработка</h6>';
+                          html += '<p class="text-gray ellipsis mb-0">' + notification['text_notifications'] + '</p>';
+                          html += '</div>';
+                          html += '</a>';
+                          html += '<div class="dropdown-divider"></div>';
+                          notif.innerHTML += html;
+                      }
+                  }
+              });
+      }
+      // Вызов функции getNotifications при нажатии на колокольчик
+      $("#notificationDropdown").click(function () {
+          getNotifications();
+      });
+
+
+      function markAsRead(notificationId) {
+
+          $.ajax({
+              url: "markNotificationAsRead.php",
+              method: "POST",
+              data: {notificationId: notificationId}
+          })
+              .done(function (response) {
+                  // Обновляем список уведомлений после изменений
+                  getNotifications();
+              });
+      }
+
+      $(document).ready(function() {
+          getNotifications(); //
+
+          function checkNotifications() {
+              let symbol = document.getElementById("symb");
+              if (symbol.innerHTML === "") {
+                  symbol.style.display = "none";
+              } else {
+                  symbol.style.display = "block";
+              }
+          }
+
+          checkNotifications();
+      });
+
+
+
+  </script>
 
 </html>
