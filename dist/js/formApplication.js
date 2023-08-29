@@ -57,7 +57,7 @@ function showTab(element,id_sub){
         }
         return;
     };
-   
+
     arrChange=false;
 
     OpenSub=0;
@@ -1915,8 +1915,10 @@ function  isSavedMarks(){
   //  console.log('check arrChange begin', arrChange);
     let tab1 = document.getElementById("tab1");
     let btnTab = tab1.children[0];
-    if(btnTab.classList.contains("active"))
+    if(btnTab.classList.contains("active")) {
         arrChange = false;
+        btnTab.removeAttribute("disabled");
+    }
     if (arrChange == true) {
         let res = confirm("Сохранить введенные данные?");
       //  console.log('res',res);

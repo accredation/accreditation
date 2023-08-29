@@ -1780,13 +1780,15 @@ async function createAccordionCards(id_sub) {
 
                     btnNotReady.onclick = (event) => {
                         event.stopPropagation();
-                        if(btnNotReady.innerHTML === "Не готово") {
-
-                            btnNotReady.innerHTML = "Готово";
+                        if(btnNotReady.innerHTML === "Взять в работу") {
+                            btnNotReady.style.width = "220px";
+                            btnNotReady.style.left ="42.5%";
+                            btnNotReady.innerHTML = "Подтвердить выполнение";
                             sendDataToServer(id_sub,id_criteria,0); // Update to 1
                         } else {
-
-                            btnNotReady.innerHTML = "Не готово";
+                            btnNotReady.style.width = "150px";
+                            btnNotReady.style.left ="45%";
+                            btnNotReady.innerHTML = "Взять в работу";
                             sendDataToServer(id_sub,id_criteria,1); // Update to 0
                         }
                     }
