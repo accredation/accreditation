@@ -44,7 +44,7 @@
 
 
                                     ?>
-                                    <tr class="question" id="<?= $app_id?>" style=" background-color: #a8e9e9; ">
+                                    <tr class="question" id="<?= $app_id?>" style=" background-color: #9CCDCD; ">
                                         <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer;text-align: center" ><?= $app['username']?> №<?= $app_id ?></td>
                                         <td style ="text-align: center"><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
@@ -162,7 +162,7 @@
             </ul>
 
             <div style="display: flex; position: relative; z-index: 100; top:-25px">
-                <ul class="chart-bars visib"  id = "nowDate" style="margin: 0">
+                <ul class="chart-bars "  id = "nowDate" style="margin: 0">
                     <li data-duration="" data-color="red" id = "nowDateli"
                         style="margin: 0; position: absolute; padding: 1px;  width: 0; height: 0px; z-index: 1"></li>
                 </ul>
@@ -180,6 +180,7 @@
 
                 foreach ($data as $app) {
                     $app_id = $app['app_id'];
+                    $status = $app['id_status'];
                     $date_accept = $app['date_accept'];
                     $startDate = date('Y-m-d', strtotime("-5 month"));
 
@@ -203,17 +204,23 @@
                     if($date_council > $endDate ) {
                         $date_council = $endDate;
                     }
+                    if($status == 4){
+                        $color = "#50C878";
+                    }
+                    else{
+                        $color = "#FF5733";
+                    }
                 ?>
-                    <ul class="chart-bars hidden"  id = "ul<?= $app_id?>" >
-                        <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999 ">Задание заявления №<?= $app_id?></li>
+                    <ul class="chart-bars " style="display: flex"  id = "ul<?= $app_id?>" >
+                        <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100 ">Задание заявления №<?= $app_id?></li>
                 <?php
                     if(($date_council != null || $date_council != "")&&($date_council != $endDate)){
                 ?>
-                        <li data-duration="<?=substr(date_format(date_create($date_council), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_council), "d.m.Y"), 0, 5)?>" data-color="#6a478f" style="padding: 5px 10px; z-index: 9999 "></li>
+                        <li data-duration="<?=substr(date_format(date_create($date_council), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_council), "d.m.Y"), 0, 5)?>" data-color="#8A231A" style="padding: 5px 10px; z-index: 100 "></li>
                         <?php
                     } else {
                         ?>
-                        <li data-duration="<?=substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="#4464a1" style="padding: 5px 10px; z-index: 9999; "></li>
+                        <li data-duration="<?=substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100; "></li>
                    <?php
                     }
                 ?>
@@ -234,7 +241,7 @@
     </div>
     </div>
 
-<div class="modal" id="modalTask">
+<div class="modal " id="modalTask">
     <div class="modal-dialog modal-xs" >
         <div class="modal-content">
 

@@ -94,7 +94,7 @@ a {
 }
 
 .fill_sub{
-    background-color: #a2e7d6;
+    background-color: #B4E0E0;
 }
 
 @media screen and (max-width: 600px) {
@@ -133,11 +133,11 @@ a {
 }
 
 .trColor{
-    background: lime
+    background: #64DB97;
 }
 
 
 .tdMainColor{
-    color: darkorchid;
+    color: #8A5C0C;
 }
 

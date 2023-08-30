@@ -233,10 +233,10 @@ function saveChanges(btn){
                         dateCompl = new Date();
                     }
                     ulId.children[1].setAttribute("data-duration", dateComplF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0, 5));
-                    ulId.children[1].style.backgroundColor = "#4464a1";
+                    ulId.children[1].style.backgroundColor = "#CE3F31";
                 } else {
                     ulId.children[1].setAttribute("data-duration", dateCouncF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateCouncF.toLocaleString('ru-RU').slice(0, 5));
-                    ulId.children[1].style.backgroundColor = "#6a478f";
+                    ulId.children[1].style.backgroundColor = "#8A231A";
                 }
                 btn.addEventListener("mouseout", createChart);
 
@@ -328,6 +328,8 @@ function createChart(e) {
         el.style.left = `${left}px`;
         el.style.width = `${width}px`;
 
+
+
         if (e.type == "load") {
             el.style.backgroundColor = el.dataset.color;
             el.style.opacity = 1;
@@ -359,11 +361,11 @@ function collapsTable(id) {
 
             let myUl = document.getElementById("ul" + id);
             if (myUl.classList.contains("hidden")) {
-                myUl.classList.remove("hidden");
-                myUl.classList.add("visib");
+                // myUl.classList.remove("hidden");
+                // myUl.classList.add("visib");
             } else {
-                myUl.classList.remove("visib");
-                myUl.classList.add("hidden");
+                // myUl.classList.remove("visib");
+                // myUl.classList.add("hidden");
             }
         }
 
@@ -482,16 +484,16 @@ function collapsTable(id) {
     }
 
     if(date_accept!=='' && date_complete!=='') {
-        let ulhline = document.getElementById("nowDate");
-        let hline = ulhline.getElementsByTagName("li")[0];
 
-        let mytask = document.getElementById("mytask");
-        hline.style.height = (mytask.offsetHeight + 20).toString() + 'px';
     }
 }
 
 
+let ulhline = document.getElementById("nowDate");
+let hline = ulhline.getElementsByTagName("li")[0];
 
+let mytask = document.getElementById("mytask");
+hline.style.height = (mytask.offsetHeight -90).toString() + 'px';
 
 
 //скрипт формируем даты
@@ -607,4 +609,4 @@ function stopDrag() {
     document.removeEventListener("mouseup", stopDrag);
 }
 
-header.addEventListener("mousedown", startDrag);
+//header.addEventListener("mousedown", startDrag);

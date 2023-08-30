@@ -129,7 +129,7 @@
                                                     </td>
 						                            <td style="width: 20%;"><?= $app['date_answer'] ?></td>
 						                            <td style="width: 20%;"><?= $app['type_question'] ?></td>
-                                                    <td><?php if(!empty($app['file'])){ ?>
+                                                    <td><?php if($app['file'] != null){ ?>
                                                         <a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
                                                     <?php } ?>
                                                     <?php if (empty($app['answer'])) { ?>

@@ -9,6 +9,13 @@ $answer = $_GET['answer'];
 $textSubj = "Ответ от ТП мед.аккредитации";
 //$subj = iconv("utf-8","cp1251",$textSubj);
 $text = $answer;
+
+$text_notifications = "Пришел ответ от поддержки";
+
+$query3 = "Insert into  notifications  (id_user,text_notifications,readornot,date_text)  SELECT id_user ,'$text_notifications',1,CURDATE()  FROM questions WHERE id_question = '$id_question'; ";
+
+$result3 = mysqli_query($con, $query3) or die("Ошибка " . mysqli_error($con));
+
 $message=iconv("utf-8","cp1251",$text);
 $rez = mysqli_query($con, "select email from questions where id_question = '$id_question'");
 $row = mysqli_fetch_assoc($rez);
