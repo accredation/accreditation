@@ -131,7 +131,7 @@ function saveVrach(id_user) {
         let ntd1 = document.createElement("td");
         let ntd2 = document.createElement("td");
         let ntd3 = document.createElement("td");
-        let tble = document.getElementById('example');
+        let tble = document.getElementById('example1');
         let tbody = tble.getElementsByTagName("tbody")[0];
 
         let td = document.getElementById("nam"+id_user);
