@@ -265,38 +265,38 @@
     <script>
         var modals = document.getElementsByClassName("modal");
 
-        function attachModalDrag(modal) {
-            var header = modal.querySelector(".modal-header");
-            var mouseX = 0;
-            var mouseY = 0;
-            var modalLeft = 0;
-            var modalTop = 0;
-
-            function startDrag(event) {
-                mouseX = event.clientX;
-                mouseY = event.clientY;
-                modalLeft = parseInt(window.getComputedStyle(modal).getPropertyValue("left"));
-                modalTop = parseInt(window.getComputedStyle(modal).getPropertyValue("top"));
-
-                document.addEventListener("mousemove", dragModal);
-                document.addEventListener("mouseup", stopDrag);
-            }
-
-            function dragModal(event) {
-                var deltaX = event.clientX - mouseX;
-                var deltaY = event.clientY - mouseY;
-
-                modal.style.left = modalLeft + deltaX + "px";
-                modal.style.top = modalTop + deltaY + "px";
-            }
-
-            function stopDrag() {
-                document.removeEventListener("mousemove", dragModal);
-                document.removeEventListener("mouseup", stopDrag);
-            }
-
-            header.addEventListener("mousedown", startDrag);
-        }
+        // function attachModalDrag(modal) {
+        //     var header = modal.querySelector(".modal-header");
+        //     var mouseX = 0;
+        //     var mouseY = 0;
+        //     var modalLeft = 0;
+        //     var modalTop = 0;
+        //
+        //     function startDrag(event) {
+        //         mouseX = event.clientX;
+        //         mouseY = event.clientY;
+        //         modalLeft = parseInt(window.getComputedStyle(modal).getPropertyValue("left"));
+        //         modalTop = parseInt(window.getComputedStyle(modal).getPropertyValue("top"));
+        //
+        //         document.addEventListener("mousemove", dragModal);
+        //         document.addEventListener("mouseup", stopDrag);
+        //     }
+        //
+        //     function dragModal(event) {
+        //         var deltaX = event.clientX - mouseX;
+        //         var deltaY = event.clientY - mouseY;
+        //
+        //         modal.style.left = modalLeft + deltaX + "px";
+        //         modal.style.top = modalTop + deltaY + "px";
+        //     }
+        //
+        //     function stopDrag() {
+        //         document.removeEventListener("mousemove", dragModal);
+        //         document.removeEventListener("mouseup", stopDrag);
+        //     }
+        //
+        //     header.addEventListener("mousedown", startDrag);
+        // }
 
         for (var i = 0; i < modals.length; i++) {
             attachModalDrag(modals[i]);
