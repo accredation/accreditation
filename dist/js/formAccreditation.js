@@ -43,6 +43,7 @@ let OpenSub = 0;
 
 function showTab(element,id_sub){
 
+
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
 
@@ -1669,6 +1670,9 @@ async function createAccordionCards(id_sub) {
         marks_app.pop();
     }
 */
+
+
+
     marks_app.arClear();
 
     let thisTab = document.getElementById("tab" + id_sub + "-");
@@ -1683,6 +1687,12 @@ async function createAccordionCards(id_sub) {
     divCard.className = "card";
     await getStatusFromDB1(id_sub);
     let id_user = getCookie('id_user');
+
+
+
+
+
+
     for (let input of arrCheckInputs) {
 
         if (input.checked === true) {
@@ -1733,79 +1743,90 @@ async function createAccordionCards(id_sub) {
                     + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
 
 
+
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
-                    let btnNotReady = document.createElement("button");
-                    btnNotReady.setAttribute("type", "submit");
-                    btnNotReady.className = "floating-button";
-
-                    btnNotReady.id = "btnNotReady";
-
-
-                    for(let i = 0; i < arr.length; i++) {
-                        if (arr[i].id_criteria.includes(id_criteria)) {
-
-
-
-                            if (arr[i].status == null || arr[i].status == 0) {
-                                btnNotReady.innerHTML = "Подтвердить выполнение";
-                            }
-                            else {
-                                btnNotReady.innerHTML = "Взять в работу";
-                            }
-                        }
-
-
-                    }
-
-
-
-                    if (btnNotReady.innerText === "Взять в работу"){
-                        btnNotReady.style.width = "150px";
-                        btnNotReady.style.left ="45%";
-                    }
-                    else if(btnNotReady.innerText === "Подтвердить выполнение"){
-                        btnNotReady.style.width = "220px";
-                        btnNotReady.style.left ="42.5%";
-                    }
-                    else{
-                        btnNotReady.classList.add("hiddentab");
-                    }
-
-                    btnNotReady.style.height = "35px";
-                    btnNotReady.style.backgroundColor = "blue";
-                    btnNotReady.style.color = "white";
-
-
-                    btnNotReady.style.position = "relative";
-
-
-                    btnNotReady.onmouseover = () => {
-                        btnNotReady.style.backgroundColor = "red";
-                    };
-
-                    btnNotReady.onmouseout = () => {
-                        btnNotReady.style.backgroundColor = "blue";
-                    };
-
-                    btnNotReady.onclick = (event) => {
-                        event.stopPropagation();
-                        if(btnNotReady.innerHTML === "Взять в работу") {
-                            btnNotReady.style.width = "220px";
-                            btnNotReady.style.left ="42.5%";
-                            btnNotReady.innerHTML = "Подтвердить выполнение";
-                            sendDataToServer(id_sub,id_criteria,0); // Update to 1
-                        } else {
-                            btnNotReady.style.width = "150px";
-                            btnNotReady.style.left ="45%";
-                            btnNotReady.innerHTML = "Взять в работу";
-                            sendDataToServer(id_sub,id_criteria,1); // Update to 0
-                        }
-                    }
-
-
                     divCardHeader.appendChild(divCardHeaderMark);
-                    divCardHeader.appendChild(btnNotReady);
+                    if (arr.length === 0) {
+
+                    }
+                    else {
+
+                        if (id_user === arr[0].id_otvetstvennogo) {
+                            let btnNotReady = document.createElement("button");
+
+
+                            btnNotReady.setAttribute("type", "submit");
+                            btnNotReady.className = "floating-button";
+
+                            btnNotReady.id = "btnNotReady"+id_criteria;
+
+
+                            for (let i = 0; i < arr.length; i++) {
+                                if (arr[i].id_criteria.includes(id_criteria)) {
+
+                                    if (arr[i].status == null || arr[i].status == 0) {
+                                        btnNotReady.innerHTML = "Подтвердить выполнение";
+                                    } else {
+                                        btnNotReady.innerHTML = "Взять в работу";
+                                    }
+                                }
+                            }
+
+
+                            if (btnNotReady.innerText === "Взять в работу") {
+                                btnNotReady.style.width = "150px";
+                                btnNotReady.style.left = "45%";
+                            } else if (btnNotReady.innerText === "Подтвердить выполнение") {
+                                btnNotReady.style.width = "220px";
+                                btnNotReady.style.left = "42.5%";
+                            } else {
+                                btnNotReady.classList.add("hiddentab");
+                            }
+
+                            btnNotReady.style.height = "35px";
+                            btnNotReady.style.backgroundColor = "blue";
+                            btnNotReady.style.color = "white";
+
+
+                            btnNotReady.style.position = "relative";
+
+
+                            btnNotReady.onmouseover = () => {
+                                btnNotReady.style.backgroundColor = "red";
+                            };
+
+                            btnNotReady.onmouseout = () => {
+                                btnNotReady.style.backgroundColor = "blue";
+                            };
+
+                            btnNotReady.onclick = (event) => {
+                                event.stopPropagation();
+                                if (btnNotReady.innerHTML === "Взять в работу") {
+                                    btnNotReady.style.width = "220px";
+                                    btnNotReady.style.left = "42.5%";
+                                    btnNotReady.innerHTML = "Подтвердить выполнение";
+                                    sendDataToServer(id_sub, id_criteria, 0); // Update to 1
+                                } else {
+                                    btnNotReady.style.width = "150px";
+                                    btnNotReady.style.left = "45%";
+                                    btnNotReady.innerHTML = "Взять в работу";
+                                    sendDataToServer(id_sub, id_criteria, 1); // Update to 0
+                                }
+                            }
+
+
+
+                            divCardHeader.appendChild(btnNotReady);
+                        }
+
+                        else {
+
+                        }
+
+                    }
+
+
 
                     // let marks = JSON.parse(response);
 
@@ -2305,6 +2326,7 @@ $("#home-tab").on("click", () => {
     for (let i = 0 ; i < 5; i++) {
         if(i!=0)
             allTabsMainPage[i].style = "display:none";
+
         else{
             allTabsMainPage[i].style = "display:block";
         }
@@ -2599,6 +2621,7 @@ function sendDataToServer(id_sub,id_criteria, value) {
 let arr = new Array();
 async function getStatusFromDB1(id_sub)
 {
+    arr = [];
     let id_user = getCookie('id_user')
     await $.ajax({
         url: "getstatus.php",
@@ -2615,5 +2638,10 @@ async function getStatusFromDB1(id_sub)
     });
     console.log(arr);
 }
-
+function removeButtons() {
+    let buttons = document.getElementsByClassName('floating-button');
+    while(buttons[0]) {
+        buttons[0].parentNode.removeChild(buttons[0]);
+    }
+}
 

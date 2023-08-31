@@ -364,6 +364,10 @@
 
   <script>
       // Функция для получения и отображения уведомлений
+      <?php
+      if (isset($_COOKIE['login']))
+      {?>
+
       function getNotifications() {
           let id_user = getCookie('id_user');
           let notif = document.getElementById("notifications");
@@ -395,7 +399,7 @@
                           html += '</div>';
                           html += '</div>';
                           html += '<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">';
-                          html += '<h6 class="preview-subject font-weight-normal mb-1">Доработка</h6>';
+                          html += '<h6 class="preview-subject font-weight-normal mb-1">Новое сообщение</h6>';
                           html += '<p class="text-gray ellipsis mb-0">' + notification['text_notifications'] + '</p>';
                           html += '</div>';
                           html += '</a>';
@@ -405,10 +409,13 @@
                   }
               });
       }
+
       // Вызов функции getNotifications при нажатии на колокольчик
-      $("#notificationDropdown").click(function () {
+ $("#notificationDropdown").click(function () {
           getNotifications();
       });
+
+
 
 
       function markAsRead(notificationId) {
@@ -425,7 +432,7 @@
       }
 
       $(document).ready(function() {
-          getNotifications(); //
+          getNotifications();
 
           function checkNotifications() {
               let symbol = document.getElementById("symb");
@@ -439,7 +446,9 @@
           checkNotifications();
       });
 
+      <?php } else {?>
 
+      <?php } ?>
 
   </script>
 
