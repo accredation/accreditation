@@ -6,7 +6,7 @@ class Notify{
 }
 $id_user = $_GET['id_user'];
 
-$query = "SELECT * FROM notifications WHERE readornot=1 and id_user = '$id_user'";
+$query = "SELECT * FROM notifications WHERE readornot=1 and id_user = '$id_user' order by id_notifications desc";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 

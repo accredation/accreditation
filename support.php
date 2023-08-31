@@ -309,7 +309,7 @@
                                                     <td style="width: 40%;"><textarea style="width: 100%; height: 100%" id="question_<?= $app['id_question'] ?>" rows="5" ><?= $app['question'] ?></textarea></td>
                                                     <td style="width: 40%"><textarea style="width: 100%; height: 100%" id="answer_<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
 
-                                                    <td style="width: 10%"><button class="btn btn-success btn-fw" onclick="sendAnswerFaqQuestion('<?= $app['id_question'] ?>', document.getElementById('question_'+'<?= $app['id_question'] ?>').value), document.getElementById('answer_'+'<?= $app['id_question'] ?>').value)">Сохранить</button></td>
+                                                    <td style="width: 10%"><button class="btn btn-success btn-fw" onclick="sendAnswerFaqQuestion('<?= $app['id_question'] ?>', document.getElementById('question_'+'<?= $app['id_question'] ?>').value, document.getElementById('answer_'+'<?= $app['id_question'] ?>').value)">Сохранить</button></td>
                                                     <td style="width: 10%"><button class="btn btn-danger btn-fw" onclick="deleteFaqQuestion('<?= $app['id_question'] ?>')">Удалить</button></td>
 
                                                 </tr>
@@ -588,6 +588,7 @@
 
     <script>
         function sendAnswerFaqQuestion(id, question, answer){
+            console.log(id, question, answer);
             if((!answer) || (answer===null) || (answer.trim()==='')){
                 alert('Поле ответа пусто');
                 return

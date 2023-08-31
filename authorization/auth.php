@@ -91,15 +91,15 @@ function login()
                                         $sesId = $_COOKIE['PHPSESSID'];
                                         $row = mysqli_fetch_assoc($rez); //она записывается в ассоциативный массив
                                         if($row['online'] != $sesId){
-                                            phpAlert("В аккаунт кто то вошел");
-                                            SetCookie("login", ""); //удаляются cookie с логином
-
-                                            SetCookie("password", ""); //удаляются cookie с паролем
-                                            SetCookie("PHPSESSID", ""); //удаляются cookie с паролем
-                                            SetCookie("isMA", 0); //удаляются cookie с паролем
-                                            header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');
-
-                                            return false;
+//                                            phpAlert("В аккаунт кто то вошел");
+//                                            SetCookie("login", ""); //удаляются cookie с логином
+//
+//                                            SetCookie("password", ""); //удаляются cookie с паролем
+//                                            SetCookie("PHPSESSID", ""); //удаляются cookie с паролем
+//                                            SetCookie("isMA", 0); //удаляются cookie с паролем
+//                                            header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');
+//
+//                                            return false;
                                         }
                                         if($row['sotrudnik_MA'] == 1) {
                                             setcookie("isMA", 1, time() + 360000, '/');

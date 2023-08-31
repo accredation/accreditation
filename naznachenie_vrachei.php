@@ -79,6 +79,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <button class="btn btn-primary" onclick="addDoctor()">Добавить врача</button>
+                                        <br>
+                                        <br>
                                         <?php
                                         $idlogin = $_COOKIE['login'];
                                         $queryroles = "SELECT id_role FROM users where id_role < 12 and id_role >= 4 and login = '$idlogin'";

@@ -400,7 +400,7 @@
                           html += '</div>';
                           html += '<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">';
                           html += '<h6 class="preview-subject font-weight-normal mb-1">Новое уведомление</h6>';
-                          html += '<p class="text-gray ellipsis mb-0">' + notification['text_notifications'] + '</p>';
+                          html += '<p class="text-gray ellipsis mb-0" style="text-wrap: wrap; min-width: 250px">' + notification['text_notifications'] + '</p>';
                           html += '</div>';
                           html += '</a>';
                           html += '<div class="dropdown-divider"></div>';
