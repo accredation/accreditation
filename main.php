@@ -378,7 +378,19 @@
         <!--            </div>-->
         <!--          </div>-->
     </div>
-    <div class="section_title">НОВОСТИ <button class="btn btn-primary"  style =" position: absolute; right: 3%;" onclick="addNews()">Добавить новость</button></div>
+    <div class="section_title">НОВОСТИ  <?php
+                                        if (isset($_COOKIE['login'])) {
+
+                                        $login = $_COOKIE['login'];
+                                        $query = "SELECT * FROM users where login = '$login'";
+
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ( $role==12 ){?> <button class="btn btn-primary"  style =" position: absolute; right: 3%;" onclick="addNews()">Добавить новость</button> <?php }} ?></div>
 
     <div class="row">
 
