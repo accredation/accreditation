@@ -28,6 +28,16 @@
             </li>
                   <?php
               }
+              else if ($row['id_role'] == 12){
+                  ?>
+                  <li class="nav-item" id="nav8">
+                      <a class="nav-link"  href="/index.php?application_support" >
+                          <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                          <span class="menu-title">Заявления</span>
+                      </a>
+                  </li>
+              <?php
+              }
               else if(($row['id_role'] < 3) || ($row['id_role'] > 3 && $row['id_role'] < 12))
               {
                   if($row['id_role'] == 2)
@@ -128,7 +138,7 @@
     let nav6 = document.getElementById("nav6");
     let nav7 = document.getElementById("nav7");
     let nav77 = document.getElementById("nav77");
-
+    let nav8 = document.getElementById("nav8");
 
     switch(url){
         case "/index.php":
@@ -154,6 +164,9 @@
             break;
         case "/index.php?naznachenie_vrachei":
             nav77.className = "nav-item active";
+            break;
+        case "/index.php?application_support":
+            nav8.className = "nav-item active";
             break;
         default:
             nav1.className = "nav-item active";

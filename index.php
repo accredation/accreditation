@@ -204,6 +204,9 @@
                     case 'tasks_accred':
                         include 'modules/accred_tasks/tasks_accred.php';
                         break;
+                    case 'application_support':
+                        include 'support/application/application_support.php';
+                        break;
                 }
             }
             else{
