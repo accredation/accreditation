@@ -84,6 +84,31 @@
             display: flex;
             flex-wrap: wrap;
         }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1050;
+            display: none;
+            width: 38%;
+            height: 100%;
+            overflow: hidden;
+            outline: 0;
+        }
+        .modal-body {
+            max-height: 480px;
+            width: 640px;
+            overflow-y: auto;
+        }
+        .show {
+            display: block;
+        }
+        .hiddentab {
+            display: none;
+        }
+
 </style>
 
 <div class="content-wrapper">
@@ -353,7 +378,20 @@
         <!--            </div>-->
         <!--          </div>-->
     </div>
-    <div class="section_title">НОВОСТИ</div>
+    <div class="section_title">НОВОСТИ  <?php
+                                        if (isset($_COOKIE['login'])) {
+
+                                        $login = $_COOKIE['login'];
+                                        $query = "SELECT * FROM users where login = '$login'";
+
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ( $role==12 ){?> <button class="btn btn-primary"  style =" position: absolute; right: 3%;" onclick="addNews()">Добавить новость</button> <?php }} ?></div>
+
     <div class="row">
 
         <?php
@@ -378,7 +416,10 @@ LIMIT 5";
                     <div class="date"><?= $app["date_news"] ?></div>
                     <!--                    <a href="#" class="read_more">Подробнее</a>-->
                 </div>
-            </div>		</div>
+
+            </div>
+
+        </div>
         <div class="col-xs-12 col-md-12" style="margin-top: 1.5rem">
             <div class="row row-eq-height">
                 <?php
@@ -409,4 +450,83 @@ LIMIT 5";
 
     </div>
 </div>
+
+
+
+<div class="modal" id="modalnews">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Добавление новости</h4><h4 class="modal-title hiddentab" id="id_news"></h4>
+                <button type="button" class="btn  btn-danger btn-close" data-bs-dismiss="modal">x</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <label for="newsContent">Текст новости:</label>
+                <textarea class="form-control" id="newsContent" rows="3"></textarea>
+
+                <label for="newsDate">Дата:</label>
+                <input type="date" class="form-control" id="newsDate">
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="saveNews()">Сохранить</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+function addNews(){
+let modal = document.getElementById("modalnews");
+modal.classList.add("show");
+
+$(".btn-close").on("click",() => {
+
+modal.classList.remove("show");
+
+
+});
+$(".btn-danger").on("click",() => {
+
+modal.classList.remove("show");
+
+});
+}
+
+function saveNews() {
+    let newsContent = document.getElementById("newsContent").value;
+    let newsDate = document.getElementById("newsDate").value;
+
+    $.ajax({
+        url:"createNews.php",
+        method:"POST",
+        data:{newsContent: newsContent , newsDate:newsDate}
+
+    }).done(function (response){
+
+        console.log('news' + response);
+        alert("Добавленa новость");
+
+    });
+
+    let modal = document.getElementById("modalnews");
+    modal.classList.remove("show");
+}
+</script>
+
+
+
+
+
 <script src="assets/js/chart.js"></script>

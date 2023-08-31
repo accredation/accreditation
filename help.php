@@ -47,6 +47,7 @@
     }
     .card .card-body {
          padding: 1rem;
+
     }
     .direct-chat-infos {
         display: block;

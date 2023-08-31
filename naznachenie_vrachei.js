@@ -165,6 +165,7 @@ function saveVrach(id_user) {
 
     }
 
+
 function deleteDoctor(id_user) {
     //var userId = document.getElementById('id_user').innerText;
     let isDelete = confirm("Выбранный врач-эксперт будет освобожден. Освободить?");

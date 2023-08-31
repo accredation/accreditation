@@ -204,9 +204,6 @@
                     case 'tasks_accred':
                         include 'modules/accred_tasks/tasks_accred.php';
                         break;
-                    case 'application_support':
-                        include 'support/application/application_support.php';
-                        break;
                 }
             }
             else{
@@ -367,6 +364,10 @@
 
   <script>
       // Функция для получения и отображения уведомлений
+      <?php
+      if (isset($_COOKIE['login']))
+      {?>
+
       function getNotifications() {
           let id_user = getCookie('id_user');
           let notif = document.getElementById("notifications");
@@ -442,7 +443,9 @@
           checkNotifications();
       });
 
+      <?php } else {?>
 
+      <?php } ?>
 
   </script>
 

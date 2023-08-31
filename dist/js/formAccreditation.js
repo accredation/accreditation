@@ -1683,6 +1683,12 @@ async function createAccordionCards(id_sub) {
     divCard.className = "card";
     await getStatusFromDB1(id_sub);
     let id_user = getCookie('id_user');
+
+
+
+
+
+
     for (let input of arrCheckInputs) {
 
         if (input.checked === true) {
@@ -1735,35 +1741,43 @@ async function createAccordionCards(id_sub) {
                     
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
-                    let btnNotReady = document.createElement("button");
-                    btnNotReady.setAttribute("type", "submit");
-                    btnNotReady.className = "floating-button";
+                    divCardHeader.appendChild(divCardHeaderMark);
+                    if (arr.length === 0) {
 
-                    btnNotReady.id = "btnNotReady";
-                    for(let i = 0; i < arr.length; i++) {
-                        if (arr[i].id_criteria.includes(id_criteria)) {
-                            if (arr[i].status == null || arr[i].status == 0) {
-                                btnNotReady.innerHTML = "Подтвердить выполнение";
+                    }
+                    else {
+
+                        if (id_user === arr[0].id_otvetstvennogo) {
+                            let btnNotReady = document.createElement("button");
+
+
+                            btnNotReady.setAttribute("type", "submit");
+                            btnNotReady.className = "floating-button";
+
+                            btnNotReady.id = "btnNotReady"+id_criteria;
+
+
+                            for (let i = 0; i < arr.length; i++) {
+                                if (arr[i].id_criteria.includes(id_criteria)) {
+
+                                    if (arr[i].status == null || arr[i].status == 0) {
+                                        btnNotReady.innerHTML = "Подтвердить выполнение";
+                                    } else {
+                                        btnNotReady.innerHTML = "Взять в работу";
+                                    }
+                                }
                             }
-                            else {
-                                btnNotReady.innerHTML = "Взять в работу";
+
+
+                            if (btnNotReady.innerText === "Взять в работу") {
+                                btnNotReady.style.width = "150px";
+                                btnNotReady.style.left = "45%";
+                            } else if (btnNotReady.innerText === "Подтвердить выполнение") {
+                                btnNotReady.style.width = "220px";
+                                btnNotReady.style.left = "42.5%";
+                            } else {
+                                btnNotReady.classList.add("hiddentab");
                             }
-                        }
-                    }
-
-
-
-                    if (btnNotReady.innerText === "Взять в работу"){
-                        btnNotReady.style.width = "150px";
-                        btnNotReady.style.left ="45%";
-                    }
-                    else if(btnNotReady.innerText === "Подтвердить выполнение"){
-                        btnNotReady.style.width = "220px";
-                        btnNotReady.style.left ="42.5%";
-                    }
-                    else{
-                        btnNotReady.classList.add("hiddentab");
-                    }
 
                     btnNotReady.style.height = "35px";
                     btnNotReady.style.backgroundColor = "blue";
@@ -1797,8 +1811,17 @@ async function createAccordionCards(id_sub) {
                     }
 
 
-                    divCardHeader.appendChild(divCardHeaderMark);
-                    divCardHeader.appendChild(btnNotReady);
+
+                            divCardHeader.appendChild(btnNotReady);
+                        }
+
+                        else {
+
+                        }
+
+                    }
+
+
 
                     // let marks = JSON.parse(response);
 
@@ -2592,6 +2615,7 @@ function sendDataToServer(id_sub,id_criteria, value) {
 let arr = new Array();
 async function getStatusFromDB1(id_sub)
 {
+    arr = [];
     let id_user = getCookie('id_user')
     await $.ajax({
         url: "getstatus.php",

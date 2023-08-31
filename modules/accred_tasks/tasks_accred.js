@@ -328,8 +328,6 @@ function createChart(e) {
         el.style.left = `${left}px`;
         el.style.width = `${width}px`;
 
-
-
         if (e.type == "load") {
             el.style.backgroundColor = el.dataset.color;
             el.style.opacity = 1;
