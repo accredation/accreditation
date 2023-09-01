@@ -504,7 +504,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         });
      // выводим полученный ответ на консоль браузер
 
-    $(".btn-close").on("click",() => {
+    $(".btn-close").on("click",async () => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -530,41 +530,86 @@ function showModal(id_application, strMarks, strMarksAccred){
             var id_sub = parseInt(idsub);
 
             console.log(id_sub); // Выведет
-            updateCollapse (id_criteria,id_sub, 0);
+            await updateCollapse (id_criteria,id_sub, 0).then(() => {
+                if(samoocenka) {
+                    samoocenka.remove();
+                }
+                if(rep) {
+                    rep.remove();
+                }
+                if(sopr) {
+                    sopr.remove();
+                }
+                if(copy) {
+                    copy.remove();
+                }
+                if(org) {
+                    org.remove();
+                }
+                if(ucompl) {
+                    ucompl.remove();
+                }
+                if(tech) {
+                    tech.remove();
+                }
+                modal.classList.remove("show");
+                modal.style = "display: none";
+                for(let i = tablist.children.length - 1; i > 0; i--){
+                    tablist.children[i].remove();
+                }
+                let remAccTab = document.getElementsByClassName('remAccTab');
+
+                if(remAccTab.length!==0){
+                    for(let i=0;i<remAccTab.length;i++){
+                        remAccTab[i].remove();
+                    }
+                }
+
+            });
 
         }
+        else{
+            if(samoocenka) {
+                samoocenka.remove();
+            }
+            if(rep) {
+                rep.remove();
+            }
+            if(sopr) {
+                sopr.remove();
+            }
+            if(copy) {
+                copy.remove();
+            }
+            if(org) {
+                org.remove();
+            }
+            if(ucompl) {
+                ucompl.remove();
+            }
+            if(tech) {
+                tech.remove();
+            }
+            modal.classList.remove("show");
+            modal.style = "display: none";
+            for(let i = tablist.children.length - 1; i > 0; i--){
+                tablist.children[i].remove();
+            }
+            let remAccTab = document.getElementsByClassName('remAccTab');
+
+            if(remAccTab.length!==0){
+                for(let i=0;i<remAccTab.length;i++){
+                    remAccTab[i].remove();
+                }
+            }
+        }
 
 
 
-        if(samoocenka) {
-            samoocenka.remove();
-        }
-        if(rep) {
-            rep.remove();
-        }
-        if(sopr) {
-            sopr.remove();
-        }
-        if(copy) {
-            copy.remove();
-        }
-        if(org) {
-            org.remove();
-        }
-        if(ucompl) {
-            ucompl.remove();
-        }
-        if(tech) {
-            tech.remove();
-        }
-        modal.classList.remove("show");
-        modal.style = "display: none";
-        for(let i = tablist.children.length - 1; i > 0; i--){
-            tablist.children[i].remove();
-        }
+
 
     });
-    $(".btn-danger").on("click",() => {
+    $(".btn-danger").on("click",async () => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -592,37 +637,81 @@ function showModal(id_application, strMarks, strMarksAccred){
             var id_sub = parseInt(idsub);
 
             console.log(id_sub); // Выведет
-            updateCollapse (id_criteria,id_sub, 0);
+            await updateCollapse (id_criteria,id_sub, 0).then(() => {
+                if(samoocenka) {
+                    samoocenka.remove();
+                }
+                if(rep) {
+                    rep.remove();
+                }
+                if(sopr) {
+                    sopr.remove();
+                }
+                if(copy) {
+                    copy.remove();
+                }
+                if(org) {
+                    org.remove();
+                }
+                if(ucompl) {
+                    ucompl.remove();
+                }
+                if(tech) {
+                    tech.remove();
+                }
+                modal.classList.remove("show");
+                modal.style = "display: none";
+                for(let i = tablist.children.length - 1; i > 0; i--){
+                    tablist.children[i].remove();
+                }
+                let remAccTab = document.getElementsByClassName('remAccTab');
+
+                if(remAccTab.length!==0){
+                    for(let i=0;i<remAccTab.length;i++){
+                        remAccTab[i].remove();
+                    }
+                }
+            });
 
         }
+        else{
+            if(samoocenka) {
+                samoocenka.remove();
+            }
+            if(rep) {
+                rep.remove();
+            }
+            if(sopr) {
+                sopr.remove();
+            }
+            if(copy) {
+                copy.remove();
+            }
+            if(org) {
+                org.remove();
+            }
+            if(ucompl) {
+                ucompl.remove();
+            }
+            if(tech) {
+                tech.remove();
+            }
+            modal.classList.remove("show");
+            modal.style = "display: none";
+            for(let i = tablist.children.length - 1; i > 0; i--){
+                tablist.children[i].remove();
+            }
+            let remAccTab = document.getElementsByClassName('remAccTab');
+
+            if(remAccTab.length!==0){
+                for(let i=0;i<remAccTab.length;i++){
+                    remAccTab[i].remove();
+                }
+            }
+        }
 
 
-        if(samoocenka) {
-            samoocenka.remove();
-        }
-        if(rep) {
-            rep.remove();
-        }
-        if(sopr) {
-            sopr.remove();
-        }
-        if(copy) {
-            copy.remove();
-        }
-        if(org) {
-            org.remove();
-        }
-        if(ucompl) {
-            ucompl.remove();
-        }
-        if(tech) {
-            tech.remove();
-        }
-        modal.classList.remove("show");
-        modal.style = "display: none";
-        for(let i = tablist.children.length - 1; i > 0; i--){
-            tablist.children[i].remove();
-        }
+
     });
 
     let divBtnPrintReport = document.getElementById('btnPrintReport');
@@ -2800,7 +2889,7 @@ $("#reportSamoocenka").on("change", () =>{
 });
 
 
-function updateCollapse (id_criteria,id_sub, opend){
+async function updateCollapse (id_criteria,id_sub, opend){
 
     $.ajax({
         url: "updateCollapseFlag.php",
