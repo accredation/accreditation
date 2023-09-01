@@ -15,6 +15,8 @@ $id_criteria = $_GET['id_criteria'];
 // order by IFNULL(m.str_num, 100000), m.id_mark
 // ";
 
+
+
 $query = "SELECT m.id_mark, m.str_num, mr.id_mark_rating, m.mark_name, m.mark_class, mr.field4,mr.field5,mr.field6,mr.field7,mr.field8
 FROM `mark` m
 left outer join mark_rating mr on m.id_mark=mr.id_mark and mr.id_subvision='$id_sub'
