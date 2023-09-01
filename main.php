@@ -116,7 +116,7 @@
     <div class="row">
         <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body text-center">
+                <div class="card-body text-center" style="padding: 1.5rem 1.5rem;">
                     <!--                <h5 class="mb-2 text-dark font-weight-normal">Всего заявлений</h5>-->
                     <!--                <h2 class="mb-4 text-dark font-weight-bold">-->
                     <?php
@@ -148,7 +148,7 @@
         </div>
         <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body text-center">
+                <div class="card-body text-center" style="padding: 1.5rem 1.5rem;">
 
                     <!--                <h5 class="mb-2 text-dark font-weight-normal">Unique Visitors</h5>-->
                     <!--                <h2 class="mb-4 text-dark font-weight-bold">-->
@@ -216,7 +216,7 @@
         </div>
         <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body text-center">
+                <div class="card-body text-center" style="padding: 1.5rem 1.5rem;">
 
                     <?php
                     $rez = mysqli_query($con, "                    SELECT (
@@ -285,7 +285,7 @@
         </div>
         <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body text-center">
+                <div class="card-body text-center" style="padding: 1.5rem 1.5rem;">
 
                     <?php
                     $rez = mysqli_query($con, "                    SELECT (

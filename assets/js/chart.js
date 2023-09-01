@@ -234,7 +234,10 @@ $(function() {
       labels: {
         // This more specific font property overrides the global property
         fontSize: 10,
-      }
+      },
+      position: 'bottom',
+      align: 'start'
+
     },
     cutoutPercentage: 0,
    // labels: {}
