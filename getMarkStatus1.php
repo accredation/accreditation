@@ -5,6 +5,9 @@ $id_sub = $_GET['id_sub'];
 $id_criteria = $_GET['id_criteria'];
 $date = date('Y-m-d');
 
+
+
+
 $query = "SELECT m.id_mark, m.str_num, mr.id_mark_rating, m.mark_name, m.mark_class, mr.field4,mr.field5,mr.field6,mr.field7,mr.field8
 FROM `mark` m
 left outer join mark_rating mr on m.id_mark=mr.id_mark and mr.id_subvision='$id_sub'
