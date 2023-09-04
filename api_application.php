@@ -419,7 +419,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
             <div class="modal-header">
                 <h4 class="modal-title">Создание заявления</h4>
                 <h4 id="id_application"></h4>
-                <button type="button" class="btn  btn-danger btn-close" data-bs-dismiss="modal">x</button>
+                <button type="button" class="btn  btn-danger btn-close closeX" data-bs-dismiss="modal">x</button>
             </div>
 
             <!-- Modal body -->
@@ -577,7 +577,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>-->
 
 <!--                </form>-->
-             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+             <button type="button" class="btn btn-danger closeD" data-bs-dismiss="modal">Закрыть</button>
          </div>
 
      </div>
