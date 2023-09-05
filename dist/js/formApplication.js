@@ -40,15 +40,15 @@ let mark = {
 
 let OpenSub = 0;
 
-
-function showTab(element,id_sub){
+//shotab
+async function showTab(element,id_sub){
     //   console.log(OpenSub);
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
     let mainSearch = document.getElementById("tab1");
 
     if(isSavedMarks()) {
-
+        await collapseUpdateOpened();
         if (saveMarks(OpenSub, null,  false) === false) {
 
             if((mainSearch == element) && (id_sub==undefined)){
@@ -56,6 +56,9 @@ function showTab(element,id_sub){
             }
         }
         return;
+    }
+    else {
+       await  collapseUpdateOpened();
     };
 
     arrChange=false;
@@ -518,24 +521,20 @@ function showModal(id_application, strMarks, strMarksAccred){
         var collapseElement = document.getElementsByClassName('collapse');
 
         if ((typeof collapseElement !== 'undefined')&&(collapseElement !== null)){
-          console.log(collapseElement + "первый иф");
-          console.log(collapseElement);
             let collapseElement2 = [...collapseElement];
             let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true)
-            console.log(collapseElement3, 'collapseElement2')
-            if (collapseElement3) {
-                console.log(collapseElement + "второй иф");
+            if (collapseElement3.length>0) {
                 var elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
-                var idcrit = elementcrit.id.replace('collapse', '');
-                var id_criteria = parseInt(idcrit);
-                console.log(id_criteria);
+                if (elementcrit) {
+                    var idcrit = elementcrit.id.replace('collapse', '');
+                    var id_criteria = parseInt(idcrit);
 
                 // Найти элемент с классом nav-link active
                 var elementsub = document.querySelector('.nav-link.active[id^="button"]');
                 var idsub = elementsub.id.replace('button', '');
                 var id_sub = parseInt(idsub);
 
-                console.log(id_sub); // Выведет
+
                 await updateCollapse(id_criteria, id_sub, 0).then(() => {
                     if (samoocenka) {
                         samoocenka.remove();
@@ -572,6 +571,7 @@ function showModal(id_application, strMarks, strMarksAccred){
                     }
 
                 });
+                }
 
             }
             else{
@@ -662,24 +662,17 @@ function showModal(id_application, strMarks, strMarksAccred){
         var collapseElement = document.getElementsByClassName('collapse');
 
         if ((typeof collapseElement !== 'undefined')&&(collapseElement !== null)){
-            console.log(collapseElement + "первый иф");
-            console.log(collapseElement);
             let collapseElement2 = [...collapseElement];
             let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true)
-            console.log(collapseElement3, 'collapseElement2')
             if (collapseElement3) {
-                console.log(collapseElement + "второй иф");
                 var elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
                 var idcrit = elementcrit.id.replace('collapse', '');
                 var id_criteria = parseInt(idcrit);
-                console.log(id_criteria);
-
                 // Найти элемент с классом nav-link active
                 var elementsub = document.querySelector('.nav-link.active[id^="button"]');
                 var idsub = elementsub.id.replace('button', '');
                 var id_sub = parseInt(idsub);
 
-                console.log(id_sub); // Выведет
                 await updateCollapse(id_criteria, id_sub, 0).then(() => {
                     if (samoocenka) {
                         samoocenka.remove();
@@ -1815,6 +1808,7 @@ async function createAccordionCards(id_sub) {
                                 } else {
 
                                     openedDiv[0].classList.remove('show');
+                                    await updateCollapse (id_open_criteria,id_sub, 0);
                                 }
                             } else {
                                 divCollapse.classList.toggle('show');
@@ -1830,7 +1824,7 @@ async function createAccordionCards(id_sub) {
                             await collapseTable(id_criteria, divCardBody,id_sub);
 
                             id_open_criteria = id_criteria;
-                            updateCollapse (id_criteria,id_sub, 0);
+                            await  updateCollapse (id_criteria,id_sub, 0);
 
                     }
 
@@ -1851,6 +1845,7 @@ async function createAccordionCards(id_sub) {
                                 } else {
 
                                     openedDiv[0].classList.remove('show');
+                                    await updateCollapse (id_open_criteria,id_sub, 0);
                                 }
                             } else {
                                 divCollapse.classList.toggle('show');
@@ -1866,7 +1861,7 @@ async function createAccordionCards(id_sub) {
                             await collapseTable(id_criteria, divCardBody,id_sub);
 
                             id_open_criteria = id_criteria;
-                            updateCollapse (id_criteria,id_sub, 1);
+                            await updateCollapse (id_criteria,id_sub, 1);
                         }
                         else{
                             alert("Открыто другим пользователем");
@@ -1897,6 +1892,7 @@ async function createAccordionCards(id_sub) {
                                 } else {
 
                                     openedDiv[0].classList.remove('show');
+                                    await updateCollapse (id_open_criteria,id_sub, 0);
                                 }
                             } else {
                                 divCollapse.classList.toggle('show');
@@ -1932,6 +1928,7 @@ async function createAccordionCards(id_sub) {
                                     } else {
 
                                         openedDiv[0].classList.remove('show');
+                                        await updateCollapse (id_open_criteria,id_sub, 0);
                                     }
                                 } else {
                                     divCollapse.classList.toggle('show');
@@ -2034,8 +2031,11 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
 
     if (Number(status) === 1) {
         urlStr = "getMarkStatus1.php"
+
     } else {
+
         urlStr = "getMarkStatus2.php"
+
     }
 
 
@@ -2141,6 +2141,7 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
     }
 
     //  return marks_app;
+
 }
 
 
@@ -2999,20 +3000,30 @@ async function checkCollapse(id_criteria,id_sub) {
 window.addEventListener("beforeunload", async (event) => {
     event.preventDefault();
 
+     await collapseUpdateOpened();
+});
+
+
+
+async function collapseUpdateOpened()
+{
     let collapseElement = document.getElementsByClassName('collapse');
     let collapseElement2 = [...collapseElement];
 
     let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true);
 
-    if (collapseElement3) {
+    if (collapseElement3.length > 0) {
         let elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
-        let idcrit = elementcrit.id.replace('collapse', '');
-        let id_criteria = parseInt(idcrit);
+        if (elementcrit) {
+            let idcrit = elementcrit.id.replace('collapse', '');
+            let id_criteria = parseInt(idcrit);
 
-        let elementsub = document.querySelector('.nav-link.active[id^="button"]');
-        let idsub = elementsub.id.replace('button', '');
-        let id_sub = parseInt(idsub);
+            let elementsub = document.querySelector('.nav-link.active[id^="button"]');
+            let idsub = elementsub.id.replace('button', '');
+            let id_sub = parseInt(idsub);
 
-        await updateCollapse(id_criteria, id_sub, 0);
+            await updateCollapse(id_criteria, id_sub, 0);
+        }
     }
-});
+}
+
