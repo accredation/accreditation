@@ -2435,6 +2435,7 @@ $("#btnSend").on("click", async () => {
 
     let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
     if(isSend) {
+
         if(divSoprovodPismo.getElementsByTagName("a").length == 0 ||
             divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
             divOrgStrukt.getElementsByTagName("a").length == 0 ||
@@ -2470,6 +2471,7 @@ $("#btnSend").on("click", async () => {
                                 if (response == "") {
                                     alert("Заявление отправлено");
                                     calcMarks();
+                                    collapseUpdateOpened();
                                     location.href = "/index.php?application";
                                 } else {
                                     alert(response);
