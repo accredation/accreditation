@@ -37,7 +37,7 @@ if ($notifyByEmail === "true") {
     $subj = iconv("utf-8", "cp1251", $textSubj);
     $text = "Необходимо доработать заявление";
     $message = iconv("utf-8", "cp1251", $text);
-    if (mail($email, $subj, $message, "From:" . "hancharou@rnpcmt.by" . "\r\n")) {
+    if (mail($email, $subj, $message, "From:" . "support@rnpcmt.by" . "\r\n")) {
         echo "Сообщение успешно отправлено";
     } else {
         echo "При отправке сообщения возникли ошибки";

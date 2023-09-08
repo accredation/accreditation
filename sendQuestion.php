@@ -31,7 +31,7 @@ $textSubj = "Поступил новый вопрос в ТП мед.аккре�
 $subj = iconv("utf-8","cp1251",$textSubj);
 $text = $question;
 $message=iconv("utf-8","cp1251",$text);
-if (mail("hancharou@rnpcmt.by", $subj, $message,"From:". $email. "\r\n")){
+if (mail("support@rnpcmt.by", $subj, $message,"From:". $email. "\r\n")){
     echo "Сообщение успешно отправлено";
 } else {
     echo "При отправке сообщения возникли ошибки";
