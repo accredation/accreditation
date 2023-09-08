@@ -294,11 +294,11 @@
                     if (mail !== "") {
                         form.append("email", mail);
                     } else {
-                        form.append("email", "hancharou@rnpcmt.by");
+                        form.append("email", "support@rnpcmt.by");
                     }
                 }
                 else{
-                    form.append("email", "hancharou@rnpcmt.by");
+                    form.append("email", "support@rnpcmt.by");
                 }
                 xhr.open("post", "sendQuestion.php", true);
                 xhr.send(form);
