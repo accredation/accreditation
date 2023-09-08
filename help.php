@@ -144,9 +144,9 @@
     <h2 for="quastion" style = "margin-top: 1rem">Полезные документы</h2><br/>
     <div class="row" >
         <div class="col-lg-2">
-            <a href="documentation/Руководство пользователя (ОЗ) к ИС Медицинская аккредитации.docx" class="file-link">
+            <a href="documentation/Руководство пользователя ИС Медицинская Аккредитация.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
-                <span class="file-name">Руководство пользователя (ОЗ) к ИС Медицинская аккредитации</span>
+                <span class="file-name">Руководство пользователя ИС Медицинская Аккредитация</span>
             </a>
         </div>
 

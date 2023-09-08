@@ -231,7 +231,7 @@
             <div class="modal-body">
 
                 <?php
-                $query = "SELECT * FROM users WHERE id_role IN ('2','5','6','7','8','9','10','11') AND (doctor_expert IS NULL OR doctor_expert = '' OR doctor_expert = '0');";
+                $query = "SELECT * FROM users WHERE id_role IN ('2','5','6','7','8','9','10','11') AND (doctor_expert IS NULL OR doctor_expert = '' OR doctor_expert = '0') AND (secretar IS NULL OR secretar = '0'); ";
                 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                 ?>
 
