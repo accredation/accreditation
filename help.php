@@ -144,9 +144,9 @@
     <h2 for="quastion" style = "margin-top: 1rem">Полезные документы</h2><br/>
     <div class="row" >
         <div class="col-lg-2">
-            <a href="documentation/Руководство пользователя (ОЗ) к ИС Медицинская аккредитации.docx" class="file-link">
+            <a href="documentation/Руководство пользователя ИС Медицинская Аккредитация.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
-                <span class="file-name">Руководство пользователя (ОЗ) к ИС Медицинская аккредитации</span>
+                <span class="file-name">Руководство пользователя ИС Медицинская Аккредитация</span>
             </a>
         </div>
 
@@ -240,14 +240,40 @@
             <button type="submit" class="btn btn-success btn-fw" id="btnQuestion">Отправить</button>
         <?php }?>
     </div>
-    <div class="container-fluid1" style="margin-top: 2rem">
+    <div class="container-fluid1" style="margin-top: 2rem; width: 80%;">
     <h2>Колл-центр</h2>
     <div class="row" style="margin-top: 2rem">
 
         <!-- Left col -->
-        <section class="col-lg-12" style="padding-left: 2%">
-            <p style="display:inline; font-size: 1.1rem">Контакты: тут будет телефон</p><br>
-            <p style="display:inline;font-size: 1.1rem">График работы: 9:00 - 18:00</p>
+        <section class="col-lg-12" style="padding-left: 2%; ">
+            <!-- <div class="row"><p style="text-align: justify;font-size: 1.1rem">Контакты: </p> </div> -->
+
+
+            <div class="row" >
+                <section class="col-lg-4" style="padding-left: 2%">
+                    <div class="row mb-0" style="font-size: 1.1rem" >
+                    <section  style="padding-left: 2%">
+                        <p style="display:inline;font-size: 1.1rem">График работы: 9:00 - 18:00</p>
+                    </section>
+
+                    </div>
+                    <div class="row mb-0" style="font-size: 1.1rem" >
+                        <section style="padding-left: 2%">
+                            <p style="text-align: justify;font-size: 1.1rem">e-mail: <a href="mailto:support@rnpcmt.by">support@rnpcmt.by</a></p>
+                        </section>
+                    </div>
+                </section>
+
+                <section class="col-lg-4" style="padding-left: 2%">
+                    <p style="display:inline; font-size: 1.1rem">Василевич Анжелика Дмитриевна</p><br/>
+                    Тел.: +375 17 311-50-92<br/>
+                </section>
+                <section class="col-lg-4">
+                    <p class="card-text" style="display:inline; font-size: 1.1rem">Довнар Ольга Александровна</p><br/>
+                    Тел.: +375 17 311-50-88<br/>
+                </section>
+            </div>
+
         </section>
     </div>
     </div>
@@ -294,11 +320,11 @@
                     if (mail !== "") {
                         form.append("email", mail);
                     } else {
-                        form.append("email", "hancharou@rnpcmt.by");
+                        form.append("email", "support@rnpcmt.by");
                     }
                 }
                 else{
-                    form.append("email", "hancharou@rnpcmt.by");
+                    form.append("email", "support@rnpcmt.by");
                 }
                 xhr.open("post", "sendQuestion.php", true);
                 xhr.send(form);

@@ -224,13 +224,13 @@ function showTab(element,id_sub){
                  
                 criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
                                         + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-                criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+             /*   criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
                 + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
                 criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
                 + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
                 criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
                 + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
-
+*/
 
 
                calcSubMark.innerHTML = criteriaMark + "<br/>";
@@ -965,13 +965,13 @@ async function createAccordionCards(id_sub) {
                  
                     criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
                                             + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-                    criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+                /*    criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
                     + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
                     criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
                     + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
                     criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
                     + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
-    
+    */
 
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                //     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
@@ -1081,12 +1081,12 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th1_Main.innerHTML = 'Критерий';
     th1_Main.style = "border: 1px solid black; width: 20%";
     th1_Main.setAttribute('rowspan','2');
-
+/*
     let th2_Main = document.createElement('th');
     th2_Main.innerHTML = 'Класс критерия';
     th2_Main.style = "border: 1px solid black; width: 3%";
     th2_Main.setAttribute('rowspan','2');
-
+*/
 
     let th3_Main = document.createElement('th');
     th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
@@ -1103,11 +1103,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let th1 = document.createElement('td');
     th1.innerHTML = 'Критерий';
     th1.style = "border: 1px solid black";
-
+/*
     let th2 = document.createElement('td');
     th2.innerHTML = 'Класс критерия';
     th2.style = "border: 1px solid black";
-
+*/
     let th3 = document.createElement('th');
     th3.innerHTML = 'Сведения по самооценке ОЗ';
     th3.style = "border: 1px solid black; width: 5%";
@@ -1132,7 +1132,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     // trHead.appendChild(th1);
     // trHead.appendChild(th2);
     trHeadMain.appendChild(th1_Main);
-    trHeadMain.appendChild(th2_Main);
+   // trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
 
     table.appendChild(trHeadMain);
@@ -1170,10 +1170,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['mark_name'];
                 td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left";
-
+/*
                 let td2 = document.createElement('td');
                 td2.innerHTML = item['mark_class'];
                 td2.style = "border: 1px solid black; text-align: center";
+                */
                 let td3 = document.createElement('td');
               //  td3.innerHTML = item['filed4'];
                 td3.style = "border: 1px solid black";
@@ -1218,7 +1219,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                 tr.appendChild(tdNum);
                 tr.appendChild(td1);
-                tr.appendChild(td2);
+             //   tr.appendChild(td2);
                 tr.appendChild(td3);
 
                 tr.appendChild(td4);
