@@ -66,6 +66,35 @@ document.getElementById("modalvrachi").addEventListener("show.bs.modal", functio
     checkPermissions();
 });
 
+
+/*let table = document.getElementsByTagName("table")[0];
+let btns = table.getElementsByTagName("button");
+let addbtn = document.getElementById("addoctor");
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+if(getCookie("isMA") === "0") {
+    [...btns].forEach(item => {
+        item.disabled = true;
+    });
+    addbtn.disabled = true;
+}
+*/
+
 function showModal(id_user){
     this.id_user = id_user;
     let modal = document.getElementById("modalvrachi");
