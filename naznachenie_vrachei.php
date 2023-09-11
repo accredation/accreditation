@@ -78,7 +78,7 @@
                             <div class="col-12 grid-margin">
                                 <div class="card">
                                     <div class="card-body">
-                                        <button class="btn btn-primary" onclick="addDoctor()">Добавить врача</button>
+                                        <button class="btn btn-primary" id ="addoctor" onclick="addDoctor()">Добавить врача</button>
                                         <br>
                                         <br>
                                         <?php
