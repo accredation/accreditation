@@ -334,6 +334,13 @@ function getCookie(cname) {
     return "";
 }
 
+
+
+
+
+
+
+
 function createApplication(){
     $.ajax({
         url: "createApplication.php",
@@ -2116,9 +2123,12 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 td7.style = "border: 1px solid black";
                 let input7 = document.createElement("textarea");
 
-                    if ((status == 2) || (status == 3)) {
+                    if ((status == 2) || (status == 3)  || (status == 1)){
+                        input7.removeAttribute("disabled");
+
                     } else {
                         input7.setAttribute("disabled","true");
+
                     }
 
                 input7.style = "width:100%; height: 100%";
@@ -2159,12 +2169,20 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let bunt = document.createElement('button');
     bunt.onclick=() => saveMarks(id_sub);
     bunt.innerHTML='Сохранить результаты оценки критериев';
+    bunt.id = "sohrmark";
     bunt.className = "btn btn-success";
     bunt.style = "margin-top: 1rem";
     divCardBody.appendChild(bunt);
     if(status == 4 || status == 5){bunt.remove();}
 
     //  return marks_app;
+
+    let bsohrmark = document.querySelectorAll("#sohrmark");
+    if(getCookie("isMA") === "0") {
+        [...bsohrmark].forEach(item => {
+            item.disabled = true;
+        });
+    }
 }
 
 
@@ -2198,8 +2216,9 @@ let arr;
         newSelect.selectedIndex = Number(value);
     }
 
-    if ((status == 2) || (status == 3)) {
+    if ((status == 2) || (status == 3) || (status == 1)) {
    // if ((status == 4) || (status == 5) || (status == 1)) {
+        newSelect.removeAttribute("disabled");
     } else {
         newSelect.setAttribute("disabled","");
     }
@@ -2633,3 +2652,16 @@ async function getStatusFromDB1(id_sub)
 }
 
 
+
+
+
+let bcheck = document.getElementById("btnChecking");
+let bdorab = document.getElementById("btnNeOk");
+let bzaver = document.getElementById("btnOk");
+
+if(getCookie("isMA") === "0") {
+
+    bcheck.disabled = true;
+    bdorab.disabled = true;
+    bzaver.disabled = true;
+}
