@@ -665,8 +665,9 @@ function showModal(id_application, strMarks, strMarksAccred){
         if ((typeof collapseElement !== 'undefined')&&(collapseElement !== null)){
             let collapseElement2 = [...collapseElement];
             let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true)
-            if (collapseElement3) {
+            if (collapseElement3.length>0) {
                 var elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
+                if (elementcrit) {
                 var idcrit = elementcrit.id.replace('collapse', '');
                 var id_criteria = parseInt(idcrit);
                 // Найти элемент с классом nav-link active
@@ -710,6 +711,7 @@ function showModal(id_application, strMarks, strMarksAccred){
                     }
 
                 });
+                }
 
             }
             else{

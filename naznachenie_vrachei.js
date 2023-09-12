@@ -1,12 +1,13 @@
 
 let id_user;
+let id_role;
 
-
-/*let table = document.getElementsByTagName("table")[0];
-let btns = table.getElementsByTagName("button");
+let table = document.getElementsByTagName("table")[0];
+let svoboda = document.querySelectorAll("#svoboda");
 let addbtn = document.getElementById("addoctor");
 
 function getCookie(cname) {
+
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -22,13 +23,36 @@ function getCookie(cname) {
     return "";
 }
 
-if(getCookie("isMA") === "0") {
-    [...btns].forEach(item => {
-        item.disabled = true;
+
+function getUserId(id_user) {
+    console.log (id_user + "111");
+    $.ajax({
+        url: "getUserId.php",
+        method: "POST",
+        data: {id_user: id_user},
+        success: function(response) {
+
+            id_role = response;
+            console.log(id_role);
+            checkPermissions();
+        }
     });
-    addbtn.disabled = true;
 }
-*/
+function checkPermissions() {
+    if (getCookie("isMA") != "1" ) {
+        if (id_role != 12) {
+            [...svoboda].forEach(item => {
+                item.disabled = true;
+            });
+            addbtn.disabled = true;
+        }
+    }
+}
+id_user = getCookie("id_user");
+getUserId(id_user);
+
+
+
 
 function showModal(id_user){
     this.id_user = id_user;
