@@ -119,8 +119,8 @@
 
                                                 <tr  id = "optname<?= $app['id_user'] ?>"  style="cursor: pointer; height: 100px;">
                                                     <td id = "usnam<?= $app['id_user']; ?>" ><?= $app['username'] ?></td>
-                                                    <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app['id_user']?>')">Связать критерии</button></td>
-                                                    <td  style ="text-align: center"><button class="btn btn-success" onclick="deleteDoctor('<?= $app['id_user']?>')">Освободить</button></td>
+                                                    <td style ="text-align: center"><button class="btn btn-success" id="svyazka" onclick="showModal('<?= $app['id_user']?>')">Связать критерии</button></td>
+                                                    <td  style ="text-align: center"><button class="btn btn-success" id="svoboda"  onclick="deleteDoctor('<?= $app['id_user']?>')">Освободить</button></td>
                                                 </tr>
                                                 <?php
                                             }
