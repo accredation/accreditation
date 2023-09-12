@@ -5,7 +5,7 @@ $date = date('Y-m-d H:i:s');
 $id_user = $_POST['id_user'];
 $question = $_POST['question'];
 $typeQuestion = $_POST['typeQuestion'];
-$email = $_POST['email'];
+$email = 'rudich@rnpcmt.by'; //$_POST['email'];
 echo "1";
 if (!file_exists('documents/Вопросы/'.$id_user)) {
     mkdir('documents/Вопросы/'.$id_user, 0777, true);
@@ -28,10 +28,17 @@ else {
 }
 
 $textSubj = "Поступил новый вопрос в ТП мед.аккредитации";
-$subj = iconv("utf-8","cp1251",$textSubj);
+//$subj = iconv("utf-8","cp1251",$textSubj);
+$subj = $textSubj;
 $text = $question;
-$message=iconv("utf-8","cp1251",$text);
-if (mail("support@rnpcmt.by", $subj, $message,"From:". $email. "\r\n")){
+//$message=iconv("utf-8","cp1251",$text);
+$message=$text;
+
+$headers = 'From:'. $email . "\r\n" .
+    'Content-type: text/html; charset=utf-8' . "\r\n".
+    'X-Mailer: PHP/' . phpversion();
+
+if (mail("support@rnpcmt.by", $subj, $message,$headers)){
     echo "Сообщение успешно отправлено";
 } else {
     echo "При отправке сообщения возникли ошибки";
