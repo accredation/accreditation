@@ -2122,7 +2122,10 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td7 = document.createElement('td');
                 td7.style = "border: 1px solid black";
                 let input7 = document.createElement("textarea");
-
+                if(getCookie("isMA") === "0") {
+                    input7.setAttribute("disabled","true");
+                }
+                else {
                     if ((status == 2) || (status == 3)  || (status == 1)){
                         input7.removeAttribute("disabled");
 
@@ -2130,6 +2133,8 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                         input7.setAttribute("disabled","true");
 
                     }
+                }
+
 
                 input7.style = "width:100%; height: 100%";
                 input7.setAttribute("rows","3");
@@ -2215,13 +2220,26 @@ let arr;
     if ((id_mark_rating !== null) && (value !== null)) {
         newSelect.selectedIndex = Number(value);
     }
-
-    if ((status == 2) || (status == 3) || (status == 1)) {
-   // if ((status == 4) || (status == 5) || (status == 1)) {
-        newSelect.removeAttribute("disabled");
-    } else {
+    if(getCookie("isMA") === "0") {
         newSelect.setAttribute("disabled","");
     }
+    else {
+        if ((status == 2) || (status == 3) || (status == 1)) {
+            // if ((status == 4) || (status == 5) || (status == 1)) {
+
+            newSelect.removeAttribute("disabled");
+        } else {
+            newSelect.setAttribute("disabled","");
+        }
+
+    }
+
+
+
+
+
+
+
 
     if(name_field === 'field4') {
         newSelect.setAttribute("disabled","");
