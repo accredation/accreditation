@@ -101,13 +101,13 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Пользователь</th>
-                                                <th>Вопрос</th>
-                                                <th>Дата вопроса</th>
-                                                <th>Ответ</th>
-                                                <th>Дата ответа</th>
-						                        <th>Тип вопроса</th>
-                                                <th>Файл</th>
+                                                <th >Пользователь</th>
+                                                <th >Вопрос</th>
+                                                <th id='sotr_th_data'>Дата вопроса</th>
+                                                <th >Ответ</th>
+                                                <th >Дата ответа</th>
+						                        <th >Тип вопроса</th>
+                                                <th >Файл</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
@@ -697,8 +697,19 @@
 
         }
     </script>
+
+   
 <?php }
 
 ?>
 
+<script>
+$(document).ready(function () {
+    $(document).ready(function () {
+        let example_filter = document.getElementById("sotr_th_data");
+        example_filter.click();
+        example_filter.click();
+    })
+})    
+</script>
 
