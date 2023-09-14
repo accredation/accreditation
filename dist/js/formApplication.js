@@ -515,7 +515,6 @@ function showModal(id_application, strMarks, strMarksAccred){
 
         // Получаем элемент с классом collapse
         var collapseElement = document.querySelector('.collapse');
-
         // Проверяем содержит ли элемент класс show
         if (collapseElement.classList.contains('show')) {
 
@@ -624,56 +623,58 @@ function showModal(id_application, strMarks, strMarksAccred){
         var collapseElement = document.querySelector('.collapse');
 
         // Проверяем содержит ли элемент класс show
-        if (collapseElement.classList.contains('show')) {
+        if(collapseElement)
+            if (collapseElement.classList.contains('show')) {
 
-            var elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
-            var idcrit = elementcrit.id.replace('collapse', '');
-            var id_criteria = parseInt(idcrit);
-            console.log(id_criteria);
+                var elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
+                var idcrit = elementcrit.id.replace('collapse', '');
+                var id_criteria = parseInt(idcrit);
+                console.log(id_criteria);
 
-            // Найти элемент с классом nav-link active
-            var elementsub = document.querySelector('.nav-link.active[id^="button"]');
-            var idsub = elementsub.id.replace('button', '');
-            var id_sub = parseInt(idsub);
+                // Найти элемент с классом nav-link active
+                var elementsub = document.querySelector('.nav-link.active[id^="button"]');
+                var idsub = elementsub.id.replace('button', '');
+                var id_sub = parseInt(idsub);
 
-            console.log(id_sub); // Выведет
-            await updateCollapse (id_criteria,id_sub, 0).then(() => {
-                if(samoocenka) {
-                    samoocenka.remove();
-                }
-                if(rep) {
-                    rep.remove();
-                }
-                if(sopr) {
-                    sopr.remove();
-                }
-                if(copy) {
-                    copy.remove();
-                }
-                if(org) {
-                    org.remove();
-                }
-                if(ucompl) {
-                    ucompl.remove();
-                }
-                if(tech) {
-                    tech.remove();
-                }
-                modal.classList.remove("show");
-                modal.style = "display: none";
-                for(let i = tablist.children.length - 1; i > 0; i--){
-                    tablist.children[i].remove();
-                }
-                let remAccTab = document.getElementsByClassName('remAccTab');
-
-                if(remAccTab.length!==0){
-                    for(let i=0;i<remAccTab.length;i++){
-                        remAccTab[i].remove();
+                console.log(id_sub); // Выведет
+                await updateCollapse (id_criteria,id_sub, 0).then(() => {
+                    if(samoocenka) {
+                        samoocenka.remove();
                     }
-                }
-            });
+                    if(rep) {
+                        rep.remove();
+                    }
+                    if(sopr) {
+                        sopr.remove();
+                    }
+                    if(copy) {
+                        copy.remove();
+                    }
+                    if(org) {
+                        org.remove();
+                    }
+                    if(ucompl) {
+                        ucompl.remove();
+                    }
+                    if(tech) {
+                        tech.remove();
+                    }
+                    modal.classList.remove("show");
+                    modal.style = "display: none";
+                    for(let i = tablist.children.length - 1; i > 0; i--){
+                        tablist.children[i].remove();
+                    }
+                    let remAccTab = document.getElementsByClassName('remAccTab');
 
-        }
+                    if(remAccTab.length!==0){
+                        for(let i=0;i<remAccTab.length;i++){
+                            remAccTab[i].remove();
+                        }
+                    }
+                });
+
+            }
+
         else{
             if(samoocenka) {
                 samoocenka.remove();
