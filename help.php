@@ -143,38 +143,45 @@
 <div class="content-wrapper">
     <h2 for="quastion" style = "margin-top: 1rem">Полезные документы</h2><br/>
     <div class="row" >
-        <div class="col-lg-2">
+        <div class="col-lg-2 mb-2">
             <a href="documentation/Руководство пользователя ИС Медицинская Аккредитация.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
                 <span class="file-name">Руководство пользователя ИС Медицинская Аккредитация</span>
             </a>
         </div>
 
-        <div class="col-lg-2" >
+        <div class="col-lg-2 mb-2" >
             <a href="documentation/Сопроводительное письмо образец.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
                 <span class="file-name">Сопроводительное письмо образец</span>
             </a>
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-lg-2 mb-2">
             <a href="documentation/Информация об используемой медицинской технике.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
                 <span class="file-name">Информация об используемой медицинской технике</span>
             </a>
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-lg-2 mb-2">
             <a href="documentation/Показатели укомплектованности.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
                 <span class="file-name">Показатели укомплектованности</span>
             </a>
         </div>
 
-        <div class="col-lg-2" >
+        <div class="col-lg-2 mb-2" >
             <a href="documentation/Схема_организационной_структуры_ОЗ_образец.pptx" class="file-link">
                 <img src="assets/images/pptx-icon.png" alt="PDF" class="file-icon">
                 <span class="file-name">Схема организационной структуры ОЗ образец</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2" >
+            <a href="documentation/Обучение ИС.pptx" class="file-link">
+                <img src="assets/images/pptx-icon.png" alt="PDF" class="file-icon">
+                <span class="file-name">Обучение ИС</span>
             </a>
         </div>
     </div>
@@ -253,7 +260,9 @@
                 <section class="col-lg-4" style="padding-left: 2%">
                     <div class="row mb-0" style="font-size: 1.1rem" >
                     <section  style="padding-left: 2%">
-                        <p style="display:inline;font-size: 1.1rem">График работы: 9:00 - 18:00</p>
+                        <p style="display:inline;font-size: 1.1rem">График работы:</p><br>
+                        <p style="display:inline;font-size: 1.1rem">Понедельник - Четверг: 8:30 - 17:30</p><br>
+                        <p style="display:inline;font-size: 1.1rem">Пятница: 8:30 - 17:00</p>
                     </section>
 
                     </div>

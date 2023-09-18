@@ -2237,6 +2237,7 @@ let flagSave = true;
 
 
 function setDisabledOnChange(value){
+    
     let clickElel = document.getElementById('button1');
     let btnSaveInfoCriteriaMain = document.getElementById('btnSaveInfoCriteriaMain');
     let btnSaveInfoCriteria = document.getElementById('btnSaveInfoCriteria');
@@ -2244,20 +2245,24 @@ function setDisabledOnChange(value){
     let leftSide = divTab.getElementsByClassName('leftSide')[0];
 
     let inputs = leftSide.getElementsByClassName("form-check-input");
-    // console.log(inputs);
+     
     if (value == true) {
         for(let item of inputs){
             item.setAttribute("disabled","true");
         }
         clickElel.setAttribute('disabled', "true");
+       if(btnSaveInfoCriteriaMain){
         btnSaveInfoCriteriaMain.setAttribute('disabled', "true");
+       } 
         btnSaveInfoCriteria.setAttribute('disabled', "true");
     } else {
         for(let item of inputs){
             item.removeAttribute("disabled");
         }
         clickElel.removeAttribute('disabled');
-        btnSaveInfoCriteriaMain.removeAttribute('disabled');
+        if(btnSaveInfoCriteriaMain){
+            btnSaveInfoCriteriaMain.removeAttribute('disabled');
+        }
         btnSaveInfoCriteria.removeAttribute('disabled');
     }
 }
@@ -2326,6 +2331,7 @@ function  saveMarks(id_sub, divCardBody, flag){
                 flagSave = true;
                 setDisabledOnChange(false);
                 showCriteriaMarksAfterSave(id_application.innerText, id_sub, id_open_criteria);
+                console.log('save ', flag);
                 if(flag === true){
 
                     await   collapseTable(id_open_criteria, divCardBody,id_sub)
