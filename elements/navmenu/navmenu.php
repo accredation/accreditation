@@ -57,6 +57,12 @@
                           </a>
                       </li>
 
+                      <li class="nav-item" id="nav9">
+                          <a class="nav-link"  href="/index.php?report_first" >
+                              <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>
+                              <span class="menu-title">Отчет</span>
+                          </a>
+                      </li>
 
                       <?php
               }?>
@@ -139,6 +145,7 @@
     let nav7 = document.getElementById("nav7");
     let nav77 = document.getElementById("nav77");
     let nav8 = document.getElementById("nav8");
+    let nav9 = document.getElementById("nav9");
 
     switch(url){
         case "/index.php":
@@ -168,6 +175,9 @@
         case "/index.php?application_support":
             nav8.className = "nav-item active";
             break;
+        case "/index.php?report_first":
+            nav9.className = "nav-item active";
+            break;        
         default:
             nav1.className = "nav-item active";
             break;
