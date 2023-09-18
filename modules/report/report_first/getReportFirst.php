@@ -88,11 +88,11 @@ class Report{
 foreach ($data as $app) {
     $obj = array();
     $report = new Report();
-    $report->id_application = 0;
+    $report->id_application = $app['id_application'];
     $report->status = $app['name_status'];
     $report->date_send = $app['date_send'];
     $report->type_org_name = $app['type_org'];
-    $report->naim = '';
+    $report->naim = $app['naim'];
     $report->name_criteria = $app['name_criteria'];
     $report->crit_count = $app['crit_count'];
 

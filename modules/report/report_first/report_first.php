@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="col-sm-6 col-md-5 col-lg-5 mb-2" style="font-size: 1rem; line-height: 3rem;">
-                <span class="mr-2">Таблицы критериев</span>
+                        <span class="mr-2">Таблицы критериев</span>
                         <select id="criteriaAll" class="form-select-my" onclick="chengeAllCrit(this.value)">
                             <option value="0">Все критерии</option>
                             <option value="1">Выборочно по таблицам критериев</option>    
