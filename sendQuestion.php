@@ -5,7 +5,7 @@ $date = date('Y-m-d H:i:s');
 $id_user = $_POST['id_user'];
 $question = $_POST['question'];
 $typeQuestion = $_POST['typeQuestion'];
-$email = 'rudich@rnpcmt.by'; //$_POST['email'];
+$email = $_POST['email'];
 echo "1";
 if (!file_exists('documents/Вопросы/'.$id_user)) {
     mkdir('documents/Вопросы/'.$id_user, 0777, true);

@@ -39,11 +39,11 @@ if ($notifyByEmail === "true") {
       $text = "Необходимо доработать заявление";
    //   $message = iconv("utf-8", "cp1251", $text);
       $message =  $text;
-  
+
       $headers = 'From: support@rnpcmt.by' . "\r\n" .
           'Content-type: text/html; charset=utf-8' . "\r\n".
           'X-Mailer: PHP/' . phpversion();
-  
+
       if (mail($email, $subj, $message, $headers)) {
           echo "Сообщение успешно отправлено";
       } else {

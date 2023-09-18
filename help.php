@@ -254,22 +254,22 @@
         <!-- Left col -->
         <section class="col-lg-12" style="padding-left: 2%; ">
             <!-- <div class="row"><p style="text-align: justify;font-size: 1.1rem">Контакты: </p> </div> -->
-            
 
-            <div class="row" > 
+
+            <div class="row" >
                 <section class="col-lg-4" style="padding-left: 2%">
                     <div class="row mb-0" style="font-size: 1.1rem" >
                     <section  style="padding-left: 2%">
                         <p style="display:inline;font-size: 1.1rem">График работы:</p><br>
                         <p style="display:inline;font-size: 1.1rem">Понедельник - Четверг: 8:30 - 17:30</p><br>
                         <p style="display:inline;font-size: 1.1rem">Пятница: 8:30 - 17:00</p>
-                    </section>               
-                            
+                    </section>
+
                     </div>
                     <div class="row mb-0" style="font-size: 1.1rem" >
                         <section style="padding-left: 2%">
                             <p style="text-align: justify;font-size: 1.1rem">e-mail: <a href="mailto:support@rnpcmt.by">support@rnpcmt.by</a></p>
-                        </section>             
+                        </section>
                     </div>
                 </section>
 
@@ -281,8 +281,8 @@
                     <p class="card-text" style="display:inline; font-size: 1.1rem">Довнар Ольга Александровна</p><br/>
                     Тел.: +375 17 311-50-88<br/>
                 </section>
-            </div>      
-            
+            </div>
+
         </section>
     </div>
     </div>
