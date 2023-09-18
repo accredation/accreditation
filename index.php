@@ -206,7 +206,10 @@
                         break;
                     case 'application_support':
                         include 'support/application/application_support.php';
-                        break;    
+                        break; 
+                    case 'report_first':
+                        include 'modules/report/report_first/report_first.php';
+                        break;           
                 }
             }
             else{
