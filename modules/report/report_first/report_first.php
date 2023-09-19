@@ -53,7 +53,7 @@
             
 
                 <div class="col-sm-6 col-md-5 col-lg-5 mb-2" style="font-size: 1rem; line-height: 3rem;">
-                        <span class="mr-2">тип организации</span>
+                        <span class="mr-2">Тип организации</span>
                         
                         <select id="typeOrg" class="form-select-my" onclick="disablePrint()">
                             <option value="0">Все</option>  
@@ -80,6 +80,15 @@
                             <option value="1">Выборочно по таблицам критериев</option>    
                         </select>
 
+                </div>
+
+                <div class="col-sm-6 col-md-5 col-lg-5 mb-2" style="font-size: 1rem; line-height: 3rem;">
+
+                        <div class="form-group mr-3" style="display: inline-flex;">
+                            <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Отдельно по юр. лицам</label>
+                            <input type="checkbox" class="form-control"  style="font-size: 1rem;" id="flag_yur_lica" onclick="disablePrint()">
+                        </div>                   
+                    
                 </div>
                 
             </div>
