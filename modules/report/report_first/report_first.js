@@ -117,7 +117,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
 
         let trHead = document.createElement('tr');
         let th1 = document.createElement('th');
-        th1.innerHTML = 'Статус';
+        // th1.innerHTML = 'Статус';
         th1.style = "border: 1px solid black;width: 10%; text-align: center;line-height: normal;";
 
         let th2 = document.createElement('th');
@@ -125,7 +125,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
         th2.style = "border: 1px solid black;width: 10%; text-align: center;line-height: normal";
 
         let th3 = document.createElement('th');
-        th3.innerHTML = 'Тип организации';
+        // th3.innerHTML = 'Тип организации';
         th3.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
 
 
@@ -206,9 +206,9 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                             td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
                         }
 
-                        tr.appendChild(td1);
-                        tr.appendChild(td2);
-                        tr.appendChild(td3);
+                        // tr.appendChild(td1);
+                        //tr.appendChild(td2);
+                        // tr.appendChild(td3);
                         tbody.appendChild(tr);
 
                         string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'];
@@ -224,7 +224,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                   
                     let td6 = document.createElement('td');
                     td6.innerHTML = item['crit_count'];
-                    td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; ";
+                    td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                     tr2.appendChild(td5);
                     tr2.appendChild(td6);
@@ -236,7 +236,19 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
 
          let divReportTitle = document.createElement('div');
          divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
-         divReportTitle.textContent = `Отчет`;
+
+        let select1 = document.getElementById("oblast");
+        let value1 = select1.options[select1.selectedIndex].innerText;
+
+        let select2 = document.getElementById("status");
+        let value2 = select2.options[select2.selectedIndex].innerText;
+
+        let date1 = document.getElementById("dateAccept");
+        let date2 = document.getElementById("dateComplete");
+        let typeO = document.getElementById("typeOrg");
+        let value3 = typeO.options[typeO.selectedIndex].innerText;
+
+        divReportTitle.textContent = `Структура  организаций здравоохранения по результатам самооценки: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
 
          let divReportUsl = document.createElement('div');
          divReportUsl.id = 'divReportUsl';
@@ -366,7 +378,11 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                         if ((data[idx].status) == item['status']) {
                             if ((data[idx].date_send) == item['date_send']) {
                                 if ((data[idx].type_org_name) == item['type_org_name']) {
-                                    strFlag = false
+                                    if ((data[idx].naim) == item['naim']) {
+                                        strFlag = false
+                                    } else {
+                                        strFlag = true
+                                    }
                                 } else {
                                     strFlag = true
                                 }
@@ -422,6 +438,7 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                     tr.appendChild(td4);
                     tbody.appendChild(tr);
 
+                        string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'] + '' +item['naim'];
                     }
 
                     let tr2 = document.createElement('tr');
@@ -432,7 +449,7 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
 
                     let td6 = document.createElement('td');
                     td6.innerHTML = item['crit_count'];
-                    td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; ";
+                    td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                    
                     tr2.appendChild(td5);
