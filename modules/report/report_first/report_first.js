@@ -248,7 +248,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
         let typeO = document.getElementById("typeOrg");
         let value3 = typeO.options[typeO.selectedIndex].innerText;
 
-        divReportTitle.textContent = `Структура  организаций здравоохранения по результатам самооценки: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
+        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
 
          let divReportUsl = document.createElement('div');
          divReportUsl.id = 'divReportUsl';
@@ -348,10 +348,10 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
         th6.innerHTML = 'количество';
         th6.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
 
-         trHead.appendChild(th1);
+         trHead.appendChild(th4);
          trHead.appendChild(th2);
          trHead.appendChild(th3);
-         trHead.appendChild(th4);
+         trHead.appendChild(th1);
          table.appendChild(trHead);
          
          trHead2.appendChild(th5);
@@ -432,10 +432,10 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
 
                     
 
-                    tr.appendChild(td1);
+                    tr.appendChild(td4);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
-                    tr.appendChild(td4);
+                    tr.appendChild(td1);
                     tbody.appendChild(tr);
 
                         string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'] + '' +item['naim'];
@@ -463,9 +463,21 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
 
          let divReportTitle = document.createElement('div');
          divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
-         divReportTitle.textContent = `Отчет`;
+        let select1 = document.getElementById("oblast");
+        let value1 = select1.options[select1.selectedIndex].innerText;
 
-         let divReportUsl = document.createElement('div');
+        let select2 = document.getElementById("status");
+        let value2 = select2.options[select2.selectedIndex].innerText;
+
+        let date1 = document.getElementById("dateAccept");
+        let date2 = document.getElementById("dateComplete");
+        let typeO = document.getElementById("typeOrg");
+        let value3 = typeO.options[typeO.selectedIndex].innerText;
+
+        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
+
+
+        let divReportUsl = document.createElement('div');
          divReportUsl.id = 'divReportUsl';
          divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
          divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
