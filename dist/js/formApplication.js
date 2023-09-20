@@ -316,6 +316,8 @@ function getCookie(cname) {
 }
 
 function createApplication(){
+    let btncr = document.getElementById("dropdownMenuButton1");
+    btncr.setAttribute("disabled", "true");
     $.ajax({
         url: "createApplication.php",
         method: "POST",
@@ -323,6 +325,7 @@ function createApplication(){
     })
         .done(function( response ) {
             console.log(response);
+            btncr.removeAttribute("disabled");
         });
     alert("Заявление создано");
     location.href = "/index.php?application";

@@ -20,6 +20,19 @@
     .margleft{
         padding-left: 20px;
     }
+
+    .tooltip1 {
+        position: fixed;
+        padding: 10px 20px;
+        border: 1px solid #b3c9ce;
+        border-radius: 4px;
+        text-align: center;
+        font: italic 14px/1.3 sans-serif;
+        color: #333;
+        background: #fff;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+        z-index: 9999;
+    }
 </style>
 
 <style>
@@ -572,7 +585,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
 
              <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
-             <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+             <button data-tooltip="Печать критериев" type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
              <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Результат самооценки</button>
 <!--                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>-->
 
@@ -605,6 +618,47 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <script src="dist/js/formApplication.js"></script>
 
 <script>
+    let tooltipElem;
+
+    document.onmouseover = function(event) {
+        let target = event.target;
+
+        // если у нас есть подсказка...
+        let tooltipHtml = target.dataset.tooltip;
+        if (!tooltipHtml) return;
+
+        // ...создадим элемент для подсказки
+
+        tooltipElem = document.createElement('div');
+        tooltipElem.className = 'tooltip1';
+        tooltipElem.innerHTML = tooltipHtml;
+        let foot = document.getElementById("btnPrint");
+        foot.append(tooltipElem);
+
+        // спозиционируем его сверху от аннотируемого элемента (top-center)
+        let coords = target.getBoundingClientRect();
+
+        let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
+        if (left < 0) left = 0; // не заезжать за левый край окна
+
+        let top = coords.top - tooltipElem.offsetHeight - 5;
+        if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
+            top = coords.top + target.offsetHeight + 5;
+        }
+
+        tooltipElem.style.left = left + 'px';
+        tooltipElem.style.top = top + 'px';
+    };
+
+    document.onmouseout = function(e) {
+
+        if (tooltipElem) {
+            tooltipElem.remove();
+            tooltipElem = null;
+        }
+
+    };
+
     let tabLink = document.querySelector('#home-tab');
     let tabPane = document.querySelector('#allApps');
 
