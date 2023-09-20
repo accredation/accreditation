@@ -154,6 +154,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
 
+         let type_criteria = 0;
            if(data.length > 0){
                 data.map((item,index) => {
                     
@@ -214,6 +215,42 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                     //     string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'];
                     //
                     // }
+
+                    
+                    if(type_criteria !== Number(item['type_criteria'])){
+
+                      //  console.log('type_criteria', type_criteria);
+                        let trNameBlok = document.createElement('tr');
+                        let tdNameBlok = document.createElement('td');
+
+                        if(item['type_criteria'] == '1'){
+                            tdNameBlok.innerHTML = 'Общие критерии';
+                        }
+                        if(item['type_criteria'] == '2'){
+                            tdNameBlok.innerHTML = 'Профильные критерии';
+                        }
+                        if(item['type_criteria'] == '3'){
+                            tdNameBlok.innerHTML = 'Дополнительные критерии';
+                        }
+                        
+                        tdNameBlok.setAttribute('colspan',3);
+    
+                        if(index>0){
+                            tdNameBlok.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem; padding-top:0.7rem ";
+                        } else {
+                            tdNameBlok.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem ";
+                        }
+    
+    
+                        type_criteria = Number(item['type_criteria']);
+
+                        trNameBlok.appendChild(tdNameBlok);
+                        tbody.appendChild(trNameBlok);
+                    }
+
+                    
+
+              //     let type_criteria = item['name_criteria'];
 
                     
                     let tr2 = document.createElement('tr');
