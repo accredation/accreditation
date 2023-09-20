@@ -236,24 +236,24 @@ function showTab(element,id_sub){
                  
                 criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
                                         + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-                criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+              /*  criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
                 + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
                 criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
                 + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
                 criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
-                + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+                + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';*/
 
                 criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
                 + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
                 criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
                 + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
-                criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('  
+               /* criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
                 + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
                 criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
                 + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
                 criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
                 + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
-
+*/
 
                 // JSON.parse(response).map((item, index) =>{
                 //     if(item !== 0){
@@ -788,10 +788,10 @@ function createTableForPrint(tableForPrint){
     th1_Main.style = "border: 1px solid black";
     th1_Main.setAttribute('rowspan','2');
 
-    let th2_Main = document.createElement('th');
-    th2_Main.innerHTML = 'Класс критерия';
-    th2_Main.style = "border: 1px solid black";
-    th2_Main.setAttribute('rowspan','2');
+    // let th2_Main = document.createElement('th');
+    // th2_Main.innerHTML = 'Класс критерия';
+    // th2_Main.style = "border: 1px solid black";
+    // th2_Main.setAttribute('rowspan','2');
 
 
     let th3_Main = document.createElement('th');
@@ -828,7 +828,7 @@ function createTableForPrint(tableForPrint){
    
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
-    trHeadMain.appendChild(th2_Main);
+   // trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
     trHeadMain.appendChild(th4_Main);
 
@@ -888,10 +888,10 @@ function createTableForPrint(tableForPrint){
                     th1_Main2.style = "border: 1px solid black";
                     th1_Main2.setAttribute('rowspan','2');
             
-                    let th2_Main2 = document.createElement('td');
-                    th2_Main2.innerHTML = 'Класс критерия';
-                    th2_Main2.style = "border: 1px solid black";
-                    th2_Main2.setAttribute('rowspan','2');
+                    // let th2_Main2 = document.createElement('td');
+                    // th2_Main2.innerHTML = 'Класс критерия';
+                    // th2_Main2.style = "border: 1px solid black";
+                    // th2_Main2.setAttribute('rowspan','2');
             
             
                     let th3_Main2 = document.createElement('td');
@@ -929,7 +929,7 @@ function createTableForPrint(tableForPrint){
             
                     trHeadMain2.appendChild(thNum);
                     trHeadMain2.appendChild(th1_Main2);
-                    trHeadMain2.appendChild(th2_Main2);
+                   // trHeadMain2.appendChild(th2_Main2);
                     trHeadMain2.appendChild(th3_Main2);
                     trHeadMain2.appendChild(th4_Main2);
                    
@@ -1045,10 +1045,10 @@ function createTableForPrintNo(tableForPrint){
     th1_Main.style = "border: 1px solid black";
     th1_Main.setAttribute('rowspan','2');
 
-    let th2_Main = document.createElement('th');
-    th2_Main.innerHTML = 'Класс критерия';
-    th2_Main.style = "border: 1px solid black";
-    th2_Main.setAttribute('rowspan','2');
+    // let th2_Main = document.createElement('th');
+    // th2_Main.innerHTML = 'Класс критерия';
+    // th2_Main.style = "border: 1px solid black";
+    // th2_Main.setAttribute('rowspan','2');
 
 
     let th3_Main = document.createElement('th');
@@ -1085,7 +1085,7 @@ function createTableForPrintNo(tableForPrint){
 
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
-    trHeadMain.appendChild(th2_Main);
+   // trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
     trHeadMain.appendChild(th4_Main);
 
@@ -1145,10 +1145,10 @@ function createTableForPrintNo(tableForPrint){
                 th1_Main2.style = "border: 1px solid black";
                 th1_Main2.setAttribute('rowspan','2');
 
-                let th2_Main2 = document.createElement('td');
-                th2_Main2.innerHTML = 'Класс критерия';
-                th2_Main2.style = "border: 1px solid black";
-                th2_Main2.setAttribute('rowspan','2');
+                // let th2_Main2 = document.createElement('td');
+                // th2_Main2.innerHTML = 'Класс критерия';
+                // th2_Main2.style = "border: 1px solid black";
+                // th2_Main2.setAttribute('rowspan','2');
 
 
                 let th3_Main2 = document.createElement('td');
@@ -1186,7 +1186,7 @@ function createTableForPrintNo(tableForPrint){
 
                 trHeadMain2.appendChild(thNum);
                 trHeadMain2.appendChild(th1_Main2);
-                trHeadMain2.appendChild(th2_Main2);
+               // trHeadMain2.appendChild(th2_Main2);
                 trHeadMain2.appendChild(th3_Main2);
                 trHeadMain2.appendChild(th4_Main2);
 
@@ -1727,24 +1727,24 @@ async function createAccordionCards(id_sub) {
                  
                     criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
                                             + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-                    criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('  
+                   /* criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
                     + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
                     criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
                     + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
                     criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
                     + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
-    
+    */
                     criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
                     + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
                     criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
                     + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
-                    criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('  
+                   /* criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
                     + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
                     criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
                     + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
                     criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
                     + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
-
+*/
                     
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
@@ -1973,10 +1973,10 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th1_Main.style = "border: 1px solid black; width: 20%";
     th1_Main.setAttribute('rowspan','2');
 
-    let th2_Main = document.createElement('th');
-    th2_Main.innerHTML = 'Класс критерия';
-    th2_Main.style = "border: 1px solid black; width: 3%";
-    th2_Main.setAttribute('rowspan','2');
+    // let th2_Main = document.createElement('th');
+    // th2_Main.innerHTML = 'Класс критерия';
+    // th2_Main.style = "border: 1px solid black; width: 3%";
+    // th2_Main.setAttribute('rowspan','2');
 
 
     let th3_Main = document.createElement('th');
@@ -1998,9 +1998,9 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th1.innerHTML = 'Критерий';
     th1.style = "border: 1px solid black";
 
-    let th2 = document.createElement('td');
-    th2.innerHTML = 'Класс критерия';
-    th2.style = "border: 1px solid black";
+    // let th2 = document.createElement('td');
+    // th2.innerHTML = 'Класс критерия';
+    // th2.style = "border: 1px solid black";
 
     let th3 = document.createElement('th');
     th3.innerHTML = 'Сведения по самооценке ОЗ';
@@ -2032,7 +2032,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     // trHead.appendChild(th1);
     // trHead.appendChild(th2);
     trHeadMain.appendChild(th1_Main);
-    trHeadMain.appendChild(th2_Main);
+  //  trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
     trHeadMain.appendChild(th4_Main);
     
