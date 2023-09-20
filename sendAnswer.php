@@ -2,9 +2,6 @@
 <?php
 include "connection.php";
 
-$headers= "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/html; charset=utf-8";
-
 $date = date('Y-m-d H:i:s');
 $id_question = $_GET['id_question'];
 $answer = $_GET['answer'];
