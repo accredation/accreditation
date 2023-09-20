@@ -148,7 +148,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
          trHead2.appendChild(th5);
          trHead2.appendChild(th6);
      
-         table.appendChild(trHead);
+       //  table.appendChild(trHead);
          table.appendChild(trHead2);
      
          let tbody = document.createElement('tbody');
@@ -157,63 +157,63 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
            if(data.length > 0){
                 data.map((item,index) => {
                     
-                    let idx = index-1;
-                    if(index === 0){
-                        idx=0;
-                    }
-
-                    let strFlag = true;
-
-                    if(index>0){
-                        if ((data[idx].status) == item['status']) {
-                            if ((data[idx].date_send) == item['date_send']) {
-                                if ((data[idx].type_org_name) == item['type_org_name']) {
-                                    strFlag = false
-                                } else {
-                                    strFlag = true
-                                }
-
-                            } else {
-                                strFlag = true
-                            }
-                        }else {
-                            strFlag = true
-                        }
-                       
-                    }
-                                      
-
-                    if(strFlag == true){
-                        let tr = document.createElement('tr');
-                        
-                        let td1 = document.createElement('td');
-                        td1.innerHTML = item['status'];                        
-                        
-                        let td2 = document.createElement('td');
-                        td2.innerHTML = (index != 0) ? (item['date_send'] != data[idx].date_send) ? item['date_send'] : ''  : item['date_send'];                        
-                       
-                        let td3 = document.createElement('td');
-                        td3.innerHTML = item['type_org_name'] ;                        
-                        
-                        if(index>0){
-                            td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem; padding-top:0.7rem ";
-                            td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
-                            td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
-
-                        } else {
-                            td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem ";
-                            td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
-                            td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
-                        }
-
-                        // tr.appendChild(td1);
-                        //tr.appendChild(td2);
-                        // tr.appendChild(td3);
-                        tbody.appendChild(tr);
-
-                        string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'];
-                       
-                    }
+                    // let idx = index-1;
+                    // if(index === 0){
+                    //     idx=0;
+                    // }
+                    //
+                    // let strFlag = true;
+                    //
+                    // if(index>0){
+                    //     if ((data[idx].status) == item['status']) {
+                    //         if ((data[idx].date_send) == item['date_send']) {
+                    //             if ((data[idx].type_org_name) == item['type_org_name']) {
+                    //                 strFlag = false
+                    //             } else {
+                    //                 strFlag = true
+                    //             }
+                    //
+                    //         } else {
+                    //             strFlag = true
+                    //         }
+                    //     }else {
+                    //         strFlag = true
+                    //     }
+                    //
+                    // }
+                    //
+                    //
+                    // if(strFlag == true){
+                    //     let tr = document.createElement('tr');
+                    //
+                    //     let td1 = document.createElement('td');
+                    //     td1.innerHTML = item['status'];
+                    //
+                    //     let td2 = document.createElement('td');
+                    //     td2.innerHTML = (index != 0) ? (item['date_send'] != data[idx].date_send) ? item['date_send'] : ''  : item['date_send'];
+                    //
+                    //     let td3 = document.createElement('td');
+                    //     td3.innerHTML = item['type_org_name'] ;
+                    //
+                    //     if(index>0){
+                    //         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem; padding-top:0.7rem ";
+                    //         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
+                    //         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
+                    //
+                    //     } else {
+                    //         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem ";
+                    //         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
+                    //         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
+                    //     }
+                    //
+                    //     // tr.appendChild(td1);
+                    //     //tr.appendChild(td2);
+                    //     // tr.appendChild(td3);
+                    //     tbody.appendChild(tr);
+                    //
+                    //     string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'];
+                    //
+                    // }
 
                     
                     let tr2 = document.createElement('tr');

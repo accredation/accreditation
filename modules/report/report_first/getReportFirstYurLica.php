@@ -46,9 +46,9 @@ $id_scriteria_str3 = '(' . $id_scriteria_str3 . ')';
 }
 
 //echo $ur_lica_value;
-
+//--st.name_status, app.date_send, sto.type_name as type_org,
 $query = "
-SELECT st.name_status, app.date_send, sto.type_name as type_org, 
+SELECT 
 CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, 
 count(rc.id_criteria) as crit_count
 from applications app
@@ -66,10 +66,10 @@ where rc.id_rating_criteria is not null
     and ((('$id_status' <> 1) and ((app.date_send is null) or (app.date_send is not null and (app.date_send >= '$dateAccept' and app.date_send <= '$dateComplete'))))
     or (('$id_status' = 1) ))
     and (('$criteriaAll' = 0) or ('$criteriaAll'=1 and $id_scriteria_str3 )  )
-group by st.name_status, app.date_send, type_org, name_criteria
-order by st.name_status, app.date_send, type_org, name_criteria
+group by  name_criteria 
+order by  name_criteria 
 ";
-
+//--st.name_status, app.date_send, type_org,
 // ('$id_scriteria_str'='' or ('$id_scriteria_str'<>'' and 
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
@@ -82,15 +82,15 @@ $reports = array();
 for ($data = []; $row = mysqli_fetch_assoc($rez); $data[] = $row);
 
 class Report{
-    public $status , $date_send, $type_org_name, $name_criteria, $crit_count;
+    public /*$status , $date_send, $type_org_name,*/ $name_criteria, $crit_count;
 }
 
 foreach ($data as $app) {
     $obj = array();
     $report = new Report();
-    $report->status = $app['name_status'];
-    $report->date_send = $app['date_send'];
-    $report->type_org_name = $app['type_org'];
+   // $report->status = $app['name_status'];
+   // $report->date_send = $app['date_send'];
+   // $report->type_org_name = $app['type_org'];
     $report->name_criteria = $app['name_criteria'];
     $report->crit_count = $app['crit_count'];
 
