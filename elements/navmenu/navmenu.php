@@ -66,20 +66,17 @@
                               <ul class="nav flex-column sub-menu">
                                   <li class="nav-item" style="height: 2rem">
                                       <a href="/index.php?report_first" class="nav-link">
-
-                                          <p>Отчет1</p>
+                                          <p>Структура организаций здравоохранения по результатам самооценки</p>
                                       </a>
                                   </li>
                                   <li class="nav-item" style="height: 2rem">
-                                      <a href="#" class="nav-link">
-
-                                          <p>Отчет2</p>
+                                      <a href="/index.php?report_analiz_samoocenka" class="nav-link">
+                                          <p>Анализ результатов самооценки организаций здравоохранения</p>
                                       </a>
                                   </li>
                                   <li class="nav-item" style="height: 2rem">
-                                      <a href="#" class="nav-link">
-
-                                          <p>Отчет3</p>
+                                      <a href="/index.php?report_analiz_ocenka" class="nav-link">
+                                          <p>Анализ результатов медицинской аккредитации</p>
                                       </a>
                                   </li>
                               </ul>
@@ -199,7 +196,13 @@
             break;
         case "/index.php?report_first":
             nav9.className = "nav-item active";
-            break;        
+            break;    
+        case "/index.php?report_analiz_samoocenka":
+            nav9.className = "nav-item active";
+            break;  
+        case "/index.php?report_analiz_ocenka":
+            nav9.className = "nav-item active";
+            break;              
         default:
             nav1.className = "nav-item active";
             break;

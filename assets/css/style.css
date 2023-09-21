@@ -13777,7 +13777,7 @@ dl {
       .sidebar .nav.sub-menu .nav-item {
         padding: 0; }
         .sidebar .nav.sub-menu .nav-item .nav-link {
-          color: #888;
+          color: white;
           padding: 0.75rem 2rem 0.75rem 2rem;
           position: relative;
           font-size: 0.8125rem;

@@ -1,5 +1,5 @@
-let arrCriteriaId = [];
-let arrCriteriaStr = [];
+let arrCriteriaId_report_analiz_ocenka = [];
+let arrCriteriaStr_report_analiz_ocenka = [];
 
 
 function CheckCriteria(elem, id_criteria){
@@ -11,17 +11,15 @@ function CheckCriteria(elem, id_criteria){
     
     let spanCrit = document.getElementById(`span_criteria_${id_criteria}`);
 
-    //console.log(spanCrit.textContent);
     let spanCrit_str = spanCrit.textContent;
 
-    if(arrCriteriaId.includes(id_criteria)){
-        arrCriteriaId = arrCriteriaId.filter(item => item !== id_criteria);
-        arrCriteriaStr = arrCriteriaStr.filter(item => item.id_criteria !== id_criteria);
+    if(arrCriteriaId_report_analiz_ocenka.includes(id_criteria)){
+        arrCriteriaId_report_analiz_ocenka = arrCriteriaId_report_analiz_ocenka.filter(item => item !== id_criteria);
+        arrCriteriaStr_report_analiz_ocenka = arrCriteriaStr_report_analiz_ocenka.filter(item => item.id_criteria !== id_criteria);
     } else {
-        arrCriteriaId = [...arrCriteriaId, id_criteria];
-        arrCriteriaStr = [...arrCriteriaStr, {id_criteria, criteria_name: spanCrit_str} ]
+        arrCriteriaId_report_analiz_ocenka = [...arrCriteriaId_report_analiz_ocenka, id_criteria];
+        arrCriteriaStr_report_analiz_ocenka = [...arrCriteriaStr_report_analiz_ocenka, {id_criteria, criteria_name: spanCrit_str} ]
     }
-
 
     if(!btnReportPrint.hasAttribute('disabled')){
         btnReportPrint.setAttribute('disabled','true')
@@ -81,21 +79,18 @@ function preperaReport(){
     let flag_yur_lica = document.getElementById(`flag_yur_lica`);
     let flag_yur_lica_value = flag_yur_lica.checked;
     
- //   console.log(oblast_value, status_value, dateAccept_value, dateComplete_value, typeOrg_value, criteriaAll_value)
 
     if(flag_yur_lica_value){
-        console.log('1');
-        reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId.toString())
+        reportYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_report_analiz_ocenka.toString())
     } else {
-        console.log('2');
-        reportYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId.toString())
+        reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_report_analiz_ocenka.toString())
     }
 
     btnReport.removeAttribute('disabled');
 }
 
 
-function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_str){
+function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_str){
     let divForTable = document.getElementById(`divForTable`);
     divForTable.innerHTML = '';
 
@@ -103,7 +98,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
     let data = new Array();
 
     $.ajax({
-        url: "modules/report/report_first/getReportFirstYurLica.php",
+        url: "modules/report/report_analiz_ocenka/getReportOcenkaWithOutYurLica.php",
         method: "GET",
         data: {id_oblast: oblast_value, id_status: status_value, dateAccept: dateAccept_value, 
             dateComplete: dateComplete_value, id_type_org: typeOrg_value, criteriaAll: criteriaAll_value, id_scriteria_str: arrCriteriaId_str}
@@ -114,22 +109,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
         }
         
         let table = document.createElement('table');
-    //    table.classList.add('table-striped');
-    //    table.classList.add('table-bordered');
         table.style = " border-spacing: 0; border: none";
-
-        let trHead = document.createElement('tr');
-        let th1 = document.createElement('th');
-        // th1.innerHTML = 'Статус';
-        th1.style = "border: 1px solid black;width: 10%; text-align: center;line-height: normal;";
-
-        let th2 = document.createElement('th');
-        th2.innerHTML = 'Дата подачи';
-        th2.style = "border: 1px solid black;width: 10%; text-align: center;line-height: normal";
-
-        let th3 = document.createElement('th');
-        // th3.innerHTML = 'Тип организации';
-        th3.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
 
 
         let trHead2 = document.createElement('tr');
@@ -141,17 +121,18 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
         th5.setAttribute('colspan','2');
 
         let th6 = document.createElement('th');
-        th6.innerHTML = 'количество';
+        th6.innerHTML = 'Количество';
         th6.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
 
-         trHead.appendChild(th1);
-         trHead.appendChild(th2);
-         trHead.appendChild(th3);
+        let th7 = document.createElement('th');
+        th7.innerHTML = 'Cредняя оценка';
+        th7.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
+
 
          trHead2.appendChild(th5);
          trHead2.appendChild(th6);
+         trHead2.appendChild(th7);
      
-       //  table.appendChild(trHead);
          table.appendChild(trHead2);
      
          let tbody = document.createElement('tbody');
@@ -160,66 +141,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
          let type_criteria = 0;
            if(data.length > 0){
                 data.map((item,index) => {
-                    
-                    // let idx = index-1;
-                    // if(index === 0){
-                    //     idx=0;
-                    // }
-                    //
-                    // let strFlag = true;
-                    //
-                    // if(index>0){
-                    //     if ((data[idx].status) == item['status']) {
-                    //         if ((data[idx].date_send) == item['date_send']) {
-                    //             if ((data[idx].type_org_name) == item['type_org_name']) {
-                    //                 strFlag = false
-                    //             } else {
-                    //                 strFlag = true
-                    //             }
-                    //
-                    //         } else {
-                    //             strFlag = true
-                    //         }
-                    //     }else {
-                    //         strFlag = true
-                    //     }
-                    //
-                    // }
-                    //
-                    //
-                    // if(strFlag == true){
-                    //     let tr = document.createElement('tr');
-                    //
-                    //     let td1 = document.createElement('td');
-                    //     td1.innerHTML = item['status'];
-                    //
-                    //     let td2 = document.createElement('td');
-                    //     td2.innerHTML = (index != 0) ? (item['date_send'] != data[idx].date_send) ? item['date_send'] : ''  : item['date_send'];
-                    //
-                    //     let td3 = document.createElement('td');
-                    //     td3.innerHTML = item['type_org_name'] ;
-                    //
-                    //     if(index>0){
-                    //         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem; padding-top:0.7rem ";
-                    //         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
-                    //         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
-                    //
-                    //     } else {
-                    //         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem ";
-                    //         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
-                    //         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
-                    //     }
-                    //
-                    //     // tr.appendChild(td1);
-                    //     //tr.appendChild(td2);
-                    //     // tr.appendChild(td3);
-                    //     tbody.appendChild(tr);
-                    //
-                    //     string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'];
-                    //
-                    // }
-
-                    
+                                        
                     if(type_criteria !== Number(item['type_criteria'])){
 
                       //  console.log('type_criteria', type_criteria);
@@ -266,8 +188,13 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                     td6.innerHTML = item['crit_count'];
                     td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
+                    let td7 = document.createElement('td');
+                    td7.innerHTML = item['crit_src'];
+                    td7.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+
                     tr2.appendChild(td5);
                     tr2.appendChild(td6);
+                    tr2.appendChild(td7);
                     
                     tbody.appendChild(tr2);
 
@@ -288,7 +215,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
         let typeO = document.getElementById("typeOrg");
         let value3 = typeO.options[typeO.selectedIndex].innerText;
 
-        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки`;
+        divReportTitle.textContent = `Анализ результатов медицинской аккредитации`;
         //: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
 
          let divReportUsl = document.createElement('div');
@@ -297,24 +224,27 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
          divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
          divReportUsl.innerHTML = divReportUsl.textContent + '<br/>'
 
-         divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + status_text + '<br/>'
+           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + status_text + '<br/>'
+
            if(status_value!=1) {
             divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Период:'+'</b>' + ' с' + dateAccept_value + ' по ' + dateComplete_value + '<br/>'
            }
 
            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' + ' Область:'+'</b>' + oblast_text + '<br/>'
            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Тип организации: '+'</b>' + typeOrg_text + '<br/>'
+           
+           
            divReportUsl.innerHTML = divReportUsl.innerHTML +   '<b>' +' Таблицы критериев: '+'</b>' + criteriaAll_text;
           
-           if((criteriaAll_value == 1) && (arrCriteriaStr.length>0)) {
-                let arr =  arrCriteriaStr.map(item=>{
+           if((criteriaAll_value == 1) && (arrCriteriaStr_report_analiz_ocenka.length>0)) {
+                let arr =  arrCriteriaStr_report_analiz_ocenka.map(item=>{
                     return item.criteria_name
                 })
             divReportUsl.innerHTML = divReportUsl.innerHTML + '<br/>'+   '<b>' +' По критериям: '+'</b>' + arr;
            }
            
 
-           divReportUsl.setAttribute('hidden','true');
+        //   divReportUsl.setAttribute('hidden','true');
 
          
             divForTable.appendChild(divReportTitle);         
@@ -325,14 +255,14 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
     });
 }
 
-function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_str){
+function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_str){
     let divForTable = document.getElementById(`divForTable`);
     divForTable.innerHTML = '';
 
     let data = new Array();
 
     $.ajax({
-        url: "modules/report/report_first/getReportFirst.php",
+        url: "modules/report/report_analiz_samoocenka/getReportSamoocenkaWithYurLica.php",
         method: "GET",
         data: {id_oblast: oblast_value, id_status: status_value, dateAccept: dateAccept_value, 
             dateComplete: dateComplete_value, id_type_org: typeOrg_value, criteriaAll: criteriaAll_value, id_scriteria_str: arrCriteriaId_str}
@@ -369,6 +299,11 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
         th4.innerHTML = 'Наименование Юр. Лица';
         th4.style = "border: 1px solid black;width: 55%; text-align: center;line-height: normal";
 
+        let th41 = document.createElement('th');
+        th41.innerHTML = 'Оценка';
+        th41.style = "border: 1px solid black;width: 55%; text-align: center;line-height: normal";
+      //  th41.setAttribute('rowspan','2');
+
         let trHead2 = document.createElement('tr');
         let th5 = document.createElement('th');
         th5.innerHTML = 'Критерий';
@@ -376,24 +311,31 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
         th5.setAttribute('colspan','3');
 
         let th6 = document.createElement('th');
-        th6.innerHTML = 'количество';
+        th6.innerHTML = 'Количество';
         th6.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
+
+        let th7 = document.createElement('th');
+        th7.innerHTML = 'Cредняя оценка';
+        th7.style = "border: 1px solid black;width: 55%; text-align: center;line-height: normal";
+       // th41.setAttribute('rowspan','2');
 
          trHead.appendChild(th4);
          trHead.appendChild(th2);
          trHead.appendChild(th3);
          trHead.appendChild(th1);
+         trHead.appendChild(th41);
          table.appendChild(trHead);
          
          trHead2.appendChild(th5);
          trHead2.appendChild(th6);
+         trHead2.appendChild(th7);
          table.appendChild(trHead2);
      
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
 
+
          let type_criteria = 0;
-        
            if(data.length > 0){
                 data.map((item,index) => {
                    
@@ -426,7 +368,8 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                         }
                        
                     }
-                                      
+                               
+                    
 
                     if(strFlag == true){
 
@@ -448,29 +391,37 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                     td4.innerHTML = (index != 0) ? (item['id_application'] != data[idx].id_application) ? item['naim'] : ''  : item['naim'];
                  //   td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; ";
 
+                    let td41 = document.createElement('td');
+                    td41.innerHTML = (index != 0) ? (item['id_application'] != data[idx].id_application) ? item['app_ocenka'] : ''  : item['app_ocenka'];
+
                     if(index>0){
                         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem; padding-top:0.7rem ";
                         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
                         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
                         td4.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
+                        td41.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
 
                     } else {
                         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem;  ";
                         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                         td4.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
+                        td41.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                     }
 
                     
 
                     tr.appendChild(td4);
+                    
                     tr.appendChild(td2);
                     tr.appendChild(td3);
                     tr.appendChild(td1);
+                    tr.appendChild(td41);
                     tbody.appendChild(tr);
 
                         string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'] + '' +item['naim'];
                     }
+
 
                     if(type_criteria !== Number(item['type_criteria'])){
 
@@ -503,6 +454,7 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                           tbody.appendChild(trNameBlok);
                       }
 
+
                     let tr2 = document.createElement('tr');
                     let td5 = document.createElement('td');
                     td5.innerHTML = item['name_criteria'];
@@ -513,9 +465,14 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                     td6.innerHTML = item['crit_count'];
                     td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
+                    let td7 = document.createElement('td');
+                    td7.innerHTML = item['crit_src'];
+                    td7.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+
                    
                     tr2.appendChild(td5);
                     tr2.appendChild(td6);
+                    tr2.appendChild(td7);
     
                     
                     tbody.appendChild(tr2);
@@ -536,7 +493,7 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
         let typeO = document.getElementById("typeOrg");
         let value3 = typeO.options[typeO.selectedIndex].innerText;
 
-        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки`;
+        divReportTitle.textContent = `Анализ результатов медицинской аккредитации`;
          // : регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
 
 
@@ -546,26 +503,26 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
          divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
          divReportUsl.innerHTML = divReportUsl.textContent + '<br/>'
 
-         divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + status_text + '<br/>'
+           
+           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + status_text + '<br/>'
 
            if(status_value!=1) {
-            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Период:'+'</b>' + ' с' + dateAccept_value + ' по ' + dateComplete_value + '<br/>'
+            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Период:'+'</b>' + ' с ' + dateAccept_value + ' по ' + dateComplete_value + '<br/>'
            }
 
            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' + ' Область:'+'</b>' + oblast_text + '<br/>'
            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Тип организации: '+'</b>' + typeOrg_text + '<br/>'
-           
            divReportUsl.innerHTML = divReportUsl.innerHTML +   '<b>' +' Таблицы критериев: '+'</b>' + criteriaAll_text;
           
-           if((criteriaAll_value == 1) && (arrCriteriaStr.length>0)) {
-                let arr =  arrCriteriaStr.map(item=>{
+           if((criteriaAll_value == 1) && (arrCriteriaStr_report_analiz_ocenka.length>0)) {
+                let arr =  arrCriteriaStr_report_analiz_ocenka.map(item=>{
                     return item.criteria_name
                 })
             divReportUsl.innerHTML = divReportUsl.innerHTML + '<br/>'+   '<b>' +' По критериям: '+'</b>' + arr;
            }
            
 
-           divReportUsl.setAttribute('hidden','true');
+        //   divReportUsl.setAttribute('hidden','true');
 
          
             divForTable.appendChild(divReportTitle);         
@@ -655,5 +612,5 @@ ui_reports.classList.add("show");
 let itemMenu = document.querySelector("[href=\"#ui-reports\"]");
 itemMenu.classList.add("collapsed");
 itemMenu.setAttribute("aria-expanded", "true");
-let itemA = document.querySelector("[href=\"/index.php?report_first\"]");
+let itemA = document.querySelector("[href=\"/index.php?report_analiz_ocenka\"]");
 itemA.style = "color: #39ff39";
