@@ -33,7 +33,24 @@
 <body >
 <?php
 include '../connection.php';
-$query = "SELECT `username`, login, `name`, last_time_online, last_page FROM users, roles where `users`.id_role = `roles`.id_role and online is not null";
+class Types{
+    public $id_type, $typeName;
+}
+$query = "SELECT * FROM spr_type_organization";
+$result=mysqli_query($con, $query) or die ( mysqli_error($con));
+for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+$arrayTypes = array();
+
+foreach ($data as $type) {
+    $newType = new Types();
+    $newType->id_type = $type['id_type'];
+    $newType->typeName = $type['type_name'];
+    array_push($arrayTypes, $newType);
+}
+$query = "SELECT id_user, `username`, login, `name`, last_time_online, last_page, users.`id_type`, type_name FROM users 
+left outer join roles r on users.id_role=r.id_role
+left outer join spr_type_organization st on users.id_type=st.id_type
+where last_time_online is not null";
 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 ?>
@@ -56,6 +73,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Role</th>
                     <th>Last online</th>
                     <th>Last page</th>
+                    <th>Тип</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,6 +91,12 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                         <td><?= $user['name'] ?></td>
                         <td><?= $user['last_time_online'] ?></td>
                         <td><?= $user['last_page'] ?></td>
+                        <td><select name="" id="types<?= $user['id_user'] ?>" onchange="changeType(this)">
+                                <option value="<?= $user['id_type'] ?>"><?= $user['id_type'] ? $user['type_name'] : "Не выбрано" ?></option>
+                            <?php foreach ($arrayTypes as $t){ ?>
+                                <option value="<?=$t->id_type?>"><?=$t->typeName?></option>
+                                <?php } ?>
+                            </select></td>
 
                     </tr>
                     <?php
@@ -87,6 +111,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Role</th>
                     <th>Last online</th>
                     <th>Last page</th>
+                    <th>Тип</th>
                 </tr>
                 </tfoot>
             </table>
@@ -127,6 +152,19 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
         card1.classList.remove("hiden");
     }
 
+    function changeType(el){
+        let id = el.id.substring(5);
+        let id_type = el.options[el.selectedIndex].value;
+        $.ajax({
+            url:"update_type.php",
+            method:"POST",
+            data:{id_user:id, id_type:id_type}
+
+        }).done(function (response){
+            console.log("id_us", id);
+            console.log("id_type", id_type);
+        })
+    }
 </script>
 
 
