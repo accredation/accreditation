@@ -64,19 +64,22 @@
                           </a>
                           <div class="collapse" id="ui-reports">
                               <ul class="nav flex-column sub-menu">
-                                  <li class="nav-item" style="height: 2rem">
-                                      <a href="/index.php?report_first" class="nav-link">
-                                          <p>Структура организаций здравоохранения по результатам самооценки</p>
+                                  <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_first" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Структура организаций здравоохранения по результатам самооценки</p>
                                       </a>
                                   </li>
-                                  <li class="nav-item" style="height: 2rem">
-                                      <a href="/index.php?report_analiz_samoocenka" class="nav-link">
-                                          <p>Анализ результатов самооценки организаций здравоохранения</p>
+                                  <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_analiz_samoocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Анализ результатов самооценки организаций здравоохранения</p>
                                       </a>
                                   </li>
-                                  <li class="nav-item" style="height: 2rem">
-                                      <a href="/index.php?report_analiz_ocenka" class="nav-link">
-                                          <p>Анализ результатов медицинской аккредитации</p>
+                                  <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_analiz_ocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Анализ результатов медицинской аккредитации</p>
                                       </a>
                                   </li>
                               </ul>
@@ -196,13 +199,7 @@
             break;
         case "/index.php?report_first":
             nav9.className = "nav-item active";
-            break;    
-        case "/index.php?report_analiz_samoocenka":
-            nav9.className = "nav-item active";
-            break;  
-        case "/index.php?report_analiz_ocenka":
-            nav9.className = "nav-item active";
-            break;              
+            break;        
         default:
             nav1.className = "nav-item active";
             break;

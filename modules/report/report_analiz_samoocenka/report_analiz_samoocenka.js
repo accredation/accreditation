@@ -610,5 +610,7 @@ ui_reports.classList.add("show");
 let itemMenu = document.querySelector("[href=\"#ui-reports\"]");
 itemMenu.classList.add("collapsed");
 itemMenu.setAttribute("aria-expanded", "true");
+itemMenu.children[1].style = "color: #00e735";
+document.getElementById("nav1").classList.remove("active");
 let itemA = document.querySelector("[href=\"/index.php?report_analiz_samoocenka\"]");
-itemA.style = "color: #39ff39";
+itemA.style = "color: #39ff39; padding: 0rem 0rem 0rem 2rem;";

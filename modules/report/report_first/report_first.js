@@ -656,4 +656,4 @@ let itemMenu = document.querySelector("[href=\"#ui-reports\"]");
 itemMenu.classList.add("collapsed");
 itemMenu.setAttribute("aria-expanded", "true");
 let itemA = document.querySelector("[href=\"/index.php?report_first\"]");
-itemA.style = "color: #39ff39";
+itemA.style = "color: #39ff39; padding: 0rem 0rem 0rem 2rem;";
