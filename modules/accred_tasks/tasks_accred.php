@@ -208,7 +208,7 @@
                         $color = "#50C878";
                     }
                     else{
-                        $color = "#FF5733";
+                        $color = "rgb(149 145 144)";
                     }
                 ?>
                     <ul class="chart-bars " style="display: flex"  id = "ul<?= $app_id?>" >
