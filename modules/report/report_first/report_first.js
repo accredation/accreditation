@@ -30,6 +30,9 @@ function CheckCriteria(elem, id_criteria){
 
 function preperaReport(){
 
+    let reportRow = document.getElementById('reportRow');
+    reportRow.style="background-color: white";
+
     let status = document.getElementById(`status`);
     let status_value = status.value;
     let status_text = status.options[status_value].textContent;
@@ -285,7 +288,8 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
         let typeO = document.getElementById("typeOrg");
         let value3 = typeO.options[typeO.selectedIndex].innerText;
 
-        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
+        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки`;
+        //: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
 
          let divReportUsl = document.createElement('div');
          divReportUsl.id = 'divReportUsl';
@@ -334,7 +338,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
 function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_str){
     let divForTable = document.getElementById(`divForTable`);
     divForTable.innerHTML = '';
-    
+
     let data = new Array();
 
     $.ajax({
@@ -511,7 +515,8 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
         let typeO = document.getElementById("typeOrg");
         let value3 = typeO.options[typeO.selectedIndex].innerText;
 
-        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
+        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки`;
+         // : регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
 
 
         let divReportUsl = document.createElement('div');
@@ -628,5 +633,6 @@ function disablePrint(){
     if(!btnReportPrint.hasAttribute('disabled')){
         btnReportPrint.setAttribute('disabled','true')
     }
-    
+
+
 }
