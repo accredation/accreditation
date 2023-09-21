@@ -121,6 +121,23 @@
                      ?>
                         <?php } ?>
 
+                        <?php
+                        $login =  $_COOKIE['login'];
+                        $query = "SELECT * FROM users where login = '$login'";
+
+                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                        {
+                            $row = mysqli_fetch_assoc($rez);
+                            $role = $row['id_role'];
+                        }
+                        if ($role == 12) {?>
+                            <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="edit_type_organization.php">
+                                <i class="fa fa-user "></i>
+                                Пользователи
+                            </a>
+                        <?php } ?>
+
 
                   <div role="separator" class="dropdown-divider"></div>
                     <?php }?>
