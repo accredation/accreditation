@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="modules/report/report_first/report_first.css">
+<link rel="stylesheet" href="modules/report/report_analiz_samoocenka/report_analiz_samoocenka.css">
 <?php if(isset($_COOKIE['login'])){?>
     <div class="content-wrapper">
 
-            <h2 class="text-dark font-weight-bold mb-2">Структура организаций здравоохранения по результатам самооценки</h2>
+            <h2 class="text-dark font-weight-bold mb-2">Анализ результатов самооценки организаций здравоохранения  </h2>
             <div class="row mb-2">
                 <div class="col-sm-6 col-md-3 col-lg-3 mb-2" style="font-size: 1rem; line-height: 3rem;">
                         <span class="mr-2">Выберите область</span>
@@ -235,7 +235,7 @@
 
 
 
-<script src="modules/report/report_first/report_first.js"></script>
+<script src="modules/report/report_analiz_samoocenka/report_analiz_samoocenka.js"></script>
 
 <?php } else { ?>
     <div class="content-wrapper">

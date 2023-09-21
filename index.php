@@ -209,7 +209,16 @@
                         break; 
                     case 'report_first':
                         include 'modules/report/report_first/report_first.php';
-                        break;           
+                        break; 
+                    case 'report_analiz_samoocenka':
+                        include 'modules/report/report_analiz_samoocenka/report_analiz_samoocenka.php';    
+                        break;         
+                    case 'report_analiz_ocenka':
+                        include 'modules/report/report_analiz_ocenka/report_analiz_ocenka.php';    
+                        break;     
+                    case 'report_doctor_work':
+                        include 'modules/report/report_doctor_work/report_doctor_work.php';    
+                        break;                        
                 }
             }
             else{
