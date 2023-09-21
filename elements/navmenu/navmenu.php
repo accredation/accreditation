@@ -58,10 +58,32 @@
                       </li>
 
                       <li class="nav-item" id="nav9">
-                          <a class="nav-link"  href="/index.php?report_first" >
+                          <a class="nav-link collapsed" data-toggle="collapse" href="#ui-reports" aria-controls="ui-reports">
                               <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>
-                              <span class="menu-title">Отчет</span>
+                              <span class="menu-title">Отчеты</span>
                           </a>
+                          <div class="collapse" id="ui-reports">
+                              <ul class="nav flex-column sub-menu">
+                                  <li class="nav-item" style="height: 2rem">
+                                      <a href="/index.php?report_first" class="nav-link">
+
+                                          <p>Отчет1</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item" style="height: 2rem">
+                                      <a href="#" class="nav-link">
+
+                                          <p>Отчет2</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item" style="height: 2rem">
+                                      <a href="#" class="nav-link">
+
+                                          <p>Отчет3</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </div>
                       </li>
 
                       <?php
