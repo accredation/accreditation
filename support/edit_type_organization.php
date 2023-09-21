@@ -67,11 +67,9 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
                 <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Login</th>
-                    <th>Role</th>
-                    <th>Last online</th>
-                    <th>Last page</th>
+                    <th>Пользователь</th>
+                    <th>Логин</th>
+                    <th>Роль</th>
                     <th>Тип</th>
                 </tr>
                 </thead>
@@ -88,8 +86,6 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['login'] ?></td>
                         <td><?= $user['name'] ?></td>
-                        <td><?= $user['last_time_online'] ?></td>
-                        <td><?= $user['last_page'] ?></td>
                         <td><select name="" id="types<?= $user['id_user'] ?>" onchange="changeType(this)">
                                 <option value="<?= $user['id_type'] ?>"><?= $user['id_type'] ? $user['type_name'] : "Не выбрано" ?></option>
                                 <?php foreach ($arrayTypes as $t){ ?>
@@ -105,11 +101,9 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>User</th>
-                    <th>Login</th>
-                    <th>Role</th>
-                    <th>Last online</th>
-                    <th>Last page</th>
+                    <th>Пользователь</th>
+                    <th>Логин</th>
+                    <th>Роль</th>
                     <th>Тип</th>
                 </tr>
                 </tfoot>
