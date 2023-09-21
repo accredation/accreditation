@@ -636,3 +636,11 @@ function disablePrint(){
 
 
 }
+
+let ui_reports = document.getElementById("ui-reports");
+ui_reports.classList.add("show");
+let itemMenu = document.querySelector("[href=\"#ui-reports\"]");
+itemMenu.classList.add("collapsed");
+itemMenu.setAttribute("aria-expanded", "true");
+let itemA = document.querySelector("[href=\"/index.php?report_first\"]");
+itemA.style = "color: #39ff39";
