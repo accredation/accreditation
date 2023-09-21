@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="modules/report/report_first/report_first.css">
+<?php if(isset($_COOKIE['login'])){?>
     <div class="content-wrapper">
 
             <h2 class="text-dark font-weight-bold mb-2"> Отчет </h2>
@@ -223,10 +224,10 @@
                 
             </div>
 
-            <div class="row">
-                <div class=" mb-2 mr-2" style="font-size: 1rem; line-height: 3rem;">
+            <div id="reportRow" class="row">
+                <div class=" m-3 " style="font-size: 1rem; line-height: 3rem;">
                     
-                    <div id="divForTable"></div>
+                    <div id="divForTable" ></div>
                 </div>
             </div>
 
@@ -236,3 +237,16 @@
 
 <script src="modules/report/report_first/report_first.js"></script>
 
+<?php } else { ?>
+    <div class="content-wrapper">
+        <div class="row" id="proBanner">
+            <div class="col-12">
+                <!--    -->
+            </div>
+        </div>
+        <div class="d-xl-flex justify-content-between align-items-start">
+            <h2 class="text-dark font-weight-bold mb-2"> Требуется авторизация </h2>
+        </div>
+    </div>
+
+<?php } ?>
