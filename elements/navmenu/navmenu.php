@@ -59,7 +59,7 @@
 
                       <li class="nav-item" id="nav9">
                           <a class="nav-link collapsed" data-toggle="collapse" href="#ui-reports" aria-controls="ui-reports">
-                              <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>
+                              <span class="icon-bg"><i class="mdi fa-flag menu-icon"></i></span>
                               <span class="menu-title">Отчеты</span>
                           </a>
                           <div class="collapse" id="ui-reports">
