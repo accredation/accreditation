@@ -132,7 +132,7 @@
                             $role = $row['id_role'];
                         }
                         if ($role == 12) {?>
-                            <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="edit_type_organization.php">
+                            <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="support/edit_type_organization.php">
                                 <i class="fa fa-user "></i>
                                 Пользователи
                             </a>

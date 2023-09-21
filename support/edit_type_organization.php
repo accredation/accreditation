@@ -32,7 +32,7 @@
 </head>
 <body >
 <?php
-include 'connection.php';
+include '../connection.php';
 class Types{
     public $id_type, $typeName;
 }
@@ -155,7 +155,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
         let id = el.id.substring(5);
         let id_type = el.options[el.selectedIndex].value;
         $.ajax({
-            url:"update_type.php",
+            url:"update_type_organization.php",
             method:"POST",
             data:{id_user:id, id_type:id_type}
 
