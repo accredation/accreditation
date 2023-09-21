@@ -501,6 +501,7 @@ startDate.setMonth(startDate.getMonth() - 5);
 endDate.setMonth(endDate.getMonth() + 5);
 
 var currentDate = startDate;
+let dayZ = 0;
 while (currentDate <= endDate) {
     // получаем дату в формате
 
@@ -510,8 +511,17 @@ while (currentDate <= endDate) {
     var li = document.createElement('li');
     li.textContent = date;
     li.id = date; // добавляем id
+    let li1 = document.createElement("li");
 
+    if(dayZ % 2 === 0){
+        li.style = "background-color: rgb(227 227 227); height: 100%";
+        li1.setAttribute("data-duration",date+"-"+date);
+        li1.style = "margin: 0px; position: absolute; padding: 1px; height: 317px; z-index: 1; background-color: rgb(227 227 227); opacity: 1; min-width: 50px; border-radius: 0"
+        document.querySelector('.chart-bars').appendChild(li1);
+    }
+    dayZ++;
     document.querySelector('.chart-values').appendChild(li);
+
 
     // увеличиваем тек дату на 1
     currentDate.setDate(currentDate.getDate() + 1);
