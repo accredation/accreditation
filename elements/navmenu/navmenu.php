@@ -82,6 +82,13 @@
                                           <p style="white-space: normal; line-height: 1">Анализ результатов медицинской аккредитации</p>
                                       </a>
                                   </li>
+
+                                  <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_doctor_work" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Нагрузка врачей-экспертов</p>
+                                      </a>
+                                  </li>
                               </ul>
                           </div>
                       </li>
