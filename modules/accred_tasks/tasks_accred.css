@@ -81,7 +81,7 @@ a {
     color: var(--white);
     margin-bottom: 15px;
     font-size: 12px;
-    border-radius: 20px;
+    border-radius: 0px;
     padding: 5px 20px;
     width: 0;
     opacity: 0;
@@ -133,11 +133,18 @@ a {
 }
 
 .trColor{
+    /*background: #64DB97;*/
+    font-weight: 800;
+}
+
+.trGreen{
     background: #64DB97;
+
 }
 
 
 .tdMainColor{
-    color: #8A5C0C;
+    /*color: #8A5C0C;*/
+    font-weight: 800;
 }
 

@@ -42,11 +42,19 @@ let id_user = getCookie("id_user");
         let td = item.parentElement.parentElement;
         td.classList.add('trColor');
 
+        // td.classList.add('trGreen');
+
         let id = td.classList[1].substring(7,td.classList[1].length)
         let mainTd = document.getElementById(id);
         mainTd.classList.add('tdMainColor');
     } else {
     }
+});
+
+document.querySelectorAll("td").forEach( item => {
+    if (item.innerText === "готово ")
+        item.classList.add('trGreen');
+
 });
 
 let dateAccept = document.getElementById("dateAccept");
@@ -512,8 +520,10 @@ while (currentDate <= endDate) {
     li.textContent = date;
     li.id = date; // добавляем id
     let li1 = document.createElement("li");
+    const options = { weekday: 'long' };
+    const dayOfWeek = startDate.toLocaleString('en-US', options);
 
-    if(dayZ % 2 === 0){
+    if(dayOfWeek === "Saturday" || dayOfWeek === "Sunday"){
         li.style = "background-color: rgb(227 227 227); height: 100%";
         li1.setAttribute("data-duration",date+"-"+date);
         li1.style = "margin: 0px; position: absolute; padding: 1px; height: 317px; z-index: 1; background-color: rgb(227 227 227); opacity: 1; min-width: 50px; border-radius: 0"
@@ -564,6 +574,8 @@ window.onload = () => {
         res = ( lrs/ rrs) ;
         if(Number(res)){
             document.getElementById(`${id}`).children[7].innerHTML = (res * 100).toFixed(2) +'%' ;
+            document.getElementById("ul"+`${id}`).children[0].innerHTML += " Прогресс: " + (res * 100).toFixed(2) +'%';
+
         } else {
             document.getElementById(`${id}`).children[7].innerHTML = '0' +'%';
         }
