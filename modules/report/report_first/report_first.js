@@ -53,6 +53,11 @@ function preperaReport(){
             alert('Введите дату завершения периода подачи заявления')
             return
         }
+
+        if(dateAccept_value>dateComplete_value) {
+            alert('Неверно заданы даты отчетного периода')
+            return
+        }
     }
     
    
@@ -522,6 +527,53 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
 
                 })
            }
+
+           itogOz = 0;
+           itogCrit = 0;
+
+           if(data.length > 0){
+                    data.map(itemOZ => {
+                        itogCrit = Number(itogCrit) + Number(itemOZ.crit_count)
+                    })
+
+                        let id_app = 0;
+                        data.map(itemOZ => {
+                            if(id_app !== Number(itemOZ.id_application)){
+                                id_app = Number(itemOZ.id_application)
+                                itogOz ++
+                            }
+                        })
+           }
+
+           let trItogOZ = document.createElement('tr');
+           let tdItog = document.createElement('td');
+           tdItog.innerHTML = 'Всего ОЗ:';
+           tdItog.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-weight: 700;";
+           tdItog.setAttribute('colspan',3);
+
+           let tdItog2 = document.createElement('td');
+           tdItog2.innerHTML = itogOz;
+           tdItog2.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-weight: 700;";
+
+           trItogOZ.appendChild(tdItog);
+           trItogOZ.appendChild(tdItog2);  
+           tbody.appendChild(trItogOZ); 
+
+           let trItogCrit = document.createElement('tr');
+           let tdItogCrit = document.createElement('td');
+           tdItogCrit.innerHTML = 'Всего критериев:';
+           tdItogCrit.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-weight: 700;";
+           tdItogCrit.setAttribute('colspan',3);
+
+           let tdItogCrit2 = document.createElement('td');
+           tdItogCrit2.innerHTML = itogCrit;
+           tdItogCrit2.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-weight: 700;";
+
+           trItogCrit.appendChild(tdItogCrit);
+           trItogCrit.appendChild(tdItogCrit2);   
+
+           tbody.appendChild(trItogCrit);
+
 
          let divReportTitle = document.createElement('div');
          divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";

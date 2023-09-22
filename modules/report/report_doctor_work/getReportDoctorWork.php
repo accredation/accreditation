@@ -33,7 +33,8 @@ $query = "select
 us.username, us.id_user, app.id_application, 
 CONCAT( app.naim, ' №', app.id_application) as naim, app.date_accept, app.date_complete, app.date_council, 
 CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, c.type_criteria, rc.id_criteria, 
-rcm.otmetka_all as crit_src, ram.otmetka_all as app_ocenka
+case when (app.id_status =4 or app.id_status=6) and rc.status=1 then rcm.otmetka_all else '' end as crit_src, 
+case when app.id_status =4 or app.id_status=6 then ram.otmetka_all else '' end as app_ocenka
 from rating_criteria rc 
 left outer join users us on rc.id_otvetstvennogo=us.id_user
 left outer join criteria c on rc.id_criteria=c.id_criteria
