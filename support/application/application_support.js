@@ -951,8 +951,7 @@ async function createAccordionCards(id_sub) {
                 data: {id_sub: id_sub, id_criteria: id_criteria}
             })
                 .done(function( response ) {
-                    console.log("id_criteria " + id_criteria);
-                    console.log("id_sub " + id_sub);
+
                     if(response === "1") {
                         let btnCloseCrit = document.createElement("button");
                         btnCloseCrit.style = "width: 30px; background-color: #f39b9b; border-radius: 5px; color: white; text-align: center; position: absolute; right: 0;";
