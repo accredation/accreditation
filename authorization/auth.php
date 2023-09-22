@@ -24,8 +24,8 @@ function enter($sesId)
             if (md5($password) == $row['password']) //сравнивается хэшированный пароль из базы данных с хэшированными паролем, введённым пользователем
                 {
                 //пишутся логин и хэшированный пароль в cookie, также создаётся переменная сессии
-                setcookie("login", $row['login'], time() + 50000);
-                setcookie("password", md5($row['login'] . $row['password']), time() + 50000);
+                setcookie("login", $row['login'], time() + 360000);
+                setcookie("password", md5($row['login'] . $row['password']), time() + 360000);
                 $_SESSION['id_user'] = $row['id_user']; //записываем в сессию id пользователя
 
                 $id = $_SESSION['id_user'];
