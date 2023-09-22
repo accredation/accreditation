@@ -81,6 +81,24 @@ function showTab(element,id_sub){
     }
     let data = new Array();
     let idNum = id.substring(3);
+    let tr = document.createDocumentFragment();
+    tr.appendChild(idNum);
+    let t1;
+    let t2;
+    let t3;
+    let t4;
+    let t5;
+    let t6;
+    let t7;
+    let t8;
+    let t9;
+    let arra = new Array();
+    arra.push(t1);
+    arra.push(t2);
+    arra.push(t3);
+    arra.push(t4);
+    arra.push(t5);
+    arra.push(t6)
     if(idNum > 1){
         let row = tabDiv.getElementsByClassName("col-12")[1];
 
