@@ -92,7 +92,7 @@ function reportDoctorWork(status_value,status_text, dateAccept_value, dateComple
         th5.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
 
         let th6 = document.createElement('th');
-        th6.innerHTML = 'Результат оценки % ';
+        th6.innerHTML = 'Результат оценки, % ';
         th6.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
 
          trHead.appendChild(th1);
@@ -119,15 +119,29 @@ function reportDoctorWork(status_value,status_text, dateAccept_value, dateComple
 
                         let tdDoctor = document.createElement('td');
                         tdDoctor.innerHTML = item['username'];
-                                          
+
+                        let countCrit = data.filter(filitem => filitem.id_user == item['id_user'])
+                       
+
+                        let id_app = 0;
+                        let countOZ = 0; 
+                        countCrit.map(itemOZ => {
+                            if(id_app !== Number(itemOZ.id_application)){
+                                id_app = Number(itemOZ.id_application)
+                                countOZ ++
+                            }
+                        })
+                                
+                       //console.log(countOZ)
+
                         let tdDoctorOZ = document.createElement('td');
-                    //  tdDoctorOZ.innerHTML = item['date_accept'];
+                        tdDoctorOZ.innerHTML = countOZ;
                       
                         let tdDoctorCrit = document.createElement('td');
-                //     tdDoctorCrit.innerHTML = item['date_complete'];
+                        tdDoctorCrit.innerHTML = countCrit.length;
                       
                         let tdDoctor1 = document.createElement('td');
-                    //    tdDoctor1.innerHTML = item['date_council'];
+                    //    tdDoctor1.innerHTML = countCrit.length;
                       
                         let tdDoctor2 = document.createElement('td');
                    //     tdDoctor2.innerHTML = item['crit_src'];
@@ -139,16 +153,16 @@ function reportDoctorWork(status_value,status_text, dateAccept_value, dateComple
 
                         if(index>0){
                             tdDoctor.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem ";
-                            tdDoctorOZ.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
-                            tdDoctorCrit.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
+                            tdDoctorOZ.style = "padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
+                            tdDoctorCrit.style = "padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
                             tdDoctor1.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
                             tdDoctor2.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
                             tdDoctor3.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
                             
                         } else {
                             tdDoctor.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; ";
-                            tdDoctorOZ.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem;";
-                            tdDoctorCrit.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem;";
+                            tdDoctorOZ.style = "padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem;";
+                            tdDoctorCrit.style = "padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem;";
                             tdDoctor1.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal;";
                             tdDoctor2.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal;";
                             tdDoctor3.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal;";
@@ -166,20 +180,18 @@ function reportDoctorWork(status_value,status_text, dateAccept_value, dateComple
                         user_id =  Number(item['id_user']);
                         type_criteria = 0;
                         app_id = 0;
+                        num_str_org = 1;
                     }
 
-                    console.log(((user_id !== Number(item['id_user'])) &&( app_id !== Number(item['id_application']))));
-                    console.log(user_id !== Number(item['id_user']));
-                    console.log(( app_id !== Number(item['id_application'])));
 
                     if( app_id !== Number(item['id_application'])) {
                         let trOz = document.createElement('tr');
                         trOz.style = 'margin-top: 1rem'
 
                         let tdOz1 = document.createElement('td');
-                        tdOz1.innerHTML = item['naim'];
+                        tdOz1.innerHTML = num_str_org +'. '+ item['naim'];
                         tdOz1.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700;";
-
+                        tdOz1.setAttribute('colspan',2);
                     
                         let tdOz2 = document.createElement('td');
                         tdOz2.innerHTML = item['date_accept'];
@@ -191,35 +203,26 @@ function reportDoctorWork(status_value,status_text, dateAccept_value, dateComple
 
                         let tdOz4 = document.createElement('td');
                         tdOz4.innerHTML = item['date_council'];
-                        tdOz4.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                        tdOz4.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-style: italic; font-weight: 700;";
 
                         let tdOz5 = document.createElement('td');
                         tdOz5.innerHTML = item['app_ocenka'];
                         tdOz5.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                         let tdOz6 = document.createElement('td');
-                   //     tdDoctor3.innerHTML = item['crit_src'];
+                      //  tdOz6.innerHTML = num_str_org;
                         tdOz6.style = "  ";
 
 
-                        if(index>0){
-                            tdOz1.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem ";
-                            tdOz2.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
-                            tdOz3.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
-                            tdOz4.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
-                            tdOz5.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
-                            tdOz6.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; padding-top:1rem";
+                            tdOz1.style = "border-bottom: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic;  font-size: 1.2rem; padding-top:1rem ";
+                            tdOz2.style = "border-bottom: 1px solid black;padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic;  font-size: 1.2rem; padding-top:1rem";
+                            tdOz3.style = "border-bottom: 1px solid black;padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic;  font-size: 1.2rem; padding-top:1rem";
+                            tdOz4.style = "border-bottom: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic;  font-size: 1.2rem; padding-top:1rem";
+                            tdOz5.style = "border-bottom: 1px solid black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-style: italic;  font-size: 1.2rem; padding-top:1rem";
+                            tdOz6.style = "border-bottom: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic;  font-size: 1.2rem; padding-top:1rem";
                             
-                        } else {
-                            tdOz1.style = " padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem; ";
-                            tdOz2.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem;";
-                            tdOz3.style = "padding: 0.2rem 0.75rem;text-align:left;line-height: normal; font-style: italic; font-weight: 700; font-size: 1.2rem;";
-                            tdOz4.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal;";
-                            tdOz5.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal;";
-                            tdOz6.style = " padding: 0.2rem 0.75rem;text-align:center;line-height: normal;";
-                        }
 
-                        trOz.appendChild(tdOz6);
+                     //   trOz.appendChild(tdOz6);
                         trOz.appendChild(tdOz1);
                         trOz.appendChild(tdOz2);
                         trOz.appendChild(tdOz3);
@@ -232,6 +235,7 @@ function reportDoctorWork(status_value,status_text, dateAccept_value, dateComple
                         user_id =  Number(item['id_user']);
                         type_criteria = 0;
                         app_id = Number(item['id_application']);
+                        num_str_org ++;
                     }
 
                     
