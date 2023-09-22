@@ -968,6 +968,8 @@ async function printReport(){
         divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
         WinPrint.document.close();
         WinPrint.focus();
+        let naimOrg = document.getElementById("naim");
+        WinPrint.document.title = "Результат самооценки_" + naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".","");
         WinPrint.print();
         WinPrint.close();
     }
@@ -2565,6 +2567,7 @@ function print() {
             let unp = document.getElementById("unp");
             let naimText = naim.value;
             let unpText = unp.value;
+
             var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
             WinPrint.document.write('<style>@page {\n' +
@@ -2586,6 +2589,8 @@ function print() {
 
             WinPrint.document.close();
             WinPrint.focus();
+            let naimOrg = document.getElementById("naim");
+            WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".","");
             WinPrint.print();
             WinPrint.close();
 

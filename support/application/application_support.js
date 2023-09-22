@@ -945,7 +945,31 @@ async function createAccordionCards(id_sub) {
             divCardHeader.className = "card-header";
             divCardHeader.id = "heading" + id_criteria;
             divCardHeader.style = "justify-content: center; display: inline-grid;";
-
+            $.ajax({
+                url: "support/application/getOpened.php",
+                method: "GET",
+                data: {id_sub: id_sub, id_criteria: id_criteria}
+            })
+                .done(function( response ) {
+                    console.log("id_criteria " + id_criteria);
+                    console.log("id_sub " + id_sub);
+                    if(response === "1") {
+                        let btnCloseCrit = document.createElement("button");
+                        btnCloseCrit.style = "width: 30px; background-color: #f39b9b; border-radius: 5px; color: white; text-align: center; position: absolute; right: 0;";
+                        btnCloseCrit.innerHTML = "x";
+                        divCardHeader.appendChild(btnCloseCrit);
+                        btnCloseCrit.onclick = () => {
+                            $.ajax({
+                                url: "support/application/closeOpened.php",
+                                method: "GET",
+                                data: {id_sub: id_sub, id_criteria: id_criteria}
+                            })
+                                .done(function( response ) {
+                                    btnCloseCrit.remove();
+                                });
+                        }
+                    }
+                });
 
             let id_applicationEl = document.getElementById("id_application");
             let id_application = id_applicationEl.innerText;
@@ -998,7 +1022,6 @@ async function createAccordionCards(id_sub) {
             divCardHeader.appendChild(btnCollapse);
 
 
-
           //  divCardHeader.innerHTML += "<br/>";
             divCard.appendChild(divCardHeader);
 
@@ -1013,6 +1036,9 @@ async function createAccordionCards(id_sub) {
 
             divCollapse.appendChild(divCardBody);
             divCard.appendChild(divCollapse);
+
+
+
          //   let marks_app = [];
             divCardHeader.onclick=() =>{
                 let collapses = divCard.getElementsByClassName("collapse");

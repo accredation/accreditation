@@ -212,7 +212,7 @@
                     }
                 ?>
                     <ul class="chart-bars " style="display: flex"  id = "ul<?= $app_id?>" >
-                        <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100 ">Задание заявления №<?= $app_id?></li>
+                        <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100 ">Задание заявления №<?= $app_id?> <?= $app['naim']?></li>
                 <?php
                     if(($date_council != null || $date_council != "")&&($date_council != $endDate)){
                 ?>
