@@ -35,6 +35,21 @@ function enter($sesId)
                     }else{
                         setcookie("isMA", 0, time() + 360000, '/');
                     }
+                    if($row['secretar'] == 1) {
+                        setcookie("secretar", 1, time() + 360000, '/');
+                    }else{
+                        setcookie("secretar", 0, time() + 360000, '/');
+                    }
+                    if($row['predsedatel'] == 1) {
+                        setcookie("predsedatel", 1, time() + 360000, '/');
+                    }else{
+                        setcookie("predsedatel", 0, time() + 360000, '/');
+                    }
+                    if($row['doctor_expert'] == 1) {
+                        setcookie("expert", 1, time() + 360000, '/');
+                    }else{
+                        setcookie("expert", 0, time() + 360000, '/');
+                    }
                 if($row['online'] == "0"){
                     lastAct($id,$sesId);
                 }
@@ -106,6 +121,21 @@ function login()
                                         }else{
                                             setcookie("isMA", 0, time() + 360000, '/');
                                         }
+                                        if($row['secretar'] == 1) {
+                                            setcookie("secretar", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("secretar", 0, time() + 360000, '/');
+                                        }
+                                        if($row['predsedatel'] == 1) {
+                                            setcookie("predsedatel", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("predsedatel", 0, time() + 360000, '/');
+                                        }
+                                        if($row['doctor_expert'] == 1) {
+                                            setcookie("expert", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("expert", 0, time() + 360000, '/');
+                                        }
                                         lastAct($id,$sesId);
                                     }
                             return true;
@@ -128,6 +158,21 @@ function login()
                                             setcookie("isMA", 1, time() + 360000, '/');
                                         }else{
                                             setcookie("isMA", 0, time() + 360000, '/');
+                                        }
+                                        if($row['secretar'] == 1) {
+                                            setcookie("secretar", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("secretar", 0, time() + 360000, '/');
+                                        }
+                                        if($row['predsedatel'] == 1) {
+                                            setcookie("predsedatel", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("predsedatel", 0, time() + 360000, '/');
+                                        }
+                                        if($row['doctor_expert'] == 1) {
+                                            setcookie("expert", 1, time() + 360000, '/');
+                                        }else{
+                                            setcookie("expert", 0, time() + 360000, '/');
                                         }
                                     $sesId = $_COOKIE['PHPSESSID'];
                                     if($row['online'] == "0"){
@@ -164,6 +209,9 @@ function login()
                                     phpAlert("Уже занято");
                                     SetCookie("login", ""); //удаляются cookie с логином
                                     SetCookie("isMA", "0"); //удаляются cookie с логином
+                                    setcookie("secretar", "0");
+                                    setcookie("predsedatel", "0");
+                                    setcookie("expert", "0");
 
                                     SetCookie("password", ""); //удаляются cookie с паролем
                                     header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');

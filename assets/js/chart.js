@@ -1,6 +1,6 @@
 $(function() {
 
-  let allCountOrganization = 461;
+  let allCountOrganization = 463;
 
   /* ChartJS
    * -------
