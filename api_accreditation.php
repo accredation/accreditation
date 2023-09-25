@@ -79,7 +79,54 @@
     }
     }
 
+
+
+
+    .modalHistoryCl {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        display: none;
+        width: 38%;
+        height: 100%;
+        overflow: hidden;
+        outline: 0;
+    }
+    .modalHistoryCl-body {
+        max-height: 480px;
+        width: 640px;
+        overflow-y: auto;
+    }
+    .showcl {
+        display: block;
+    }
+    .hiddentabcl {
+        display: none;
+    }
+
+
+    .btn-dangers.btn-closes {
+        background-color: transparent;
+        border: none;
+        font-size: 1.5rem;
+        color: #dc3545; /* красный цвет */
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .btn-dangers.btn-closes:hover {
+        color: #b02a37; /* тёмно-красный цвет */
+        background-color: transparent;
+        border: none;
+    }
+    .btn-dangers{
+        color:red;
+    }
+
 </style>
+
 <?php if(isset($_COOKIE['login'])){?>
     <div class="content-wrapper">
         <div class="row" id="proBanner">
@@ -702,11 +749,19 @@
                                                     <div style="margin-bottom:1rem">
 
                                                     </div>
+
+
                                                     <label for="fileReport" style="font-size: 24px">Отчет</label>
                                                     <input type="file" class="form-control-file" id="fileReport" >
                                                 </div>
                                             </form>
+
+                                            <div class = "history">
+                                                <button class="btn btn-success" id="history" onclick="showHistory()">История заявления</button>
+                                            </div>
+
                                         </div>
+
                                     </div>
 
 
@@ -746,6 +801,41 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <div class="modalHistoryCl" id="modalHistory">
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">История заявления</h4><h4 class="modal-title hiddentab" id="app_id"></h4>
+                    <button type="button" class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modalHistoryCl-body">
+
+
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
     <script>
 
