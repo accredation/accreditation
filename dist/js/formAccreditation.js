@@ -81,24 +81,7 @@ function showTab(element,id_sub){
     }
     let data = new Array();
     let idNum = id.substring(3);
-    let tr = document.createDocumentFragment();
-    tr.appendChild(idNum);
-    let t1;
-    let t2;
-    let t3;
-    let t4;
-    let t5;
-    let t6;
-    let t7;
-    let t8;
-    let t9;
-    let arra = new Array();
-    arra.push(t1);
-    arra.push(t2);
-    arra.push(t3);
-    arra.push(t4);
-    arra.push(t5);
-    arra.push(t6)
+
     if(idNum > 1){
         let row = tabDiv.getElementsByClassName("col-12")[1];
 
@@ -2686,6 +2669,157 @@ async function getStatusFromDB1(id_sub)
         }
     });
 }
+
+
+
+
+function showHistory() {
+   let idapp = document.getElementById("id_application").innerText;
+console.log (idapp);
+    let modal = document.getElementById("modalHistory");
+    let modalBody = document.querySelector(".modalHistoryCl-body");
+    modalBody.innerHTML = "";
+
+    $.ajax({
+        type: "GET",
+        url: "fetch_history.php",
+        data: { app_id: idapp },
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+
+            for (let row of data) {
+                let card = createCard(row);
+                modalBody.appendChild(card);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(`Error: ${status}, ${error}`);
+        }
+    });
+
+    const createCard = (data) => {
+        let card = document.createElement("div");
+        card.className = "card";
+        card.style.width = "100%";
+        card.style.marginBottom = "15px";
+
+        let cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+
+        let sendDate = document.createElement("p");
+        sendDate.className = "card-text";
+        sendDate.innerHTML = `<strong>Дата отправки:</strong> ${data.date_send}`;
+
+        let acceptDate = document.createElement("p");
+        acceptDate.className = "card-text";
+        acceptDate.innerHTML = `<strong>Дата принятия:</strong> ${data.date_accept}`;
+
+        let completeDate = document.createElement("p");
+        completeDate.className = "card-text";
+        completeDate.innerHTML = `<strong>Дата завершения:</strong> ${data.date_complete}`;
+
+        let councilDate = document.createElement("p");
+        councilDate.className = "card-text";
+        councilDate.innerHTML = `<strong>Дата решения комиссии:</strong> ${data.date_council}`;
+
+        cardBody.append(sendDate, acceptDate, completeDate, councilDate);
+        card.appendChild(cardBody);
+
+        return card;
+    };
+
+
+    // Запрос к таблице rating_criteria
+    $.ajax({
+        type: "GET",
+        url: "fetch_criteria.php",
+        data: { app_id: idapp },
+        dataType: "json",
+        cache: false,
+        success: function (data1) {
+            const groupedData = {};
+
+            for (let row of data1) {
+                if (!groupedData.hasOwnProperty(row.subvision_name)) {
+                    groupedData[row.subvision_name] = [];
+                }
+                groupedData[row.subvision_name].push(row);
+            }
+
+            for (const subvision in groupedData) {
+                let card = createGroupedCard(subvision, groupedData[subvision]);
+                modalBody.appendChild(card);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(`Error: ${status}, ${error}`);
+        }
+    });
+
+    const createGroupedCard = (subvision, dataRows) => {
+        let card = document.createElement("div");
+        card.className = "card";
+        card.style.width = "100%";
+        card.style.marginBottom = "15px";
+
+        let cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+
+        let text_id_subvision = document.createElement("h5");
+        text_id_subvision.className = "card-title";
+        text_id_subvision.innerHTML = `<strong>Подразделение:</strong> ${subvision}`;
+        cardBody.appendChild(text_id_subvision);
+
+        let listGroup = document.createElement("ul");
+        listGroup.className = "list-group list-group-flush";
+        cardBody.appendChild(listGroup);
+
+        for (let row of dataRows) {
+            let listItem = document.createElement("li");
+            listItem.className = "list-group-item";
+
+            let text_id_criteria = document.createElement("p");
+            text_id_criteria.className = "card-text";
+            text_id_criteria.innerHTML = `<strong>Критерий:</strong> ${row.criteria_name}`;
+
+            let text_status = document.createElement("p");
+            text_status.className = "card-text";
+            text_status.innerHTML = `<strong>Статус:</strong> ${row.status_name}&nbsp;&nbsp;` + `<strong>Дата готовности:</strong> ${row.date_complete}`;
+
+          /*  let text_date_complete = document.createElement("p");
+            text_date_complete.className = "card-text";
+            text_date_complete.innerHTML = `<strong>Дата готовности:</strong> ${row.date_complete}`;*/
+
+            let text_id_otvetstvennogo = document.createElement("p");
+            text_id_otvetstvennogo.className = "card-text";
+            text_id_otvetstvennogo.innerHTML = `<strong>Ответственный:</strong> ${row.username}`;
+
+            listItem.append(text_id_criteria, text_status, /*text_date_complete*/ text_id_otvetstvennogo);
+            listGroup.appendChild(listItem);
+        }
+
+        card.appendChild(cardBody);
+
+        return card;
+    };
+
+
+
+
+
+    modal.classList.add("showcl");
+
+    $(".btn-closes").on("click", () => {
+        modal.classList.remove("showcl");
+    });
+
+    $(".btn-dangers").on("click", () => {
+        modal.classList.remove("showcl");
+    });
+}
+
+
 
 
 
