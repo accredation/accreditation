@@ -1,7 +1,9 @@
 <?php
 include "connection.php";
 $login = $_COOKIE['login'];
-
+if(!isset($login)){
+    $login = $_COOKIE['login1'];
+}
 $id_application = $_POST['id_application'];
 
 if (!file_exists('documents/'.$login)) {
