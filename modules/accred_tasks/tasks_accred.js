@@ -339,6 +339,21 @@ function createChart(e) {
         if (e.type == "load") {
             el.style.backgroundColor = el.dataset.color;
             el.style.opacity = 1;
+
+        }
+
+        let ulZ = el.parentElement;
+        let idApp = ulZ.id.substring(2);
+        if(Number(idApp)) {
+
+            let tdAc = document.getElementById("date_accept_" + idApp);
+            let tdCompl = document.getElementById("date_complete_" + idApp);
+
+            if ((tdCompl.innerText=='' || tdAc.innerText=='')) {
+                el.style.opacity = 0;
+            } else {
+                el.style.opacity = 1;
+            }
         }
     });
 
@@ -499,7 +514,9 @@ let ulhline = document.getElementById("nowDate");
 let hline = ulhline.getElementsByTagName("li")[0];
 
 let mytask = document.getElementById("mytask");
-hline.style.height = (mytask.offsetHeight -90).toString() + 'px';
+let qq1 = document.getElementsByClassName("chart-wrapper")[0];
+let clH1 = qq1.clientHeight;
+hline.style.height = clH1 + "px";/*(mytask.offsetHeight -90).toString() + 'px';*/
 
 
 //скрипт формируем даты
@@ -526,7 +543,9 @@ while (currentDate <= endDate) {
     if(dayOfWeek === "Saturday" || dayOfWeek === "Sunday"){
         li.style = "background-color: rgb(227 227 227); height: 100%";
         li1.setAttribute("data-duration",date+"-"+date);
-        li1.style = "margin: 0px; position: absolute; padding: 1px; height: 317px; z-index: 1; background-color: rgb(227 227 227); opacity: 1; min-width: 50px; border-radius: 0"
+        let qq = document.getElementsByClassName("chart-wrapper")[0];
+        let clH = qq.clientHeight;
+        li1.style = "margin: 0px; position: absolute; padding: 1px; height:"+ clH + "px; z-index: 1; background-color: rgb(227 227 227); opacity: 1; min-width: 50px; border-radius: 0"
         document.querySelector('.chart-bars').appendChild(li1);
     }
     dayZ++;
@@ -665,25 +684,9 @@ function printReprot() {
            // console.log(style)
         }
 
-        if(item.classList.contains('fill_sub')){
-            console.log(item)
-        }
-        
 
-    //    if(item.)
-     //   
-     //   let td = item.getElementsByTagName('td')//[item.length-1]
-     //   td.setAttribute('hidden', 'true')
-    //   console.log(item)
-     //   let a = item.children[0];
-     //   a.removeAttribute("data-toggle");
-        //   a.classList.remove("active");
     }
 
- //   let td = trBody.getElementsByTagName('td')[trBody.getElementsByTagName('td').length-1]
-  //  td.setAttribute('hidden', 'true')
-
-  //  console.log(trBody)
  
     var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
@@ -694,8 +697,10 @@ function printReprot() {
         
 
     let divReportTitle = document.createElement('div');
-    divReportTitle.innerHTML = 'График работы медицинской аккредитации'   
+    divReportTitle.innerHTML = 'График работы медицинской аккредитации'
+    divReportTitle.style = 'text-align: center; font-size: 18px; margin-bottom: 2rem; font-weight:700'
 
+    WinPrint.document.write(divReportTitle.outerHTML);
     WinPrint.document.write(table.outerHTML);
    
     WinPrint.document.close();
