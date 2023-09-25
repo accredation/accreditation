@@ -629,4 +629,82 @@ function stopDrag() {
     document.removeEventListener("mouseup", stopDrag);
 }
 
+function printReprot() {
+    let tableMain = document.getElementById('table');
+
+    let table = tableMain.cloneNode(true)
+
+    let thead = table.getElementsByTagName('thead')[0]
+    let trHead = thead.getElementsByTagName('tr')[0]
+    let th = trHead.getElementsByTagName('th')[trHead.getElementsByTagName('th').length-1]
+    th.setAttribute('hidden', 'true')
+
+    let tbody = table.getElementsByTagName('tbody')[0]
+    let trBody = tbody.getElementsByTagName('tr')
+    
+    for (let item of trBody){
+        if(item.classList.contains('question')){
+            item.style = 'font-weight: 700';
+            let tdq = item.getElementsByTagName('td')[item.getElementsByTagName('td').length-1]
+            tdq.setAttribute('hidden', 'true')
+        }
+
+        let tdq = item.getElementsByTagName('td')
+        for(let tdItem of tdq){
+          if(tdItem.getElementsByTagName('select')[0]){
+            let div = document.createElement('div');
+            div.innerHTML = tdItem.getElementsByTagName('select')[0].textContent;
+            let select = tdItem.getElementsByTagName('select')[0];
+            select.setAttribute('hidden', 'true');
+          }
+        }
+
+        if(item.classList.contains('fill_sub')){
+            
+            item.style = 'font-style: italic;'
+           // console.log(style)
+        }
+
+        if(item.classList.contains('fill_sub')){
+            console.log(item)
+        }
+        
+
+    //    if(item.)
+     //   
+     //   let td = item.getElementsByTagName('td')//[item.length-1]
+     //   td.setAttribute('hidden', 'true')
+    //   console.log(item)
+     //   let a = item.children[0];
+     //   a.removeAttribute("data-toggle");
+        //   a.classList.remove("active");
+    }
+
+ //   let td = trBody.getElementsByTagName('td')[trBody.getElementsByTagName('td').length-1]
+  //  td.setAttribute('hidden', 'true')
+
+  //  console.log(trBody)
+ 
+    var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+    WinPrint.document.write('<style>@page {\n' +
+        'size: A4 landscape;\n' +
+        'margin: 1rem;\n' +
+        '}</style>');
+        
+
+    let divReportTitle = document.createElement('div');
+    divReportTitle.innerHTML = 'График работы медицинской аккредитации'   
+
+    WinPrint.document.write(table.outerHTML);
+   
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+
+    
+}
+
+
 //header.addEventListener("mousedown", startDrag);
