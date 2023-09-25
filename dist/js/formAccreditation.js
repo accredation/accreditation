@@ -964,11 +964,11 @@ function createTableForPrint(tableForPrint){
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['mark_name'];
                 td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-    
+    /*
                 let td2 = document.createElement('td');
                 td2.innerHTML = item['mark_class'];
                 td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-          
+          */
                 let td3 = document.createElement('td');
                 td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
                 td3.innerHTML = item['field4'];
@@ -992,7 +992,7 @@ function createTableForPrint(tableForPrint){
     
                 tr.appendChild(tdNum);
                 tr.appendChild(td1);
-                tr.appendChild(td2);
+             //   tr.appendChild(td2);
                 tr.appendChild(td3);
     
                 tr.appendChild(td4);
@@ -1221,11 +1221,11 @@ function createTableForPrintNo(tableForPrint){
             let td1 = document.createElement('td');
             td1.innerHTML = item['mark_name'];
             td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-
+/*
             let td2 = document.createElement('td');
             td2.innerHTML = item['mark_class'];
             td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-
+*/
             let td3 = document.createElement('td');
             td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
             td3.innerHTML = item['field4'];
@@ -1249,7 +1249,7 @@ function createTableForPrintNo(tableForPrint){
 
             tr.appendChild(tdNum);
             tr.appendChild(td1);
-            tr.appendChild(td2);
+          //  tr.appendChild(td2);
             tr.appendChild(td3);
 
             tr.appendChild(td4);
@@ -2075,10 +2075,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['mark_name'];
                 td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left";
-
+/*
                 let td2 = document.createElement('td');
                 td2.innerHTML = item['mark_class'];
                 td2.style = "border: 1px solid black; text-align: center";
+                */
                 let td3 = document.createElement('td');
               //  td3.innerHTML = item['filed4'];
                 td3.style = "border: 1px solid black";
@@ -2156,7 +2157,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                 tr.appendChild(tdNum);
                 tr.appendChild(td1);
-                tr.appendChild(td2);
+              //  tr.appendChild(td2);
                 tr.appendChild(td3);
 
                 tr.appendChild(td4);
