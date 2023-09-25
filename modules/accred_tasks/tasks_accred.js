@@ -362,7 +362,6 @@ function createChart(e) {
 
 
         let appId = el.id.substring(2);
-        console.log(appId + "app");
         const dateCouncilElement = document.querySelector(`#date_council_${appId}`);
         const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
 
@@ -748,7 +747,7 @@ function handleColorChange(colorPicker, appId) {
     const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
     if (targetChartBar) {
         targetChartBar.setAttribute('data-color', selectedColor);
-      //  targetChartBar.style.backgroundColor = selectedColor;
+       targetChartBar.style.backgroundColor = selectedColor;
     }
 
     const xhr = new XMLHttpRequest();
@@ -781,7 +780,7 @@ function handleColorChange(colorPicker, appId) {
                     const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
                     if (targetChartBar) {
                         targetChartBar.setAttribute('data-color', color);
-                       // targetChartBar.style.backgroundColor = color;
+                       targetChartBar.style.backgroundColor = color;
                     }
 
                     const targetTd = document.querySelector(`.question[id='${appId}'] td:first-child`);
