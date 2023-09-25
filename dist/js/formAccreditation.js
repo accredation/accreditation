@@ -473,6 +473,10 @@ function showModal(id_application, strMarks, strMarksAccred){
     let techOsn = document.getElementById("techOsn");
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
+    let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
+    let divDateDorabotka = document.getElementById("divDateDorabotka");
+    let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
+    let formDateDorabotka = document.getElementById("formDateDorabotka");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
@@ -484,6 +488,16 @@ function showModal(id_application, strMarks, strMarksAccred){
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
+
+
+    if (status == 5) {
+        formFileReportDorabotka.style.display = "block";
+        formDateDorabotka.style.display = "block";
+    } else {
+        formFileReportDorabotka.style.display = "none";
+        formDateDorabotka.style.display = "none";
+    }
+
 
     let data = new Array();
     $.ajax({
@@ -505,8 +519,16 @@ function showModal(id_application, strMarks, strMarksAccred){
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             let login = data[0][13];
+
+            if(data[0][17] != null) {
+                divDateDorabotka.insertAdjacentHTML("afterend", "<span>"+data[0][17]+"</span>");
+            }
+
             if(data[0][15] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+            }
+            if(data[0][16] != null) {
+                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if(data[0][14] != null) {
                 fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
@@ -588,6 +610,17 @@ function showModal(id_application, strMarks, strMarksAccred){
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let sam = divReportSamoocenka.getElementsByTagName("a")[0];
+        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let DD = formDateDorabotka.querySelectorAll("span");
+        // Удалить все найденные элементы с тегом "a"
+        for (let anchor of fRD) {
+            anchor.remove();
+        }
+
+        for (let anchor of DD) {
+            anchor.remove();
+        }
+
         if(sam) {
             sam.remove();
         }
@@ -624,6 +657,17 @@ function showModal(id_application, strMarks, strMarksAccred){
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let sam = divReportSamoocenka.getElementsByTagName("a")[0];
+
+        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let DD = formDateDorabotka.querySelectorAll("span");
+        // Удалить все найденные элементы с тегом "a"
+        for (let anchor of fRD) {
+            anchor.remove();
+        }
+
+        for (let anchor of DD) {
+            anchor.remove();
+        }
         if(sam) {
             sam.remove();
         }
