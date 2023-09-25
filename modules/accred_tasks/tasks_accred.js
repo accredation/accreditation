@@ -245,10 +245,10 @@ function saveChanges(btn){
                         dateCompl = new Date();
                     }
                     ulId.children[1].setAttribute("data-duration", dateComplF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0, 5));
-                    ulId.children[1].style.backgroundColor = "#CE3F31";
+                   // ulId.children[1].style.backgroundColor = "#CE3F31";
                 } else {
                     ulId.children[1].setAttribute("data-duration", dateCouncF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateCouncF.toLocaleString('ru-RU').slice(0, 5));
-                    ulId.children[1].style.backgroundColor = "#8A231A";
+                  //  ulId.children[1].style.backgroundColor = "#8A231A";
                 }
                 btn.addEventListener("mouseout", createChart);
 
@@ -357,6 +357,18 @@ function createChart(e) {
                 el.style.opacity = 0;
             } else {
                 el.style.opacity = 1;
+            }
+        }
+
+
+        let appId = el.id.substring(2);
+        console.log(appId + "app");
+        const dateCouncilElement = document.querySelector(`#date_council_${appId}`);
+        const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
+
+        if (dateCouncilElement && dateCouncilElement.textContent.trim() === '') {
+            if (targetChartBar) {
+                targetChartBar.style.display = 'none';
             }
         }
     });
@@ -596,11 +608,11 @@ window.onload = () => {
         })
         res = ( lrs/ rrs) ;
         if(Number(res)){
-            document.getElementById(`${id}`).children[7].innerHTML = (res * 100).toFixed(2) +'%' ;
+            document.getElementById(`${id}`).children[8].innerHTML = (res * 100).toFixed(2) +'%' ;
             document.getElementById("ul"+`${id}`).children[0].innerHTML += " Прогресс: " + (res * 100).toFixed(2) +'%';
 
         } else {
-            document.getElementById(`${id}`).children[7].innerHTML = '0' +'%';
+            document.getElementById(`${id}`).children[8].innerHTML = '0' +'%';
         }
 
     });
@@ -664,7 +676,7 @@ function printReprot() {
 
     let tbody = table.getElementsByTagName('tbody')[0]
     let trBody = tbody.getElementsByTagName('tr')
-    
+
     for (let item of trBody){
         if(item.classList.contains('question')){
             item.style = 'font-weight: 700';
@@ -683,7 +695,7 @@ function printReprot() {
         }
 
         if(item.classList.contains('fill_sub')){
-            
+
             item.style = 'font-style: italic;'
            // console.log(style)
         }
@@ -691,14 +703,14 @@ function printReprot() {
 
     }
 
- 
+
     var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
     WinPrint.document.write('<style>@page {\n' +
         'size: A4 landscape;\n' +
         'margin: 1rem;\n' +
         '}</style>');
-        
+
 
     let divReportTitle = document.createElement('div');
     divReportTitle.innerHTML = 'График работы медицинской аккредитации'
@@ -706,14 +718,81 @@ function printReprot() {
 
     WinPrint.document.write(divReportTitle.outerHTML);
     WinPrint.document.write(table.outerHTML);
-   
+
     WinPrint.document.close();
     WinPrint.focus();
     WinPrint.print();
     WinPrint.close();
 
-    
+
 }
 
 
 //header.addEventListener("mousedown", startDrag);
+
+
+
+
+
+//ззз
+function handleColorChange(colorPicker, appId) {
+    let ulId = document.getElementById("ul"+this.id_app);
+    const selectedColor = colorPicker.value;
+
+    const targetTd = document.querySelector(`.question[id='${appId}'] td:first-child`);
+    if (targetTd) {
+        targetTd.style.backgroundColor = selectedColor;
+    }
+
+
+    const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
+    if (targetChartBar) {
+        targetChartBar.setAttribute('data-color', selectedColor);
+      //  targetChartBar.style.backgroundColor = selectedColor;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'modules/accred_tasks/save_color.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(`app_id=${appId}&color=${selectedColor}`);
+}
+
+
+
+
+//изменить цвет при загрузке + цвет колонки
+    window.addEventListener('DOMContentLoaded', () => {
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const colors = JSON.parse(xhr.responseText);
+                colors.forEach((colorData) => {
+                    const { appId, color } = colorData;
+
+                    const targetSelect = document.querySelector(`.question[id='${appId}'] .color-picker`);
+                    const selectedItem = targetSelect.querySelector(`option[value='${color}']`);
+
+                    if (selectedItem) {
+                        selectedItem.selected = true;
+                    }
+
+                    const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
+                    if (targetChartBar) {
+                        targetChartBar.setAttribute('data-color', color);
+                       // targetChartBar.style.backgroundColor = color;
+                    }
+
+                    const targetTd = document.querySelector(`.question[id='${appId}'] td:first-child`);
+                    if (targetTd) {
+                        targetTd.style.backgroundColor = color;
+                    }
+                });
+            }
+        };
+
+        xhr.open('GET', 'modules/accred_tasks/load_colors.php', true);
+        xhr.send(null);
+
+    });
