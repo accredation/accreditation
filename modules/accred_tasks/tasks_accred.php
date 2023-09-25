@@ -2,12 +2,19 @@
     <div class="content-wrapper">
 
             <h2 class="text-dark font-weight-bold mb-2"> Задачи </h2>
+            <div>
+            <button 
+                    id="btnReportPrint"
+                    class="btn btn-success btn-fw"
+                    onclick="printReprot()"
+                    >Печатать графика работы</button>
+            </div>
             <div class="row">
                 <div class="col-12 grid-margin">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" >
 
-                            <table border="1" style="border-color: #dee2e6; width: 100%">
+                            <table border="1" style="border-color: #dee2e6; width: 100%" id='table'>
                                 <thead>
                                     <th> Наименование</th>
                                     <th>Статус</th>
