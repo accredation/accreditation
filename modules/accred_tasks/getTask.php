@@ -11,8 +11,8 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 {
     $row = mysqli_fetch_assoc($rez);
 
-    $date_accept = $row['date_accept'];
-    $date_complete = $row['date_complete'];
+    $date_accept = $row['date_begin_prov'];
+    $date_complete = $row['date_end_prov'];
     $date_council = $row['date_council'];
 }
 array_push($data,$date_accept);

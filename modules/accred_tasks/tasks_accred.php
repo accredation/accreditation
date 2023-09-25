@@ -46,8 +46,8 @@
 
                                 foreach ($data as $app) {
                                     $app_id = $app['app_id'];
-                                    $date_accept = $app['date_accept'];
-                                    $date_complete = $app['date_complete'];
+                                    $date_accept = $app['date_begin_prov'];
+                                    $date_complete = $app['date_end_prov'];
 
 
                                     ?>
@@ -56,8 +56,8 @@
                                         <td style ="text-align: center"><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
                                         <td style ="text-align: center"><?= $app['preds']?></td>
-                                        <td id="date_accept_<?= $app_id?>" style ="text-align: center"><?=$app['date_accept']?></td>
-                                        <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_complete']?></td>
+                                        <td id="date_accept_<?= $app_id?>" style ="text-align: center"><?=$app['date_begin_prov']?></td>
+                                        <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_end_prov']?></td>
                                         <td id="date_council_<?= $app_id?>" style ="text-align: center"><?=$app['date_council']?></td>
                                         <td style ="text-align: center">progress</td>
                                         <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app_id?>')">Изменить</button></td>
@@ -188,7 +188,7 @@
                 foreach ($data as $app) {
                     $app_id = $app['app_id'];
                     $status = $app['id_status'];
-                    $date_accept = $app['date_accept'];
+                    $date_accept = $app['date_begin_prov'];
                     $startDate = date('Y-m-d', strtotime("-5 month"));
 
                     if($date_accept < $startDate ) {
@@ -199,7 +199,7 @@
 
 
 
-                    $date_complete = $app['date_complete'];
+                    $date_complete = $app['date_end_prov'];
                     $endDate = date('Y-m-d', strtotime("5 month"));
                     if($date_complete > $endDate ) {
                         $date_complete = $endDate;

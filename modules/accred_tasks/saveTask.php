@@ -32,7 +32,7 @@ if(empty($date_council)){
 }
 
 //$query_srt .= " WHERE id_application = '$id_application'";
-$query = "Update applications set date_accept = {$date_accept}, date_complete = {$date_complete}, date_council = {$date_council}, id_responsible = '$id_responsible' WHERE id_application = '$id_application'";
+$query = "Update applications set date_begin_prov = {$date_accept}, date_end_prov = {$date_complete}, date_council = {$date_council}, id_responsible = '$id_responsible' WHERE id_application = '$id_application'";
 
 
 mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
