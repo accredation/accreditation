@@ -423,16 +423,10 @@ function showModal(id_application, strMarks, strMarksAccred){
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
 
-
-    if (status == 5) {
-        formFileReportDorabotka.style.display = "block";
-        formDateDorabotka.style.display = "block";
-    } else {
-        formFileReportDorabotka.style.display = "none";
-        formDateDorabotka.style.display = "none";
-    }
     //  naim.value = username;
     if(status == 1 || status == 5){
+        formFileReportDorabotka.style.display = "block";
+        formDateDorabotka.style.display = "block";
 
     }else{
 
@@ -454,6 +448,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         reportSamoocenka.setAttribute("disabled","true");
         formFileReportDorabotka.setAttribute("disabled","true");
         formDateDorabotka.setAttribute("disabled","true");
+        formFileReportDorabotka.style.display = "none";
+        formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
         btnSend.classList.add("hiddentab");
