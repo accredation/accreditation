@@ -56,6 +56,16 @@
         transform: scale(1.2);
         font-weight: bold;
     }
+    #formDateDorabotka{
+        margin-left: 35px;
+    }
+    #formFileReportDorabotka{
+        margin-left: 35px;
+    }
+    .history{
+        display: flex;
+        justify-content: center;
+    }
 </style>
 
 <style>
@@ -755,6 +765,22 @@
                                                     <input type="file" class="form-control-file" id="fileReport" >
                                                 </div>
                                             </form>
+
+
+                                            <form id="formFileReportDorabotka" >
+                                                <div class="form-group " id = "divFileReportDorabotka" style="margin-bottom: 0px;" >
+                                                    <label for="reportDorabotka">Информация о необходимости доработки</label>
+                                                </div>
+                                            </form>
+                                            <br>
+                                            <form id="formDateDorabotka" >
+                                                <div class="form-group " id = "divDateDorabotka"  style="margin-bottom: 0px;">
+                                                    <label for="dateDorabotka">Срок доработки</label>
+                                                </div>
+                                            </form>
+                                            <br>
+
+
 
                                             <div class = "history">
                                                 <button class="btn btn-success" id="history" onclick="showHistory()">История заявления</button>

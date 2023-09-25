@@ -409,6 +409,8 @@ function showModal(id_application, strMarks, strMarksAccred){
     let reportSamoocenka = document.getElementById("reportSamoocenka");
     let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
     let divDateDorabotka = document.getElementById("divDateDorabotka");
+    let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
+    let formDateDorabotka = document.getElementById("formDateDorabotka");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
@@ -423,6 +425,8 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     //  naim.value = username;
     if(status == 1 || status == 5){
+        formFileReportDorabotka.style.display = "block";
+        formDateDorabotka.style.display = "block";
 
     }else{
 
@@ -442,6 +446,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         ucomplect.setAttribute("disabled","true");
         techOsn.setAttribute("disabled","true");
         reportSamoocenka.setAttribute("disabled","true");
+        formFileReportDorabotka.setAttribute("disabled","true");
+        formDateDorabotka.setAttribute("disabled","true");
+        formFileReportDorabotka.style.display = "none";
+        formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
         btnSend.classList.add("hiddentab");
@@ -471,7 +479,7 @@ function showModal(id_application, strMarks, strMarksAccred){
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             if(data[0][17] != null) {
-                divDateDorabotka.insertAdjacentHTML("afterend", "<label>"+data[0][17]+"</label>");
+                divDateDorabotka.insertAdjacentHTML("afterend", "<span>"+data[0][17]+"</span>");
             }
             if(data[0][14] != null) {
                 fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
@@ -519,6 +527,9 @@ function showModal(id_application, strMarks, strMarksAccred){
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
+        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let DD = formDateDorabotka.querySelectorAll("span");
+
 
 
 
@@ -542,6 +553,14 @@ function showModal(id_application, strMarks, strMarksAccred){
                 await updateCollapse(id_criteria, id_sub, 0).then(() => {
                     if (samoocenka) {
                         samoocenka.remove();
+                    }
+                    // Удалить все найденные элементы с тегом "a"
+                    for (let anchor of fRD) {
+                        anchor.remove();
+                    }
+
+                    for (let anchor of DD) {
+                        anchor.remove();
                     }
                     if (rep) {
                         rep.remove();
@@ -582,6 +601,14 @@ function showModal(id_application, strMarks, strMarksAccred){
                 if(samoocenka) {
                     samoocenka.remove();
                 }
+                // Удалить все найденные элементы с тегом "a"
+                for (let anchor of fRD) {
+                    anchor.remove();
+                }
+
+                for (let anchor of DD) {
+                    anchor.remove();
+                }
                 if(rep) {
                     rep.remove();
                 }
@@ -618,6 +645,14 @@ function showModal(id_application, strMarks, strMarksAccred){
         else{
             if(samoocenka) {
                 samoocenka.remove();
+            }
+            // Удалить все найденные элементы с тегом "a"
+            for (let anchor of fRD) {
+                anchor.remove();
+            }
+
+            for (let anchor of DD) {
+                anchor.remove();
             }
             if(rep) {
                 rep.remove();
@@ -660,7 +695,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
-
+        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let DD = formDateDorabotka.querySelectorAll("span");
 
 
         var collapseElement = document.getElementsByClassName('collapse');
@@ -681,6 +717,14 @@ function showModal(id_application, strMarks, strMarksAccred){
                 await updateCollapse(id_criteria, id_sub, 0).then(() => {
                     if (samoocenka) {
                         samoocenka.remove();
+                    }
+                    // Удалить все найденные элементы с тегом "a"
+                    for (let anchor of fRD) {
+                        anchor.remove();
+                    }
+
+                    for (let anchor of DD) {
+                        anchor.remove();
                     }
                     if (rep) {
                         rep.remove();
@@ -721,6 +765,14 @@ function showModal(id_application, strMarks, strMarksAccred){
                 if(samoocenka) {
                     samoocenka.remove();
                 }
+                // Удалить все найденные элементы с тегом "a"
+                for (let anchor of fRD) {
+                    anchor.remove();
+                }
+
+                for (let anchor of DD) {
+                    anchor.remove();
+                }
                 if(rep) {
                     rep.remove();
                 }
@@ -757,6 +809,14 @@ function showModal(id_application, strMarks, strMarksAccred){
         else{
             if(samoocenka) {
                 samoocenka.remove();
+            }
+            // Удалить все найденные элементы с тегом "a"
+            for (let anchor of fRD) {
+                anchor.remove();
+            }
+
+            for (let anchor of DD) {
+                anchor.remove();
             }
             if(rep) {
                 rep.remove();

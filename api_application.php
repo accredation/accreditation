@@ -33,6 +33,14 @@
         box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
         z-index: 9999;
     }
+    #formDateDorabotka{
+        margin-left: 2px;
+    }
+    #formFileReportDorabotka{
+        margin-left: 2px;
+    }
+
+
 </style>
 
 <style>
