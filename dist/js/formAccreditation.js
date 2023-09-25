@@ -393,6 +393,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     let btnChecking = document.getElementById("btnChecking");
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
+
     let btncalc = document.getElementById("btnCalc");
     let btnreport = document.getElementById("btnPrintReport");
     let btnOkReshenie =  document.getElementById("btnOkReshenie");
@@ -411,7 +412,9 @@ function showModal(id_application, strMarks, strMarksAccred){
         sovetgr.style.display = "none";
         informgr.style.display = "none";
     }else if(tabNeodobrennie.classList.contains("active")){
-        btnChecking.classList.remove("hiddentab");
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
+            btnChecking.classList.remove("hiddentab");
+        }
         btnOk.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
@@ -442,9 +445,13 @@ function showModal(id_application, strMarks, strMarksAccred){
     else{
         sovetgr.style.display = "none";
         informgr.style.display = "block";
-        btnNeOk.classList.remove("hiddentab");
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
+            btnNeOk.classList.remove("hiddentab");
+        }
         btnOk.classList.add ("hiddentab");
-        btnChecking.classList.remove("hiddentab");
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
+            btnChecking.classList.remove("hiddentab");
+        }
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
@@ -2432,7 +2439,7 @@ $("#rassmotrenie-tab").on("click", () => {
     }
     allTabsMainPage[1].children[0].classList.add("show");
     allTabsMainPage[1].children[0].classList.add("active");
-    status = 2;
+    status = 6;
 
 });
 
@@ -2488,7 +2495,7 @@ $("#reshenieSoveta-tab").on("click", () => {
     }
     allTabsMainPage[4].children[0].classList.add("show");
     allTabsMainPage[4].children[0].classList.add("active");
-    status = 2;
+    status = 6;
     //  console.log(status);
 
 });

@@ -524,14 +524,14 @@
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join users u on a.id_user =u.id_user
-                                                   where id_status = 2 and u.oblast = '$role'";
+                                                   where id_status = 6 and u.oblast = '$role'";
                                         }
                                         else {
                                             $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join users u on a.id_user =u.id_user
-                                                   where id_status = 2";
+                                                   where id_status = 6";
                                         }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
