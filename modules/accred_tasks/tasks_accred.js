@@ -197,10 +197,10 @@ function saveChanges(btn){
                     id_responsible: id_responsible
                 }
             }).done(function (response) {
-                trId.children[3].innerHTML = predsName;
-                trId.children[4].innerHTML = dateAccept.value;
-                trId.children[5].innerHTML = dateComplete.value;
-                trId.children[6].innerHTML = dateCouncil.value;
+                trId.children[4].innerHTML = predsName;
+                trId.children[5].innerHTML = dateAccept.value;
+                trId.children[6].innerHTML = dateComplete.value;
+                trId.children[7].innerHTML = dateCouncil.value;
 
                 let startDate2 = new Date(); // текущая дата yy mm dd
                 let endDate2 = new Date(); // конечная дата
@@ -361,15 +361,22 @@ function createChart(e) {
         }
 
 
-        let appId = el.id.substring(2);
-        const dateCouncilElement = document.querySelector(`#date_council_${appId}`);
-        const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
 
-        if (dateCouncilElement && dateCouncilElement.textContent.trim() === '') {
-            if (targetChartBar) {
-                targetChartBar.style.display = 'none';
+
+        let ulli = el.parentElement;
+        let id_App = ulli.id.substring(2);
+        if(Number(id_App)) {
+
+            let date_council = document.getElementById("date_council_" + idApp);
+            let uldc = document.getElementById("ul" + idApp);
+
+            if (date_council.innerText=='') {
+                uldc.children[1].style.opacity = 0;
+            } else {
+                uldc.children[1].style.opacity = 1;
             }
         }
+
     });
 
 
