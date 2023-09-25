@@ -3025,6 +3025,9 @@ $("#techOsn").on("change", () =>{
 
 $("#reportSamoocenka").on("change", () =>{
     let login = getCookie('login');
+    // if(!login) {
+    //     login = getCookie('login1');
+    // }
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     let sopr = divFileReportSamoocenka.getElementsByTagName("a")[0];
     if(sopr) {

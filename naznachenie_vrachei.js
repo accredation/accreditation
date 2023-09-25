@@ -39,7 +39,7 @@ function getUserId(id_user) {
     });
 }
 function checkPermissions() {
-    if (getCookie("isMA") != "1" ) {
+    if (getCookie("expert") === "1" ) {
         if (id_role != 12) {
             [...svoboda].forEach(item => {
                 item.disabled = true;
@@ -48,6 +48,7 @@ function checkPermissions() {
 
             [...svyazka].forEach(item => {
                 item.innerHTML = "Связанные критерии";
+                item.disabled = true;
             });
 
             let checkboxes = document.querySelector("#modalvrachi").querySelectorAll("input[type=checkbox]");

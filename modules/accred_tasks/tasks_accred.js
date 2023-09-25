@@ -26,7 +26,7 @@ function getCookie(cname) {
     return "";
 }
 
-if(getCookie("isMA") === "0") {
+if(getCookie("expert") === "1") {
     [...btns].forEach(item => {
         item.disabled = true;
     });
@@ -62,6 +62,10 @@ let dateComplete = document.getElementById("dateComplete");
 let dateCouncil = document.getElementById("dateCouncil");
 
 function showModal(id_app){
+    let btnSave = document.getElementById("btnSave");
+    if (getCookie("expert") === "1"){
+        btnSave.classList.add("hidden");
+    }
     this.id_app = id_app;
 
     let parent = document.getElementById(`${id_app}`);
