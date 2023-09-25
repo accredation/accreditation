@@ -9,6 +9,7 @@
 
                             <table border="1" style="border-color: #dee2e6; width: 100%">
                                 <thead>
+                                    <th> Цвет</th>
                                     <th> Наименование</th>
                                     <th>Статус</th>
                                     <th>Дата подачи</th>
@@ -45,6 +46,26 @@
 
                                     ?>
                                     <tr class="question" id="<?= $app_id?>" style=" background-color: #9CCDCD; ">
+                                        <td>
+                                            <select class="color-picker" onchange="handleColorChange(this, <?= $app_id ?>)">
+                                                <option value="" selected>Выберите цвет</option>
+                                                <option value="#FF0000" style="background-color: #FF0000;">Красный</option>
+                                                <option value="#00FF00" style="background-color: #00FF00;">Зеленый</option>
+                                                <option value="#0000FF" style="background-color: #0000FF;">Синий</option>
+                                                <option value="#FFFF00" style="background-color: #FFFF00;">Желтый</option>
+                                                <option value="#FFA500" style="background-color: #FFA500;">Оранжевый</option>
+                                                <option value="#800080" style="background-color: #800080;">Фиолетовый</option>
+                                                <option value="#FFC0CB" style="background-color: #FFC0CB;">Розовый</option>
+                                                <option value="#808080" style="background-color: #808080;">Серый</option>
+                                                <option value="#008000" style="background-color: #008000;">Темно-зеленый</option>
+                                                <option value="#00FFFF" style="background-color: #00FFFF;">Голубой</option>
+                                                <option value="#000080" style="background-color: #000080;">Темно-синий</option>
+                                                <option value="#800000" style="background-color: #800000;">Бордовый</option>
+                                                <option value="#008080" style="background-color: #008080;">Бирюзовый</option>
+                                                <option value="#D2691E" style="background-color: #D2691E;">Коричневый</option>
+                                                <option value="#C0C0C0" style="background-color: #C0C0C0;">Светло-серый</option>
+                                            </select>
+                                        </td>
                                         <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer;text-align: center" ><?= $app['username']?> №<?= $app_id ?></td>
                                         <td style ="text-align: center"><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
@@ -81,6 +102,7 @@
                                         $id_subvision = $app1['id_subvision'];
                                     ?>
                                         <tr  class="content1 hidden_<?= $app_id?> fill_sub" style="margin-left:2rem; margin-top: 1rem; background-color: #a2e7d6" >
+                                            <td></td>
                                             <td><?= $app1['name']?></td>
                                             <td></td>
                                             <td></td>
@@ -89,6 +111,7 @@
                                             <td></td>
                                             <td></td>
                                             <td class = "progr"><?= $app1['progress']?></td>
+
 
                                         </tr>
 
@@ -212,7 +235,7 @@
                     }
                 ?>
                     <ul class="chart-bars " style="display: flex"  id = "ul<?= $app_id?>" >
-                        <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100 ">Задание заявления №<?= $app_id?></li>
+                        <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100 ">Задание заявления №<?= $app_id?> <?= $app['naim']?></li>
                 <?php
                     if(($date_council != null || $date_council != "")&&($date_council != $endDate)){
                 ?>

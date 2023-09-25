@@ -233,10 +233,10 @@ function saveChanges(btn){
                         dateCompl = new Date();
                     }
                     ulId.children[1].setAttribute("data-duration", dateComplF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateComplF.toLocaleString('ru-RU').slice(0, 5));
-                    ulId.children[1].style.backgroundColor = "#CE3F31";
+                   // ulId.children[1].style.backgroundColor = "#CE3F31";
                 } else {
                     ulId.children[1].setAttribute("data-duration", dateCouncF.toLocaleString('ru-RU').slice(0, 5) + "-" + dateCouncF.toLocaleString('ru-RU').slice(0, 5));
-                    ulId.children[1].style.backgroundColor = "#8A231A";
+                  //  ulId.children[1].style.backgroundColor = "#8A231A";
                 }
                 btn.addEventListener("mouseout", createChart);
 
@@ -332,11 +332,25 @@ function createChart(e) {
             el.style.backgroundColor = el.dataset.color;
             el.style.opacity = 1;
         }
+
+
+        let appId = el.id.substring(2);
+        console.log(appId + "app");
+        const dateCouncilElement = document.querySelector(`#date_council_${appId}`);
+        const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
+
+        if (dateCouncilElement && dateCouncilElement.textContent.trim() === '') {
+            if (targetChartBar) {
+                targetChartBar.style.display = 'none';
+            }
+        }
     });
 
-
-
 }
+
+
+
+
 window.addEventListener("load", createChart);
 window.addEventListener("resize", createChart);
 
@@ -529,6 +543,8 @@ while (currentDate <= endDate) {
 
 
 
+
+
 var targetElement = document.getElementById(day);
 window.onload = () => {
 
@@ -563,13 +579,21 @@ window.onload = () => {
         })
         res = ( lrs/ rrs) ;
         if(Number(res)){
-            document.getElementById(`${id}`).children[7].innerHTML = (res * 100).toFixed(2) +'%' ;
+            document.getElementById(`${id}`).children[8].innerHTML = (res * 100).toFixed(2) +'%' ;
+            document.getElementById("ul"+`${id}`).children[0].innerHTML += " Прогресс: " + (res * 100).toFixed(2) +'%';
+
         } else {
-            document.getElementById(`${id}`).children[7].innerHTML = '0' +'%';
+            document.getElementById(`${id}`).children[8].innerHTML = '0' +'%';
         }
 
     });
 }
+
+
+
+
+
+
 function changeOtv(el){
     let id = el.id.substring(2);
     let id_userotv = el.options[el.selectedIndex].value;
@@ -618,3 +642,70 @@ function stopDrag() {
 }
 
 //header.addEventListener("mousedown", startDrag);
+
+
+
+
+
+//ззз
+function handleColorChange(colorPicker, appId) {
+    let ulId = document.getElementById("ul"+this.id_app);
+    const selectedColor = colorPicker.value;
+
+    const targetTd = document.querySelector(`.question[id='${appId}'] td:first-child`);
+    if (targetTd) {
+        targetTd.style.backgroundColor = selectedColor;
+    }
+
+
+    const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
+    if (targetChartBar) {
+        targetChartBar.setAttribute('data-color', selectedColor);
+      //  targetChartBar.style.backgroundColor = selectedColor;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'modules/accred_tasks/save_color.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(`app_id=${appId}&color=${selectedColor}`);
+}
+
+
+
+
+//изменить цвет при загрузке + цвет колонки
+    window.addEventListener('DOMContentLoaded', () => {
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const colors = JSON.parse(xhr.responseText);
+                colors.forEach((colorData) => {
+                    const { appId, color } = colorData;
+
+                    const targetSelect = document.querySelector(`.question[id='${appId}'] .color-picker`);
+                    const selectedItem = targetSelect.querySelector(`option[value='${color}']`);
+
+                    if (selectedItem) {
+                        selectedItem.selected = true;
+                    }
+
+                    const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
+                    if (targetChartBar) {
+                        targetChartBar.setAttribute('data-color', color);
+                       // targetChartBar.style.backgroundColor = color;
+                    }
+
+                    const targetTd = document.querySelector(`.question[id='${appId}'] td:first-child`);
+                    if (targetTd) {
+                        targetTd.style.backgroundColor = color;
+                    }
+                });
+            }
+        };
+
+        xhr.open('GET', 'modules/accred_tasks/load_colors.php', true);
+        xhr.send(null);
+
+    });
