@@ -103,6 +103,24 @@ a {
     }
 }
 
+.color-picker {
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    font-size: 16px;
+    margin: 10px;
+    padding: 5px;
+}
+.color-picker option {
+    padding: 5px;
+    margin: 2px;
+    font-size: 16px;
+    text-indent: 0;
+}
+.color-picker option:hover {
+    color: #000000;
+    background-color: transparent;
+}
+
 
 /* FOOTER
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
