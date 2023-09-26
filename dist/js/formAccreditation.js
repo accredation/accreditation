@@ -2512,6 +2512,14 @@ $("#reshenieSoveta-tab").on("click", () => {
 
 });
 
+function isFieldValid(value) {
+    return value !== null && value !== "";
+}
+function saveFieldsOnServer(formData) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("post", "saveSovet.php", true);
+    xhr.send(formData);
+}
 
 $("#btnSaveSovet").on("click", () => {
     let id_application = document.getElementById("id_application");
@@ -2520,22 +2528,37 @@ $("#btnSaveSovet").on("click", () => {
     var dateInputPlan = document.getElementById("dateInputPlan").value;
     var resolution = document.getElementById("resolution").value;
     var dateInputSrok = document.getElementById("dateInputSrok").value;
-    let xhr = new XMLHttpRequest(),
-        form = new FormData();
+
+    let formData = new FormData();
     let protokolsovetaFile = protokolsoveta.files[0];
     let zaklsovetaFile = zaklsoveta.files[0];
 
-    form.append("id_application", id_application.innerText);
-    form.append("dateInputPlan", dateInputPlan);
-    form.append("resolution", resolution);
-    form.append("dateInputSrok", dateInputSrok);
-    form.append("protokolsoveta", protokolsovetaFile);
-    form.append("zaklsoveta", zaklsovetaFile);
+    formData.append("id_application", id_application.innerText);
 
-    xhr.open("post", "saveSovet.php", true);
-    xhr.send(form);
+    if (isFieldValid(dateInputPlan)) {
+        formData.append("dateInputPlan", dateInputPlan);
+    }
+
+    if (isFieldValid(resolution)) {
+        formData.append("resolution", resolution);
+    }
+
+    if (isFieldValid(dateInputSrok)) {
+        formData.append("dateInputSrok", dateInputSrok);
+    }
+
+    if (protokolsovetaFile) {
+        formData.append("protokolsoveta", protokolsovetaFile);
+    }
+
+    if (zaklsovetaFile) {
+        formData.append("zaklsoveta", zaklsovetaFile);
+    }
+
+    saveFieldsOnServer(formData);
     alert("Данные сохранены");
 });
+
 
 $("#btnChecking").on("click", () => {
     let id_application = document.getElementById("id_application");

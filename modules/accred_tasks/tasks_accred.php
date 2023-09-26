@@ -1,4 +1,11 @@
 <link rel="stylesheet" href="modules/accred_tasks/tasks_accred.css">
+<style>
+    #uved{
+        font-size: 10px;
+        height: 32px;
+        width: 84px;
+    }
+</style>
     <div class="content-wrapper">
 
             <h2 class="text-dark font-weight-bold mb-2"> Задачи </h2>
@@ -81,8 +88,11 @@
                                         <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_end_prov']?></td>
                                         <td id="date_council_<?= $app_id?>" style ="text-align: center"><?=$app['date_council']?></td>
                                         <td style ="text-align: center">progress</td>
-                                        <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app_id?>')">Изменить</button></td>
+                                        <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app_id?>')">Изменить</button><button class="btn btn-primary" id = "uved" onclick="notifySelected('<?= $app_id ?>')">Уведомить</button></td>
+
                                     </tr>
+
+
                                     <?php
                                     $query1 = "SELECT s.id_subvision, `name`, CONCAT(IFNULL(count_crit_complit.countt,0), '/', IFNULL(count_crit.countt,0)) as progress
                                                 FROM subvision s  
@@ -120,7 +130,9 @@
                                             <td class = "progr"><?= $app1['progress']?></td>
 
 
+
                                         </tr>
+
 
 
                                         <?php
@@ -143,7 +155,7 @@
                                                 <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
                                                 <td></td>
-                                                <td><select onchange="changeOtv(this)" id="rt<?= $app2['id_rating_criteria']?>">
+                                                <td><select onchange="changeOtv(this)" class="rt_<?= $app_id ?>" id="rt<?= $app2['id_rating_criteria']?>">
                                                         <?php
 
                                                         if(isset($id_otvetstvennogo)){?>
@@ -177,6 +189,7 @@
 
 
                                 </tbody>
+
                             </table>
 
 
@@ -185,6 +198,8 @@
                 </div>
 
         </div>
+
+
         <div class="chart-wrapper" style="width: 100%; overflow: auto" >
 
             <ul class="chart-values">
@@ -325,6 +340,41 @@
         </div>
     </div>
 </div>
+<script>
+    async function notifySelected(app_id) {
+        let selectedItems = [];
+        let selectedValues = [];
+        const selects = document.getElementsByClassName('rt_' + app_id);
 
+        for (let i = 0; i < selects.length; i++) {
+            let selectedItem = selects[i].options[selects[i].selectedIndex].innerHTML;
+            let selectedValue = selects[i].options[selects[i].selectedIndex].value;
+            if (selects[i].value !== "" && selectedItem.trim().length > 0) {
+                selectedItems.push(selectedItem);
+                selectedValues.push(selectedValue);
+            }
+        }
+
+        if (selectedValues.length !== 0) {
+            const response = await fetch('modules/accred_tasks/email_mass_otpravka.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `userIds=${encodeURIComponent(selectedValues.join(', '))}`,
+            });
+
+            if (response.ok) {
+                const result = await response.text();
+                console.log(`E-mails отправка: ${result}`);
+            } else {
+                console.log('E-mail ошибка отправки.');
+            }
+        } else {
+            console.log('Нет выбранных значений.');
+        }
+    }
+
+</script>
 <script src="modules/accred_tasks/tasks_accred.js"></script>
 
