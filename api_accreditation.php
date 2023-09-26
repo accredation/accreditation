@@ -816,6 +816,7 @@
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета</button>
 
                     <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>
+                    <button type="submit" class="btn btn-danger hiddentab" id="btnOkonchatelnoeReshenie">Окончательное решение</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
                     <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия</button>

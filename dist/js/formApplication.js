@@ -2468,7 +2468,7 @@ $("#odobrennie-tab").on("click", () => {
     }
     allTabsMainPage[2].children[0].classList.add("show");
     allTabsMainPage[2].children[0].classList.add("active");
-    status = 4;
+    status = 7;
     //  console.log(status);
 
 });
