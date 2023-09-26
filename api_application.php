@@ -276,7 +276,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 4";
+                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 7";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>

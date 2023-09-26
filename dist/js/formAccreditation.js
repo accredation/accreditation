@@ -397,6 +397,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     let btncalc = document.getElementById("btnCalc");
     let btnreport = document.getElementById("btnPrintReport");
     let btnOkReshenie =  document.getElementById("btnOkReshenie");
+    let btnOkonchatelnoeReshenie =  document.getElementById("btnOkonchatelnoeReshenie");
 
     let tabOdobrenie = document.getElementById("odobrennie-tab");
     let tabNeodobrennie = document.getElementById("neodobrennie-tab");
@@ -406,20 +407,28 @@ function showModal(id_application, strMarks, strMarksAccred){
     let informgr = document.getElementById("informgr");
 
     if(tabOdobrenie.classList.contains("active")){
+        btnOkReshenie.classList.remove("hiddentab");
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnNeOk.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
     }else if(tabNeodobrennie.classList.contains("active")){
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
             btnChecking.classList.remove("hiddentab");
         }
-        btnOk.classList.remove("hiddentab");
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
     }
     else if(tabRassmotrenie.classList.contains("active")){
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
@@ -431,9 +440,10 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     }
     else if(tabReshenieSoveta.classList.contains("active")){
+        btnOkonchatelnoeReshenie.classList.remove("hiddentab");
         btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
-        btnOkReshenie.classList.remove("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
         btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
@@ -452,6 +462,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
             btnChecking.classList.remove("hiddentab");
         }
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
@@ -2542,6 +2553,38 @@ $("#btnChecking").on("click", () => {
 
 });
 
+$("#btnOkReshenie").on("click", () => {
+    let id_application = document.getElementById("id_application");
+
+    $.ajax({
+        url: "changeStatusReshenie.php",
+        method: "GET",
+        data: {id_application: id_application.innerText}
+    })
+        .done(function( response ) {
+
+            alert("Заявка перенесена в статус Решение совета");
+            location.href = "/index.php?users";
+        });
+
+});
+
+$("#btnOkonchatelnoeReshenie").on("click", () => {
+    let id_application = document.getElementById("id_application");
+
+    $.ajax({
+        url: "changeStatusOkonchatelnoeReshenie.php",
+        method: "GET",
+        data: {id_application: id_application.innerText}
+    })
+        .done(function( response ) {
+
+            alert("Заявка принята в окончательное решение");
+            location.href = "/index.php?users";
+        });
+
+});
+
 $("#btnOk").on("click", () => {
     let id_application = document.getElementById("id_application");
     let divReport = document.getElementById("divReport");
@@ -2882,9 +2925,9 @@ let bcheck = document.getElementById("btnChecking");
 let bdorab = document.getElementById("btnNeOk");
 let bzaver = document.getElementById("btnOk");
 
-if(getCookie("isMA") === "0") {
-
-    bcheck.disabled = true;
-    bdorab.disabled = true;
-    bzaver.disabled = true;
-}
+// if(getCookie("isMA") === "0") {
+//
+//     bcheck.disabled = true;
+//     bdorab.disabled = true;
+//     bzaver.disabled = true;
+// }
