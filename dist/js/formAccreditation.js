@@ -494,6 +494,8 @@ function showModal(id_application, strMarks, strMarksAccred){
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
+    let protfile = document.getElementById("protfile");
+    let zaklfile = document.getElementById("zaklfile");
 
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
@@ -629,12 +631,20 @@ function showModal(id_application, strMarks, strMarksAccred){
         let sam = divReportSamoocenka.getElementsByTagName("a")[0];
         let fRD =  formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
+        let fIP =  protfile.querySelectorAll("a");
+        let fIZ =  zaklfile.querySelectorAll("a");
         // Удалить все найденные элементы с тегом "a"
         for (let anchor of fRD) {
             anchor.remove();
         }
 
         for (let anchor of DD) {
+            anchor.remove();
+        }
+        for (let anchor of fIP) {
+            anchor.remove();
+        }
+        for (let anchor of fIZ) {
             anchor.remove();
         }
 
@@ -677,6 +687,8 @@ function showModal(id_application, strMarks, strMarksAccred){
 
         let fRD =  formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
+        let fIP =  protfile.querySelectorAll("a");
+        let fIZ =  zaklfile.querySelectorAll("a");
         // Удалить все найденные элементы с тегом "a"
         for (let anchor of fRD) {
             anchor.remove();
@@ -685,6 +697,13 @@ function showModal(id_application, strMarks, strMarksAccred){
         for (let anchor of DD) {
             anchor.remove();
         }
+        for (let anchor of fIP) {
+            anchor.remove();
+        }
+        for (let anchor of fIZ) {
+            anchor.remove();
+        }
+
         if(sam) {
             sam.remove();
         }
