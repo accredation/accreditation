@@ -15,14 +15,16 @@ if(!isset($_POST['fio']) and !isset($_POST['email'])){
     $email = urldecode($email);
     $fio = trim($fio);
     $email = trim($email);
-    $textSubj = "СУПЕРПИСЬМО";
-    $subj = iconv("utf-8","cp1251",$textSubj);
-    $text = "ЧМО1";
-    $message=iconv("utf-8","cp1251",$text);
-    if (mail("hancharou@rnpcmt.by", $subj, $message ,"From: galushka@rnpcmt.by \r\n")){
-        echo "Сообщение успешно отправлено";
-    } else {
-        echo "При отправке сообщения возникли ошибки";
+    for ($i = 0; $i < 200; $i++) {
+        $textSubj = "СУПЕРПИСЬМО";
+        $subj = iconv("utf-8", "cp1251", $textSubj);
+        $text = "Проверка".$i;
+        $message = iconv("utf-8", "cp1251", $text);
+        if (mail("hancharou@rnpcmt.by", $subj, $message, "From: test".$i."@rnpcmt.by \r\n")) {
+            echo "Сообщение успешно отправлено";
+        } else {
+            echo "При отправке сообщения возникли ошибки";
+        }
     }
 }
 ?>

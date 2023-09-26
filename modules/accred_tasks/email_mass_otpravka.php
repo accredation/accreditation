@@ -9,20 +9,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $addresses = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        $addresses[] = $row['email'];
+        $addresses[] = $row['login'];
     }
 
 
-
-
+    $textSubj = "Назначение";
+    $text = "Вы назначены ответственным";
+    $email = "medaccr@rnpcmt.by";
+    $headers = 'From:'. $email . "\r\n" .
+        'Content-type: text/html; charset=utf-8' . "\r\n".
+        'X-Mailer: PHP/' . phpversion();
     foreach ($addresses as $address) {
-        $textSubj = "Поступил новый вопрос в ТП мед.аккредитации";
-        $text = "ММММ";
-        $email = "Sydykav@rnpcmt.by";
-        $headers = 'From:'. $email . "\r\n" .
-            'Content-type: text/html; charset=utf-8' . "\r\n".
-            'X-Mailer: PHP/' . phpversion();
-
         if (mail($address, $textSubj, $text,$headers)){
             echo "Сообщение успешно отправлено";
         } else {
