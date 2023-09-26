@@ -2,15 +2,28 @@
 include "connection.php";
 $login = $_COOKIE['login'];
 $id_application = $_POST['id_application'];
-//$protokolsoveta = $_FILES['protokolsoveta'];
-//$zaklsoveta = $_FILES['zaklsoveta'];
-$dateInputPlan = $_POST['dateInputPlan'];
-$resolution = $_POST['resolution'];
-$dateInputSrok = $_POST['dateInputSrok'];
 
-$query1 = "Update applications set PlanDateSoveta = '$dateInputPlan',  ReshenieSoveta = '$resolution',  SrokResheniaSoveta = '$dateInputSrok' where id_application = '$id_application'";
+$dateInputPlan = isset($_POST['dateInputPlan']) ? $_POST['dateInputPlan'] : null;
+$resolution = isset($_POST['resolution']) ? $_POST['resolution'] : null;
+$dateInputSrok = isset($_POST['dateInputSrok']) ? $_POST['dateInputSrok'] : null;
 
-$result1 = mysqli_query($con, $query1) or die("Ошибка " . mysqli_error($con));
+if ($dateInputPlan) {
+    $query =
+        "UPDATE applications SET PlanDateSoveta = '$dateInputPlan' WHERE id_application = '$id_application'";
+    $result = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+}
+
+if ($resolution) {
+    $query =
+        "UPDATE applications SET ReshenieSoveta = '$resolution' WHERE id_application = '$id_application'";
+    $result = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+}
+
+if ($dateInputSrok) {
+    $query =
+        "UPDATE applications SET SrokResheniaSoveta = '$dateInputSrok' WHERE id_application = '$id_application'";
+    $result = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+}
 
 if (!file_exists('documents/'.$login . "/" . 'sovets/'. $id_application )) {
     mkdir('documents/'.$login . "/" . 'sovets/'. $id_application , 0777, true);
@@ -27,9 +40,6 @@ if (isset($_FILES['protokolsoveta']['name'])) {
 
     $result2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
 }
-
-
-
 
 if (isset($_FILES['zaklsoveta']['name'])) {
     $file_name = $_FILES['zaklsoveta']['name'];
