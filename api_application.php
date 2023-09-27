@@ -103,7 +103,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                       <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab" aria-selected="false">На рассмотрении</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Завершена оценка</a>
+                      <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Решение комиссии</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">На доработке</a>
