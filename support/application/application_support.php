@@ -308,7 +308,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-
+                    <button data-tooltip="Печать критериев" type="submit" class="btn btn-light btn-fw" onclick="print()">Печать</button>
                     <button type="button" class="btn btn-danger" id="closerModal" data-bs-dismiss="modal">Закрыть</button>
                 </div>
 
