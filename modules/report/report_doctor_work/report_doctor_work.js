@@ -6,7 +6,7 @@ function preperaReport(){
 
     let status = document.getElementById(`status`);
     let status_value = status.value;
-    let status_text = status.options[status_value].textContent;
+    let status_text = status.options[status.options.selectedIndex].textContent;
 
     let dateAccept = document.getElementById(`dateAccept`);
     let dateAccept_value = dateAccept.value;

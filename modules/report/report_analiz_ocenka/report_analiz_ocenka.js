@@ -33,7 +33,7 @@ function preperaReport(){
 
     let status = document.getElementById(`status`);
     let status_value = status.value;
-    let status_text = status.options[status_value].textContent;
+    let status_text = status.options[status.options.selectedIndex].textContent;
 
     let dateAccept = document.getElementById(`dateAccept`);
     let dateAccept_value = dateAccept.value;
@@ -70,15 +70,15 @@ function preperaReport(){
 
     let oblast = document.getElementById(`oblast`);
     let oblast_value = oblast.value;
-    let oblast_text = oblast.options[oblast_value].textContent;
+    let oblast_text = oblast.options[oblast.options.selectedIndex].textContent;
     
     let typeOrg = document.getElementById(`typeOrg`);
     let typeOrg_value = typeOrg.value;
-    let typeOrg_text = typeOrg.options[typeOrg_value].textContent;
+    let typeOrg_text = typeOrg.options[typeOrg.options.selectedIndex].textContent;
 
     let criteriaAll = document.getElementById(`criteriaAll`);
     let criteriaAll_value = criteriaAll.value;
-    let criteriaAll_text = criteriaAll.options[criteriaAll_value].textContent;
+    let criteriaAll_text = criteriaAll.options[criteriaAll.options.selectedIndex].textContent;
 
 
     let flag_yur_lica = document.getElementById(`flag_yur_lica`);
