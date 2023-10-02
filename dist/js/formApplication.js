@@ -388,7 +388,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     //  console.log(aButton);
 
 
-    document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заяления";
+    document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заявления";
 
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
