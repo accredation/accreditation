@@ -184,6 +184,12 @@
                 <span class="file-name">Обучение ИС</span>
             </a>
         </div>
+        <div class="col-lg-2 mb-2" >
+            <a href="documentation/проект Приказ О создании рабочей группы для самоаккредитации  (1).docx" class="file-link">
+                <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
+                <span class="file-name">Приказ О создании рабочей группы для самоаккредитации</span>
+            </a>
+        </div>
     </div>
     <section class="content">
 
