@@ -200,12 +200,16 @@
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
                 <span class="file-name">Информация об используемой медицинской технике</span>
             </a>
+        </div>
 
+        <div class="col-lg-2 mb-2">
             <a href="documentation/Формы обязательных документов/Сопроводительное письмо образец.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
                 <span class="file-name">Сопроводительное письмо образец</span>
             </a>
+        </div>
 
+        <div class="col-lg-2 mb-2">
             <a href="documentation/Формы обязательных документов/Схема_организационной_структуры_ОЗ_образец.pptx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
                 <span class="file-name">Схема_организационной_структуры_ОЗ_образец</span>

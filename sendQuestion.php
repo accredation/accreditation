@@ -28,10 +28,41 @@ else {
 }
 
 $textSubj = "Поступил новый вопрос в ТП мед.аккредитации";
-$subj = iconv("utf-8","cp1251",$textSubj);
+//$subj = iconv("utf-8","cp1251",$textSubj);
+$subj = $textSubj;
 $text = $question;
-$message=iconv("utf-8","cp1251",$text);
-if (mail("support@rnpcmt.by", $subj, $message,"From:". $email. "\r\n")){
+//$message=iconv("utf-8","cp1251",$text);
+$message=$text;
+
+$headers = 'From:'. $email . "\r\n" .
+    'Content-type: text/html; charset=utf-8' . "\r\n".
+    'X-Mailer: PHP/' . phpversion();
+
+if (mail("support@rnpcmt.by", $subj, $message,$headers)){
+    echo "Сообщение успешно отправлено";
+} else {
+    echo "При отправке сообщения возникли ошибки";
+}
+
+
+
+$textSubj1 = "От вас поступил вопрос в службу технической поддержки медаккредитации ". $question;
+//$subj = iconv("utf-8","cp1251",$textSubj);
+$subj1 = $textSubj1;
+//$message=iconv("utf-8","cp1251",$text);
+$message1="Это автоматический ответ, подтверждающий получение вашего обращения. \n
+Ваш вопрос направлен службе технической поддержки. \n
+Обработка осуществляется в порядке очередности поступивших запросов и может потребовать ожидания ответа (не позднее 3 рабочих дней со дня подачи обращения).\n\n\n
+С уважением, служба технической поддержки ИС «Медицинская аккредитация».\n
+ГУ «Республиканский научно-практический центр медицинских технологий, информатизации, управления и экономики здравоохранения»
+
+";
+
+$headers1 = 'From:'. "support@rnpcmt.by" . "\r\n" .
+    'Content-type: text/html; charset=utf-8' . "\r\n".
+    'X-Mailer: PHP/' . phpversion();
+
+if (mail($email, $subj1, $message1,$headers1)){
     echo "Сообщение успешно отправлено";
 } else {
     echo "При отправке сообщения возникли ошибки";
