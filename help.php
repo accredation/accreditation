@@ -141,7 +141,79 @@
     }
 </style>
 <div class="content-wrapper">
-    <h2 for="quastion" style = "margin-top: 1rem">Полезные документы</h2><br/>
+    <h2 for="quastion" style = "margin-top: 1rem">Регламентирующие документы</h2><br/>
+    <div class="row" >
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/График обучения для ОЗ.doc" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">График обучения для ОЗ</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/Перечень общих требований для оценки соответствия в области санитарно-эпидемиологического благополучия населения.doc" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Перечень общих требований для оценки соответствия в области санитарно-эпидемиологического благополучия населения</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/Письмо МЗ РБ от 27.09.2023  О проведении медицинской аккредитации.pdf" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Письмо МЗ РБ от 27.09.2023  О проведении медицинской аккредитации</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/Приказ МЗ от 20.09.2023 №1341 О проведении медицинской аккредитации.pdf" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Приказ МЗ от 20.09.2023 №1341 О проведении медицинской аккредитации</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/Приказ МЗ от 20.09.2023 №1353 О проведении оценки соответсвия.pdf" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Приказ МЗ от 20.09.2023 №1353 О проведении оценки соответсвия</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/Приложения к приказу №1341.docx" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Приложения к приказу №1341</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/проект Приказ О создании рабочей группы для самоаккредитации.docx" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">проект Приказ О создании рабочей группы для самоаккредитации</span>
+            </a>
+        </div>
+    </div>
+
+    <h2 for="quastion" style = "margin-top: 1rem">Формы обязательных документов</h2><br/>
+    <div class="row" >
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Формы обязательных документов/Информация об используемой медицинской технике.docx" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Информация об используемой медицинской технике</span>
+            </a>
+
+            <a href="documentation/Формы обязательных документов/Сопроводительное письмо образец.docx" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Сопроводительное письмо образец</span>
+            </a>
+
+            <a href="documentation/Формы обязательных документов/Схема_организационной_структуры_ОЗ_образец.pptx" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Схема_организационной_структуры_ОЗ_образец</span>
+            </a>
+        </div>
+    </div>
+
+    <h2 for="quastion" style = "margin-top: 1rem">Обучающие материалы и видео</h2><br/>
     <div class="row" >
         <div class="col-lg-2 mb-2">
             <a href="documentation/Руководство пользователя ИС Медицинская Аккредитация.docx" class="file-link">
@@ -151,46 +223,13 @@
         </div>
 
         <div class="col-lg-2 mb-2" >
-            <a href="documentation/Сопроводительное письмо образец.docx" class="file-link">
-                <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
-                <span class="file-name">Сопроводительное письмо образец</span>
-            </a>
-        </div>
-
-        <div class="col-lg-2 mb-2">
-            <a href="documentation/Информация об используемой медицинской технике.docx" class="file-link">
-                <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
-                <span class="file-name">Информация об используемой медицинской технике</span>
-            </a>
-        </div>
-
-        <div class="col-lg-2 mb-2">
-            <a href="documentation/Показатели укомплектованности.docx" class="file-link">
-                <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
-                <span class="file-name">Показатели укомплектованности</span>
-            </a>
-        </div>
-
-        <div class="col-lg-2 mb-2" >
-            <a href="documentation/Схема_организационной_структуры_ОЗ_образец.pptx" class="file-link">
-                <img src="assets/images/pptx-icon.png" alt="PDF" class="file-icon">
-                <span class="file-name">Схема организационной структуры ОЗ образец</span>
-            </a>
-        </div>
-
-        <div class="col-lg-2 mb-2" >
             <a href="documentation/Обучение ИС.pptx" class="file-link">
                 <img src="assets/images/pptx-icon.png" alt="PDF" class="file-icon">
                 <span class="file-name">Обучение ИС</span>
             </a>
         </div>
-        <div class="col-lg-2 mb-2" >
-            <a href="documentation/проект Приказ О создании рабочей группы для самоаккредитации  (1).docx" class="file-link">
-                <img src="assets/images/word-icon.png" alt="PDF" class="file-icon">
-                <span class="file-name">Приказ О создании рабочей группы для самоаккредитации</span>
-            </a>
-        </div>
     </div>
+
     <section class="content">
 
 
