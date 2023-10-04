@@ -12,7 +12,7 @@
     .item {
         display: block;
         background: #fff;
-        /*height: 100%;*/
+        height: 100%;
         padding: 0;
         overflow: hidden;
         position: relative;
@@ -47,12 +47,13 @@
             color: #151515;
             position: relative;
             z-index: 10;
-            height:8rem;
+            height:100%;
         }
 
         .item h3 {
             margin: 0 0 15px;
             font-size: 1.1em;
+            height: 90%;
         }
         .item .anno {
             font-size: 0.86em;
@@ -73,17 +74,17 @@
             margin-right: 20px;
             vertical-align: middle;
             font-weight: 500;
-            line-height: 2.5rem;
+            line-height: 2.5rem;damir
             position: absolute;
             bottom: 0;
         }
-        .row-eq-height {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            flex-wrap: wrap;
-        }
+        /*.row-eq-height {*/
+        /*    display: -webkit-box;*/
+        /*    display: -webkit-flex;*/
+        /*    display: -ms-flexbox;*/
+        /*    display: flex;*/
+        /*    flex-wrap: wrap;*/
+        /*}*/
 
         .modal {
             position: fixed;
@@ -421,7 +422,7 @@ LIMIT 5";
 
         </div>
         <div class="col-xs-12 col-md-12" style="margin-top: 1.5rem">
-            <div class="row row-eq-height">
+            <div class="row">
                 <?php
                 }
                 else{?>
