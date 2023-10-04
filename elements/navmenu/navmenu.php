@@ -103,6 +103,40 @@
               </li>
                   <?php
               }
+              else if($row['id_role'] == 14){
+                  ?>
+                  <li class="nav-item" id="nav9">
+                      <a class="nav-link collapsed" data-toggle="collapse" href="#ui-reports" aria-controls="ui-reports">
+                          <span class="icon-bg"><i class="mdi fa-flag menu-icon"></i></span>
+                          <span class="menu-title">Отчеты</span>
+                      </a>
+                      <div class="collapse" id="ui-reports">
+                          <ul class="nav flex-column sub-menu">
+                              <li class="nav-item" style="height: 100%">
+                                  <a href="/index.php?report_first" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                      <p style="white-space: normal; line-height: 1">Структура организаций здравоохранения по результатам самооценки</p>
+                                  </a>
+                              </li>
+                              <li class="nav-item" style="height: 100%">
+                                  <a href="/index.php?report_analiz_samoocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                      <p style="white-space: normal; line-height: 1">Анализ результатов самооценки организаций здравоохранения</p>
+                                  </a>
+                              </li>
+                              <li class="nav-item" style="height: 100%">
+                                  <a href="/index.php?report_analiz_ocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                      <p style="white-space: normal; line-height: 1">Анализ результатов медицинской аккредитации</p>
+                                  </a>
+                              </li>
+
+
+                          </ul>
+                      </div>
+                  </li>
+              <?php
+              }
               }
               }
               ?>

@@ -167,14 +167,7 @@
         <div class="col-lg-2 mb-2">
             <a href="documentation/Регламентирующие документы/Приказ МЗ от 20.09.2023 №1341 О проведении медицинской аккредитации.pdf" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
-                <span class="file-name">Приказ МЗ от 20.09.2023 №1341 О проведении медицинской аккредитации</span>
-            </a>
-        </div>
-
-        <div class="col-lg-2 mb-2">
-            <a href="documentation/Регламентирующие документы/Приказ МЗ от 20.09.2023 №1353 О проведении оценки соответсвия.pdf" class="file-link">
-                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
-                <span class="file-name">Приказ МЗ от 20.09.2023 №1353 О проведении оценки соответсвия</span>
+                <span class="file-name">Приказ МЗ от 15.09.2023 №1341 О проведении медицинской аккредитации</span>
             </a>
         </div>
 
@@ -186,11 +179,21 @@
         </div>
 
         <div class="col-lg-2 mb-2">
+            <a href="documentation/Регламентирующие документы/Приказ МЗ от 20.09.2023 №1353 О проведении оценки соответсвия.pdf" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Приказ МЗ от 20.09.2023 №1353 О проведении оценки соответсвия</span>
+            </a>
+        </div>
+
+
+
+        <div class="col-lg-2 mb-2">
             <a href="documentation/Регламентирующие документы/проект Приказ О создании рабочей группы для самоаккредитации.docx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
                 <span class="file-name">проект Приказ О создании рабочей группы для самоаккредитации</span>
             </a>
         </div>
+
     </div>
 
     <h2 for="quastion" style = "margin-top: 1rem">Формы обязательных документов</h2><br/>
@@ -212,7 +215,13 @@
         <div class="col-lg-2 mb-2">
             <a href="documentation/Формы обязательных документов/Схема_организационной_структуры_ОЗ_образец.pptx" class="file-link">
                 <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
-                <span class="file-name">Схема_организационной_структуры_ОЗ_образец</span>
+                <span class="file-name">Схема организационной структуры ОЗ образец</span>
+            </a>
+        </div>
+        <div class="col-lg-2 mb-2">
+            <a href="documentation/Формы обязательных документов/Показатели укомплектованности.docx" class="file-link">
+                <img src="assets/images/word-icon.png" alt="Word" class="file-icon">
+                <span class="file-name">Показатели укомплектованности</span>
             </a>
         </div>
     </div>
