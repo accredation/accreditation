@@ -715,5 +715,27 @@ function printReprot() {
     
 }
 
+function handleColorChange(colorPicker, appId) {
+    let ulId = document.getElementById("ul"+this.id_app);
+    const selectedColor = colorPicker.value;
+
+    const targetTd = document.querySelector(`.question[id='${appId}'] td:first-child`);
+    if (targetTd) {
+        targetTd.style.backgroundColor = selectedColor;
+    }
+
+
+    const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
+    if (targetChartBar) {
+        targetChartBar.setAttribute('data-color', selectedColor);
+        targetChartBar.style.backgroundColor = selectedColor;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'modules/accred_tasks/save_color.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(`app_id=${appId}&color=${selectedColor}`);
+}
+
 
 //header.addEventListener("mousedown", startDrag);
