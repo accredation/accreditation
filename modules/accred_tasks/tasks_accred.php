@@ -1,45 +1,31 @@
 <link rel="stylesheet" href="modules/accred_tasks/tasks_accred.css">
-<style>
-    #uved{
-        font-size: 10px;
-        height: 32px;
-        width: 84px;
-    }
-</style>
-    <div class="content-wrapper">
+<div class="content-wrapper">
 
-            <h2 class="text-dark font-weight-bold mb-2"> Задачи </h2>
-            <div>
-            <button 
-                    id="btnReportPrint"
-                    class="btn btn-success btn-fw"
-                    onclick="printReprot()"
-                    >Печатать графика работы</button>
-            </div>
-            <div class="row">
-                <div class="col-12 grid-margin">
-                    <div class="card">
-                        <div class="card-body" >
+    <h2 class="text-dark font-weight-bold mb-2"> Задачи </h2>
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
 
-                            <table border="1" style="border-color: #dee2e6; width: 100%" id='table'>
-                                <thead>
-                                    <th> Цвет</th>
-                                    <th> Наименование</th>
-                                    <th>Статус</th>
-                                    <th>Дата подачи</th>
-                                    <th>ФИО ответственного</th>
-                                    <th>Начало проверки</th>
-                                    <th>Завершение проверки</th>
-                                    <th>Дата совета</th>
-                                    <th>Прогресс</th>
-                                    <th></th>
-                                </thead>
-                                <tbody>
+                    <table border="1" style="border-color: #dee2e6; width: 100%">
+                        <thead>
+                        <th> Цвет</th>
+                        <th> Наименование</th>
+                        <th>Статус</th>
+                        <th>Дата подачи</th>
+                        <th>ФИО ответственного</th>
+                        <th>Начало проверки</th>
+                        <th>Завершение проверки</th>
+                        <th>Дата совета</th>
+                        <th>Прогресс</th>
+                        <th></th>
+                        </thead>
+                        <tbody>
 
 
-                                <?php
-                                $id_user = $_COOKIE['id_user'];
-                                $query = "SELECT u1.username as preds,a.*, u.username, s.name_status, a.id_application as app_id
+                        <?php
+                        $id_user = $_COOKIE['id_user'];
+                        $query = "SELECT u1.username as preds,a.*, u.username, s.name_status, a.id_application as app_id
                                                                 FROM applications a
                                                                 left outer join status s on a.id_status=s.id_status    
                                                                 left outer join users u on a.id_user =u.id_user 
@@ -49,52 +35,49 @@
                                                                 where (a.id_status = 3 or a.id_status = 4) and 
                                                                          ((u2.id_role < 3 ) 
                                                                         or (u2.id_role > 3 and u.oblast=u2.id_role ))";
-                                $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
-                                foreach ($data as $app) {
-                                    $app_id = $app['app_id'];
-                                    $date_accept = $app['date_begin_prov'];
-                                    $date_complete = $app['date_end_prov'];
-
-
-                                    ?>
-                                    <tr class="question" id="<?= $app_id?>" style=" background-color: #9CCDCD; ">
-                                        <td>
-                                            <select class="color-picker" onchange="handleColorChange(this, <?= $app_id ?>)">
-                                                <option value="" selected>Выберите цвет</option>
-                                                <option value="#FF0000" style="background-color: #FF0000;">Красный</option>
-                                                <option value="#00FF00" style="background-color: #00FF00;">Зеленый</option>
-                                                <option value="#0000FF" style="background-color: #0000FF;">Синий</option>
-                                                <option value="#FFFF00" style="background-color: #FFFF00;">Желтый</option>
-                                                <option value="#FFA500" style="background-color: #FFA500;">Оранжевый</option>
-                                                <option value="#800080" style="background-color: #800080;">Фиолетовый</option>
-                                                <option value="#FFC0CB" style="background-color: #FFC0CB;">Розовый</option>
-                                                <option value="#808080" style="background-color: #808080;">Серый</option>
-                                                <option value="#008000" style="background-color: #008000;">Темно-зеленый</option>
-                                                <option value="#00FFFF" style="background-color: #00FFFF;">Голубой</option>
-                                                <option value="#000080" style="background-color: #000080;">Темно-синий</option>
-                                                <option value="#800000" style="background-color: #800000;">Бордовый</option>
-                                                <option value="#008080" style="background-color: #008080;">Бирюзовый</option>
-                                                <option value="#D2691E" style="background-color: #D2691E;">Коричневый</option>
-                                                <option value="#C0C0C0" style="background-color: #C0C0C0;">Светло-серый</option>
-                                            </select>
-                                        </td>
-                                        <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer;text-align: center" ><?= $app['username']?> №<?= $app_id ?></td>
-                                        <td style ="text-align: center"><?= $app['name_status']?></td>
-                                        <td><?= $app['date_send']?></td>
-                                        <td style ="text-align: center"><?= $app['preds']?></td>
-                                        <td id="date_accept_<?= $app_id?>" style ="text-align: center"><?=$app['date_begin_prov']?></td>
-                                        <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_end_prov']?></td>
-                                        <td id="date_council_<?= $app_id?>" style ="text-align: center"><?=$app['date_council']?></td>
-                                        <td style ="text-align: center">progress</td>
-                                        <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app_id?>')">Изменить</button><button class="btn btn-primary" id = "uved" onclick="notifySelected('<?= $app_id ?>')">Уведомить</button></td>
-
-                                    </tr>
+                        foreach ($data as $app) {
+                            $app_id = $app['app_id'];
+                            $date_accept = $app['date_accept'];
+                            $date_complete = $app['date_complete'];
 
 
-                                    <?php
-                                    $query1 = "SELECT s.id_subvision, `name`, CONCAT(IFNULL(count_crit_complit.countt,0), '/', IFNULL(count_crit.countt,0)) as progress
+                            ?>
+                            <tr class="question" id="<?= $app_id?>" style=" background-color: #9CCDCD; ">
+                                <td>
+                                    <select class="color-picker" onchange="handleColorChange(this, <?= $app_id ?>)">
+                                        <option value="" selected>Выберите цвет</option>
+                                        <option value="#FF0000" style="background-color: #FF0000;">Красный</option>
+                                        <option value="#00FF00" style="background-color: #00FF00;">Зеленый</option>
+                                        <option value="#0000FF" style="background-color: #0000FF;">Синий</option>
+                                        <option value="#FFFF00" style="background-color: #FFFF00;">Желтый</option>
+                                        <option value="#FFA500" style="background-color: #FFA500;">Оранжевый</option>
+                                        <option value="#800080" style="background-color: #800080;">Фиолетовый</option>
+                                        <option value="#FFC0CB" style="background-color: #FFC0CB;">Розовый</option>
+                                        <option value="#808080" style="background-color: #808080;">Серый</option>
+                                        <option value="#008000" style="background-color: #008000;">Темно-зеленый</option>
+                                        <option value="#00FFFF" style="background-color: #00FFFF;">Голубой</option>
+                                        <option value="#000080" style="background-color: #000080;">Темно-синий</option>
+                                        <option value="#800000" style="background-color: #800000;">Бордовый</option>
+                                        <option value="#008080" style="background-color: #008080;">Бирюзовый</option>
+                                        <option value="#D2691E" style="background-color: #D2691E;">Коричневый</option>
+                                        <option value="#C0C0C0" style="background-color: #C0C0C0;">Светло-серый</option>
+                                    </select>
+                                </td>
+                                <td onclick="collapsTable(<?= $app_id?>)" style="cursor: pointer;text-align: center" ><?= $app['username']?> №<?= $app_id ?></td>
+                                <td style ="text-align: center"><?= $app['name_status']?></td>
+                                <td><?= $app['date_send']?></td>
+                                <td style ="text-align: center"><?= $app['preds']?></td>
+                                <td id="date_accept_<?= $app_id?>" style ="text-align: center"><?=$app['date_accept']?></td>
+                                <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_complete']?></td>
+                                <td id="date_council_<?= $app_id?>" style ="text-align: center"><?=$app['date_council']?></td>
+                                <td style ="text-align: center">progress</td>
+                                <td style ="text-align: center"><button class="btn btn-success" onclick="showModal('<?= $app_id?>')">Изменить</button></td>
+                            </tr>
+                            <?php
+                            $query1 = "SELECT s.id_subvision, `name`, CONCAT(IFNULL(count_crit_complit.countt,0), '/', IFNULL(count_crit.countt,0)) as progress
                                                 FROM subvision s  
                                                 left outer join (SELECT count(*) as countt, rc.id_subvision 
                                                 FROM `rating_criteria` rc
@@ -112,31 +95,29 @@
                                                     ) count_crit on s.id_subvision=count_crit.id_subvision
                                                     
                                                 where id_application = '$app_id'";
-                                    $result1=mysqli_query($con, $query1) or die ( mysqli_error($con));
-                                    for ($data1 = []; $row = mysqli_fetch_assoc($result1); $data1[] = $row);
+                            $result1=mysqli_query($con, $query1) or die ( mysqli_error($con));
+                            for ($data1 = []; $row = mysqli_fetch_assoc($result1); $data1[] = $row);
 
-                                    foreach ($data1 as $app1) {
-                                        $id_subvision = $app1['id_subvision'];
-                                    ?>
-                                        <tr  class="content1 hidden_<?= $app_id?> fill_sub" style="margin-left:2rem; margin-top: 1rem; background-color: #a2e7d6" >
-                                            <td></td>
-                                            <td><?= $app1['name']?></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class = "progr"><?= $app1['progress']?></td>
-
-
-
-                                        </tr>
+                            foreach ($data1 as $app1) {
+                                $id_subvision = $app1['id_subvision'];
+                                ?>
+                                <tr  class="content1 hidden_<?= $app_id?> fill_sub" style="margin-left:2rem; margin-top: 1rem; background-color: #a2e7d6" >
+                                    <td></td>
+                                    <td><?= $app1['name']?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class = "progr"><?= $app1['progress']?></td>
 
 
+                                </tr>
 
-                                        <?php
-                                        $query2 = "SELECT id_rating_criteria, c.id_criteria,  CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, status, date_complete, id_otvetstvennogo, u.username
+
+                                <?php
+                                $query2 = "SELECT id_rating_criteria, c.id_criteria,  CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, status, date_complete, id_otvetstvennogo, u.username
                                                                 FROM rating_criteria rc
                                                                 left outer join criteria c on rc.id_criteria=c.id_criteria 
                                                                 left outer join conditions con on c.conditions_id=con.conditions_id
@@ -144,62 +125,59 @@
                                                                 where rc.id_subvision = '$id_subvision'
                                                                 order by name_criteria
                                                                 ";
-                                        $result2=mysqli_query($con, $query2) or die ( mysqli_error($con));
-                                        for ($data2 = []; $row = mysqli_fetch_assoc($result2); $data2[] = $row);
+                                $result2=mysqli_query($con, $query2) or die ( mysqli_error($con));
+                                for ($data2 = []; $row = mysqli_fetch_assoc($result2); $data2[] = $row);
 
-                                        foreach ($data2 as $app2) {
-                                            $id_otvetstvennogo = $app2['id_otvetstvennogo'];
+                                foreach ($data2 as $app2) {
+                                    $id_otvetstvennogo = $app2['id_otvetstvennogo'];
 
-                                            ?>
-                                            <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
-                                                <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
-                                                <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
-                                                <td></td>
-                                                <td><select onchange="changeOtv(this)" class="rt_<?= $app_id ?>" id="rt<?= $app2['id_rating_criteria']?>">
-                                                        <?php
+                                    ?>
+                                    <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
+                                        <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
+                                        <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
+                                        <td></td>
+                                        <td><select onchange="changeOtv(this)" id="rt<?= $app2['id_rating_criteria']?>">
+                                                <?php
 
-                                                        if(isset($id_otvetstvennogo)){?>
-                                                             <option id="otv0" value="0">             </option>
-                                                             <option selected id="otv<?= $id_otvetstvennogo?>" value="<?=$id_otvetstvennogo?>"><?= $app2['username']?></option>
-                                                        <?php } else { ?>
-                                                            <option id="otv0" value="0">             </option>
-                                                        <?php }
+                                                if(isset($id_otvetstvennogo)){?>
+                                                    <option id="otv0" value="0">             </option>
+                                                    <option selected id="otv<?= $id_otvetstvennogo?>" value="<?=$id_otvetstvennogo?>"><?= $app2['username']?></option>
+                                                <?php } else { ?>
+                                                    <option id="otv0" value="0">             </option>
+                                                <?php }
 
-                                                        ?>
+                                                ?>
 
-                                                    </select></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><?= $app2['status'] ==1 ? $app2['date_complete'] : '' ?> </td>
+                                            </select></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><?= $app2['status'] ==1 ? $app2['date_complete'] : '' ?> </td>
 
-                                            </tr>
-
-
-
-
-                                        <?php }?>
+                                    </tr>
 
 
 
-                                    <?php }?>
-                                    <?php
-                                }
-                                ?>
 
-
-                                </tbody>
-
-                            </table>
+                                <?php }?>
 
 
 
-                    </div>
+                            <?php }?>
+                            <?php
+                        }
+                        ?>
+
+
+                        </tbody>
+                    </table>
+
+
+
                 </div>
+            </div>
 
         </div>
-
-
         <div class="chart-wrapper" style="width: 100%; overflow: auto" >
 
             <ul class="chart-values">
@@ -226,7 +204,7 @@
                 foreach ($data as $app) {
                     $app_id = $app['app_id'];
                     $status = $app['id_status'];
-                    $date_accept = $app['date_begin_prov'];
+                    $date_accept = $app['date_accept'];
                     $startDate = date('Y-m-d', strtotime("-5 month"));
 
                     if($date_accept < $startDate ) {
@@ -237,7 +215,7 @@
 
 
 
-                    $date_complete = $app['date_end_prov'];
+                    $date_complete = $app['date_complete'];
                     $endDate = date('Y-m-d', strtotime("5 month"));
                     if($date_complete > $endDate ) {
                         $date_complete = $endDate;
@@ -255,22 +233,22 @@
                     else{
                         $color = "rgb(149 145 144)";
                     }
-                ?>
+                    ?>
                     <ul class="chart-bars " style="display: flex"  id = "ul<?= $app_id?>" >
                         <li  data-duration="<?=substr(date_format(date_create($date_accept), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100 ">Задание заявления №<?= $app_id?> <?= $app['naim']?></li>
-                <?php
-                    if(($date_council != null || $date_council != "")&&($date_council != $endDate)){
-                ?>
-                        <li data-duration="<?=substr(date_format(date_create($date_council), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_council), "d.m.Y"), 0, 5)?>" data-color="#8A231A" style="padding: 5px 10px; z-index: 100 "></li>
                         <?php
-                    } else {
+                        if(($date_council != null || $date_council != "")&&($date_council != $endDate)){
+                            ?>
+                            <li data-duration="<?=substr(date_format(date_create($date_council), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_council), "d.m.Y"), 0, 5)?>" data-color="#8A231A" style="padding: 5px 10px; z-index: 100 "></li>
+                            <?php
+                        } else {
+                            ?>
+                            <li data-duration="<?=substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100; "></li>
+                            <?php
+                        }
                         ?>
-                        <li data-duration="<?=substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5) . "-" . substr(date_format(date_create($date_complete), "d.m.Y"), 0, 5)?>" data-color="<?=$color?>" style="padding: 5px 10px; z-index: 100; "></li>
-                   <?php
-                    }
-                ?>
                     </ul>
-                <?php
+                    <?php
                 }
                 ?>
 
@@ -284,7 +262,7 @@
 
 
     </div>
-    </div>
+</div>
 
 <div class="modal " id="modalTask">
     <div class="modal-dialog modal-xs" >
@@ -340,41 +318,6 @@
         </div>
     </div>
 </div>
-<script>
-    async function notifySelected(app_id) {
-        let selectedItems = [];
-        let selectedValues = [];
-        const selects = document.getElementsByClassName('rt_' + app_id);
 
-        for (let i = 0; i < selects.length; i++) {
-            let selectedItem = selects[i].options[selects[i].selectedIndex].innerHTML;
-            let selectedValue = selects[i].options[selects[i].selectedIndex].value;
-            if (selects[i].value !== "" && selectedItem.trim().length > 0) {
-                selectedItems.push(selectedItem);
-                selectedValues.push(selectedValue);
-            }
-        }
-
-        if (selectedValues.length !== 0) {
-            const response = await fetch('modules/accred_tasks/email_mass_otpravka.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `userIds=${encodeURIComponent(selectedValues.join(', '))}`,
-            });
-
-            if (response.ok) {
-                const result = await response.text();
-                console.log(`E-mails отправка: ${result}`);
-            } else {
-                console.log('E-mail ошибка отправки.');
-            }
-        } else {
-            console.log('Нет выбранных значений.');
-        }
-    }
-
-</script>
 <script src="modules/accred_tasks/tasks_accred.js"></script>
 
