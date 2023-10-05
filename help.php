@@ -236,9 +236,16 @@
         </div>
 
         <div class="col-lg-2 mb-2" >
-            <a href="documentation/Обучение ИС.pptx" class="file-link">
+            <a href="documentation/Обучающие материалы и видео/ИС Медицинская аккредитация.pdf" class="file-link">
                 <img src="assets/images/pptx-icon.png" alt="PDF" class="file-icon">
-                <span class="file-name">Обучение ИС</span>
+                <span class="file-name">ИС Медицинская аккредитация</span>
+            </a>
+        </div>
+
+        <div class="col-lg-2 mb-2" >
+            <a href="documentation/Обучающие материалы и видео/Цели и организация проведения медицинской аккредитации.pdf" class="file-link">
+                <img src="assets/images/pptx-icon.png" alt="PDF" class="file-icon">
+                <span class="file-name">Цели и организация проведения медицинской аккредитации</span>
             </a>
         </div>
     </div>
