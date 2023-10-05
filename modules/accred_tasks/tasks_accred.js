@@ -25,16 +25,15 @@ function getCookie(cname) {
     }
     return "";
 }
-if(getCookie("predsedatel") !== "1" && getCookie("secretar") !== "1") {
 
-        [...btns].forEach(item => {
-            item.disabled = true;
-        });
+if(getCookie("expert") === "1") {
+    [...btns].forEach(item => {
+        item.disabled = true;
+    });
 
-        [...slcts].forEach(item => {
-            item.disabled = true;
-        });
-
+    [...slcts].forEach(item => {
+        item.disabled = true;
+    });
 }
 
 let id_user = getCookie("id_user");
@@ -64,7 +63,7 @@ let dateCouncil = document.getElementById("dateCouncil");
 
 function showModal(id_app){
     let btnSave = document.getElementById("btnSave");
-    if (getCookie("predsedatel") !== "1" && getCookie("secretar") !== "1"){
+    if (getCookie("expert") === "1"){
         btnSave.classList.add("hidden");
     }
     this.id_app = id_app;
@@ -198,10 +197,10 @@ function saveChanges(btn){
                     id_responsible: id_responsible
                 }
             }).done(function (response) {
-                trId.children[4].innerHTML = predsName;
-                trId.children[5].innerHTML = dateAccept.value;
-                trId.children[6].innerHTML = dateComplete.value;
-                trId.children[7].innerHTML = dateCouncil.value;
+                trId.children[3].innerHTML = predsName;
+                trId.children[4].innerHTML = dateAccept.value;
+                trId.children[5].innerHTML = dateComplete.value;
+                trId.children[6].innerHTML = dateCouncil.value;
 
                 let startDate2 = new Date(); // текущая дата yy mm dd
                 let endDate2 = new Date(); // конечная дата
@@ -418,7 +417,7 @@ function collapsTable(id) {
         if (arrOtv.length > 0) {
             filteredHidden.forEach((hidenTrItem) => {
 
-                let idCr = hidenTrItem.children[1].id.substring(2);
+                let idCr = hidenTrItem.children[0].id.substring(2);
 
                 let select = hidenTrItem.getElementsByTagName('select')[0];
                 let selInd = select.value;
@@ -597,11 +596,11 @@ window.onload = () => {
         })
         res = ( lrs/ rrs) ;
         if(Number(res)){
-            document.getElementById(`${id}`).children[8].innerHTML = (res * 100).toFixed(2) +'%' ;
+            document.getElementById(`${id}`).children[7].innerHTML = (res * 100).toFixed(2) +'%' ;
             document.getElementById("ul"+`${id}`).children[0].innerHTML += " Прогресс: " + (res * 100).toFixed(2) +'%';
 
         } else {
-            document.getElementById(`${id}`).children[8].innerHTML = '0' +'%';
+            document.getElementById(`${id}`).children[7].innerHTML = '0' +'%';
         }
 
     });
@@ -675,7 +674,7 @@ function printReprot() {
 
         let tdq = item.getElementsByTagName('td')
         for(let tdItem of tdq){
-          if(tdItem.getElementsByTagName('select')[1]){
+          if(tdItem.getElementsByTagName('select')[0]){
             let div = document.createElement('div');
             div.innerHTML = tdItem.getElementsByTagName('select')[0].textContent;
             let select = tdItem.getElementsByTagName('select')[0];
@@ -738,42 +737,5 @@ function handleColorChange(colorPicker, appId) {
     xhr.send(`app_id=${appId}&color=${selectedColor}`);
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-
-
-    const xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            const colors = JSON.parse(xhr.responseText);
-            colors.forEach((colorData) => {
-                const { appId, color } = colorData;
-
-                const targetSelect = document.querySelector(`.question[id='${appId}'] .color-picker`);
-                const selectedItem = targetSelect.querySelector(`option[value='${color}']`);
-
-                if (selectedItem) {
-                    selectedItem.selected = true;
-                }
-
-                const targetChartBar = document.querySelector(`#ul${appId} li:nth-child(2)[data-duration]`);
-                if (targetChartBar) {
-                    targetChartBar.setAttribute('data-color', color);
-                    targetChartBar.style.backgroundColor = color;
-                }
-
-                const targetTd = document.querySelector(`.question[id='${appId}'] td:first-child`);
-                if (targetTd) {
-                    targetTd.style.backgroundColor = color;
-                }
-            });
-        }
-    };
-
-    xhr.open('GET', 'modules/accred_tasks/load_colors.php', true);
-    xhr.send(null);
-
-
-});
 
 //header.addEventListener("mousedown", startDrag);
