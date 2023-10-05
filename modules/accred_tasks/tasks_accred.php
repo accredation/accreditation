@@ -84,6 +84,7 @@
                                         <td style ="text-align: center"><?= $app['name_status']?></td>
                                         <td><?= $app['date_send']?></td>
                                         <td style ="text-align: center"><?= $app['preds']?></td>
+
                                         <td id="date_accept_<?= $app_id?>" style ="text-align: center"><?=$app['date_begin_prov']?></td>
                                         <td id="date_complete_<?= $app_id?>" style ="text-align: center"><?=$app['date_end_prov']?></td>
                                         <td id="date_council_<?= $app_id?>" style ="text-align: center"><?=$app['date_council']?></td>
@@ -152,6 +153,7 @@
 
                                             ?>
                                             <tr  class="content1 hidden_<?= $app_id?>" style="margin-left:2rem; margin-top: 1rem;" >
+                                                <td></td>
                                                 <td style="max-width: 400px" id="cr<?= $app2['id_criteria']?>"><?= $app2['name_criteria']?></td>
                                                 <td><?= $app2['status'] == 1 ? 'готово' : 'не готово' ?> </td>
                                                 <td></td>
