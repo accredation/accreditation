@@ -12,6 +12,9 @@
         border: 0 solid rgba(0, 0, 0, 0.125);
         border-radius: 0.25rem;
     }
+    /*.hidden{*/
+    /*    display: none;*/
+    /*}*/
     .direct-chat-messages {
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
@@ -79,6 +82,22 @@
         }
     }
 
+    @keyframes shows {
+
+        from {
+
+            opacity: 0;
+
+        }
+
+        to {
+
+            opacity: 1;
+
+        }
+
+    }
+
     .question{
         padding: 5px 20px;
         border-bottom: 1px solid #d1d1d1;
@@ -141,10 +160,10 @@
     }
 </style>
 <div class="content-wrapper">
-    <h2 for="quastion" style = "margin-top: 1rem; cursor: pointer;" id="razled_1_h" onclick="togleDiv('razled_1_h','razled_1_row')">Регламентирующие документы</h2><br/>
-    <div class="row hidden" id="razled_1_row" hidden>
+    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_1_h" onclick="togleDiv('razled_1_h','razled_1_row')">Регламентирующие документы &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
+    <div class="row hidden" id="razled_1_row" style="display: none;">
             <?php
-                $query_RAZDEL_1 = "SELECT * FROM `documents` where razdel  = 1";
+                $query_RAZDEL_1 = "SELECT * FROM `documents` where razdel  = 1 order by str_num ";
                 $result_RAZDEL_1=mysqli_query($con, $query_RAZDEL_1) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_1); $data[] = $row);
                 
@@ -161,10 +180,10 @@
 
     </div>
 
-    <h2 for="quastion" style = "margin-top: 1rem; cursor: pointer;" id="razled_2_h" onclick="togleDiv('razled_2_h','razled_2_row')">Формы обязательных документов</h2><br/>
-    <div class="row hidden" id="razled_2_row" hidden>
+    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_2_h" onclick="togleDiv('razled_2_h','razled_2_row')" >Формы обязательных документов&nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
+    <div class="row hidden" id="razled_2_row" style="display: none;">
         <?php
-                $query_RAZDEL_2 = "SELECT * FROM `documents` where razdel  = 2";
+                $query_RAZDEL_2 = "SELECT * FROM `documents` where razdel  = 2  order by str_num ";
                 $result_RAZDEL_2=mysqli_query($con, $query_RAZDEL_2) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_2); $data[] = $row);
                 
@@ -181,10 +200,10 @@
 
     </div>
 
-    <h2 for="quastion" style = "margin-top: 1rem; cursor: pointer;" id="razled_3_h" onclick="togleDiv('razled_3_h','razled_3_row')">Обучающие материалы и видео</h2><br/>
-    <div class="row hidden" id="razled_3_row" hidden>
+    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_3_h" onclick="togleDiv('razled_3_h','razled_3_row')">Обучающие материалы и видео &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
+    <div class="row hidden" id="razled_3_row" style="display: none;">
     <?php
-                $query_RAZDEL_3 = "SELECT * FROM `documents` where razdel  = 3";
+                $query_RAZDEL_3 = "SELECT * FROM `documents` where razdel  = 3 order by str_num ";
                 $result_RAZDEL_3=mysqli_query($con, $query_RAZDEL_3) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_3); $data[] = $row);
                 
@@ -364,7 +383,9 @@
       itemMenu.style = "color: #148A8A;";
 
 </script>
+<style>
 
+    </style>
 <script>
     $('.question').click(function() {
         $(this).find('.content1').toggle(200); //скрытие, показ ответа
@@ -381,15 +402,24 @@
 <script>
     function togleDiv(parent_el,row_el) {
        let pnt_element = document.getElementById(parent_el);
-
+       let i = pnt_element.getElementsByTagName("i")[0];
        let rw_el = document.getElementById(row_el)
 
        if  (!rw_el.classList.contains('hidden')){
-         rw_el.setAttribute('hidden','true');
-         rw_el.classList.add('hidden');
+         // rw_el.setAttribute('hidden','true');
+
+           rw_el.style = " transition: all .4s ease-in-out; display:none;";
+           rw_el.classList.add('hidden');
+           i.style = " transition: 1s; transform: rotate(0deg); font-size: 1.5rem; color: #148A8A";
+
        } else {
-         rw_el.removeAttribute('hidden');
-         rw_el.classList.remove('hidden');
+         // rw_el.removeAttribute('hidden');
+
+           rw_el.style = " transition: all .4s ease-in-out; animation: shows 1.5s;";
+           rw_el.classList.remove('hidden');
+         i.style = "transition: 1s; transform: rotate(-90deg); font-size: 1.5rem; color: #148A8A";
+
+
        }
     }
 </script>
