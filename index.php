@@ -235,7 +235,10 @@
                         break;     
                     case 'report_doctor_work':
                         include 'modules/report/report_doctor_work/report_doctor_work.php';    
-                        break;                        
+                        break; 
+                    case 'report_application_status':
+                        include 'modules/report/report_application_status/report_application_status.php';    
+                        break;                           
                 }
             }
             else{
