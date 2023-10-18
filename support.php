@@ -101,6 +101,7 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
+                                                <th >Номер</th>
                                                 <th >Пользователь</th>
                                                 <th >Вопрос</th>
                                                 <th id='sotr_th_data'>Дата вопроса</th>
@@ -118,6 +119,7 @@
                                                 ?>
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer; height: 100px;">
+                                                    <td><?= $app['id_question'] ?></td>
                                                     <td><?= $app['username'] ?></td>
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
                                                     <td style="width: 20%;"><?= $app['date_question'] ?></td>
@@ -175,6 +177,7 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
+                                                  <th>Номер</th>
                                                   <th>Вопрос</th>
                                                   <th>Ответ</th>
                                                   <th>Тип вопроса</th>
@@ -189,6 +192,7 @@
                                                 ?>
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer;">
+                                                      <td style="width: 5%;"><?= $app['id_question'] ?></td>
                                                       <td style="width: 20%;"><?= $app['question'] ?></td>
                                                       <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="n<?= $app['id_question'] ?>"><?= $app['answer'] ?></textarea></td>
                                                       <td style="width: 20%;"><?= $app['type_question'] ?></td>
@@ -575,7 +579,7 @@
 
             $.ajax({
                 url: "sendAnswer.php",
-                method: "GET",
+                method: "POST",
                 data: {id_question: id, answer: answer}
 
             })

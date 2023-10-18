@@ -158,6 +158,132 @@
             margin-left: 0rem;
         }
     }
+
+
+
+    .video-grid.front-page {
+        /*  max-width: 1280px; */
+
+        max-width: 100%;
+
+        /* margin: 0 auto; */
+        /* padding: 1em 2em; */
+    }
+
+    ul.video-list {
+        display: flexbox;
+        display: flex;
+        /* justify-content: center; */
+        flex-wrap: wrap;
+    }
+
+    li.video {
+        flex-grow: 1;
+        position: relative;
+        ooverflow: hidden;
+        width: 33.333333333%;
+        width: -webkit-calc(100% / 3);
+        width: calc(100% / 3);
+        max-width:396.667px;
+        border: solid 0.2em transparent;
+
+    & a {
+          outline: none;
+      }
+
+    &:before {
+         content: "";
+         display: block;
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0, 0, 0, 0);
+         transition: background-color 0.15s;
+     }
+
+    & figure {
+          display: block;
+          position: relative;
+          overflow: hidden;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+
+    & img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+          opacity: 0;
+          transform: scale(0.5);
+          transition: all 0.2s;
+      }
+
+    & figcaption {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background: rgba(0, 0, 0, 0.6);
+          color: #fff;
+          font-size: 1.4rem;
+          font-weight: 600;
+          padding: 1rem;
+          transform: translateY(0);
+          opacity: 1;
+          transition: all 0.2s;
+      }
+    }
+
+    &:hover {
+    & figure {
+    & img {
+          opacity: 1;
+          transform: scale(1);
+      }
+
+    & figcaption {
+          opacity: 0;
+          transform: translateY(50%);
+      }
+    }
+    }
+
+    &:hover:before {
+         background-color: rgba(252, 252, 252, 0.3);
+     }
+    }
+
+    @media screen and (max-width: 800px) {
+        li.video {
+            width: 50%;
+            width: -webkit-calc(100% / 2);
+            width: calc(100% / 2);
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        li.video {
+            width: 100%;
+        }
+    }
+
+
+
+    main {
+        padding: 2rem 0;
+    }
+
+    article {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 1em 2em;
+    }
+
+    li {
+        list-style-type: none;
+
+    }
 </style>
 <div class="content-wrapper">
     <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_1_h" onclick="togleDiv('razled_1_h','razled_1_row')">Регламентирующие документы &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
@@ -201,7 +327,8 @@
     </div>
 
     <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_3_h" onclick="togleDiv('razled_3_h','razled_3_row')">Обучающие материалы и видео &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
-    <div class="row hidden" id="razled_3_row" style="display: none;">
+    <div class="hidden" id="razled_3_row" style="display: none;">
+    <div class="row ">
     <?php
                 $query_RAZDEL_3 = "SELECT * FROM `documents` where razdel  = 3 order by str_num ";
                 $result_RAZDEL_3=mysqli_query($con, $query_RAZDEL_3) or die ( mysqli_error($con));
@@ -216,8 +343,13 @@
                         <span class="file-name"><?= $app_RAZDEL_3['doc_name'] ?></span>
                     </a>
                 </div>
-        <?php } ?>
 
+        <?php } ?>
+    </div>
+        <hr>
+        <div style="margin-top: 2.5rem; margin-left: 2.2rem; margin-right: 2.2rem">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/diUBoBL06YY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
     </div>
 
     <section class="content">
@@ -346,7 +478,6 @@
     $("#btnQuestion").on("click", () => {
         let screenQuestionInput = document.getElementById("screenQuestion");
         let screenQuestion = screenQuestionInput.files[0];
-
         let selectType = document.getElementById("typeQuestion");
         if(selectType.selectedIndex === 0){
             alert("Выберите тип вопроса.");

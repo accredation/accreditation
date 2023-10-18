@@ -3,8 +3,8 @@
 include "connection.php";
 
 $date = date('Y-m-d H:i:s');
-$id_question = $_GET['id_question'];
-$answer = $_GET['answer'];
+$id_question = $_POST['id_question'];
+$answer = $_POST['answer'];
 
     mysqli_query($con, "update questions set answer = '$answer', date_answer = '$date' where id_question = '$id_question'");
 

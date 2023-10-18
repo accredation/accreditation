@@ -25,15 +25,16 @@ function getCookie(cname) {
     }
     return "";
 }
+if(getCookie("predsedatel") !== "1") {
 
-if(getCookie("expert") === "1") {
-    [...btns].forEach(item => {
-        item.disabled = true;
-    });
+        [...btns].forEach(item => {
+            item.disabled = true;
+        });
 
-    [...slcts].forEach(item => {
-        item.disabled = true;
-    });
+        [...slcts].forEach(item => {
+            item.disabled = true;
+        });
+
 }
 
 let id_user = getCookie("id_user");

@@ -26,7 +26,6 @@ if(empty($dateComplete)){
     $dateComplete = "'$dateComplete'";
 }*/
 
- 
 
 
 $query = "SELECT REPLACE(r.name, 'Аккредитация', '')  as oblast_name, CONCAT( a.naim, ' №', a.id_application) as naim, 
@@ -36,7 +35,7 @@ left outer join accreditation.users u on a.id_user=u.id_user
 left outer join accreditation.roles r on u.oblast=r.id_role
 left outer join accreditation.status st on a.id_status=st.id_status
 left outer join spr_type_organization sto on u.id_type=sto.id_type
-where u.id_role=3 and u.id_user not in(2,642) 
+where u.id_role=3 
     and (('$id_type_org' = 0) or ('$id_type_org'<>0 and u.id_type='$id_type_org' ))
     and (('$id_oblast' = 0) or ('$id_oblast'<>0 and u.oblast='$id_oblast' ))
     and (('$id_status' = 0) or ('$id_status'<>0 and a.id_status='$id_status' ))

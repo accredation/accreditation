@@ -2339,25 +2339,40 @@ function validateDataMarks(){
     let vall = marks_app.getArr().filter(item =>  ((Number(item['field4'])===2) || (Number(item['field4'])===3)) &&
         ((item['field6']=== null) || ((item['field6']!== null) && (item['field6'].trim()==''))) );
 
+    let vall1 = marks_app.getArr().filter(item =>  ((Number(item['field4'])===1)) &&
+        ((item['field5']=== null) || ((item['field5']!== null) && (item['field5'].trim()==''))) );
+
     // let emptyVall = marks_app.getArr().filter(item =>  (Number(item['field4'])===0) );
 
     //  console.log(emptyVall);
 
     let strNumMarks= '';
+    let strNumMarks1= '';
     vall.map(item=>{
         strNumMarks += '№'+ item['str_num']+', ';
     })
 
-    if(vall.length >0){
-        alert(`Данные не сохранены. Не заполнено поле "Примечание" в критерии ${strNumMarks}`);
+    vall1.map(item=>{
+        strNumMarks1 += '№'+ item['str_num']+', ';
+    })
+
+    if(vall1.length > 0){
+        alert(`Данные не сохранены. Не заполнено поле "Документы и сведения" в критерии ${strNumMarks1}`);
         flagSave= false;
         result = false;
-    } else {
-        // if(emptyVall.length>0) {
-        //     alert(`Не заполнено поле "Сведения по самооценке ОЗ" в критерии ${emptyVall[0]['mark_name']}`);
-        //     flagSave= false;
-        //     result = false;
-        // }
+    }
+    else {
+        if (vall.length > 0) {
+            alert(`Данные не сохранены. Не заполнено поле "Примечание" в критерии ${strNumMarks}`);
+            flagSave = false;
+            result = false;
+        } else {
+            // if(emptyVall.length>0) {
+            //     alert(`Не заполнено поле "Сведения по самооценке ОЗ" в критерии ${emptyVall[0]['mark_name']}`);
+            //     flagSave= false;
+            //     result = false;
+            // }
+        }
     }
 
     // return flagSave;

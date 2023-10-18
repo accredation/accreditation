@@ -432,7 +432,7 @@ LIMIT 5";
                             <!-- $app["path_img"] -->
                             <!--                                ');"></a>-->
                             <div class="content">
-                                <h3><a href="#"><?= $app["name_news"] ?></a></h3>
+                                <h3><a href="<?= $app["id_news"] == 12 ? 'https://www.youtube.com/live/rfJ4X8gUVik?si=mlUdYypqtfgqGrMm' : '#'?>"><?= $app["name_news"] ?></a></h3>
                                 <div class="date"><?= $app["date_news"] ?></div>
                                 <!--                            <a href="#" class="read_more">Подробнее</a>-->
                             </div>

@@ -130,11 +130,14 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
 
 
 
-           itogOz = 0;
-           itogCrit = 0;
+          let itogOz = 0;
+          let itogCrit = 0;
 
            if(data.length > 0){
-            itogOz = data.length
+               data.map(item=>{
+                   itogOz +=  Number(item['app_count'])
+               })
+
          }
 
            let trItogOZ = document.createElement('tr');
@@ -334,8 +337,8 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                 })
            }
 
-           itogOz = 0;
-           itogCrit = 0;
+          let itogOz = 0;
+          let itogCrit = 0;
 
            if(data.length > 0){
             itogOz = data.length

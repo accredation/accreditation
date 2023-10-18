@@ -39,7 +39,7 @@ function getUserId(id_user) {
     });
 }
 function checkPermissions() {
-    if (getCookie("expert") === "1" ) {
+    if (getCookie("predsedatel") !== "1" ) {
         if (id_role != 12) {
             [...svoboda].forEach(item => {
                 item.disabled = true;
