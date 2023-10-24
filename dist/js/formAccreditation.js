@@ -2174,7 +2174,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                     input4.setAttribute("disabled","true");
 
-                input4.style = "width:100%";
+                input4.style = "width:100%; height: 15rem;";
                 input4.value = item['field5'];
 
                 let arr;
@@ -2182,10 +2182,10 @@ function collapseTable(id_criteria, divCardBody,id_sub){
             //    input4.setAttribute("type","text");
                 td4.appendChild(input4);
                 let td5 = document.createElement('td');
-                td5.style = "border: 1px solid black";
+                td5.style = "border: 1px solid black; height: 100%";
                 let input5 = document.createElement("textarea");
                  // input4.setAttribute("disabled","true");
-                input5.style = "width:100%";
+                input5.style = "width:100%;height: 15rem;";
                 input5.setAttribute("rows","3");
                 input5.value = item['field6'];
                 input5.setAttribute("disabled","true");
@@ -2199,7 +2199,8 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 //  td3.innerHTML = item['filed4'];
                   td6.style = "border: 1px solid black";
                   let divTd6 = document.createElement("div");
-                  divTd6.style = "display: flex; justify-content: center;";
+                  divTd6.style = "display: flex; justify-content: center;width:%";
+
                   td6.appendChild(divTd6);
 
 
@@ -2470,7 +2471,7 @@ $("#rassmotrenie-tab").on("click", () => {
     }
     allTabsMainPage[1].children[0].classList.add("show");
     allTabsMainPage[1].children[0].classList.add("active");
-    status = 6;
+    status = 3;
 
 });
 

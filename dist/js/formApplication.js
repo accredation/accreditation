@@ -257,43 +257,45 @@ async function showTab(element,id_sub){
             .done(function( response ) {
 
                 let criteriaMark ='';
-                let marksSub = JSON.parse(response);
+                if(response !== "0") {
+                    let marksSub = JSON.parse(response);
 
-                criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
-                    + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-              /*  criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
-                    + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
-                criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
-                    + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
-                criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
-                    + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+                    criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
+                        + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] + '%';
+                    /*  criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
+                          + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                      criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
+                          + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                      criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
+                          + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+                          */
+                    /*
+                                    criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки ' + marksSub['otmetka_accred_all_count_yes'] + '/('
+                                    + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
+                                    criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('
+                                    + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
+                                    criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
+                                    + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
+                                    criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('
+                                    + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
+                                    criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('
+                                    + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
                     */
-                /*
-                                criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка оценки ' + marksSub['otmetka_accred_all_count_yes'] + '/('
-                                + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
-                                criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('
-                                + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
-                                criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
-                                + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
-                                criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('
-                                + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
-                                criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('
-                                + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
-                */
-                // let isBtnPrint = document.getElementById("btnPrint");
-                // if(isBtnPrint){
-                //     isBtnPrint.remove();
-                // }
-                calcSubMark.innerHTML = criteriaMark; // + "<br/><br/>";
-                // let btnPrint = document.createElement("button");
-                // btnPrint.setAttribute("type", "submit");
-                // btnPrint.className = "btn btn-light btn-fw";
-                // btnPrint.id = "btnPrint";
-                // btnPrint.innerHTML = "Печать";
-                // btnPrint.style = "float: right";
-                // btnPrint.onclick = () => print();
-                calcRow.appendChild(calcSubMark);
-                // calcSubMark.insertAdjacentElement("afterend", btnPrint);
+                    // let isBtnPrint = document.getElementById("btnPrint");
+                    // if(isBtnPrint){
+                    //     isBtnPrint.remove();
+                    // }
+                    calcSubMark.innerHTML = criteriaMark; // + "<br/><br/>";
+                    // let btnPrint = document.createElement("button");
+                    // btnPrint.setAttribute("type", "submit");
+                    // btnPrint.className = "btn btn-light btn-fw";
+                    // btnPrint.id = "btnPrint";
+                    // btnPrint.innerHTML = "Печать";
+                    // btnPrint.style = "float: right";
+                    // btnPrint.onclick = () => print();
+                    calcRow.appendChild(calcSubMark);
+                    // calcSubMark.insertAdjacentElement("afterend", btnPrint);
+                }
 
             });
     }
@@ -378,7 +380,13 @@ function showModal(id_application, strMarks, strMarksAccred){
     }
     openTabId=0;
     let mainRightCard = document.getElementById("mainRightCard");
-    mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
+    if(strMarksAccred !== '')
+    {
+        mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
+    } else {
+        mainRightCard.innerHTML = strMarks;
+    }
+
     let addtab = document.getElementById("addtab");
     let btnSuc = document.getElementById("btnSuc");
     let btnSend = document.getElementById("btnSend");
@@ -529,9 +537,6 @@ function showModal(id_application, strMarks, strMarksAccred){
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         let fRD =  formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
-
-
-
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -1808,20 +1813,21 @@ async function createAccordionCards(id_sub) {
                 .done(async function( response ) {
 
                     let criteriaMark ='';
-                    let marksSub = JSON.parse(response);
+                    if(response !== "0") {
+                        let marksSub = JSON.parse(response);
 
-                    criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
-                        + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-                 /*   criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
-                        + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
-                    criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
-                        + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
-                    criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
-                        + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
-*/
-                    divCardHeaderMark.innerHTML = criteriaMark;
-                    divCardHeader.appendChild(divCardHeaderMark);
-
+                        criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
+                            + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] + '%';
+                        /*   criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
+                               + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                           criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
+                               + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                           criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
+                               + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+       */
+                        divCardHeaderMark.innerHTML = criteriaMark;
+                        divCardHeader.appendChild(divCardHeaderMark);
+                    }
 
                 });
 
@@ -1877,7 +1883,8 @@ async function createAccordionCards(id_sub) {
                                 } else {
 
                                     openedDiv[0].classList.remove('show');
-                                    await updateCollapse (id_open_criteria,id_sub, 0);
+                                    await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
+                                    });
                                 }
                             } else {
                                 divCollapse.classList.toggle('show');
@@ -1893,8 +1900,8 @@ async function createAccordionCards(id_sub) {
                             await collapseTable(id_criteria, divCardBody,id_sub);
 
                             id_open_criteria = id_criteria;
-                            await  updateCollapse (id_criteria,id_sub, 0);
-
+                            await  updateCollapse (id_criteria,id_sub, 0).then(()=>{
+                            });
                     }
 
                     else {
@@ -1914,7 +1921,8 @@ async function createAccordionCards(id_sub) {
                                 } else {
 
                                     openedDiv[0].classList.remove('show');
-                                    await updateCollapse (id_open_criteria,id_sub, 0);
+                                    await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
+                                    });
                                 }
                             } else {
                                 divCollapse.classList.toggle('show');
@@ -1930,7 +1938,7 @@ async function createAccordionCards(id_sub) {
                             await collapseTable(id_criteria, divCardBody,id_sub);
 
                             id_open_criteria = id_criteria;
-                            await updateCollapse (id_criteria,id_sub, 1);
+                            await updateCollapse (id_criteria,id_sub, getCookie("PHPSESSID"));
                         }
                         else{
                             alert("Открыто другим пользователем");
@@ -1961,7 +1969,8 @@ async function createAccordionCards(id_sub) {
                                 } else {
 
                                     openedDiv[0].classList.remove('show');
-                                    await updateCollapse (id_open_criteria,id_sub, 0);
+                                    await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
+                                    });
                                 }
                             } else {
                                 divCollapse.classList.toggle('show');
@@ -1977,8 +1986,8 @@ async function createAccordionCards(id_sub) {
                             await collapseTable(id_criteria, divCardBody,id_sub);
 
                             id_open_criteria = id_criteria;
-                            updateCollapse (id_criteria,id_sub, 0);
-
+                            await updateCollapse (id_criteria,id_sub, 0).then(()=>{
+                            });
                         }
 
                         else {
@@ -1997,7 +2006,9 @@ async function createAccordionCards(id_sub) {
                                     } else {
 
                                         openedDiv[0].classList.remove('show');
-                                        await updateCollapse (id_open_criteria,id_sub, 0);
+                                        await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
+                                        });
+
                                     }
                                 } else {
                                     divCollapse.classList.toggle('show');
@@ -2013,7 +2024,7 @@ async function createAccordionCards(id_sub) {
                                 await collapseTable(id_criteria, divCardBody,id_sub);
 
                                 id_open_criteria = id_criteria;
-                                updateCollapse (id_criteria,id_sub, 1);
+                                updateCollapse (id_criteria,id_sub, getCookie("PHPSESSID"));
                             }
                             else{
                                 alert("Открыто другим пользователем");
@@ -2274,6 +2285,7 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
 
 function  isSavedMarks(){
     //  console.log('check arrChange begin', arrChange);
+
     let tab1 = document.getElementById("tab1");
     let btnTab = tab1.children[0];
     if(btnTab.classList.contains("active")) {
@@ -2281,7 +2293,9 @@ function  isSavedMarks(){
         btnTab.removeAttribute("disabled");
     }
     if (arrChange == true) {
+        // collapseUpdateOpened();
         let res = confirm("Сохранить введенные данные?");
+
         //  console.log('res',res);
 
         if(res == false){
@@ -3064,7 +3078,9 @@ $("#reportSamoocenka").on("change", () =>{
 });
 
 
+
 async function updateCollapse (id_criteria,id_sub, opend){
+
 
     $.ajax({
         url: "updateCollapseFlag.php",
@@ -3082,6 +3098,8 @@ async function updateCollapse (id_criteria,id_sub, opend){
 
 async function checkCollapse(id_criteria,id_sub) {
 
+
+
 // console.log('status',status);
     await $.ajax({
         url: "selectCollapseFlag.php",
@@ -3089,26 +3107,40 @@ async function checkCollapse(id_criteria,id_sub) {
         data: {id_criteria: id_criteria, id_sub: id_sub}
     })
         .done(function (response) {
-          //  console.log(response);
-            opend = response;
 
+            opend = response;
         });
 
    // console.log("do", opend);
+
 }
 
 window.addEventListener("beforeunload", async (event) => {
-    event.preventDefault();
+  // let aa = localStorage.getItem('idCritOpen');
 
-     await collapseUpdateOpened();
+
+    let openCrit = localStorage.getItem('idCritOpen');
+    let openSub = localStorage.getItem('idSub');
+    if ((openCrit) && (openSub)){
+        await updateCollapse(openCrit, openSub, 0);
+    }
+
+
+    event.preventDefault();
+    await collapseUpdateOpened();
+
 });
 
 
 
 async function collapseUpdateOpened()
 {
-    let collapseElement = document.getElementsByClassName('collapse');
+
+    let div = document.getElementById('tab'+openTabId+'-')
+if (div) {
+    let collapseElement = div.getElementsByClassName('collapse');
     let collapseElement2 = [...collapseElement];
+
 
     let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true);
 
@@ -3118,12 +3150,10 @@ async function collapseUpdateOpened()
             let idcrit = elementcrit.id.replace('collapse', '');
             let id_criteria = parseInt(idcrit);
 
-            let elementsub = document.querySelector('.nav-link.active[id^="button"]');
-            let idsub = elementsub.id.replace('button', '');
-            let id_sub = parseInt(idsub);
-
-            await updateCollapse(id_criteria, id_sub, 0);
+            await updateCollapse(id_criteria, openTabId, 0);
         }
     }
+
+}
 }
 

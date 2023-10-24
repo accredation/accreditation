@@ -198,10 +198,10 @@ function saveChanges(btn){
                     id_responsible: id_responsible
                 }
             }).done(function (response) {
-                trId.children[3].innerHTML = predsName;
-                trId.children[4].innerHTML = dateAccept.value;
-                trId.children[5].innerHTML = dateComplete.value;
-                trId.children[6].innerHTML = dateCouncil.value;
+                trId.children[4].innerHTML = predsName;
+                trId.children[5].innerHTML = dateAccept.value;
+                trId.children[6].innerHTML = dateComplete.value;
+                trId.children[7].innerHTML = dateCouncil.value;
 
                 let startDate2 = new Date(); // текущая дата yy mm dd
                 let endDate2 = new Date(); // конечная дата
@@ -418,7 +418,7 @@ function collapsTable(id) {
         if (arrOtv.length > 0) {
             filteredHidden.forEach((hidenTrItem) => {
 
-                let idCr = hidenTrItem.children[0].id.substring(2);
+                let idCr = hidenTrItem.children[1].id.substring(2);
 
                 let select = hidenTrItem.getElementsByTagName('select')[0];
                 let selInd = select.value;
@@ -675,7 +675,7 @@ function printReprot() {
 
         let tdq = item.getElementsByTagName('td')
         for(let tdItem of tdq){
-          if(tdItem.getElementsByTagName('select')[0]){
+          if(tdItem.getElementsByTagName('select')[1]){
             let div = document.createElement('div');
             div.innerHTML = tdItem.getElementsByTagName('select')[0].textContent;
             let select = tdItem.getElementsByTagName('select')[0];

@@ -201,8 +201,9 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
 
 function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text){
     let divForTable = document.getElementById(`divForTable`);
-    divForTable.innerHTML = '';
-
+    divForTable.innerHTML = 'Ожидайте загрузки данных';
+    
+ 
     let data = new Array();
 
     $.ajax({
@@ -212,6 +213,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
             dateComplete: dateComplete_value, id_type_org: typeOrg_value}
         
     }).done(function (response){
+        divForTable.innerHTML ='';
         for (let i of JSON.parse(response)){
             data.push(i);
         }
@@ -257,11 +259,21 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
     //     th7.style = "border: 1px solid black;width: 55%; text-align: center;line-height: normal";
     //    // th41.setAttribute('rowspan','2');
 
+        let th5 = document.createElement('th');
+        th5.innerHTML = 'Критериев всего';
+        th5.style = "border: 1px solid black;width: 55%; text-align: center;line-height: normal";
+
+        let th6 = document.createElement('th');
+        th6.innerHTML = 'Критериев заполнено';
+        th6.style = "border: 1px solid black;width: 55%; text-align: center;line-height: normal";
+
          trHead.appendChild(th11);
          trHead.appendChild(th4);
          trHead.appendChild(th2);
          trHead.appendChild(th3);
          trHead.appendChild(th1);
+         trHead.appendChild(th5);
+         trHead.appendChild(th6);
      //    trHead.appendChild(th41);
        //  trHead.appendChild(th7);
          table.appendChild(trHead);
@@ -301,6 +313,12 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
 
                     let td4 = document.createElement('td');
                     td4.innerHTML = item['naim'];
+
+                    let td5 = document.createElement('td');
+                    td5.innerHTML = item['crit_all'];
+
+                    let td6 = document.createElement('td');
+                    td6.innerHTML = item['crit_otm'];
                  //   td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;line-height: normal; ";
 
                     // let td41 = document.createElement('td');
@@ -312,6 +330,8 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
                         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
                         td4.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
+                        td5.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
+                        td6.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
                         // td41.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
 
                     } else {
@@ -320,6 +340,8 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                         td4.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
+                        td5.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
+                        td6.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                         // td41.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                     }
 
@@ -330,6 +352,8 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                     tr.appendChild(td2);
                     tr.appendChild(td3);
                     tr.appendChild(td1);
+                    tr.appendChild(td5);
+                    tr.appendChild(td6);
                     // tr.appendChild(td41);
                     tbody.appendChild(tr);
 
@@ -353,7 +377,7 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
            let tdItog2 = document.createElement('td');
            tdItog2.innerHTML = itogOz;
            tdItog2.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-weight: 700;";
-           tdItog2.setAttribute('colspan',3); 
+           tdItog2.setAttribute('colspan',4); 
 
            let tdItog3 = document.createElement('td');
           // tdItog2.innerHTML = itogOz;

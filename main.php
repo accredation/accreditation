@@ -391,7 +391,14 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ( $role==12 ){?> <button class="btn btn-primary"  style =" position: absolute; right: 3%;" onclick="addNews()">Добавить новость</button> <?php }} ?></div>
+                                        if ( $role==12 ){?>
+                                                <div style="display: flex">
+                                                <div><input type="file" class="btn btn-primary"  style ="right: 3%;" id="myF"/>
+                                                    <div><button class="btn btn-primary"  style =" right: 3%;" onclick="addF()">Добавить файл</button></div></div>
+                                            <div><button class="btn btn-primary"  style =" position: absolute; right: 3%;" onclick="addNews()">Добавить новость</button></div>
+
+                                                </div>
+                                        <?php }} ?></div>
 
     <div class="row">
 
@@ -503,6 +510,16 @@ $(".btn-danger").on("click",() => {
 modal.classList.remove("show");
 
 });
+}
+function addF(){
+    let myF = document.getElementById("myF");
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let soprPismoFile = myF.files[0];
+    form.append("myF", soprPismoFile);
+    xhr.open("post", "saveF.php", true);
+    xhr.send(form);
+    alert("файл сохранено");
 }
 
 function saveNews() {

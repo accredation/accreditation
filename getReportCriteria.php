@@ -103,6 +103,12 @@ foreach ($data as $app) {
     $mark->otmetka_verif_count_all = $app['otmetka_verif_count_all'];
     $mark->otmetka_verif_count_not_need = $app['otmetka_verif_count_not_need'];
 }
-echo json_encode($mark);
+if(isset($mark->otmetka_all))
+{
+    echo json_encode($mark);
+}
+else{
+    echo "0";
+}
 
 ?>

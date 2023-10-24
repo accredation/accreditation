@@ -134,6 +134,13 @@ array_push($arr, $otmetka_accred_class_3);
 
 echo json_encode($arr);
 */
-echo json_encode($mark);
+if(isset($mark->otmetka_all))
+{
+    echo json_encode($mark);
+}
+else{
+    echo "0";
+}
+
 
 ?>
