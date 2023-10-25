@@ -25,15 +25,15 @@ if ($dateInputSrok) {
     $result = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 }
 
-if (!file_exists('documents/'.$login . "/" . 'sovets/'. $id_application )) {
-    mkdir('documents/'.$login . "/" . 'sovets/'. $id_application , 0777, true);
+if (!file_exists('docs/documents/'.$login . "/" . 'sovets/'. $id_application )) {
+    mkdir('docs/documents/'.$login . "/" . 'sovets/'. $id_application , 0777, true);
 }
 
 if (isset($_FILES['protokolsoveta']['name'])) {
     $file_name = $_FILES['protokolsoveta']['name'];
     $file_tmp = $_FILES['protokolsoveta']['tmp_name'];
 
-    move_uploaded_file($file_tmp, "./documents/" . $login . "/sovets/". $id_application  . "/". $file_name);
+    move_uploaded_file($file_tmp, "./docs/documents/" . $login . "/sovets/". $id_application  . "/". $file_name);
 
     $query2 =
         "UPDATE applications set ProtokolSoveta = '$file_name' where id_application='$id_application'";
@@ -45,7 +45,7 @@ if (isset($_FILES['zaklsoveta']['name'])) {
     $file_name = $_FILES['zaklsoveta']['name'];
     $file_tmp = $_FILES['zaklsoveta']['tmp_name'];
 
-    move_uploaded_file($file_tmp, "./documents/" . $login . "/sovets/". $id_application . "/" .  $file_name);
+    move_uploaded_file($file_tmp, "./docs/documents/" . $login . "/sovets/". $id_application . "/" .  $file_name);
 
     $query3 =
         "UPDATE applications set ZaklSoveta = '$file_name' where id_application='$id_application'";

@@ -363,10 +363,19 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
 
           let itogOz = 0;
           let itogCrit = 0;
+          let itogCritZap = 0;
 
            if(data.length > 0){
             itogOz = data.length
+
+               data.map((item)=> {
+                   itogCrit = Number(itogCrit) + Number(item['crit_all']);
+                   itogCritZap =Number(itogCritZap) + Number(item['crit_otm']);
+               })
+
          }
+
+
 
            let trItogOZ = document.createElement('tr');
            let tdItog = document.createElement('td');
@@ -377,16 +386,21 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
            let tdItog2 = document.createElement('td');
            tdItog2.innerHTML = itogOz;
            tdItog2.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-weight: 700;";
-           tdItog2.setAttribute('colspan',4); 
+           tdItog2.setAttribute('colspan',2);
 
            let tdItog3 = document.createElement('td');
-          // tdItog2.innerHTML = itogOz;
+           tdItog3.innerHTML = itogCrit;
            tdItog3.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-weight: 700;";
+
+            let tdItog4 = document.createElement('td');
+             tdItog4.innerHTML = itogCritZap;
+            tdItog4.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; font-weight: 700;";
 
            trItogOZ.appendChild(tdItog);
            trItogOZ.appendChild(tdItog2);  
-          // trItogOZ.appendChild(tdItog3);  
-           tbody.appendChild(trItogOZ); 
+           trItogOZ.appendChild(tdItog3);
+           trItogOZ.appendChild(tdItog4);
+           tbody.appendChild(trItogOZ);
 
           
          let divReportTitle = document.createElement('div');

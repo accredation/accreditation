@@ -67,7 +67,7 @@ function showModalApp(naim) {
             naimEl.value = data[1];
             unpEl.value = data[3];
             let login = data[0];
-            dov.innerHTML += "<a href='/documents/" + login + "/" + data[2] + "'>" + data[2] + "</a><br/>";
+            dov.innerHTML += "<a href='/docs/documents/" + login + "/" + data[2] + "'>" + data[2] + "</a><br/>";
             modal.classList.add("show");
             modal.style = "display: block";
             showDoverennost(dov);

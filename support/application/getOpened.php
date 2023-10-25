@@ -10,6 +10,11 @@ $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($c
 if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
 {
     $row = mysqli_fetch_assoc($rez);
-    $opened = $row['opened'];
+    if (($row['opened'] === "0" ) || ($row['opened'] === null)) {
+        //свободен
+        $opened = "0";
+    } else {
+        $opened = "1";
+    }
 }
 echo $opened;

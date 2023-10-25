@@ -41,7 +41,7 @@ left outer join accreditation.rating_criteria rc on s.id_subvision=rc.id_subvisi
 left outer join accreditation.mark m on rc.id_criteria =m.id_criteria
 left outer join accreditation.mark_rating rm on m.id_mark=rm.id_mark and s.id_subvision=rm.id_subvision
 where u.id_role=3 
-    and rc.id_rating_criteria is not null
+    
     and (('$id_type_org' = 0) or ('$id_type_org'<>0 and u.id_type='$id_type_org' ))
     and (('$id_oblast' = 0) or ('$id_oblast'<>0 and u.oblast='$id_oblast' ))
     and (('$id_status' = 0) or ('$id_status'<>0 and a.id_status='$id_status' ))

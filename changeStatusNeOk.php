@@ -14,15 +14,15 @@ $text_notifications = "Необходимо доработать заявлен�
 $query3 = "Insert into  notifications  (id_user,text_notifications,readornot,date_text)  SELECT id_user ,'$text_notifications',1,CURDATE()  FROM applications WHERE id_application = '$id_application'; ";
 
 $result3 = mysqli_query($con, $query3) or die("Ошибка " . mysqli_error($con));
-if (!file_exists('documents/' . 'dorabotka/'. $id_application )) {
-    mkdir('documents/'  . 'dorabotka/'. $id_application , 0777, true);
+if (!file_exists('docs/documents/' . 'dorabotka/'. $id_application )) {
+    mkdir('docs/documents/'  . 'dorabotka/'. $id_application , 0777, true);
 }
 
 if (isset($_FILES['fileDorabotka']['name'])) {
     $file_name = $_FILES['fileDorabotka']['name'];
     $file_tmp = $_FILES['fileDorabotka']['tmp_name'];
 
-    move_uploaded_file($file_tmp, "./documents/" . "dorabotka/". $id_application  . "/". $file_name);
+    move_uploaded_file($file_tmp, "./docs/documents/" . "dorabotka/". $id_application  . "/". $file_name);
 
     $query2 =
         "UPDATE applications set infDorabotkiFile = '$file_name' where id_application='$id_application'";

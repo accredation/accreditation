@@ -297,7 +297,7 @@
                     
                 ?>
                 <div class="col-lg-2 mb-2">
-                    <a href="docs/documentation/Регламентирующие документы/<?= $app_RAZDEL_1['doc_name_with_type'] ?>" class="file-link">
+                    <a href="documentation/Регламентирующие документы/<?= $app_RAZDEL_1['doc_name_with_type'] ?>" class="file-link">
                         <img src="assets/images/<?= $app_RAZDEL_1['img_name'] ?>" alt="<?= $app_RAZDEL_1['doc_type'] ?>" class="file-icon">
                         <span class="file-name"><?= $app_RAZDEL_1['doc_name'] ?></span>
                     </a>
@@ -317,7 +317,7 @@
                     
                 ?>
                 <div class="col-lg-2 mb-2">
-                    <a href="docs/documentation/Формы обязательных документов/<?= $app_RAZDEL_2['doc_name_with_type'] ?>" class="file-link">
+                    <a href="documentation/Формы обязательных документов/<?= $app_RAZDEL_2['doc_name_with_type'] ?>" class="file-link">
                         <img src="assets/images/<?= $app_RAZDEL_2['img_name'] ?>" alt="<?= $app_RAZDEL_2['doc_type'] ?>" class="file-icon">
                         <span class="file-name"><?= $app_RAZDEL_2['doc_name'] ?></span>
                     </a>
@@ -338,7 +338,7 @@
                     
                 ?>
                 <div class="col-lg-2 mb-2">
-                    <a href="docs/documentation/Обучающие материалы и видео/<?= $app_RAZDEL_3['doc_name_with_type'] ?>" class="file-link">
+                    <a href="documentation/Обучающие материалы и видео/<?= $app_RAZDEL_3['doc_name_with_type'] ?>" class="file-link">
                         <img src="assets/images/<?= $app_RAZDEL_3['img_name'] ?>" alt="<?= $app_RAZDEL_3['doc_type'] ?>" class="file-icon">
                         <span class="file-name"><?= $app_RAZDEL_3['doc_name'] ?></span>
                     </a>

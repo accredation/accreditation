@@ -43,23 +43,28 @@ let OpenSub = 0;
 //shotab
 async function showTab(element,id_sub){
     //   console.log(OpenSub);
+    if(openTabId != id_sub){
+
+        if(isSavedMarks()) {
+            await collapseUpdateOpened(id_open_criteria, openTabId);
+            if (saveMarks(OpenSub, null,  false) === false) {
+
+                if((mainSearch == element) && (id_sub==undefined)){
+                    return;
+                }
+            }
+            return;
+        }
+        else {
+            await  collapseUpdateOpened(id_open_criteria, openTabId);
+        };
+    }
+
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
     let mainSearch = document.getElementById("tab1");
 
-    if(isSavedMarks()) {
-        await collapseUpdateOpened();
-        if (saveMarks(OpenSub, null,  false) === false) {
 
-            if((mainSearch == element) && (id_sub==undefined)){
-                return;
-            }
-        }
-        return;
-    }
-    else {
-       await  collapseUpdateOpened();
-    };
 
     arrChange=false;
 
@@ -490,28 +495,28 @@ function showModal(id_application, strMarks, strMarksAccred){
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>"+data[0][17]+"</span>");
             }
             if(data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if(data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             if(data[0][16] != null) {
-                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
+                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if(data[0][8] != null) {
-                soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
+                soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if(data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if(data[0][10] != null) {
-                orgStrukt.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+                orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
             if(data[0][11] != null) {
-                ucomplect.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+                ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if(data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
@@ -2576,7 +2581,7 @@ $("#btnSend").on("click", async () => {
                                 if (response == "") {
                                     alert("Заявление отправлено");
                                     calcMarks();
-                                    collapseUpdateOpened();
+                                    collapseUpdateOpened(id_open_criteria,openTabId);
                                     location.href = "/index.php?application";
                                 } else {
                                     alert(response);
@@ -2949,7 +2954,7 @@ $("#soprPismo").on("change", () =>{
         sopr.remove();
     }
     let soprPismo = document.getElementById("soprPismo");
-    soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + soprPismo.files[0].name + "'>" + soprPismo.files[0].name + "</a>");
+    soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + soprPismo.files[0].name + "'>" + soprPismo.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -2972,7 +2977,7 @@ $("#copyRaspisanie").on("change", () =>{
     }
     let copyRasp = document.getElementById("copyRaspisanie");
 
-    copyRasp.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + copyRasp.files[0].name + "'>" + copyRasp.files[0].name + "</a>");
+    copyRasp.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + copyRasp.files[0].name + "'>" + copyRasp.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -2994,7 +2999,7 @@ $("#orgStrukt").on("change", () =>{
         sopr.remove();
     }
     let orgStruct = document.getElementById("orgStrukt");
-    orgStruct.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + orgStruct.files[0].name + "'>" + orgStruct.files[0].name + "</a>");
+    orgStruct.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + orgStruct.files[0].name + "'>" + orgStruct.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3016,7 +3021,7 @@ $("#ucomplect").on("change", () =>{
         sopr.remove();
     }
     let ucomplect = document.getElementById("ucomplect");
-    ucomplect.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + ucomplect.files[0].name + "'>" + ucomplect.files[0].name + "</a>");
+    ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + ucomplect.files[0].name + "'>" + ucomplect.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3038,7 +3043,7 @@ $("#techOsn").on("change", () =>{
         sopr.remove();
     }
     let techOsn = document.getElementById("techOsn");
-    techOsn.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+    techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3063,7 +3068,7 @@ $("#reportSamoocenka").on("change", () =>{
         sopr.remove();
     }
     let reportSamoocenka = document.getElementById("reportSamoocenka");
-    reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + reportSamoocenka.files[0].name + "'>" + reportSamoocenka.files[0].name + "</a>");
+    reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + reportSamoocenka.files[0].name + "'>" + reportSamoocenka.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3116,28 +3121,28 @@ async function checkCollapse(id_criteria,id_sub) {
 }
 
 window.addEventListener("beforeunload", async (event) => {
-  // let aa = localStorage.getItem('idCritOpen');
-
-
-    let openCrit = localStorage.getItem('idCritOpen');
-    let openSub = localStorage.getItem('idSub');
-    if ((openCrit) && (openSub)){
-        await updateCollapse(openCrit, openSub, 0);
-    }
 
 
     event.preventDefault();
-    await collapseUpdateOpened();
+    await collapseUpdateOpened(id_open_criteria,openTabId);
 
 });
 
 
 
-async function collapseUpdateOpened()
+async function collapseUpdateOpened(id_crit, id_sub)
 {
 
-    let div = document.getElementById('tab'+openTabId+'-')
+    let div = document.getElementById('tab'+id_sub+'-')
 if (div) {
+
+    let tableCol = document.getElementById('collapse'+id_crit);
+    if(tableCol){
+
+        await updateCollapse(id_crit, id_sub, 0);
+    }
+
+    /*
     let collapseElement = div.getElementsByClassName('collapse');
     let collapseElement2 = [...collapseElement];
 
@@ -3149,11 +3154,11 @@ if (div) {
         if (elementcrit) {
             let idcrit = elementcrit.id.replace('collapse', '');
             let id_criteria = parseInt(idcrit);
-
-            await updateCollapse(id_criteria, openTabId, 0);
+            console.log("updateCollapse444",id_crit, id_sub);
+            await updateCollapse(id_crit, id_sub, 0);
         }
     }
-
+*/
 }
 }
 

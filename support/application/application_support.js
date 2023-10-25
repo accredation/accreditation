@@ -388,26 +388,26 @@ function showModal(id_application, strMarks, strMarksAccred){
             predstavitel.value = data[0][7];
             let login = data[0][13];
             if(data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             // if(data[0][14] != null) {
-            //     fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
+            //     fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
             // }
 
             if(data[0][8] != null) {
-                soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
+                soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if(data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if(data[0][10] != null) {
-                orgStrukt.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+                orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
             if(data[0][11] != null) {
-                ucomplect.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+                ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if(data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";

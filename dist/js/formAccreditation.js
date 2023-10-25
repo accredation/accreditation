@@ -41,7 +41,7 @@ let mark = {
 let OpenSub = 0;
 
 
-function showTab(element,id_sub){
+async function showTab(element,id_sub){
 
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
@@ -86,7 +86,7 @@ function showTab(element,id_sub){
         let row = tabDiv.getElementsByClassName("col-12")[1];
 
         row.innerHTML = "";
-        $.ajax({
+        await $.ajax({
             url: "getCrits.php",
             method: "GET",
             data: {id_sub: id_sub}
@@ -199,7 +199,7 @@ function showTab(element,id_sub){
                 }
 
 
-                createAccordionCards(id_sub);
+
 
                 let mainTab = document.getElementById("button1");
 
@@ -211,7 +211,7 @@ function showTab(element,id_sub){
                 // else{
                 //     footer.classList.remove("hiddentab");
                 // }
-            });
+            }).then(() => createAccordionCards(id_sub));
         let submark = document.getElementById("subMark"+id_sub);
         if(submark){
             submark.remove();
@@ -222,7 +222,7 @@ function showTab(element,id_sub){
         calcSubMark.classList.add('subMark');
         let id_application = document.getElementById("id_application").innerText;
         let calcRow = document.getElementById("tab"+id_sub+"-");
-        $.ajax({
+        await $.ajax({
             url: "getCalcSubMark.php",
             method: "GET",
             data: {id_application: id_application, id_sub: id_sub}
@@ -544,29 +544,29 @@ function showModal(id_application, strMarks, strMarksAccred){
             }
 
             if(data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             if(data[0][16] != null) {
-                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
+                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if(data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
 
             if(data[0][8] != null) {
-                soprPismo.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
+                soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if(data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if(data[0][10] != null) {
-                orgStrukt.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+                orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
             if(data[0][11] != null) {
-                ucomplect.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+                ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if(data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
@@ -609,14 +609,14 @@ function showModal(id_application, strMarks, strMarksAccred){
             if(datasovet[0][4] != null) {
                 document.getElementById("protokolsoveta").value = datasovet[0][4];
 
-                fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][4] + "'>" + datasovet[0][4] + "</a>");
+                fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][4] + "'>" + datasovet[0][4] + "</a>");
 
             }
 
             if(datasovet[0][5] != null) {
                 document.getElementById("zaklsoveta").value = datasovet[0][5];
 
-                fileInputZakl.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][5] + "'>" + datasovet[0][5] + "</a>");
+                fileInputZakl.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][5] + "'>" + datasovet[0][5] + "</a>");
 
             }
         });
@@ -2705,7 +2705,7 @@ $("#formReport").on("change", () =>{
     if(sopr)
         sopr.remove();
     let fileReport = document.getElementById("fileReport");
-    fileReport.insertAdjacentHTML("afterend", "<a href='/documents/Отчеты/" + fileReport.files[0].name + "'>" + fileReport.files[0].name + "</a>");
+    fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + fileReport.files[0].name + "'>" + fileReport.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -2732,7 +2732,7 @@ $("#protfile").on("change", () =>{
         prot.remove();
         let fileInputProtokol = document.getElementById("fileInputProtokol");
 
-        fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/documents/"+ login + "/sovets/" + id_application +"/" + fileInputProtokol.files[0].name + "'>" + fileInputProtokol.files[0].name + "</a>");
+        fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/sovets/" + id_application +"/" + fileInputProtokol.files[0].name + "'>" + fileInputProtokol.files[0].name + "</a>");
     }
 
 
@@ -2750,7 +2750,7 @@ $("#zaklfile").on("change", () =>{
         zakl.remove();
         let fileInputZakl = document.getElementById("fileInputZakl");
 
-        fileInputZakl.insertAdjacentHTML("afterend", "<a href='/documents/" + login + "/sovets/" + id_application + "/" + fileInputZakl.files[0].name + "'>" + fileInputZakl.files[0].name + "</a>");
+        fileInputZakl.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/sovets/" + id_application + "/" + fileInputZakl.files[0].name + "'>" + fileInputZakl.files[0].name + "</a>");
     }
 
 });
@@ -2768,7 +2768,7 @@ $("#infile").on("change", () =>{
         dorfile.remove();
         let fileInputDorabotka = document.getElementById("fileInputDorabotka");
 
-        fileInputDorabotka.insertAdjacentHTML("afterend", "<a href='/documents/"+ login + "/dorabotka/" + id_application +"/" + fileInputDorabotka.files[0].name + "'>" + fileInputDorabotka.files[0].name + "</a>");
+        fileInputDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/dorabotka/" + id_application +"/" + fileInputDorabotka.files[0].name + "'>" + fileInputDorabotka.files[0].name + "</a>");
     }
 
 
