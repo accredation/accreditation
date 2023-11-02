@@ -83,6 +83,7 @@ async function showTab(element,id_sub){
     let idNum = id.substring(3);
 
     if(idNum > 1){
+
         let row = tabDiv.getElementsByClassName("col-12")[1];
 
         row.innerHTML = "";
@@ -211,7 +212,8 @@ async function showTab(element,id_sub){
                 // else{
                 //     footer.classList.remove("hiddentab");
                 // }
-            }).then(() => createAccordionCards(id_sub));
+            })
+        await createAccordionCards(id_sub);
         let submark = document.getElementById("subMark"+id_sub);
         if(submark){
             submark.remove();
@@ -550,7 +552,7 @@ function showModal(id_application, strMarks, strMarksAccred){
                 divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if(data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login+ "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
 
             if(data[0][8] != null) {
@@ -634,16 +636,19 @@ function showModal(id_application, strMarks, strMarksAccred){
         let fIP =  protfile.querySelectorAll("a");
         let fIZ =  zaklfile.querySelectorAll("a");
         // Удалить все найденные элементы с тегом "a"
+        if(fRD.length > 0)
         for (let anchor of fRD) {
             anchor.remove();
         }
-
+        if(DD.length > 0)
         for (let anchor of DD) {
             anchor.remove();
         }
+        if(fIP.length > 0)
         for (let anchor of fIP) {
             anchor.remove();
         }
+        if(fIZ.length > 0)
         for (let anchor of fIZ) {
             anchor.remove();
         }
@@ -674,7 +679,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         for(let i = tablist.children.length - 1; i > 0; i--){
             tablist.children[i].remove();
         }
-
+        let mb = document.getElementsByClassName("modal-body")[0];
+        let innerContent = mb.getElementsByClassName("tab-content tab-transparent-content")[0];
+        let lastAct = innerContent.getElementsByClassName("tab-pane fade show remAccTab active")[0];
+        lastAct.remove();
     });
     $("#closerModal").on("click",() => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
@@ -690,16 +698,19 @@ function showModal(id_application, strMarks, strMarksAccred){
         let fIP =  protfile.querySelectorAll("a");
         let fIZ =  zaklfile.querySelectorAll("a");
         // Удалить все найденные элементы с тегом "a"
+        if(fRD.length > 0)
         for (let anchor of fRD) {
             anchor.remove();
         }
-
+        if(DD.length > 0)
         for (let anchor of DD) {
             anchor.remove();
         }
+        if(fIP.length > 0)
         for (let anchor of fIP) {
             anchor.remove();
         }
+        if(fIZ.length > 0)
         for (let anchor of fIZ) {
             anchor.remove();
         }
@@ -730,7 +741,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         for(let i = tablist.children.length - 1; i > 0; i--){
             tablist.children[i].remove();
         }
-
+        let mb = document.getElementsByClassName("modal-body")[0];
+        let innerContent = mb.getElementsByClassName("tab-content tab-transparent-content")[0];
+        let lastAct = innerContent.getElementsByClassName("tab-pane fade show remAccTab active")[0];
+        lastAct.remove();
     });
 
 
@@ -1827,8 +1841,9 @@ async function createAccordionCards(id_sub) {
                     + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
                     criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
                     + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
-*/
-                    
+       */
+
+                    console.log(1111111);
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
                     divCardHeader.appendChild(divCardHeaderMark);
@@ -1920,7 +1935,6 @@ async function createAccordionCards(id_sub) {
                     //  });
 
                 });
-
 
 
             let btnCollapse = document.createElement("button");
@@ -2268,6 +2282,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     //  return marks_app;
 
     let bsohrmark = document.querySelectorAll("#sohrmark");
+    if (bsohrmark)
     if(getCookie("isMA") === "0") {
         [...bsohrmark].forEach(item => {
             item.disabled = true;
@@ -2781,7 +2796,7 @@ function sendDataToServer(id_sub,id_criteria, value) {
         method: "POST",
         data: {id_sub: id_sub, id_criteria: id_criteria , value}
     })
-        .then(response => response.json())
+        .then(response => console.log(response))
         .then(data => {
         })
         .catch(error => {

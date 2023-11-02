@@ -481,6 +481,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         for(let i = tablist.children.length - 1; i > 0; i--){
             tablist.children[i].remove();
         }
+        let mb = document.getElementsByClassName("modal-body")[0];
+        let innerContent = mb.getElementsByClassName("tab-content tab-transparent-content")[0];
+        let lastAct = innerContent.getElementsByClassName("tab-pane fade show remAccTab active")[0];
+        lastAct.remove();
 
     });
     $("#closerModal").on("click",() => {
@@ -517,6 +521,10 @@ function showModal(id_application, strMarks, strMarksAccred){
         for(let i = tablist.children.length - 1; i > 0; i--){
             tablist.children[i].remove();
         }
+        let mb = document.getElementsByClassName("modal-body")[0];
+        let innerContent = mb.getElementsByClassName("tab-content tab-transparent-content")[0];
+        let lastAct = innerContent.getElementsByClassName("tab-pane fade show remAccTab active")[0];
+        lastAct.remove();
 
     });
 

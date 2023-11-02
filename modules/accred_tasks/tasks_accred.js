@@ -25,7 +25,7 @@ function getCookie(cname) {
     }
     return "";
 }
-if(getCookie("predsedatel") !== "1") {
+if(getCookie("predsedatel") !== "1" && getCookie("secretar") !== "1") {
 
         [...btns].forEach(item => {
             item.disabled = true;

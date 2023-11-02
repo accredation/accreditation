@@ -495,10 +495,10 @@ function showModal(id_application, strMarks, strMarksAccred){
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>"+data[0][17]+"</span>");
             }
             if(data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if(data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             if(data[0][16] != null) {
                 divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
@@ -2965,6 +2965,19 @@ $("#soprPismo").on("change", () =>{
     form.append("soprPismo", soprPismoFile);
 
     xhr.open("post", "postFileSopr.php", true);
+    let soprPismodiv = document.getElementById("soprPismodiv");
+    if(soprPismodiv){
+        soprPismodiv.remove();
+    }
+    let load = document.createElement("div");
+    load.id = "soprPismodiv";
+    load.innerHTML = "Подождите, идет загрузка";
+    xhr.upload.onprogress = function(event) {
+        soprPismo.insertAdjacentElement("afterend", load);
+    }
+    xhr.upload.onload = function() {
+        load.innerHTML = "Файл загружен";
+    }
     xhr.send(form);
 });
 
@@ -2988,6 +3001,19 @@ $("#copyRaspisanie").on("change", () =>{
     form.append("copyRasp", copyRaspFile);
 
     xhr.open("post", "postFileCopyRasp.php", true);
+    let copyRaspdiv = document.getElementById("copyRaspdiv");
+    if(copyRaspdiv){
+        copyRaspdiv.remove();
+    }
+    let load = document.createElement("div");
+    load.id = "copyRaspdiv";
+    load.innerHTML = "Подождите, идет загрузка";
+    xhr.upload.onprogress = function(event) {
+        copyRasp.insertAdjacentElement("afterend", load);
+    }
+    xhr.upload.onload = function() {
+        load.innerHTML = "Файл загружен";
+    }
     xhr.send(form);
 });
 
@@ -3010,6 +3036,19 @@ $("#orgStrukt").on("change", () =>{
     form.append("orgStruct", orgStructFile);
 
     xhr.open("post", "postFileOrgStruct.php", true);
+    let orgStructdiv = document.getElementById("orgStructdiv");
+    if(orgStructdiv){
+        orgStructdiv.remove();
+    }
+    let load = document.createElement("div");
+    load.id = "orgStructdiv";
+    load.innerHTML = "Подождите, идет загрузка";
+    xhr.upload.onprogress = function(event) {
+        orgStruct.insertAdjacentElement("afterend", load);
+    }
+    xhr.upload.onload = function() {
+        load.innerHTML = "Файл загружен";
+    }
     xhr.send(form);
 });
 
@@ -3032,7 +3071,21 @@ $("#ucomplect").on("change", () =>{
     form.append("ucomplect", ucomplectFile);
 
     xhr.open("post", "postFileUcomplect.php", true);
+    let ucompletediv = document.getElementById("ucomplectdiv");
+    if(ucompletediv){
+        ucompletediv.remove();
+    }
+    let load = document.createElement("div");
+    load.id = "ucomplectdiv";
+    load.innerHTML = "Подождите, идет загрузка";
+    xhr.upload.onprogress = function(event) {
+        ucomplect.insertAdjacentElement("afterend", load);
+    }
+    xhr.upload.onload = function() {
+        load.innerHTML = "Файл загружен";
+    }
     xhr.send(form);
+
 });
 
 $("#techOsn").on("change", () =>{
@@ -3054,6 +3107,19 @@ $("#techOsn").on("change", () =>{
     form.append("techOsn", techOsnFile);
 
     xhr.open("post", "postFileTechOsn.php", true);
+    let techOsndiv = document.getElementById("techOsndiv");
+    if(techOsndiv){
+        techOsndiv.remove();
+    }
+    let load = document.createElement("div");
+    load.id = "techOsndiv";
+    load.innerHTML = "Подождите, идет загрузка";
+    xhr.upload.onprogress = function(event) {
+        techOsn.insertAdjacentElement("afterend", load);
+    }
+    xhr.upload.onload = function() {
+        load.innerHTML = "Файл загружен";
+    }
     xhr.send(form);
 });
 
@@ -3079,6 +3145,19 @@ $("#reportSamoocenka").on("change", () =>{
     form.append("reportSamoocenka", reportSamoocenkaFile);
 
     xhr.open("post", "postFileReportSamoocenka.php", true);
+    let reportSamoocenkadiv = document.getElementById("reportSamoocenkadiv");
+    if(reportSamoocenkadiv){
+        reportSamoocenkadiv.remove();
+    }
+    let load = document.createElement("div");
+    load.id = "reportSamoocenkadiv";
+    load.innerHTML = "Подождите, идет загрузка";
+    xhr.upload.onprogress = function(event) {
+        reportSamoocenka.insertAdjacentElement("afterend", load);
+    }
+    xhr.upload.onload = function() {
+        load.innerHTML = "Файл загружен";
+    }
     xhr.send(form);
 });
 

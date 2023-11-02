@@ -33,7 +33,53 @@
       <script src="dist/js/jquery-3.5.1.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
+      <style>
+          @media (max-width: 1700px) {
+              .col-sm-6 {
+                  -webkit-box-flex: 0;
+                  -ms-flex: 0 0 50%;
+                  flex: 0 0 50%;
+                  max-width: 50% !important;
+              }
 
+              .col-lg-6 {
+                  -webkit-box-flex: 0;
+                  -ms-flex: 0 0 50%;
+                  flex: 0 0 50%;
+                  max-width: 50% !important;
+              }
+
+              .col-xl-3 {
+                  -webkit-box-flex: 0;
+                  -ms-flex: 0 0 25%;
+                  flex: 0 0 50%;
+                  max-width: 50% !important;
+              }
+          }
+
+          @media (max-width: 750px) {
+              .col-sm-6 {
+                  -webkit-box-flex: 0;
+                  -ms-flex: 0 0 50%;
+                  flex: 0 0 100%;
+                  max-width: 100% !important;
+              }
+
+              .col-lg-6 {
+                  -webkit-box-flex: 0;
+                  -ms-flex: 0 0 50%;
+                  flex: 0 0 100%;
+                  max-width: 100% !important;
+              }
+
+              .col-xl-3 {
+                  -webkit-box-flex: 0;
+                  -ms-flex: 0 0 25%;
+                  flex: 0 0 100%;
+                  max-width: 100% !important;
+              }
+          }
+      </style>
   </head>
   <body >
     <div class="container-scroller">

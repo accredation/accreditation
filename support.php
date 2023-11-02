@@ -174,7 +174,7 @@
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
                                                   <th>Номер</th>
@@ -182,6 +182,7 @@
                                                   <th>Ответ</th>
                                                   <th>Тип вопроса</th>
                                                   <th>Файл</th>
+                                                  <th style="cursor: pointer" onclick="sortDate()">Дата</th>
                                                   <th>Пользователь</th>
                                             </tr>
                                             </thead>
@@ -197,6 +198,8 @@
                                                       <td style="width: 30%"><textarea style="width: 100%; height: 100%" id="n<?= $app['id_question'] ?>"><?= $app['answer'] ?></textarea></td>
                                                       <td style="width: 20%;"><?= $app['type_question'] ?></td>
                                                       <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
+
+                                                      <td ><?= $app['date_question'] ?></td>
                                                       <td><?= $app['username'] ?></td>
                                                     <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('n<?= $app['id_question'] ?>').value)">Ответить</button></td>
                                                 </tr>
@@ -699,6 +702,52 @@
 
 
 
+        }
+        let sorted = false;
+        function sortDate(){
+            let table = document.getElementById("example1");
+            let trs = table.getElementsByTagName("tr");
+            let arr = Array.from( table.rows );
+            arr = arr.slice(1);
+            arr.sort( (a, b) => {
+
+                let str  = new Date(a.cells[5].textContent);
+                let str2 = new Date(b.cells[5].textContent);
+
+                if(sorted) {
+
+                    if (str < str2)
+                        return 1;
+                    else if (str > str2){
+                        return -1;
+                    }
+                    else
+                        return 0;
+
+                }else{
+
+                    if (str > str2)
+                        return 1;
+                    else if (str < str2){
+                        return -1;
+                    }
+                    else{
+                        return 0;
+                    }
+
+                }
+
+            } );
+            if(sorted) {
+                sorted = false;
+                trs[0].children[5].innerHTML = "Дата ↑";
+            }
+            else {
+                sorted = true;
+                trs[0].children[5].innerHTML = "Дата ↓";
+            }
+            console.log(sorted);
+            table.append(...arr);
         }
     </script>
 
