@@ -197,7 +197,7 @@
                     <!--                  </h3>-->
                     <h4 class="card-title" style="margin-bottom: 0.3rem">Процесс проведения
                         медицинской аккредитации </h4>
-                    <canvas id="doughnutChart2" style="height: 393px; display: block; width: 688px;" attr1="438"></canvas>
+                    <canvas id="doughnutChart2" style="height: 393px; display: block; width: 688px;" attr1="463"></canvas>
 
                     <script>
                         let countNewApp = <?= $countNewApp ?>;

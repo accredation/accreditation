@@ -64,7 +64,7 @@ let dateCouncil = document.getElementById("dateCouncil");
 
 function showModal(id_app){
     let btnSave = document.getElementById("btnSave");
-    if (getCookie("expert") === "1"){
+    if (getCookie("predsedatel") !== "1" && getCookie("secretar") !== "1"){
         btnSave.classList.add("hidden");
     }
     this.id_app = id_app;

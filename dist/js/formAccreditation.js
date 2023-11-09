@@ -2221,7 +2221,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td7 = document.createElement('td');
                 td7.style = "border: 1px solid black";
                 let input7 = document.createElement("textarea");
-                if(getCookie("isMA") === "0") {
+                if(getCookie("expert") === "0") {
                     input7.setAttribute("disabled","true");
                 }
                 else {
@@ -2320,7 +2320,7 @@ let arr;
     if ((id_mark_rating !== null) && (value !== null)) {
         newSelect.selectedIndex = Number(value);
     }
-    if(getCookie("isMA") === "0") {
+    if(getCookie("expert") === "0") {
         newSelect.setAttribute("disabled","");
     }
     else {
