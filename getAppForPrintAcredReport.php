@@ -8,7 +8,7 @@ IFNULL(m.mark_name,'') as mark_name, IFNULL(m.mark_class,'') as mark_class,
 case when IFNULL(mr.field4,'')=1 then 'Да' when IFNULL(mr.field4,'')=2 then 'Нет' when IFNULL(mr.field4,'')=3 then 'Не требуется' else '' end as field4,
 IFNULL(mr.field5,'') as field5, IFNULL(mr.field6,'') as field6,
 case when IFNULL(mr.field7,'')=1 then 'Да' when IFNULL(mr.field7,'')=2 then 'Нет' when IFNULL(mr.field7,'')=3 then 'Не требуется' else '' end as field7,
-IFNULL(mr.field8,'') as field8
+IFNULL(mr.field8,'') as field8,IFNULL(mr.field9,'') as field9
 FROM subvision s
 left outer join rating_criteria rc on rc.id_subvision=s.id_subvision
 left outer join criteria c on rc.id_criteria=c.id_criteria
@@ -28,7 +28,7 @@ $report_sub_marks = array();
 for ($data = []; $row = mysqli_fetch_assoc($rez); $data[] = $row);
 
 class ReportSub{
-    public $name, $id_subvision, $id_criteria , $name_criteria, $str_num, $mark_name, $mark_class, $field4, $field5, $field6, $field7, $field8;
+    public $name, $id_subvision, $id_criteria , $name_criteria, $str_num, $mark_name, $mark_class, $field4, $field5, $field6, $field7, $field8, $field9;
 }
 
 foreach ($data as $app) {
@@ -47,6 +47,7 @@ foreach ($data as $app) {
     $mark->field6 = $app['field6'];
     $mark->field7 = $app['field7'];
     $mark->field8 = $app['field8'];
+    $mark->field9 = $app['field9'];
     array_push($report_sub_marks,$mark);
 }
 

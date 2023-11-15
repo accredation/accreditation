@@ -13,17 +13,18 @@ foreach($marks as $k=>$v){
     $field7 = (integer)$v['field7'];
 
     $field8 = $v['field8'];
+    $field9 = $v['field9'];
     $id_mark_rating = $v['id_mark_rating'];
 
  //   echo $id_mark_rating;
 
     if($id_mark_rating != '') {
             $insertquery = "update mark_rating
-            set id_mark = '$id_mark', field7='$field7', field8='$field8', id_subvision='$id_sub'
+            set id_mark = '$id_mark', field7='$field7', field8='$field8', field9='$field9', id_subvision='$id_sub'
             where id_mark_rating='$id_mark_rating'";
         } else {
-            $insertquery = "Insert into mark_rating(id_mark, field7, field8, id_subvision)
-                                values ('$id_mark', '$field7', '$field8', '$id_sub')";
+            $insertquery = "Insert into mark_rating(id_mark, field7, field8, field9, id_subvision)
+                                values ('$id_mark', '$field7', '$field8', '$field9', '$id_sub')";
         }
 
         mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));

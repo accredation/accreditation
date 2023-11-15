@@ -775,6 +775,7 @@ function printReport(){
                 var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
                 WinPrint.document.write('<style>@page {\n' +
+                    'size: A4 portrait;\n' +
                     'margin: 1rem;\n' +
                     '}</style>');  // убрать колонтитул
                 // WinPrint.document.write('Наименование организации: ');
@@ -823,6 +824,7 @@ function printReport(){
             var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
             WinPrint.document.write('<style>@page {\n' +
+                'size: A4 landscape;\n' +
                 'margin: 1rem;\n' +
                 '}</style>');  // убрать колонтитул
             // WinPrint.document.write('Наименование организации: ');
@@ -897,9 +899,9 @@ function createTableForPrint(tableForPrint){
     th3_Main.setAttribute('colspan','3');
 
     let th4_Main = document.createElement('th');
-    th4_Main.innerHTML = 'Сведения об оценке критериев';
+    th4_Main.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
     th4_Main.style = "border: 1px solid black; text-align: center";
-    th4_Main.setAttribute('colspan','2');
+    th4_Main.setAttribute('colspan','3');
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
@@ -922,7 +924,11 @@ function createTableForPrint(tableForPrint){
     let th7 = document.createElement('th');
     th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
     th7.style = "border: 1px solid black";
-   
+
+    let th8 = document.createElement('th');
+    th8.innerHTML = 'Выявленные недостатки';
+    th8.style = "border: 1px solid black";
+
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
    // trHeadMain.appendChild(th2_Main);
@@ -936,6 +942,7 @@ function createTableForPrint(tableForPrint){
     trHead.appendChild(th5);
     trHead.appendChild(th6);
     trHead.appendChild(th7);
+    trHead.appendChild(th8);
 
 
     table.appendChild(trHead);
@@ -997,9 +1004,9 @@ function createTableForPrint(tableForPrint){
                     th3_Main2.setAttribute('colspan','3');
 
                     let th4_Main2 = document.createElement('td');
-                    th4_Main2.innerHTML = 'Сведения об оценке критериев';
+                    th4_Main2.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
                     th4_Main2.style = "border: 1px solid black; text-align: center";
-                    th4_Main2.setAttribute('colspan','2');
+                    th4_Main2.setAttribute('colspan','3');
                     
             
                     let trHead2 = document.createElement('tr');
@@ -1023,7 +1030,11 @@ function createTableForPrint(tableForPrint){
                     let th72 = document.createElement('td');
                     th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
                     th72.style = "border: 1px solid black";
-            
+
+                    let th82 = document.createElement('th');
+                    th82.innerHTML = 'Выявленные недостатки';
+                    th82.style = "border: 1px solid black";
+
                     trHeadMain2.appendChild(thNum);
                     trHeadMain2.appendChild(th1_Main2);
                    // trHeadMain2.appendChild(th2_Main2);
@@ -1037,7 +1048,8 @@ function createTableForPrint(tableForPrint){
                     trHead2.appendChild(th52);
                     trHead2.appendChild(th62);
                     trHead2.appendChild(th72);
-            
+                    trHead2.appendChild(th82);
+
                     tbody.appendChild(trHead2);
                 }
 
@@ -1083,7 +1095,11 @@ function createTableForPrint(tableForPrint){
                 let td7 = document.createElement('td');
                 td7.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
                 td7.innerHTML = item['field8'];
-    
+
+                let td8 = document.createElement('td');
+                td8.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+                td8.innerHTML = item['field9'];
+
     
                 tr.appendChild(tdNum);
                 tr.appendChild(td1);
@@ -1094,6 +1110,7 @@ function createTableForPrint(tableForPrint){
                 tr.appendChild(td5);
                 tr.appendChild(td6);
                 tr.appendChild(td7);
+                tr.appendChild(td8);
 
                 tbody.appendChild(tr);
      
@@ -1154,9 +1171,9 @@ function createTableForPrintNo(tableForPrint){
     th3_Main.setAttribute('colspan','3');
 
     let th4_Main = document.createElement('th');
-    th4_Main.innerHTML = 'Сведения об оценке критериев';
+    th4_Main.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
     th4_Main.style = "border: 1px solid black; text-align: center";
-    th4_Main.setAttribute('colspan','2');
+    th4_Main.setAttribute('colspan','3');
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
@@ -1180,6 +1197,10 @@ function createTableForPrintNo(tableForPrint){
     th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
     th7.style = "border: 1px solid black";
 
+    let th8 = document.createElement('th');
+    th8.innerHTML = 'Выявленные недостатки';
+    th8.style = "border: 1px solid black";
+
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
    // trHeadMain.appendChild(th2_Main);
@@ -1193,6 +1214,7 @@ function createTableForPrintNo(tableForPrint){
     trHead.appendChild(th5);
     trHead.appendChild(th6);
     trHead.appendChild(th7);
+    trHead.appendChild(th8);
 
 
     table.appendChild(trHead);
@@ -1254,9 +1276,9 @@ function createTableForPrintNo(tableForPrint){
                 th3_Main2.setAttribute('colspan','3');
 
                 let th4_Main2 = document.createElement('td');
-                th4_Main2.innerHTML = 'Сведения об оценке критериев';
+                th4_Main2.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
                 th4_Main2.style = "border: 1px solid black; text-align: center";
-                th4_Main2.setAttribute('colspan','2');
+                th4_Main2.setAttribute('colspan','3');
 
 
                 let trHead2 = document.createElement('tr');
@@ -1281,6 +1303,10 @@ function createTableForPrintNo(tableForPrint){
                 th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
                 th72.style = "border: 1px solid black";
 
+                let th82 = document.createElement('td');
+                th82.innerHTML = 'Выявленные недостатки';
+                th82.style = "border: 1px solid black";
+
                 trHeadMain2.appendChild(thNum);
                 trHeadMain2.appendChild(th1_Main2);
                // trHeadMain2.appendChild(th2_Main2);
@@ -1294,6 +1320,7 @@ function createTableForPrintNo(tableForPrint){
                 trHead2.appendChild(th52);
                 trHead2.appendChild(th62);
                 trHead2.appendChild(th72);
+                trHead2.appendChild(th82);
 
                 tbody.appendChild(trHead2);
             }
@@ -1341,6 +1368,10 @@ function createTableForPrintNo(tableForPrint){
             td7.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
             td7.innerHTML = item['field8'];
 
+            let td8 = document.createElement('td');
+            td8.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td8.innerHTML = item['field9'];
+
 
             tr.appendChild(tdNum);
             tr.appendChild(td1);
@@ -1351,6 +1382,7 @@ function createTableForPrintNo(tableForPrint){
             tr.appendChild(td5);
             tr.appendChild(td6);
             tr.appendChild(td7);
+            tr.appendChild(td8);
 
             tbody.appendChild(tr);
 
@@ -2082,9 +2114,9 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     th3_Main.setAttribute('colspan','3');
 
     let th4_Main = document.createElement('th');
-    th4_Main.innerHTML = 'Сведения об оценке критериев';
+    th4_Main.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
     th4_Main.style = "border: 1px solid black; text-align: center";
-    th4_Main.setAttribute('colspan','2');
+    th4_Main.setAttribute('colspan','3');
     
 
     let trHead = document.createElement('tr');
@@ -2119,7 +2151,11 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let th7 = document.createElement('th');
     th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
     th7.style = "border: 1px solid black";
-    
+
+    let th8 = document.createElement('th');
+    th8.innerHTML = 'Выявленные недостатки';
+    th8.style = "border: 1px solid black";
+
     let thNum = document.createElement('th');
     thNum.innerHTML = '№ п/п';
     thNum.style = "border: 1px solid black";
@@ -2141,6 +2177,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     trHead.appendChild(th5);
     trHead.appendChild(th6);
     trHead.appendChild(th7);
+    trHead.appendChild(th8);
 
     table.appendChild(trHead);
 
@@ -2246,6 +2283,38 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 divtd8.appendChild(input7);
                 td7.appendChild(divtd8);
 
+                let td8 = document.createElement('td');
+                td8.style = "border: 1px solid black";
+                let input8 = document.createElement("textarea");
+                if(getCookie("expert") === "0") {
+                    input8.setAttribute("disabled","true");
+                }
+                else {
+                    if ((status == 2) || (status == 3)  || (status == 1)){
+                        input8.removeAttribute("disabled");
+
+                    } else {
+                        input8.setAttribute("disabled","true");
+
+                    }
+                }
+
+
+                input8.style = "width:100%; height: 100%";
+                input8.setAttribute("rows","3");
+                if(!item['field9']){
+                    input8.value = '';
+                } else {
+                    input8.value = item['field9'];
+                }
+
+                input8.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field9', input8.value, item['id_mark_rating'], index,id_sub)};
+              //  input5.setAttribute("type","text-area");
+                let divtd9 = document.createElement("div");
+                divtd9.style = "height: 15rem";
+
+                divtd9.appendChild(input8);
+                td8.appendChild(divtd9);
 
                 let tdNum = document.createElement('td');
                 tdNum.innerHTML = item['str_num'];
@@ -2260,6 +2329,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 tr.appendChild(td5);
                 tr.appendChild(td6);
                 tr.appendChild(td7);
+                tr.appendChild(td8);
 
                 createSelectMark(id_criteria,item['id_mark'], divTd3, item['field4'], item['id_mark_rating'], index,id_sub,'field4');
                 createSelectMark(id_criteria,item['id_mark'], divTd6, item['field7'], item['id_mark_rating'], index,id_sub,'field7');

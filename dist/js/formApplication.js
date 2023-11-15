@@ -42,6 +42,7 @@ let OpenSub = 0;
 
 //shotab
 async function showTab(element,id_sub){
+    console.log("click", id_sub);
     //   console.log(OpenSub);
     if(openTabId != id_sub){
 
@@ -918,7 +919,7 @@ async function printReport(){
                     }
                     as = '';
                     id_s = item['id_subvision'];
-                    as = `Самооценка ${item['name']} проведена по следующим критериям медицинской акредитации: `;
+                    as = `Самооценка ${item['name']} проведена по следующим критериям медицинской аккредитации: `;
                 }
 
                 if(index === subCriteriaForReport.length-1){
@@ -1151,20 +1152,20 @@ function createTableForPrintNo(tableForPrint){
     numSub = tableForPrint[0]['id_subvision'];
 
     tableForPrint.map((item, index) => {
+        if(numSub !== item['id_subvision']) {
 
-        if((numCriteria !== item['id_criteria']) && (index !==0)) {
+            let trNaimSub = document.createElement('tr');
+            let tdNaimSub = document.createElement('td');
+            tdNaimSub.setAttribute('colspan', '6');
+            tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+            tdNaimSub.innerHTML = item['name'];
+            trNaimSub.appendChild(tdNaimSub);
+            tbody.appendChild(trNaimSub);
+            numCriteria = -1;
 
-            if(numSub !== item['id_subvision']){
-                let trNaimSub = document.createElement('tr');
-                let tdNaimSub = document.createElement('td');
-                tdNaimSub.setAttribute('colspan', '6');
-                tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-                tdNaimSub.innerHTML = item['name'];
-                trNaimSub.appendChild(tdNaimSub);
-                tbody.appendChild(trNaimSub);
+        }
 
-            }
-            if(item['id_criteria'] !== null) {
+             if((numCriteria !== item['id_criteria']) && (index !==0)) {
                 let trNaim = document.createElement('tr');
                 let tdNaim = document.createElement('td');
                 tdNaim.setAttribute('colspan','6');
@@ -1234,7 +1235,7 @@ function createTableForPrintNo(tableForPrint){
 
 
 
-        }
+       // }
 
         numCriteria =  -1;
 
@@ -1276,12 +1277,12 @@ function createTableForPrintNo(tableForPrint){
             tr.appendChild(td5);
 
             tbody.appendChild(tr);
+            numSub = item['id_subvision']
 
-            numCriteria = item['id_criteria'];
         }
 
 
-        numSub = item['id_subvision']
+        numCriteria = item['id_criteria'];
     })
 
 
@@ -1467,7 +1468,7 @@ function getTabs(name, id_sub){
 
 
     let btnSave = document.createElement("button");
-    btnSave.innerHTML = "Сохранить информацию о подразделении";
+    btnSave.innerHTML = "Сохранить выбранные пункты";
     btnSave.className = "btn btn-outline-primary";
     btnSave.id = "btnSaveInfoCriteriaMain";
     btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
@@ -1587,7 +1588,7 @@ function getMainTab(name, id_sub){
 
 
     let btnSave = document.createElement("button");
-    btnSave.innerHTML = "Сохранить информацию о подразделении";
+    btnSave.innerHTML = "Сохранить выбранные пункты";
     btnSave.className = "btn btn-outline-primary";
     btnSave.id = "btnSaveInfoCriteria";
     btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
@@ -1728,7 +1729,7 @@ $("#btnSuc").on("click", function () {
 });
 
 function saveTab(id_sub){
-
+    console.log("opensub", OpenSub);
     if(isSavedMarks()) {
         //  console.log(OpenSub);
         // arrChange=false;
@@ -2401,7 +2402,7 @@ function validateDataMarks(){
 
 
 function  saveMarks(id_sub, divCardBody, flag){
-
+    console.log("opensub", id_sub);
     let arr = new Array();
     let id_application = document.getElementById("id_application");
     // validateDataMarks();
@@ -2981,7 +2982,7 @@ $("#soprPismo").on("change", () =>{
     xhr.send(form);
 });
 
-$("#copyRaspisanie").on("change", () =>{
+$("#copyRaspisanie").on("change", async () =>{
     let login = getCookie('login');
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
@@ -3008,11 +3009,12 @@ $("#copyRaspisanie").on("change", () =>{
     let load = document.createElement("div");
     load.id = "copyRaspdiv";
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = await function(event) {
         copyRasp.insertAdjacentElement("afterend", load);
     }
     xhr.upload.onload = function() {
         load.innerHTML = "Файл загружен";
+
     }
     xhr.send(form);
 });

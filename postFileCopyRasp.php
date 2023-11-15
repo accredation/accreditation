@@ -6,6 +6,7 @@ if(!isset($login)){
 }
 $id_application = $_POST['id_application'];
 
+
 if (!file_exists('docs/documents/'.$login)) {
     mkdir('docs/documents/'.$login, 0777, true);
 }
