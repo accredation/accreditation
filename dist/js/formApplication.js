@@ -2779,19 +2779,21 @@ function createTableForPrint(tableForPrint){
     tableForPrint.map((item, index) => {
 
 
+
+        if(numSub !== item['id_subvision']) {
+
+            let trNaimSub = document.createElement('tr');
+            let tdNaimSub = document.createElement('td');
+            tdNaimSub.setAttribute('colspan', '6');
+            tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+            tdNaimSub.innerHTML = item['name'];
+            trNaimSub.appendChild(tdNaimSub);
+            tbody.appendChild(trNaimSub);
+            numCriteria = -1;
+
+        }
+
         if((numCriteria !== item['id_criteria']) && (index !==0)) {
-
-            if(numSub !== item['id_subvision']){
-                let trNaimSub = document.createElement('tr');
-                let tdNaimSub = document.createElement('td');
-                tdNaimSub.setAttribute('colspan', '6');
-                tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-                tdNaimSub.innerHTML = item['name'];
-                trNaimSub.appendChild(tdNaimSub);
-                tbody.appendChild(trNaimSub);
-
-            }
-            if(item['id_criteria'] !== null) {
                 let trNaim = document.createElement('tr');
                 let tdNaim = document.createElement('td');
                 tdNaim.setAttribute('colspan','6');
@@ -2861,7 +2863,7 @@ function createTableForPrint(tableForPrint){
 
 
 
-        }
+
 
         numCriteria =  -1;
 

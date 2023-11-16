@@ -20,8 +20,9 @@ foreach($marks as $k=>$v){
 
     if($id_mark_rating != '') {
             $insertquery = "update mark_rating
-            set id_mark = '$id_mark', field7='$field7', field8='$field8', field9='$field9', id_subvision='$id_sub'
+            set id_mark = '$id_mark', field7='$field7', field8='$field8', field9='$field9'
             where id_mark_rating='$id_mark_rating'";
+//        , id_subvision='$id_sub'
         } else {
             $insertquery = "Insert into mark_rating(id_mark, field7, field8, field9, id_subvision)
                                 values ('$id_mark', '$field7', '$field8', '$field9', '$id_sub')";

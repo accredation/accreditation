@@ -6,14 +6,14 @@ $id_criteria = $_POST['id_criteria'];
 $id_application = $_POST['id_application'];
 $date = date('Y-m-d');
 
-echo $id_criteria;
+// echo $id_criteria;
+// 
+// $insertquery = "delete from mark_rating where id_mark in (select id_mark from mark 
+// where id_criteria = '$id_criteria' and (date_close is not null and ( date_close < '$date')) ) 
+//                           and id_subvision='$id_sub'";
 
-$insertquery = "delete from mark_rating where id_mark in (select id_mark from mark 
-where id_criteria = '$id_criteria' and (date_close is not null and ( date_close < '$date')) ) 
-                          and id_subvision='$id_sub'";
-
-mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-
+// mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+// 
 
 $query1 = "select * from mark_rating where id_mark in (select id_mark from mark
 where id_criteria = '$id_criteria' and id_subvision='$id_sub')";
@@ -58,8 +58,9 @@ foreach($marks as $k=>$v){
 
        if($id_mark_rating != '') {
             $insertquery = "update mark_rating
-            set id_mark = '$id_mark', field4='$field4', field5='$field5', field6='$field6', id_subvision='$id_sub'
+            set id_mark = '$id_mark', field4='$field4', field5='$field5', field6='$field6'
             where id_mark_rating='$id_mark_rating'";
+//           , id_subvision='$id_sub'
         } else {
             $insertquery = "Insert into mark_rating(id_mark, field4, field5, field6, id_subvision)
                                 values ('$id_mark','$field4', '$field5', '$field6', '$id_sub')";

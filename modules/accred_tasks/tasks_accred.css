@@ -78,7 +78,7 @@ a {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .chart-wrapper .chart-bars li {
     position: relative;
-    color: var(--white);
+    color: black;
     margin-bottom: 15px;
     font-size: 12px;
     border-radius: 0px;
