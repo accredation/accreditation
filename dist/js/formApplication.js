@@ -3168,14 +3168,15 @@ async function checkCollapse(id_criteria, id_sub) {
     // console.log("do", opend);
 
 }
+let actModal = document.getElementById("myModal");
 
-window.addEventListener("beforeunload", async (event) => {
+    window.addEventListener("beforeunload", async (event) => {
+        if(actModal.classList.contains("show")) {
+            event.preventDefault();
+            await collapseUpdateOpened(id_open_criteria, openTabId);
+        }
+    });
 
-
-    event.preventDefault();
-    await collapseUpdateOpened(id_open_criteria, openTabId);
-
-});
 
 
 async function collapseUpdateOpened(id_crit, id_sub) {

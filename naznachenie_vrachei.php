@@ -89,7 +89,6 @@
                                         {
                                             $rowroles = mysqli_fetch_assoc($resultroles);
                                             $idrole = $rowroles['id_role'];
-
                                                 $query = "SELECT * FROM users AS us WHERE us.doctor_expert = 1 and us.id_role = '$idrole' ";
 
                                         }

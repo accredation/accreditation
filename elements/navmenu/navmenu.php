@@ -26,13 +26,23 @@
                 <span class="menu-title">Заявления</span>
               </a>
             </li>
-                  <li class="nav-item" id="nav2">
+                  <li class="nav-item" id="nav10">
                       <a class="nav-link"  href="/index.php?myusers" >
                           <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
                           <span class="menu-title">Пользователи</span>
                       </a>
                   </li>
                   <?php
+              }
+              else if( $row['id_role'] == 15){
+                  ?>
+                  <li class="nav-item" id="nav2">
+                      <a class="nav-link"  href="/index.php?application" >
+                          <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                          <span class="menu-title">Заявления</span>
+                      </a>
+                  </li>
+                      <?php
               }
               else if ($row['id_role'] == 12){
                   ?>
@@ -228,6 +238,7 @@
     let nav77 = document.getElementById("nav77");
     let nav8 = document.getElementById("nav8");
     let nav9 = document.getElementById("nav9");
+    let nav10 = document.getElementById("nav10");
 
     switch(url){
         case "/index.php":
@@ -259,7 +270,10 @@
             break;
         case "/index.php?report_first":
             nav9.className = "nav-item active";
-            break;        
+            break;
+        case "/index.php?myusers":
+            nav10.className = "nav-item active";
+            break;
         default:
             nav1.className = "nav-item active";
             break;

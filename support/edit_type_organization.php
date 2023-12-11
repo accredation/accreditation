@@ -32,7 +32,7 @@
 </head>
 <body >
 <?php
-include '../connection.php';
+include '../ajax/connection.php';
 class Types{
     public $id_type, $typeName;
 }

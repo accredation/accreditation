@@ -1,6 +1,6 @@
 <?php
 
-include "../connection.php";
+include "../ajax/connection.php";
 
 $id_user = $_POST['id_user'];
 $id_type = $_POST['id_type'];
