@@ -205,17 +205,17 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12){
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user
-                                                   where id_status = 2 and u.oblast = '$role'";
+                                                    left outer join uz uz on uz.id_uz=a.id_user
+                                                   where id_status = 2 and uz.oblast = '$role'";
                                         }
                                         else {
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user
+                                                    left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 2";
                                         }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
@@ -233,7 +233,7 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                include "mainMark.php"
+                                                include "ajax/mainMark.php"
                                                 ?>
 
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
@@ -294,17 +294,17 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12){
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user
+                                                    left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 3 and u.oblast = '$role'";
                                         }
                                         else {
-                                            $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user 
+                                                    left outer join uz uz on uz.id_uz=a.id_user
                                                     where id_status = 3";
                                         }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
@@ -322,7 +322,7 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                    include "mainMark.php";
+                                                    include "ajax/mainMark.php";
                                                 ?>
 
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
@@ -368,18 +368,18 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12){
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user
+                                                    left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 4 and u.oblast = '$role'";
                                         }
                                         else {
 
-                                            $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
-                                                FROM applications a
-                                               left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                left outer join users u on a.id_user =u.id_user where id_status = 4";
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join uz uz on uz.id_uz=a.id_user where id_status = 4";
                                         }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -396,7 +396,7 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                include "mainMark.php";
+                                                include "ajax/mainMark.php";
                                                 ?>
 
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
@@ -442,18 +442,18 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12){
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user
+                                                    left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 5 and u.oblast = '$role'";
                                         }
                                         else {
 
-                                            $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user where id_status = 5";
+                                                    left outer join uz uz on uz.id_uz=a.id_user where id_status = 5";
                                         }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -470,7 +470,7 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                include "mainMark.php";
+                                                include "ajax/mainMark.php";
                                                 ?>
 
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
@@ -520,17 +520,17 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12){
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user
+                                                    left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 6 and u.oblast = '$role'";
                                         }
                                         else {
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join users u on a.id_user =u.id_user
+                                                    left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 6";
                                         }
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
@@ -548,7 +548,7 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                include "mainMark.php"
+                                                include "ajax/mainMark.php"
                                                 ?>
 
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
@@ -585,10 +585,19 @@
             <div class="modal-content">
 
                 <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Создание заявления</h4>
-                    <h4 id="id_application"></h4>
-                    <button type="button" class="btn  btn-danger btn-close"  data-bs-dismiss="modal">x</button>
+                <div class="modal-header" >
+                    <div style="display: flex">
+                        <h4 class="modal-title">Создание заявления</h4>
+                        <h4 id="id_application" style="margin-left: 5px"></h4>
+                    </div>
+
+                    <div style="display: flex">
+                        <div style="margin-right: 1rem; margin-top: 10px;">
+                            <h5 style="display: contents;" id="timeLeftSession"></h5>
+                        </div>
+
+                    <button type="button" class="btn  btn-danger btn-close"  data-bs-dismiss="modal" >x</button>
+                    </div>
                 </div>
 
                 <!-- Modal body -->
@@ -858,98 +867,11 @@
         </div>
     </div>
 
-
-
-
-
-
-
-    <script>
-
-        $(document).ready(function () {
-
-            // var files;
-            // $('#pril1').change(function(){
-            //     files = this.files;
-            // });
-
-
-        });
-    </script>
-
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
     <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
     <!--<script>console.log(filesName)</script>-->
     <script src="dist/js/formAccreditation.js"></script>
-
-
-    
-    <script>
-        let tabLink = document.querySelector('#home-tab');
-        let tabPane = document.querySelector('#allApps');
-
-        tabLink.addEventListener('click', function(event) {
-            event.preventDefault();
-
-            // Проверяем, есть ли у вкладки класс 'active'
-            if (!tabPane.classList.contains('active')) {
-                // Если нет, то устанавливаем класс 'active'
-                tabPane.classList.add('active');
-            }
-        });
-    </script>
-
-
-
-    <script>
-
-        document.getElementById("infdorabotki").addEventListener("click", function() {
-            document.getElementById("fileInputDorabotka").click();
-        });
-
-        document.getElementById("fileInputDorabotka").addEventListener("change", function() {
-            var file = this.files[0];
-            if (file) {
-                document.getElementById("infdorabotki").value = file.name;
-            }
-        });
-    </script>
-
-
-
-    <script>
-
-        document.getElementById("protokolsoveta").addEventListener("click", function() {
-            document.getElementById("fileInputProtokol").click();
-        });
-
-        document.getElementById("fileInputProtokol").addEventListener("change", function() {
-            var file = this.files[0];
-            if (file) {
-                document.getElementById("protokolsoveta").value = file.name;
-            }
-        });
-    </script>
-
-
-
-
-    <script>
-
-        document.getElementById("zaklsoveta").addEventListener("click", function() {
-            document.getElementById("fileInputZakl").click();
-        });
-
-        document.getElementById("fileInputZakl").addEventListener("change", function() {
-            var file = this.files[0];
-            if (file) {
-                document.getElementById("zaklsoveta").value = file.name;
-            }
-        });
-    </script>
-
-
 
 <?php } else { ?>
     <div class="content-wrapper">

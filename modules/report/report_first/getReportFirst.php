@@ -53,15 +53,16 @@ CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria,
 count(rc.id_criteria) as crit_count
 from applications app
 left outer join users u on app.id_user=u.id_user
+left outer join uz uz on uz.id_uz=u.id_uz
 left outer join status st on app.id_status=st.id_status
 left outer join subvision s on app.id_application=s.id_application
 left outer join rating_criteria rc on s.id_subvision=rc.id_subvision
 left outer join criteria c on rc.id_criteria=c.id_criteria
 left outer join conditions con on c.conditions_id=con.conditions_id
-left outer join spr_type_organization sto on u.id_type=sto.id_type
+left outer join spr_type_organization sto on uz.id_type=sto.id_type
 where rc.id_rating_criteria is not null 
-    and (('$id_type_org' = 0) or ('$id_type_org'<>0 and u.id_type='$id_type_org' ))
-    and (('$id_oblast' = 0) or ('$id_oblast'<>0 and u.oblast='$id_oblast' ))
+    and (('$id_type_org' = 0) or ('$id_type_org'<>0 and uz.id_type='$id_type_org' ))
+    and (('$id_oblast' = 0) or ('$id_oblast'<>0 and uz.oblast='$id_oblast' ))
     and (('$id_status' = 0) or ('$id_status'<>0 and app.id_status='$id_status' ))
     and ((('$id_status' <> 1) and ((app.date_send is null) or (app.date_send is not null and (app.date_send >= '$dateAccept' and app.date_send <= '$dateComplete'))))
     or (('$id_status' = 1) ))

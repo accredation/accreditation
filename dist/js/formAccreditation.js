@@ -11,18 +11,18 @@ let openTabId = 0;
 let status = 2;
 
 let marks_app = {
-    arr_marks : new Array(),
-    getArr(){
+    arr_marks: new Array(),
+    getArr() {
         return this.arr_marks;
     },
-    setArr(arr){
+    setArr(arr) {
         this.arr_marks.push(arr);
     },
-    setValueByIndex(index,name_field, value){
+    setValueByIndex(index, name_field, value) {
         this.arr_marks[index][name_field] = value;
     },
-    arClear(){
-        for (let i=this.arr_marks.length-1; i>-1 ; i--) {
+    arClear() {
+        for (let i = this.arr_marks.length - 1; i > -1; i--) {
             this.arr_marks.pop();
         }
     }
@@ -41,28 +41,28 @@ let mark = {
 let OpenSub = 0;
 
 
-async function showTab(element,id_sub){
+async function showTab(element, id_sub) {
 
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
 
-    if(isSavedMarks()) {
+    if (isSavedMarks()) {
         // arrChange=false;
-      //  saveMarks(OpenSub);
+        //  saveMarks(OpenSub);
         if (saveMarks(OpenSub) === false) {
             return;
         }
     }
 
-    arrChange=false;
-    OpenSub=0;
+    arrChange = false;
+    OpenSub = 0;
     id_open_criteria = 0;
 
 
-    for (let item of tablist.children){
+    for (let item of tablist.children) {
         let a = item.children[0];
         a.removeAttribute("data-toggle");
-     //   a.classList.remove("active");
+        //   a.classList.remove("active");
     }
     // element.classList.add("active");
     element.children[0].setAttribute("data-toggle", "tab");
@@ -71,43 +71,43 @@ async function showTab(element,id_sub){
     main.children[0].setAttribute("data-toggle", "tab");
 
     let id = element.id;
-    let tabDiv = document.getElementById(id+"-");
+    let tabDiv = document.getElementById(id + "-");
     let myModal = document.getElementById("myModal");
 
     let activeTabDiv = myModal.getElementsByClassName("tab-pane fade show active")[0];
-    if(tabDiv && activeTabDiv) {
+    if (tabDiv && activeTabDiv) {
         activeTabDiv.classList.remove("active");
         tabDiv.classList.add("active");
     }
     let data = new Array();
     let idNum = id.substring(3);
 
-    if(idNum > 1){
+    if (idNum > 1) {
 
         let row = tabDiv.getElementsByClassName("col-12")[1];
 
         row.innerHTML = "";
         await $.ajax({
-            url: "getCrits.php",
+            url: "ajax/getCrits.php",
             method: "GET",
             data: {id_sub: id_sub}
         })
-            .done(function( response ) {
-                for (let i of JSON.parse(response)){
+            .done(function (response) {
+                for (let i of JSON.parse(response)) {
                     data.push(i);
 
                 }
 
-                    let data_main = new Array();
-                    data_main = data.filter(item => item[2] == '1');
+                let data_main = new Array();
+                data_main = data.filter(item => item[2] == '1');
 
-                    let divFormGroup = document.createElement("div");
-                    let label_1 = document.createElement("label");
-                    label_1.innerHTML = "Общие критерии";
-                    divFormGroup.appendChild(label_1);
-                    row.appendChild(divFormGroup);
+                let divFormGroup = document.createElement("div");
+                let label_1 = document.createElement("label");
+                label_1.innerHTML = "Общие критерии";
+                divFormGroup.appendChild(label_1);
+                row.appendChild(divFormGroup);
 
-                for (let i = 0;  i<data_main.length ; i++) {
+                for (let i = 0; i < data_main.length; i++) {
                     let divFormGroup = document.createElement("div");
                     divFormGroup.className = "form-group";
                     let divFormCheck = document.createElement("div");
@@ -115,16 +115,15 @@ async function showTab(element,id_sub){
                     let inputCheck = document.createElement("input");
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
-                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
-                    if(data_main[i][4] == 1){
+                    inputCheck.setAttribute("id", "checkbox" + data_main[i][0]);
+                    if (data_main[i][4] == 1) {
                         inputCheck.checked = true;
-                    }
-                    else{
+                    } else {
                         inputCheck.checked = false;
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
-                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.setAttribute("for", "checkbox" + data_main[i][0]);
                     labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
@@ -136,11 +135,11 @@ async function showTab(element,id_sub){
 
                 let divFormGroup2 = document.createElement("div");
                 let label_2 = document.createElement("label");
-                    label_2.innerHTML = "По видам оказания медицинской помощи";
-                    divFormGroup2.appendChild(label_2);
-                    row.appendChild(divFormGroup2);
+                label_2.innerHTML = "По видам оказания медицинской помощи";
+                divFormGroup2.appendChild(label_2);
+                row.appendChild(divFormGroup2);
 
-                for (let i = 0;  i<data_main.length ; i++) {
+                for (let i = 0; i < data_main.length; i++) {
                     let divFormGroup = document.createElement("div");
                     divFormGroup.className = "form-group";
                     let divFormCheck = document.createElement("div");
@@ -148,16 +147,15 @@ async function showTab(element,id_sub){
                     let inputCheck = document.createElement("input");
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
-                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
-                    if(data_main[i][4] == 1){
+                    inputCheck.setAttribute("id", "checkbox" + data_main[i][0]);
+                    if (data_main[i][4] == 1) {
                         inputCheck.checked = true;
-                    }
-                    else{
+                    } else {
                         inputCheck.checked = false;
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
-                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.setAttribute("for", "checkbox" + data_main[i][0]);
                     labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
@@ -170,11 +168,11 @@ async function showTab(element,id_sub){
 
                 let divFormGroup3 = document.createElement("div");
                 let label_3 = document.createElement("label");
-                    label_3.innerHTML = "Вспомогательные подразделения (диагностические)";
-                    divFormGroup3.appendChild(label_3);
-                    row.appendChild(divFormGroup3);
+                label_3.innerHTML = "Вспомогательные подразделения (диагностические)";
+                divFormGroup3.appendChild(label_3);
+                row.appendChild(divFormGroup3);
 
-                for (let i = 0;  i<data_main.length ; i++) {
+                for (let i = 0; i < data_main.length; i++) {
                     let divFormGroup = document.createElement("div");
                     divFormGroup.className = "form-group";
                     let divFormCheck = document.createElement("div");
@@ -182,16 +180,15 @@ async function showTab(element,id_sub){
                     let inputCheck = document.createElement("input");
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
-                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
-                    if(data_main[i][4] == 1){
+                    inputCheck.setAttribute("id", "checkbox" + data_main[i][0]);
+                    if (data_main[i][4] == 1) {
                         inputCheck.checked = true;
-                    }
-                    else{
+                    } else {
                         inputCheck.checked = false;
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
-                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.setAttribute("for", "checkbox" + data_main[i][0]);
                     labelCheck.innerHTML = data_main[i][1] + " (" + data_main[i][3] + ")";
                     divFormCheck.appendChild(inputCheck);
                     divFormCheck.appendChild(labelCheck);
@@ -200,12 +197,10 @@ async function showTab(element,id_sub){
                 }
 
 
-
-
                 let mainTab = document.getElementById("button1");
 
                 let footer = document.getElementsByClassName("modal-footer")[0];
-                if(!mainTab.classList.contains("active")){
+                if (!mainTab.classList.contains("active")) {
                     footer.classList.add("hiddentab");
 
                 }
@@ -214,48 +209,48 @@ async function showTab(element,id_sub){
                 // }
             })
         await createAccordionCards(id_sub);
-        let submark = document.getElementById("subMark"+id_sub);
-        if(submark){
+        let submark = document.getElementById("subMark" + id_sub);
+        if (submark) {
             submark.remove();
         }
         let calcSubMark = document.createElement('div');
-        calcSubMark.id = "subMark"+id_sub;
+        calcSubMark.id = "subMark" + id_sub;
         calcSubMark.style = "text-align: right";
         calcSubMark.classList.add('subMark');
         let id_application = document.getElementById("id_application").innerText;
-        let calcRow = document.getElementById("tab"+id_sub+"-");
+        let calcRow = document.getElementById("tab" + id_sub + "-");
         await $.ajax({
-            url: "getCalcSubMark.php",
+            url: "ajax/getCalcSubMark.php",
             method: "GET",
             data: {id_application: id_application, id_sub: id_sub}
         })
-            .done(function( response ) {
+            .done(function (response) {
 
-                let criteriaMark ='';
-                let criteriaMarkAccred ='';
+                let criteriaMark = '';
+                let criteriaMarkAccred = '';
 
                 let marksSub = JSON.parse(response);
-                 
-                criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
-                                        + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-              /*  criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
-                + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
-                criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
-                + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
-                criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
-                + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';*/
 
-                criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
-                + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
-                criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
-                + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
-               /* criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
-                + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
-                criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
-                + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
-                criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
-                + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
-*/
+                criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
+                    + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] + '%';
+                /*  criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
+                  + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                  criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
+                  + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                  criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
+                  + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';*/
+
+                criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('
+                    + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] + '%';
+                criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('
+                    + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] + '%';
+                /* criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
+                 + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
+                 criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('
+                 + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
+                 criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('
+                 + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
+ */
 
                 // JSON.parse(response).map((item, index) =>{
                 //     if(item !== 0){
@@ -295,17 +290,17 @@ async function showTab(element,id_sub){
                 //     isBtnPrint.remove();
                 // }
 
-               calcSubMark.innerHTML = criteriaMark + "<br/>";
-               calcSubMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
-               //  let btnPrint = document.createElement("button");
-               //  btnPrint.setAttribute("type", "submit");
-               //  btnPrint.className = "btn btn-light btn-fw";
-               //  btnPrint.id = "btnPrint";
-               //  btnPrint.innerHTML = "Печать";
-               //  btnPrint.style = "float: right";
-               // btnPrint.onclick = () => print();
+                calcSubMark.innerHTML = criteriaMark + "<br/>";
+                calcSubMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
+                //  let btnPrint = document.createElement("button");
+                //  btnPrint.setAttribute("type", "submit");
+                //  btnPrint.className = "btn btn-light btn-fw";
+                //  btnPrint.id = "btnPrint";
+                //  btnPrint.innerHTML = "Печать";
+                //  btnPrint.style = "float: right";
+                // btnPrint.onclick = () => print();
                 calcRow.appendChild(calcSubMark);
-               // calcSubMark.insertAdjacentElement("afterend", btnPrint);
+                // calcSubMark.insertAdjacentElement("afterend", btnPrint);
 
 
             });
@@ -313,7 +308,7 @@ async function showTab(element,id_sub){
     let mainTab = document.getElementById("button1");
 
     let footer = document.getElementsByClassName("modal-footer")[0];
-    if(footer.classList.contains("hiddentab")){
+    if (footer.classList.contains("hiddentab")) {
 
         footer.classList.remove("hiddentab");
 
@@ -324,7 +319,7 @@ function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -337,58 +332,52 @@ function getCookie(cname) {
 }
 
 
-
-
-
-
-
-
-function createApplication(){
+function createApplication() {
     $.ajax({
-        url: "createApplication.php",
+        url: "ajax/createApplication.php",
         method: "POST",
         data: ""
     })
-        .done(function( response ) {
+        .done(function (response) {
         });
     alert("Заявление создано");
     location.href = "/index.php?application";
 }
 
 
-function showModal(id_application, strMarks, strMarksAccred){
+function showModal(id_application, strMarks, strMarksAccred) {
 
     let footer = document.getElementsByClassName("modal-footer")[0];
-    if(footer.classList.contains('hiddentab')){
+    if (footer.classList.contains('hiddentab')) {
         footer.classList.remove('hiddentab');
     }
 
     let apppp = document.getElementsByClassName('accordion');
 
-    if(apppp.length!==0){
-        for(let i=0;i<apppp.length;i++){
+    if (apppp.length !== 0) {
+        for (let i = 0; i < apppp.length; i++) {
             apppp[i].remove();
         }
     }
     let remAccTab = document.getElementsByClassName('remAccTab');
 
-    if(remAccTab.length!==0){
-        for(let i=0;i<remAccTab.length;i++){
+    if (remAccTab.length !== 0) {
+        for (let i = 0; i < remAccTab.length; i++) {
             remAccTab[i].remove();
         }
     }
 
 
     let remSubMark = document.getElementsByClassName('subMark');
-    if(remSubMark.length!==0){
-        for(let i=0;i<remSubMark.length;i++){
+    if (remSubMark.length !== 0) {
+        for (let i = 0; i < remSubMark.length; i++) {
             remSubMark[i].remove();
         }
     }
 
     let tab = document.getElementById("tab1");
     let pane = document.getElementById("tab1-");
-    if(!tab.children[0].classList.contains("active")) {
+    if (!tab.children[0].classList.contains("active")) {
         tab.children[0].classList.add("active");
         pane.classList.add("active");
     }
@@ -398,8 +387,8 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     let btncalc = document.getElementById("btnCalc");
     let btnreport = document.getElementById("btnPrintReport");
-    let btnOkReshenie =  document.getElementById("btnOkReshenie");
-    let btnOkonchatelnoeReshenie =  document.getElementById("btnOkonchatelnoeReshenie");
+    let btnOkReshenie = document.getElementById("btnOkReshenie");
+    let btnOkonchatelnoeReshenie = document.getElementById("btnOkonchatelnoeReshenie");
 
     let tabOdobrenie = document.getElementById("odobrennie-tab");
     let tabNeodobrennie = document.getElementById("neodobrennie-tab");
@@ -408,7 +397,7 @@ function showModal(id_application, strMarks, strMarksAccred){
     let tabHome = document.getElementById("home-tab");
     let informgr = document.getElementById("informgr");
 
-    if(tabOdobrenie.classList.contains("active")){
+    if (tabOdobrenie.classList.contains("active")) {
         btnOkReshenie.classList.remove("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
@@ -418,8 +407,8 @@ function showModal(id_application, strMarks, strMarksAccred){
         informgr.style.display = "none";
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
-    }else if(tabNeodobrennie.classList.contains("active")){
-        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
+    } else if (tabNeodobrennie.classList.contains("active")) {
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnChecking.classList.remove("hiddentab");
         }
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -428,8 +417,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
-    }
-    else if(tabRassmotrenie.classList.contains("active")){
+    } else if (tabRassmotrenie.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
@@ -440,8 +428,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         sovetgr.style.display = "none";
         informgr.style.display = "none";
 
-    }
-    else if(tabReshenieSoveta.classList.contains("active")){
+    } else if (tabReshenieSoveta.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.remove("hiddentab");
         btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
@@ -452,16 +439,14 @@ function showModal(id_application, strMarks, strMarksAccred){
         informgr.style.display = "none";
         sovetgr.style.display = "block";
 
-    }
-
-    else{
+    } else {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
-        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnNeOk.classList.remove("hiddentab");
         }
-        btnOk.classList.add ("hiddentab");
-        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1"){
+        btnOk.classList.add("hiddentab");
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnChecking.classList.remove("hiddentab");
         }
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -474,8 +459,8 @@ function showModal(id_application, strMarks, strMarksAccred){
 
 
     mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
-    openTabId=0;
-    document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления";
+    openTabId = 0;
+    document.getElementsByClassName("modal-title")[0].innerHTML = "Изменение заяления №";
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
     let sokr = document.getElementById("sokr");
@@ -522,12 +507,12 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     let data = new Array();
     $.ajax({
-        url: "getApplication.php",
+        url: "ajax/getApplication.php",
         method: "GET",
         data: {id_application: id_application}
     })
-        .done(function( response ) {
-            for (let i of JSON.parse(response)){
+        .done(function (response) {
+            for (let i of JSON.parse(response)) {
                 data.push(i);
                 data_old.push(i);
             }
@@ -541,48 +526,48 @@ function showModal(id_application, strMarks, strMarksAccred){
             predstavitel.value = data[0][7];
             let login = data[0][13];
 
-            if(data[0][17] != null) {
-                divDateDorabotka.insertAdjacentHTML("afterend", "<span>"+data[0][17]+"</span>");
+            if (data[0][17] != null) {
+                divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
 
-            if(data[0][15] != null) {
+            if (data[0][15] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
-            if(data[0][16] != null) {
-                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
+            if (data[0][16] != null) {
+                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + "/dorabotka/" + id_application + "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
-            if(data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login+ "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+            if (data[0][14] != null) {
+                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
 
-            if(data[0][8] != null) {
+            if (data[0][8] != null) {
                 soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
-            if(data[0][9] != null) {
+            if (data[0][9] != null) {
                 copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
-            if(data[0][10] != null) {
+            if (data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
-            if(data[0][11] != null) {
+            if (data[0][11] != null) {
                 ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
-            if(data[0][12] != null) {
+            if (data[0][12] != null) {
                 techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
             let j = 0;
-            for(let obj of data[1]){
-                if(j==0){
-                    getMainTab(obj[1],obj[0]);
-                }else {
+            for (let obj of data[1]) {
+                if (j == 0) {
+                    getMainTab(obj[1], obj[0]);
+                } else {
                     getTabs(obj[1], obj[0]);
                 }
                 j++;
             }
         });
-     // выводим полученный ответ на консоль браузер
+    // выводим полученный ответ на консоль браузер
 
     let fileInputProtokol = document.getElementById("fileInputProtokol");
     let fileInputZakl = document.getElementById("fileInputZakl");
@@ -593,12 +578,12 @@ function showModal(id_application, strMarks, strMarksAccred){
 // Получаем актуальные значения из базы данных
     let datasovet = new Array();
     $.ajax({
-        url: "getSovet.php",
+        url: "ajax/getSovet.php",
         method: "GET",
         data: {id_application: id_application}
     })
-        .done(function( response ) {
-            for (let i of JSON.parse(response)){
+        .done(function (response) {
+            for (let i of JSON.parse(response)) {
                 datasovet.push(i);
                 data_old1.push(i);
             }
@@ -608,14 +593,14 @@ function showModal(id_application, strMarks, strMarksAccred){
             dateInputSrok.value = datasovet[0][3];
 
 
-            if(datasovet[0][4] != null) {
+            if (datasovet[0][4] != null) {
                 document.getElementById("protokolsoveta").value = datasovet[0][4];
 
                 fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][4] + "'>" + datasovet[0][4] + "</a>");
 
             }
 
-            if(datasovet[0][5] != null) {
+            if (datasovet[0][5] != null) {
                 document.getElementById("zaklsoveta").value = datasovet[0][5];
 
                 fileInputZakl.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/sovets/" + id_application + "/" + datasovet[0][5] + "'>" + datasovet[0][5] + "</a>");
@@ -623,7 +608,7 @@ function showModal(id_application, strMarks, strMarksAccred){
             }
         });
 
-    $(".btn-close").on("click",() => {
+    $(".btn-close").on("click", () => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -631,52 +616,52 @@ function showModal(id_application, strMarks, strMarksAccred){
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let sam = divReportSamoocenka.getElementsByTagName("a")[0];
-        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
-        let fIP =  protfile.querySelectorAll("a");
-        let fIZ =  zaklfile.querySelectorAll("a");
+        let fIP = protfile.querySelectorAll("a");
+        let fIZ = zaklfile.querySelectorAll("a");
         // Удалить все найденные элементы с тегом "a"
-        if(fRD.length > 0)
-        for (let anchor of fRD) {
-            anchor.remove();
-        }
-        if(DD.length > 0)
-        for (let anchor of DD) {
-            anchor.remove();
-        }
-        if(fIP.length > 0)
-        for (let anchor of fIP) {
-            anchor.remove();
-        }
-        if(fIZ.length > 0)
-        for (let anchor of fIZ) {
-            anchor.remove();
-        }
+        if (fRD.length > 0)
+            for (let anchor of fRD) {
+                anchor.remove();
+            }
+        if (DD.length > 0)
+            for (let anchor of DD) {
+                anchor.remove();
+            }
+        if (fIP.length > 0)
+            for (let anchor of fIP) {
+                anchor.remove();
+            }
+        if (fIZ.length > 0)
+            for (let anchor of fIZ) {
+                anchor.remove();
+            }
 
-        if(sam) {
+        if (sam) {
             sam.remove();
         }
-        if(sopr) {
+        if (sopr) {
             sopr.remove();
         }
-        if(copy) {
+        if (copy) {
             copy.remove();
         }
-        if(org) {
+        if (org) {
             org.remove();
         }
-        if(rep) {
+        if (rep) {
             rep.remove();
         }
-        if(ucompl) {
+        if (ucompl) {
             ucompl.remove();
         }
-        if(tech) {
+        if (tech) {
             tech.remove();
         }
         modal.classList.remove("show");
         modal.style = "display: none";
-        for(let i = tablist.children.length - 1; i > 0; i--){
+        for (let i = tablist.children.length - 1; i > 0; i--) {
             tablist.children[i].remove();
         }
         let mb = document.getElementsByClassName("modal-body")[0];
@@ -684,7 +669,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         let lastAct = innerContent.getElementsByClassName("tab-pane fade show remAccTab active")[0];
         lastAct.remove();
     });
-    $("#closerModal").on("click",() => {
+    $("#closerModal").on("click", () => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -693,52 +678,52 @@ function showModal(id_application, strMarks, strMarksAccred){
         let rep = divReport.getElementsByTagName("a")[0];
         let sam = divReportSamoocenka.getElementsByTagName("a")[0];
 
-        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
-        let fIP =  protfile.querySelectorAll("a");
-        let fIZ =  zaklfile.querySelectorAll("a");
+        let fIP = protfile.querySelectorAll("a");
+        let fIZ = zaklfile.querySelectorAll("a");
         // Удалить все найденные элементы с тегом "a"
-        if(fRD.length > 0)
-        for (let anchor of fRD) {
-            anchor.remove();
-        }
-        if(DD.length > 0)
-        for (let anchor of DD) {
-            anchor.remove();
-        }
-        if(fIP.length > 0)
-        for (let anchor of fIP) {
-            anchor.remove();
-        }
-        if(fIZ.length > 0)
-        for (let anchor of fIZ) {
-            anchor.remove();
-        }
+        if (fRD.length > 0)
+            for (let anchor of fRD) {
+                anchor.remove();
+            }
+        if (DD.length > 0)
+            for (let anchor of DD) {
+                anchor.remove();
+            }
+        if (fIP.length > 0)
+            for (let anchor of fIP) {
+                anchor.remove();
+            }
+        if (fIZ.length > 0)
+            for (let anchor of fIZ) {
+                anchor.remove();
+            }
 
-        if(sam) {
+        if (sam) {
             sam.remove();
         }
-        if(sopr) {
+        if (sopr) {
             sopr.remove();
         }
-        if(copy) {
+        if (copy) {
             copy.remove();
         }
-        if(org) {
+        if (org) {
             org.remove();
         }
-        if(rep) {
+        if (rep) {
             rep.remove();
         }
-        if(ucompl) {
+        if (ucompl) {
             ucompl.remove();
         }
-        if(tech) {
+        if (tech) {
             tech.remove();
         }
         modal.classList.remove("show");
         modal.style = "display: none";
-        for(let i = tablist.children.length - 1; i > 0; i--){
+        for (let i = tablist.children.length - 1; i > 0; i--) {
             tablist.children[i].remove();
         }
         let mb = document.getElementsByClassName("modal-body")[0];
@@ -749,30 +734,30 @@ function showModal(id_application, strMarks, strMarksAccred){
 
 
     let divBtnPrintReport = document.getElementById('btnPrintReport');
-    divBtnPrintReport.onclick = ()=> {
+    divBtnPrintReport.onclick = () => {
         printReport();
     };
 
 }
 
-function printReport(){
+function printReport() {
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
 
     $.ajax({
-        url: "getAppForPrintAcredReport.php",
+        url: "ajax/getAppForPrintAcredReport.php",
         method: "GET",
         data: {id_app: id_application}
     })
-        .done(function( response ) {
+        .done(function (response) {
             let tableForPrint = JSON.parse(response);
 
-            if(tableForPrint.length !==0){
+            if (tableForPrint.length !== 0) {
                 let naim = document.getElementById("naim");
                 let unp = document.getElementById("unp");
                 let naimText = naim.value;
                 let unpText = unp.value;
-                var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+                var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
                 WinPrint.document.write('<style>@page {\n' +
                     'size: A4 portrait;\n' +
@@ -802,18 +787,18 @@ function printReport(){
 }
 
 //function print()
-    $("#btnPrint").on("click", () => {
+$("#btnPrint").on("click", () => {
 
 
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
 
     $.ajax({
-        url: "getAppForPrint.php",
+        url: "ajax/getAppForPrint.php",
         method: "GET",
         data: {id_app: id_application}
     })
-        .done(function( response ) {
+        .done(function (response) {
             let tableForPrint = JSON.parse(response);
 
 
@@ -821,7 +806,7 @@ function printReport(){
             let unp = document.getElementById("unp");
             let naimText = naim.value;
             let unpText = unp.value;
-            var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+            var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
             WinPrint.document.write('<style>@page {\n' +
                 'size: A4 landscape;\n' +
@@ -836,7 +821,6 @@ function printReport(){
             let table = createTableForPrint(tableForPrint);
 
 
-
             WinPrint.document.write('<br/>');
             WinPrint.document.write(table.innerHTML);
 
@@ -844,18 +828,16 @@ function printReport(){
             WinPrint.document.close();
             WinPrint.focus();
             let naimOrg = document.getElementById("naim");
-            WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".","");
+            WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
             WinPrint.print();
             WinPrint.close();
 
         });
 
 
-
-
 });
 
-function createTableForPrint(tableForPrint){
+function createTableForPrint(tableForPrint) {
 
     let divPrintTable = document.createElement('div');
 
@@ -873,19 +855,19 @@ function createTableForPrint(tableForPrint){
 
     let table = document.createElement('table');
     table.style = "border-collapse: collapse; border-spacing: 0;";
-    
+
 
     let trHeadMain = document.createElement('tr');
 
     let thNum = document.createElement('th');
     thNum.innerHTML = '№ п/п';
     thNum.style = "border: 1px solid black";
-    thNum.setAttribute('rowspan','2');
+    thNum.setAttribute('rowspan', '2');
 
     let th1_Main = document.createElement('th');
     th1_Main.innerHTML = 'Критерий';
     th1_Main.style = "border: 1px solid black";
-    th1_Main.setAttribute('rowspan','2');
+    th1_Main.setAttribute('rowspan', '2');
 
     // let th2_Main = document.createElement('th');
     // th2_Main.innerHTML = 'Класс критерия';
@@ -896,12 +878,12 @@ function createTableForPrint(tableForPrint){
     let th3_Main = document.createElement('th');
     th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
     th3_Main.style = "border: 1px solid black; text-align: center";
-    th3_Main.setAttribute('colspan','3');
+    th3_Main.setAttribute('colspan', '3');
 
     let th4_Main = document.createElement('th');
     th4_Main.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
     th4_Main.style = "border: 1px solid black; text-align: center";
-    th4_Main.setAttribute('colspan','3');
+    th4_Main.setAttribute('colspan', '3');
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
@@ -931,7 +913,7 @@ function createTableForPrint(tableForPrint){
 
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
-   // trHeadMain.appendChild(th2_Main);
+    // trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
     trHeadMain.appendChild(th4_Main);
 
@@ -946,312 +928,37 @@ function createTableForPrint(tableForPrint){
 
 
     table.appendChild(trHead);
-    
+
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
-    numCriteria=0;
+    numCriteria = 0;
     numSub = 0;
     tableForPrint.map((item, index) => {
 
 
-            if((numCriteria !== item['id_criteria']) && (index !==0))  {
+        if ((numCriteria !== item['id_criteria']) && (index !== 0)) {
 
-                if(numSub !== item['id_subvision']){
+            if (numSub !== item['id_subvision']) {
 
-                    let trNaimSub = document.createElement('tr');
-                    let tdNaimSub  = document.createElement('td');
-                    tdNaimSub.setAttribute('colspan','6');
-                    tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-                    tdNaimSub.innerHTML = item['name'];
-                    trNaimSub.appendChild(tdNaimSub);
-                    tbody.appendChild(trNaimSub);
-
-                }
-
-                if(item['id_criteria'] !== null) {
-                    let trNaim = document.createElement('tr');
-                    let tdNaim = document.createElement('td');
-                    tdNaim.setAttribute('colspan','6');
-                    tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
-                    tdNaim.innerHTML = item['name_criteria'];
-                    trNaim.appendChild(tdNaim);
-                    tbody.appendChild(trNaim);
-    
-    
-    
-                    let trHeadMain2 = document.createElement('tr');
-    
-                    let thNum = document.createElement('th');
-                    thNum.innerHTML = '№ п/п';
-                    thNum.style = "border: 1px solid black";
-                    thNum.setAttribute('rowspan','2');
-    
-                    let th1_Main2 = document.createElement('td');
-                    th1_Main2.innerHTML = 'Критерий';
-                    th1_Main2.style = "border: 1px solid black";
-                    th1_Main2.setAttribute('rowspan','2');
-            
-                    // let th2_Main2 = document.createElement('td');
-                    // th2_Main2.innerHTML = 'Класс критерия';
-                    // th2_Main2.style = "border: 1px solid black";
-                    // th2_Main2.setAttribute('rowspan','2');
-            
-            
-                    let th3_Main2 = document.createElement('td');
-                    th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
-                    th3_Main2.style = "border: 1px solid black; text-align: center";
-                    th3_Main2.setAttribute('colspan','3');
-
-                    let th4_Main2 = document.createElement('td');
-                    th4_Main2.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
-                    th4_Main2.style = "border: 1px solid black; text-align: center";
-                    th4_Main2.setAttribute('colspan','3');
-                    
-            
-                    let trHead2 = document.createElement('tr');
-                    let th32 = document.createElement('td');
-                    th32.innerHTML = 'Сведения по самооценке ОЗ';
-                    th32.style = "border: 1px solid black";
-            
-                    let th42 = document.createElement('td');
-                    th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-                    th4.style = "width:350px; border: 1px solid black";
-            
-            
-                    let th52 = document.createElement('td');
-                    th52.innerHTML = 'Примечание';
-                    th52.style = "border: 1px solid black";
-
-                    let th62 = document.createElement('td');
-                    th62.innerHTML = 'Сведения по оценке соответствия';
-                    th62.style = "border: 1px solid black";
-
-                    let th72 = document.createElement('td');
-                    th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
-                    th72.style = "border: 1px solid black";
-
-                    let th82 = document.createElement('th');
-                    th82.innerHTML = 'Выявленные недостатки';
-                    th82.style = "border: 1px solid black";
-
-                    trHeadMain2.appendChild(thNum);
-                    trHeadMain2.appendChild(th1_Main2);
-                   // trHeadMain2.appendChild(th2_Main2);
-                    trHeadMain2.appendChild(th3_Main2);
-                    trHeadMain2.appendChild(th4_Main2);
-                   
-                    
-                    tbody.appendChild(trHeadMain2);
-                    trHead2.appendChild(th32);
-                    trHead2.appendChild(th42);
-                    trHead2.appendChild(th52);
-                    trHead2.appendChild(th62);
-                    trHead2.appendChild(th72);
-                    trHead2.appendChild(th82);
-
-                    tbody.appendChild(trHead2);
-                }
-
-              
-                
+                let trNaimSub = document.createElement('tr');
+                let tdNaimSub = document.createElement('td');
+                tdNaimSub.setAttribute('colspan', '6');
+                tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+                tdNaimSub.innerHTML = item['name'];
+                trNaimSub.appendChild(tdNaimSub);
+                tbody.appendChild(trNaimSub);
 
             }
 
-            numCriteria =  -1;
-
-            if(item['id_criteria'] !== null) {
-
-                let tr = document.createElement('tr');
-
-                let tdNum = document.createElement('td');
-                tdNum.innerHTML = item['str_num'];
-                tdNum.style = "border: 1px solid black";
-    
-                let td1 = document.createElement('td');
-                td1.innerHTML = item['mark_name'];
-                td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-    /*
-                let td2 = document.createElement('td');
-                td2.innerHTML = item['mark_class'];
-                td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-          */
-                let td3 = document.createElement('td');
-                td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td3.innerHTML = item['field4'];
-           
-                let td4 = document.createElement('td');
-                td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td4.innerHTML = item['field5'];
-    
-                let td5 = document.createElement('td');
-                td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td5.innerHTML = item['field6'];
-
-                let td6 = document.createElement('td');
-                td6.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td6.innerHTML = item['field7'];
-
-                let td7 = document.createElement('td');
-                td7.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td7.innerHTML = item['field8'];
-
-                let td8 = document.createElement('td');
-                td8.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-                td8.innerHTML = item['field9'];
-
-    
-                tr.appendChild(tdNum);
-                tr.appendChild(td1);
-             //   tr.appendChild(td2);
-                tr.appendChild(td3);
-    
-                tr.appendChild(td4);
-                tr.appendChild(td5);
-                tr.appendChild(td6);
-                tr.appendChild(td7);
-                tr.appendChild(td8);
-
-                tbody.appendChild(tr);
-     
-                numCriteria = item['id_criteria'];
-             }
-
-             
-            numSub = item['id_subvision']
-         })
-
-
-    divPrintTable.appendChild(table);
-
-    return divPrintTable;
-}
-
-function createTableForPrintNo(tableForPrint){
-
-    let divPrintTable = document.createElement('div');
-
-    let divNameSubTable = document.createElement('div');
-    divNameSubTable.textContent = tableForPrint[0]['name'];
-    divNameSubTable.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-
-    divPrintTable.appendChild(divNameSubTable);
-
-    let divNameCriteriaTable = document.createElement('div');
-    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
-    divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
-
-    divPrintTable.appendChild(divNameCriteriaTable);
-
-    let table = document.createElement('table');
-    table.style = "border-collapse: collapse; border-spacing: 0;";
-
-
-    let trHeadMain = document.createElement('tr');
-
-    let thNum = document.createElement('th');
-    thNum.innerHTML = '№ п/п';
-    thNum.style = "border: 1px solid black";
-    thNum.setAttribute('rowspan','2');
-
-    let th1_Main = document.createElement('th');
-    th1_Main.innerHTML = 'Критерий';
-    th1_Main.style = "border: 1px solid black";
-    th1_Main.setAttribute('rowspan','2');
-
-    // let th2_Main = document.createElement('th');
-    // th2_Main.innerHTML = 'Класс критерия';
-    // th2_Main.style = "border: 1px solid black";
-    // th2_Main.setAttribute('rowspan','2');
-
-
-    let th3_Main = document.createElement('th');
-    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
-    th3_Main.style = "border: 1px solid black; text-align: center";
-    th3_Main.setAttribute('colspan','3');
-
-    let th4_Main = document.createElement('th');
-    th4_Main.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
-    th4_Main.style = "border: 1px solid black; text-align: center";
-    th4_Main.setAttribute('colspan','3');
-
-    let trHead = document.createElement('tr');
-    let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самооценке ОЗ';
-    th3.style = "border: 1px solid black";
-
-    let th4 = document.createElement('th');
-    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-    th4.style = "width:350px; border: 1px solid black";
-
-
-    let th5 = document.createElement('th');
-    th5.innerHTML = 'Примечание';
-    th5.style = "border: 1px solid black";
-
-    let th6 = document.createElement('th');
-    th6.innerHTML = 'Сведения по оценке соответствия';
-    th6.style = "border: 1px solid black";
-
-    let th7 = document.createElement('th');
-    th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
-    th7.style = "border: 1px solid black";
-
-    let th8 = document.createElement('th');
-    th8.innerHTML = 'Выявленные недостатки';
-    th8.style = "border: 1px solid black";
-
-    trHeadMain.appendChild(thNum);
-    trHeadMain.appendChild(th1_Main);
-   // trHeadMain.appendChild(th2_Main);
-    trHeadMain.appendChild(th3_Main);
-    trHeadMain.appendChild(th4_Main);
-
-
-    table.appendChild(trHeadMain);
-    trHead.appendChild(th3);
-    trHead.appendChild(th4);
-    trHead.appendChild(th5);
-    trHead.appendChild(th6);
-    trHead.appendChild(th7);
-    trHead.appendChild(th8);
-
-
-    table.appendChild(trHead);
-
-    let tbody = document.createElement('tbody');
-    table.appendChild(tbody);
-
-    numCriteria=0;
-    numSub = tableForPrint[0]['id_subvision'];
-    tableForPrint.map((item, index) => {
-
-
-
-                if(numSub !== item['id_subvision']) {
-
-                    let trNaimSub = document.createElement('tr');
-                    let tdNaimSub = document.createElement('td');
-                    tdNaimSub.setAttribute('colspan', '6');
-                    tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-                    tdNaimSub.innerHTML = item['name'];
-                    trNaimSub.appendChild(tdNaimSub);
-                    tbody.appendChild(trNaimSub);
-                    numCriteria = -1;
-
-                }
-
-                if((numCriteria !== item['id_criteria']) && (index !==0)) {
-
-
+            if (item['id_criteria'] !== null) {
                 let trNaim = document.createElement('tr');
                 let tdNaim = document.createElement('td');
-                tdNaim.setAttribute('colspan','6');
+                tdNaim.setAttribute('colspan', '6');
                 tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
                 tdNaim.innerHTML = item['name_criteria'];
                 trNaim.appendChild(tdNaim);
                 tbody.appendChild(trNaim);
-
 
 
                 let trHeadMain2 = document.createElement('tr');
@@ -1259,12 +966,12 @@ function createTableForPrintNo(tableForPrint){
                 let thNum = document.createElement('th');
                 thNum.innerHTML = '№ п/п';
                 thNum.style = "border: 1px solid black";
-                thNum.setAttribute('rowspan','2');
+                thNum.setAttribute('rowspan', '2');
 
                 let th1_Main2 = document.createElement('td');
                 th1_Main2.innerHTML = 'Критерий';
                 th1_Main2.style = "border: 1px solid black";
-                th1_Main2.setAttribute('rowspan','2');
+                th1_Main2.setAttribute('rowspan', '2');
 
                 // let th2_Main2 = document.createElement('td');
                 // th2_Main2.innerHTML = 'Класс критерия';
@@ -1275,12 +982,12 @@ function createTableForPrintNo(tableForPrint){
                 let th3_Main2 = document.createElement('td');
                 th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
                 th3_Main2.style = "border: 1px solid black; text-align: center";
-                th3_Main2.setAttribute('colspan','3');
+                th3_Main2.setAttribute('colspan', '3');
 
                 let th4_Main2 = document.createElement('td');
                 th4_Main2.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
                 th4_Main2.style = "border: 1px solid black; text-align: center";
-                th4_Main2.setAttribute('colspan','3');
+                th4_Main2.setAttribute('colspan', '3');
 
 
                 let trHead2 = document.createElement('tr');
@@ -1305,13 +1012,13 @@ function createTableForPrintNo(tableForPrint){
                 th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
                 th72.style = "border: 1px solid black";
 
-                let th82 = document.createElement('td');
+                let th82 = document.createElement('th');
                 th82.innerHTML = 'Выявленные недостатки';
                 th82.style = "border: 1px solid black";
 
                 trHeadMain2.appendChild(thNum);
                 trHeadMain2.appendChild(th1_Main2);
-               // trHeadMain2.appendChild(th2_Main2);
+                // trHeadMain2.appendChild(th2_Main2);
                 trHeadMain2.appendChild(th3_Main2);
                 trHeadMain2.appendChild(th4_Main2);
 
@@ -1328,12 +1035,11 @@ function createTableForPrintNo(tableForPrint){
             }
 
 
+        }
 
+        numCriteria = -1;
 
-
-        numCriteria =  -1;
-
-        if(item['id_criteria'] !== null) {
+        if (item['id_criteria'] !== null) {
 
             let tr = document.createElement('tr');
 
@@ -1344,11 +1050,11 @@ function createTableForPrintNo(tableForPrint){
             let td1 = document.createElement('td');
             td1.innerHTML = item['mark_name'];
             td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-/*
-            let td2 = document.createElement('td');
-            td2.innerHTML = item['mark_class'];
-            td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-*/
+            /*
+                        let td2 = document.createElement('td');
+                        td2.innerHTML = item['mark_class'];
+                        td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+                  */
             let td3 = document.createElement('td');
             td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
             td3.innerHTML = item['field4'];
@@ -1376,7 +1082,274 @@ function createTableForPrintNo(tableForPrint){
 
             tr.appendChild(tdNum);
             tr.appendChild(td1);
-          //  tr.appendChild(td2);
+            //   tr.appendChild(td2);
+            tr.appendChild(td3);
+
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+            tr.appendChild(td6);
+            tr.appendChild(td7);
+            tr.appendChild(td8);
+
+            tbody.appendChild(tr);
+
+            numCriteria = item['id_criteria'];
+        }
+
+
+        numSub = item['id_subvision']
+    })
+
+
+    divPrintTable.appendChild(table);
+
+    return divPrintTable;
+}
+
+function createTableForPrintNo(tableForPrint) {
+
+    let divPrintTable = document.createElement('div');
+
+    let divNameSubTable = document.createElement('div');
+    divNameSubTable.textContent = tableForPrint[0]['name'];
+    divNameSubTable.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+
+    divPrintTable.appendChild(divNameSubTable);
+
+    let divNameCriteriaTable = document.createElement('div');
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+    divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
+
+    divPrintTable.appendChild(divNameCriteriaTable);
+
+    let table = document.createElement('table');
+    table.style = "border-collapse: collapse; border-spacing: 0;";
+
+
+    let trHeadMain = document.createElement('tr');
+
+    let thNum = document.createElement('th');
+    thNum.innerHTML = '№ п/п';
+    thNum.style = "border: 1px solid black";
+    thNum.setAttribute('rowspan', '2');
+
+    let th1_Main = document.createElement('th');
+    th1_Main.innerHTML = 'Критерий';
+    th1_Main.style = "border: 1px solid black";
+    th1_Main.setAttribute('rowspan', '2');
+
+    // let th2_Main = document.createElement('th');
+    // th2_Main.innerHTML = 'Класс критерия';
+    // th2_Main.style = "border: 1px solid black";
+    // th2_Main.setAttribute('rowspan','2');
+
+
+    let th3_Main = document.createElement('th');
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.style = "border: 1px solid black; text-align: center";
+    th3_Main.setAttribute('colspan', '3');
+
+    let th4_Main = document.createElement('th');
+    th4_Main.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
+    th4_Main.style = "border: 1px solid black; text-align: center";
+    th4_Main.setAttribute('colspan', '3');
+
+    let trHead = document.createElement('tr');
+    let th3 = document.createElement('th');
+    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.style = "border: 1px solid black";
+
+    let th4 = document.createElement('th');
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+    th4.style = "width:350px; border: 1px solid black";
+
+
+    let th5 = document.createElement('th');
+    th5.innerHTML = 'Примечание';
+    th5.style = "border: 1px solid black";
+
+    let th6 = document.createElement('th');
+    th6.innerHTML = 'Сведения по оценке соответствия';
+    th6.style = "border: 1px solid black";
+
+    let th7 = document.createElement('th');
+    th7.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+    th7.style = "border: 1px solid black";
+
+    let th8 = document.createElement('th');
+    th8.innerHTML = 'Выявленные недостатки';
+    th8.style = "border: 1px solid black";
+
+    trHeadMain.appendChild(thNum);
+    trHeadMain.appendChild(th1_Main);
+    // trHeadMain.appendChild(th2_Main);
+    trHeadMain.appendChild(th3_Main);
+    trHeadMain.appendChild(th4_Main);
+
+
+    table.appendChild(trHeadMain);
+    trHead.appendChild(th3);
+    trHead.appendChild(th4);
+    trHead.appendChild(th5);
+    trHead.appendChild(th6);
+    trHead.appendChild(th7);
+    trHead.appendChild(th8);
+
+
+    table.appendChild(trHead);
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+    numCriteria = 0;
+    numSub = tableForPrint[0]['id_subvision'];
+    tableForPrint.map((item, index) => {
+
+        if (numSub !== item['id_subvision']) {
+
+            let trNaimSub = document.createElement('tr');
+            let tdNaimSub = document.createElement('td');
+            tdNaimSub.setAttribute('colspan', '6');
+            tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+            tdNaimSub.innerHTML = item['name'];
+            trNaimSub.appendChild(tdNaimSub);
+            tbody.appendChild(trNaimSub);
+            numCriteria = -1;
+
+        }
+
+        if ((numCriteria !== item['id_criteria']) && (index !== 0)) {
+
+
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '6');
+            tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+            tdNaim.innerHTML = item['name_criteria'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
+
+
+            let trHeadMain2 = document.createElement('tr');
+
+            let thNum = document.createElement('th');
+            thNum.innerHTML = '№ п/п';
+            thNum.style = "border: 1px solid black";
+            thNum.setAttribute('rowspan', '2');
+
+            let th1_Main2 = document.createElement('td');
+            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.style = "border: 1px solid black";
+            th1_Main2.setAttribute('rowspan', '2');
+
+            // let th2_Main2 = document.createElement('td');
+            // th2_Main2.innerHTML = 'Класс критерия';
+            // th2_Main2.style = "border: 1px solid black";
+            // th2_Main2.setAttribute('rowspan','2');
+
+
+            let th3_Main2 = document.createElement('td');
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.style = "border: 1px solid black; text-align: center";
+            th3_Main2.setAttribute('colspan', '3');
+
+            let th4_Main2 = document.createElement('td');
+            th4_Main2.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
+            th4_Main2.style = "border: 1px solid black; text-align: center";
+            th4_Main2.setAttribute('colspan', '3');
+
+
+            let trHead2 = document.createElement('tr');
+            let th32 = document.createElement('td');
+            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.style = "border: 1px solid black";
+
+            let th42 = document.createElement('td');
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+            th4.style = "width:350px; border: 1px solid black";
+
+
+            let th52 = document.createElement('td');
+            th52.innerHTML = 'Примечание';
+            th52.style = "border: 1px solid black";
+
+            let th62 = document.createElement('td');
+            th62.innerHTML = 'Сведения по оценке соответствия';
+            th62.style = "border: 1px solid black";
+
+            let th72 = document.createElement('td');
+            th72.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+            th72.style = "border: 1px solid black";
+
+            let th82 = document.createElement('td');
+            th82.innerHTML = 'Выявленные недостатки';
+            th82.style = "border: 1px solid black";
+
+            trHeadMain2.appendChild(thNum);
+            trHeadMain2.appendChild(th1_Main2);
+            // trHeadMain2.appendChild(th2_Main2);
+            trHeadMain2.appendChild(th3_Main2);
+            trHeadMain2.appendChild(th4_Main2);
+
+
+            tbody.appendChild(trHeadMain2);
+            trHead2.appendChild(th32);
+            trHead2.appendChild(th42);
+            trHead2.appendChild(th52);
+            trHead2.appendChild(th62);
+            trHead2.appendChild(th72);
+            trHead2.appendChild(th82);
+
+            tbody.appendChild(trHead2);
+        }
+
+
+        numCriteria = -1;
+
+        if (item['id_criteria'] !== null) {
+
+            let tr = document.createElement('tr');
+
+            let tdNum = document.createElement('td');
+            tdNum.innerHTML = item['str_num'];
+            tdNum.style = "border: 1px solid black";
+
+            let td1 = document.createElement('td');
+            td1.innerHTML = item['mark_name'];
+            td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            /*
+                        let td2 = document.createElement('td');
+                        td2.innerHTML = item['mark_class'];
+                        td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            */
+            let td3 = document.createElement('td');
+            td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td3.innerHTML = item['field4'];
+
+            let td4 = document.createElement('td');
+            td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td4.innerHTML = item['field5'];
+
+            let td5 = document.createElement('td');
+            td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td5.innerHTML = item['field6'];
+
+            let td6 = document.createElement('td');
+            td6.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td6.innerHTML = item['field7'];
+
+            let td7 = document.createElement('td');
+            td7.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td7.innerHTML = item['field8'];
+
+            let td8 = document.createElement('td');
+            td8.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td8.innerHTML = item['field9'];
+
+
+            tr.appendChild(tdNum);
+            tr.appendChild(td1);
+            //  tr.appendChild(td2);
             tr.appendChild(td3);
 
             tr.appendChild(td4);
@@ -1401,7 +1374,6 @@ function createTableForPrintNo(tableForPrint){
 }
 
 
-
 const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 const UNP_REGEXP = /^([0-9]{9})$/iu;
 const ADRESS_REGEXP = /^(\d{4,6}\s[А-Яа-яЁё0-9,. ]{1,})$/iu;
@@ -1415,6 +1387,7 @@ function onInputEmail() {
         input.style.borderColor = 'red';
     }
 }
+
 function isEmailValid(value) {
     return EMAIL_REGEXP.test(value);
 }
@@ -1427,6 +1400,7 @@ function onInputUnp() {
         input.style.borderColor = 'red';
     }
 }
+
 function isUnpValid(value) {
     return UNP_REGEXP.test(value);
 }
@@ -1439,30 +1413,32 @@ function onInputAdress() {
         input.style.borderColor = 'green';
     }
 }
+
 function isAdressValid(value) {
     return ADRESS_REGEXP.test(value);
 }
 
 let formDoverennost = document.getElementById("formDoverennost");
-function showDoverennost(element){
+
+function showDoverennost(element) {
     formDoverennost.classList.remove("hiddentab");
 };
 
-function deleteDoverennost(element){
+function deleteDoverennost(element) {
     formDoverennost.classList.add("hiddentab");
 };
 
-function getTabs(name, id_sub){
+function getTabs(name, id_sub) {
 
-/*
-    if(isSavedMarks()) {
-        // arrChange=false;
-        if (saveMarks(OpenSub) === false) {
-            return;
+    /*
+        if(isSavedMarks()) {
+            // arrChange=false;
+            if (saveMarks(OpenSub) === false) {
+                return;
+            }
+
         }
-
-    }
-*/
+    */
 
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
@@ -1470,16 +1446,16 @@ function getTabs(name, id_sub){
     let a = document.createElement("button");
     a.className = "nav-link";
     a.id = 'button' + id_sub;
-   a.setAttribute("data-toggle", "tab");
+    a.setAttribute("data-toggle", "tab");
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
 
-    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+    tab.setAttribute("onclick", "showTab(this," + id_sub + ")");
 
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
-   
+
     tab.id = "tab" + id_sub;
     tablist.appendChild(tab);
 
@@ -1560,7 +1536,7 @@ function getTabs(name, id_sub){
 }
 
 
-function getMainTab(name, id_sub){
+function getMainTab(name, id_sub) {
 
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
@@ -1572,7 +1548,7 @@ function getMainTab(name, id_sub){
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
-    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+    tab.setAttribute("onclick", "showTab(this," + id_sub + ")");
     a.innerHTML = "Самооценка " + name;
     tab.appendChild(a);
     tab.id = "tab" + id_sub;
@@ -1647,40 +1623,37 @@ function getMainTab(name, id_sub){
 }
 
 
-
-
-function addTab(){
+function addTab() {
     let nameTab = prompt("Введите название структурного подразделения");
 
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
     $.ajax({
-        url: "addSubvision.php",
+        url: "ajax/addSubvision.php",
         method: "POST",
         data: {id_application: id_application, name: nameTab}
     })
-        .done(function( response ) {
+        .done(function (response) {
             let id = response;
             getTabs(nameTab, id);
         });
 
 
-
 }
 
-function deleteTab(id_sub){
+function deleteTab(id_sub) {
     $.ajax({
-        url: "deleteTab.php",
+        url: "ajax/deleteTab.php",
         method: "POST",
         data: {id_sub: id_sub}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
         });
 
 
-    let thisTab = document.getElementById("tab"+id_sub);
-    let thisTab1 = document.getElementById("tab"+id_sub+"-");
+    let thisTab = document.getElementById("tab" + id_sub);
+    let thisTab1 = document.getElementById("tab" + id_sub + "-");
     thisTab.remove();
     thisTab1.remove();
 
@@ -1721,7 +1694,7 @@ $("#btnSuc").on("click", function () {
     modal.style = "display: block";
 
     // var doverennost = document.getElementById("doverennost"),
-   let xhr = new XMLHttpRequest(),
+    let xhr = new XMLHttpRequest(),
         form = new FormData();
     // var doverennost = doverennost.files[0];
     // form.append("doverennost", doverennost);
@@ -1742,35 +1715,35 @@ $("#btnSuc").on("click", function () {
     let orgStruktFile = orgStrukt.files[0];
     form.append("orgStrukt", orgStruktFile);
 
-    xhr.open("post", "saveApplication.php", true);
+    xhr.open("post", "ajax/saveApplication.php", true);
     xhr.send(form);
     alert("Заявление сохранено");
     location.href = "/index.php?application";
 
 });
 
-function saveTab(id_sub){
+function saveTab(id_sub) {
 
-    if(isSavedMarks()) {
+    if (isSavedMarks()) {
         // arrChange=false;
-      //  saveMarks(OpenSub);
+        //  saveMarks(OpenSub);
         if (saveMarks(OpenSub) === false) {
             return;
         }
     }
-    arrChange=false;
-    OpenSub=0;
+    arrChange = false;
+    OpenSub = 0;
 
-    let thisTab = document.getElementById("tab"+id_sub+"-");
+    let thisTab = document.getElementById("tab" + id_sub + "-");
     let arrCheckInputs = thisTab.getElementsByClassName("form-check-input");
     let arrIdCriterias = new Array();
-    for (let input of arrCheckInputs){
+    for (let input of arrCheckInputs) {
         let id_criteria = input.id.substring(8);
 
-        if(input.checked === true ){
+        if (input.checked === true) {
             let item = {
-                id_criteria : id_criteria,
-                value : 1
+                id_criteria: id_criteria,
+                value: 1
             };
             arrIdCriterias.push(item);
         }
@@ -1785,11 +1758,11 @@ function saveTab(id_sub){
 
 
     $.ajax({
-        url: "saveTab.php",
+        url: "ajax/saveTab.php",
         method: "POST",
         data: {id_sub: id_sub, arr_id_criterias: arrIdCriterias}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
         });
 
@@ -1800,12 +1773,12 @@ let id_open_criteria = 0;
 
 async function createAccordionCards(id_sub) {
 
- //   let marks_app = [];
-/*
-    for (let i=marks_app.length-1; i>-1 ; i--) {
-        marks_app.pop();
-    }
-*/
+    //   let marks_app = [];
+    /*
+        for (let i=marks_app.length-1; i>-1 ; i--) {
+            marks_app.pop();
+        }
+    */
     marks_app.arClear();
 
     let thisTab = document.getElementById("tab" + id_sub + "-");
@@ -1822,15 +1795,11 @@ async function createAccordionCards(id_sub) {
     let id_user = getCookie('id_user');
 
 
-
-
-
-
     for (let input of arrCheckInputs) {
 
         if (input.checked === true) {
             let id_criteria = input.id.substring(8);
-            let name_criteria = document.querySelector("label[for='checkbox"+id_criteria+"']")
+            let name_criteria = document.querySelector("label[for='checkbox" + id_criteria + "']")
 
 
             let divCardHeader = document.createElement("div");
@@ -1845,54 +1814,51 @@ async function createAccordionCards(id_sub) {
             let divCardHeaderMark = document.createElement("div");
 
             $.ajax({
-                url: "getReportCriteria.php",
+                url: "ajax/getReportCriteria.php",
                 method: "GET",
                 data: {id_application: id_application, id_sub: id_sub, id_criteria: id_criteria}
             })
-                .done(function( response ) {
+                .done(function (response) {
 
-                    let criteriaMark ='';
-                    let criteriaMarkAccred ='';
+                    let criteriaMark = '';
+                    let criteriaMarkAccred = '';
                     let marksSub = JSON.parse(response);
-                 
-                    criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('  
-                                            + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-                   /* criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
-                    + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
-                    criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('  
-                    + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
-                    criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('  
-                    + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
-    */
-                    criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('  
-                    + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] +'%';
-                    criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('  
-                    + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] +'%';
-                   /* criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
-                    + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
-                    criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('  
-                    + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
-                    criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('  
-                    + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
-       */
 
-                    console.log(1111111);
+                    criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
+                        + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] + '%';
+                    /* criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
+                     + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+                     criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
+                     + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+                     criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
+                     + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+     */
+                    criteriaMarkAccred = criteriaMarkAccred + 'Количественная оценка ' + marksSub['otmetka_accred_all_count_yes'] + '/('
+                        + marksSub['otmetka_accred_all_count_all'] + ' - ' + marksSub['otmetka_accred_all_count_not_need'] + ') = ' + marksSub['otmetka_accred_all'] + '%';
+                    criteriaMarkAccred += ' Верификация результатов самооценки ' + marksSub['otmetka_verif_count_yes'] + '/('
+                        + marksSub['otmetka_verif_count_all'] + ' - ' + marksSub['otmetka_verif_count_not_need'] + ') = ' + marksSub['otmetka_verif'] + '%';
+                    /* criteriaMarkAccred += ' По 1 классу ' + marksSub['otmetka_accred_class_1_count_yes'] + '/('
+                     + marksSub['otmetka_accred_class_1_count_all'] + ' - ' + marksSub['otmetka_accred_class_1_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_1'] +'%';
+                     criteriaMarkAccred +=  ' По 2 классу ' + marksSub['otmetka_accred_class_2_count_yes'] + '/('
+                     + marksSub['otmetka_accred_class_2_count_all'] + ' - ' + marksSub['otmetka_accred_class_2_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_2'] +'%';
+                     criteriaMarkAccred +=  ' По 3 классу ' + marksSub['otmetka_accred_class_3_count_yes'] + '/('
+                     + marksSub['otmetka_accred_class_3_count_all'] + ' - ' + marksSub['otmetka_accred_class_3_count_not_need'] + ') = ' + marksSub['otmetka_accred_class_3'] +'%';
+        */
+
                     divCardHeaderMark.innerHTML = criteriaMark + "<br/>";
                     divCardHeaderMark.innerHTML += criteriaMarkAccred + "<br/><br/>";
                     divCardHeader.appendChild(divCardHeaderMark);
                     if (arr.length === 0) {
 
-                    }
-                    else {
+                    } else {
 
                         if (id_user === arr[0].id_otvetstvennogo) {
                             let btnNotReady = document.createElement("button");
 
-
                             btnNotReady.setAttribute("type", "submit");
                             btnNotReady.className = "floating-button";
 
-                            btnNotReady.id = "btnNotReady"+id_criteria;
+                            btnNotReady.id = "btnNotReady" + id_criteria;
 
 
                             for (let i = 0; i < arr.length; i++) {
@@ -1917,48 +1883,44 @@ async function createAccordionCards(id_sub) {
                                 btnNotReady.classList.add("hiddentab");
                             }
 
-                    btnNotReady.style.height = "35px";
-                    btnNotReady.style.backgroundColor = "blue";
-                    btnNotReady.style.color = "white";
+                            btnNotReady.style.height = "35px";
+                            btnNotReady.style.backgroundColor = "blue";
+                            btnNotReady.style.color = "white";
 
 
-                    btnNotReady.style.position = "relative";
+                            btnNotReady.style.position = "relative";
 
 
-                    btnNotReady.onmouseover = () => {
-                        btnNotReady.style.backgroundColor = "red";
-                    };
+                            btnNotReady.onmouseover = () => {
+                                btnNotReady.style.backgroundColor = "red";
+                            };
 
-                    btnNotReady.onmouseout = () => {
-                        btnNotReady.style.backgroundColor = "blue";
-                    };
+                            btnNotReady.onmouseout = () => {
+                                btnNotReady.style.backgroundColor = "blue";
+                            };
 
-                    btnNotReady.onclick = (event) => {
-                        event.stopPropagation();
-                        if(btnNotReady.innerHTML === "Взять в работу") {
-                            btnNotReady.style.width = "220px";
-                            btnNotReady.style.left ="42.5%";
-                            btnNotReady.innerHTML = "Подтвердить выполнение";
-                            sendDataToServer(id_sub,id_criteria,0); // Update to 1
-                        } else {
-                            btnNotReady.style.width = "150px";
-                            btnNotReady.style.left ="45%";
-                            btnNotReady.innerHTML = "Взять в работу";
-                            sendDataToServer(id_sub,id_criteria,1); // Update to 0
-                        }
-                    }
-
+                            btnNotReady.onclick = (event) => {
+                                event.stopPropagation();
+                                if (btnNotReady.innerHTML === "Взять в работу") {
+                                    btnNotReady.style.width = "220px";
+                                    btnNotReady.style.left = "42.5%";
+                                    btnNotReady.innerHTML = "Подтвердить выполнение";
+                                    sendDataToServer(id_sub, id_criteria, 0); // Update to 1
+                                } else {
+                                    btnNotReady.style.width = "150px";
+                                    btnNotReady.style.left = "45%";
+                                    btnNotReady.innerHTML = "Взять в работу";
+                                    sendDataToServer(id_sub, id_criteria, 1); // Update to 0
+                                }
+                            }
 
 
                             divCardHeader.appendChild(btnNotReady);
-                        }
-
-                        else {
+                        } else {
 
                         }
 
                     }
-
 
 
                     // let marks = JSON.parse(response);
@@ -1973,9 +1935,9 @@ async function createAccordionCards(id_sub) {
             let btnCollapse = document.createElement("button");
             btnCollapse.className = "btn btn-link";
             btnCollapse.setAttribute("data-toggle", "collapse");
-            btnCollapse.setAttribute("data-target", "#collapse"+id_criteria);
+            btnCollapse.setAttribute("data-target", "#collapse" + id_criteria);
             btnCollapse.setAttribute("aria-expanded", "false");
-            btnCollapse.setAttribute("aria-controls", "collapse"+id_criteria);
+            btnCollapse.setAttribute("aria-controls", "collapse" + id_criteria);
 
             btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
             var filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
@@ -1984,30 +1946,29 @@ async function createAccordionCards(id_sub) {
             divCardHeader.appendChild(btnCollapse);
 
 
-
-          //  divCardHeader.innerHTML += "<br/>";
+            //  divCardHeader.innerHTML += "<br/>";
             divCard.appendChild(divCardHeader);
 
             let divCollapse = document.createElement("div");
             divCollapse.className = "collapse";
-            divCollapse.id = "collapse"+id_criteria;
-            divCollapse.setAttribute("aria-labelledby", "heading"+id_criteria);
+            divCollapse.id = "collapse" + id_criteria;
+            divCollapse.setAttribute("aria-labelledby", "heading" + id_criteria);
             divCollapse.setAttribute("data-parent", "#accordion");
             let divCardBody = document.createElement("div");
             divCardBody.className = "card-body";
-            divCardBody.id = "cardBody"+id_criteria;
+            divCardBody.id = "cardBody" + id_criteria;
 
             divCollapse.appendChild(divCardBody);
             divCard.appendChild(divCollapse);
-         //   let marks_app = [];
-            divCardHeader.onclick=() =>{
+            //   let marks_app = [];
+            divCardHeader.onclick = () => {
                 let collapses = divCard.getElementsByClassName("collapse");
 
 
                 if (arrChange == false) {
                     let openedDiv = thisTab.getElementsByClassName('collapse show');
                     //  document.getElementById("collapse"+id_open_criteria);
-                    if (openedDiv.length >0) {
+                    if (openedDiv.length > 0) {
 
                         if (id_open_criteria == id_criteria) {
                             divCollapse.classList.toggle('show');
@@ -2023,21 +1984,21 @@ async function createAccordionCards(id_sub) {
                     }
 
 
-                 //   divCollapse.classList.toggle("show");
-                    collapseTable(id_criteria, divCardBody,id_sub);
+                    //   divCollapse.classList.toggle("show");
+                    collapseTable(id_criteria, divCardBody, id_sub);
                     id_open_criteria = id_criteria;
 
                 } else {
-                    if(isSavedMarks()) {
+                    if (isSavedMarks()) {
 
-                     //   saveMarks(id_sub);
+                        //   saveMarks(id_sub);
                         if (saveMarks(OpenSub) === false) {
                             return;
                         }
 
                         let openedDiv = thisTab.getElementsByClassName('collapse show');
                         //  document.getElementById("collapse"+id_open_criteria);
-                        if (openedDiv.length >0) {
+                        if (openedDiv.length > 0) {
 
                             if (id_open_criteria == id_criteria) {
                                 divCollapse.classList.toggle('show');
@@ -2052,9 +2013,9 @@ async function createAccordionCards(id_sub) {
                             divCollapse.classList.add('show');
                         }
 
-                    //    collapseTable(id_criteria, divCardBody,id_sub);
-                    //    id_open_criteria = id_criteria;
-                        collapseTable(id_criteria, divCardBody,id_sub);
+                        //    collapseTable(id_criteria, divCardBody,id_sub);
+                        //    id_open_criteria = id_criteria;
+                        collapseTable(id_criteria, divCardBody, id_sub);
                         id_open_criteria = id_criteria;
 
                     } else {
@@ -2078,15 +2039,14 @@ async function createAccordionCards(id_sub) {
 }
 
 
+function collapseTable(id_criteria, divCardBody, id_sub) {
+    // marks_app.splice(0, marks_app.length);
+    /*
+        for (let i=marks_app.length-1; i>-1 ; i--) {
+            marks_app.pop();
+        }
 
-function collapseTable(id_criteria, divCardBody,id_sub){
-   // marks_app.splice(0, marks_app.length);
-/*
-    for (let i=marks_app.length-1; i>-1 ; i--) {
-        marks_app.pop();
-    }
-
- */
+     */
 
 
     marks_app.arClear();
@@ -2101,7 +2061,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let th1_Main = document.createElement('th');
     th1_Main.innerHTML = 'Критерий';
     th1_Main.style = "border: 1px solid black; width: 20%";
-    th1_Main.setAttribute('rowspan','2');
+    th1_Main.setAttribute('rowspan', '2');
 
     // let th2_Main = document.createElement('th');
     // th2_Main.innerHTML = 'Класс критерия';
@@ -2112,18 +2072,18 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let th3_Main = document.createElement('th');
     th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
     th3_Main.style = "border: 1px solid black; text-align: center; ";
-    th3_Main.setAttribute('colspan','3');
+    th3_Main.setAttribute('colspan', '3');
 
     let th4_Main = document.createElement('th');
     th4_Main.innerHTML = 'Оценка соответствия критериям медицинской аккредитации';
     th4_Main.style = "border: 1px solid black; text-align: center";
-    th4_Main.setAttribute('colspan','3');
-    
+    th4_Main.setAttribute('colspan', '3');
+
 
     let trHead = document.createElement('tr');
     //trHead.style = "border: 1px solid black; width:100%";
 
-  //  let trHead = document.createElement('trHead');
+    //  let trHead = document.createElement('trHead');
     let th1 = document.createElement('td');
     th1.innerHTML = 'Критерий';
     th1.style = "border: 1px solid black";
@@ -2160,16 +2120,16 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     let thNum = document.createElement('th');
     thNum.innerHTML = '№ п/п';
     thNum.style = "border: 1px solid black";
-    thNum.setAttribute('rowspan','2');
+    thNum.setAttribute('rowspan', '2');
     trHeadMain.appendChild(thNum);
 
     // trHead.appendChild(th1);
     // trHead.appendChild(th2);
     trHeadMain.appendChild(th1_Main);
-  //  trHeadMain.appendChild(th2_Main);
+    //  trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
     trHeadMain.appendChild(th4_Main);
-    
+
     table.appendChild(trHeadMain);
     // trHead.appendChild(th1);
     // trHead.appendChild(th2);
@@ -2182,18 +2142,17 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
     table.appendChild(trHead);
 
-    
 
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
 
     $.ajax({
-        url: "getMarkStatus2.php",
+        url: "ajax/getMarkStatus2.php",
         method: "GET",
         data: {id_sub: id_sub, id_criteria: id_criteria}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
             let marks = JSON.parse(response);
 
@@ -2202,19 +2161,18 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 marks_app.setArr(item);//   push(item);
 
 
-
                 let tr = document.createElement('tr');
 
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['mark_name'];
                 td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left";
-/*
-                let td2 = document.createElement('td');
-                td2.innerHTML = item['mark_class'];
-                td2.style = "border: 1px solid black; text-align: center";
-                */
+                /*
+                                let td2 = document.createElement('td');
+                                td2.innerHTML = item['mark_class'];
+                                td2.style = "border: 1px solid black; text-align: center";
+                                */
                 let td3 = document.createElement('td');
-              //  td3.innerHTML = item['filed4'];
+                //  td3.innerHTML = item['filed4'];
                 td3.style = "border: 1px solid black";
                 let divTd3 = document.createElement("div");
                 divTd3.style = "display: flex; justify-content: center;";
@@ -2222,62 +2180,64 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td4 = document.createElement('td');
                 td4.style = "border: 1px solid black";
                 let input4 = document.createElement("textarea");
-                input4.setAttribute("rows","3");
+                input4.setAttribute("rows", "3");
 
-                    input4.setAttribute("disabled","true");
+                input4.setAttribute("disabled", "true");
 
                 input4.style = "width:100%; height: 15rem;";
                 input4.value = item['field5'];
 
                 let arr;
-                input4.oninput =() => ChangeValue(id_criteria,item['id_mark'], 'field5', input4.value, item['id_mark_rating'], index,id_sub);
-            //    input4.setAttribute("type","text");
+                input4.oninput = () => ChangeValue(id_criteria, item['id_mark'], 'field5', input4.value, item['id_mark_rating'], index, id_sub);
+                //    input4.setAttribute("type","text");
                 td4.appendChild(input4);
                 let td5 = document.createElement('td');
                 td5.style = "border: 1px solid black; height: 100%";
                 let input5 = document.createElement("textarea");
-                 // input4.setAttribute("disabled","true");
+                // input4.setAttribute("disabled","true");
                 input5.style = "width:100%;height: 15rem;";
-                input5.setAttribute("rows","3");
+                input5.setAttribute("rows", "3");
                 input5.value = item['field6'];
-                input5.setAttribute("disabled","true");
-                input5.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field6', input5.value, item['id_mark_rating'], index,id_sub)};
-              //  input5.setAttribute("type","text-area");
+                input5.setAttribute("disabled", "true");
+                input5.oninput = () => {
+                    ChangeValue(id_criteria, item['id_mark'], 'field6', input5.value, item['id_mark_rating'], index, id_sub)
+                };
+                //  input5.setAttribute("type","text-area");
                 td5.appendChild(input5);
-                
 
 
                 let td6 = document.createElement('td');
                 //  td3.innerHTML = item['filed4'];
-                  td6.style = "border: 1px solid black";
-                  let divTd6 = document.createElement("div");
-                  divTd6.style = "display: flex; justify-content: center;width:%";
+                td6.style = "border: 1px solid black";
+                let divTd6 = document.createElement("div");
+                divTd6.style = "display: flex; justify-content: center;width:%";
 
-                  td6.appendChild(divTd6);
+                td6.appendChild(divTd6);
 
 
                 let td7 = document.createElement('td');
                 td7.style = "border: 1px solid black";
                 let input7 = document.createElement("textarea");
-                if(getCookie("expert") === "0") {
-                    input7.setAttribute("disabled","true");
-                }
-                else {
-                    if ((status == 2) || (status == 3)  || (status == 1)){
+                if (getCookie("expert") === "0") {
+                    input7.setAttribute("disabled", "true");
+                } else {
+                    if ((status == 2) || (status == 3) || (status == 1)) {
                         input7.removeAttribute("disabled");
 
                     } else {
-                        input7.setAttribute("disabled","true");
+                        input7.setAttribute("disabled", "true");
 
                     }
                 }
 
 
                 input7.style = "width:100%; height: 100%";
-                input7.setAttribute("rows","3");
+                input7.setAttribute("rows", "3");
                 input7.value = item['field8'];
-                input7.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field8', input7.value, item['id_mark_rating'], index,id_sub)};
-              //  input5.setAttribute("type","text-area");
+                input7.oninput = () => {
+                    ChangeValue(id_criteria, item['id_mark'], 'field8', input7.value, item['id_mark_rating'], index, id_sub)
+                };
+                //  input5.setAttribute("type","text-area");
                 let divtd8 = document.createElement("div");
                 divtd8.style = "height: 15rem";
 
@@ -2287,30 +2247,31 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 let td8 = document.createElement('td');
                 td8.style = "border: 1px solid black";
                 let input8 = document.createElement("textarea");
-                if(getCookie("expert") === "0") {
-                    input8.setAttribute("disabled","true");
-                }
-                else {
-                    if ((status == 2) || (status == 3)  || (status == 1)){
+                if (getCookie("expert") === "0") {
+                    input8.setAttribute("disabled", "true");
+                } else {
+                    if ((status == 2) || (status == 3) || (status == 1)) {
                         input8.removeAttribute("disabled");
 
                     } else {
-                        input8.setAttribute("disabled","true");
+                        input8.setAttribute("disabled", "true");
 
                     }
                 }
 
 
                 input8.style = "width:100%; height: 100%";
-                input8.setAttribute("rows","3");
-                if(!item['field9']){
+                input8.setAttribute("rows", "3");
+                if (!item['field9']) {
                     input8.value = '';
                 } else {
                     input8.value = item['field9'];
                 }
 
-                input8.oninput = ()=>{ChangeValue(id_criteria,item['id_mark'],'field9', input8.value, item['id_mark_rating'], index,id_sub)};
-              //  input5.setAttribute("type","text-area");
+                input8.oninput = () => {
+                    ChangeValue(id_criteria, item['id_mark'], 'field9', input8.value, item['id_mark_rating'], index, id_sub)
+                };
+                //  input5.setAttribute("type","text-area");
                 let divtd9 = document.createElement("div");
                 divtd9.style = "height: 15rem";
 
@@ -2323,7 +2284,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
                 tr.appendChild(tdNum);
                 tr.appendChild(td1);
-              //  tr.appendChild(td2);
+                //  tr.appendChild(td2);
                 tr.appendChild(td3);
 
                 tr.appendChild(td4);
@@ -2332,8 +2293,8 @@ function collapseTable(id_criteria, divCardBody,id_sub){
                 tr.appendChild(td7);
                 tr.appendChild(td8);
 
-                createSelectMark(id_criteria,item['id_mark'], divTd3, item['field4'], item['id_mark_rating'], index,id_sub,'field4');
-                createSelectMark(id_criteria,item['id_mark'], divTd6, item['field7'], item['id_mark_rating'], index,id_sub,'field7');
+                createSelectMark(id_criteria, item['id_mark'], divTd3, item['field4'], item['id_mark_rating'], index, id_sub, 'field4');
+                createSelectMark(id_criteria, item['id_mark'], divTd6, item['field7'], item['id_mark_rating'], index, id_sub, 'field7');
                 tbody.appendChild(tr);
 
             });
@@ -2342,34 +2303,35 @@ function collapseTable(id_criteria, divCardBody,id_sub){
     divCardBody.appendChild(table);
 
     let bunt = document.createElement('button');
-    bunt.onclick=() => saveMarks(id_sub);
-    bunt.innerHTML='Сохранить результаты оценки критериев';
+    bunt.onclick = () => saveMarks(id_sub);
+    bunt.innerHTML = 'Сохранить результаты оценки критериев';
     bunt.id = "sohrmark";
     bunt.className = "btn btn-success";
     bunt.style = "margin-top: 1rem";
     divCardBody.appendChild(bunt);
-    if(status == 4 || status == 5){bunt.remove();}
+    if (status == 4 || status == 5) {
+        bunt.remove();
+    }
 
     //  return marks_app;
 
     let bsohrmark = document.querySelectorAll("#sohrmark");
     if (bsohrmark)
-    if(getCookie("isMA") === "0") {
-        [...bsohrmark].forEach(item => {
-            item.disabled = true;
-        });
-    }
+        if (getCookie("isMA") === "0") {
+            [...bsohrmark].forEach(item => {
+                item.disabled = true;
+            });
+        }
 }
 
 
-
-function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating, index,id_sub, name_field){
+function createSelectMark(id_criteria, id_mark, nameColumn, value, id_mark_rating, index, id_sub, name_field) {
     let newSelect = document.createElement('select');
-   // newSelect.disabled =true;
-    let optEmpty  = document.createElement('option');
-    let opt1  = document.createElement('option');
-    let opt2  = document.createElement('option');
-    let opt3  = document.createElement('option');
+    // newSelect.disabled =true;
+    let optEmpty = document.createElement('option');
+    let opt1 = document.createElement('option');
+    let opt2 = document.createElement('option');
+    let opt3 = document.createElement('option');
 
     optEmpty.value = null;
     optEmpty.text = '';
@@ -2384,67 +2346,62 @@ function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating
     newSelect.add(opt1);
     newSelect.add(opt2);
     newSelect.add(opt3);
-let arr;
+    let arr;
 
-    newSelect.onchange = ()=>{ChangeValue(id_criteria,id_mark, name_field, newSelect.options.selectedIndex, id_mark_rating, index,id_sub) };
+    newSelect.onchange = () => {
+        ChangeValue(id_criteria, id_mark, name_field, newSelect.options.selectedIndex, id_mark_rating, index, id_sub)
+    };
 
     if ((id_mark_rating !== null) && (value !== null)) {
         newSelect.selectedIndex = Number(value);
     }
-    if(getCookie("expert") === "0") {
-        newSelect.setAttribute("disabled","");
-    }
-    else {
+    if (getCookie("expert") === "0") {
+        newSelect.setAttribute("disabled", "");
+    } else {
         if ((status == 2) || (status == 3) || (status == 1)) {
             // if ((status == 4) || (status == 5) || (status == 1)) {
 
             newSelect.removeAttribute("disabled");
         } else {
-            newSelect.setAttribute("disabled","");
+            newSelect.setAttribute("disabled", "");
         }
 
     }
 
 
-
-
-
-
-
-
-    if(name_field === 'field4') {
-        newSelect.setAttribute("disabled","");
+    if (name_field === 'field4') {
+        newSelect.setAttribute("disabled", "");
     }
 
     nameColumn.appendChild(newSelect);
 }
 
-let arrChange= false;
+let arrChange = false;
 
 
-function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, index,id_sub) {
+function ChangeValue(id_criteria, id_mark, field_name, value, id_mark_rating, index, id_sub) {
 
-   // arrChange.id_criteria = id_criteria;
+    // arrChange.id_criteria = id_criteria;
     arrChange = true;
 
     marks_app.getArr().forEach((item, index) => {
-        if (Number(item['id_mark']) == id_mark ) {
-            marks_app.setValueByIndex([index],[field_name],value);
+        if (Number(item['id_mark']) == id_mark) {
+            marks_app.setValueByIndex([index], [field_name], value);
         }
     })
     OpenSub = id_sub;
     setDisabledOnChange(true);
 }
 
-function isSavedMarks(){
+function isSavedMarks() {
     if (arrChange == true) {
-        let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?"); 
-        if(res == false){
+        let res = confirm("Есть несохраненные данные, при выходе они будут потеряны. Сохранить?");
+        if (res == false) {
             setDisabledOnChange(false);
         }
 
         return res
-                 
+
     } else return false;
 
     // if (arrChange == true) {
@@ -2453,7 +2410,7 @@ function isSavedMarks(){
 
 }
 
-function setDisabledOnChange(value){
+function setDisabledOnChange(value) {
     if (value == true) {
         let clickElel = document.getElementById('button1');
         clickElel.setAttribute('disabled', "true");
@@ -2466,33 +2423,33 @@ function setDisabledOnChange(value){
 let flagSave = true;
 
 
-function validateDataMarks(){
-   let result = true;
+function validateDataMarks() {
+    let result = true;
 
-   let vall = marks_app.getArr().filter(item =>  ((Number(item['field4'])===2) || (Number(item['field4'])===3)) && (item['field6'].trim()=='') );
+    let vall = marks_app.getArr().filter(item => ((Number(item['field4']) === 2) || (Number(item['field4']) === 3)) && (item['field6'].trim() == ''));
 
-   // let emptyVall = marks_app.getArr().filter(item =>  (Number(item['field4'])===0) );
+    // let emptyVall = marks_app.getArr().filter(item =>  (Number(item['field4'])===0) );
 
 
-   if(vall.length >0){
-       alert(`Не заполнено поле "Примечание" в критерии ${vall[0]['mark_name']}`);
-       flagSave= false;
-       result = false;
-   } else {
-       // if(emptyVall.length>0) {
-       //     alert(`Не заполнено поле "Сведения по самооценке ОЗ" в критерии ${emptyVall[0]['mark_name']}`);
-       //     flagSave= false;
-       //     result = false;
-       // }
-   }
+    if (vall.length > 0) {
+        alert(`Не заполнено поле "Примечание" в критерии ${vall[0]['mark_name']}`);
+        flagSave = false;
+        result = false;
+    } else {
+        // if(emptyVall.length>0) {
+        //     alert(`Не заполнено поле "Сведения по самооценке ОЗ" в критерии ${emptyVall[0]['mark_name']}`);
+        //     flagSave= false;
+        //     result = false;
+        // }
+    }
 
-  // return flagSave;
+    // return flagSave;
 
-  return result;
+    return result;
 }
 
 
-function saveMarks(id_sub){
+function saveMarks(id_sub) {
 
     let arr = new Array();
 
@@ -2503,18 +2460,18 @@ function saveMarks(id_sub){
 
     let result = true;
 
-    if (validateDataMarks()===false) {
+    if (validateDataMarks() === false) {
         result = false;
-    } else  {
+    } else {
         $.ajax({
-            url: "saveMarksAccred.php",
+            url: "ajax/saveMarksAccred.php",
             method: "POST",
             data: {id_sub: id_sub, marks: arr}
         })
-            .done(function( response ) {
+            .done(function (response) {
                 alert("Сохранено!");
                 setDisabledOnChange(false);
-                arrChange=false;
+                arrChange = false;
             });
 
         result = true;
@@ -2523,17 +2480,18 @@ function saveMarks(id_sub){
     return result;
 
 }
+
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0 ; i < 5; i++) {
-        if(i!=0)
+    for (let i = 0; i < 5; i++) {
+        if (i != 0)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0 ; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2544,14 +2502,14 @@ $("#home-tab").on("click", () => {
 
 $("#rassmotrenie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 5; i++) {
-        if(i!=1)
+    for (let i = 0; i < 5; i++) {
+        if (i != 1)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0 ; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2563,14 +2521,14 @@ $("#rassmotrenie-tab").on("click", () => {
 
 $("#odobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 5; i++) {
-        if(i!=2)
+    for (let i = 0; i < 5; i++) {
+        if (i != 2)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0 ; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2582,14 +2540,14 @@ $("#odobrennie-tab").on("click", () => {
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 5; i++) {
-        if(i!=3)
+    for (let i = 0; i < 5; i++) {
+        if (i != 3)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0 ; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2600,14 +2558,14 @@ $("#neodobrennie-tab").on("click", () => {
 });
 
 $("#reshenieSoveta-tab").on("click", () => {
-    for (let i = 0 ; i < 5; i++) {
-        if(i!=4)
+    for (let i = 0; i < 5; i++) {
+        if (i != 4)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0 ; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2621,9 +2579,10 @@ $("#reshenieSoveta-tab").on("click", () => {
 function isFieldValid(value) {
     return value !== null && value !== "";
 }
+
 function saveFieldsOnServer(formData) {
     let xhr = new XMLHttpRequest();
-    xhr.open("post", "saveSovet.php", true);
+    xhr.open("post", "ajax/saveSovet.php", true);
     xhr.send(formData);
 }
 
@@ -2670,11 +2629,11 @@ $("#btnChecking").on("click", () => {
     let id_application = document.getElementById("id_application");
 
     $.ajax({
-        url: "changeStatusChecking.php",
+        url: "ajax/changeStatusChecking.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
             alert("Заявка проверяется");
             location.href = "/index.php?users";
@@ -2686,11 +2645,11 @@ $("#btnOkReshenie").on("click", () => {
     let id_application = document.getElementById("id_application");
 
     $.ajax({
-        url: "changeStatusReshenie.php",
+        url: "ajax/changeStatusReshenie.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
             alert("Заявка перенесена в статус Решение совета");
             location.href = "/index.php?users";
@@ -2702,11 +2661,11 @@ $("#btnOkonchatelnoeReshenie").on("click", () => {
     let id_application = document.getElementById("id_application");
 
     $.ajax({
-        url: "changeStatusOkonchatelnoeReshenie.php",
+        url: "ajax/changeStatusOkonchatelnoeReshenie.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
             alert("Заявка принята в окончательное решение");
             location.href = "/index.php?users";
@@ -2718,9 +2677,9 @@ $("#btnOk").on("click", () => {
     let id_application = document.getElementById("id_application");
     let divReport = document.getElementById("divReport");
     let a = divReport.getElementsByTagName("a")[0];
-    if(a) {
+    if (a) {
         $.ajax({
-            url: "changeStatusOk.php",
+            url: "ajax/changeStatusOk.php",
             method: "GET",
             data: {id_application: id_application.innerText}
         })
@@ -2729,13 +2688,12 @@ $("#btnOk").on("click", () => {
                 alert("Оценка завершена");
                 location.href = "/index.php?users";
             });
-    }
-    else
+    } else
         alert("Не прикреплен отчет!");
 });
 
 $("#btnNeOk").on("click", () => {
- //   event.preventDefault(); // Отменяем переход на другую страницу
+    //   event.preventDefault(); // Отменяем переход на другую страницу
     let id_application = document.getElementById("id_application");
     var fileInputDorabotka = document.getElementById("fileInputDorabotka");
     var dateInputDorabotki = document.getElementById("dateInputDorabotki").value;
@@ -2746,14 +2704,12 @@ $("#btnNeOk").on("click", () => {
     if (dateInputDorabotki.trim() === "") {
         alert("Пожалуйста, заполните поле 'Дата доработки'.");
         document.getElementById("dateInputDorabotki").style.backgroundColor = "yellow";
-    //    return;
-    }
-    else
-    if (fileInputDorabotka.files.length === 0) {
+        //    return;
+    } else if (fileInputDorabotka.files.length === 0) {
         alert("Пожалуйста, выберите файл для доработки.");
         document.getElementById("fileInputDorabotka").style.backgroundColor = "yellow";
-     //   return;
-    }else {
+        //   return;
+    } else {
 
 
         let xhr = new XMLHttpRequest(),
@@ -2766,7 +2722,7 @@ $("#btnNeOk").on("click", () => {
         form.append("notifyByEmail", notifyByEmail);
         form.append("email", email);
 
-        xhr.open("post", "changeStatusNeOk.php", true);
+        xhr.open("post", "ajax/changeStatusNeOk.php", true);
         xhr.send(form);
         alert("Заявление отправлено на доработку");
     }
@@ -2776,19 +2732,19 @@ $("#btnCalc").on("click", () => {
     let id_application = document.getElementById("id_application");
 
     $.ajax({
-        url: "getCalcAccred.php",
+        url: "ajax/getCalcAccred.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
-        .done(function( response ) {
+        .done(function (response) {
             location.href = "/index.php?users";
         });
 });
 
-$("#formReport").on("change", () =>{
+$("#formReport").on("change", () => {
     let divReport = document.getElementById("divReport");
     let sopr = divReport.getElementsByTagName("a")[0];
-    if(sopr)
+    if (sopr)
         sopr.remove();
     let fileReport = document.getElementById("fileReport");
     fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + fileReport.files[0].name + "'>" + fileReport.files[0].name + "</a>");
@@ -2801,11 +2757,11 @@ $("#formReport").on("change", () =>{
     form.append("id_application", id_application.innerText);
     form.append("fileReport", orgStructFile);
 
-    xhr.open("post", "postFileReport.php", true);
+    xhr.open("post", "ajax/postFileReport.php", true);
     xhr.send(form);
 });
 
-$("#protfile").on("change", () =>{
+$("#protfile").on("change", () => {
     let login = getCookie('login');
     let id_application = document.getElementById("id_application");
     let protfile = document.getElementById("protfile");
@@ -2813,17 +2769,16 @@ $("#protfile").on("change", () =>{
     let prot = protfile.getElementsByTagName("a")[0];
 
 
-
-    if(prot){
+    if (prot) {
         prot.remove();
         let fileInputProtokol = document.getElementById("fileInputProtokol");
 
-        fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/sovets/" + id_application +"/" + fileInputProtokol.files[0].name + "'>" + fileInputProtokol.files[0].name + "</a>");
+        fileInputProtokol.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/sovets/" + id_application + "/" + fileInputProtokol.files[0].name + "'>" + fileInputProtokol.files[0].name + "</a>");
     }
 
 
 });
-$("#zaklfile").on("change", () =>{
+$("#zaklfile").on("change", () => {
     let login = getCookie('login');
     let id_application = document.getElementById("id_application");
 
@@ -2831,8 +2786,7 @@ $("#zaklfile").on("change", () =>{
 
     let zakl = zaklfile.getElementsByTagName("a")[0];
 
-    if (zakl)
-    {
+    if (zakl) {
         zakl.remove();
         let fileInputZakl = document.getElementById("fileInputZakl");
 
@@ -2841,7 +2795,7 @@ $("#zaklfile").on("change", () =>{
 
 });
 
-$("#infile").on("change", () =>{
+$("#infile").on("change", () => {
     let login = getCookie('login');
     let id_application = document.getElementById("id_application");
     let infile = document.getElementById("infile");
@@ -2849,23 +2803,22 @@ $("#infile").on("change", () =>{
     let dorfile = infile.getElementsByTagName("a")[0];
 
 
-
-    if(dorfile){
+    if (dorfile) {
         dorfile.remove();
         let fileInputDorabotka = document.getElementById("fileInputDorabotka");
 
-        fileInputDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/dorabotka/" + id_application +"/" + fileInputDorabotka.files[0].name + "'>" + fileInputDorabotka.files[0].name + "</a>");
+        fileInputDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/dorabotka/" + id_application + "/" + fileInputDorabotka.files[0].name + "'>" + fileInputDorabotka.files[0].name + "</a>");
     }
 
 
 });
 
-function sendDataToServer(id_sub,id_criteria, value) {
+function sendDataToServer(id_sub, id_criteria, value) {
 
     $.ajax({
-        url: "readyupdate.php",
+        url: "ajax/readyupdate.php",
         method: "POST",
-        data: {id_sub: id_sub, id_criteria: id_criteria , value}
+        data: {id_sub: id_sub, id_criteria: id_criteria, value}
     })
         .then(response => console.log(response))
         .then(data => {
@@ -2876,16 +2829,16 @@ function sendDataToServer(id_sub,id_criteria, value) {
 }
 
 let arr = new Array();
-async function getStatusFromDB1(id_sub)
-{
+
+async function getStatusFromDB1(id_sub) {
     arr = [];
     let id_user = getCookie('id_user')
     await $.ajax({
-        url: "getstatus.php",
+        url: "ajax/getstatus.php",
         method: "POST",
-        data: { id_sub: id_sub , id_user : id_user},
+        data: {id_sub: id_sub, id_user: id_user},
         dataType: "json",
-        success: function(data)  {
+        success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 arr.push(data[i]);
 
@@ -2896,19 +2849,17 @@ async function getStatusFromDB1(id_sub)
 }
 
 
-
-
 function showHistory() {
-   let idapp = document.getElementById("id_application").innerText;
-console.log (idapp);
+    let idapp = document.getElementById("id_application").innerText;
+    console.log(idapp);
     let modal = document.getElementById("modalHistory");
     let modalBody = document.querySelector(".modalHistoryCl-body");
     modalBody.innerHTML = "";
 
     $.ajax({
         type: "GET",
-        url: "fetch_history.php",
-        data: { app_id: idapp },
+        url: "ajax/fetch_history.php",
+        data: {app_id: idapp},
         dataType: "json",
         cache: false,
         success: function (data) {
@@ -2958,8 +2909,8 @@ console.log (idapp);
     // Запрос к таблице rating_criteria
     $.ajax({
         type: "GET",
-        url: "fetch_criteria.php",
-        data: { app_id: idapp },
+        url: "ajax/fetch_criteria.php",
+        data: {app_id: idapp},
         dataType: "json",
         cache: false,
         success: function (data1) {
@@ -3012,9 +2963,9 @@ console.log (idapp);
             text_status.className = "card-text";
             text_status.innerHTML = `<strong>Статус:</strong> ${row.status_name}&nbsp;&nbsp;` + `<strong>Дата готовности:</strong> ${row.date_complete}`;
 
-          /*  let text_date_complete = document.createElement("p");
-            text_date_complete.className = "card-text";
-            text_date_complete.innerHTML = `<strong>Дата готовности:</strong> ${row.date_complete}`;*/
+            /*  let text_date_complete = document.createElement("p");
+              text_date_complete.className = "card-text";
+              text_date_complete.innerHTML = `<strong>Дата готовности:</strong> ${row.date_complete}`;*/
 
             let text_id_otvetstvennogo = document.createElement("p");
             text_id_otvetstvennogo.className = "card-text";
@@ -3030,9 +2981,6 @@ console.log (idapp);
     };
 
 
-
-
-
     modal.classList.add("showcl");
 
     $(".btn-closes").on("click", () => {
@@ -3045,18 +2993,50 @@ console.log (idapp);
 }
 
 
-
-
-
-
-
 let bcheck = document.getElementById("btnChecking");
 let bdorab = document.getElementById("btnNeOk");
 let bzaver = document.getElementById("btnOk");
 
-// if(getCookie("isMA") === "0") {
-//
-//     bcheck.disabled = true;
-//     bdorab.disabled = true;
-//     bzaver.disabled = true;
-// }
+
+let tabLink = document.querySelector('#home-tab');
+let tabPane = document.querySelector('#allApps');
+
+tabLink.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    // Проверяем, есть ли у вкладки класс 'active'
+    if (!tabPane.classList.contains('active')) {
+        // Если нет, то устанавливаем класс 'active'
+        tabPane.classList.add('active');
+    }
+});
+document.getElementById("infdorabotki").addEventListener("click", function () {
+    document.getElementById("fileInputDorabotka").click();
+});
+
+document.getElementById("fileInputDorabotka").addEventListener("change", function () {
+    var file = this.files[0];
+    if (file) {
+        document.getElementById("infdorabotki").value = file.name;
+    }
+});
+document.getElementById("protokolsoveta").addEventListener("click", function () {
+    document.getElementById("fileInputProtokol").click();
+});
+
+document.getElementById("fileInputProtokol").addEventListener("change", function () {
+    var file = this.files[0];
+    if (file) {
+        document.getElementById("protokolsoveta").value = file.name;
+    }
+});
+document.getElementById("zaklsoveta").addEventListener("click", function () {
+    document.getElementById("fileInputZakl").click();
+});
+
+document.getElementById("fileInputZakl").addEventListener("change", function () {
+    var file = this.files[0];
+    if (file) {
+        document.getElementById("zaklsoveta").value = file.name;
+    }
+});

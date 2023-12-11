@@ -501,7 +501,7 @@
                 else{
                     form.append("email", "support@rnpcmt.by");
                 }
-                xhr.open("post", "sendQuestion.php", true);
+                xhr.open("post", "ajax/sendQuestion.php", true);
                 xhr.send(form);
                 alert("Ваш вопрос передан сотрудникам отдела сопровождения. При ответе сотрудника отдела сопровождения Вы получите уведомление на электронную почту Вашей организации.");
                 location.href = "index.php?help";

@@ -9,7 +9,7 @@ function showModalApps(username){
 
 
     $.ajax({
-        url: "getUserApplications.php",
+        url: "ajax/getUserApplications.php",
         method: "GET",
         data: {username: username}
     })
@@ -52,7 +52,7 @@ function showModalApp(naim) {
     let dov = modal.querySelector("#divDoverennost");
     let data = new Array();
     $.ajax({
-        url: "getApp.php",
+        url: "ajax/getApp.php",
         method: "GET",
         data: {naim: naim}
     })

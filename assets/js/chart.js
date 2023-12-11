@@ -159,7 +159,7 @@ $(function() {
       data: [Number(attr1Donut3),Number(attr2Donut3),Number(attr3Donut3),Number(attr4Donut3)],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
+        'rgba(243,131,3,0.9)',
         'rgba(255, 206, 86, 0.5)',
         'rgba(75, 192, 192, 0.5)',
         'rgba(153, 102, 255, 0.5)',
@@ -167,7 +167,7 @@ $(function() {
       ],
       borderColor: [
         'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
+        'rgba(243,131,3,0.9)',
         'rgba(255, 206, 86, 1)',
         'rgba(75, 192, 192, 1)',
         'rgba(153, 102, 255, 1)',
@@ -179,10 +179,10 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'оценены до 25%',
-      'оценены до 50%',
-      'оценены до 75%',
-      'оценены до 100%'
+      'оценены до 70%',
+      'оценены 70% - 80%',
+      'оценены 80% - 90% ',
+      'оценены 90% - 100%'
     ]
   };
 
@@ -196,7 +196,7 @@ $(function() {
       data: [Number(attr1Donut4),Number(attr2Donut4),Number(attr3Donut4),Number(attr4Donut4)],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
+        'rgba(243,131,3,0.9)',
         'rgba(255, 206, 86, 0.5)',
         'rgba(75, 192, 192, 0.5)',
         'rgba(153, 102, 255, 0.5)',
@@ -204,7 +204,7 @@ $(function() {
       ],
       borderColor: [
         'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
+        'rgba(243,131,3,0.9)',
         'rgba(255, 206, 86, 1)',
         'rgba(75, 192, 192, 1)',
         'rgba(153, 102, 255, 1)',
@@ -216,10 +216,10 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'оценены до 25%',
-      'оценены до 50%',
-      'оценены до 75%',
-      'оценены до 100%'
+      'оценены до 70%',
+      'оценены 70% - 80%',
+      'оценены 80% - 90% ',
+      'оценены 90% - 100%'
     ]
   };
 

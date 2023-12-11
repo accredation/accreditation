@@ -75,7 +75,7 @@ function showTab(element,id_sub){
 
         row.innerHTML = "";
         $.ajax({
-            url: "getCrits.php",
+            url: "ajax/getCrits.php",
             method: "GET",
             data: {id_sub: id_sub}
         })
@@ -211,7 +211,7 @@ function showTab(element,id_sub){
         let id_application = document.getElementById("id_application").innerText;
         let calcRow = document.getElementById("tab"+id_sub+"-");
         $.ajax({
-            url: "getCalcSubMark.php",
+            url: "ajax/getCalcSubMark.php",
             method: "GET",
             data: {id_application: id_application, id_sub: id_sub}
         })
@@ -270,7 +270,7 @@ function getCookie(cname) {
 
 function createApplication(){
     $.ajax({
-        url: "createApplication.php",
+        url: "ajax/createApplication.php",
         method: "POST",
         data: ""
     })
@@ -369,7 +369,7 @@ function showModal(id_application, strMarks, strMarksAccred){
 
     let data = new Array();
     $.ajax({
-        url: "getApplication.php",
+        url: "ajax/getApplication.php",
         method: "GET",
         data: {id_application: id_application}
     })
@@ -432,7 +432,7 @@ function showModal(id_application, strMarks, strMarksAccred){
 // Получаем актуальные значения из базы данных
     let datasovet = new Array();
     $.ajax({
-        url: "getSovet.php",
+        url: "ajax/getSovet.php",
         method: "GET",
         data: {id_application: id_application}
     })
@@ -538,7 +538,7 @@ function printReport(){
     let id_application = number_app.innerHTML;
 
     $.ajax({
-        url: "getAppForPrintAcredReport.php",
+        url: "ajax/getAppForPrintAcredReport.php",
         method: "GET",
         data: {id_app: id_application}
     })
@@ -586,7 +586,7 @@ function printReport(){
     let id_application = number_app.innerHTML;
 
     $.ajax({
-        url: "getAppForPrint.php",
+        url: "ajax/getAppForPrint.php",
         method: "GET",
         data: {id_app: id_application}
     })
@@ -880,7 +880,7 @@ function addTab(){
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
     $.ajax({
-        url: "addSubvision.php",
+        url: "ajax/addSubvision.php",
         method: "POST",
         data: {id_application: id_application, name: nameTab}
     })
@@ -984,7 +984,7 @@ async function createAccordionCards(id_sub) {
             let divCardHeaderMark = document.createElement("div");
 
             $.ajax({
-                url: "getReportCriteria.php",
+                url: "ajax/getReportCriteria.php",
                 method: "GET",
                 data: {id_application: id_application, id_sub: id_sub, id_criteria: id_criteria}
             })
@@ -1184,7 +1184,7 @@ function collapseTable(id_criteria, divCardBody,id_sub){
 
 
     $.ajax({
-        url: "getMarkStatus2.php",
+        url: "ajax/getMarkStatus2.php",
         method: "GET",
         data: {id_sub: id_sub, id_criteria: id_criteria}
     })
@@ -1349,7 +1349,7 @@ function print() {
 
 
     $.ajax({
-        url: "getAppForPrint.php",
+        url: "ajax/getAppForPrint.php",
         method: "GET",
         data: {id_app: id_application}
     })

@@ -137,7 +137,7 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                include "mainMark.php"
+                                                include "ajax/mainMark.php"
                                                 ?>
 
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">

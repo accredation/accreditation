@@ -10,18 +10,18 @@ let status = 1;
 let openTabId = 0;
 let opend;
 let marks_app = {
-    arr_marks : new Array(),
-    getArr(){
+    arr_marks: new Array(),
+    getArr() {
         return this.arr_marks;
     },
-    setArr(arr){
+    setArr(arr) {
         this.arr_marks.push(arr);
     },
-    setValueByIndex(index,name_field, value){
+    setValueByIndex(index, name_field, value) {
         this.arr_marks[index][name_field] = value;
     },
-    arClear(){
-        for (let i=this.arr_marks.length-1; i>-1 ; i--) {
+    arClear() {
+        for (let i = this.arr_marks.length - 1; i > -1; i--) {
             //  console.log(marks_app[i]);
             this.arr_marks.pop();
         }
@@ -41,24 +41,24 @@ let mark = {
 let OpenSub = 0;
 
 //shotab
-async function showTab(element,id_sub){
+async function showTab(element, id_sub) {
     console.log("click", id_sub);
     //   console.log(OpenSub);
-    if(openTabId != id_sub){
+    if (openTabId != id_sub) {
 
-        if(isSavedMarks()) {
+        if (isSavedMarks()) {
             await collapseUpdateOpened(id_open_criteria, openTabId);
-            if (saveMarks(OpenSub, null,  false) === false) {
+            if (saveMarks(OpenSub, null, false) === false) {
 
-                if((mainSearch == element) && (id_sub==undefined)){
+                if ((mainSearch == element) && (id_sub == undefined)) {
                     return;
                 }
             }
             return;
+        } else {
+            await collapseUpdateOpened(id_open_criteria, openTabId);
         }
-        else {
-            await  collapseUpdateOpened(id_open_criteria, openTabId);
-        };
+        ;
     }
 
     openTabId = id_sub;
@@ -66,14 +66,13 @@ async function showTab(element,id_sub){
     let mainSearch = document.getElementById("tab1");
 
 
+    arrChange = false;
 
-    arrChange=false;
-
-    OpenSub=0;
+    OpenSub = 0;
     id_open_criteria = 0;
 
 
-    for (let item of tablist.children){
+    for (let item of tablist.children) {
         let a = item.children[0];
         a.removeAttribute("data-toggle");
         //   a.classList.remove("active");
@@ -85,27 +84,27 @@ async function showTab(element,id_sub){
     main.children[0].setAttribute("data-toggle", "tab");
 
     let id = element.id;
-    let tabDiv = document.getElementById(id+"-");
+    let tabDiv = document.getElementById(id + "-");
     let myModal = document.getElementById("myModal");
     let activeTabDiv = myModal.getElementsByClassName("tab-pane fade show active")[0];
-    if(tabDiv && activeTabDiv) {
+    if (tabDiv && activeTabDiv) {
         activeTabDiv.classList.remove("active");
         tabDiv.classList.add("active");
     }
     let data = new Array();
     let idNum = id.substring(3);
-    if(idNum > 1){
+    if (idNum > 1) {
         let row = tabDiv.getElementsByClassName("col-12")[1];
 
 
         row.innerHTML = "";
         $.ajax({
-            url: "getCrits.php",
+            url: "ajax/getCrits.php",
             method: "GET",
             data: {id_sub: id_sub}
         })
-            .done(function( response ) {
-                for (let i of JSON.parse(response)){
+            .done(function (response) {
+                for (let i of JSON.parse(response)) {
                     data.push(i);
 
                 }
@@ -116,7 +115,7 @@ async function showTab(element,id_sub){
                 let divFormGroup = document.createElement("div");
                 let label_1 = document.createElement("label");
                 label_1.innerHTML = "По общим условиям оказания медицинской помощи";
-                label_1.style="font-weight: 600";
+                label_1.style = "font-weight: 600";
 
 
                 let hr = document.createElement("hr");
@@ -127,7 +126,7 @@ async function showTab(element,id_sub){
 
                 row.appendChild(divFormGroup);
 
-                for (let i = 0;  i<data_main.length ; i++) {
+                for (let i = 0; i < data_main.length; i++) {
                     let divFormGroup = document.createElement("div");
                     divFormGroup.className = "form-group";
                     let divFormCheck = document.createElement("div");
@@ -135,17 +134,16 @@ async function showTab(element,id_sub){
                     let inputCheck = document.createElement("input");
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
-                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
-                    if(data_main[i][4] == 1){
+                    inputCheck.setAttribute("id", "checkbox" + data_main[i][0]);
+                    if (data_main[i][4] == 1) {
                         inputCheck.checked = true;
-                    }
-                    else{
+                    } else {
                         inputCheck.checked = false;
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style = "text-align: left";
-                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.setAttribute("for", "checkbox" + data_main[i][0]);
                     let condition = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
                     labelCheck.innerHTML = data_main[i][1] + condition;
                     divFormCheck.appendChild(inputCheck);
@@ -159,7 +157,7 @@ async function showTab(element,id_sub){
                 let divFormGroup2 = document.createElement("div");
                 let label_2 = document.createElement("label");
                 label_2.innerHTML = "По видам оказания медицинской помощи";
-                label_2.style ="font-weight: 600";
+                label_2.style = "font-weight: 600";
                 let hr2 = document.createElement("hr");
                 hr2.style = "margin-top: 0; margin-bottom: 0.75rem";
                 divFormGroup2.appendChild(hr2);
@@ -171,7 +169,7 @@ async function showTab(element,id_sub){
 
                 row.appendChild(divFormGroup2);
 
-                for (let i = 0;  i<data_main.length ; i++) {
+                for (let i = 0; i < data_main.length; i++) {
                     let divFormGroup = document.createElement("div");
                     divFormGroup.className = "form-group";
                     let divFormCheck = document.createElement("div");
@@ -179,17 +177,16 @@ async function showTab(element,id_sub){
                     let inputCheck = document.createElement("input");
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
-                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
-                    if(data_main[i][4] == 1){
+                    inputCheck.setAttribute("id", "checkbox" + data_main[i][0]);
+                    if (data_main[i][4] == 1) {
                         inputCheck.checked = true;
-                    }
-                    else{
+                    } else {
                         inputCheck.checked = false;
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style = "text-align: left";
-                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.setAttribute("for", "checkbox" + data_main[i][0]);
                     let condition = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
                     labelCheck.innerHTML = data_main[i][1] + condition;
                     divFormCheck.appendChild(inputCheck);
@@ -217,7 +214,7 @@ async function showTab(element,id_sub){
 
                 row.appendChild(divFormGroup3);
 
-                for (let i = 0;  i<data_main.length ; i++) {
+                for (let i = 0; i < data_main.length; i++) {
                     let divFormGroup = document.createElement("div");
                     divFormGroup.className = "form-group";
                     let divFormCheck = document.createElement("div");
@@ -225,17 +222,16 @@ async function showTab(element,id_sub){
                     let inputCheck = document.createElement("input");
                     inputCheck.className = "form-check-input";
                     inputCheck.setAttribute("type", "checkbox");
-                    inputCheck.setAttribute("id", "checkbox"+data_main[i][0]);
-                    if(data_main[i][4] == 1){
+                    inputCheck.setAttribute("id", "checkbox" + data_main[i][0]);
+                    if (data_main[i][4] == 1) {
                         inputCheck.checked = true;
-                    }
-                    else{
+                    } else {
                         inputCheck.checked = false;
                     }
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style = "text-align: left";
-                    labelCheck.setAttribute("for", "checkbox"+data_main[i][0]);
+                    labelCheck.setAttribute("for", "checkbox" + data_main[i][0]);
                     let condition = data_main[i][3] == null ? "" : " (" + data_main[i][3] + ")";
                     labelCheck.innerHTML = data_main[i][1] + condition;
                     divFormCheck.appendChild(inputCheck);
@@ -245,25 +241,25 @@ async function showTab(element,id_sub){
                 }
                 createAccordionCards(id_sub);
             });
-        let submark = document.getElementById("subMark"+id_sub);
-        if(submark){
+        let submark = document.getElementById("subMark" + id_sub);
+        if (submark) {
             submark.remove();
         }
         let calcSubMark = document.createElement('div');
-        calcSubMark.id = "subMark"+id_sub;
+        calcSubMark.id = "subMark" + id_sub;
         calcSubMark.style = "text-align: right";
         calcSubMark.classList.add('subMark');
         let id_application = document.getElementById("id_application").innerText;
-        let calcRow = document.getElementById("tab"+id_sub+"-");
+        let calcRow = document.getElementById("tab" + id_sub + "-");
         $.ajax({
-            url: "getCalcSubMark.php",
+            url: "ajax/getCalcSubMark.php",
             method: "GET",
             data: {id_application: id_application, id_sub: id_sub}
         })
-            .done(function( response ) {
+            .done(function (response) {
 
-                let criteriaMark ='';
-                if(response !== "0") {
+                let criteriaMark = '';
+                if (response !== "0") {
                     let marksSub = JSON.parse(response);
 
                     criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
@@ -311,7 +307,7 @@ function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -323,15 +319,15 @@ function getCookie(cname) {
     return "";
 }
 
-function createApplication(){
+function createApplication() {
     let btncr = document.getElementById("dropdownMenuButton1");
     btncr.setAttribute("disabled", "true");
     $.ajax({
-        url: "createApplication.php",
+        url: "ajax/createApplication.php",
         method: "POST",
         data: ""
     })
-        .done(function( response ) {
+        .done(function (response) {
             console.log(response);
             btncr.removeAttribute("disabled");
         });
@@ -339,55 +335,54 @@ function createApplication(){
     location.href = "/index.php?application";
 }
 
-function showModal(id_application, strMarks, strMarksAccred){
+function showModal(id_application, strMarks, strMarksAccred) {
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
     let btnSu = document.getElementById("btnSuc");
-    if(homeTab.classList.contains("active")){
-        if(btnSen.classList.contains("hiddentab")){
+    if (homeTab.classList.contains("active")) {
+        if (btnSen.classList.contains("hiddentab")) {
             btnSen.classList.remove("hiddentab");
         }
-        if(btnSu.classList.contains("hiddentab")){
+        if (btnSu.classList.contains("hiddentab")) {
             btnSu.classList.remove("hiddentab");
         }
     }
     let footer = document.getElementsByClassName("modal-footer")[0];
-    if(footer.classList.contains('hiddentab')){
+    if (footer.classList.contains('hiddentab')) {
         footer.classList.remove('hiddentab');
     }
 
     let apppp = document.getElementsByClassName('accordion');
 
-    if(apppp.length!==0){
-        for(let i=0;i<apppp.length;i++){
+    if (apppp.length !== 0) {
+        for (let i = 0; i < apppp.length; i++) {
             apppp[i].remove();
         }
     }
     let remAccTab = document.getElementsByClassName('remAccTab');
 
-    if(remAccTab.length!==0){
-        for(let i=0;i<remAccTab.length;i++){
+    if (remAccTab.length !== 0) {
+        for (let i = 0; i < remAccTab.length; i++) {
             remAccTab[i].remove();
         }
     }
 
 
     let remSubMark = document.getElementsByClassName('subMark');
-    if(remSubMark.length!==0){
-        for(let i=0;i<remSubMark.length;i++){
+    if (remSubMark.length !== 0) {
+        for (let i = 0; i < remSubMark.length; i++) {
             remSubMark[i].remove();
         }
     }
     let tab = document.getElementById("tab1");
     let pane = document.getElementById("tab1-");
-    if(!tab.children[0].classList.contains("active")) {
+    if (!tab.children[0].classList.contains("active")) {
         tab.children[0].classList.add("active");
         pane.classList.add("active");
     }
-    openTabId=0;
+    openTabId = 0;
     let mainRightCard = document.getElementById("mainRightCard");
-    if(strMarksAccred !== '')
-    {
+    if (strMarksAccred !== '') {
         mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
     } else {
         mainRightCard.innerHTML = strMarks;
@@ -402,11 +397,11 @@ function showModal(id_application, strMarks, strMarksAccred){
     //  console.log(aButton);
 
 
-    document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заявления";
+    document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заявления № ";
 
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
-    naim.setAttribute("readonly","" );
+    naim.setAttribute("readonly", "");
     let sokr = document.getElementById("sokr");
     let unp = document.getElementById("unp");
     let adress = document.getElementById("adress");
@@ -438,48 +433,48 @@ function showModal(id_application, strMarks, strMarksAccred){
     let tablist = document.getElementById("tablist");
 
     //  naim.value = username;
-    if(status == 1 || status == 5){
+    if (status == 1 || status == 5) {
         formFileReportDorabotka.style.display = "block";
         formDateDorabotka.style.display = "block";
 
-    }else{
+    } else {
 
-        number_app.setAttribute("readonly","");
-        naim.setAttribute("readonly","");
-        sokr.setAttribute("readonly","");
-        unp.setAttribute("readonly","");
-        adress.setAttribute("readonly","");
-        number_app.setAttribute("readonly","");
-        tel.setAttribute("readonly","");
-        email.setAttribute("readonly","");
-        rukovoditel.setAttribute("readonly","");
-        predstavitel.setAttribute("readonly","");
-        soprPismo.setAttribute("disabled","true");
-        copyRaspisanie.setAttribute("disabled","true");
-        orgStrukt.setAttribute("disabled","true");
-        ucomplect.setAttribute("disabled","true");
-        techOsn.setAttribute("disabled","true");
-        reportSamoocenka.setAttribute("disabled","true");
-        formFileReportDorabotka.setAttribute("disabled","true");
-        formDateDorabotka.setAttribute("disabled","true");
+        number_app.setAttribute("readonly", "");
+        naim.setAttribute("readonly", "");
+        sokr.setAttribute("readonly", "");
+        unp.setAttribute("readonly", "");
+        adress.setAttribute("readonly", "");
+        number_app.setAttribute("readonly", "");
+        tel.setAttribute("readonly", "");
+        email.setAttribute("readonly", "");
+        rukovoditel.setAttribute("readonly", "");
+        predstavitel.setAttribute("readonly", "");
+        soprPismo.setAttribute("disabled", "true");
+        copyRaspisanie.setAttribute("disabled", "true");
+        orgStrukt.setAttribute("disabled", "true");
+        ucomplect.setAttribute("disabled", "true");
+        techOsn.setAttribute("disabled", "true");
+        reportSamoocenka.setAttribute("disabled", "true");
+        formFileReportDorabotka.setAttribute("disabled", "true");
+        formDateDorabotka.setAttribute("disabled", "true");
         formFileReportDorabotka.style.display = "none";
         formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
         btnSend.classList.add("hiddentab");
-        if(btnCalc) {
+        if (btnCalc) {
             btnCalc.remove();
         }
     }
 
     let data = new Array();
     $.ajax({
-        url: "getApplication.php",
+        url: "ajax/getApplication.php",
         method: "GET",
         data: {id_application: id_application}
     })
-        .done(function( response ) {
-            for (let i of JSON.parse(response)){
+        .done(function (response) {
+            for (let i of JSON.parse(response)) {
                 data.push(i);
                 data_old.push(i);
             }
@@ -492,40 +487,40 @@ function showModal(id_application, strMarks, strMarksAccred){
             email.value = data[0][5];
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
-            if(data[0][17] != null) {
-                divDateDorabotka.insertAdjacentHTML("afterend", "<span>"+data[0][17]+"</span>");
+            if (data[0][17] != null) {
+                divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
-            if(data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+            if (data[0][14] != null) {
+                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
-            if(data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/"+ login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+            if (data[0][15] != null) {
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
-            if(data[0][16] != null) {
-                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" +  "/dorabotka/" + id_application +  "/" + data[0][16] + "'>" + data[0][16] + "</a>");
+            if (data[0][16] != null) {
+                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + "/dorabotka/" + id_application + "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
-            if(data[0][8] != null) {
+            if (data[0][8] != null) {
                 soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
-            if(data[0][9] != null) {
+            if (data[0][9] != null) {
                 copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
-            if(data[0][10] != null) {
+            if (data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
-            if(data[0][11] != null) {
+            if (data[0][11] != null) {
                 ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
-            if(data[0][12] != null) {
+            if (data[0][12] != null) {
                 techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
             let j = 0;
-            for(let obj of data[1]){
-                if(j==0){
-                    getMainTab(obj[1],obj[0]);
-                }else {
+            for (let obj of data[1]) {
+                if (j == 0) {
+                    getMainTab(obj[1], obj[0]);
+                } else {
                     getTabs(obj[1], obj[0]);
                 }
                 j++;
@@ -533,7 +528,7 @@ function showModal(id_application, strMarks, strMarksAccred){
         });
     // выводим полученный ответ на консоль браузер
 
-    $(".closeX").on("click",async () => {
+    $(".closeX").on("click", async () => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -541,75 +536,74 @@ function showModal(id_application, strMarks, strMarksAccred){
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
-        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
 
         var collapseElement = document.getElementsByClassName('collapse');
 
-        if ((typeof collapseElement !== 'undefined')&&(collapseElement !== null)){
+        if ((typeof collapseElement !== 'undefined') && (collapseElement !== null)) {
             let collapseElement2 = [...collapseElement];
             let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true)
-            if (collapseElement3.length>0) {
+            if (collapseElement3.length > 0) {
                 var elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
                 if (elementcrit) {
                     var idcrit = elementcrit.id.replace('collapse', '');
                     var id_criteria = parseInt(idcrit);
 
-                // Найти элемент с классом nav-link active
-                var elementsub = document.querySelector('.nav-link.active[id^="button"]');
-                var idsub = elementsub.id.replace('button', '');
-                var id_sub = parseInt(idsub);
+                    // Найти элемент с классом nav-link active
+                    var elementsub = document.querySelector('.nav-link.active[id^="button"]');
+                    var idsub = elementsub.id.replace('button', '');
+                    var id_sub = parseInt(idsub);
 
 
-                await updateCollapse(id_criteria, id_sub, 0).then(() => {
-                    if (samoocenka) {
-                        samoocenka.remove();
-                    }
-                    // Удалить все найденные элементы с тегом "a"
-                    for (let anchor of fRD) {
-                        anchor.remove();
-                    }
-
-                    for (let anchor of DD) {
-                        anchor.remove();
-                    }
-                    if (rep) {
-                        rep.remove();
-                    }
-                    if (sopr) {
-                        sopr.remove();
-                    }
-                    if (copy) {
-                        copy.remove();
-                    }
-                    if (org) {
-                        org.remove();
-                    }
-                    if (ucompl) {
-                        ucompl.remove();
-                    }
-                    if (tech) {
-                        tech.remove();
-                    }
-                    modal.classList.remove("show");
-                    modal.style = "display: none";
-                    for (let i = tablist.children.length - 1; i > 0; i--) {
-                        tablist.children[i].remove();
-                    }
-                    let remAccTab = document.getElementsByClassName('remAccTab');
-
-                    if (remAccTab.length !== 0) {
-                        for (let i = 0; i < remAccTab.length; i++) {
-                            remAccTab[i].remove();
+                    await updateCollapse(id_criteria, id_sub, 0).then(() => {
+                        if (samoocenka) {
+                            samoocenka.remove();
                         }
-                    }
+                        // Удалить все найденные элементы с тегом "a"
+                        for (let anchor of fRD) {
+                            anchor.remove();
+                        }
 
-                });
+                        for (let anchor of DD) {
+                            anchor.remove();
+                        }
+                        if (rep) {
+                            rep.remove();
+                        }
+                        if (sopr) {
+                            sopr.remove();
+                        }
+                        if (copy) {
+                            copy.remove();
+                        }
+                        if (org) {
+                            org.remove();
+                        }
+                        if (ucompl) {
+                            ucompl.remove();
+                        }
+                        if (tech) {
+                            tech.remove();
+                        }
+                        modal.classList.remove("show");
+                        modal.style = "display: none";
+                        for (let i = tablist.children.length - 1; i > 0; i--) {
+                            tablist.children[i].remove();
+                        }
+                        let remAccTab = document.getElementsByClassName('remAccTab');
+
+                        if (remAccTab.length !== 0) {
+                            for (let i = 0; i < remAccTab.length; i++) {
+                                remAccTab[i].remove();
+                            }
+                        }
+
+                    });
                 }
 
-            }
-            else{
-                if(samoocenka) {
+            } else {
+                if (samoocenka) {
                     samoocenka.remove();
                 }
                 // Удалить все найденные элементы с тегом "a"
@@ -620,41 +614,39 @@ function showModal(id_application, strMarks, strMarksAccred){
                 for (let anchor of DD) {
                     anchor.remove();
                 }
-                if(rep) {
+                if (rep) {
                     rep.remove();
                 }
-                if(sopr) {
+                if (sopr) {
                     sopr.remove();
                 }
-                if(copy) {
+                if (copy) {
                     copy.remove();
                 }
-                if(org) {
+                if (org) {
                     org.remove();
                 }
-                if(ucompl) {
+                if (ucompl) {
                     ucompl.remove();
                 }
-                if(tech) {
+                if (tech) {
                     tech.remove();
                 }
                 modal.classList.remove("show");
                 modal.style = "display: none";
-                for(let i = tablist.children.length - 1; i > 0; i--){
+                for (let i = tablist.children.length - 1; i > 0; i--) {
                     tablist.children[i].remove();
                 }
                 let remAccTab = document.getElementsByClassName('remAccTab');
 
-                if(remAccTab.length!==0){
-                    for(let i=0;i<remAccTab.length;i++){
+                if (remAccTab.length !== 0) {
+                    for (let i = 0; i < remAccTab.length; i++) {
                         remAccTab[i].remove();
                     }
                 }
             }
-        }
-
-        else{
-            if(samoocenka) {
+        } else {
+            if (samoocenka) {
                 samoocenka.remove();
             }
             // Удалить все найденные элементы с тегом "a"
@@ -665,40 +657,40 @@ function showModal(id_application, strMarks, strMarksAccred){
             for (let anchor of DD) {
                 anchor.remove();
             }
-            if(rep) {
+            if (rep) {
                 rep.remove();
             }
-            if(sopr) {
+            if (sopr) {
                 sopr.remove();
             }
-            if(copy) {
+            if (copy) {
                 copy.remove();
             }
-            if(org) {
+            if (org) {
                 org.remove();
             }
-            if(ucompl) {
+            if (ucompl) {
                 ucompl.remove();
             }
-            if(tech) {
+            if (tech) {
                 tech.remove();
             }
             modal.classList.remove("show");
             modal.style = "display: none";
-            for(let i = tablist.children.length - 1; i > 0; i--){
+            for (let i = tablist.children.length - 1; i > 0; i--) {
                 tablist.children[i].remove();
             }
             let remAccTab = document.getElementsByClassName('remAccTab');
 
-            if(remAccTab.length!==0){
-                for(let i=0;i<remAccTab.length;i++){
+            if (remAccTab.length !== 0) {
+                for (let i = 0; i < remAccTab.length; i++) {
                     remAccTab[i].remove();
                 }
             }
         }
 
     });
-    $(".closeD").on("click",async () => {
+    $(".closeD").on("click", async () => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -706,74 +698,73 @@ function showModal(id_application, strMarks, strMarksAccred){
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
-        let fRD =  formFileReportDorabotka.querySelectorAll("a");
+        let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
 
 
         var collapseElement = document.getElementsByClassName('collapse');
 
-        if ((typeof collapseElement !== 'undefined')&&(collapseElement !== null)){
+        if ((typeof collapseElement !== 'undefined') && (collapseElement !== null)) {
             let collapseElement2 = [...collapseElement];
             let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true)
-            if (collapseElement3.length>0) {
+            if (collapseElement3.length > 0) {
                 var elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
                 if (elementcrit) {
-                var idcrit = elementcrit.id.replace('collapse', '');
-                var id_criteria = parseInt(idcrit);
-                // Найти элемент с классом nav-link active
-                var elementsub = document.querySelector('.nav-link.active[id^="button"]');
-                var idsub = elementsub.id.replace('button', '');
-                var id_sub = parseInt(idsub);
+                    var idcrit = elementcrit.id.replace('collapse', '');
+                    var id_criteria = parseInt(idcrit);
+                    // Найти элемент с классом nav-link active
+                    var elementsub = document.querySelector('.nav-link.active[id^="button"]');
+                    var idsub = elementsub.id.replace('button', '');
+                    var id_sub = parseInt(idsub);
 
-                await updateCollapse(id_criteria, id_sub, 0).then(() => {
-                    if (samoocenka) {
-                        samoocenka.remove();
-                    }
-                    // Удалить все найденные элементы с тегом "a"
-                    for (let anchor of fRD) {
-                        anchor.remove();
-                    }
-
-                    for (let anchor of DD) {
-                        anchor.remove();
-                    }
-                    if (rep) {
-                        rep.remove();
-                    }
-                    if (sopr) {
-                        sopr.remove();
-                    }
-                    if (copy) {
-                        copy.remove();
-                    }
-                    if (org) {
-                        org.remove();
-                    }
-                    if (ucompl) {
-                        ucompl.remove();
-                    }
-                    if (tech) {
-                        tech.remove();
-                    }
-                    modal.classList.remove("show");
-                    modal.style = "display: none";
-                    for (let i = tablist.children.length - 1; i > 0; i--) {
-                        tablist.children[i].remove();
-                    }
-                    let remAccTab = document.getElementsByClassName('remAccTab');
-
-                    if (remAccTab.length !== 0) {
-                        for (let i = 0; i < remAccTab.length; i++) {
-                            remAccTab[i].remove();
+                    await updateCollapse(id_criteria, id_sub, 0).then(() => {
+                        if (samoocenka) {
+                            samoocenka.remove();
                         }
-                    }
+                        // Удалить все найденные элементы с тегом "a"
+                        for (let anchor of fRD) {
+                            anchor.remove();
+                        }
 
-                });
+                        for (let anchor of DD) {
+                            anchor.remove();
+                        }
+                        if (rep) {
+                            rep.remove();
+                        }
+                        if (sopr) {
+                            sopr.remove();
+                        }
+                        if (copy) {
+                            copy.remove();
+                        }
+                        if (org) {
+                            org.remove();
+                        }
+                        if (ucompl) {
+                            ucompl.remove();
+                        }
+                        if (tech) {
+                            tech.remove();
+                        }
+                        modal.classList.remove("show");
+                        modal.style = "display: none";
+                        for (let i = tablist.children.length - 1; i > 0; i--) {
+                            tablist.children[i].remove();
+                        }
+                        let remAccTab = document.getElementsByClassName('remAccTab');
+
+                        if (remAccTab.length !== 0) {
+                            for (let i = 0; i < remAccTab.length; i++) {
+                                remAccTab[i].remove();
+                            }
+                        }
+
+                    });
                 }
 
-            }
-            else{
-                if(samoocenka) {
+            } else {
+                if (samoocenka) {
                     samoocenka.remove();
                 }
                 // Удалить все найденные элементы с тегом "a"
@@ -784,41 +775,39 @@ function showModal(id_application, strMarks, strMarksAccred){
                 for (let anchor of DD) {
                     anchor.remove();
                 }
-                if(rep) {
+                if (rep) {
                     rep.remove();
                 }
-                if(sopr) {
+                if (sopr) {
                     sopr.remove();
                 }
-                if(copy) {
+                if (copy) {
                     copy.remove();
                 }
-                if(org) {
+                if (org) {
                     org.remove();
                 }
-                if(ucompl) {
+                if (ucompl) {
                     ucompl.remove();
                 }
-                if(tech) {
+                if (tech) {
                     tech.remove();
                 }
                 modal.classList.remove("show");
                 modal.style = "display: none";
-                for(let i = tablist.children.length - 1; i > 0; i--){
+                for (let i = tablist.children.length - 1; i > 0; i--) {
                     tablist.children[i].remove();
                 }
                 let remAccTab = document.getElementsByClassName('remAccTab');
 
-                if(remAccTab.length!==0){
-                    for(let i=0;i<remAccTab.length;i++){
+                if (remAccTab.length !== 0) {
+                    for (let i = 0; i < remAccTab.length; i++) {
                         remAccTab[i].remove();
                     }
                 }
             }
-        }
-
-        else{
-            if(samoocenka) {
+        } else {
+            if (samoocenka) {
                 samoocenka.remove();
             }
             // Удалить все найденные элементы с тегом "a"
@@ -829,33 +818,33 @@ function showModal(id_application, strMarks, strMarksAccred){
             for (let anchor of DD) {
                 anchor.remove();
             }
-            if(rep) {
+            if (rep) {
                 rep.remove();
             }
-            if(sopr) {
+            if (sopr) {
                 sopr.remove();
             }
-            if(copy) {
+            if (copy) {
                 copy.remove();
             }
-            if(org) {
+            if (org) {
                 org.remove();
             }
-            if(ucompl) {
+            if (ucompl) {
                 ucompl.remove();
             }
-            if(tech) {
+            if (tech) {
                 tech.remove();
             }
             modal.classList.remove("show");
             modal.style = "display: none";
-            for(let i = tablist.children.length - 1; i > 0; i--){
+            for (let i = tablist.children.length - 1; i > 0; i--) {
                 tablist.children[i].remove();
             }
             let remAccTab = document.getElementsByClassName('remAccTab');
 
-            if(remAccTab.length!==0){
-                for(let i=0;i<remAccTab.length;i++){
+            if (remAccTab.length !== 0) {
+                for (let i = 0; i < remAccTab.length; i++) {
                     remAccTab[i].remove();
                 }
             }
@@ -864,14 +853,14 @@ function showModal(id_application, strMarks, strMarksAccred){
     });
 
     let divBtnPrintReport = document.getElementById('btnPrintReport');
-    divBtnPrintReport.onclick = ()=> {
+    divBtnPrintReport.onclick = () => {
         printReport();
     };
 
 
 }
 
-async function printReport(){
+async function printReport() {
     let number_app = document.getElementById("id_application");
     let id_application = number_app.innerHTML;
 
@@ -881,7 +870,7 @@ async function printReport(){
     criteriaMark.textContent = '<strong>Достигнуты следующие результаты</strong><br/>';
     criteriaMark.style = "padding-top: 0.5rem; padding-bottom:1rem; ";
 
-    var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+    var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
     WinPrint.document.write('<style>@page {\n' +
         'margin: 1rem;\n' +
@@ -893,7 +882,7 @@ async function printReport(){
     divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
 
     await $.ajax({
-        url: "getCalc.php",
+        url: "ajax/getCalc.php",
         method: "GET",
         data: {id_application: id_application}
     });
@@ -901,36 +890,35 @@ async function printReport(){
     await checkActivCursor(id_application);
 
     await $.ajax({
-        url: "getSubForPrintReport.php",
+        url: "ajax/getSubForPrintReport.php",
         method: "GET",
         data: {id_application: id_application}
     })
-        .done(function( response ) {
+        .done(function (response) {
             let subCriteriaForReport = JSON.parse(response);
-          //  console.log(subCriteriaForReport);
-            let id_s=-1;
-            let as ='';
+            //  console.log(subCriteriaForReport);
+            let id_s = -1;
+            let as = '';
             subCriteriaForReport.map((item, index) => {
 
-                if(id_s !== item['id_subvision']){
+                if (id_s !== item['id_subvision']) {
 
-                    if(index != 0){
-                        textSubCriteriaChecked+=`<div>${as}</div>`;
+                    if (index != 0) {
+                        textSubCriteriaChecked += `<div>${as}</div>`;
                     }
                     as = '';
                     id_s = item['id_subvision'];
                     as = `Самооценка ${item['name']} проведена по следующим критериям медицинской аккредитации: `;
                 }
 
-                if(index === subCriteriaForReport.length-1){
-                    as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + "." ;
-                    textSubCriteriaChecked+=`<div>${as}</div>`;
-                }
-                else{
-                    if(subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
-                        as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + "." ;
+                if (index === subCriteriaForReport.length - 1) {
+                    as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + ".";
+                    textSubCriteriaChecked += `<div>${as}</div>`;
+                } else {
+                    if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
+                        as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + ".";
                     else
-                        as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + ", " ;
+                        as += item['name_criteria'] == null ? 'не выбраны критерии' : item['name_criteria'] + ", ";
                 }
 
             });
@@ -941,37 +929,38 @@ async function printReport(){
     criteriaMark1.textContent = "";
 
     await $.ajax({
-        url: "getCalcAppMark.php",
+        url: "ajax/getCalcAppMark.php",
         method: "GET",
         data: {id_application: id_application}
     })
-        .done(function( response ) {
+        .done(function (response) {
             let mainRightCard = document.getElementById("mainRightCard");
             mainRightCard.innerHTML = "";
             let marksSub = JSON.parse(response);
             criteriaMark.textContent += `Количественная самооценка ${marksSub['otmetka_all_count_yes']}/(${marksSub['otmetka_all_count_all']}-${marksSub['otmetka_all_count_not_need']}) = ${marksSub['otmetka_all']}%`;
-        /*    criteriaMark.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
-            criteriaMark.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
-            criteriaMark.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
-         */   criteriaMark1.textContent += `Количественная самооценка ${marksSub['otmetka_all_count_yes']}/(${marksSub['otmetka_all_count_all']}-${marksSub['otmetka_all_count_not_need']}) = ${marksSub['otmetka_all']}%`;
-         /*   criteriaMark1.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
-            criteriaMark1.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
-            criteriaMark1.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
-*/
+            /*    criteriaMark.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
+                criteriaMark.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
+                criteriaMark.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
+             */
+            criteriaMark1.textContent += `Количественная самооценка ${marksSub['otmetka_all_count_yes']}/(${marksSub['otmetka_all_count_all']}-${marksSub['otmetka_all_count_not_need']}) = ${marksSub['otmetka_all']}%`;
+            /*   criteriaMark1.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
+               criteriaMark1.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
+               criteriaMark1.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
+   */
             mainRightCard.appendChild(criteriaMark1);
         });
 
     let table;
-    await  $.ajax({
-        url: "getAppForPrintNo.php",
+    await $.ajax({
+        url: "ajax/getAppForPrintNo.php",
         method: "GET",
         data: {id_app: id_application}
     })
-        .done(function( response ) {
+        .done(function (response) {
             //  console.log(response);
             let tableForPrint = JSON.parse(response);
 
-            if(tableForPrint.length !==0){
+            if (tableForPrint.length !== 0) {
                 let naim = document.getElementById("naim");
                 let unp = document.getElementById("unp");
                 let naimText = naim.value;
@@ -979,7 +968,6 @@ async function printReport(){
 
 
                 table = createTableForPrintNo(tableForPrint);
-
 
 
             } else {
@@ -993,6 +981,7 @@ async function printReport(){
 
     let sokr = document.getElementById('sokr');
     let naim = document.getElementById('naim');
+
     function formatDate(date) {
 
         var dd = date.getDate();
@@ -1006,6 +995,7 @@ async function printReport(){
 
         return dd + '.' + mm + '.' + yy;
     }
+
     let divReportTitle = document.createElement('div');
     divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
     divReportTitle.textContent = `Результат самооценки ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
@@ -1020,8 +1010,7 @@ async function printReport(){
     WinPrint.document.write('<br/>');
 
 
-
-    if(table && table.textContent && table.textContent.length > 0){
+    if (table && table.textContent && table.textContent.length > 0) {
         let divReportTitleFieldNo = document.createElement('div');
         divReportTitleFieldNo.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
         divReportTitleFieldNo.textContent = '<strong>Установлено несоответствие по следующим критериям:</strong>';
@@ -1031,8 +1020,7 @@ async function printReport(){
         WinPrint.document.write('<br/>');
         WinPrint.document.write('<br/>');
         WinPrint.document.write(table.innerHTML);
-    }
-    else{
+    } else {
         WinPrint.document.write(divReportTitle.innerHTML);
         WinPrint.document.write('<br/>');
         WinPrint.document.write('<br/>');
@@ -1040,7 +1028,7 @@ async function printReport(){
         WinPrint.document.close();
         WinPrint.focus();
         let naimOrg = document.getElementById("naim");
-        WinPrint.document.title = "Результат самооценки_" + naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".","");
+        WinPrint.document.title = "Результат самооценки_" + naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
         WinPrint.print();
         WinPrint.close();
     }
@@ -1051,25 +1039,25 @@ async function printReport(){
     WinPrint.close();
 }
 
-function checkActivCursor(id_application){
+function checkActivCursor(id_application) {
     $.ajax({
-        url: "getActivCursor.php",
+        url: "ajax/getActivCursor.php",
         method: "GET",
         data: {id_app: id_application}
     })
-        .done(function( response ) {
+        .done(function (response) {
             //  console.log(response);
             let tableForPrint = JSON.parse(response);
-            if(tableForPrint === 1) {
+            if (tableForPrint === 1) {
                 checkActivCursor(id_application)
-            }else{
+            } else {
                 return
             }
 
         });
 }
 
-function createTableForPrintNo(tableForPrint){
+function createTableForPrintNo(tableForPrint) {
 
     let divPrintTable = document.createElement('div');
 
@@ -1089,31 +1077,28 @@ function createTableForPrintNo(tableForPrint){
     table.style = "border-collapse: collapse; border-spacing: 0;";
 
 
-
-
     let trHeadMain = document.createElement('tr');
 
     let thNum = document.createElement('th');
     thNum.innerHTML = '№ п/п';
     thNum.style = "border: 1px solid black";
-    thNum.setAttribute('rowspan','2');
+    thNum.setAttribute('rowspan', '2');
 
     let th1_Main = document.createElement('th');
     th1_Main.innerHTML = 'Критерий';
     th1_Main.style = "border: 1px solid black; ";
-    th1_Main.setAttribute('rowspan','2');
-/*
-    let th2_Main = document.createElement('th');
-    th2_Main.innerHTML = 'Класс критерия';
-    th2_Main.style = "border: 1px solid black";
-    th2_Main.setAttribute('rowspan','2');
-*/
+    th1_Main.setAttribute('rowspan', '2');
+    /*
+        let th2_Main = document.createElement('th');
+        th2_Main.innerHTML = 'Класс критерия';
+        th2_Main.style = "border: 1px solid black";
+        th2_Main.setAttribute('rowspan','2');
+    */
 
     let th3_Main = document.createElement('th');
     th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
     th3_Main.style = "border: 1px solid black; text-align: center";
-    th3_Main.setAttribute('colspan','3');
-
+    th3_Main.setAttribute('colspan', '3');
 
 
     let trHead = document.createElement('tr');
@@ -1133,7 +1118,7 @@ function createTableForPrintNo(tableForPrint){
 
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
-  //  trHeadMain.appendChild(th2_Main);
+    //  trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
 
 
@@ -1148,11 +1133,11 @@ function createTableForPrintNo(tableForPrint){
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
-    numCriteria=0;
+    numCriteria = 0;
     numSub = tableForPrint[0]['id_subvision'];
 
     tableForPrint.map((item, index) => {
-        if(numSub !== item['id_subvision']) {
+        if (numSub !== item['id_subvision']) {
 
             let trNaimSub = document.createElement('tr');
             let tdNaimSub = document.createElement('td');
@@ -1165,81 +1150,75 @@ function createTableForPrintNo(tableForPrint){
 
         }
 
-             if((numCriteria !== item['id_criteria']) && (index !==0)) {
-                let trNaim = document.createElement('tr');
-                let tdNaim = document.createElement('td');
-                tdNaim.setAttribute('colspan','6');
-                tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
-                tdNaim.innerHTML = item['name_criteria'];
-                trNaim.appendChild(tdNaim);
-                tbody.appendChild(trNaim);
+        if ((numCriteria !== item['id_criteria']) && (index !== 0)) {
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '6');
+            tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+            tdNaim.innerHTML = item['name_criteria'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
 
 
+            let trHeadMain2 = document.createElement('tr');
 
-                let trHeadMain2 = document.createElement('tr');
+            let thNum = document.createElement('th');
+            thNum.innerHTML = '№ п/п';
+            thNum.style = "border: 1px solid black";
+            thNum.setAttribute('rowspan', '2');
 
-                let thNum = document.createElement('th');
-                thNum.innerHTML = '№ п/п';
-                thNum.style = "border: 1px solid black";
-                thNum.setAttribute('rowspan','2');
+            let th1_Main2 = document.createElement('td');
+            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.style = "border: 1px solid black";
+            th1_Main2.setAttribute('rowspan', '2');
+            /*
+                            let th2_Main2 = document.createElement('td');
+                            th2_Main2.innerHTML = 'Класс критерия';
+                            th2_Main2.style = "border: 1px solid black";
+                            th2_Main2.setAttribute('rowspan','2');
+            */
 
-                let th1_Main2 = document.createElement('td');
-                th1_Main2.innerHTML = 'Критерий';
-                th1_Main2.style = "border: 1px solid black";
-                th1_Main2.setAttribute('rowspan','2');
-/*
-                let th2_Main2 = document.createElement('td');
-                th2_Main2.innerHTML = 'Класс критерия';
-                th2_Main2.style = "border: 1px solid black";
-                th2_Main2.setAttribute('rowspan','2');
-*/
-
-                let th3_Main2 = document.createElement('td');
-                th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
-                th3_Main2.style = "border: 1px solid black; text-align: center";
-                th3_Main2.setAttribute('colspan','3');
-
+            let th3_Main2 = document.createElement('td');
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.style = "border: 1px solid black; text-align: center";
+            th3_Main2.setAttribute('colspan', '3');
 
 
+            let trHead2 = document.createElement('tr');
+            let th32 = document.createElement('td');
+            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.style = "border: 1px solid black";
 
-                let trHead2 = document.createElement('tr');
-                let th32 = document.createElement('td');
-                th32.innerHTML = 'Сведения по самооценке ОЗ';
-                th32.style = "border: 1px solid black";
-
-                let th42 = document.createElement('td');
-                th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-                th4.style = "width:350px; border: 1px solid black";
-
-
-                let th52 = document.createElement('td');
-                th52.innerHTML = 'Примечание';
-                th52.style = "border: 1px solid black";
+            let th42 = document.createElement('td');
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+            th4.style = "width:350px; border: 1px solid black";
 
 
-
-                trHeadMain2.appendChild(thNum);
-                trHeadMain2.appendChild(th1_Main2);
-          //      trHeadMain2.appendChild(th2_Main2);
-                trHeadMain2.appendChild(th3_Main2);
+            let th52 = document.createElement('td');
+            th52.innerHTML = 'Примечание';
+            th52.style = "border: 1px solid black";
 
 
-                tbody.appendChild(trHeadMain2);
-                trHead2.appendChild(th32);
-                trHead2.appendChild(th42);
-                trHead2.appendChild(th52);
-
-                tbody.appendChild(trHead2);
-            }
+            trHeadMain2.appendChild(thNum);
+            trHeadMain2.appendChild(th1_Main2);
+            //      trHeadMain2.appendChild(th2_Main2);
+            trHeadMain2.appendChild(th3_Main2);
 
 
+            tbody.appendChild(trHeadMain2);
+            trHead2.appendChild(th32);
+            trHead2.appendChild(th42);
+            trHead2.appendChild(th52);
+
+            tbody.appendChild(trHead2);
+        }
 
 
-       // }
+        // }
 
-        numCriteria =  -1;
+        numCriteria = -1;
 
-        if(item['id_criteria'] !== null) {
+        if (item['id_criteria'] !== null) {
 
             let tr = document.createElement('tr');
 
@@ -1250,11 +1229,11 @@ function createTableForPrintNo(tableForPrint){
             let td1 = document.createElement('td');
             td1.innerHTML = item['mark_name'];
             td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-/*
-            let td2 = document.createElement('td');
-            td2.innerHTML = item['mark_class'];
-            td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-*/
+            /*
+                        let td2 = document.createElement('td');
+                        td2.innerHTML = item['mark_class'];
+                        td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            */
             let td3 = document.createElement('td');
             td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
             td3.innerHTML = item['field4'];
@@ -1270,7 +1249,7 @@ function createTableForPrintNo(tableForPrint){
 
             tr.appendChild(tdNum);
             tr.appendChild(td1);
-      //      tr.appendChild(td2);
+            //      tr.appendChild(td2);
             tr.appendChild(td3);
 
             tr.appendChild(td4);
@@ -1303,7 +1282,6 @@ const UNP_REGEXP = /^([0-9]{9})$/iu;
 const ADRESS_REGEXP = /^(\d{4,6}\s[А-Яа-яЁё0-9,. ]{1,})$/iu;
 
 
-
 function onInputEmail() {
     const input = document.getElementById('email');
     if (isEmailValid(input.value)) {
@@ -1312,6 +1290,7 @@ function onInputEmail() {
         input.style.borderColor = 'red';
     }
 }
+
 function isEmailValid(value) {
     return EMAIL_REGEXP.test(value);
 }
@@ -1324,6 +1303,7 @@ function onInputUnp() {
         input.style.borderColor = 'red';
     }
 }
+
 function isUnpValid(value) {
     return UNP_REGEXP.test(value);
 }
@@ -1336,20 +1316,22 @@ function onInputAdress() {
         input.style.borderColor = 'green';
     }
 }
+
 function isAdressValid(value) {
     return ADRESS_REGEXP.test(value);
 }
 
 let formDoverennost = document.getElementById("formDoverennost");
-function showDoverennost(element){
+
+function showDoverennost(element) {
     formDoverennost.classList.remove("hiddentab");
 };
 
-function deleteDoverennost(element){
+function deleteDoverennost(element) {
     formDoverennost.classList.add("hiddentab");
 };
 
-function getTabs(name, id_sub){
+function getTabs(name, id_sub) {
 
     /*
         if(isSavedMarks()) {
@@ -1373,7 +1355,7 @@ function getTabs(name, id_sub){
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
 
-    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+    tab.setAttribute("onclick", "showTab(this," + id_sub + ")");
 
     a.innerHTML = "" + name;
     tab.appendChild(a);
@@ -1410,7 +1392,6 @@ function getTabs(name, id_sub){
     cardLeft.className = "card";
 
 
-
     let divRollUp = document.createElement("div");
     divRollUp.className = "d-md-block d-none";
     divRollUp.style = "text-align: end;margin-top: 5px;";
@@ -1444,7 +1425,7 @@ function getTabs(name, id_sub){
 
     let btnDelete = document.createElement("button");
     btnDelete.innerHTML = "Удалить подразделение";
-    btnDelete.setAttribute("onclick", "deleteTab('"+ id_sub +"')");
+    btnDelete.setAttribute("onclick", "deleteTab('" + id_sub + "')");
     btnDelete.style = "margin-bottom: 15px";
     tabPane.appendChild(btnDelete);
 
@@ -1471,13 +1452,13 @@ function getTabs(name, id_sub){
     btnSave.innerHTML = "Сохранить выбранные пункты";
     btnSave.className = "btn btn-outline-primary";
     btnSave.id = "btnSaveInfoCriteriaMain";
-    btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
+    btnSave.setAttribute("onclick", "saveTab('" + id_sub + "')");
     tabPane.appendChild(btnSave);
-    if(status == 1){
+    if (status == 1) {
 
-    }else{
+    } else {
         cardLeft.classList.add("rolledUp");
-        aRollUp.setAttribute("disabled","true");
+        aRollUp.setAttribute("disabled", "true");
         btnDelete.classList.add("hiddentab");
         container.classList.add("hiddentab");
         btnSave.classList.add("hiddentab");
@@ -1488,7 +1469,7 @@ function getTabs(name, id_sub){
 }
 
 
-function getMainTab(name, id_sub){
+function getMainTab(name, id_sub) {
 
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
@@ -1500,7 +1481,7 @@ function getMainTab(name, id_sub){
     a.setAttribute("href", "#");
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
-    tab.setAttribute("onclick", "showTab(this,"+id_sub+")");
+    tab.setAttribute("onclick", "showTab(this," + id_sub + ")");
 
     // tab.onclick= () => {
     //     console.log(2);
@@ -1553,7 +1534,6 @@ function getMainTab(name, id_sub){
     cardLeft.appendChild(divRollUp);
 
 
-
     aRollUp.onclick = () => {
         cardLeft.classList.toggle("rolledUp");
         cardLeft.getElementsByClassName("card-body")[0].classList.toggle("hiddentab");
@@ -1586,18 +1566,17 @@ function getMainTab(name, id_sub){
     tabPane.appendChild(row1);
 
 
-
     let btnSave = document.createElement("button");
     btnSave.innerHTML = "Сохранить выбранные пункты";
     btnSave.className = "btn btn-outline-primary";
     btnSave.id = "btnSaveInfoCriteria";
-    btnSave.setAttribute("onclick", "saveTab('"+ id_sub +"')");
+    btnSave.setAttribute("onclick", "saveTab('" + id_sub + "')");
     tabPane.appendChild(btnSave);
-    if(status == 1){
+    if (status == 1) {
 
-    }else{
+    } else {
         cardLeft.classList.add("rolledUp");
-        aRollUp.setAttribute("disabled","true");
+        aRollUp.setAttribute("disabled", "true");
         container.classList.add("hiddentab");
         btnSave.classList.add("hiddentab");
     }
@@ -1605,24 +1584,22 @@ function getMainTab(name, id_sub){
 }
 
 
-
-
-function addTab(){
+function addTab() {
     let nameTab = prompt("Введите название структурного подразделения");
 
     //console.log('nameTab',nameTab);
 
-    if(nameTab !== null) {
-        if(nameTab.trim() !== '') {
+    if (nameTab !== null) {
+        if (nameTab.trim() !== '') {
 
             let number_app = document.getElementById("id_application");
             let id_application = number_app.innerHTML;
             $.ajax({
-                url: "addSubvision.php",
+                url: "ajax/addSubvision.php",
                 method: "POST",
                 data: {id_application: id_application, name: nameTab}
             })
-                .done(function( response ) {
+                .done(function (response) {
                     let id = response;
                     //   console.log(nameTab + " " + id);
                     getTabs(nameTab, id);
@@ -1635,15 +1612,13 @@ function addTab(){
     }
 
 
-
-
 }
 
-function deleteTab(id_sub){
+function deleteTab(id_sub) {
     let isDelete = confirm("Вы уверены, что хотите удалить текущее подразделение?");
-    if(isDelete) {
+    if (isDelete) {
         $.ajax({
-            url: "deleteTab.php",
+            url: "ajax/deleteTab.php",
             method: "POST",
             data: {id_sub: id_sub}
         })
@@ -1721,16 +1696,16 @@ $("#btnSuc").on("click", function () {
     let techOsnFile = techOsn.files[0];
     form.append("techOsn", techOsnFile);
 
-    xhr.open("post", "saveApplication.php", true);
+    xhr.open("post", "ajax/saveApplication.php", true);
     xhr.send(form);
     alert("Заявление сохранено");
     //  location.href = "/index.php?application";
 
 });
 
-function saveTab(id_sub){
+function saveTab(id_sub) {
     console.log("opensub", OpenSub);
-    if(isSavedMarks()) {
+    if (isSavedMarks()) {
         //  console.log(OpenSub);
         // arrChange=false;
         //  saveMarks(OpenSub);
@@ -1738,19 +1713,19 @@ function saveTab(id_sub){
             return;
         }
     }
-    arrChange=false;
-    OpenSub=0;
+    arrChange = false;
+    OpenSub = 0;
 
-    let thisTab = document.getElementById("tab"+id_sub+"-");
+    let thisTab = document.getElementById("tab" + id_sub + "-");
     let arrCheckInputs = thisTab.getElementsByClassName("form-check-input");
     let arrIdCriterias = new Array();
-    for (let input of arrCheckInputs){
+    for (let input of arrCheckInputs) {
         let id_criteria = input.id.substring(8);
 
-        if(input.checked === true ){
+        if (input.checked === true) {
             let item = {
-                id_criteria : id_criteria,
-                value : 1
+                id_criteria: id_criteria,
+                value: 1
             };
             arrIdCriterias.push(item);
         }
@@ -1765,16 +1740,17 @@ function saveTab(id_sub){
 
 
     $.ajax({
-        url: "saveTab.php",
+        url: "ajax/saveTab.php",
         method: "POST",
         data: {id_sub: id_sub, arr_id_criterias: arrIdCriterias}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
         });
 
     createAccordionCards(id_sub);
 }
+
 let id_open_criteria = 0;
 
 async function createAccordionCards(id_sub) {
@@ -1795,7 +1771,7 @@ async function createAccordionCards(id_sub) {
 
         if (input.checked === true) {
             let id_criteria = input.id.substring(8);
-            let name_criteria = document.querySelector("label[for='checkbox"+id_criteria+"']")
+            let name_criteria = document.querySelector("label[for='checkbox" + id_criteria + "']")
 
 
             let divCardHeader = document.createElement("div");
@@ -1809,17 +1785,17 @@ async function createAccordionCards(id_sub) {
 
             let divCardHeaderMark = document.createElement("div");
             divCardHeaderMark.style = 'text-align: center;'
-            divCardHeaderMark.id = id_sub +"divCardHeaderMark"+id_criteria;
+            divCardHeaderMark.id = id_sub + "divCardHeaderMark" + id_criteria;
 
             $.ajax({
-                url: "getReportCriteria.php",
+                url: "ajax/getReportCriteria.php",
                 method: "GET",
                 data: {id_application: id_application, id_sub: id_sub, id_criteria: id_criteria}
             })
-                .done(async function( response ) {
+                .done(async function (response) {
 
-                    let criteriaMark ='';
-                    if(response !== "0") {
+                    let criteriaMark = '';
+                    if (response !== "0") {
                         let marksSub = JSON.parse(response);
 
                         criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
@@ -1838,13 +1814,12 @@ async function createAccordionCards(id_sub) {
                 });
 
 
-
             let btnCollapse = document.createElement("button");
             btnCollapse.className = "btn btn-link";
             btnCollapse.setAttribute("data-toggle", "collapse");
-            btnCollapse.setAttribute("data-target", "#collapse"+id_criteria);
+            btnCollapse.setAttribute("data-target", "#collapse" + id_criteria);
             btnCollapse.setAttribute("aria-expanded", "false");
-            btnCollapse.setAttribute("aria-controls", "collapse"+id_criteria);
+            btnCollapse.setAttribute("aria-controls", "collapse" + id_criteria);
             btnCollapse.innerHTML = name_criteria.innerHTML;
             btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
 
@@ -1858,116 +1833,109 @@ async function createAccordionCards(id_sub) {
 
             let divCollapse = document.createElement("div");
             divCollapse.className = "collapse";
-            divCollapse.id = "collapse"+id_criteria;
-            divCollapse.setAttribute("aria-labelledby", "heading"+id_criteria);
+            divCollapse.id = "collapse" + id_criteria;
+            divCollapse.setAttribute("aria-labelledby", "heading" + id_criteria);
             divCollapse.setAttribute("data-parent", "#accordion");
             let divCardBody = document.createElement("div");
             divCardBody.className = "card-body";
-            divCardBody.id = "cardBody"+id_criteria;
+            divCardBody.id = "cardBody" + id_criteria;
 
             divCollapse.appendChild(divCardBody);
             divCard.appendChild(divCollapse);
             //   let marks_app = [];
-            divCardHeader.onclick=  async () =>{
+            divCardHeader.onclick = async () => {
                 let collapses = divCard.getElementsByClassName("collapse");
 
                 //   console.log(thisTab.getElementsByClassName('collapse show'));
 
 
                 if (arrChange == false) {
-                    if (divCollapse.classList.contains("show"))
-                    {
+                    if (divCollapse.classList.contains("show")) {
 
-                            let openedDiv = thisTab.getElementsByClassName('collapse show');
+                        let openedDiv = thisTab.getElementsByClassName('collapse show');
 
-                            //  document.getElementById("collapse"+id_open_criteria);
-                            if (openedDiv.length >0) {
+                        //  document.getElementById("collapse"+id_open_criteria);
+                        if (openedDiv.length > 0) {
 
-                                if (id_open_criteria == id_criteria) {
-                                    divCollapse.classList.toggle('show');
-
-                                } else {
-
-                                    openedDiv[0].classList.remove('show');
-                                    await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
-                                    });
-                                }
-                            } else {
+                            if (id_open_criteria == id_criteria) {
                                 divCollapse.classList.toggle('show');
-                            }
 
-                            if (id_open_criteria != id_criteria) {
-                                divCollapse.classList.add('show');
-                            }
-
-                            //  closeCollapse (id_criteria,id_sub);
-                            //   divCollapse.classList.toggle("show");
-
-                            await collapseTable(id_criteria, divCardBody,id_sub);
-
-                            id_open_criteria = id_criteria;
-                            await  updateCollapse (id_criteria,id_sub, 0).then(()=>{
-                            });
-                    }
-
-                    else {
-
-                        await checkCollapse(id_criteria,id_sub);
-
-                        if (opend !== "1")
-                        {
-                            let openedDiv = thisTab.getElementsByClassName('collapse show');
-
-                            //  document.getElementById("collapse"+id_open_criteria);
-                            if (openedDiv.length >0) {
-
-                                if (id_open_criteria == id_criteria) {
-                                    divCollapse.classList.toggle('show');
-
-                                } else {
-
-                                    openedDiv[0].classList.remove('show');
-                                    await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
-                                    });
-                                }
                             } else {
-                                divCollapse.classList.toggle('show');
+
+                                openedDiv[0].classList.remove('show');
+                                await updateCollapse(id_open_criteria, id_sub, 0).then(() => {
+                                });
                             }
-
-                            if (id_open_criteria != id_criteria) {
-                                divCollapse.classList.add('show');
-                            }
-
-                            //  closeCollapse (id_criteria,id_sub);
-                            //   divCollapse.classList.toggle("show");
-
-                            await collapseTable(id_criteria, divCardBody,id_sub);
-
-                            id_open_criteria = id_criteria;
-                            await updateCollapse (id_criteria,id_sub, getCookie("PHPSESSID"));
+                        } else {
+                            divCollapse.classList.toggle('show');
                         }
-                        else{
+
+                        if (id_open_criteria != id_criteria) {
+                            divCollapse.classList.add('show');
+                        }
+
+                        //  closeCollapse (id_criteria,id_sub);
+                        //   divCollapse.classList.toggle("show");
+
+                        await collapseTable(id_criteria, divCardBody, id_sub);
+
+                        id_open_criteria = id_criteria;
+                        await updateCollapse(id_criteria, id_sub, 0).then(() => {
+                        });
+                    } else {
+
+                        await checkCollapse(id_criteria, id_sub);
+
+                        if (opend !== "1") {
+                            let openedDiv = thisTab.getElementsByClassName('collapse show');
+
+                            //  document.getElementById("collapse"+id_open_criteria);
+                            if (openedDiv.length > 0) {
+
+                                if (id_open_criteria == id_criteria) {
+                                    divCollapse.classList.toggle('show');
+
+                                } else {
+
+                                    openedDiv[0].classList.remove('show');
+                                    await updateCollapse(id_open_criteria, id_sub, 0).then(() => {
+                                    });
+                                }
+                            } else {
+                                divCollapse.classList.toggle('show');
+                            }
+
+                            if (id_open_criteria != id_criteria) {
+                                divCollapse.classList.add('show');
+                            }
+
+                            //  closeCollapse (id_criteria,id_sub);
+                            //   divCollapse.classList.toggle("show");
+
+                            await collapseTable(id_criteria, divCardBody, id_sub);
+
+                            id_open_criteria = id_criteria;
+                            await updateCollapse(id_criteria, id_sub, getCookie("PHPSESSID"));
+                        } else {
                             alert("Открыто другим пользователем");
                         }
                     }
 
 
-
                 } else {
-                    if(isSavedMarks()) {
+                    if (isSavedMarks()) {
 
                         //   saveMarks(id_sub);
                         if (saveMarks(OpenSub, null, false) === false) {
                             return;
                         }
 
-                        if (divCollapse.classList.contains("show"))
-                        {
+                        if (divCollapse.classList.contains("show")) {
 
                             let openedDiv = thisTab.getElementsByClassName('collapse show');
 
                             //  document.getElementById("collapse"+id_open_criteria);
-                            if (openedDiv.length >0) {
+                            if (openedDiv.length > 0) {
 
                                 if (id_open_criteria == id_criteria) {
                                     divCollapse.classList.toggle('show');
@@ -1975,7 +1943,7 @@ async function createAccordionCards(id_sub) {
                                 } else {
 
                                     openedDiv[0].classList.remove('show');
-                                    await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
+                                    await updateCollapse(id_open_criteria, id_sub, 0).then(() => {
                                     });
                                 }
                             } else {
@@ -1989,22 +1957,19 @@ async function createAccordionCards(id_sub) {
                             //  closeCollapse (id_criteria,id_sub);
                             //   divCollapse.classList.toggle("show");
 
-                            await collapseTable(id_criteria, divCardBody,id_sub);
+                            await collapseTable(id_criteria, divCardBody, id_sub);
 
                             id_open_criteria = id_criteria;
-                            await updateCollapse (id_criteria,id_sub, 0).then(()=>{
+                            await updateCollapse(id_criteria, id_sub, 0).then(() => {
                             });
-                        }
+                        } else {
+                            await checkCollapse(id_criteria, id_sub);
 
-                        else {
-                            await checkCollapse(id_criteria,id_sub);
-
-                            if (opend !== "1")
-                            {
+                            if (opend !== "1") {
                                 let openedDiv = thisTab.getElementsByClassName('collapse show');
 
                                 //  document.getElementById("collapse"+id_open_criteria);
-                                if (openedDiv.length >0) {
+                                if (openedDiv.length > 0) {
 
                                     if (id_open_criteria == id_criteria) {
                                         divCollapse.classList.toggle('show');
@@ -2012,7 +1977,7 @@ async function createAccordionCards(id_sub) {
                                     } else {
 
                                         openedDiv[0].classList.remove('show');
-                                        await updateCollapse (id_open_criteria,id_sub, 0).then(()=>{
+                                        await updateCollapse(id_open_criteria, id_sub, 0).then(() => {
                                         });
 
                                     }
@@ -2027,12 +1992,11 @@ async function createAccordionCards(id_sub) {
                                 //  closeCollapse (id_criteria,id_sub);
                                 //   divCollapse.classList.toggle("show");
 
-                                await collapseTable(id_criteria, divCardBody,id_sub);
+                                await collapseTable(id_criteria, divCardBody, id_sub);
 
                                 id_open_criteria = id_criteria;
-                                updateCollapse (id_criteria,id_sub, getCookie("PHPSESSID"));
-                            }
-                            else{
+                                updateCollapse(id_criteria, id_sub, getCookie("PHPSESSID"));
+                            } else {
                                 alert("Открыто другим пользователем");
                             }
                         }
@@ -2059,9 +2023,7 @@ async function createAccordionCards(id_sub) {
 }
 
 
-async function collapseTable(id_criteria, divCardBody,id_sub) {
-
-
+async function collapseTable(id_criteria, divCardBody, id_sub) {
 
 
     marks_app.arClear();
@@ -2078,11 +2040,11 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
     let th1 = document.createElement('td');
     th1.innerHTML = 'Критерий';
     th1.style = "border: 1px solid black;width: 25%; text-align: center";
-/*
-    let th2 = document.createElement('td');
-    th2.innerHTML = 'Класс критерия';
-    th2.style = "border: 1px solid black;width: 5%;";
-*/
+    /*
+        let th2 = document.createElement('td');
+        th2.innerHTML = 'Класс критерия';
+        th2.style = "border: 1px solid black;width: 5%;";
+    */
     let th3 = document.createElement('td');
     th3.innerHTML = 'Сведения по самооценке ОЗ';
     th3.style = "border: 1px solid black;width: 10%; text-align: left";
@@ -2103,7 +2065,7 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
     trHead.appendChild(thNum);
 
     trHead.appendChild(th1);
-   // trHead.appendChild(th2);
+    // trHead.appendChild(th2);
     trHead.appendChild(th3);
     trHead.appendChild(th4);
     trHead.appendChild(th5);
@@ -2116,11 +2078,11 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
     let urlStr = '';
 
     if (Number(status) === 1) {
-        urlStr = "getMarkStatus1.php"
+        urlStr = "ajax/getMarkStatus1.php"
 
     } else {
 
-        urlStr = "getMarkStatus2.php"
+        urlStr = "ajax/getMarkStatus2.php"
 
     }
 
@@ -2144,12 +2106,12 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['mark_name'];
                 td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem;text-align:left;";
-/*
-                let td2 = document.createElement('td');
-                td2.innerHTML = item['mark_class'];
-                td2.style = "border: 1px solid black;text-align:center;";
-        */
-               let td3 = document.createElement('td');
+                /*
+                                let td2 = document.createElement('td');
+                                td2.innerHTML = item['mark_class'];
+                                td2.style = "border: 1px solid black;text-align:center;";
+                        */
+                let td3 = document.createElement('td');
                 //  td3.innerHTML = item['filed4'];
                 td3.style = "border: 1px solid black; ";
                 let divTd3 = document.createElement("div");
@@ -2199,7 +2161,7 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
 
                 tr.appendChild(tdNum);
                 tr.appendChild(td1);
-             //   tr.appendChild(td2);
+                //   tr.appendChild(td2);
                 tr.appendChild(td3);
 
                 tr.appendChild(td4);
@@ -2232,13 +2194,13 @@ async function collapseTable(id_criteria, divCardBody,id_sub) {
 }
 
 
-function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating, index,id_sub){
+function createSelectMark(id_criteria, id_mark, nameColumn, value, id_mark_rating, index, id_sub) {
     let newSelect = document.createElement('select');
     // newSelect.disabled =true;
-    let optEmpty  = document.createElement('option');
-    let opt1  = document.createElement('option');
-    let opt2  = document.createElement('option');
-    let opt3  = document.createElement('option');
+    let optEmpty = document.createElement('option');
+    let opt1 = document.createElement('option');
+    let opt2 = document.createElement('option');
+    let opt3 = document.createElement('option');
 
     optEmpty.value = null;
     optEmpty.text = '';
@@ -2254,7 +2216,9 @@ function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating
     newSelect.add(opt2);
     newSelect.add(opt3);
     let arr;
-    newSelect.onchange = ()=>{ChangeValue(id_criteria,id_mark, 'field4', newSelect.options.selectedIndex, id_mark_rating, index,id_sub) };
+    newSelect.onchange = () => {
+        ChangeValue(id_criteria, id_mark, 'field4', newSelect.options.selectedIndex, id_mark_rating, index, id_sub)
+    };
 
     if ((id_mark_rating !== null) && (value !== null)) {
         newSelect.selectedIndex = Number(value);
@@ -2262,23 +2226,23 @@ function createSelectMark(id_criteria,id_mark, nameColumn, value, id_mark_rating
 
     if (status == 1) {
     } else {
-        newSelect.setAttribute("disabled","");
+        newSelect.setAttribute("disabled", "");
     }
 
     nameColumn.appendChild(newSelect);
 }
 
-let arrChange= false;
+let arrChange = false;
 
 
-function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, index,id_sub) {
+function ChangeValue(id_criteria, id_mark, field_name, value, id_mark_rating, index, id_sub) {
 
     // arrChange.id_criteria = id_criteria;
     arrChange = true;
 
     marks_app.getArr().forEach((item, index) => {
-        if (Number(item['id_mark']) == id_mark ) {
-            marks_app.setValueByIndex([index],[field_name],value);
+        if (Number(item['id_mark']) == id_mark) {
+            marks_app.setValueByIndex([index], [field_name], value);
         }
     })
     //  console.log(marks_app.getArr());
@@ -2289,12 +2253,12 @@ function ChangeValue(id_criteria,id_mark, field_name, value, id_mark_rating, ind
     //return marks_app;
 }
 
-function  isSavedMarks(){
+function isSavedMarks() {
     //  console.log('check arrChange begin', arrChange);
 
     let tab1 = document.getElementById("tab1");
     let btnTab = tab1.children[0];
-    if(btnTab.classList.contains("active")) {
+    if (btnTab.classList.contains("active")) {
         arrChange = false;
         btnTab.removeAttribute("disabled");
     }
@@ -2304,7 +2268,7 @@ function  isSavedMarks(){
 
         //  console.log('res',res);
 
-        if(res == false){
+        if (res == false) {
             //   console.log('check arrChange before', arrChange);
             arrChange = false;
             //   console.log('check arrChange after', arrChange);
@@ -2321,31 +2285,31 @@ function  isSavedMarks(){
 let flagSave = true;
 
 
-function setDisabledOnChange(value){
-    
+function setDisabledOnChange(value) {
+
     let clickElel = document.getElementById('button1');
     let btnSaveInfoCriteriaMain = document.getElementById('btnSaveInfoCriteriaMain');
     let btnSaveInfoCriteria = document.getElementById('btnSaveInfoCriteria');
-    let divTab = document.getElementById('tab'+openTabId+"-");
+    let divTab = document.getElementById('tab' + openTabId + "-");
     let leftSide = divTab.getElementsByClassName('leftSide')[0];
 
     let inputs = leftSide.getElementsByClassName("form-check-input");
-     
+
     if (value == true) {
-        for(let item of inputs){
-            item.setAttribute("disabled","true");
+        for (let item of inputs) {
+            item.setAttribute("disabled", "true");
         }
         clickElel.setAttribute('disabled', "true");
-       if(btnSaveInfoCriteriaMain){
-        btnSaveInfoCriteriaMain.setAttribute('disabled', "true");
-       } 
+        if (btnSaveInfoCriteriaMain) {
+            btnSaveInfoCriteriaMain.setAttribute('disabled', "true");
+        }
         btnSaveInfoCriteria.setAttribute('disabled', "true");
     } else {
-        for(let item of inputs){
+        for (let item of inputs) {
             item.removeAttribute("disabled");
         }
         clickElel.removeAttribute('disabled');
-        if(btnSaveInfoCriteriaMain){
+        if (btnSaveInfoCriteriaMain) {
             btnSaveInfoCriteriaMain.removeAttribute('disabled');
         }
         btnSaveInfoCriteria.removeAttribute('disabled');
@@ -2353,35 +2317,34 @@ function setDisabledOnChange(value){
 }
 
 
-function validateDataMarks(){
+function validateDataMarks() {
     let result = true;
 
-    let vall = marks_app.getArr().filter(item =>  ((Number(item['field4'])===2) || (Number(item['field4'])===3)) &&
-        ((item['field6']=== null) || ((item['field6']!== null) && (item['field6'].trim()==''))) );
+    let vall = marks_app.getArr().filter(item => ((Number(item['field4']) === 2) || (Number(item['field4']) === 3)) &&
+        ((item['field6'] === null) || ((item['field6'] !== null) && (item['field6'].trim() == ''))));
 
-    let vall1 = marks_app.getArr().filter(item =>  ((Number(item['field4'])===1)) &&
-        ((item['field5']=== null) || ((item['field5']!== null) && (item['field5'].trim()==''))) );
+    let vall1 = marks_app.getArr().filter(item => ((Number(item['field4']) === 1)) &&
+        ((item['field5'] === null) || ((item['field5'] !== null) && (item['field5'].trim() == ''))));
 
     // let emptyVall = marks_app.getArr().filter(item =>  (Number(item['field4'])===0) );
 
     //  console.log(emptyVall);
 
-    let strNumMarks= '';
-    let strNumMarks1= '';
-    vall.map(item=>{
-        strNumMarks += '№'+ item['str_num']+', ';
+    let strNumMarks = '';
+    let strNumMarks1 = '';
+    vall.map(item => {
+        strNumMarks += '№' + item['str_num'] + ', ';
     })
 
-    vall1.map(item=>{
-        strNumMarks1 += '№'+ item['str_num']+', ';
+    vall1.map(item => {
+        strNumMarks1 += '№' + item['str_num'] + ', ';
     })
 
-    if(vall1.length > 0){
+    if (vall1.length > 0) {
         alert(`Данные не сохранены. Не заполнено поле "Документы и сведения" в критерии ${strNumMarks1}`);
-        flagSave= false;
+        flagSave = false;
         result = false;
-    }
-    else {
+    } else {
         if (vall.length > 0) {
             alert(`Данные не сохранены. Не заполнено поле "Примечание" в критерии ${strNumMarks}`);
             flagSave = false;
@@ -2401,7 +2364,7 @@ function validateDataMarks(){
 }
 
 
-function  saveMarks(id_sub, divCardBody, flag){
+function saveMarks(id_sub, divCardBody, flag) {
     console.log("opensub", id_sub);
     let arr = new Array();
     let id_application = document.getElementById("id_application");
@@ -2417,24 +2380,24 @@ function  saveMarks(id_sub, divCardBody, flag){
 
     let result = true;
 
-    if (validateDataMarks()===false) {
+    if (validateDataMarks() === false) {
         result = false;
-    } else  {
+    } else {
         $.ajax({
-            url: "saveMarks.php",
+            url: "ajax/saveMarks.php",
             method: "POST",
             data: {id_sub: id_sub, marks: arr, id_criteria: id_open_criteria, id_application: id_application.innerText}
         })
-            .done(async function( response ) {
+            .done(async function (response) {
                 alert("Сохранено!");
                 arrChange = false;
                 flagSave = true;
                 setDisabledOnChange(false);
                 showCriteriaMarksAfterSave(id_application.innerText, id_sub, id_open_criteria);
                 console.log('save ', flag);
-                if(flag === true){
+                if (flag === true) {
 
-                    await   collapseTable(id_open_criteria, divCardBody,id_sub)
+                    await collapseTable(id_open_criteria, divCardBody, id_sub)
                 }
                 // arrChange=false;
 
@@ -2446,17 +2409,18 @@ function  saveMarks(id_sub, divCardBody, flag){
     return result;
 
 }
+
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0 ; i < 4; i++) {
-        if(i!=0)
+    for (let i = 0; i < 4; i++) {
+        if (i != 0)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0; i < 4; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2468,15 +2432,15 @@ $("#home-tab").on("click", () => {
 
 $("#rassmotrenie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++) {
-        if(i!=1)
+    for (let i = 0; i < 4; i++) {
+        if (i != 1)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0; i < 4; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2489,15 +2453,15 @@ $("#rassmotrenie-tab").on("click", () => {
 
 $("#odobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++) {
-        if(i!=2)
+    for (let i = 0; i < 4; i++) {
+        if (i != 2)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0; i < 4; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2510,15 +2474,15 @@ $("#odobrennie-tab").on("click", () => {
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0 ; i < 4; i++) {
-        if(i!=3)
+    for (let i = 0; i < 4; i++) {
+        if (i != 3)
             allTabsMainPage[i].style = "display:none";
-        else{
+        else {
             allTabsMainPage[i].style = "display:block";
         }
     }
 
-    for (let i = 0 ; i < 4; i++){
+    for (let i = 0; i < 4; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2545,36 +2509,36 @@ $("#btnSend").on("click", async () => {
     let predstavitel = document.getElementById("predstavitel");
 
     let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
-    if(isSend) {
+    if (isSend) {
 
-        if(divSoprovodPismo.getElementsByTagName("a").length == 0 ||
+        if (divSoprovodPismo.getElementsByTagName("a").length == 0 ||
             divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
             divOrgStrukt.getElementsByTagName("a").length == 0 ||
             divFileReportSamoocenka.getElementsByTagName("a").length == 0
-        ){
+        ) {
             alert("Не все обязательные документы загружены! Заявление не отправлено.");
-        }else if(sokr.value.trim() === "" ||
+        } else if (sokr.value.trim() === "" ||
             unp.value.trim() === "" ||
             adress.value.trim() === "" ||
             tel.value.trim() === "" ||
             email.value.trim() === "" ||
             rukovoditel.value.trim() === "" ||
             predstavitel.value.trim() === ""
-        ){
+        ) {
             alert("Не все обязательные поля заполнены.");
 
-        }else {
+        } else {
             await $.ajax({
-                url: "checkEmptyCrits.php",
+                url: "ajax/checkEmptyCrits.php",
                 method: "GET",
                 data: {id_application: id_application.innerText}
             })
                 .done(async function (response) {
-                    if(response == 0) {
+                    if (response == 0) {
 
                         await printReport();
                         await $.ajax({
-                            url: "sendApp.php",
+                            url: "ajax/sendApp.php",
                             method: "GET",
                             data: {id_application: id_application.innerText}
                         })
@@ -2582,14 +2546,13 @@ $("#btnSend").on("click", async () => {
                                 if (response == "") {
                                     alert("Заявление отправлено");
                                     calcMarks();
-                                    collapseUpdateOpened(id_open_criteria,openTabId);
+                                    collapseUpdateOpened(id_open_criteria, openTabId);
                                     location.href = "/index.php?application";
                                 } else {
                                     alert(response);
                                 }
                             });
-                    }
-                    else{
+                    } else {
                         alert("Не выбраны критерии в подразделении.");
                     }
                 });
@@ -2598,13 +2561,12 @@ $("#btnSend").on("click", async () => {
 
 });
 
-$("#btnCalc").on("click",  () => {
+$("#btnCalc").on("click", () => {
     calcMarks();
 });
 
 $("#button1").on("click", (e) => {
     // let id_application = document.getElementById("id_application");
-
 
 
 });
@@ -2613,7 +2575,7 @@ async function calcMarks() {
     let id_application = document.getElementById("id_application");
     let criteriaMark = document.createElement('div');
     await $.ajax({
-        url: "getCalc.php",
+        url: "ajax/getCalc.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
@@ -2621,23 +2583,21 @@ async function calcMarks() {
     await checkActivCursor(id_application.innerText);
 
 
-
-
     await $.ajax({
-        url: "getCalcAppMark.php",
+        url: "ajax/getCalcAppMark.php",
         method: "GET",
         data: {id_application: id_application.innerText}
     })
-        .done(function( response ) {
+        .done(function (response) {
             let mainRightCard = document.getElementById("mainRightCard");
             mainRightCard.innerHTML = "";
             let marksSub = JSON.parse(response);
             criteriaMark.textContent += `Количественная самооценка ${marksSub['otmetka_all_count_yes']}/(${marksSub['otmetka_all_count_all']}-${marksSub['otmetka_all_count_not_need']}) = ${marksSub['otmetka_all']}%`;
-          /*  criteriaMark.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
-            criteriaMark.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
-            criteriaMark.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
-        */
-           mainRightCard.appendChild(criteriaMark);
+            /*  criteriaMark.textContent += `, По 1 классу ${marksSub['otmetka_class_1_count_yes']}/(${marksSub['otmetka_class_1_count_all']}-${marksSub['otmetka_class_1_count_not_need']}) = ${marksSub['otmetka_class_1']} %`;
+              criteriaMark.textContent += `, По 2 классу ${marksSub['otmetka_class_2_count_yes']}/(${marksSub['otmetka_class_2_count_all']}-${marksSub['otmetka_class_2_count_not_need']}) = ${marksSub['otmetka_class_2']} %`;
+              criteriaMark.textContent += `, По 3 классу ${marksSub['otmetka_class_3_count_yes']}/(${marksSub['otmetka_class_3_count_all']}-${marksSub['otmetka_class_3_count_not_need']}) = ${marksSub['otmetka_class_3']} %`;
+          */
+            mainRightCard.appendChild(criteriaMark);
         });
 }
 
@@ -2649,11 +2609,11 @@ function print() {
 
 
     $.ajax({
-        url: "getAppForPrint.php",
+        url: "ajax/getAppForPrint.php",
         method: "GET",
         data: {id_app: id_application}
     })
-        .done(function( response ) {
+        .done(function (response) {
             //  console.log(response);
             let tableForPrint = JSON.parse(response);
 
@@ -2663,7 +2623,7 @@ function print() {
             let naimText = naim.value;
             let unpText = unp.value;
 
-            var WinPrint = window.open('','','left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+            var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
 
             WinPrint.document.write('<style>@page {\n' +
                 'margin: 1rem;\n' +
@@ -2677,7 +2637,6 @@ function print() {
             let table = createTableForPrint(tableForPrint);
 
 
-
             WinPrint.document.write('<br/>');
             WinPrint.document.write(table.innerHTML);
 
@@ -2685,19 +2644,17 @@ function print() {
             WinPrint.document.close();
             WinPrint.focus();
             let naimOrg = document.getElementById("naim");
-            WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".","");
+            WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
             WinPrint.print();
             WinPrint.close();
 
         });
 
 
-
-
 }
 
 
-function createTableForPrint(tableForPrint){
+function createTableForPrint(tableForPrint) {
 
     let divPrintTable = document.createElement('div');
 
@@ -2722,24 +2679,23 @@ function createTableForPrint(tableForPrint){
     let thNum = document.createElement('th');
     thNum.innerHTML = '№ п/п';
     thNum.style = "border: 1px solid black";
-    thNum.setAttribute('rowspan','2');
+    thNum.setAttribute('rowspan', '2');
 
     let th1_Main = document.createElement('th');
     th1_Main.innerHTML = 'Критерий';
     th1_Main.style = "border: 1px solid black; ";
-    th1_Main.setAttribute('rowspan','2');
-/*
-    let th2_Main = document.createElement('th');
-    th2_Main.innerHTML = 'Класс критерия';
-    th2_Main.style = "border: 1px solid black";
-    th2_Main.setAttribute('rowspan','2');
-*/
+    th1_Main.setAttribute('rowspan', '2');
+    /*
+        let th2_Main = document.createElement('th');
+        th2_Main.innerHTML = 'Класс критерия';
+        th2_Main.style = "border: 1px solid black";
+        th2_Main.setAttribute('rowspan','2');
+    */
 
     let th3_Main = document.createElement('th');
     th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
     th3_Main.style = "border: 1px solid black; text-align: center";
-    th3_Main.setAttribute('colspan','3');
-
+    th3_Main.setAttribute('colspan', '3');
 
 
     let trHead = document.createElement('tr');
@@ -2759,7 +2715,7 @@ function createTableForPrint(tableForPrint){
 
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);
-  //  trHeadMain.appendChild(th2_Main);
+    //  trHeadMain.appendChild(th2_Main);
     trHeadMain.appendChild(th3_Main);
 
 
@@ -2774,13 +2730,12 @@ function createTableForPrint(tableForPrint){
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
-    numCriteria=0;
+    numCriteria = 0;
     numSub = 0;
     tableForPrint.map((item, index) => {
 
 
-
-        if(numSub !== item['id_subvision']) {
+        if (numSub !== item['id_subvision']) {
 
             let trNaimSub = document.createElement('tr');
             let tdNaimSub = document.createElement('td');
@@ -2793,81 +2748,73 @@ function createTableForPrint(tableForPrint){
 
         }
 
-        if((numCriteria !== item['id_criteria']) && (index !==0)) {
-                let trNaim = document.createElement('tr');
-                let tdNaim = document.createElement('td');
-                tdNaim.setAttribute('colspan','6');
-                tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
-                tdNaim.innerHTML = item['name_criteria'];
-                trNaim.appendChild(tdNaim);
-                tbody.appendChild(trNaim);
+        if ((numCriteria !== item['id_criteria']) && (index !== 0)) {
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '6');
+            tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+            tdNaim.innerHTML = item['name_criteria'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
 
 
+            let trHeadMain2 = document.createElement('tr');
 
-                let trHeadMain2 = document.createElement('tr');
+            let thNum = document.createElement('th');
+            thNum.innerHTML = '№ п/п';
+            thNum.style = "border: 1px solid black";
+            thNum.setAttribute('rowspan', '2');
 
-                let thNum = document.createElement('th');
-                thNum.innerHTML = '№ п/п';
-                thNum.style = "border: 1px solid black";
-                thNum.setAttribute('rowspan','2');
+            let th1_Main2 = document.createElement('td');
+            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.style = "border: 1px solid black";
+            th1_Main2.setAttribute('rowspan', '2');
+            /*
+                            let th2_Main2 = document.createElement('td');
+                            th2_Main2.innerHTML = 'Класс критерия';
+                            th2_Main2.style = "border: 1px solid black";
+                            th2_Main2.setAttribute('rowspan','2');
+            */
 
-                let th1_Main2 = document.createElement('td');
-                th1_Main2.innerHTML = 'Критерий';
-                th1_Main2.style = "border: 1px solid black";
-                th1_Main2.setAttribute('rowspan','2');
-/*
-                let th2_Main2 = document.createElement('td');
-                th2_Main2.innerHTML = 'Класс критерия';
-                th2_Main2.style = "border: 1px solid black";
-                th2_Main2.setAttribute('rowspan','2');
-*/
-
-                let th3_Main2 = document.createElement('td');
-                th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
-                th3_Main2.style = "border: 1px solid black; text-align: center";
-                th3_Main2.setAttribute('colspan','3');
-
+            let th3_Main2 = document.createElement('td');
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.style = "border: 1px solid black; text-align: center";
+            th3_Main2.setAttribute('colspan', '3');
 
 
+            let trHead2 = document.createElement('tr');
+            let th32 = document.createElement('td');
+            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.style = "border: 1px solid black";
 
-                let trHead2 = document.createElement('tr');
-                let th32 = document.createElement('td');
-                th32.innerHTML = 'Сведения по самооценке ОЗ';
-                th32.style = "border: 1px solid black";
-
-                let th42 = document.createElement('td');
-                th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-                th4.style = "width:350px; border: 1px solid black";
-
-
-                let th52 = document.createElement('td');
-                th52.innerHTML = 'Примечание';
-                th52.style = "border: 1px solid black";
+            let th42 = document.createElement('td');
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+            th4.style = "width:350px; border: 1px solid black";
 
 
-
-                trHeadMain2.appendChild(thNum);
-                trHeadMain2.appendChild(th1_Main2);
-          //      trHeadMain2.appendChild(th2_Main2);
-                trHeadMain2.appendChild(th3_Main2);
+            let th52 = document.createElement('td');
+            th52.innerHTML = 'Примечание';
+            th52.style = "border: 1px solid black";
 
 
-                tbody.appendChild(trHeadMain2);
-                trHead2.appendChild(th32);
-                trHead2.appendChild(th42);
-                trHead2.appendChild(th52);
-
-                tbody.appendChild(trHead2);
-            }
+            trHeadMain2.appendChild(thNum);
+            trHeadMain2.appendChild(th1_Main2);
+            //      trHeadMain2.appendChild(th2_Main2);
+            trHeadMain2.appendChild(th3_Main2);
 
 
+            tbody.appendChild(trHeadMain2);
+            trHead2.appendChild(th32);
+            trHead2.appendChild(th42);
+            trHead2.appendChild(th52);
+
+            tbody.appendChild(trHead2);
+        }
 
 
+        numCriteria = -1;
 
-
-        numCriteria =  -1;
-
-        if(item['id_criteria'] !== null) {
+        if (item['id_criteria'] !== null) {
 
             let tr = document.createElement('tr');
 
@@ -2878,11 +2825,11 @@ function createTableForPrint(tableForPrint){
             let td1 = document.createElement('td');
             td1.innerHTML = item['mark_name'];
             td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-/*
-            let td2 = document.createElement('td');
-            td2.innerHTML = item['mark_class'];
-            td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-*/
+            /*
+                        let td2 = document.createElement('td');
+                        td2.innerHTML = item['mark_class'];
+                        td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            */
             let td3 = document.createElement('td');
             td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
             td3.innerHTML = item['field4'];
@@ -2898,7 +2845,7 @@ function createTableForPrint(tableForPrint){
 
             tr.appendChild(tdNum);
             tr.appendChild(td1);
-        //    tr.appendChild(td2);
+            //    tr.appendChild(td2);
             tr.appendChild(td3);
 
             tr.appendChild(td4);
@@ -2920,40 +2867,40 @@ function createTableForPrint(tableForPrint){
 }
 
 
-function showCriteriaMarksAfterSave(id_application, id_sub, id_criteria){
+function showCriteriaMarksAfterSave(id_application, id_sub, id_criteria) {
 
-    let divCardHeaderMark = document.getElementById(id_sub +"divCardHeaderMark"+id_criteria);
+    let divCardHeaderMark = document.getElementById(id_sub + "divCardHeaderMark" + id_criteria);
 
     $.ajax({
-        url: "getReportCriteria.php",
+        url: "ajax/getReportCriteria.php",
         method: "GET",
         data: {id_application: id_application, id_sub: id_sub, id_criteria: id_criteria}
     })
-        .done(function( response ) {
+        .done(function (response) {
 
-            let criteriaMark ='';
+            let criteriaMark = '';
             let marksSub = JSON.parse(response);
 
             criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
-                + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] +'%';
-          /*  criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
-                + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
-            criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
-                + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
-            criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
-                + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
-*/
+                + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] + '%';
+            /*  criteriaMark += ' По 1 классу ' + marksSub['otmetka_class_1_count_yes'] + '/('
+                  + marksSub['otmetka_class_1_count_all'] + ' - ' + marksSub['otmetka_class_1_count_not_need'] + ') = ' + marksSub['otmetka_class_1'] +'%';
+              criteriaMark +=  ' По 2 классу ' + marksSub['otmetka_class_2_count_yes'] + '/('
+                  + marksSub['otmetka_class_2_count_all'] + ' - ' + marksSub['otmetka_class_2_count_not_need'] + ') = ' + marksSub['otmetka_class_2'] +'%';
+              criteriaMark +=  ' По 3 классу ' + marksSub['otmetka_class_3_count_yes'] + '/('
+                  + marksSub['otmetka_class_3_count_all'] + ' - ' + marksSub['otmetka_class_3_count_not_need'] + ') = ' + marksSub['otmetka_class_3'] +'%';
+  */
             divCardHeaderMark.innerHTML = criteriaMark;
 
 
         });
 }
 
-$("#soprPismo").on("change", () =>{
+$("#soprPismo").on("change", () => {
     let login = getCookie('login');
     let divSoprPismo = document.getElementById("divSoprovodPismo");
     let sopr = divSoprPismo.getElementsByTagName("a")[0];
-    if(sopr) {
+    if (sopr) {
         sopr.remove();
     }
     let soprPismo = document.getElementById("soprPismo");
@@ -2967,28 +2914,28 @@ $("#soprPismo").on("change", () =>{
     form.append("id_application", id_application.innerText);
     form.append("soprPismo", soprPismoFile);
 
-    xhr.open("post", "postFileSopr.php", true);
+    xhr.open("post", "ajax/postFileSopr.php", true);
     let soprPismodiv = document.getElementById("soprPismodiv");
-    if(soprPismodiv){
+    if (soprPismodiv) {
         soprPismodiv.remove();
     }
     let load = document.createElement("div");
     load.id = "soprPismodiv";
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         soprPismo.insertAdjacentElement("afterend", load);
     }
-    xhr.upload.onload = function() {
+    xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
     xhr.send(form);
 });
 
-$("#copyRaspisanie").on("change", async () =>{
+$("#copyRaspisanie").on("change", async () => {
     let login = getCookie('login');
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
-    if(copy) {
+    if (copy) {
         copy.remove();
     }
     let copyRasp = document.getElementById("copyRaspisanie");
@@ -3003,29 +2950,29 @@ $("#copyRaspisanie").on("change", async () =>{
     form.append("id_application", id_application.innerText);
     form.append("copyRasp", copyRaspFile);
 
-    xhr.open("post", "postFileCopyRasp.php", true);
+    xhr.open("post", "ajax/postFileCopyRasp.php", true);
     let copyRaspdiv = document.getElementById("copyRaspdiv");
-    if(copyRaspdiv){
+    if (copyRaspdiv) {
         copyRaspdiv.remove();
     }
     let load = document.createElement("div");
     load.id = "copyRaspdiv";
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = await function(event) {
+    xhr.upload.onprogress = await function (event) {
         copyRasp.insertAdjacentElement("afterend", load);
     }
-    xhr.upload.onload = function() {
+    xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
 
     }
     xhr.send(form);
 });
 
-$("#orgStrukt").on("change", () =>{
+$("#orgStrukt").on("change", () => {
     let login = getCookie('login');
     let divOrgStrukt = document.getElementById("divOrgStrukt");
     let sopr = divOrgStrukt.getElementsByTagName("a")[0];
-    if(sopr) {
+    if (sopr) {
         sopr.remove();
     }
     let orgStruct = document.getElementById("orgStrukt");
@@ -3039,28 +2986,28 @@ $("#orgStrukt").on("change", () =>{
     form.append("id_application", id_application.innerText);
     form.append("orgStruct", orgStructFile);
 
-    xhr.open("post", "postFileOrgStruct.php", true);
+    xhr.open("post", "ajax/postFileOrgStruct.php", true);
     let orgStructdiv = document.getElementById("orgStructdiv");
-    if(orgStructdiv){
+    if (orgStructdiv) {
         orgStructdiv.remove();
     }
     let load = document.createElement("div");
     load.id = "orgStructdiv";
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         orgStruct.insertAdjacentElement("afterend", load);
     }
-    xhr.upload.onload = function() {
+    xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
     xhr.send(form);
 });
 
-$("#ucomplect").on("change", () =>{
+$("#ucomplect").on("change", () => {
     let login = getCookie('login');
     let divUcomplect = document.getElementById("divUcomplect");
     let sopr = divUcomplect.getElementsByTagName("a")[0];
-    if(sopr) {
+    if (sopr) {
         sopr.remove();
     }
     let ucomplect = document.getElementById("ucomplect");
@@ -3074,29 +3021,29 @@ $("#ucomplect").on("change", () =>{
     form.append("id_application", id_application.innerText);
     form.append("ucomplect", ucomplectFile);
 
-    xhr.open("post", "postFileUcomplect.php", true);
+    xhr.open("post", "ajax/postFileUcomplect.php", true);
     let ucompletediv = document.getElementById("ucomplectdiv");
-    if(ucompletediv){
+    if (ucompletediv) {
         ucompletediv.remove();
     }
     let load = document.createElement("div");
     load.id = "ucomplectdiv";
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         ucomplect.insertAdjacentElement("afterend", load);
     }
-    xhr.upload.onload = function() {
+    xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
     xhr.send(form);
 
 });
 
-$("#techOsn").on("change", () =>{
+$("#techOsn").on("change", () => {
     let login = getCookie('login');
     let divTechOsn = document.getElementById("divTechOsn");
     let sopr = divTechOsn.getElementsByTagName("a")[0];
-    if(sopr) {
+    if (sopr) {
         sopr.remove();
     }
     let techOsn = document.getElementById("techOsn");
@@ -3110,31 +3057,31 @@ $("#techOsn").on("change", () =>{
     form.append("id_application", id_application.innerText);
     form.append("techOsn", techOsnFile);
 
-    xhr.open("post", "postFileTechOsn.php", true);
+    xhr.open("post", "ajax/postFileTechOsn.php", true);
     let techOsndiv = document.getElementById("techOsndiv");
-    if(techOsndiv){
+    if (techOsndiv) {
         techOsndiv.remove();
     }
     let load = document.createElement("div");
     load.id = "techOsndiv";
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         techOsn.insertAdjacentElement("afterend", load);
     }
-    xhr.upload.onload = function() {
+    xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
     xhr.send(form);
 });
 
-$("#reportSamoocenka").on("change", () =>{
+$("#reportSamoocenka").on("change", () => {
     let login = getCookie('login');
     // if(!login) {
     //     login = getCookie('login1');
     // }
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     let sopr = divFileReportSamoocenka.getElementsByTagName("a")[0];
-    if(sopr) {
+    if (sopr) {
         sopr.remove();
     }
     let reportSamoocenka = document.getElementById("reportSamoocenka");
@@ -3148,49 +3095,47 @@ $("#reportSamoocenka").on("change", () =>{
     form.append("id_application", id_application.innerText);
     form.append("reportSamoocenka", reportSamoocenkaFile);
 
-    xhr.open("post", "postFileReportSamoocenka.php", true);
+    xhr.open("post", "ajax/postFileReportSamoocenka.php", true);
     let reportSamoocenkadiv = document.getElementById("reportSamoocenkadiv");
-    if(reportSamoocenkadiv){
+    if (reportSamoocenkadiv) {
         reportSamoocenkadiv.remove();
     }
     let load = document.createElement("div");
     load.id = "reportSamoocenkadiv";
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         reportSamoocenka.insertAdjacentElement("afterend", load);
     }
-    xhr.upload.onload = function() {
+    xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
     xhr.send(form);
 });
 
 
-
-async function updateCollapse (id_criteria,id_sub, opend){
+async function updateCollapse(id_criteria, id_sub, opend) {
 
 
     $.ajax({
-        url: "updateCollapseFlag.php",
+        url: "ajax/updateCollapseFlag.php",
         method: "GET",
         data: {
             id_criteria: id_criteria,
             id_sub: id_sub,
             opend: opend
         },
-        success: function(response) {
-         //   console.log("апдейт");
+        success: function (response) {
+            //   console.log("апдейт");
         }
     });
 }
 
-async function checkCollapse(id_criteria,id_sub) {
-
+async function checkCollapse(id_criteria, id_sub) {
 
 
 // console.log('status',status);
     await $.ajax({
-        url: "selectCollapseFlag.php",
+        url: "ajax/selectCollapseFlag.php",
         method: "GET",
         data: {id_criteria: id_criteria, id_sub: id_sub}
     })
@@ -3199,7 +3144,7 @@ async function checkCollapse(id_criteria,id_sub) {
             opend = response;
         });
 
-   // console.log("do", opend);
+    // console.log("do", opend);
 
 }
 
@@ -3207,41 +3152,92 @@ window.addEventListener("beforeunload", async (event) => {
 
 
     event.preventDefault();
-    await collapseUpdateOpened(id_open_criteria,openTabId);
+    await collapseUpdateOpened(id_open_criteria, openTabId);
 
 });
 
 
+async function collapseUpdateOpened(id_crit, id_sub) {
 
-async function collapseUpdateOpened(id_crit, id_sub)
-{
+    let div = document.getElementById('tab' + id_sub + '-')
+    if (div) {
 
-    let div = document.getElementById('tab'+id_sub+'-')
-if (div) {
+        let tableCol = document.getElementById('collapse' + id_crit);
+        if (tableCol) {
 
-    let tableCol = document.getElementById('collapse'+id_crit);
-    if(tableCol){
-
-        await updateCollapse(id_crit, id_sub, 0);
-    }
-
-    /*
-    let collapseElement = div.getElementsByClassName('collapse');
-    let collapseElement2 = [...collapseElement];
-
-
-    let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true);
-
-    if (collapseElement3.length > 0) {
-        let elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
-        if (elementcrit) {
-            let idcrit = elementcrit.id.replace('collapse', '');
-            let id_criteria = parseInt(idcrit);
-            console.log("updateCollapse444",id_crit, id_sub);
             await updateCollapse(id_crit, id_sub, 0);
         }
+
+        /*
+        let collapseElement = div.getElementsByClassName('collapse');
+        let collapseElement2 = [...collapseElement];
+
+
+        let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true);
+
+        if (collapseElement3.length > 0) {
+            let elementcrit = document.querySelector('.collapse.show[id^="collapse"]');
+            if (elementcrit) {
+                let idcrit = elementcrit.id.replace('collapse', '');
+                let id_criteria = parseInt(idcrit);
+                console.log("updateCollapse444",id_crit, id_sub);
+                await updateCollapse(id_crit, id_sub, 0);
+            }
+        }
+    */
     }
-*/
-}
 }
 
+let tooltipElem;
+
+document.onmouseover = function (event) {
+    let target = event.target;
+
+    // если у нас есть подсказка...
+    let tooltipHtml = target.dataset.tooltip;
+    if (!tooltipHtml) return;
+
+    // ...создадим элемент для подсказки
+
+    tooltipElem = document.createElement('div');
+    tooltipElem.className = 'tooltip1';
+    tooltipElem.innerHTML = tooltipHtml;
+    let foot = document.getElementById("btnPrint");
+    foot.append(tooltipElem);
+
+    // спозиционируем его сверху от аннотируемого элемента (top-center)
+    let coords = target.getBoundingClientRect();
+
+    let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
+    if (left < 0) left = 0; // не заезжать за левый край окна
+
+    let top = coords.top - tooltipElem.offsetHeight - 5;
+    if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
+        top = coords.top + target.offsetHeight + 5;
+    }
+
+    tooltipElem.style.left = left + 'px';
+    tooltipElem.style.top = top + 'px';
+};
+
+document.onmouseout = function (e) {
+
+    if (tooltipElem) {
+        tooltipElem.remove();
+        tooltipElem = null;
+    }
+
+};
+
+let tabLink = document.querySelector('#home-tab');
+let tabPane = document.querySelector('#allApps');
+
+tabLink.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    // Проверяем, есть ли у вкладки класс 'active'
+    if (!tabPane.classList.contains('active')) {
+        // Если нет, то устанавливаем класс 'active'
+        tabPane.classList.add('active');
+    }
+});

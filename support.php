@@ -581,7 +581,7 @@
             }
 
             $.ajax({
-                url: "sendAnswer.php",
+                url: "ajax/sendAnswer.php",
                 method: "POST",
                 data: {id_question: id, answer: answer}
 
@@ -607,7 +607,7 @@
             }
 
             $.ajax({
-                url: "sendFaqAnswer.php",
+                url: "ajax/sendFaqAnswer.php",
                 method: "GET",
                 data: {id_question: id, question: question, answer: answer}
 
@@ -623,7 +623,7 @@
         function deleteFaqQuestion(id){
             if(confirm("Вопрос будет удален. Удалить?")) {
                 $.ajax({
-                    url: "deleteFaq.php",
+                    url: "ajax/deleteFaq.php",
                     method: "GET",
                     data: {id_question: id}
 
@@ -690,7 +690,7 @@
             console.log('asdasda ',quest, answ);
 
             $.ajax({
-                url: "addFaq.php",
+                url: "ajax/addFaq.php",
                 method: "GET",
                 data: {question: quest, answer: answ}
 

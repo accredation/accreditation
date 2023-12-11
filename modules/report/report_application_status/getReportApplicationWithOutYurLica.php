@@ -30,10 +30,11 @@ $query = "
 SELECT REPLACE(r.name, 'Аккредитация', '') as oblast_name, count(a.id_application) as app_count 
 FROM accreditation.applications a
 left outer join accreditation.users u on a.id_user=u.id_user
-left outer join accreditation.roles r on u.oblast=r.id_role
+left outer join uz uz on uz.id_uz=u.id_uz
+left outer join accreditation.roles r on uz.oblast=r.id_role
 where u.id_role=3 
-    and (('$id_type_org' = 0) or ('$id_type_org'<>0 and u.id_type='$id_type_org' ))
-    and (('$id_oblast' = 0) or ('$id_oblast'<>0 and u.oblast='$id_oblast' ))
+    and (('$id_type_org' = 0) or ('$id_type_org'<>0 and uz.id_type='$id_type_org' ))
+    and (('$id_oblast' = 0) or ('$id_oblast'<>0 and uz.oblast='$id_oblast' ))
     and (('$id_status' = 0) or ('$id_status'<>0 and a.id_status='$id_status' ))
     and ((('$id_status' <> 1) and ((a.date_send is null) or (a.date_send is not null and (a.date_send >= '$dateAccept' and a.date_send <= '$dateComplete'))))
     or (('$id_status' = 1) ))

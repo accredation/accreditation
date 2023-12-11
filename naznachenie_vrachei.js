@@ -28,7 +28,7 @@ function getCookie(cname) {
 function getUserId(id_user) {
 
     $.ajax({
-        url: "getUserId.php",
+        url: "ajax/getUserId.php",
         method: "POST",
         data: {id_user: id_user},
         success: function(response) {
@@ -73,7 +73,7 @@ function showModal(id_user){
     modal.classList.add("show");
    let mass = new Array();
     $.ajax({
-        url:"showCheckedcriteria.php",
+        url:"ajax/showCheckedcriteria.php",
         method:"POST",
         data:{id_user: this.id_user }
 
@@ -152,7 +152,7 @@ function saveCheckboxCriteria(el,criteriaId) {
         console.log("userId" , this.id_user , "criteriaId" , criteriaId);
 
         $.ajax({
-            url:"saveAllcriteria.php",
+            url:"ajax/saveAllcriteria.php",
             method:"POST",
             data:{id_user: this.id_user,
                 id_criteria: criteriaId}
@@ -163,7 +163,7 @@ function saveCheckboxCriteria(el,criteriaId) {
     } else {
         console.log("userId" , this.id_user , "criteriaId" , criteriaId);
         $.ajax({
-            url:"deleteAllcriteria.php",
+            url:"ajax/deleteAllcriteria.php",
             method:"POST",
             data:{id_user: this.id_user,
                 id_criteria: criteriaId}
@@ -181,7 +181,7 @@ function saveVrach(id_user) {
     //var userId = document.getElementById('id_user').innerText;
         console.log("usersId" , id_user );
         $.ajax({
-            url:"createVrach.php",
+            url:"ajax/createVrach.php",
             method:"POST",
             data:{id_users: id_user}
 
@@ -237,7 +237,7 @@ function deleteDoctor(id_user) {
     let isDelete = confirm("Выбранный врач-эксперт будет освобожден. Освободить?");
     if(isDelete) {
         $.ajax({
-            url: "deleteVrach.php",
+            url: "ajax/deleteVrach.php",
             method: "POST",
             data: {id_user: id_user}
 

@@ -48,7 +48,6 @@
 
 
 <link rel="stylesheet" href="naznachenie_vrachi.css">
-<?php if(isset($_COOKIE['login'])){?>
     <div class="content-wrapper">
         <div class="row" id="proBanner">
             <div class="col-12">
@@ -265,8 +264,5 @@
 
     <script src="/naznachenie_vrachei.js"></script>
 
-<?php }
-
-?>
 
 

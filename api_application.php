@@ -124,7 +124,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
                               <?php
                               $login = $_COOKIE['login'];
-                              $insertquery = "SELECT * FROM users WHERE login='$login'";
+                              $insertquery = "SELECT * FROM users WHERE login='$login' ";
 
                               $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
                               $username = "";
@@ -132,13 +132,15 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                               {
                                   $row = mysqli_fetch_assoc($rez);
                                   $id = $row['id_user'];
-                                  $username = $row['username'];
+                                  $id_uz = $row['id_uz'];
                               }
 
-                              $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                              $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and (id_status = 1 or id_status = 5)";
+                               left outer join uz uz on uz.id_uz=a.id_user
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where uz.id_uz='$id_uz' and (id_status = 1 or id_status = 5)";
                               $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                               for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                               ?>
@@ -154,8 +156,8 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                   <?php
 
                                       foreach ($data as $app) {
-
-                                          include "mainMark.php";
+                                          $username = $app['username'];
+                                          include "ajax/mainMark.php";
                                           $id_application = $app['app_id'];
                                           ?>
 
@@ -202,13 +204,15 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           {
                                               $row = mysqli_fetch_assoc($rez);
                                               $id = $row['id_user'];
-                                              $username = $row['username'];
+
                                           }
 
-                                          $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                          $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status in (2,3)";
+                               left outer join uz uz on uz.id_uz=a.id_user
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where uz.id_uz='$id_uz' and id_status in (2,3)";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
@@ -224,7 +228,8 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               <?php
 
                                               foreach ($data as $app) {
-                                                  include "mainMark.php";
+                                                  $username = $app['username'];
+                                                  include "ajax/mainMark.php";
                                                   ?>
 
                                                   <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
@@ -265,18 +270,20 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           $insertquery = "SELECT * FROM users WHERE login='$login'";
 
                                           $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-                                          $username = "";
+
                                           if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                                           {
                                               $row = mysqli_fetch_assoc($rez);
                                               $id = $row['id_user'];
-                                              $username = $row['username'];
+
                                           }
 
-                                          $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                          $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 7";
+                               left outer join uz uz on uz.id_uz=a.id_user
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where uz.id_uz='$id_uz' and id_status = 7";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
@@ -292,7 +299,8 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               <?php
 
                                               foreach ($data as $app) {
-                                                  include "mainMark.php";
+                                                  $username = $app['username'];
+                                                  include "ajax/mainMark.php";
                                                    /*<?= $str_CalcSelfMarkAccred ?>*/ // второй параметр для showModal
                                                   ?>
                                                                 
@@ -334,18 +342,19 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           $insertquery = "SELECT * FROM users WHERE login='$login'";
 
                                           $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-                                          $username = "";
+
                                           if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                                           {
                                               $row = mysqli_fetch_assoc($rez);
                                               $id = $row['id_user'];
-                                              $username = $row['username'];
                                           }
 
-                                          $query = "SELECT a.*, u.username, ram.*, a.id_application as app_id
+                                          $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
-                                left outer join users u on a.id_user =u.id_user where a.id_user='$id' and id_status = 5";
+                               left outer join uz uz on uz.id_uz=a.id_user
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where uz.id_uz='$id_uz' and id_status = 5";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
@@ -362,7 +371,8 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                               <?php
 
                                               foreach ($data as $app) {
-                                                  include "mainMark.php";
+                                                  $username = $app['username'];
+                                                  include "ajax/mainMark.php";
                                                   /*<?= $str_CalcSelfMarkAccred ?>*/ // второй параметр для showModal
                                                   ?>
 
@@ -399,10 +409,19 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
         <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Создание заявления</h4>
-                <h4 id="id_application"></h4>
-                <button type="button" class="btn  btn-danger btn-close closeX" data-bs-dismiss="modal">x</button>
+            <div class="modal-header" >
+                <div style="display: flex">
+                    <h4 class="modal-title">Создание заявления</h4>
+                    <h4 id="id_application" style="margin-left: 5px"></h4>
+                </div>
+
+                <div style="display: flex">
+                    <div style="margin-right: 1rem; margin-top: 10px;">
+                        <h5 style="display: contents;" id="timeLeftSession"></h5>
+                    </div>
+
+                    <button type="button" class="btn  btn-danger btn-close  closeX"  data-bs-dismiss="modal">x</button>
+                </div>
             </div>
 
             <!-- Modal body -->
@@ -567,18 +586,6 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
  </div>
 </div>
 
-<script>
-
- $(document).ready(function () {
-
-     // var files;
-     // $('#pril1').change(function(){
-     //     files = this.files;
-     // });
-
-
- });
-</script>
 
 
 
@@ -588,59 +595,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <script src="dist/js/formApplication.js"></script>
 
 <script>
-    let tooltipElem;
 
-    document.onmouseover = function(event) {
-        let target = event.target;
-
-        // если у нас есть подсказка...
-        let tooltipHtml = target.dataset.tooltip;
-        if (!tooltipHtml) return;
-
-        // ...создадим элемент для подсказки
-
-        tooltipElem = document.createElement('div');
-        tooltipElem.className = 'tooltip1';
-        tooltipElem.innerHTML = tooltipHtml;
-        let foot = document.getElementById("btnPrint");
-        foot.append(tooltipElem);
-
-        // спозиционируем его сверху от аннотируемого элемента (top-center)
-        let coords = target.getBoundingClientRect();
-
-        let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
-        if (left < 0) left = 0; // не заезжать за левый край окна
-
-        let top = coords.top - tooltipElem.offsetHeight - 5;
-        if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
-            top = coords.top + target.offsetHeight + 5;
-        }
-
-        tooltipElem.style.left = left + 'px';
-        tooltipElem.style.top = top + 'px';
-    };
-
-    document.onmouseout = function(e) {
-
-        if (tooltipElem) {
-            tooltipElem.remove();
-            tooltipElem = null;
-        }
-
-    };
-
-    let tabLink = document.querySelector('#home-tab');
-    let tabPane = document.querySelector('#allApps');
-
-    tabLink.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        // Проверяем, есть ли у вкладки класс 'active'
-        if (!tabPane.classList.contains('active')) {
-            // Если нет, то устанавливаем класс 'active'
-            tabPane.classList.add('active');
-        }
-    });
 </script>
 
 <?php } else { ?>

@@ -224,19 +224,19 @@
                                       SELECT count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status > 1) and otmetka_all<26) as count25,(
+                                      where (id_status > 1) and otmetka_all<71) as count25,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status > 1) and otmetka_all>25 and otmetka_all<51) as count50,(
+                                      where (id_status > 1) and otmetka_all>70 and otmetka_all<81) as count50,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status >1) and otmetka_all>50 and otmetka_all<76) as count75,(
+                                      where (id_status >1) and otmetka_all>80 and otmetka_all<91) as count75,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status >1) and otmetka_all>75) as count100,(
+                                      where (id_status >1) and otmetka_all>90) as count100,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
@@ -293,19 +293,19 @@
                                       SELECT count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all<26) as count25,(
+                                      where id_status = 4 and otmetka_accred_all<71) as count25,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all>25 and otmetka_accred_all<51) as count50,(
+                                      where id_status = 4 and otmetka_accred_all>70 and otmetka_accred_all<81) as count50,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all>50 and otmetka_accred_all<76) as count75,(
+                                      where id_status = 4 and otmetka_accred_all>80 and otmetka_accred_all<91) as count75,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all>75) as count100,(
+                                      where id_status = 4 and otmetka_accred_all>90) as count100,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
@@ -396,7 +396,6 @@
     <div class="row">
 
         <?php
-        include "connection.php";
         $query = "SELECT *
 FROM news
 ORDER BY id_news DESC
@@ -510,7 +509,7 @@ function saveNews() {
     let newsDate = document.getElementById("newsDate").value;
 
     $.ajax({
-        url:"createNews.php",
+        url:"ajax/createNews.php",
         method:"POST",
         data:{newsContent: newsContent , newsDate:newsDate}
 
