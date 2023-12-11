@@ -1,6 +1,6 @@
 <?php
 
-include "../../../connection.php";
+include "../../../ajax/connection.php";
 
 $id_oblast = $_GET['id_oblast'];
 $id_status = $_GET['id_status'];

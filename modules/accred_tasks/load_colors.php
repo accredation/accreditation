@@ -1,5 +1,5 @@
 <?php
-include '../../connection.php';
+include '../../ajax/connection.php';
 
 $query = "SELECT id_application as appId, color_app as color FROM applications where id_status in (3,4)";
 $result = mysqli_query($con, $query) or die(mysqli_error($con));

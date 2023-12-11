@@ -1,6 +1,6 @@
 <?php
 
-include "../../connection.php";
+include "../../ajax/connection.php";
 
 $id_application = $_POST['id_application'];
 $date_accept = $_POST['date_accept'];

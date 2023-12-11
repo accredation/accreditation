@@ -1,6 +1,6 @@
 <?php
 
-include "../../../connection.php";
+include "../../../ajax/connection.php";
 
 $id_status = $_GET['id_status'];
 $dateAccept = $_GET['dateAccept'];

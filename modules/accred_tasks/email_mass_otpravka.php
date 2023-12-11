@@ -1,5 +1,5 @@
 <?php
-include "../../connection.php";
+include "../../ajax/connection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userIds = $_POST['userIds'] ?? '';

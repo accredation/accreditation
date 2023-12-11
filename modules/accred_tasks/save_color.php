@@ -1,5 +1,5 @@
 <?php
-include '../../connection.php';
+include '../../ajax/connection.php';
 
 $app_id = $_POST['app_id'];
 $color = $_POST['color'];

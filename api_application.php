@@ -108,6 +108,9 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                     <li class="nav-item">
                       <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">На доработке</a>
                     </li>
+                      <li class="nav-item">
+                          <a class="nav-link" id="archive-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Архив</a>
+                      </li>
                   </ul>
                   <div class="d-md-block d-none">
 <!--                    <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
@@ -381,6 +384,76 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
                                                       <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
                                                       <td><?= $app['dateInputDorabotki'] ?></td>
+
+                                                  </tr>
+                                                  <?php
+                                              }
+                                              ?>
+
+                                              </tbody>
+
+                                          </table>
+
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+                  <div class="tab-content tab-transparent-content">
+                      <div class="tab-pane fade" id="archive" role="tabpanel" aria-labelledby="archive-tab">
+                          <div class="row">
+                              <div class="col-12 grid-margin">
+                                  <div class="card">
+                                      <div class="card-body">
+
+                                          <?php
+                                          $login = $_COOKIE['login'];
+                                          $insertquery = "SELECT * FROM users WHERE login='$login'";
+
+                                          $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+                                          $username = "";
+                                          if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                          {
+                                              $row = mysqli_fetch_assoc($rez);
+                                              $id = $row['id_user'];
+
+                                          }
+
+                                          $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               left outer join uz uz on uz.id_uz=a.id_user
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where uz.id_uz='$id_uz' and id_status in (8)";
+                                          $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                          for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                          ?>
+
+                                          <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                              <thead>
+                                              <tr>
+                                                  <th>Заявления</th>
+
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              <?php
+
+                                              foreach ($data as $app) {
+                                                  $username = $app['username'];
+                                                  include "ajax/mainMark.php";
+                                                  ?>
+
+                                                  <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+
+
+                                                      <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
+
+
 
                                                   </tr>
                                                   <?php

@@ -1,6 +1,6 @@
 <?php
 
-include "../../connection.php";
+include "../../ajax/connection.php";
 
 $id_application = $_GET['id_application'];
 $query = "SELECT * FROM applications, users WHERE id_application='$id_application' and applications.id_user=users.id_user ";

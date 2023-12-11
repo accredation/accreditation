@@ -1,6 +1,6 @@
 <?php
 
-include "../../connection.php";
+include "../../ajax/connection.php";
 
 $id_application = $_GET['id_application'];
 $id_user = $_COOKIE['id_user'];
