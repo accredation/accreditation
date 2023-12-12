@@ -1,8 +1,3 @@
-// let tab1 = document.getElementById("tab-1");
-// let tab2 = document.getElementById("tab-2");
-// let tab3 = document.getElementById("tab-3");
-// let tab4 = document.getElementById("tab-4");
-// let tab5 = document.getElementById("tab-5");
 
 let data_old = new Array();
 
@@ -109,7 +104,7 @@ async function showTab(element, id_sub) {
 
                 }
 
-                let data_main = new Array();
+                let data_main;
                 data_main = data.filter(item => item[2] == '1');
 
                 let divFormGroup = document.createElement("div");

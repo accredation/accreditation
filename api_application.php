@@ -165,7 +165,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           ?>
 
 
-                                          <tr onclick="showModal('<?= $app['app_id'] ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                          <tr onclick="newShowModal('<?= $app['app_id'] ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
 
 
 
@@ -544,7 +544,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 
 
 
-                                            <button class="btn-inverse-info" onclick="addTab()" id="addtab">+ добавить обособленное структурное подразделение</button>
+                                            <button class="btn-inverse-info" onclick="newAddTab()" id="addtab">+ добавить обособленное структурное подразделение</button>
                                             <br/>
                                             <br/>
 
@@ -666,6 +666,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formApplication.js"></script>
+<script src="dist/js/newFormApplication.js"></script>
 
 <script>
 
