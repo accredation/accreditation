@@ -770,7 +770,7 @@ async function newShowTab(element, id_sub) {
             row.appendChild(divFormGroup4);
             divFormGroup4.onclick = () => {
                 let group4 = document.getElementsByClassName("group4");
-                console.log(group4);
+
                 [...group4].forEach(item => {
                     if (item.classList.contains("hiddentab"))
                         item.classList.remove("hiddentab");
@@ -819,8 +819,6 @@ async function newShowTab(element, id_sub) {
 
 
             createAccordionCards(id_sub);
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus + ": " + errorThrown);
         }).then(async ()=>{
             await $.ajax({
                 url: "ajax/newGetActiveListTables.php",
@@ -828,7 +826,7 @@ async function newShowTab(element, id_sub) {
                 data: {id_sub: id_sub}
             }).then( function (response) {
                 let activeTables = JSON.parse(response);
-                console.log(activeTables);
+
                 let numTab = document.getElementById("tab"+id_sub+"-")
                 activeTables.forEach(item => {
 
@@ -846,7 +844,6 @@ async function newShowTab(element, id_sub) {
                             [...formButton].forEach(item2 => {
                                 item2.removeAttribute("disabled");
                             })
-
                         }
                     }
                     else{
@@ -856,10 +853,9 @@ async function newShowTab(element, id_sub) {
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 alert("Некоторые элементы не были дозагружены, Дождитесь загрузки, либо обновите страницу");
             })
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus + ": " + errorThrown);
         })
-
-
-
 
 
 
@@ -1009,7 +1005,7 @@ function newGetTabs(name, id_sub) {
 function newAddTab() {
     let nameTab = prompt("Введите название структурного подразделения");
 
-    //console.log('nameTab',nameTab);
+
 
     if (nameTab !== null) {
         if (nameTab.trim() !== '') {
@@ -1023,7 +1019,7 @@ function newAddTab() {
             })
                 .done(function (response) {
                     let id = response;
-                    //   console.log(nameTab + " " + id);
+
                     newGetTabs(nameTab, id);
                 });
         } else {
@@ -1040,7 +1036,6 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {
     let check = inputCheck.checked === true ? 1 : 0;
     let str =  inputCheck.id;
     let id_list_tables_criteria = str.replace(/\D/g, ''); // Удаление всех символов, кроме цифр
-    console.log(id_list_tables_criteria);
 
 
     if (inputCheck.checked === true) {
@@ -1053,35 +1048,41 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {
             item.removeAttribute("disabled");
         })
 
-    } else {
-        [...formCheckInput].forEach(item => {
-            if (item.checked === false) {
-                item.removeAttribute("disabled");
-            }
-        });
-        [...formButton].forEach(item => {
-            item.setAttribute("disabled", true);
+        $.ajax({
+            url: "ajax/saveListTablesCheckbox.php",
+            method: "GET",
+            data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria , check:check}
         })
-     if (confirm("Осторожно! Все таблицы отделений будут удалены. Вы уверены, что хотите удалить?")) {
-         $.ajax({
-             url: "ajax/deleteListTablesCheckbox.php",
-             method: "GET",
-             data: {id_sub: openTabId}
-         })
-             .done(function (response) {
+            .done(function (response) {
 
-             });
-     }
+            });
+
+    } else {
+
+        if (confirm("Осторожно! Все таблицы отделений будут удалены. Вы уверены, что хотите удалить?")) {
+            console.log(openTabId);
+            $.ajax({
+                url: "ajax/deleteListTablesCheckbox.php",
+                method: "GET",
+                data: {id_sub: openTabId}
+            })
+                .done(function (response) {
+
+                });
+            [...formCheckInput].forEach(item => {
+                if (item.checked === false) {
+                    item.removeAttribute("disabled");
+                }
+            });
+            [...formButton].forEach(item => {
+                item.setAttribute("disabled", true);
+            })
+        }else{
+            inputCheck.checked = true;
+        }
 
     }
-    $.ajax({
-        url: "ajax/saveListTablesCheckbox.php",
-        method: "GET",
-        data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria , check:check}
-    })
-        .done(function (response) {
 
-        });
 }
 
 function buttonSelected(inputCheck) {
