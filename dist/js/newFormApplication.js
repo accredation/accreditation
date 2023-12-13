@@ -847,7 +847,8 @@ async function newShowTab(element, id_sub) {
                         }
                     }
                     else{
-                        // обработать кнопки
+                        let coun = item.coun == null ? 0 : item.coun;
+                        checkB.innerHTML += ": " + coun;
                     }
                 })
             }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -1060,7 +1061,6 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {
     } else {
 
         if (confirm("Осторожно! Все таблицы отделений будут удалены. Вы уверены, что хотите удалить?")) {
-            console.log(openTabId);
             $.ajax({
                 url: "ajax/deleteListTablesCheckbox.php",
                 method: "GET",
@@ -1092,7 +1092,6 @@ function buttonSelected(inputCheck) {
     {
         let str =  inputCheck.id;
         let id_list_tables_criteria = str.replace(/\D/g, ''); // Удаление всех символов, кроме цифр
-        console.log(id_list_tables_criteria);
 
         $.ajax({
             url: "ajax/saveListTables.php",
@@ -1101,6 +1100,16 @@ function buttonSelected(inputCheck) {
         })
             .done(function (response) {
            alert("Добавлено отделение");
+                let number;
+                let incrementedNumber;
+                let buttonText = inputCheck.textContent;
+                if (buttonText.includes(":")) {
+                   number = parseInt(buttonText.split(":")[1].trim());
+                    let incrementedNumber = number + 1;
+                    inputCheck.textContent = buttonText.replace(number, incrementedNumber);
+                } else {
+                    inputCheck.textContent = buttonText + ": 1";
+                }
             });
     }
     else {
