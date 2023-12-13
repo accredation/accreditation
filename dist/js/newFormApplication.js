@@ -829,12 +829,15 @@ async function newShowTab(element, id_sub) {
             }).then( function (response) {
                 let activeTables = JSON.parse(response);
                 console.log(activeTables);
+                let numTab = document.getElementById("tab"+id_sub+"-")
                 activeTables.forEach(item => {
 
-                    let checkB = document.getElementById("checkbox"+item.id_list_tables);
+                    let checkB = numTab.querySelector("#checkbox" + item.id_list_tables);
+
                     if(item.lev === "1"){
-                        if(item.coun == "1") {
+                        if(item.coun == 1) {
                             checkB.checked = true;
+                            checkB.removeAttribute("disabled");
                             [...formCheckInput].forEach(item1 => {
                                 if (item1.checked === false) {
                                     item1.setAttribute("disabled", true);
@@ -843,15 +846,19 @@ async function newShowTab(element, id_sub) {
                             [...formButton].forEach(item2 => {
                                 item2.removeAttribute("disabled");
                             })
-                            checkB.removeAttribute("disabled");
+
                         }
                     }
                     else{
                         // обработать кнопки
                     }
                 })
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert("Некоторые элементы не были дозагружены, Дождитесь загрузки, либо обновите страницу");
             })
         })
+
+
 
 
 
