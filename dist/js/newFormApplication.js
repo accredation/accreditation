@@ -1,4 +1,3 @@
-
 function newShowModal(id_application, strMarks, strMarksAccred) {
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
@@ -522,7 +521,6 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
 async function newShowTab(element, id_sub) {
 
 
-
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
     let mainSearch = document.getElementById("tab1");
@@ -605,8 +603,9 @@ async function newShowTab(element, id_sub) {
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style.textAlign = "left";
-                    labelCheck.setAttribute("for", "checkbox" + idType1Data[i].id);
+                    // labelCheck.setAttribute("for", "checkbox" + idType1Data[i].id);
                     labelCheck.innerHTML = idType1Data[i].name === undefined ? "" : idType1Data[i].name;
+                    console.log(inputCheck);
                     inputCheck.onclick = () => {
                         toggleActiveCheckbox(inputCheck, formCheckInput, formButton)
                     };
@@ -617,7 +616,7 @@ async function newShowTab(element, id_sub) {
                     inputCheck.className = "form-button";
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
-                       buttonSelected(inputCheck)
+                        buttonSelected(inputCheck)
                     };
                     inputCheck.setAttribute("id", "checkbox" + idType1Data[i].id);
                     inputCheck.innerHTML = idType1Data[i].name === undefined ? "" : idType1Data[i].name;
@@ -667,7 +666,7 @@ async function newShowTab(element, id_sub) {
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style.textAlign = "left";
-                    labelCheck.setAttribute("for", "checkbox" + idType2Data[i].id);
+                    // labelCheck.setAttribute("for", "checkbox" + idType2Data[i].id);
                     let condition = idType2Data[i].name === undefined ? "" : idType2Data[i].name;
                     labelCheck.innerHTML = condition;
                     inputCheck.onclick = () => {
@@ -729,7 +728,7 @@ async function newShowTab(element, id_sub) {
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style.textAlign = "left";
-                    labelCheck.setAttribute("for", "checkbox" + idType3Data[i].id);
+                    // labelCheck.setAttribute("for", "checkbox" + idType3Data[i].id);
                     let condition = idType3Data[i].name === undefined ? "" : idType3Data[i].name;
                     labelCheck.innerHTML = condition;
                     inputCheck.onclick = () => {
@@ -793,7 +792,7 @@ async function newShowTab(element, id_sub) {
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style.textAlign = "left";
-                    labelCheck.setAttribute("for", "checkbox" + idType4Data[i].id);
+                    // labelCheck.setAttribute("for", "checkbox" + idType4Data[i].id);
                     let condition = idType4Data[i].name === undefined ? "" : idType4Data[i].name;
                     labelCheck.innerHTML = condition;
                     inputCheck.onclick = () => {
@@ -819,21 +818,21 @@ async function newShowTab(element, id_sub) {
 
 
             createAccordionCards(id_sub);
-        }).then(async ()=>{
+        }).then(async () => {
             await $.ajax({
                 url: "ajax/newGetActiveListTables.php",
                 method: "GET",
                 data: {id_sub: id_sub}
-            }).then( function (response) {
+            }).then(function (response) {
                 let activeTables = JSON.parse(response);
 
-                let numTab = document.getElementById("tab"+id_sub+"-")
+                let numTab = document.getElementById("tab" + id_sub + "-")
                 activeTables.forEach(item => {
 
                     let checkB = numTab.querySelector("#checkbox" + item.id_list_tables);
 
-                    if(item.lev === "1"){
-                        if(item.coun == 1) {
+                    if (item.lev === "1") {
+                        if (item.coun == 1) {
                             checkB.checked = true;
                             checkB.removeAttribute("disabled");
                             [...formCheckInput].forEach(item1 => {
@@ -845,8 +844,7 @@ async function newShowTab(element, id_sub) {
                                 item2.removeAttribute("disabled");
                             })
                         }
-                    }
-                    else{
+                    } else {
                         let coun = item.coun == null ? 0 : item.coun;
                         checkB.innerHTML += ": " + coun;
                     }
@@ -858,42 +856,10 @@ async function newShowTab(element, id_sub) {
             console.log(textStatus + ": " + errorThrown);
         })
 
-
-
-        let submark = document.getElementById("subMark" + id_sub);
-        if (submark) {
-            submark.remove();
-        }
-        let calcSubMark = document.createElement('div');
-        calcSubMark.id = "subMark" + id_sub;
-        calcSubMark.style = "text-align: right";
-        calcSubMark.classList.add('subMark');
-        let id_application = document.getElementById("id_application").innerText;
-        let calcRow = document.getElementById("tab" + id_sub + "-");
-        $.ajax({
-            url: "ajax/getCalcSubMark.php",
-            method: "GET",
-            data: {id_application: id_application, id_sub: id_sub}
-        })
-            .done(function (response) {
-
-                let criteriaMark = '';
-                if (response !== "0") {
-                    let marksSub = JSON.parse(response);
-
-                    criteriaMark = criteriaMark + 'Количественная самооценка ' + marksSub['otmetka_all_count_yes'] + '/('
-                        + marksSub['otmetka_all_count_all'] + ' - ' + marksSub['otmetka_all_count_not_need'] + ') = ' + marksSub['otmetka_all'] + '%';
-
-                    calcSubMark.innerHTML = criteriaMark;
-
-                    calcRow.appendChild(calcSubMark);
-                }
-
-            });
     }
 }
 
-function newGetTabs(name, id_sub) {
+function newGetTabs(name, id_sub) {   // создание subvision и cardBody
 
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
@@ -1003,9 +969,8 @@ function newGetTabs(name, id_sub) {
 
 }
 
-function newAddTab() {
+function newAddTab() {    // добавление subvision
     let nameTab = prompt("Введите название структурного подразделения");
-
 
 
     if (nameTab !== null) {
@@ -1033,13 +998,14 @@ function newAddTab() {
 
 }
 
-function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {
+function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // добавление таблицы по чекбоксу
+
     let check = inputCheck.checked === true ? 1 : 0;
-    let str =  inputCheck.id;
+    let str = inputCheck.id;
     let id_list_tables_criteria = str.replace(/\D/g, ''); // Удаление всех символов, кроме цифр
 
 
-    if (inputCheck.checked === true) {
+    if (check == 1) {
         [...formCheckInput].forEach(item => {
             if (item.checked === false) {
                 item.setAttribute("disabled", true);
@@ -1052,9 +1018,15 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {
         $.ajax({
             url: "ajax/saveListTablesCheckbox.php",
             method: "GET",
-            data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria , check:check}
+            data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria, check: check}
         })
             .done(function (response) {
+                // ОТОБРАЖЕНИЕ таблиц критериев по нажатию на чекбокс
+                let numTab = document.getElementById("tab" + openTabId + "-")
+
+                let rightCard = numTab.querySelector("#cardRight");
+                let cardForAdding = rightCard.children[0].children[0];
+                cardForAdding.insertAdjacentHTML("afterbegin",response);
 
             });
 
@@ -1077,7 +1049,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {
             [...formButton].forEach(item => {
                 item.setAttribute("disabled", true);
             })
-        }else{
+        } else {
             inputCheck.checked = true;
         }
 
@@ -1085,34 +1057,47 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {
 
 }
 
-function buttonSelected(inputCheck) {
+function buttonSelected(inputCheck) {  // добавление отделений (кнопки) - добавление таблиц отделений по кнопкам
 
     let department = prompt("Введите названия отделения");
-    if (department !== undefined && department.trim() !== '' )
-    {
-        let str =  inputCheck.id;
+    if (department !== undefined && department.trim() !== '') {
+        let str = inputCheck.id;
         let id_list_tables_criteria = str.replace(/\D/g, ''); // Удаление всех символов, кроме цифр
 
         $.ajax({
             url: "ajax/saveListTables.php",
             method: "GET",
-            data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria , department:department}
+            data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria, department: department}
         })
             .done(function (response) {
-           alert("Добавлено отделение");
+                alert("Добавлено отделение");
                 let number;
                 let incrementedNumber;
                 let buttonText = inputCheck.textContent;
                 if (buttonText.includes(":")) {
-                   number = parseInt(buttonText.split(":")[1].trim());
+                    number = parseInt(buttonText.split(":")[1].trim());
                     let incrementedNumber = number + 1;
                     inputCheck.textContent = buttonText.replace(number, incrementedNumber);
                 } else {
                     inputCheck.textContent = buttonText + ": 1";
                 }
-            });
-    }
-    else {
+                let numTab = document.getElementById("tab" + openTabId + "-")
 
+                let rightCard = numTab.querySelector("#cardRight");
+                let cardForAdding = rightCard.children[0].children[0];
+                cardForAdding.insertAdjacentHTML("afterbegin",response);
+            });
+    } else {
+
+    }
+}
+
+function newCollapseTable(thisDiv){
+    let card = thisDiv.parentElement;
+    let thisCollapse = card.querySelector("#collapse" + thisDiv.id.substring(7));
+    if(thisCollapse.classList.contains("show")){
+        thisCollapse.classList.remove("show");
+    }else{
+        thisCollapse.classList.add("show");
     }
 }
