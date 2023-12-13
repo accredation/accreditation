@@ -522,6 +522,7 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
 async function newShowTab(element, id_sub) {
 
 
+
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
     let mainSearch = document.getElementById("tab1");
@@ -820,7 +821,39 @@ async function newShowTab(element, id_sub) {
             createAccordionCards(id_sub);
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
-        });
+        }).then(async ()=>{
+            await $.ajax({
+                url: "ajax/newGetActiveListTables.php",
+                method: "GET",
+                data: {id_sub: id_sub}
+            }).then( function (response) {
+                let activeTables = JSON.parse(response);
+                console.log(activeTables);
+                activeTables.forEach(item => {
+
+                    let checkB = document.getElementById("checkbox"+item.id_list_tables);
+                    if(item.lev === "1"){
+                        if(item.coun == "1") {
+                            checkB.checked = true;
+                            [...formCheckInput].forEach(item1 => {
+                                if (item1.checked === false) {
+                                    item1.setAttribute("disabled", true);
+                                }
+                            });
+                            [...formButton].forEach(item2 => {
+                                item2.removeAttribute("disabled");
+                            })
+                            checkB.removeAttribute("disabled");
+                        }
+                    }
+                    else{
+                        // обработать кнопки
+                    }
+                })
+            })
+        })
+
+
 
 
         let submark = document.getElementById("subMark" + id_sub);
