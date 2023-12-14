@@ -1,6 +1,7 @@
 <?php
 include "connection.php";
 $id_sub = $_GET['id_sub'];
+$login = $_COOKIE['login'];
 
 
 $query_departments = "SELECT * FROM z_department WHERE ID_SUBVISION = '$id_sub'";
@@ -46,18 +47,31 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     while ($row_criteria = mysqli_fetch_assoc($result_criteria)) {
         $id_crit = $row_criteria["id_criteria"];
         $field3 = $row_criteria["field3"];
+        $field4 = $row_criteria["field4"];
+        if ($field4 !== null) {
+            $files = explode(";", $field4);
+        } else {
+            $files = array();
+        }
         echo '<tr>
                 <td style="border: 1px solid black; text-align: center;">' . $row_criteria["pp"] . '</td>
                 <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
                 <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
-                <select onchange="changeField3('.$id_crit.', '.$id_department .', this)">
-                <option '. (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
-                <option '. ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
-                <option '. ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
-                <option '. ($field3 === '3' ? 'selected' : '') . ' value="3">Не требуется</option>
+                <select onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
+                <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
+                <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
+                <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
+                <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не требуется</option>
                 </select></div></td>
-                <td style="border: 1px solid black;"><div style="height: 15rem;"><textarea style="width: 100%; height: 100%;">' . $row_criteria["field4"] . '</textarea></div></td>
-                <td style="border: 1px solid black;"><div style="height: 15rem;" contenteditable="true" onblur="changeField5('.$id_crit.', '.$id_department .', this)">' . $row_criteria["field5"] . '</textarea></div></td>
+                <td style="border: 1px solid black;"><div id="' . $id_crit . '_' . $id_department . '" style="width: 100%; ">';
+        $count = count($files);
+        foreach ($files as $key => $file) {
+            if ($key < $count - 1) {
+                echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a><br>';
+            }
+        }
+        echo '</div><input onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
+                <td style="border: 1px solid black;" contenteditable="true" onblur="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
             </tr>';
     }
 

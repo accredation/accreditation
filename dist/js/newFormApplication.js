@@ -1142,3 +1142,28 @@ function changeField5(idCrit, idDep, text){
         })
 }
 
+function addFile(idCrit, idDep, input){
+    let login = getCookie('login');
+
+    let divA = document.getElementById(idCrit+"_"+idDep);
+
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let addedFile = input.files[0];
+    form.append("idCrit", idCrit);
+    form.append("idDep", idDep);
+    form.append("addedFile", addedFile);
+
+    xhr.open("post", "ajax/changeField4.php", true);
+
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    xhr.upload.onprogress = function (event) {
+        divA.insertAdjacentElement("afterend", load);
+    }
+    xhr.upload.onload = function () {
+        load.innerHTML = '<a href="/docs/documents/'+login+'/'+idDep+'/'+addedFile.name+'">'+addedFile.name+'</a><br>';
+    }
+    xhr.send(form);
+}
+
