@@ -1162,8 +1162,50 @@ function addFile(idCrit, idDep, input){
         divA.insertAdjacentElement("afterend", load);
     }
     xhr.upload.onload = function () {
-        load.innerHTML = '<a href="/docs/documents/'+login+'/'+idDep+'/'+addedFile.name+'">'+addedFile.name+'</a><br>';
+        load.remove();
+        let fileContainer = document.createElement('div');
+        fileContainer.classList.add('file-container');
+        let fileLink = document.createElement('a');
+        fileLink.href = `/docs/documents/${login}/${idDep}/${addedFile.name}`;
+        fileLink.textContent = addedFile.name;
+        let deleteButton = document.createElement('span');
+        deleteButton.classList.add('delete-file');
+        deleteButton.textContent = '×';
+        deleteButton.style.cursor = 'pointer';
+        deleteButton.style.paddingLeft = '10px';
+        deleteButton.id = 'delete_' + idCrit + '_' + idDep + '_' + encodeURIComponent(addedFile.name);
+        deleteButton.onclick = function() {
+            z_deleteFile(addedFile.name, idCrit, idDep);
+        };
+        fileContainer.appendChild(fileLink);
+        fileContainer.appendChild(deleteButton);
+        divA.appendChild(fileContainer);
     }
     xhr.send(form);
 }
 
+
+function z_deleteFile(fileName, idCrit, idDepartment) {
+    if (confirm('Вы уверены, что хотите удалить этот файл?')) {
+        let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_criteria=' + idCrit + '&id_department=' + idDepartment;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const fileContainers = document.getElementsByClassName('file-container');
+                    for (let i = 0; i < fileContainers.length; i++) {
+                        if (fileContainers[i].contains(document.getElementById('delete_' + idCrit + '_' + idDepartment + '_' + fileName))) {
+                            fileContainers[i].remove();
+                            break;
+                        }
+                    }
+                } else {
+                    alert('Не удалось удалить файл. Попробуйте снова.');
+                }
+            })
+            .catch((error) => {
+                console.error('Ошибка при удалении файла:', error);
+                alert('Ошибка при удалении файла.');
+            });
+    }
+}

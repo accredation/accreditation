@@ -67,7 +67,10 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         $count = count($files);
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {
-                echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a><br>';
+                echo '<div class="file-container">';
+                echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
+                echo '<span class="delete-file" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
+                echo '</div>';
             }
         }
         echo '</div><input onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
