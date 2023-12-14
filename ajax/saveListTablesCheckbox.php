@@ -42,8 +42,7 @@ if (mysqli_num_rows($rez) == 1) {
                            SELECT 1
                            FROM z_answer_criteria
                            WHERE id_department = '$id_dep'
-                           AND id_criteria = '$id_crit'
-                       )";
+                           AND id_criteria = '$id_crit')";
             mysqli_query($con, $query4) or die("Ошибка " . mysqli_error($con));
         }
     }

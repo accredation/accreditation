@@ -519,8 +519,6 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
 }
 
 async function newShowTab(element, id_sub) {
-
-
     openTabId = id_sub;
     let tablist = document.getElementById("tablist");
     let mainSearch = document.getElementById("tab1");
@@ -549,7 +547,6 @@ async function newShowTab(element, id_sub) {
         let row = tabDiv.getElementsByClassName("col-12")[1];
         let formCheckInput = document.getElementsByClassName("form-check-input");
         let formButton = document.getElementsByClassName("form-button");
-
 
         row.innerHTML = "";
         $.ajax({
@@ -815,8 +812,6 @@ async function newShowTab(element, id_sub) {
                 divFormGroup.appendChild(divFormCheck);
                 row.appendChild(divFormGroup);
             }
-
-
             createAccordionCards(id_sub);
         }).then(async () => {
             await $.ajax({
@@ -855,10 +850,24 @@ async function newShowTab(element, id_sub) {
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
         })
-
-
-
     }
+    $.ajax({
+        url: "ajax/z_getAllTables.php",
+        method: "GET",
+        data: { id_sub: openTabId }
+    }).done(function(response) {
+        //
+        let numTab = document.getElementById("tab" + openTabId + "-")
+        let rightCard = numTab.querySelector("#cardRight");
+        let accordForAdding = rightCard.children[0];
+        let cardForAdding = accordForAdding.children[0];
+        cardForAdding.insertAdjacentHTML("afterbegin",response);
+
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+     //
+        console.log("AJAX Error: " + textStatus + ", " + errorThrown);
+    });
+
 }
 
 function newGetTabs(name, id_sub) {   // создание subvision и cardBody
@@ -967,7 +976,6 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
         btnSave.classList.add("hiddentab");
     }
     tabContent.appendChild(tabPane);
-
 
 }
 
