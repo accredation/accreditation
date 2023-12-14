@@ -20,7 +20,7 @@ if (mysqli_num_rows($rez) == 1) {
     $row = mysqli_fetch_assoc($rez);
     $name = $row['name'];
 
-    $query2 = "INSERT INTO z_department (id_list_tables_criteria, `name`, id_subvision) VALUES ('$id_list_tables_criteria', '', '$id_sub') 
+    $query2 = "INSERT INTO z_department (id_list_tables_criteria, `name`, id_subvision) VALUES ('$id_list_tables_criteria', '$name', '$id_sub') 
                ON DUPLICATE KEY UPDATE `name` = '$name'";
     $rez2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
 
@@ -42,7 +42,8 @@ if (mysqli_num_rows($rez) == 1) {
                            SELECT 1
                            FROM z_answer_criteria
                            WHERE id_department = '$id_dep'
-                           AND id_criteria = '$id_crit')";
+                           AND id_criteria = '$id_crit'
+                       )";
             mysqli_query($con, $query4) or die("Ошибка " . mysqli_error($con));
         }
     }
