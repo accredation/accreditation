@@ -3165,12 +3165,12 @@ async function checkCollapse(id_criteria, id_sub) {
 }
 let actModal = document.getElementById("myModal");
 
-    window.addEventListener("beforeunload", async (event) => {
-        if(actModal.classList.contains("show")) {
-            event.preventDefault();
-            await collapseUpdateOpened(id_open_criteria, openTabId);
-        }
-    });
+    // window.addEventListener("beforeunload", async (event) => {
+    //     if(actModal.classList.contains("show")) {
+    //         event.preventDefault();
+    //         await collapseUpdateOpened(id_open_criteria, openTabId);
+    //     }
+    // });
 
 
 

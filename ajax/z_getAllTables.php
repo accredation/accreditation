@@ -69,11 +69,11 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
             if ($key < $count - 1) {
                 echo '<div class="file-container">';
                 echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
-                echo '<span class="delete-file" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
+                echo '<span class="delete-file" id="delete_'.$id_crit.'_'.$id_department.'_' . $file . '" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
                 echo '</div>';
             }
         }
-        echo '</div><input onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
+        echo '</div><input accept="application/pdf" onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
                 <td style="border: 1px solid black;" contenteditable="true" onblur="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
             </tr>';
     }
