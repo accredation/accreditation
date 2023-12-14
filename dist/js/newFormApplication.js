@@ -856,6 +856,8 @@ async function newShowTab(element, id_sub) {
             console.log(textStatus + ": " + errorThrown);
         })
 
+
+
     }
 }
 
