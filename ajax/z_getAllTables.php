@@ -11,7 +11,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $department_name = $row_department['name'];
 
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse' . $id_department . '" aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
+        <button class="btn btn-link" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
         ' . $department_name . '
         </button>
         </div>
@@ -44,12 +44,20 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $result_criteria = mysqli_query($con, $query_criteria) or die("Ошибка " . mysqli_error($con));
 
     while ($row_criteria = mysqli_fetch_assoc($result_criteria)) {
+        $id_crit = $row_criteria["id_criteria"];
+        $field3 = $row_criteria["field3"];
         echo '<tr>
                 <td style="border: 1px solid black; text-align: center;">' . $row_criteria["pp"] . '</td>
                 <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
-                <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;"><select><option value="null"></option><option value="1">Да</option><option value="2">Нет</option><option value="3">Не требуется</option></select></div></td>
-                <td style="border: 1px solid black;"><div style="height: 15rem;"><textarea style="width: 100%; height: 100%;">' . $row_criteria["field3"] . '</textarea></div></td>
-                <td style="border: 1px solid black;"><div style="height: 15rem;"><textarea rows="3" style="width: 100%; height: 100%;">' . $row_criteria["field4"] . '</textarea></div></td>
+                <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
+                <select onchange="changeField3('.$id_crit.', '.$id_department .', this)">
+                <option '. (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
+                <option '. ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
+                <option '. ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
+                <option '. ($field3 === '3' ? 'selected' : '') . ' value="3">Не требуется</option>
+                </select></div></td>
+                <td style="border: 1px solid black;"><div style="height: 15rem;"><textarea style="width: 100%; height: 100%;">' . $row_criteria["field4"] . '</textarea></div></td>
+                <td style="border: 1px solid black;"><div style="height: 15rem;" contenteditable="true" onblur="changeField5('.$id_crit.', '.$id_department .', this)">' . $row_criteria["field5"] . '</textarea></div></td>
             </tr>';
     }
 

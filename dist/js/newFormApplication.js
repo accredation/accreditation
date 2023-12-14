@@ -602,7 +602,6 @@ async function newShowTab(element, id_sub) {
                     labelCheck.style.textAlign = "left";
                     // labelCheck.setAttribute("for", "checkbox" + idType1Data[i].id);
                     labelCheck.innerHTML = idType1Data[i].name === undefined ? "" : idType1Data[i].name;
-                    console.log(inputCheck);
                     inputCheck.onclick = () => {
                         toggleActiveCheckbox(inputCheck, formCheckInput, formButton)
                     };
@@ -849,24 +848,27 @@ async function newShowTab(element, id_sub) {
             })
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
+        }).then(()=>{
+            $.ajax({
+                url: "ajax/z_getAllTables.php",
+                method: "GET",
+                data: { id_sub: openTabId }
+            }).then(function(response) {
+
+                let numTab = document.querySelector("#tab" + openTabId + "-");
+                let rightCard = numTab.querySelector("#cardRight");
+                let cardForAdding = rightCard.querySelector(":first-child");
+                let cardForAdding1 = cardForAdding.querySelector(":first-child");
+                if(cardForAdding1)
+                    cardForAdding1.insertAdjacentHTML("afterbegin",response);
+
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                //
+                console.log("AJAX Error: " + textStatus + ", " + errorThrown);
+            });
         })
     }
-    $.ajax({
-        url: "ajax/z_getAllTables.php",
-        method: "GET",
-        data: { id_sub: openTabId }
-    }).done(function(response) {
-        //
-        let numTab = document.getElementById("tab" + openTabId + "-")
-        let rightCard = numTab.querySelector("#cardRight");
-        let accordForAdding = rightCard.children[0];
-        let cardForAdding = accordForAdding.children[0];
-        cardForAdding.insertAdjacentHTML("afterbegin",response);
 
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-     //
-        console.log("AJAX Error: " + textStatus + ", " + errorThrown);
-    });
 
 }
 
@@ -902,7 +904,9 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     col12_1.className = "col-12 grid-margin";
     let cardLeft = document.createElement("div");
     cardLeft.className = "card";
-
+    if(idRole === "15"){
+        cardLeft.classList.add("hiddentab");
+    }
 
     let divRollUp = document.createElement("div");
     divRollUp.className = "d-md-block d-none";
@@ -1043,13 +1047,17 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
     } else {
 
         if (confirm("Осторожно! Все таблицы отделений будут удалены. Вы уверены, что хотите удалить?")) {
+
             $.ajax({
                 url: "ajax/deleteListTablesCheckbox.php",
                 method: "GET",
                 data: {id_sub: openTabId}
             })
                 .done(function (response) {
+                    let numTab = document.getElementById("tab" + openTabId + "-")
 
+                    let rightCard = numTab.querySelector("#cardRight");
+                    rightCard.innerHTML = "";
                 });
             [...formCheckInput].forEach(item => {
                 if (item.checked === false) {
@@ -1111,3 +1119,26 @@ function newCollapseTable(thisDiv){
         thisCollapse.classList.add("show");
     }
 }
+
+function changeField3(idCrit, idDep, select){
+    $.ajax({
+        url: "ajax/changeField3.php",
+        method: "GET",
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value}
+    })
+        .done(function (response) {
+
+        })
+}
+
+function changeField5(idCrit, idDep, text){
+    $.ajax({
+        url: "ajax/changeField5.php",
+        method: "GET",
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
+    })
+        .done(function (response) {
+
+        })
+}
+
