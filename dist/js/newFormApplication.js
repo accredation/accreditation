@@ -1039,8 +1039,10 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                 let numTab = document.getElementById("tab" + openTabId + "-")
 
                 let rightCard = numTab.querySelector("#cardRight");
-                let cardForAdding = rightCard.children[0].children[0];
-                cardForAdding.insertAdjacentHTML("afterbegin",response);
+                let cardForAdding = rightCard.querySelector(":first-child");
+                let cardForAdding1 = cardForAdding.querySelector(":first-child");
+                if(cardForAdding1)
+                    cardForAdding1.insertAdjacentHTML("afterbegin",response);
 
             });
 
@@ -1057,7 +1059,9 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                     let numTab = document.getElementById("tab" + openTabId + "-")
 
                     let rightCard = numTab.querySelector("#cardRight");
-                    rightCard.innerHTML = "";
+                    let cardForAdding = rightCard.querySelector(":first-child");
+                    let cardForAdding1 = cardForAdding.querySelector(":first-child");
+                    cardForAdding1.innerHTML = "";
                 });
             [...formCheckInput].forEach(item => {
                 if (item.checked === false) {
@@ -1102,8 +1106,10 @@ function buttonSelected(inputCheck) {  // добавление отделени�
                 let numTab = document.getElementById("tab" + openTabId + "-")
 
                 let rightCard = numTab.querySelector("#cardRight");
-                let cardForAdding = rightCard.children[0].children[0];
-                cardForAdding.insertAdjacentHTML("afterbegin",response);
+                let cardForAdding = rightCard.querySelector(":first-child");
+                let cardForAdding1 = cardForAdding.querySelector(":first-child");
+                if(cardForAdding1)
+                    cardForAdding1.insertAdjacentHTML("afterbegin",response);
             });
     } else {
 
