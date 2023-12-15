@@ -2935,12 +2935,23 @@ $("#soprPismo").on("change", () => {
     if (soprPismodiv) {
         soprPismodiv.remove();
     }
-    let load = document.createElement("div");
-    load.id = "soprPismodiv";
-    load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function (event) {
-        soprPismo.insertAdjacentElement("afterend", load);
+    let loadSopr = document.getElementById("loadSopr");
+    if (loadSopr) {
+        loadSopr.remove();
     }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadSopr";
+    soprPismo.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+
     xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
@@ -2971,12 +2982,21 @@ $("#copyRaspisanie").on("change", async () => {
     if (copyRaspdiv) {
         copyRaspdiv.remove();
     }
-    let load = document.createElement("div");
-    load.id = "copyRaspdiv";
-    load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = await function (event) {
-        copyRasp.insertAdjacentElement("afterend", load);
+    let loadSopr = document.getElementById("loadCopy");
+    if (loadSopr) {
+        loadSopr.remove();
     }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadCopy";
+    copyRasp.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
     xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
 
@@ -3007,12 +3027,21 @@ $("#orgStrukt").on("change", () => {
     if (orgStructdiv) {
         orgStructdiv.remove();
     }
-    let load = document.createElement("div");
-    load.id = "orgStructdiv";
-    load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function (event) {
-        orgStruct.insertAdjacentElement("afterend", load);
+    let loadSopr = document.getElementById("loadStruct");
+    if (loadSopr) {
+        loadSopr.remove();
     }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadStruct";
+    orgStruct.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
     xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
@@ -3042,12 +3071,21 @@ $("#ucomplect").on("change", () => {
     if (ucompletediv) {
         ucompletediv.remove();
     }
-    let load = document.createElement("div");
-    load.id = "ucomplectdiv";
-    load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function (event) {
-        ucomplect.insertAdjacentElement("afterend", load);
+    let loadSopr = document.getElementById("loadCompl");
+    if (loadSopr) {
+        loadSopr.remove();
     }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadCompl";
+    ucomplect.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
     xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
@@ -3078,12 +3116,25 @@ $("#techOsn").on("change", () => {
     if (techOsndiv) {
         techOsndiv.remove();
     }
-    let load = document.createElement("div");
-    load.id = "techOsndiv";
-    load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function (event) {
-        techOsn.insertAdjacentElement("afterend", load);
+    let loadSopr = document.getElementById("loadTech");
+    if (loadSopr) {
+        loadSopr.remove();
     }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadTech";
+    techOsn.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+    xhr.upload.onloadstart = function() {
+        load.innerHTML = "Подождите, идет загрузка";
+    };
     xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }
@@ -3116,12 +3167,26 @@ $("#reportSamoocenka").on("change", () => {
     if (reportSamoocenkadiv) {
         reportSamoocenkadiv.remove();
     }
-    let load = document.createElement("div");
-    load.id = "reportSamoocenkadiv";
-    load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function (event) {
-        reportSamoocenka.insertAdjacentElement("afterend", load);
+    let loadSopr = document.getElementById("loadReportSam");
+    if (loadSopr) {
+        loadSopr.remove();
     }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadReportSam";
+    reportSamoocenka.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+    xhr.upload.onloadstart = function() {
+        load.innerHTML = "Подождите, идет загрузка";
+    };
+
     xhr.upload.onload = function () {
         load.innerHTML = "Файл загружен";
     }

@@ -3,6 +3,7 @@ include "connection.php";
 $id_sub = $_GET['id_sub'];
 $id_list_tables_criteria = $_GET['id_list_tables_criteria'];
 $check = $_GET['check'];
+$login = $_COOKIE['login'];
 
 $query = "SELECT * FROM z_selected_tables WHERE id_list_tables_criteria ='$id_list_tables_criteria' AND id_subvision = '$id_sub'";
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
@@ -29,7 +30,7 @@ if (mysqli_num_rows($rez) == 1) {
 
     if (mysqli_num_rows($rez3) == 1) {
         $row3 = mysqli_fetch_assoc($rez3);
-        $id_dep = $row3['id_department'];
+        $id_department = $row3['id_department'];
 
         $query5 = "SELECT id_criteria, pp, z_criteria.`name` FROM z_criteria WHERE id_list_tables_criteria = '$id_list_tables_criteria'";
         $rez5 = mysqli_query($con, $query5) or die("Ошибка " . mysqli_error($con));
@@ -37,11 +38,11 @@ if (mysqli_num_rows($rez) == 1) {
         while ($row5 = mysqli_fetch_assoc($rez5)) {
             $id_crit = $row5['id_criteria'];
             $query4 = "INSERT INTO z_answer_criteria (id_department, id_criteria) 
-                       SELECT '$id_dep', '$id_crit'
+                       SELECT '$id_department', '$id_crit'
                        WHERE NOT EXISTS (
                            SELECT 1
                            FROM z_answer_criteria
-                           WHERE id_department = '$id_dep'
+                           WHERE id_department = '$id_department'
                            AND id_criteria = '$id_crit'
                        )";
             mysqli_query($con, $query4) or die("Ошибка " . mysqli_error($con));
@@ -74,16 +75,44 @@ if (mysqli_num_rows($rez) == 1) {
         </td>
         </tr><tbody>';
 
-    $query1 = "SELECT id_criteria, pp, z_criteria.`name` FROM z_criteria WHERE id_list_tables_criteria = '$id_list_tables_criteria'";
-    $rez1 = mysqli_query($con, $query1) or die("Ошибка " . mysqli_error($con));
+    $query_criteria = "SELECT zac.id_criteria, zac.field3, zac.field4, zac.field5, zac.field6, zac.field7, zac.defect, zc.pp, zc.`name`
+                        FROM z_answer_criteria AS zac
+                        JOIN z_criteria AS zc ON zac.id_criteria = zc.id_criteria
+                        WHERE zac.id_department = '$id_department'";
+    $result_criteria = mysqli_query($con, $query_criteria) or die("Ошибка " . mysqli_error($con));
 
-    while ($row1 = mysqli_fetch_assoc($rez1)) {
-        echo '<tr ><td style="border: 1px solid black; text-align: center;">'.$row1["pp"].'</td>
-                <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">'.$row1["name"].'</td>
-                <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;"><select ><option value="null"></option><option value="1">Да</option><option value="2">Нет</option><option value="3">Не требуется</option></select></div></td>
-                <td style="border: 1px solid black;"><div style="height: 15rem;"><textarea style="width: 100%; height: 100%;"></textarea></div></td>
-                <td style="border: 1px solid black;"><div style="height: 15rem;"><textarea rows="3" style="width: 100%; height: 100%;"></textarea></div></td>
-                </tr>';
+    while ($row_criteria = mysqli_fetch_assoc($result_criteria)) {
+        $id_crit = $row_criteria["id_criteria"];
+        $field3 = $row_criteria["field3"];
+        $field4 = $row_criteria["field4"];
+        if ($field4 !== null) {
+            $files = explode(";", $field4);
+        } else {
+            $files = array();
+        }
+        echo '<tr>
+                <td style="border: 1px solid black; text-align: center;">' . $row_criteria["pp"] . '</td>
+                <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
+                <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
+                <select onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
+                <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
+                <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
+                <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
+                <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не требуется</option>
+                </select></div></td>
+                <td style="border: 1px solid black;"><div id="' . $id_crit . '_' . $id_department . '" style="width: 100%; ">';
+        $count = count($files);
+        foreach ($files as $key => $file) {
+            if ($key < $count - 1) {
+                echo '<div class="file-container">';
+                echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
+                echo '<span class="delete-file" id="delete_'.$id_crit.'_'.$id_department.'_' . $file . '" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
+                echo '</div>';
+            }
+        }
+        echo '</div><input accept="application/pdf" onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
+                <td style="border: 1px solid black;" contenteditable="true" onblur="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
+            </tr>';
     }
 
     echo '</tbody></table></div></div>';

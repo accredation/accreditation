@@ -1141,9 +1141,8 @@ function changeField5(idCrit, idDep, text){
     $.ajax({
         url: "ajax/changeField5.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
-    })
-        .done(function (response) {
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^\w\s]/gi, '')}
+    }).done(function (response) {
 
         })
 }
@@ -1164,9 +1163,19 @@ function addFile(idCrit, idDep, input){
 
     let load = document.createElement("div");
     load.innerHTML = "Подождите, идет загрузка";
-    xhr.upload.onprogress = function (event) {
-        divA.insertAdjacentElement("afterend", load);
-    }
+    divA.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+    xhr.upload.onloadstart = function() {
+        load.innerHTML = "Подождите, идет загрузка";
+    };
+
     xhr.upload.onload = function () {
         load.remove();
         let fileContainer = document.createElement('div');
@@ -1179,7 +1188,7 @@ function addFile(idCrit, idDep, input){
         deleteButton.textContent = '×';
         deleteButton.style.cursor = 'pointer';
         deleteButton.style.paddingLeft = '10px';
-        deleteButton.id = 'delete_' + idCrit + '_' + idDep + '_' + encodeURIComponent(addedFile.name);
+        deleteButton.id = 'delete_' + idCrit + '_' + idDep + '_' + addedFile.name;
         deleteButton.onclick = function() {
             z_deleteFile(addedFile.name, idCrit, idDep);
         };
