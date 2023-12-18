@@ -2,6 +2,22 @@
 include "connection.php";
 
 $id_application = $_GET['id_application'];
+
+$rez = mysqli_query($con, "select avg(mark_percent) as coun from subvision where id_application='$id_application'");
+
+if (mysqli_num_rows($rez) == 1) //если получена одна строка
+{
+    $row = mysqli_fetch_assoc($rez); //она
+    $count_all = $row['coun'];
+    if($count_all === null){
+        $count_all = 0.0;
+    }
+    mysqli_query($con, "update applications set mark_percent = '$count_all' where id_application='$id_application'");
+}
+
+
+
+
 $query = "SELECT * FROM applications, users WHERE id_application='$id_application' and applications.id_user=users.id_user ";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
@@ -29,6 +45,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
     $reportSamoocenka = $row['fileReportSamoocenka'];
     $infDorabotkiFile = $row['infDorabotkiFile'];
     $dateInputDorabotki = $row['dateInputDorabotki'];
+    $mark_percent = $row['mark_percent'];
 }
 
 array_push($cells,$naim);
@@ -50,6 +67,7 @@ array_push($cells,$reportSamoocenka);
 array_push($cells,$infDorabotkiFile);
 array_push($cells,$dateInputDorabotki);
 
+
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
@@ -65,5 +83,8 @@ foreach ($names as $name) {
 
 array_push($data,$cells);
 array_push($data,$subvis_names);
+array_push($data,$mark_percent);
 echo json_encode($data);
+
+mysqli_close($con);
 ?>

@@ -1,3 +1,4 @@
+let id_app;
 function newShowModal(id_application, strMarks, strMarksAccred) {
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
@@ -22,6 +23,7 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
             apppp[i].remove();
         }
     }
+
     let remAccTab = document.getElementsByClassName('remAccTab');
 
     if (remAccTab.length !== 0) {
@@ -38,6 +40,7 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
         }
     }
     let tab = document.getElementById("tab1");
+    tab.setAttribute("onclick", "newShowTab(this," + 1 + ")");
     let pane = document.getElementById("tab1-");
     if (!tab.children[0].classList.contains("active")) {
         tab.children[0].classList.add("active");
@@ -92,6 +95,7 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
     let divReport = document.getElementById("divReport");
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     number_app.innerHTML = id_application;
+    id_app = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
 
@@ -185,7 +189,11 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
                 newGetTabs(obj[1], obj[0]);
 
             }
-        });
+            let mark_percent =  data[2];
+            let mainRightCard = document.getElementById("mainRightCard");
+            mainRightCard.innerHTML = "Количественная самооценка - " + mark_percent + "%";
+
+    });
     // выводим полученный ответ на консоль браузер
 
     $(".closeX").on("click", async () => {
@@ -866,9 +874,39 @@ async function newShowTab(element, id_sub) {
                 //
                 console.log("AJAX Error: " + textStatus + ", " + errorThrown);
             });
+        }).then(() =>{
+                $.ajax({
+                    url: "ajax/z_calc_subvision.php",
+                    method: "GET",
+                    data: { id_sub: openTabId, id_application: id_app }
+                }).then((response) => {
+                    let thisTab = document.getElementById("tab"+openTabId+"-");
+                    let divMark = document.createElement("div");
+                    divMark.id = "markSub";
+                    let markSub = document.getElementById("markSub");
+                    if(markSub){
+                        markSub.remove();
+                    }
+                    divMark.style = "text-align: right;";
+                    divMark.innerHTML = "Количественная самооценка - " + response + "%";
+                    thisTab.appendChild(divMark);
+            })
         })
     }
 
+    if(idNum == "1"){
+
+            $.ajax({
+                url: "ajax/z_calc_application.php",
+                method: "GET",
+                data: {id_application: id_app}
+            }).then((response) => {
+                let mainRightCard = document.getElementById("mainRightCard");
+                mainRightCard.innerHTML = "Количественная самооценка - " + response + "%";
+            })
+
+
+    }
 
 }
 
@@ -1130,7 +1168,7 @@ function changeField3(idCrit, idDep, select){
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value}
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
     })
         .done(function (response) {
 

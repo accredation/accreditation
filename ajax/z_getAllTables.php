@@ -10,10 +10,11 @@ $result_departments = mysqli_query($con, $query_departments) or die("Ошибк�
 while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $id_department = $row_department['id_department'];
     $department_name = $row_department['name'];
+    $mark_percent = $row_department['mark_percent'];
 
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
         <button class="btn btn-link" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
-        ' . $department_name . '
+        ' . $department_name . ' (самооценка = ' . $mark_percent . '%)
         </button>
         </div>
         <div class="collapse" id="collapse' . $id_department . '" aria-labelledby="heading' . $id_department . '" data-parent="#accordion">
