@@ -1,11 +1,27 @@
 let id_app;
 function newShowModal(id_application, strMarks, strMarksAccred) {
     let btnPrint = document.getElementById("btnPrint");
-    btnPrint.title = "Печать критериев";
-    if (btnPrint)
+    let btnPrintReport = document.getElementById("btnPrintReport");
+
+    if (btnPrint) {
         btnPrint.id = "newBtnPrint";
-    let divBtnNewPrint = document.getElementById('btnPrintReport');
-    divBtnNewPrint.id = "btnNewPrintReport" ;
+        btnPrint.title = "Печать самооценки";
+    }
+    else{
+        let btnPrint = document.getElementById("newBtnPrint");
+        btnPrint.title = "Печать самооценки";
+    }
+
+
+    if(btnPrintReport) {
+        btnPrintReport.id = "btnNewPrintReport";
+        btnPrintReport.title = "Печать самооценки";
+    }else{
+        let btnPrintReport = document.getElementById("btnNewPrintReport");
+        btnPrintReport.title = "Печать самооценки";
+    }
+
+
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
     let btnSu = document.getElementById("btnSuc");
@@ -526,9 +542,9 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
 
     });
 
-    let divBtnPrintReport = document.getElementById('btnPrintReport');
+    let divBtnPrintReport = document.getElementById('btnNewPrintReport');
     divBtnPrintReport.onclick = () => {
-        printReport();
+        printNewReport();
     };
 }
 
@@ -1351,7 +1367,6 @@ async function printNewReport() {
         data: {id_application: id_application}
     });
 
-    await checkActivCursor(id_application);
 
     await $.ajax({
         url: "ajax/z_getSubForPrintReport.php",

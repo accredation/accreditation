@@ -332,9 +332,26 @@ function createApplication() {
 
 function showModal(id_application, strMarks, strMarksAccred) {
     let btnPrint = document.getElementById("newBtnPrint");
-    btnPrint.title = "Печать самооценки";
-    if(btnPrint)
+    let btnPrintReport = document.getElementById("btnNewPrintReport");
+
+    if(btnPrint) {
         btnPrint.id = "btnPrint";
+        btnPrint.title = "Печать самооценки";
+    }else{
+        let btnPrint = document.getElementById("btnPrint");
+        btnPrint.title = "Печать самооценки";
+    }
+
+    if(btnPrintReport) {
+        btnPrintReport.id = "btnPrintReport";
+        btnPrintReport.title = "Печать самооценки";
+    }else{
+        let btnPrintReport = document.getElementById("btnPrintReport");
+        btnPrintReport.title = "Печать самооценки";
+    }
+
+
+
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
     let btnSu = document.getElementById("btnSuc");
@@ -886,7 +903,6 @@ async function printReport() {
         data: {id_application: id_application}
     });
 
-    await checkActivCursor(id_application);
 
     await $.ajax({
         url: "ajax/getSubForPrintReport.php",
@@ -1038,23 +1054,7 @@ async function printReport() {
     WinPrint.close();
 }
 
-function checkActivCursor(id_application) {
-    $.ajax({
-        url: "ajax/getActivCursor.php",
-        method: "GET",
-        data: {id_app: id_application}
-    })
-        .done(function (response) {
-            //  console.log(response);
-            let tableForPrint = JSON.parse(response);
-            if (tableForPrint === 1) {
-                checkActivCursor(id_application)
-            } else {
-                return
-            }
 
-        });
-}
 
 function createTableForPrintNo(tableForPrint) {
 
@@ -2603,7 +2603,7 @@ async function calcMarks() {
         data: {id_application: id_application.innerText}
     })
 
-    await checkActivCursor(id_application.innerText);
+
 
 
     await $.ajax({
