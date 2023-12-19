@@ -27,15 +27,19 @@ if (mysqli_num_rows($rez) > 0)
               where id_subvision = '$id_sub'";
         $rez2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
 
+        $query = "UPDATE  z_selected_tables SET `count`= 0
+              where id_subvision = '$id_sub'";
+        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
     }
     else {
         $query = "UPDATE  z_selected_tables SET `count`=`count`- 1 
               where id_list_tables_criteria = '$id_list_tables_criteria' and id_subvision = '$id_sub'";
         $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+        mysqli_query($con, "delete from  z_selected_tables 
+              where id_list_tables_criteria = '$id_list_tables_criteria' 
+                and id_subvision = '$id_sub'");
+        mysqli_query($con, "delete from z_department  WHERE id_subvision = '$id_sub' AND id_department = '$id_department'");
     }
 }
-
-
-mysqli_query($con, "delete from z_department  WHERE id_subvision = '$id_sub' AND id_department = '$id_department'");
 mysqli_close($con);
 ?>

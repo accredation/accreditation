@@ -19,7 +19,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         ' . $department_name . ' (самооценка = ' . $mark_percent . '%)
         </button>
         </div>
-        <div class ="actions-container2"  style = "width: 30%;">
+        <div class ="actions-container2"  style = "width: 30%; display: flex;">
           <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
           <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
         </div>

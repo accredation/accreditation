@@ -50,9 +50,17 @@ if (mysqli_num_rows($rez) == 1) {
     }
 
     echo '<div class="card-header" id="heading' . $id_list_tables_criteria . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
+          <div class = "actCont" style="display: flex;">
+         <div class="actions-container" style = "width: 70%;">
     <button class="btn btn-link" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_list_tables_criteria . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
     ' . $name . '
     </button>
+     </div>
+        <div class ="actions-container2"  style = "width: 30%;">
+          <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
+          <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
+        </div>
+        </div>
     </div>
     <div class="collapse" id="collapse' . $id_list_tables_criteria . '" aria-labelledby="heading' . $id_list_tables_criteria . '" data-parent="#accordion">
     <div class="card-body" id="cardBody' . $id_list_tables_criteria . '" style="padding: 0px;">

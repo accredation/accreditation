@@ -1279,6 +1279,8 @@ function deleteDepartment(id_department) {
             .done(function (response) {
                 console.log(response);
                 alert("Отделение удалено.");
+                let cardH  = document.getElementById("heading" + id_department);
+                cardH.remove();
             })
             .fail(function (error) {
                 console.error("Ошибка при удалении отдела:", error);
@@ -1298,6 +1300,11 @@ function renameDepartment(id_department) {
         })
             .done(function (response) {
                 console.log(response);
+                let cardH = document.getElementById("heading" + id_department);
+                let button = cardH.querySelector("button");
+                let buttonText = button.innerText;
+                let newText = newDepartmentName + buttonText.substring(buttonText.indexOf("(самооценка"));
+                button.innerText = newText;
                 alert("Отделение переименовано.");
             })
             .fail(function (error) {
