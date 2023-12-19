@@ -103,8 +103,6 @@
 
                     </ul>
                     <div class="d-md-block d-none">
-                        <!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
-                        <!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
                     </div>
                 </div>
                 <div class="tab-content tab-transparent-content">
@@ -193,11 +191,10 @@
                                 </li>
 
 
-                                <!--                            ...-->
+
                             </ul>
                             <div class="d-md-block d-none">
-                                <!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
-                                <!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
+
                             </div>
                         </div>
                         <div class="tab-content tab-transparent-content">
@@ -217,12 +214,6 @@
                                                 <div class="form-group"><label>Руководитель заинтересованного лица</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО" readonly/></div>
                                                 <div class="form-group"><label>Представитель заинтересованного лица</label><input class="form-control" type="text" id="predstavitel" placeholder="Контактное лицо" readonly/></div>
                                                 <br/>
-                                                <!--                                            <form id="formDoverennost" method="post" class="hiddentab">-->
-                                                <!--                                                <div class="form-group" id="divDoverennost">-->
-                                                <!--                                                    <label for="doverennost">Доверенность</label>-->
-                                                <!--                                                    <input type="file" name="doverennost" class="form-control-file" id="doverennost">-->
-                                                <!--                                                </div>-->
-                                                <!--                                            </form>-->
 
 
                                                 <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>

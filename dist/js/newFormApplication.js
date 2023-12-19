@@ -732,7 +732,6 @@ async function newShowTab(element, id_sub) {
                     let labelCheck = document.createElement("label");
                     labelCheck.className = "form-check-label";
                     labelCheck.style.textAlign = "left";
-                    // labelCheck.setAttribute("for", "checkbox" + idType3Data[i].id);
                     let condition = idType3Data[i].name === undefined ? "" : idType3Data[i].name;
                     labelCheck.innerHTML = condition;
                     inputCheck.onclick = () => {
