@@ -1638,7 +1638,7 @@ function newCreateTableForPrint(tableForPrint) {
     tableForPrint.map((item, index) => {
 
 
-        if (numSub !== item['id_subvision']) {
+        if (numSub !== item['id_subvision'] && (index !== 0)) {
 
             let trNaimSub = document.createElement('tr');
             let tdNaimSub = document.createElement('td');
