@@ -1,5 +1,7 @@
 let id_app;
 function newShowModal(id_application, strMarks, strMarksAccred) {
+    let divBtnNewPrint = document.getElementById('btnPrintReport');
+    divBtnNewPrint.id = "btnNewPrintReport" ;
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
     let btnSu = document.getElementById("btnSuc");
@@ -520,9 +522,9 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
 
     });
 
-    let divBtnPrintReport = document.getElementById('btnPrintReport');
+    let divBtnPrintReport = document.getElementById('btnNewPrintReport');
     divBtnPrintReport.onclick = () => {
-        printReport();
+        printNewReport();
     };
 }
 
@@ -1283,7 +1285,7 @@ function deleteDepartment(id_department) {
                 let countText = countButton.innerText;
                 let count = parseInt(countText.split(":")[1].trim());
                 count--;
-                countButton.innerText = countText.replace(count, count - 1);
+                countButton.innerText = countText.replace(countText.split(":")[1].trim(), count);
                 let cardH  = document.getElementById("heading" + id_department);
                 cardH.remove();
             })
@@ -1316,4 +1318,164 @@ function renameDepartment(id_department) {
                 console.error("Ошибка при переименовании отделения:", error);
             });
     }
+}
+
+
+
+
+async function printNewReport() {
+    let number_app = document.getElementById("id_application");
+    let id_application = number_app.innerHTML;
+    let criteriaMark = document.createElement('div');
+    criteriaMark.textContent = '<strong>Достигнуты следующие результаты</strong><br/>';
+    criteriaMark.style = "padding-top: 0.5rem; padding-bottom:1rem; ";
+
+    var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+    WinPrint.document.write('<style>@page {\n' +
+        'margin: 1rem;\n' +
+        '}</style>');
+
+
+    let textSubCriteriaChecked = '';
+    let divTextSubCriteriaChecked = document.createElement('div');
+    divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+
+    await $.ajax({
+        url: "ajax/getCalc.php",
+        method: "GET",
+        data: {id_application: id_application}
+    });
+
+    await checkActivCursor(id_application);
+
+    await $.ajax({
+        url: "ajax/z_getSubForPrintReport.php",
+        method: "GET",
+        data: {id_application: id_application}
+    })
+        .done(function (response) {
+            let subCriteriaForReport = JSON.parse(response);
+            //  console.log(subCriteriaForReport);
+            let id_s = -1;
+            let as = '';
+            subCriteriaForReport.map((item, index) => {
+
+                if (id_s !== item['id_subvision']) {
+
+                    if (index != 0) {
+                        textSubCriteriaChecked += `<div>${as}</div>`;
+                    }
+                    as = '';
+                    id_s = item['id_subvision'];
+                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации: `;
+                }
+
+                if (index === subCriteriaForReport.length - 1) {
+                    as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
+                    textSubCriteriaChecked += `<div>${as}</div>`;
+                } else {
+                    if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
+                    else
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ", ";
+                }
+
+            });
+
+        });
+
+            let mainRightCard = document.getElementById("mainRightCard");
+            let mainRightCardText="";
+             mainRightCardText = mainRightCard.innerHTML;
+            criteriaMark.textContent +=  mainRightCardText;
+
+
+    let table;
+    await $.ajax({
+        url: "ajax/z_getAppForPrintNo.php",
+        method: "GET",
+        data: {id_app: id_application}
+    })
+        .done(function (response) {
+            //  console.log(response);
+            let tableForPrint = JSON.parse(response);
+
+            if (tableForPrint.length !== 0) {
+                let naim = document.getElementById("naim");
+                let unp = document.getElementById("unp");
+                let naimText = naim.value;
+                let unpText = unp.value;
+
+
+                table = createTableForPrintNo(tableForPrint);
+
+
+            } else {
+                // alert('Ничего нет под выбранные условия');
+            }
+
+
+        });
+
+    //  console.log('Результат самооценки "вставить краткое ниименование" организации здравоохраниения '+ now().format('LT'));
+
+    let sokr = document.getElementById('sokr');
+    let naim = document.getElementById('naim');
+
+    function formatDate(date) {
+
+        var dd = date.getDate();
+        if (dd < 10) dd = '0' + dd;
+
+        var mm = date.getMonth() + 1;
+        if (mm < 10) mm = '0' + mm;
+
+        var yy = date.getFullYear() % 100;
+        if (yy < 10) yy = '0' + yy;
+
+        return dd + '.' + mm + '.' + yy;
+    }
+
+    let divReportTitle = document.createElement('div');
+    divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+    divReportTitle.textContent = `Результат самооценки ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
+
+    WinPrint.document.write(divReportTitle.innerHTML);
+    WinPrint.document.write('<br/>');
+    WinPrint.document.write('<br/>');
+    divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+    WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
+    WinPrint.document.write('<br/>');
+    WinPrint.document.write(criteriaMark.innerText);
+    WinPrint.document.write('<br/>');
+
+
+    if (table && table.textContent && table.textContent.length > 0) {
+        let divReportTitleFieldNo = document.createElement('div');
+        divReportTitleFieldNo.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+        divReportTitleFieldNo.textContent = '<strong>Установлено несоответствие по следующим критериям:</strong>';
+
+
+        WinPrint.document.write(divReportTitleFieldNo.textContent);
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write(table.innerHTML);
+    } else {
+        WinPrint.document.write(divReportTitle.innerHTML);
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write('<br/>');
+        divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+        WinPrint.document.close();
+        WinPrint.focus();
+        let naimOrg = document.getElementById("naim");
+        WinPrint.document.title = "Результат самооценки_" + naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.print();
+        WinPrint.close();
+    }
+
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
 }
