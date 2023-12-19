@@ -31,7 +31,8 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     $count_notneed = $row['coun'];
 }
 
-$mark_department = ($count_yes / ($count_all - $count_notneed)) * 100;
+if($count_all - $count_notneed !== 0)
+    $mark_department = ($count_yes / ($count_all - $count_notneed)) * 100;
 
 if($count_all === $count_notneed ){
     $mark_department = 100;
