@@ -10,3 +10,22 @@ tr div, td div {
 .hiddentab{
     display:none !important;
 }
+
+.actions-container {
+    display: flex;
+    align-items: flex-end;
+    margin-right: 10px;
+}
+
+.delete-icon {
+    margin-top: 5px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: red;
+}
+
+.btn-rename {
+    color: blue;
+    border: none;
+    background: none;
+}

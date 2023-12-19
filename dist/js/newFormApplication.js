@@ -870,6 +870,10 @@ async function newShowTab(element, id_sub) {
                 if(cardForAdding1)
                     cardForAdding1.insertAdjacentHTML("afterbegin",response);
 
+
+
+
+
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 //
                 console.log("AJAX Error: " + textStatus + ", " + errorThrown);
@@ -1018,7 +1022,6 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
         btnSave.classList.add("hiddentab");
     }
     tabContent.appendChild(tabPane);
-
 }
 
 function newAddTab() {    // добавление subvision
@@ -1259,6 +1262,39 @@ function z_deleteFile(fileName, idCrit, idDepartment) {
             .catch((error) => {
                 console.error('Ошибка при удалении файла:', error);
                 alert('Ошибка при удалении файла.');
+            });
+    }
+}
+
+
+function deleteDepartment(id_department) {
+    $.ajax({
+        url: "ajax/z_deleteDepartment.php",
+        method: "GET",
+        data: { id_sub:openTabId,  id_department: id_department },
+    })
+        .done(function (response) {
+            console.log(response);
+        })
+        .fail(function (error) {
+            console.error("Ошибка при удалении отдела:", error);
+        });
+}
+
+
+function renameDepartment(id_department) {
+    let newDepartmentName = prompt("Введите новое название отделения:");
+    if (newDepartmentName !== null && newDepartmentName.trim() !== "") {
+        $.ajax({
+            url: "ajax/z_renameDepartment.php",
+            method: "GET",
+            data: { id_department: id_department, new_department_name: newDepartmentName, id_sub:openTabId },
+        })
+            .done(function (response) {
+                console.log(response);
+            })
+            .fail(function (error) {
+                console.error("Ошибка при переименовании отделения:", error);
             });
     }
 }
