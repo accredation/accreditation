@@ -1,5 +1,7 @@
 let id_app;
 function newShowModal(id_application, strMarks, strMarksAccred) {
+    let btnPrint = document.getElementById("btnPrint");
+    btnPrint.id = "newBtnPrint";
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
     let btnSu = document.getElementById("btnSuc");
@@ -1283,7 +1285,7 @@ function deleteDepartment(id_department) {
                 let countText = countButton.innerText;
                 let count = parseInt(countText.split(":")[1].trim());
                 count--;
-                countButton.innerText = countText.replace(count, count - 1);
+                countButton.innerText = countText.replace(countText.split(":")[1].trim(), count);
                 let cardH  = document.getElementById("heading" + id_department);
                 cardH.remove();
             })
@@ -1317,3 +1319,314 @@ function renameDepartment(id_department) {
             });
     }
 }
+
+$("#newBtnPrint").on("click", function () {
+
+    newPrint();
+});
+
+function newPrint() {
+
+
+    let number_app = document.getElementById("id_application");
+    let id_application = number_app.innerHTML;
+
+
+    $.ajax({
+        url: "ajax/z_getAppForPrint.php",
+        method: "GET",
+        data: {id_app: id_application}
+    })
+        .done(function (response) {
+            //  console.log(response);
+            let tableForPrint = JSON.parse(response);
+
+
+            let naim = document.getElementById("naim");
+            let unp = document.getElementById("unp");
+            let naimText = naim.value;
+            let unpText = unp.value;
+
+            var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+            WinPrint.document.write('<style>@page {\n' +
+                'margin: 1rem;\n' +
+                '}</style>');  // убрать колонтитул
+            // WinPrint.document.write('Наименование организации: ');
+            // WinPrint.document.write(naimText);
+            // WinPrint.document.write('<br/>');
+            // WinPrint.document.write('УНП: ');
+            // WinPrint.document.write(unpText);
+
+            let table = createTableForPrint(tableForPrint);
+
+
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write(table.innerHTML);
+
+
+            WinPrint.document.close();
+            WinPrint.focus();
+            let naimOrg = document.getElementById("naim");
+            WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+            WinPrint.print();
+            WinPrint.close();
+
+        });
+
+
+}
+
+
+function createTableForPrint(tableForPrint) {
+
+    let divPrintTable = document.createElement('div');
+
+    let divNameSubTable = document.createElement('div');
+    divNameSubTable.textContent = tableForPrint[0]['name'];
+    divNameSubTable.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+
+    divPrintTable.appendChild(divNameSubTable);
+
+    let divNameCriteriaTable = document.createElement('div');
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+    divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
+
+    divPrintTable.appendChild(divNameCriteriaTable);
+
+    let table = document.createElement('table');
+    table.style = "border-collapse: collapse; border-spacing: 0;";
+
+
+    let trHeadMain = document.createElement('tr');
+
+    let thNum = document.createElement('th');
+    thNum.innerHTML = '№ п/п';
+    thNum.style = "border: 1px solid black";
+    thNum.setAttribute('rowspan', '2');
+
+    let th1_Main = document.createElement('th');
+    th1_Main.innerHTML = 'Критерий';
+    th1_Main.style = "border: 1px solid black; ";
+    th1_Main.setAttribute('rowspan', '2');
+    /*
+        let th2_Main = document.createElement('th');
+        th2_Main.innerHTML = 'Класс критерия';
+        th2_Main.style = "border: 1px solid black";
+        th2_Main.setAttribute('rowspan','2');
+    */
+
+    let th3_Main = document.createElement('th');
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.style = "border: 1px solid black; text-align: center";
+    th3_Main.setAttribute('colspan', '3');
+
+
+    let trHead = document.createElement('tr');
+    let th3 = document.createElement('th');
+    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.style = "border: 1px solid black";
+
+    let th4 = document.createElement('th');
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+    th4.style = "width:350px; border: 1px solid black";
+
+
+    let th5 = document.createElement('th');
+    th5.innerHTML = 'Примечание';
+    th5.style = "border: 1px solid black";
+
+
+    trHeadMain.appendChild(thNum);
+    trHeadMain.appendChild(th1_Main);
+    //  trHeadMain.appendChild(th2_Main);
+    trHeadMain.appendChild(th3_Main);
+
+
+    table.appendChild(trHeadMain);
+    trHead.appendChild(th3);
+    trHead.appendChild(th4);
+    trHead.appendChild(th5);
+
+
+    table.appendChild(trHead);
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+    numCriteria = 0;
+    numSub = 0;
+    tableForPrint.map((item, index) => {
+
+
+        if (numSub !== item['id_subvision']) {
+
+            let trNaimSub = document.createElement('tr');
+            let tdNaimSub = document.createElement('td');
+            tdNaimSub.setAttribute('colspan', '6');
+            tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+            tdNaimSub.innerHTML = item['name'];
+            trNaimSub.appendChild(tdNaimSub);
+            tbody.appendChild(trNaimSub);
+            numCriteria = -1;
+
+        }
+
+        if ((numCriteria !== item['id_criteria']) && (index !== 0)) {
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '6');
+            tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+            tdNaim.innerHTML = item['name_criteria'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
+
+
+            let trHeadMain2 = document.createElement('tr');
+
+            let thNum = document.createElement('th');
+            thNum.innerHTML = '№ п/п';
+            thNum.style = "border: 1px solid black";
+            thNum.setAttribute('rowspan', '2');
+
+            let th1_Main2 = document.createElement('td');
+            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.style = "border: 1px solid black";
+            th1_Main2.setAttribute('rowspan', '2');
+            /*
+                            let th2_Main2 = document.createElement('td');
+                            th2_Main2.innerHTML = 'Класс критерия';
+                            th2_Main2.style = "border: 1px solid black";
+                            th2_Main2.setAttribute('rowspan','2');
+            */
+
+            let th3_Main2 = document.createElement('td');
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.style = "border: 1px solid black; text-align: center";
+            th3_Main2.setAttribute('colspan', '3');
+
+
+            let trHead2 = document.createElement('tr');
+            let th32 = document.createElement('td');
+            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.style = "border: 1px solid black";
+
+            let th42 = document.createElement('td');
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+            th4.style = "width:350px; border: 1px solid black";
+
+
+            let th52 = document.createElement('td');
+            th52.innerHTML = 'Примечание';
+            th52.style = "border: 1px solid black";
+
+
+            trHeadMain2.appendChild(thNum);
+            trHeadMain2.appendChild(th1_Main2);
+            //      trHeadMain2.appendChild(th2_Main2);
+            trHeadMain2.appendChild(th3_Main2);
+
+
+            tbody.appendChild(trHeadMain2);
+            trHead2.appendChild(th32);
+            trHead2.appendChild(th42);
+            trHead2.appendChild(th52);
+
+            tbody.appendChild(trHead2);
+        }
+
+
+        numCriteria = -1;
+
+        if (item['id_criteria'] !== null) {
+
+            let tr = document.createElement('tr');
+
+            let tdNum = document.createElement('td');
+            tdNum.innerHTML = item['str_num'];
+            tdNum.style = "border: 1px solid black";
+
+            let td1 = document.createElement('td');
+            td1.innerHTML = item['mark_name'];
+            td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            /*
+                        let td2 = document.createElement('td');
+                        td2.innerHTML = item['mark_class'];
+                        td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            */
+            let td3 = document.createElement('td');
+            td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td3.innerHTML = item['field4'];
+
+            let td4 = document.createElement('td');
+            td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td4.innerHTML = item['field5'];
+
+            let td5 = document.createElement('td');
+            td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td5.innerHTML = item['field6'];
+
+
+            tr.appendChild(tdNum);
+            tr.appendChild(td1);
+            //    tr.appendChild(td2);
+            tr.appendChild(td3);
+
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+
+            tbody.appendChild(tr);
+
+            numCriteria = item['id_criteria'];
+        }
+
+
+        numSub = item['id_subvision']
+    })
+
+
+    divPrintTable.appendChild(table);
+
+    return divPrintTable;
+}
+
+let tooltipElem1;
+
+document.onmouseover = function (event) {
+    let target = event.target;
+
+    // если у нас есть подсказка...
+    let tooltipHtml = target.dataset.tooltip;
+    if (!tooltipHtml) return;
+
+    // ...создадим элемент для подсказки
+
+    tooltipElem1 = document.createElement('div');
+    tooltipElem1.className = 'tooltip1';
+    tooltipElem1.innerHTML = tooltipHtml;
+    let foot = document.getElementById("newBtnPrint");
+    foot.append(tooltipElem1);
+
+    // спозиционируем его сверху от аннотируемого элемента (top-center)
+    let coords = target.getBoundingClientRect();
+
+    let left = coords.left + (target.offsetWidth - tooltipElem1.offsetWidth) / 2;
+    if (left < 0) left = 0; // не заезжать за левый край окна
+
+    let top = coords.top - tooltipElem1.offsetHeight - 5;
+    if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
+        top = coords.top + target.offsetHeight + 5;
+    }
+
+    tooltipElem1.style.left = left + 'px';
+    tooltipElem1.style.top = top + 'px';
+};
+
+document.onmouseout = function (e) {
+
+    if (tooltipElem1) {
+        tooltipElem1.remove();
+        tooltipElem1 = null;
+    }
+
+};

@@ -1267,8 +1267,11 @@ function createTableForPrintNo(tableForPrint) {
 
 
 $("#btnPrint").on("click", function () {
-
-    print();
+    if(this.id ==  "btnPrint") {
+        print();
+    }else{
+        newPrint();
+    }
 });
 
 
