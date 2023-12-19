@@ -13,12 +13,16 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $mark_percent = $row_department['mark_percent'];
 
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
-         <div class="actions-container">
+       <div class = "actCont" style="display: flex;">
+         <div class="actions-container" style = "width: 70%;">
         <button class="btn btn-link" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
         ' . $department_name . ' (самооценка = ' . $mark_percent . '%)
         </button>
+        </div>
+        <div class ="actions-container2"  style = "width: 30%;">
           <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
-          <span class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</span>
+          <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
+        </div>
         </div>
 
         </div>

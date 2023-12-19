@@ -1268,21 +1268,27 @@ function z_deleteFile(fileName, idCrit, idDepartment) {
 
 
 function deleteDepartment(id_department) {
-    $.ajax({
-        url: "ajax/z_deleteDepartment.php",
-        method: "GET",
-        data: { id_sub:openTabId,  id_department: id_department },
-    })
-        .done(function (response) {
-            console.log(response);
+    event.stopPropagation();
+    let confirmDelete = confirm("Вы действительно хотите удалить отделение?");
+    if (confirmDelete) {
+        $.ajax({
+            url: "ajax/z_deleteDepartment.php",
+            method: "GET",
+            data: {id_sub: openTabId, id_department: id_department},
         })
-        .fail(function (error) {
-            console.error("Ошибка при удалении отдела:", error);
-        });
+            .done(function (response) {
+                console.log(response);
+                alert("Отделение удалено.");
+            })
+            .fail(function (error) {
+                console.error("Ошибка при удалении отдела:", error);
+            });
+    }
 }
 
 
 function renameDepartment(id_department) {
+    event.stopPropagation();
     let newDepartmentName = prompt("Введите новое название отделения:");
     if (newDepartmentName !== null && newDepartmentName.trim() !== "") {
         $.ajax({
@@ -1292,6 +1298,7 @@ function renameDepartment(id_department) {
         })
             .done(function (response) {
                 console.log(response);
+                alert("Отделение переименовано.");
             })
             .fail(function (error) {
                 console.error("Ошибка при переименовании отделения:", error);
