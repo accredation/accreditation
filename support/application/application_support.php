@@ -117,10 +117,11 @@
 
                                         <?php
 
-                                            $query = "SELECT a.*, u.username, u.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, u.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join users u on a.id_user =u.id_user
+                                                    left outer join uz uz on uz.id_uz =u.id_uz
                                                    where id_status = 1";
 
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
@@ -143,7 +144,6 @@
                                                 <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
 
                                                     <td>Заявление <?= $app['username'] ?>  №<?= $app['app_id'] ?></td>
-
 
                                                 </tr>
                                                 <?php

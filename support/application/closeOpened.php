@@ -1,5 +1,5 @@
 <?php
-include "../../connection.php";
+include "../../ajax/connection.php";
 
 $id_sub = $_GET['id_sub'];
 $id_criteria = $_GET['id_criteria'];
