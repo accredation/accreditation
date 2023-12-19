@@ -1280,6 +1280,23 @@ function deleteDepartment(id_department) {
                 alert("Отделение удалено.");
                 let cardH  = document.getElementById("heading" + id_department);
                 cardH.remove();
+                // id_list_tables_criteria
+                $.ajax({
+                    url: "ajax/z_getIdListTablesCriteria.php",
+                    method: "GET",
+                    data: {id_department: id_department, id_sub:openTabId},
+                })
+                    .done(function (response) {
+                        let id_list_tables_criteria = response;
+                        let countButton = document.querySelector("#checkbox" + id_list_tables_criteria);
+                        let countText = countButton.innerText;
+                        let count = parseInt(countText.split(":")[1].trim());
+                        count--;
+                        countButton.innerText = countText.replace(count, count - 1);
+                    })
+                    .fail(function (error) {
+                        console.error("Ошибка при получении id_list_tables_criteria:", error);
+                    });
             })
             .fail(function (error) {
                 console.error("Ошибка при удалении отдела:", error);
