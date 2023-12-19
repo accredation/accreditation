@@ -331,6 +331,10 @@ function createApplication() {
 }
 
 function showModal(id_application, strMarks, strMarksAccred) {
+    let btnPrint = document.getElementById("newBtnPrint");
+    btnPrint.title = "Печать самооценки";
+    if(btnPrint)
+        btnPrint.id = "btnPrint";
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
     let btnSu = document.getElementById("btnSuc");
@@ -3273,46 +3277,7 @@ async function collapseUpdateOpened(id_crit, id_sub) {
     }
 }
 
-let tooltipElem;
 
-document.onmouseover = function (event) {
-    let target = event.target;
-
-    // если у нас есть подсказка...
-    let tooltipHtml = target.dataset.tooltip;
-    if (!tooltipHtml) return;
-
-    // ...создадим элемент для подсказки
-
-    tooltipElem = document.createElement('div');
-    tooltipElem.className = 'tooltip1';
-    tooltipElem.innerHTML = tooltipHtml;
-    let foot = document.getElementById("btnPrint");
-    foot.append(tooltipElem);
-
-    // спозиционируем его сверху от аннотируемого элемента (top-center)
-    let coords = target.getBoundingClientRect();
-
-    let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
-    if (left < 0) left = 0; // не заезжать за левый край окна
-
-    let top = coords.top - tooltipElem.offsetHeight - 5;
-    if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
-        top = coords.top + target.offsetHeight + 5;
-    }
-
-    tooltipElem.style.left = left + 'px';
-    tooltipElem.style.top = top + 'px';
-};
-
-document.onmouseout = function (e) {
-
-    if (tooltipElem) {
-        tooltipElem.remove();
-        tooltipElem = null;
-    }
-
-};
 
 let tabLink = document.querySelector('#home-tab');
 let tabPane = document.querySelector('#allApps');

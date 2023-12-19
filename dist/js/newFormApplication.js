@@ -1,7 +1,9 @@
 let id_app;
 function newShowModal(id_application, strMarks, strMarksAccred) {
     let btnPrint = document.getElementById("btnPrint");
-    btnPrint.id = "newBtnPrint";
+    btnPrint.title = "Печать критериев";
+    if (btnPrint)
+        btnPrint.id = "newBtnPrint";
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
     let btnSu = document.getElementById("btnSuc");
@@ -1358,7 +1360,7 @@ function newPrint() {
             // WinPrint.document.write('УНП: ');
             // WinPrint.document.write(unpText);
 
-            let table = createTableForPrint(tableForPrint);
+            let table = newCreateTableForPrint(tableForPrint);
 
 
             WinPrint.document.write('<br/>');
@@ -1378,7 +1380,7 @@ function newPrint() {
 }
 
 
-function createTableForPrint(tableForPrint) {
+function newCreateTableForPrint(tableForPrint) {
 
     let divPrintTable = document.createElement('div');
 
@@ -1590,43 +1592,3 @@ function createTableForPrint(tableForPrint) {
     return divPrintTable;
 }
 
-let tooltipElem1;
-
-document.onmouseover = function (event) {
-    let target = event.target;
-
-    // если у нас есть подсказка...
-    let tooltipHtml = target.dataset.tooltip;
-    if (!tooltipHtml) return;
-
-    // ...создадим элемент для подсказки
-
-    tooltipElem1 = document.createElement('div');
-    tooltipElem1.className = 'tooltip1';
-    tooltipElem1.innerHTML = tooltipHtml;
-    let foot = document.getElementById("newBtnPrint");
-    foot.append(tooltipElem1);
-
-    // спозиционируем его сверху от аннотируемого элемента (top-center)
-    let coords = target.getBoundingClientRect();
-
-    let left = coords.left + (target.offsetWidth - tooltipElem1.offsetWidth) / 2;
-    if (left < 0) left = 0; // не заезжать за левый край окна
-
-    let top = coords.top - tooltipElem1.offsetHeight - 5;
-    if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
-        top = coords.top + target.offsetHeight + 5;
-    }
-
-    tooltipElem1.style.left = left + 'px';
-    tooltipElem1.style.top = top + 'px';
-};
-
-document.onmouseout = function (e) {
-
-    if (tooltipElem1) {
-        tooltipElem1.remove();
-        tooltipElem1 = null;
-    }
-
-};
