@@ -2517,69 +2517,73 @@ $("#archive-tab").on("click", () => {
 });
 
 $("#btnSend").on("click", async () => {
-    let id_application = document.getElementById("id_application");
-    let divSoprovodPismo = document.getElementById("divSoprovodPismo");
-    let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
-    let divOrgStrukt = document.getElementById("divOrgStrukt");
-    let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
+    if(this.id == "btnSend") {
+        let id_application = document.getElementById("id_application");
+        let divSoprovodPismo = document.getElementById("divSoprovodPismo");
+        let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
+        let divOrgStrukt = document.getElementById("divOrgStrukt");
+        let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
 
-    let sokr = document.getElementById("sokr");
-    let unp = document.getElementById("unp");
-    let adress = document.getElementById("adress");
-    let tel = document.getElementById("tel");
-    let email = document.getElementById("email");
-    let rukovoditel = document.getElementById("rukovoditel");
-    let predstavitel = document.getElementById("predstavitel");
+        let sokr = document.getElementById("sokr");
+        let unp = document.getElementById("unp");
+        let adress = document.getElementById("adress");
+        let tel = document.getElementById("tel");
+        let email = document.getElementById("email");
+        let rukovoditel = document.getElementById("rukovoditel");
+        let predstavitel = document.getElementById("predstavitel");
 
-    let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
-    if (isSend) {
+        let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
+        if (isSend) {
 
-        if (divSoprovodPismo.getElementsByTagName("a").length == 0 ||
-            divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
-            divOrgStrukt.getElementsByTagName("a").length == 0 ||
-            divFileReportSamoocenka.getElementsByTagName("a").length == 0
-        ) {
-            alert("Не все обязательные документы загружены! Заявление не отправлено.");
-        } else if (sokr.value.trim() === "" ||
-            unp.value.trim() === "" ||
-            adress.value.trim() === "" ||
-            tel.value.trim() === "" ||
-            email.value.trim() === "" ||
-            rukovoditel.value.trim() === "" ||
-            predstavitel.value.trim() === ""
-        ) {
-            alert("Не все обязательные поля заполнены.");
+            if (divSoprovodPismo.getElementsByTagName("a").length == 0 ||
+                divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
+                divOrgStrukt.getElementsByTagName("a").length == 0 ||
+                divFileReportSamoocenka.getElementsByTagName("a").length == 0
+            ) {
+                alert("Не все обязательные документы загружены! Заявление не отправлено.");
+            } else if (sokr.value.trim() === "" ||
+                unp.value.trim() === "" ||
+                adress.value.trim() === "" ||
+                tel.value.trim() === "" ||
+                email.value.trim() === "" ||
+                rukovoditel.value.trim() === "" ||
+                predstavitel.value.trim() === "") {
+                alert("Не все обязательные поля заполнены.");
 
-        } else {
-            await $.ajax({
-                url: "ajax/checkEmptyCrits.php",
-                method: "GET",
-                data: {id_application: id_application.innerText}
-            })
-                .done(async function (response) {
-                    if (response == 0) {
+            } else {
+                await $.ajax({
+                    url: "ajax/checkEmptyCrits.php",
+                    method: "GET",
+                    data: {id_application: id_application.innerText}
+                })
+                    .done(async function (response) {
+                        if (response == 0) {
 
-                        await printReport();
-                        await $.ajax({
-                            url: "ajax/sendApp.php",
-                            method: "GET",
-                            data: {id_application: id_application.innerText}
-                        })
-                            .done(function (response) {
-                                if (response == "") {
-                                    alert("Заявление отправлено");
-                                    calcMarks();
-                                    collapseUpdateOpened(id_open_criteria, openTabId);
-                                    location.href = "/index.php?application";
-                                } else {
-                                    alert(response);
-                                }
-                            });
-                    } else {
-                        alert("Не выбраны критерии в подразделении.");
-                    }
-                });
+                            await printReport();
+                            await $.ajax({
+                                url: "ajax/sendApp.php",
+                                method: "GET",
+                                data: {id_application: id_application.innerText}
+                            })
+                                .done(function (response) {
+                                    if (response == "") {
+                                        alert("Заявление отправлено");
+                                        calcMarks();
+                                        collapseUpdateOpened(id_open_criteria, openTabId);
+                                        location.href = "/index.php?application";
+                                    } else {
+                                        alert(response);
+                                    }
+                                });
+                        } else {
+                            alert("Не выбраны критерии в подразделении.");
+                        }
+                    });
+            }
         }
+    }
+    else{
+        await sendApp(id_app);
     }
 
 });

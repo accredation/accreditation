@@ -165,7 +165,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                           ?>
 
 
-                                          <tr onclick="newShowModal('<?= $app['app_id'] ?>','<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                          <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
 
 
 
@@ -235,7 +235,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                   include "ajax/mainMark.php";
                                                   ?>
 
-                                                  <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                                  <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
@@ -307,7 +307,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                    /*<?= $str_CalcSelfMarkAccred ?>*/ // второй параметр для showModal
                                                   ?>
                                                                 
-                                                  <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                                  <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
@@ -379,7 +379,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                   /*<?= $str_CalcSelfMarkAccred ?>*/ // второй параметр для showModal
                                                   ?>
 
-                                                  <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '')" style="cursor: pointer;">
+                                                  <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
 
 
                                                       <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>

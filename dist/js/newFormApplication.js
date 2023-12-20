@@ -1,5 +1,8 @@
 let id_app;
-function newShowModal(id_application, strMarks, strMarksAccred) {
+function newShowModal(id_application) {
+    let btnSend = document.getElementById("btnSend");
+    btnSend.id = "newBtnSend";
+
     let btnPrint = document.getElementById("btnPrint");
     let btnPrintReport = document.getElementById("btnPrintReport");
 
@@ -23,7 +26,7 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
 
 
     let homeTab = document.getElementById("home-tab");
-    let btnSen = document.getElementById("btnSend");
+    let btnSen = document.getElementById("newBtnSend");
     let btnSu = document.getElementById("btnSuc");
     if (homeTab.classList.contains("active")) {
         if (btnSen.classList.contains("hiddentab")) {
@@ -70,15 +73,10 @@ function newShowModal(id_application, strMarks, strMarksAccred) {
     }
     openTabId = 0;
     let mainRightCard = document.getElementById("mainRightCard");
-    if (strMarksAccred !== '') {
-        mainRightCard.innerHTML = strMarks + "<br/>" + strMarksAccred;
-    } else {
-        mainRightCard.innerHTML = strMarks;
-    }
 
     let addtab = document.getElementById("addtab");
+
     let btnSuc = document.getElementById("btnSuc");
-    let btnSend = document.getElementById("btnSend");
     let btnCalc = document.getElementById("btnCalc");
 
 
@@ -1769,3 +1767,64 @@ function newCreateTableForPrint(tableForPrint) {
     return divPrintTable;
 }
 
+async function sendApp(){
+    console.log("хуй");
+    let id_application = document.getElementById("id_application");
+    let divSoprovodPismo = document.getElementById("divSoprovodPismo");
+    let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
+    let divOrgStrukt = document.getElementById("divOrgStrukt");
+    let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
+
+    let sokr = document.getElementById("sokr");
+    let unp = document.getElementById("unp");
+    let adress = document.getElementById("adress");
+    let tel = document.getElementById("tel");
+    let email = document.getElementById("email");
+    let rukovoditel = document.getElementById("rukovoditel");
+    let predstavitel = document.getElementById("predstavitel");
+
+    let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
+    if (isSend) {
+
+        if (divSoprovodPismo.getElementsByTagName("a").length == 0 ||
+            divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
+            divOrgStrukt.getElementsByTagName("a").length == 0 ||
+            divFileReportSamoocenka.getElementsByTagName("a").length == 0
+        ) {
+            alert("Не все обязательные документы загружены! Заявление не отправлено.");
+        } else if (sokr.value.trim() === "" ||
+            unp.value.trim() === "" ||
+            adress.value.trim() === "" ||
+            tel.value.trim() === "" ||
+            email.value.trim() === "" ||
+            rukovoditel.value.trim() === "" ||
+            predstavitel.value.trim() === ""
+        ) {
+            alert("Не все обязательные поля заполнены.");
+
+        } else {
+            await printReport();
+            await $.ajax({
+                url: "ajax/sendApp.php",
+                method: "GET",
+                data: {id_application: id_application.innerText}
+            })
+                .done(function (response) {
+                    if (response == "") {
+                        alert("Заявление отправлено");
+                        location.href = "/index.php?application";
+                    } else {
+                        alert(response);
+                    }
+                });
+        }
+    }
+}
+//
+// $("#btnSend").on("click", async () =>{
+//     if(this.id === "newBtnSend") {
+//         await sendApp(id_app);
+//     }else {
+//
+//     }
+// })
