@@ -142,6 +142,36 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     }
 }
 echo '</tbody></table>
-</div>';
+</div>
+</br></br>
+<div style="
+    position: relative;
+    left: 10%;
+">Руководитель (представитель)</div>
+<div style="
+    position: relative;
+    left: 10%;
+">заинтересованного лица</div>
+<div class = "podpiska" style="display: flex;">
+<div style="
+       font-weight: 700;
+    position: relative;
+    left: 10%;
+    font-size: 13px;
+">(наименование должности служащего)</div>
+<div style="
+       font-weight: 700;
+    position: relative;
+    left: 20%;
+    font-size: 13px;
+">(подпись)</div>
+<div style="
+       font-weight: 700;
+    position: relative;
+    left: 30%;
+    font-size: 13px;
+">(инициалы,фамилия)</div>
+</div>
+';
 
 ?>
