@@ -142,16 +142,28 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     }
 }
 echo '</tbody></table>
-</div>
-</br></br>
+</div>';
+
+$query_rukovod = "SELECT ap.rukovoditel, ap.predstavitel from applications ap 
+                        WHERE ap.id_application = '$id_app'";
+$result_rukovod = mysqli_query($con, $query_rukovod) or die("Ошибка " . mysqli_error($con));
+if ($row_rukovod = mysqli_fetch_assoc($result_rukovod)) {
+    $rukovod = $row_rukovod['rukovoditel'] ?? 'Руководитель (представитель)';
+    $predstavitel = $row_rukovod['predstavitel'] ?? 'заинтересованного лица';
+}
+else{
+    $rukovod = 'Руководитель (представитель)';
+    $predstavitel = 'заинтересованного лица';
+}
+echo '</br></br>
 <div style="
     position: relative;
     left: 10%;
-">Руководитель (представитель)</div>
+">'.$rukovod .'</div>
 <div style="
     position: relative;
     left: 10%;
-">заинтересованного лица</div>
+">'.$predstavitel.'</div>
 <div class = "podpiska" style="display: flex;">
 <div style="
        font-weight: 700;
