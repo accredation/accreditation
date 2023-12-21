@@ -1,6 +1,6 @@
 <?php
 include "connection.php";
-$id_app = 545;
+$id_app = $_GET['id_application'];
 //$id_list_tables_criteria =  $_GET['id_list_tables_criteria'];
 //$department =  $_GET['department'];
 //$login=  $_COOKIE['login'];
