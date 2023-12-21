@@ -338,8 +338,10 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btnPrint.id = "btnPrint";
         btnPrint.title = "Печать самооценки";
     }else{
-        let btnPrint = document.getElementById("btnPrint");
+
+        btnPrint.id = "btnPrint";
         btnPrint.title = "Печать самооценки";
+
     }
 
     if(btnPrintReport) {
@@ -354,6 +356,10 @@ function showModal(id_application, strMarks, strMarksAccred) {
 
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("btnSend");
+    if(!btnSen) {
+        btnSen = document.getElementById("newBtnSend");
+        btnSen.id = "btnSend";
+    }
     let btnSu = document.getElementById("btnSuc");
     if (homeTab.classList.contains("active")) {
         if (btnSen.classList.contains("hiddentab")) {
@@ -406,7 +412,6 @@ function showModal(id_application, strMarks, strMarksAccred) {
 
     let addtab = document.getElementById("addtab");
     let btnSuc = document.getElementById("btnSuc");
-    let btnSend = document.getElementById("btnSend");
     let btnCalc = document.getElementById("btnCalc");
 
 
@@ -477,7 +482,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
-        btnSend.classList.add("hiddentab");
+        btnSen.classList.add("hiddentab");
         if (btnCalc) {
             btnCalc.remove();
         }

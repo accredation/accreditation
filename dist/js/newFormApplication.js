@@ -1,12 +1,13 @@
 let id_app;
 function newShowModal(id_application) {
     let btnSend = document.getElementById("btnSend");
-    btnSend.id = "newBtnSend";
+
 
     let btnPrint = document.getElementById("btnPrint");
     let btnPrintReport = document.getElementById("btnPrintReport");
 
     if (btnPrint) {
+        btnSend.id = "newBtnSend";
         btnPrint.id = "newBtnPrint";
         btnPrint.title = "Печать самооценки";
     }
@@ -1803,7 +1804,7 @@ async function sendApp(){
             alert("Не все обязательные поля заполнены.");
 
         } else {
-            await printReport();
+            await printNewReport();
             await $.ajax({
                 url: "ajax/sendApp.php",
                 method: "GET",
