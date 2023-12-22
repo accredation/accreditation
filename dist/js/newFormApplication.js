@@ -29,10 +29,12 @@ function newShowModal(id_application) {
     let closeXucomplect = document.getElementsByClassName("closeXucomplect")[0];
     closeXucomplect.onclick = () => {
         modalUcomplect.style = "display: none";
+
     }
     let closeUcomplect = document.getElementsByClassName("closeUcomplect")[0];
     closeUcomplect.onclick = () => {
         modalUcomplect.style = "display: none";
+
     }
 
 
@@ -254,6 +256,7 @@ function newShowModal(id_application) {
     // выводим полученный ответ на консоль браузер
 
     $(".closeX").on("click", async () => {
+        newDivUcomplect.remove();
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -416,6 +419,7 @@ function newShowModal(id_application) {
 
     });
     $(".closeD").on("click", async () => {
+        newDivUcomplect.remove();
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
         let copy = divCopyRaspisanie.getElementsByTagName("a")[0];
         let org = divOrgStrukt.getElementsByTagName("a")[0];
@@ -1858,7 +1862,17 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         url: "ajax/z_saveUcompField.php",
         method: "GET",
         data: {idSub: idSub, idDep: idDep, fieldNum: fieldNum, text: text.innerText.replace(/[^\w\s\+\-%,.]/gi, '')}
-    }).done(function (response) {
+    }).then(function (response) {
+        let modalUcomplect = document.getElementById("modalUcomplect");
+        let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
+
+            $.ajax({
+                url: "ajax/z_ucomplectTable.php",
+                method: "GET",
+                data: {id_application: id_app}
+            }).then((response) => {
+                modalBody.innerHTML = response;
+            })
     })
 }
 
