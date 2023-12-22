@@ -1851,6 +1851,19 @@ async function sendApp(){
         }
     }
 }
+
+
+function saveUcompField(idSub, idDep, text, fieldNum) {
+    $.ajax({
+        url: "ajax/z_saveUcompField.php",
+        method: "GET",
+        data: {idSub: idSub, idDep: idDep, fieldNum: fieldNum, text: text.innerText.replace(/[^\w\s\+\-%,.]/gi, '')}
+    }).done(function (response) {
+    })
+}
+
+
+
 //
 // $("#btnSend").on("click", async () =>{
 //     if(this.id === "newBtnSend") {
