@@ -1,5 +1,41 @@
 let id_app;
 function newShowModal(id_application) {
+    let formUcomplect = document.getElementById("formUcomplect");
+    formUcomplect.style = "display: none";
+    let newDivUcomplect = document.createElement("div");
+    let btnTableUcomplect = document.createElement("button");
+    let labelUcomplect = document.createElement("p");
+    labelUcomplect.innerHTML = "Укомплектованность";
+    newDivUcomplect.appendChild(labelUcomplect);
+    btnTableUcomplect.innerHTML = "Редактировать";
+    newDivUcomplect.appendChild(btnTableUcomplect);
+    newDivUcomplect.style = "margin-bottom: 20px";
+    let prev = formUcomplect.previousElementSibling;
+    prev.insertAdjacentElement("afterend", newDivUcomplect);
+    let modalUcomplect = document.getElementById("modalUcomplect");
+    let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
+    btnTableUcomplect.onclick = () => {
+
+        modalUcomplect.style = "display: block";
+        $.ajax({
+            url: "ajax/z_ucomplectTable.php",
+            method: "GET",
+            data: {id_application: id_app}
+        }).then((response) => {
+            modalBody.innerHTML = response;
+        })
+    }
+
+    let closeXucomplect = document.getElementsByClassName("closeXucomplect")[0];
+    closeXucomplect.onclick = () => {
+        modalUcomplect.style = "display: none";
+    }
+    let closeUcomplect = document.getElementsByClassName("closeUcomplect")[0];
+    closeUcomplect.onclick = () => {
+        modalUcomplect.style = "display: none";
+    }
+
+
     let btnSend = document.getElementById("btnSend");
 
 

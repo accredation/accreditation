@@ -660,6 +660,41 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
 </div>
 
 
+    <div class="modal" id="modalUcomplect">
+        <div class="modal-dialog modal-xl" >
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header" >
+                    <div style="display: flex">
+                        <h4 class="modal-title">Укомплектованность</h4>
+                    </div>
+
+                    <div style="display: flex">
+
+
+                        <button type="button" class="btn  btn-danger btn-close  closeXucomplect"  data-bs-dismiss="modal">x</button>
+                    </div>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+
+
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger closeUcomplect" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>

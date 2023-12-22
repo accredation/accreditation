@@ -1,12 +1,12 @@
 <?php
 include "connection.php";
 
-$id_app = 545;
+$id_app = $_GET['id_application'];
 
 $query1  = "
 SELECT s.name, s.id_subvision
 FROM subvision s 
-where  s.id_application = '545' ";
+where  s.id_application = '$id_app' ";
 $rez1 = mysqli_query($con, $query1) or die("Ошибка " . mysqli_error($con));
 
 $subvisions = array();
@@ -58,7 +58,7 @@ while ($row1 = mysqli_fetch_assoc($rez1)) {
            from z_department as dep 
            where  dep.id_subvision  = '$subvisionId'";
     $rez2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
-    echo '<tr ><td >' . $subvisionName . '</td></tr>';
+    echo '<tr ><td colspan="9">' . $subvisionName . '</td></tr>';
 
     $departments = array();
     while ($row2 = mysqli_fetch_assoc($rez2)) {
