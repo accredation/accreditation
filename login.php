@@ -23,39 +23,143 @@ include 'authorization/auth.php';
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.png"/>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins', sans-serif;
+        }
+
+        section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            background: url("/assets/images/backlog.jpg") no-repeat center;
+            background-size: cover;
+        }
+        .form-box{
+            position: relative;
+            width: 400px;
+            height: 450px;
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h2{
+            font-size: 2em;
+            color: #fff;
+            text-align: center;
+        }
+        .inputbox{
+            position: relative;
+            margin: 30px 0;
+            width: 310px;
+            border-bottom: 2px solid #fff;
+        }
+        input:focus ~ label,
+        input:valid ~ label{
+            top: -5px;
+        }
+
+        .inputbox input{
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            padding: 0 35px 0 5px;
+            color: #fff;
+        }
+
+        .inputbox label{
+           position: absolute;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 1em;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .inputbox ion-icon{
+            position: absolute;
+            right: 8px;
+            color: #fff;
+            font-size: 1.2em;
+            top: 20px;
+        }
+        button{
+            width: 100%;
+            height: 40px;
+            border-radius: 40px;
+            background: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+    </style>
 </head>
 <body>
-<div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="content-wrapper d-flex align-items-center auth">
-            <div class="row flex-grow">
-                <div class="col-lg-4 mx-auto">
-                    <div class="auth-form-light text-left p-5">
-                        <h4>Авторизация в системе медицинкой аккредитации</h4>
 
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-lg" id="exampleInputEmail1"
-                                   placeholder="Логин" name="login">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control form-control-lg" id="exampleInputPassword1"
-                                   placeholder="Пароль" name="password">
-                        </div>
-                        <!--                  <div class="mt-3">-->
-                        <!--                    <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html" name="log_in">SIGN IN</a>-->
-                        <!--                  </div>-->
-                        <button class="btn btn-block btn-primary" id="log_in" name="log_in">
-                            Войти
-                        </button>
+<section>
+    <div class="form-box">
+        <div class="form-value">
 
-                    </div>
+                <h2>Авторизация </h2>
+                <div class="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" id="exampleInputEmail1" required/>
+                    <label for="">Логин</label>
                 </div>
-            </div>
+                <div class="inputbox">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" id="exampleInputPassword1" required/>
+                    <label for="">Пароль</label>
+                </div>
+                <button id="log_in" name="log_in">Войти</button>
+
         </div>
-        <!-- content-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-</div>
+</section>
+
+<!--<div class="container-scroller">-->
+<!--    <div class="container-fluid page-body-wrapper full-page-wrapper">-->
+<!--        <div class="content-wrapper d-flex align-items-center auth">-->
+<!--            <div class="row flex-grow">-->
+<!--                <div class="col-lg-4 mx-auto">-->
+<!--                    <div class="auth-form-light text-left p-5">-->
+<!--                        <h4>Авторизация в системе медицинкой аккредитации</h4>-->
+<!---->
+<!--                        <div class="form-group">-->
+<!--                            <input type="text" class="form-control form-control-lg" id="exampleInputEmail1"-->
+<!--                                   placeholder="Логин" name="login">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <input type="password" class="form-control form-control-lg" id="exampleInputPassword1"-->
+<!--                                   placeholder="Пароль" name="password">-->
+<!--                        </div>-->
+<!--                        <button class="btn btn-block btn-primary" id="log_in" name="log_in">-->
+<!--                            Войти-->
+<!--                        </button>-->
+<!---->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
 <script>
     function getCookie(cname) {
         let name = cname + "=";
@@ -131,15 +235,9 @@ include 'authorization/auth.php';
 </script>
 <!-- container-scroller -->
 <!-- plugins:js -->
-<script src="assets/vendors/js/vendor.bundle.base.js"></script>
-<!-- endinject -->
-<!-- Plugin js for this page -->
-<!-- End plugin js for this page -->
-<!-- inject:js -->
-<script src="assets/js/off-canvas.js"></script>
-<script src="assets/js/hoverable-collapse.js"></script>
-<script src="assets/js/misc.js"></script>
-<script src="dist/js/moment.js"></script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <!-- endinject -->
 </body>
 </html>
