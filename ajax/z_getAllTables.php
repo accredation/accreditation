@@ -11,7 +11,8 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $id_department = $row_department['id_department'];
     $department_name = $row_department['name'];
     $mark_percent = $row_department['mark_percent'];
-
+    if($mark_percent === null)
+        $mark_percent = 0;
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
        <div class = "actCont" style="display: flex;">
          <div class="actions-container" style = "width: 70%;">
