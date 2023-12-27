@@ -28,6 +28,7 @@ include 'authorization/auth.php';
             margin: 0;
             padding: 0;
             font-family: 'poppins', sans-serif;
+            overflow: hidden;
         }
 
         section{
@@ -107,6 +108,21 @@ include 'authorization/auth.php';
             font-size: 1em;
             font-weight: 600;
         }
+
+        .snow{
+            position: absolute;
+            top: -10px;
+            color: #c6d8e2;
+            border-radius: 50%;
+            animation:  fall linear, rotate  infinite linear;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(420vh) rotate(6530deg);
+            }
+        }
+
 
     </style>
 </head>
@@ -232,6 +248,27 @@ include 'authorization/auth.php';
 
         })
     }
+
+    function makeSnow(){
+        const snow = document.createElement("div");
+        const size = Math.random() * 35.5 + 3.5;
+        snow.className = "snow";
+        snow.style.fontSize = size + "px";
+        snow.style.left = Math.random() * window.innerWidth + "px";
+        snow.innerHTML = "*";
+        snow.style.opacity = size / 8;
+        if(size < 7){
+            snow.style.zIndex = -5;
+        }
+        snow.style.animationDuration = Math.random() * 60 + 20 + "s";
+        document.body.appendChild(snow);
+        setTimeout(() =>
+            snow.remove(),
+            7000
+        )
+    }
+
+    setInterval(makeSnow,40);
 </script>
 <!-- container-scroller -->
 <!-- plugins:js -->
