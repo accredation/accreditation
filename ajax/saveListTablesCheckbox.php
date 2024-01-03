@@ -49,7 +49,7 @@ if (mysqli_num_rows($rez) == 1) {
         }
     }
 
-    echo '<div class="card-header" id="heading' . $id_list_tables_criteria . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
+    echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
           <div class = "actCont" style="display: flex;">
          <div class="actions-container" style = "width: 70%;">
     <button class="btn btn-link" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_list_tables_criteria . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
