@@ -115,6 +115,9 @@ function newShowModal(id_application) {
 
     let addtab = document.getElementById("addtab");
 
+    if (idRole === "15")
+        addtab.style = "display: none";
+
     let btnSuc = document.getElementById("btnSuc");
     let btnCalc = document.getElementById("btnCalc");
 
@@ -1341,12 +1344,26 @@ function deleteDepartment(id_department) {
                 console.log(response);
                 alert("Отделение удалено.");
                 let id_list_tables_criteria = response;
-                let countButton = document.querySelector("#checkbox" + id_list_tables_criteria);
-                let countText = countButton.innerText;
-                let count = parseInt(countText.split(":")[1].trim());
-                count--;
-                countButton.innerText = countText.replace(count, count - 1);
+                let tabActive = document.getElementById("tab"+ openTabId+"-");
+
+                let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
+
+                if(!countButton.innerHTML){
+                    let rightCard = tabActive.querySelector("#cardRight");
+                    rightCard.innerHTML = "";
+                }else {
+                    let countText = countButton.innerText;
+                    let countT = countText.split(":")[1];
+
+                    if (countT) {
+                        let count = countT.trim();
+                        let newT = countText.replace(count, String(Number(count) - 1));
+
+                        countButton.innerHTML = newT;
+                    }
+                }
                 let cardH  = document.getElementById("heading" + id_department);
+                if(cardH)
                 cardH.remove();
             })
             .fail(function (error) {
