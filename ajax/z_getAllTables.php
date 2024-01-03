@@ -74,7 +74,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
                 <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не требуется</option>
                 </select></div></td>
-                <td style="border: 1px solid black;"><div id="' . $id_crit . '_' . $id_department . '" style="width: 100%; ">';
+                <td style="border: 1px solid black;"><div id="' . $id_crit . '_' . $id_department . '" style="width: 350px; ">';
         $count = count($files);
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {

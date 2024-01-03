@@ -8,6 +8,7 @@ function newShowModal(id_application) {
     labelUcomplect.innerHTML = "Укомплектованность";
     newDivUcomplect.appendChild(labelUcomplect);
     btnTableUcomplect.innerHTML = "Редактировать";
+    btnTableUcomplect.classList = "ownUcomp"
     newDivUcomplect.appendChild(btnTableUcomplect);
     newDivUcomplect.style = "margin-bottom: 20px";
     let prev = formUcomplect.previousElementSibling;
@@ -682,6 +683,19 @@ async function newShowTab(element, id_sub) {
                 } else {
                     let inputCheck = document.createElement("button");
                     inputCheck.className = "form-button";
+                    inputCheck.style = "color: black;\n" +
+                        "    display: inline-block;\n" +
+                        "    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);\n" +
+                        "    border: 1px solid #999;\n" +
+                        "    border-radius: 3px;\n" +
+                        "    padding: 5px 8px;\n" +
+                        "    outline: none;\n" +
+                        "    white-space: nowrap;\n" +
+                        "    -webkit-user-select: none;\n" +
+                        "    cursor: pointer;\n" +
+                        "    text-shadow: 1px 1px #fff;\n" +
+                        "    font-weight: 700;\n" +
+                        "    font-size: 10pt;width:90%;";
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -745,6 +759,19 @@ async function newShowTab(element, id_sub) {
                 } else {
                     let inputCheck = document.createElement("button");
                     inputCheck.className = "form-button";
+                    inputCheck.style = "color: black;\n" +
+                        "    display: inline-block;\n" +
+                        "    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);\n" +
+                        "    border: 1px solid #999;\n" +
+                        "    border-radius: 3px;\n" +
+                        "    padding: 5px 8px;\n" +
+                        "    outline: none;\n" +
+                        "    white-space: nowrap;\n" +
+                        "    -webkit-user-select: none;\n" +
+                        "    cursor: pointer;\n" +
+                        "    text-shadow: 1px 1px #fff;\n" +
+                        "    font-weight: 700;\n" +
+                        "    font-size: 10pt;width:90%;";
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -806,6 +833,19 @@ async function newShowTab(element, id_sub) {
                 } else {
                     let inputCheck = document.createElement("button");
                     inputCheck.className = "form-button";
+                    inputCheck.style = "color: black;\n" +
+                        "    display: inline-block;\n" +
+                        "    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);\n" +
+                        "    border: 1px solid #999;\n" +
+                        "    border-radius: 3px;\n" +
+                        "    padding: 5px 8px;\n" +
+                        "    outline: none;\n" +
+                        "    white-space: nowrap;\n" +
+                        "    -webkit-user-select: none;\n" +
+                        "    cursor: pointer;\n" +
+                        "    text-shadow: 1px 1px #fff;\n" +
+                        "    font-weight: 700;\n" +
+                        "    font-size: 10pt;width:90%;";
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -870,6 +910,19 @@ async function newShowTab(element, id_sub) {
                 } else {
                     let inputCheck = document.createElement("button");
                     inputCheck.className = "form-button";
+                    inputCheck.style = "color: black;\n" +
+                        "    display: inline-block;\n" +
+                        "    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);\n" +
+                        "    border: 1px solid #999;\n" +
+                        "    border-radius: 3px;\n" +
+                        "    padding: 5px 8px;\n" +
+                        "    outline: none;\n" +
+                        "    white-space: nowrap;\n" +
+                        "    -webkit-user-select: none;\n" +
+                        "    cursor: pointer;\n" +
+                        "    text-shadow: 1px 1px #fff;\n" +
+                        "    font-weight: 700;\n" +
+                        "    font-size: 10pt; width:90%;";
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -1047,6 +1100,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
 
     let btnDelete = document.createElement("button");
     btnDelete.innerHTML = "Удалить подразделение";
+    btnDelete.classList = "btn btn-danger";
     btnDelete.setAttribute("onclick", "deleteTab('" + id_sub + "')");
     btnDelete.style = "margin-bottom: 15px";
     tabPane.appendChild(btnDelete);
