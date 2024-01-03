@@ -1101,9 +1101,16 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     let btnDelete = document.createElement("button");
     btnDelete.innerHTML = "Удалить подразделение";
     btnDelete.classList = "btn btn-danger";
+    btnDelete.id = "delPodr";
     btnDelete.setAttribute("onclick", "deleteTab('" + id_sub + "')");
     btnDelete.style = "margin-bottom: 15px";
-    tabPane.appendChild(btnDelete);
+    if (idRole == 15){
+
+    }
+    else {
+        tabPane.appendChild(btnDelete);
+    }
+
 
 
     col12_1.style = "display: flex";
@@ -1947,6 +1954,10 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
             })
     })
 }
+
+
+
+
 
 
 

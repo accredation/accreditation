@@ -20,10 +20,24 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         ' . $department_name . ' (самооценка = ' . $mark_percent . '%)
         </button>
         </div>
-        <div class ="actions-container2"  style = "width: 30%; display: flex;">
+       ';
+    $query = "SELECT id_role FROM users WHERE users.id_user = '{$_COOKIE['id_user']}'";
+    $result = mysqli_query($con, $query) or die (mysqli_error($con));
+    if (mysqli_num_rows($result) == 1) //если получена одна строка
+    {
+        $row = mysqli_fetch_assoc($result);
+        if($row['id_role'] == 15){  }
+
+        else {
+            echo'
+        <div class ="actions-container2"  style = "width: 30%;">
           <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
           <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
-        </div>
+        </div>';
+        }
+    }
+
+    echo'
         </div>
 
         </div>
