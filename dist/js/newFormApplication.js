@@ -952,6 +952,7 @@ async function newShowTab(element, id_sub) {
                         markSub.remove();
                     }
                     divMark.style = "text-align: right;";
+
                     divMark.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
                     thisTab.appendChild(divMark);
             })
