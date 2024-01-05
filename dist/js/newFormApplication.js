@@ -1,4 +1,5 @@
 let id_app;
+
 function newShowModal(id_application) {
     let formUcomplect = document.getElementById("formUcomplect");
     formUcomplect.style = "display: none";
@@ -49,17 +50,16 @@ function newShowModal(id_application) {
         btnSend.id = "newBtnSend";
         btnPrint.id = "newBtnPrint";
         btnPrint.title = "Печать самооценки";
-    }
-    else{
+    } else {
         let btnPrint = document.getElementById("newBtnPrint");
         btnPrint.title = "Печать самооценки";
     }
 
 
-    if(btnPrintReport) {
+    if (btnPrintReport) {
         btnPrintReport.id = "btnNewPrintReport";
         btnPrintReport.title = "Печать самооценки";
-    }else{
+    } else {
         let btnPrintReport = document.getElementById("btnNewPrintReport");
         btnPrintReport.title = "Печать самооценки";
     }
@@ -252,11 +252,11 @@ function newShowModal(id_application) {
                 newGetTabs(obj[1], obj[0]);
 
             }
-            let mark_percent =  data[2];
+            let mark_percent = data[2];
             let mainRightCard = document.getElementById("mainRightCard");
             mainRightCard.innerHTML = "Количественная самооценка - " + parseFloat(mark_percent).toFixed(2) + "%";
 
-    });
+        });
     // выводим полученный ответ на консоль браузер
 
     $(".closeX").on("click", async () => {
@@ -972,59 +972,56 @@ async function newShowTab(element, id_sub) {
             })
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
-        }).then(()=>{
+        }).then(() => {
             $.ajax({
                 url: "ajax/z_getAllTables.php",
                 method: "GET",
-                data: { id_sub: openTabId }
-            }).then(function(response) {
+                data: {id_sub: openTabId}
+            }).then(function (response) {
 
                 let numTab = document.querySelector("#tab" + openTabId + "-");
                 let rightCard = numTab.querySelector("#cardRight");
                 let cardForAdding = rightCard.querySelector(":first-child");
                 let cardForAdding1 = cardForAdding.querySelector(":first-child");
-                if(cardForAdding1)
-                    cardForAdding1.insertAdjacentHTML("afterbegin",response);
+                if (cardForAdding1)
+                    cardForAdding1.insertAdjacentHTML("afterbegin", response);
 
 
-
-
-
-            }).fail(function(jqXHR, textStatus, errorThrown) {
+            }).fail(function (jqXHR, textStatus, errorThrown) {
                 //
                 console.log("AJAX Error: " + textStatus + ", " + errorThrown);
             });
-        }).then(() =>{
-                $.ajax({
-                    url: "ajax/z_calc_subvision.php",
-                    method: "GET",
-                    data: { id_sub: openTabId, id_application: id_app }
-                }).then((response) => {
-                    let thisTab = document.getElementById("tab"+openTabId+"-");
-                    let divMark = document.createElement("div");
-                    divMark.id = "markSub";
-                    let markSub = document.getElementById("markSub");
-                    if(markSub){
-                        markSub.remove();
-                    }
-                    divMark.style = "text-align: right;";
+        }).then(() => {
+            $.ajax({
+                url: "ajax/z_calc_subvision.php",
+                method: "GET",
+                data: {id_sub: openTabId, id_application: id_app}
+            }).then((response) => {
+                let thisTab = document.getElementById("tab" + openTabId + "-");
+                let divMark = document.createElement("div");
+                divMark.id = "markSub";
+                let markSub = document.getElementById("markSub");
+                if (markSub) {
+                    markSub.remove();
+                }
+                divMark.style = "text-align: right;";
 
-                    divMark.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
-                    thisTab.appendChild(divMark);
+                divMark.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
+                thisTab.appendChild(divMark);
             })
         })
     }
 
-    if(idNum == "1"){
+    if (idNum == "1") {
 
-            $.ajax({
-                url: "ajax/z_calc_application.php",
-                method: "GET",
-                data: {id_application: id_app}
-            }).then((response) => {
-                let mainRightCard = document.getElementById("mainRightCard");
-                mainRightCard.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
-            })
+        $.ajax({
+            url: "ajax/z_calc_application.php",
+            method: "GET",
+            data: {id_application: id_app}
+        }).then((response) => {
+            let mainRightCard = document.getElementById("mainRightCard");
+            mainRightCard.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
+        })
 
 
     }
@@ -1063,7 +1060,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     col12_1.className = "col-12 grid-margin";
     let cardLeft = document.createElement("div");
     cardLeft.className = "card";
-    if(idRole === "15"){
+    if (idRole === "15") {
         cardLeft.classList.add("hiddentab");
     }
 
@@ -1104,13 +1101,11 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     btnDelete.id = "delPodr";
     btnDelete.setAttribute("onclick", "deleteTab('" + id_sub + "')");
     btnDelete.style = "margin-bottom: 15px";
-    if (idRole == 15){
+    if (idRole == 15) {
 
-    }
-    else {
+    } else {
         tabPane.appendChild(btnDelete);
     }
-
 
 
     col12_1.style = "display: flex";
@@ -1207,8 +1202,8 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                 let rightCard = numTab.querySelector("#cardRight");
                 let cardForAdding = rightCard.querySelector(":first-child");
                 let cardForAdding1 = cardForAdding.querySelector(":first-child");
-                if(cardForAdding1)
-                    cardForAdding1.insertAdjacentHTML("afterbegin",response);
+                if (cardForAdding1)
+                    cardForAdding1.insertAdjacentHTML("afterbegin", response);
 
             });
 
@@ -1274,25 +1269,25 @@ function buttonSelected(inputCheck) {  // добавление отделени�
                 let rightCard = numTab.querySelector("#cardRight");
                 let cardForAdding = rightCard.querySelector(":first-child");
                 let cardForAdding1 = cardForAdding.querySelector(":first-child");
-                if(cardForAdding1)
-                    cardForAdding1.insertAdjacentHTML("afterbegin",response);
+                if (cardForAdding1)
+                    cardForAdding1.insertAdjacentHTML("afterbegin", response);
             });
     } else {
 
     }
 }
 
-function newCollapseTable(thisDiv){
+function newCollapseTable(thisDiv) {
     let card = thisDiv.parentElement;
     let thisCollapse = card.querySelector("#collapse" + thisDiv.id.substring(7));
-    if(thisCollapse.classList.contains("show")){
+    if (thisCollapse.classList.contains("show")) {
         thisCollapse.classList.remove("show");
-    }else{
+    } else {
         thisCollapse.classList.add("show");
     }
 }
 
-function changeField3(idCrit, idDep, select){
+function changeField3(idCrit, idDep, select) {
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
@@ -1303,20 +1298,20 @@ function changeField3(idCrit, idDep, select){
         })
 }
 
-function changeField5(idCrit, idDep, text){
+function changeField5(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField5.php",
         method: "GET",
         data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^\w\s]/gi, '')}
     }).done(function (response) {
 
-        })
+    })
 }
 
-function addFile(idCrit, idDep, input){
+function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
 
-    let divA = document.getElementById(idCrit+"_"+idDep);
+    let divA = document.getElementById(idCrit + "_" + idDep);
 
     let xhr = new XMLHttpRequest(),
         form = new FormData();
@@ -1331,14 +1326,14 @@ function addFile(idCrit, idDep, input){
     load.innerHTML = "Подождите, идет загрузка";
     divA.insertAdjacentElement("afterend", load);
 
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         if (event.lengthComputable) {
             let progress = (event.loaded / event.total) * 100;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
     };
 
-    xhr.upload.onloadstart = function() {
+    xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
     };
 
@@ -1355,7 +1350,7 @@ function addFile(idCrit, idDep, input){
         deleteButton.style.cursor = 'pointer';
         deleteButton.style.paddingLeft = '10px';
         deleteButton.id = 'delete_' + idCrit + '_' + idDep + '_' + addedFile.name;
-        deleteButton.onclick = function() {
+        deleteButton.onclick = function () {
             z_deleteFile(addedFile.name, idCrit, idDep);
         };
         fileContainer.appendChild(fileLink);
@@ -1405,14 +1400,14 @@ function deleteDepartment(id_department) {
                 console.log(response);
                 alert("Отделение удалено.");
                 let id_list_tables_criteria = response;
-                let tabActive = document.getElementById("tab"+ openTabId+"-");
+                let tabActive = document.getElementById("tab" + openTabId + "-");
 
                 let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
 
-                if(!countButton.innerHTML){
+                if (!countButton.innerHTML) {
                     let rightCard = tabActive.querySelector("#cardRight");
                     rightCard.innerHTML = "";
-                }else {
+                } else {
                     let countText = countButton.innerText;
                     let countT = countText.split(":")[1];
 
@@ -1423,9 +1418,9 @@ function deleteDepartment(id_department) {
                         countButton.innerHTML = newT;
                     }
                 }
-                let cardH  = document.getElementById("heading" + id_department);
-                if(cardH)
-                cardH.remove();
+                let cardH = document.getElementById("heading" + id_department);
+                if (cardH)
+                    cardH.remove();
             })
             .fail(function (error) {
                 console.error("Ошибка при удалении отдела:", error);
@@ -1441,7 +1436,7 @@ function renameDepartment(id_department) {
         $.ajax({
             url: "ajax/z_renameDepartment.php",
             method: "GET",
-            data: { id_department: id_department, new_department_name: newDepartmentName, id_sub:openTabId },
+            data: {id_department: id_department, new_department_name: newDepartmentName, id_sub: openTabId},
         })
             .done(function (response) {
                 console.log(response);
@@ -1459,130 +1454,128 @@ function renameDepartment(id_department) {
 }
 
 
+function printNewReport() {
+    return new Promise((resolve, reject) => {
+        let number_app = document.getElementById("id_application");
+        let id_application = number_app.innerHTML;
+        let criteriaMark = document.createElement('div');
+        criteriaMark.textContent = '<strong>Достигнуты следующие результаты</strong><br/>';
+        criteriaMark.style = "padding-top: 0.5rem; padding-bottom:1rem; ";
+        var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+        WinPrint.document.write('<style>@page {\n' +
+            'margin: 1rem;\n' +
+            '}</style>');
 
+        let textSubCriteriaChecked = '';
+        let divTextSubCriteriaChecked = document.createElement('div');
+        divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
 
- function printNewReport() {
-     return new Promise((resolve, reject) => {
-         let number_app = document.getElementById("id_application");
-         let id_application = number_app.innerHTML;
-         let criteriaMark = document.createElement('div');
-         criteriaMark.textContent = '<strong>Достигнуты следующие результаты</strong><br/>';
-         criteriaMark.style = "padding-top: 0.5rem; padding-bottom:1rem; ";
-         var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
-         WinPrint.document.write('<style>@page {\n' +
-             'margin: 1rem;\n' +
-             '}</style>');
+        $.ajax({
+            url: "ajax/getCalc.php",
+            method: "GET",
+            data: {id_application: id_application}
+        }).then(() => {
+            return $.ajax({
+                url: "ajax/z_getSubForPrintReport.php",
+                method: "GET",
+                data: {id_application: id_application}
+            });
+        }).then((response) => {
+            let subCriteriaForReport = JSON.parse(response);
+            let id_s = -1;
+            let as = '';
+            subCriteriaForReport.map((item, index) => {
+                if (id_s !== item['id_subvision']) {
+                    if (index != 0) {
+                        textSubCriteriaChecked += `<div>${as}</div>`;
+                    }
+                    as = '';
+                    id_s = item['id_subvision'];
+                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации: `;
+                }
+                if (index === subCriteriaForReport.length - 1) {
+                    as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
+                    textSubCriteriaChecked += `<div>${as}</div>`;
+                } else {
+                    if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
+                    else
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ", ";
+                }
+            });
+        }).then(() => {
+            let mainRightCard = document.getElementById("mainRightCard");
+            let mainRightCardText = mainRightCard.innerHTML;
+            criteriaMark.textContent += mainRightCardText;
+            let table;
+            return $.ajax({
+                url: "ajax/z_getAppForPrintNo.php",
+                method: "GET",
+                data: {id_app: id_application}
+            });
+        }).then((response) => {
+            let tableForPrint = JSON.parse(response);
+            if (tableForPrint.length !== 0) {
+                let naim = document.getElementById("naim");
+                let unp = document.getElementById("unp");
+                let naimText = naim.value;
+                let unpText = unp.value;
+                table = createTableForPrintNo(tableForPrint);
+            }
+        }).then(() => {
+            let sokr = document.getElementById('sokr');
+            let naim = document.getElementById('naim');
 
-         let textSubCriteriaChecked = '';
-         let divTextSubCriteriaChecked = document.createElement('div');
-         divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+            function formatDate(date) {
+                var dd = date.getDate();
+                if (dd < 10) dd = '0' + dd;
+                var mm = date.getMonth() + 1;
+                if (mm < 10) mm = '0' + mm;
+                var yy = date.getFullYear() % 100;
+                if (yy < 10) yy = '0' + yy;
+                return dd + '.' + mm + '.' + yy;
+            }
 
-         $.ajax({
-             url: "ajax/getCalc.php",
-             method: "GET",
-             data: {id_application: id_application}
-         }).then(() => {
-             return $.ajax({
-                 url: "ajax/z_getSubForPrintReport.php",
-                 method: "GET",
-                 data: {id_application: id_application}
-             });
-         }).then((response) => {
-             let subCriteriaForReport = JSON.parse(response);
-             let id_s = -1;
-             let as = '';
-             subCriteriaForReport.map((item, index) => {
-                 if (id_s !== item['id_subvision']) {
-                     if (index != 0) {
-                         textSubCriteriaChecked += `<div>${as}</div>`;
-                     }
-                     as = '';
-                     id_s = item['id_subvision'];
-                     as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации: `;
-                 }
-                 if (index === subCriteriaForReport.length - 1) {
-                     as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
-                     textSubCriteriaChecked += `<div>${as}</div>`;
-                 } else {
-                     if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
-                         as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
-                     else
-                         as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ", ";
-                 }
-             });
-         }).then(() => {
-             let mainRightCard = document.getElementById("mainRightCard");
-             let mainRightCardText = mainRightCard.innerHTML;
-             criteriaMark.textContent += mainRightCardText;
-             let table;
-             return $.ajax({
-                 url: "ajax/z_getAppForPrintNo.php",
-                 method: "GET",
-                 data: {id_app: id_application}
-             });
-         }).then((response) => {
-             let tableForPrint = JSON.parse(response);
-             if (tableForPrint.length !== 0) {
-                 let naim = document.getElementById("naim");
-                 let unp = document.getElementById("unp");
-                 let naimText = naim.value;
-                 let unpText = unp.value;
-                 table = createTableForPrintNo(tableForPrint);
-             }
-         }).then(() => {
-             let sokr = document.getElementById('sokr');
-             let naim = document.getElementById('naim');
-
-             function formatDate(date) {
-                 var dd = date.getDate();
-                 if (dd < 10) dd = '0' + dd;
-                 var mm = date.getMonth() + 1;
-                 if (mm < 10) mm = '0' + mm;
-                 var yy = date.getFullYear() % 100;
-                 if (yy < 10) yy = '0' + yy;
-                 return dd + '.' + mm + '.' + yy;
-             }
-
-             let divReportTitle = document.createElement('div');
-             divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
-             divReportTitle.textContent = `Результат самооценки ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
-             WinPrint.document.write(divReportTitle.innerHTML);
-             WinPrint.document.write('<br/>');
-             WinPrint.document.write('<br/>');
-             divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
-             WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
-             WinPrint.document.write('<br/>');
-             WinPrint.document.write(criteriaMark.innerText);
-             WinPrint.document.write('<br/>');
-             if (table && table.textContent && table.textContent.length > 0) {
-                 let divReportTitleFieldNo = document.createElement('div');
-                 divReportTitleFieldNo.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
-                 divReportTitleFieldNo.textContent = '<strong>Установлено несоответствие по следующим критериям:</strong>';
-                 WinPrint.document.write(divReportTitleFieldNo.textContent);
-                 WinPrint.document.write('<br/>');
-                 WinPrint.document.write('<br/>');
-                 WinPrint.document.write(table.innerHTML);
-             } else {
-                 WinPrint.document.write(divReportTitle.innerHTML);
-                 WinPrint.document.write('<br/>');
-                 WinPrint.document.write('<br/>');
-                 divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
-                 WinPrint.document.close();
-                 WinPrint.focus();
-                 let naimOrg = document.getElementById("naim");
-                 WinPrint.document.title = "Результат самооценки_" + naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
-                 WinPrint.print();
-                 WinPrint.close();
-             }
-             WinPrint.document.close();
-             WinPrint.focus();
-             WinPrint.print();
-             WinPrint.close();
-             resolve();
-         }).catch((error) => {
-             console.error(error);
-         });
-     })
+            let divReportTitle = document.createElement('div');
+            divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+            divReportTitle.textContent = `Результат самооценки ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
+            WinPrint.document.write(divReportTitle.innerHTML);
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write('<br/>');
+            divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+            WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write(criteriaMark.innerText);
+            WinPrint.document.write('<br/>');
+            if (table && table.textContent && table.textContent.length > 0) {
+                let divReportTitleFieldNo = document.createElement('div');
+                divReportTitleFieldNo.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+                divReportTitleFieldNo.textContent = '<strong>Установлено несоответствие по следующим критериям:</strong>';
+                WinPrint.document.write(divReportTitleFieldNo.textContent);
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write(table.innerHTML);
+            } else {
+                WinPrint.document.write(divReportTitle.innerHTML);
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write('<br/>');
+                divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+                WinPrint.document.close();
+                WinPrint.focus();
+                let naimOrg = document.getElementById("naim");
+                WinPrint.document.title = "Результат самооценки_" + naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+                WinPrint.print();
+                WinPrint.close();
+            }
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            WinPrint.close();
+            resolve();
+        }).catch((error) => {
+            console.error(error);
+        });
+    })
 
 }
 
@@ -1852,12 +1845,12 @@ function newCreateTableForPrint(tableForPrint) {
     return divPrintTable;
 }
 
-async function printAppForm(){
+async function printAppForm() {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "ajax/z_createFormApplication.php",
             method: "GET",
-            data: { id_application: id_app }
+            data: {id_application: id_app}
         }).then((response) => {
             var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
             WinPrint.document.write('<style>@page {\n' +
@@ -1876,7 +1869,7 @@ async function printAppForm(){
     });
 }
 
-async function sendApp(){
+async function sendApp() {
 
     let id_application = document.getElementById("id_application");
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
@@ -1912,7 +1905,7 @@ async function sendApp(){
             alert("Не все обязательные поля заполнены.");
 
         } else {
-            printAppForm().then(()=> {
+            printAppForm().then(() => {
                 printNewReport().then(() => {
                     $.ajax({
                         url: "ajax/sendApp.php",
@@ -1945,20 +1938,15 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         let modalUcomplect = document.getElementById("modalUcomplect");
         let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
 
-            $.ajax({
-                url: "ajax/z_ucomplectTable.php",
-                method: "GET",
-                data: {id_application: id_app}
-            }).then((response) => {
-                modalBody.innerHTML = response;
-            })
+        $.ajax({
+            url: "ajax/z_ucomplectTable.php",
+            method: "GET",
+            data: {id_application: id_app}
+        }).then((response) => {
+            modalBody.innerHTML = response;
+        })
     })
 }
-
-
-
-
-
 
 
 //
