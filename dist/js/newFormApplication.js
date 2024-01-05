@@ -134,6 +134,7 @@ function newShowModal(id_application) {
     let sokr = document.getElementById("sokr");
     let unp = document.getElementById("unp");
     let adress = document.getElementById("adress");
+    let adressFact = document.getElementById("adressFact");
     let tel = document.getElementById("tel");
     let email = document.getElementById("email");
     let rukovoditel = document.getElementById("rukovoditel");
@@ -150,9 +151,10 @@ function newShowModal(id_application) {
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
 
-    let divSoprPismo = document.getElementById("divSoprovodPismo");
+    divSoprPismo.style = "display:none";
+    divOrgStrukt.style = "display:none";
+
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
-    let divOrgStrukt = document.getElementById("divOrgStrukt");
     let divUcomplect = document.getElementById("divUcomplect");
     let divTechOsn = document.getElementById("divTechOsn");
     let divReport = document.getElementById("divReport");
@@ -174,6 +176,7 @@ function newShowModal(id_application) {
         sokr.setAttribute("readonly", "");
         unp.setAttribute("readonly", "");
         adress.setAttribute("readonly", "");
+        adressFact.setAttribute("readonly", "");
         number_app.setAttribute("readonly", "");
         tel.setAttribute("readonly", "");
         email.setAttribute("readonly", "");
@@ -217,6 +220,7 @@ function newShowModal(id_application) {
             email.value = data[0][5];
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
+            adressFact.value = data[0][18];
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
@@ -1126,12 +1130,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tabPane.appendChild(row1);
 
 
-    let btnSave = document.createElement("button");
-    btnSave.innerHTML = "Сохранить выбранные пункты";
-    btnSave.className = "btn btn-outline-primary";
-    btnSave.id = "btnSaveInfoCriteriaMain";
-    btnSave.setAttribute("onclick", "saveTab('" + id_sub + "')");
-    tabPane.appendChild(btnSave);
+
     if (status == 1) {
 
     } else {
@@ -1139,9 +1138,11 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
         aRollUp.setAttribute("disabled", "true");
         btnDelete.classList.add("hiddentab");
         container.classList.add("hiddentab");
-        btnSave.classList.add("hiddentab");
+
     }
     tabContent.appendChild(tabPane);
+
+
 }
 
 function newAddTab() {    // добавление subvision
@@ -1253,27 +1254,31 @@ function buttonSelected(inputCheck) {  // добавление отделени�
             data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria, department: department}
         })
             .done(function (response) {
-                alert("Добавлено отделение");
-                let number;
-                let incrementedNumber;
-                let buttonText = inputCheck.textContent;
-                if (buttonText.includes(":")) {
-                    number = parseInt(buttonText.split(":")[1].trim());
-                    let incrementedNumber = number + 1;
-                    inputCheck.textContent = buttonText.replace(number, incrementedNumber);
-                } else {
-                    inputCheck.textContent = buttonText + ": 1";
-                }
-                let numTab = document.getElementById("tab" + openTabId + "-")
+                if(response === "no"){
+                    alert("Такое отделение уже существует");
+                }else {
+                    alert("Добавлено отделение");
+                    let number;
+                    let incrementedNumber;
+                    let buttonText = inputCheck.textContent;
+                    if (buttonText.includes(":")) {
+                        number = parseInt(buttonText.split(":")[1].trim());
+                        let incrementedNumber = number + 1;
+                        inputCheck.textContent = buttonText.replace(number, incrementedNumber);
+                    } else {
+                        inputCheck.textContent = buttonText + ": 1";
+                    }
+                    let numTab = document.getElementById("tab" + openTabId + "-")
 
-                let rightCard = numTab.querySelector("#cardRight");
-                let cardForAdding = rightCard.querySelector(":first-child");
-                let cardForAdding1 = cardForAdding.querySelector(":first-child");
-                if (cardForAdding1)
-                    cardForAdding1.insertAdjacentHTML("afterbegin", response);
+                    let rightCard = numTab.querySelector("#cardRight");
+                    let cardForAdding = rightCard.querySelector(":first-child");
+                    let cardForAdding1 = cardForAdding.querySelector(":first-child");
+                    if (cardForAdding1)
+                        cardForAdding1.insertAdjacentHTML("afterbegin", response);
+                }
             });
     } else {
-
+            alert ("Вы не ввели название отделения");
     }
 }
 
@@ -1450,6 +1455,9 @@ function renameDepartment(id_department) {
             .fail(function (error) {
                 console.error("Ошибка при переименовании отделения:", error);
             });
+    }
+    else{
+        alert("Вы не написали название отделения")
     }
 }
 
@@ -1880,6 +1888,7 @@ async function sendApp() {
     let sokr = document.getElementById("sokr");
     let unp = document.getElementById("unp");
     let adress = document.getElementById("adress");
+    let adressFact = document.getElementById("adressFact");
     let tel = document.getElementById("tel");
     let email = document.getElementById("email");
     let rukovoditel = document.getElementById("rukovoditel");
@@ -1888,15 +1897,15 @@ async function sendApp() {
     let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
     if (isSend) {
 
-        if (divSoprovodPismo.getElementsByTagName("a").length == 0 ||
+        if (
             divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
-            divOrgStrukt.getElementsByTagName("a").length == 0 ||
             divFileReportSamoocenka.getElementsByTagName("a").length == 0
         ) {
             alert("Не все обязательные документы загружены! Заявление не отправлено.");
         } else if (sokr.value.trim() === "" ||
             unp.value.trim() === "" ||
             adress.value.trim() === "" ||
+            adressFact.value.trim() === "" ||
             tel.value.trim() === "" ||
             email.value.trim() === "" ||
             rukovoditel.value.trim() === "" ||
@@ -1908,12 +1917,12 @@ async function sendApp() {
             printAppForm().then(() => {
                 printNewReport().then(() => {
                     $.ajax({
-                        url: "ajax/sendApp.php",
+                        url: "ajax/newSendApp.php",
                         method: "GET",
                         data: {id_application: id_application.innerText}
                     })
                         .done(function (response) {
-                            if (response == "") {
+                            if (response === "") {
                                 alert("Заявление отправлено");
                                 location.href = "/index.php?application";
                             } else {
@@ -1948,6 +1957,14 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
     })
 }
 
+function onInputAdressFact() {
+    const input = document.getElementById('adressFact');
+    if (isAdressValid(input.value)) {
+        input.style.borderColor = 'green';
+    } else {
+        input.style.borderColor = 'green';
+    }
+}
 
 //
 // $("#btnSend").on("click", async () =>{

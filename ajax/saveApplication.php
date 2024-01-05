@@ -17,6 +17,7 @@ $naim = $_POST['naimUZ'];
 $sokr = $_POST['sork'];
 $unp = $_POST['unp'];
 $adress = $_POST['adress'];
+$adressFact = $_POST['adressFact'];
 $tel = $_POST['tel'];
 $email = $_POST['email'];
 $rukovoditel = $_POST['rukovoditel'];
@@ -32,7 +33,7 @@ if (!file_exists('../docs/documents/'.$login)) {
 
 $insertquery =
     "UPDATE applications 
-         set naim = '$naim', sokr_naim = '$sokr', unp = '$unp', ur_adress = '$adress',
+         set naim = '$naim', sokr_naim = '$sokr', unp = '$unp', ur_adress = '$adress', fact_adress = '$adressFact',
              tel = '$tel', email = '$email', rukovoditel = '$rukovoditel', predstavitel = '$predstavitel'
 where id_application='$id_application'";
 

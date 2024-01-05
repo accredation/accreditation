@@ -52,7 +52,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 Критерий
             </td>
             <td style="border: 1px solid black; width: 10%; text-align: left;">
-                Сведения по самооценке ОЗ
+                Сведения по самоаккредитации ОЗ
             </td>
             <td style="width: 350px; border: 1px solid black;">
                 Документы и сведения, на основании которых проведена самооценка
@@ -86,7 +86,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
                 <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
                 <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
-                <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не требуется</option>
+                <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не применяется</option>
                 </select></div></td>
                 <td style="border: 1px solid black;"><div id="' . $id_crit . '_' . $id_department . '" style="width: 350px; ">';
         $count = count($files);

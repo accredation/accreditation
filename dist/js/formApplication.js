@@ -1,4 +1,5 @@
-
+let divSoprPismo = document.getElementById("divSoprovodPismo");
+let divOrgStrukt = document.getElementById("divOrgStrukt");
 let data_old = new Array();
 
 let status = 1;
@@ -337,11 +338,6 @@ function showModal(id_application, strMarks, strMarksAccred) {
     if(btnPrint) {
         btnPrint.id = "btnPrint";
         btnPrint.title = "Печать самооценки";
-    }else{
-
-        btnPrint.id = "btnPrint";
-        btnPrint.title = "Печать самооценки";
-
     }
 
     if(btnPrintReport) {
@@ -441,10 +437,10 @@ function showModal(id_application, strMarks, strMarksAccred) {
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
-
-    let divSoprPismo = document.getElementById("divSoprovodPismo");
+    divSoprPismo.style = "display:block";
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
-    let divOrgStrukt = document.getElementById("divOrgStrukt");
+
+    divOrgStrukt.style = "display:block";
     let divUcomplect = document.getElementById("divUcomplect");
     let divTechOsn = document.getElementById("divTechOsn");
     let divReport = document.getElementById("divReport");
@@ -1324,6 +1320,7 @@ function onInputAdress() {
     }
 }
 
+
 function isAdressValid(value) {
     return ADRESS_REGEXP.test(value);
 }
@@ -1653,6 +1650,7 @@ $("#btnSuc").on("click", function () {
     let sokr = document.getElementById("sokr");
     let unp = document.getElementById("unp");
     let adress = document.getElementById("adress");
+    let adressFact = document.getElementById("adressFact");
     let tel = document.getElementById("tel");
     let email = document.getElementById("email");
     let rukovoditel = document.getElementById("rukovoditel");
@@ -1667,6 +1665,7 @@ $("#btnSuc").on("click", function () {
     let sokrText = sokr.value;
     let unpText = unp.value;
     let adressText = adress.value;
+    let adressFactText = adressFact.value;
     let telText = tel.value;
     let emailText = email.value;
     let rukovoditelText = rukovoditel.value;
@@ -1687,6 +1686,7 @@ $("#btnSuc").on("click", function () {
     form.append("unp", unpText);
     form.append("id_application", id_application);
     form.append("adress", adressText);
+    form.append("adressFact", adressFactText);
     form.append("tel", telText);
     form.append("email", emailText);
     form.append("rukovoditel", rukovoditelText);
@@ -2296,6 +2296,7 @@ function setDisabledOnChange(value) {
 
     let clickElel = document.getElementById('button1');
     let btnSaveInfoCriteriaMain = document.getElementById('btnSaveInfoCriteriaMain');
+    btnSaveInfoCriteriaMain.style = "display:block";
     let btnSaveInfoCriteria = document.getElementById('btnSaveInfoCriteria');
     let divTab = document.getElementById('tab' + openTabId + "-");
     let leftSide = divTab.getElementsByClassName('leftSide')[0];
@@ -2521,8 +2522,9 @@ $("#archive-tab").on("click", () => {
 
 });
 
-$("#btnSend").on("click", async () => {
-    if(this.id == "btnSend") {
+$("#btnSend").on("click", async (event) => {
+
+    if(event.target.id === "btnSend") {
         let id_application = document.getElementById("id_application");
         let divSoprovodPismo = document.getElementById("divSoprovodPismo");
         let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
@@ -2540,9 +2542,9 @@ $("#btnSend").on("click", async () => {
         let isSend = confirm("После отправления заявки, редактирование будет невозможно. Отправить?");
         if (isSend) {
 
-            if (divSoprovodPismo.getElementsByTagName("a").length == 0 ||
+            if (
                 divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
-                divOrgStrukt.getElementsByTagName("a").length == 0 ||
+
                 divFileReportSamoocenka.getElementsByTagName("a").length == 0
             ) {
                 alert("Не все обязательные документы загружены! Заявление не отправлено.");
@@ -2588,6 +2590,7 @@ $("#btnSend").on("click", async () => {
         }
     }
     else{
+        console.log(event.target.id);
         await sendApp(id_app);
     }
 

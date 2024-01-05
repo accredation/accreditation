@@ -530,6 +530,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
                                             <div class="form-group"><label>Сокращенное наименование</label><input class="form-control" id="sokr" type="text"/></div>
                                             <div class="form-group"><label>УНП</label><input class="form-control" type="text" id="unp" onfocusout="onInputUnp()"/></div>
                                             <div class="form-group"><label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()"/></div>
+                                            <div class="form-group"><label>Фактический адрес</label><input class="form-control" type="text" id="adressFact" onfocusout="onInputAdressFact()"/></div>
                                             <div class="form-group"><label>Номер телефона</label><input class="form-control" id="tel" type="text"/></div>
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
                                             <div class="form-group"><label>Руководитель заинтересованного лица</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО"/></div>
@@ -544,7 +545,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 
 
 
-                                            <button class="btn-inverse-info" onclick="newAddTab()" id="addtab">+ добавить обособленное структурное подразделение</button>
+                                            <button class="btn-inverse-info" onclick="newAddTab()" id="addtab">+ добавить подразделение</button>
                                             <br/>
                                             <br/>
 
