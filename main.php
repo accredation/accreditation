@@ -155,7 +155,7 @@
                     <!--                <h2 class="mb-4 text-dark font-weight-bold">-->
 
                     <?php
-                    $rez = mysqli_query($con, "Select count(*) as countNewApp from applications where id_status = 1") or die("Ошибка " . mysqli_error($con));
+                    $rez = mysqli_query($con, "Select count(*) as countNewApp from applications left outer join `users` on `users`.id_user = applications.id_user where id_status = 1 and `users`.id_role = 3") or die("Ошибка " . mysqli_error($con));
                     if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                     {
                         $row = mysqli_fetch_assoc($rez);
