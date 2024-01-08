@@ -53,10 +53,10 @@ if (mysqli_num_rows($r) == 0) {
         }
     }
 
-    echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: inline-grid; " onclick="newCollapseTable(this)">
+    echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: block; " onclick="newCollapseTable(this)">
     <div class = "actCont" style="display: flex;">
-         <div class="actions-container" style = "width: 70%;">
-    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse' . $id_department . '" aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
+         <div class="actions-container" style = "width: 80%;">
+    <button class="btn btn-link" style="width: 100%;color: black;font-size: 14px;font-weight: 700;" data-toggle="collapse" data-target="#collapse' . $id_department . '" aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
     ' . $department . '
     </button>
      </div>
