@@ -685,8 +685,10 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 
 
                 </div>
+
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-fw" id="printUcomp" data-bs-dismiss="modal" onclick="printModalContent()">Печать</button>
 
                     <button type="button" class="btn btn-danger closeUcomplect" data-bs-dismiss="modal">Закрыть</button>
                 </div>

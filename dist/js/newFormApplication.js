@@ -593,6 +593,7 @@ function newShowModal(id_application) {
     divBtnPrintReport.onclick = () => {
         printNewReport();
     };
+    checkUserRole();
 }
 
 async function newShowTab(element, id_sub) {
@@ -1964,6 +1965,17 @@ function onInputAdressFact() {
     } else {
         input.style.borderColor = 'green';
     }
+}
+
+function printModalContent() {
+    var modalBody = document.getElementById('modalUcomplect').querySelector('.modal-body');
+    var printWindow = window.open('', '', 'width=1200,height=800');
+    printWindow.document.open();
+    printWindow.document.write('<html><head><title>Укомплектованность</title></head><body>');
+    printWindow.document.write(modalBody.innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
 }
 
 //
