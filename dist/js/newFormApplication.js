@@ -1450,7 +1450,7 @@ function renameDepartment(id_department) {
                 let cardH = document.getElementById("heading" + id_department);
                 let button = cardH.querySelector("button");
                 let buttonText = button.innerText;
-                let newText = newDepartmentName + buttonText.substring(buttonText.indexOf("(самооценка"));
+                let newText = newDepartmentName + " (" + buttonText.substring(buttonText.indexOf("(") + 1, buttonText.indexOf(")")) + ")";
                 button.innerText = newText;
                 alert("Отделение переименовано.");
             })
