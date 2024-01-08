@@ -1241,8 +1241,8 @@ function createTableForPrintNo(tableForPrint) {
             let td4 = document.createElement('td');
             td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
             let myArr = item['field5'].split(';');
-            myArr.forEach(myitem => {
-                td4.innerHTML += myitem;
+            myArr.forEach(item => {
+                td4.innerHTML += item + "<br>";
             })
 
             let td5 = document.createElement('td');
