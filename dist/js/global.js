@@ -248,9 +248,7 @@ window.addEventListener("unload", async (event) => {
     event.preventDefault();
     //   event.returnValue ='';
 })
-window.onload = function() {
-    checkUserRole();
-};
+
 function checkUserRole()
 {
     const inputFieldSokrNaim = document.getElementById("sokr");
@@ -266,8 +264,8 @@ function checkUserRole()
     const inputFieldreportSamoocenka  = document.getElementById("reportSamoocenka");
     const ownUcompBtn = document.getElementsByClassName("ownUcomp")[0];
 
-
-    if (idRole == "15"){
+console.log(idRole);
+    if (idRole === "15"){
         inputFieldSokrNaim.disabled = true;
         inputFieldunp.disabled = true;
         inputFieldadress.disabled = true;
@@ -280,6 +278,7 @@ function checkUserRole()
         inputFieldtechOsn.disabled = true;
         inputFieldreportSamoocenka.disabled = true;
         ownUcompBtn.disabled = true;
+
     }
     else{
 
@@ -291,10 +290,11 @@ function checkUserRole()
         inputFieldemail.disabled = false;
         inputFieldrukovoditel.disabled = false;
         inputFieldpredstavitel.disabled = false;
-        inputFieldcopyRaspisanie.disabled = true;
-        inputFieldtechOsn.disabled = true;
-        inputFieldreportSamoocenka.disabled = true;
-        ownUcompBtn.disabled = true;
+        inputFieldcopyRaspisanie.disabled = false;
+        inputFieldtechOsn.disabled = false;
+        inputFieldreportSamoocenka.disabled = false;
+        ownUcompBtn.disabled = false;
+
     }
 }
 

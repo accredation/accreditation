@@ -593,6 +593,7 @@ function newShowModal(id_application) {
     divBtnPrintReport.onclick = () => {
         printNewReport();
     };
+
     checkUserRole();
 }
 
@@ -1473,7 +1474,9 @@ function printNewReport() {
         var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
         WinPrint.document.write('<style>@page {\n' +
             'margin: 1rem;\n' +
-            '}</style>');
+            '}' +
+            'td{ max-width: 10vw;\n' +
+            '  word-wrap: break-word;}</style>');
 
         let textSubCriteriaChecked = '';
         let divTextSubCriteriaChecked = document.createElement('div');
@@ -1571,13 +1574,14 @@ function printNewReport() {
                 divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
                 WinPrint.document.close();
                 WinPrint.focus();
-                let naimOrg = document.getElementById("naim");
-                WinPrint.document.title = "Результат самооценки_" + naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+
                 WinPrint.print();
                 WinPrint.close();
             }
             WinPrint.document.close();
             WinPrint.focus();
+            let naimOrg = document.getElementById("naim");
+            WinPrint.document.title = "Отчет о самоаккредитации_" + naimOrg.value + "_" + new Date().toLocaleDateString().replaceAll(".", "");
             WinPrint.print();
             WinPrint.close();
             resolve();
@@ -1957,6 +1961,25 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         })
     })
 }
+function saveCommon(idApp, text, fieldNum) {
+    $.ajax({
+        url: "ajax/z_saveUcompFieldCommon.php",
+        method: "GET",
+        data: {idApp: idApp, fieldNum: fieldNum, text: text.innerText.replace(/[^\w\s\+\-%,.]/gi, '')}
+    }).then(function (response) {
+        let modalUcomplect = document.getElementById("modalUcomplect");
+        let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
+
+        $.ajax({
+            url: "ajax/z_ucomplectTable.php",
+            method: "GET",
+            data: {id_application: id_app}
+        }).then((response) => {
+            modalBody.innerHTML = response;
+        })
+    })
+}
+
 
 function onInputAdressFact() {
     const input = document.getElementById('adressFact');

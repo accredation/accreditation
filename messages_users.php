@@ -350,7 +350,7 @@
 
                                                 <form id="formFileReportSamoocenka" >
                                                     <div class="form-group " id = "divFileReportSamoocenka">
-                                                        <label for="reportSamoocenka">Результат самооценки</label>
+                                                        <label for="reportSamoocenka">Отчет о самоаккредитации</label>
                                                         <input type="file" class="form-control-file" id="reportSamoocenka">
                                                     </div>
                                                 </form>

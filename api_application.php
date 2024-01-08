@@ -649,7 +649,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 
              <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
              <button data-tooltip="Печать критериев" type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
-             <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Результат самооценки</button>
+             <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Отчет о самоаккредитации</button>
 <!--                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>-->
 
 <!--                </form>-->
@@ -662,7 +662,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 
 
     <div class="modal" id="modalUcomplect">
-        <div class="modal-dialog modal-xl" >
+        <div class="modal-dialog " style="max-width: 80vw;">
             <div class="modal-content">
 
                 <!-- Modal Header -->
