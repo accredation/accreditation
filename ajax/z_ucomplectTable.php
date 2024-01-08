@@ -12,6 +12,8 @@ $rez1 = mysqli_query($con, $query1) or die("Ошибка " . mysqli_error($con))
 $subvisions = array();
 echo '<style> 
 td{
+ word-wrap: break-word;
+ max-width: 250px;
 border: solid;
 border-width: 1px;
 }
@@ -72,7 +74,7 @@ while ($row1 = mysqli_fetch_assoc($rez1)) {
         $subvisionName = $subvisions[$subvisionId];
         $departments[$subvisionName][] = array('id' => $departmentId, 'name' => $departmentName);
         echo '<tr>
-              <td>' . $departmentName . '</td>
+              <td class="subdivision-cell">' . $departmentName . '</td>
               <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this , 2)"> '.$field2.'</td>
               <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 3)"> '.$field3.'</td>
               <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 4)"> '.$field4.'</td>
@@ -109,14 +111,14 @@ if(mysqli_num_rows($rez3) == 1){
 
 echo '<tr>
               <td>Всего</td>
-              <td id="sum2" > '.$sum2.'</td>
-              <td id="sum3"> '.round($sum3,2).'</td>
-              <td id="sum4"> '.round($sum4,2).'</td>
-              <td id="sum5"> '.round($sum5,2).'</td>
-              <td id="sum6"> '.$sum6.'</td>
-              <td id="sum7"> '.round($sum7,2).'</td>
-              <td id="sum8"> '.round($sum8,2).'</td>
-              <td id="sum9"> '.round($sum9,2).'</td>
+              <td id="sum2" > </td>
+              <td id="sum3"></td>
+              <td id="sum4"></td>
+              <td id="sum5"> </td>
+              <td id="sum6"> </td>
+              <td id="sum7"></td>
+              <td id="sum8"> </td>
+              <td id="sum9"> </td>
               
               </tr>';
 }
