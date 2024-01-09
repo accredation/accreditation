@@ -1006,14 +1006,16 @@ async function newShowTab(element, id_sub) {
                 //
                 console.log("AJAX Error: " + textStatus + ", " + errorThrown);
             }).then(() => {
-                let btnrename = document.getElementsByClassName("btn-rename");
-                let deleteicon = document.getElementsByClassName("delete-icon");
-                [...btnrename].forEach(item => {
-                    item.classList.add("hiddentab");
-                });
-                [...deleteicon].forEach(item => {
-                    item.classList.add("hiddentab");
-                })
+                if (status == 2) {
+                    let btnrename = document.getElementsByClassName("btn-rename");
+                    let deleteicon = document.getElementsByClassName("delete-icon");
+                    [...btnrename].forEach(item => {
+                        item.classList.add("hiddentab");
+                    });
+                    [...deleteicon].forEach(item => {
+                        item.classList.add("hiddentab");
+                    })
+                }
             });
         }).then(() => {
             $.ajax({
@@ -1310,11 +1312,12 @@ function newCollapseTable(thisDiv) {
     } else {
         thisCollapse.classList.add("show");
     }
-
+    let noteCells = document.querySelectorAll('td[contenteditable="true"]');
+    let selpickers = document.querySelectorAll("#selpicker");
+    let fileInputs = document.querySelectorAll('input[type="file"]');
     if (status == 2) {
-        let selpickers = document.querySelectorAll("#selpicker");
-        let fileInputs = document.querySelectorAll('input[type="file"]');
-        let noteCells = document.querySelectorAll('td[contenteditable="true"]');
+
+
 
         selpickers.forEach((selpicker) => {
             selpicker.disabled = true;
@@ -1340,6 +1343,7 @@ function newCollapseTable(thisDiv) {
                 fileInput.disabled = false;
             });
 
+            if(noteCells)
         noteCells.forEach((noteCell) => {
             noteCell.setAttribute("contenteditable", "true");
         });
