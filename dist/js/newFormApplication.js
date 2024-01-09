@@ -1,6 +1,7 @@
 let id_app;
 
 function newShowModal(id_application) {
+
     let formUcomplect = document.getElementById("formUcomplect");
     formUcomplect.style = "display: none";
     let newDivUcomplect = document.createElement("div");
@@ -128,6 +129,9 @@ function newShowModal(id_application) {
 
     document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заявления № ";
 
+
+
+    let ownUcompBtnClass = document.getElementsByClassName("ownUcomp")[0];
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
     naim.setAttribute("readonly", "");
@@ -140,7 +144,6 @@ function newShowModal(id_application) {
     let rukovoditel = document.getElementById("rukovoditel");
     let predstavitel = document.getElementById("predstavitel");
     let soprPismo = document.getElementById("soprPismo");
-    let copyRaspisanie = document.getElementById("copyRaspisanie");
     let orgStrukt = document.getElementById("orgStrukt");
     let ucomplect = document.getElementById("ucomplect");
     let techOsn = document.getElementById("techOsn");
@@ -168,6 +171,7 @@ function newShowModal(id_application) {
     if (status == 1 || status == 5) {
         formFileReportDorabotka.style.display = "block";
         formDateDorabotka.style.display = "block";
+        checkUserRole();
 
     } else {
 
@@ -187,6 +191,8 @@ function newShowModal(id_application) {
         orgStrukt.setAttribute("disabled", "true");
         ucomplect.setAttribute("disabled", "true");
         techOsn.setAttribute("disabled", "true");
+        ownUcompBtnClass.setAttribute("disabled", "true");
+
         reportSamoocenka.setAttribute("disabled", "true");
         formFileReportDorabotka.setAttribute("disabled", "true");
         formDateDorabotka.setAttribute("disabled", "true");
@@ -595,7 +601,7 @@ function newShowModal(id_application) {
         printNewReport();
     };
 
-    checkUserRole();
+
 }
 
 async function newShowTab(element, id_sub) {
@@ -979,11 +985,12 @@ async function newShowTab(element, id_sub) {
             })
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
-        }).then(() => {
-            $.ajax({
+        }).then(async () => {
+            await $.ajax({
                 url: "ajax/z_getAllTables.php",
                 method: "GET",
-                data: {id_sub: openTabId}
+                data: {id_sub: openTabId},
+
             }).then(function (response) {
 
                 let numTab = document.querySelector("#tab" + openTabId + "-");
@@ -997,6 +1004,15 @@ async function newShowTab(element, id_sub) {
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 //
                 console.log("AJAX Error: " + textStatus + ", " + errorThrown);
+            }).then(() => {
+                let btnrename = document.getElementsByClassName("btn-rename");
+                let deleteicon = document.getElementsByClassName("delete-icon");
+                [...btnrename].forEach(item => {
+                    item.classList.add("hiddentab");
+                });
+                [...deleteicon].forEach(item => {
+                    item.classList.add("hiddentab");
+                })
             });
         }).then(() => {
             $.ajax({
@@ -2005,6 +2021,55 @@ function printModalContent() {
     printWindow.print();
 }
 
+function checkUserRole()
+{
+    const inputFieldSokrNaim = document.getElementById("sokr");
+    const inputFieldunp = document.getElementById("unp");
+    const inputFieldadress = document.getElementById("adress");
+    const inputFieldadressFact = document.getElementById("adressFact");
+    const inputFieldtel = document.getElementById("tel");
+    const inputFieldemail = document.getElementById("email");
+    const inputFieldrukovoditel = document.getElementById("rukovoditel");
+    const inputFieldpredstavitel = document.getElementById("predstavitel");
+    const inputFieldcopyRaspisanie  = document.getElementById("copyRaspisanie");
+    const inputFieldtechOsn  = document.getElementById("techOsn");
+    const inputFieldreportSamoocenka  = document.getElementById("reportSamoocenka");
+    const ownUcompBtn = document.getElementsByClassName("ownUcomp")[0];
+
+    console.log(idRole);
+    if (idRole === "15"){
+        inputFieldSokrNaim.disabled = true;
+        inputFieldunp.disabled = true;
+        inputFieldadress.disabled = true;
+        inputFieldadressFact.disabled = true;
+        inputFieldtel.disabled = true;
+        inputFieldemail.disabled = true;
+        inputFieldrukovoditel.disabled = true;
+        inputFieldpredstavitel.disabled = true;
+        inputFieldcopyRaspisanie.disabled = true;
+        inputFieldtechOsn.disabled = true;
+        inputFieldreportSamoocenka.disabled = true;
+        ownUcompBtn.disabled = true;
+
+    }
+    else{
+
+        inputFieldSokrNaim.disabled = false;
+        inputFieldunp.disabled = false;
+        inputFieldadress.disabled = false;
+        inputFieldadressFact.disabled = false;
+        inputFieldtel.disabled = false;
+        inputFieldemail.disabled = false;
+        inputFieldrukovoditel.disabled = false;
+        inputFieldpredstavitel.disabled = false;
+        inputFieldcopyRaspisanie.disabled = false;
+        inputFieldtechOsn.disabled = false;
+        inputFieldreportSamoocenka.disabled = false;
+        ownUcompBtn.disabled = false;
+
+    }
+}
+
 //
 // $("#btnSend").on("click", async () =>{
 //     if(this.id === "newBtnSend") {
@@ -2013,3 +2078,14 @@ function printModalContent() {
 //
 //     }
 // })
+
+// new Promise(((resolve, reject) => {
+//     setTimeout(() => {
+//         let files = document.getElementsByClassName("form-control-file");
+//         for (let i = 0; i < files.length; i++) {
+//             files[i].disabled = "true";
+//             console.log(files[i]);
+//         }
+//     }, 3000);
+// }))
+

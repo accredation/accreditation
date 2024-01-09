@@ -250,54 +250,7 @@ window.addEventListener("unload", async (event) => {
     //   event.returnValue ='';
 })
 
-function checkUserRole()
-{
-    const inputFieldSokrNaim = document.getElementById("sokr");
-    const inputFieldunp = document.getElementById("unp");
-    const inputFieldadress = document.getElementById("adress");
-    const inputFieldadressFact = document.getElementById("adressFact");
-    const inputFieldtel = document.getElementById("tel");
-    const inputFieldemail = document.getElementById("email");
-    const inputFieldrukovoditel = document.getElementById("rukovoditel");
-    const inputFieldpredstavitel = document.getElementById("predstavitel");
-    const inputFieldcopyRaspisanie  = document.getElementById("copyRaspisanie");
-    const inputFieldtechOsn  = document.getElementById("techOsn");
-    const inputFieldreportSamoocenka  = document.getElementById("reportSamoocenka");
-    const ownUcompBtn = document.getElementsByClassName("ownUcomp")[0];
 
-console.log(idRole);
-    if (idRole === "15"){
-        inputFieldSokrNaim.disabled = true;
-        inputFieldunp.disabled = true;
-        inputFieldadress.disabled = true;
-        inputFieldadressFact.disabled = true;
-        inputFieldtel.disabled = true;
-        inputFieldemail.disabled = true;
-        inputFieldrukovoditel.disabled = true;
-        inputFieldpredstavitel.disabled = true;
-        inputFieldcopyRaspisanie.disabled = true;
-        inputFieldtechOsn.disabled = true;
-        inputFieldreportSamoocenka.disabled = true;
-        ownUcompBtn.disabled = true;
-
-    }
-    else{
-
-        inputFieldSokrNaim.disabled = false;
-        inputFieldunp.disabled = false;
-        inputFieldadress.disabled = false;
-        inputFieldadressFact.disabled = false;
-        inputFieldtel.disabled = false;
-        inputFieldemail.disabled = false;
-        inputFieldrukovoditel.disabled = false;
-        inputFieldpredstavitel.disabled = false;
-        inputFieldcopyRaspisanie.disabled = false;
-        inputFieldtechOsn.disabled = false;
-        inputFieldreportSamoocenka.disabled = false;
-        ownUcompBtn.disabled = false;
-
-    }
-}
 
 
 //

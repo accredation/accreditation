@@ -1,5 +1,6 @@
 let divSoprPismo = document.getElementById("divSoprovodPismo");
 let divOrgStrukt = document.getElementById("divOrgStrukt");
+let copyRaspisanie = document.getElementById("copyRaspisanie");
 let data_old = new Array();
 
 let status = 1;
@@ -427,7 +428,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
     let rukovoditel = document.getElementById("rukovoditel");
     let predstavitel = document.getElementById("predstavitel");
     let soprPismo = document.getElementById("soprPismo");
-    let copyRaspisanie = document.getElementById("copyRaspisanie");
+
     let orgStrukt = document.getElementById("orgStrukt");
     let ucomplect = document.getElementById("ucomplect");
     let techOsn = document.getElementById("techOsn");
