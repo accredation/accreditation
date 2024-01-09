@@ -174,7 +174,6 @@ function newShowModal(id_application) {
         checkUserRole();
 
     } else {
-
         number_app.setAttribute("readonly", "");
         naim.setAttribute("readonly", "");
         sokr.setAttribute("readonly", "");
@@ -200,12 +199,14 @@ function newShowModal(id_application) {
         formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
+
         if(btnSend)
             btnSend.classList.add("hiddentab");
         if (btnCalc) {
             btnCalc.remove();
         }
     }
+
 
     let data = new Array();
     $.ajax({
@@ -1308,6 +1309,41 @@ function newCollapseTable(thisDiv) {
         thisCollapse.classList.remove("show");
     } else {
         thisCollapse.classList.add("show");
+    }
+
+    if (status == 2) {
+        let selpickers = document.querySelectorAll("#selpicker");
+        let fileInputs = document.querySelectorAll('input[type="file"]');
+        let noteCells = document.querySelectorAll('td[contenteditable="true"]');
+
+        selpickers.forEach((selpicker) => {
+            selpicker.disabled = true;
+        });
+
+        fileInputs.forEach((fileInput) => {
+            fileInput.disabled = true;
+        });
+
+        noteCells.forEach((noteCell) => {
+            noteCell.removeAttribute("contenteditable");
+        });
+    }
+    else{
+            let selpickers = document.querySelectorAll("#selpicker");
+            let fileInputs = document.querySelectorAll('input[type="file"]');
+
+            selpickers.forEach((selpicker) => {
+                selpicker.disabled = false;
+            });
+
+            fileInputs.forEach((fileInput) => {
+                fileInput.disabled = false;
+            });
+
+        noteCells.forEach((noteCell) => {
+            noteCell.setAttribute("contenteditable", "true");
+        });
+
     }
 }
 

@@ -83,7 +83,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 <td style="border: 1px solid black; text-align: center;">' . $row_criteria["pp"] . '</td>
                 <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
                 <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
-                <select onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
+                <select id="selpicker" onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
                 <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
                 <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
                 <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
@@ -93,7 +93,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         $count = count($files);
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {
-                echo '<div class="file-container">';
+                echo '<div class="file-container" >';
                 echo '<a target = "_blank" href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
                 echo '<span class="delete-file" id="delete_'.$id_crit.'_'.$id_department.'_' . $file . '" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
                 echo '</div>';
