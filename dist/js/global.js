@@ -89,19 +89,20 @@ function checkAuth() {
         $.ajax({
             url: "authorization/check.php",
             method: "GET",
-            data: {id: getCookie("id_user")}
-        }).done(function (response) {
-            idRole = undefined;
-            alert("Ваша сессия закончена");
+            data: {id: getCookie("id_user")},
+            success: () => {
+                idRole = undefined;
+                alert("Ваша сессия закончена");
 
-            let countOpenWindow = localStorage.getItem('countOpenWindow');
-            if (countOpenWindow) {
-                countOpenWindow = countOpenWindow - 1;
-                localStorage.setItem('countOpenWindow', countOpenWindow)
+                let countOpenWindow = localStorage.getItem('countOpenWindow');
+                if (countOpenWindow) {
+                    countOpenWindow = countOpenWindow - 1;
+                    localStorage.setItem('countOpenWindow', countOpenWindow)
+                }
+
+
+                location.href = "/";
             }
-
-
-            location.href = "/";
         })
     }
 

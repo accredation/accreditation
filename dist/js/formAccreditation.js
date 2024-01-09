@@ -2747,7 +2747,7 @@ $("#formReport").on("change", () => {
     if (sopr)
         sopr.remove();
     let fileReport = document.getElementById("fileReport");
-    fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/Отчеты/" + fileReport.files[0].name + "'>" + fileReport.files[0].name + "</a>");
+    fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/Отчеты/" + fileReport.files[0].name + "'>" + fileReport.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 

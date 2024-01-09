@@ -75,7 +75,7 @@ if($row['id_role'] == 15){  }
 
     echo' </div>
     </div>
-    <div class="collapse" id="collapse' . $id_list_tables_criteria . '" aria-labelledby="heading' . $id_list_tables_criteria . '" data-parent="#accordion">
+    <div class="collapse" id="collapse' . $id_department . '" aria-labelledby="heading' . $id_department . '" data-parent="#accordion">
     <div class="card-body" id="cardBody' . $id_list_tables_criteria . '" style="padding: 0px;">
     <table style="border: 1px solid black; width: 100%;">
     <tr>
@@ -127,7 +127,7 @@ if($row['id_role'] == 15){  }
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {
                 echo '<div class="file-container">';
-                echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
+                echo '<a target = "_blank" href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
                 echo '<span class="delete-file" id="delete_'.$id_crit.'_'.$id_department.'_' . $file . '" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
                 echo '</div>';
             }

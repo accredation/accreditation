@@ -12,7 +12,7 @@ function lastAct($id, $sesId)
 {
     include 'ajax/connection.php';
     $time = date('Y-m-d H:i:s');
-    $timeSession = mktime(date("H"), date("i")+30 , date("s"), date("m"), date("d"), date("Y"));
+    $timeSession = mktime(date("H"), date("i") +30, date("s"), date("m"), date("d"), date("Y"));
     $timeSession1 = date("Y-m-d H:i:s", $timeSession);
     $page = $_SERVER['REQUEST_URI'];
     setcookie("ageSession", $timeSession1);

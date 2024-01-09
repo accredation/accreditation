@@ -11,10 +11,11 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     $row = mysqli_fetch_assoc($rez); //она
     $count_all = $row['coun'];
     $sum = $row['sum'];
+    $avg = $sum / $count_all;
     if($count_all === null){
         $count_all = 0.0;
     }
-    mysqli_query($con, "update subvision set mark_percent = '$count_all' where id_subvision='$id_subvision'");
+    mysqli_query($con, "update subvision set mark_percent = '$avg' where id_subvision='$id_subvision'");
 }
 
 //$id_application = $_GET['id_application'];

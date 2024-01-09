@@ -2989,7 +2989,7 @@ $("#copyRaspisanie").on("change", async () => {
     }
     let copyRasp = document.getElementById("copyRaspisanie");
 
-    copyRasp.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + copyRasp.files[0].name + "'>" + copyRasp.files[0].name + "</a>");
+    copyRasp.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + copyRasp.files[0].name + "'>" + copyRasp.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3123,7 +3123,7 @@ $("#techOsn").on("change", () => {
         sopr.remove();
     }
     let techOsn = document.getElementById("techOsn");
-    techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3174,7 +3174,7 @@ $("#reportSamoocenka").on("change", () => {
         sopr.remove();
     }
     let reportSamoocenka = document.getElementById("reportSamoocenka");
-    reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + reportSamoocenka.files[0].name + "'>" + reportSamoocenka.files[0].name + "</a>");
+    reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + reportSamoocenka.files[0].name + "'>" + reportSamoocenka.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 

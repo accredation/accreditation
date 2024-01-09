@@ -194,7 +194,8 @@ function newShowModal(id_application) {
         formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
-        btnSend.classList.add("hiddentab");
+        if(btnSend)
+            btnSend.classList.add("hiddentab");
         if (btnCalc) {
             btnCalc.remove();
         }
@@ -1338,13 +1339,16 @@ function addFile(idCrit, idDep, input) {
             let progress = (event.loaded / event.total) * 100;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
+
     };
 
     xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
+        input.disabled = "true";
     };
 
     xhr.upload.onload = function () {
+        input.removeAttribute("disabled");
         load.remove();
         let fileContainer = document.createElement('div');
         fileContainer.classList.add('file-container');
@@ -1449,8 +1453,8 @@ function renameDepartment(id_department) {
                 console.log(response);
                 let cardH = document.getElementById("heading" + id_department);
                 let button = cardH.querySelector("button");
-                let buttonText = button.innerText;
-                let newText = newDepartmentName + " (" + buttonText.substring(buttonText.indexOf("(") + 1, buttonText.indexOf(")")) + ")";
+
+                let newText = response ;
                 button.innerText = newText;
                 alert("Отделение переименовано.");
             })

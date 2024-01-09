@@ -5,8 +5,15 @@ $id_list_tables_criteria =  $_GET['id_list_tables_criteria'];
 $department =  $_GET['department'];
 $login=  $_COOKIE['login'];
 
+$w = "SELECT `name` from z_list_tables_criteria where id_list_tables_criteria = '$id_list_tables_criteria'";
+$e = mysqli_query($con, $w) or die("Ошибка " . mysqli_error($con));
 
-$q = "SELECT * from z_department where `name` ='$department' and id_subvision = '$id_sub' ";
+if (mysqli_num_rows($e) == 1) {
+    $ro = mysqli_fetch_assoc($e);
+    $name_table = $ro['name'];
+}
+$fullName = $department. " (". $name_table . ")";
+$q = "SELECT * from z_department where `name` ='$fullName' and id_subvision = '$id_sub' ";
 $r = mysqli_query($con, $q) or die("Ошибка " . mysqli_error($con));
 
 if (mysqli_num_rows($r) == 0) {
@@ -23,7 +30,7 @@ if (mysqli_num_rows($r) == 0) {
         $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
     }
 
-    $query = "insert  into z_department (`id_list_tables_criteria`,`name`, id_subvision) values  ('$id_list_tables_criteria','$department' , '$id_sub')";
+    $query = "insert  into z_department (`id_list_tables_criteria`,`name`, id_subvision) values  ('$id_list_tables_criteria','$fullName' , '$id_sub')";
     $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 
 
@@ -131,7 +138,7 @@ if (mysqli_num_rows($r) == 0) {
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {
                 echo '<div class="file-container">';
-                echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
+                echo '<a target = "_blank" href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . ' </a>';
                 echo '<span class="delete-file" id="delete_' . $id_crit . '_' . $id_department . '_' . $file . '" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
                 echo '</div>';
             }

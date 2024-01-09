@@ -94,7 +94,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {
                 echo '<div class="file-container">';
-                echo '<a href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
+                echo '<a target = "_blank" href="/docs/documents/' . $login . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
                 echo '<span class="delete-file" id="delete_'.$id_crit.'_'.$id_department.'_' . $file . '" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
                 echo '</div>';
             }
