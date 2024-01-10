@@ -1398,7 +1398,7 @@ function addFile(idCrit, idDep, input) {
 
     };
 
-    xhr.upload.onloadstart = function (event) {
+    xhr.upload.onloadstart = function () {
 
         let fileName = addedFile.name;
         let extAr = fileName.split('.');

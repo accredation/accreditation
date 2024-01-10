@@ -38,7 +38,7 @@ if($count_all === $count_notneed ){
     $mark_department = 100;
 }
 if($count_yes === "0"){
-    $mark_department = ($count_notneed / $count_all) * 100;
+    $mark_department = 0;
 }
 
 mysqli_query($con, "update z_department set mark_percent = '$mark_department' where id_department='$idDep'");
