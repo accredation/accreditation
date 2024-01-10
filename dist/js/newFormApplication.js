@@ -1387,7 +1387,7 @@ function addFile(idCrit, idDep, input) {
     xhr.open("post", "ajax/changeField4.php", true);
 
     let load = document.createElement("div");
-    load.innerHTML = "Подождите, идет загрузка";
+    // load.innerHTML = "Подождите, идет загрузка";
     divA.insertAdjacentElement("afterend", load);
 
     xhr.upload.onprogress = function (event) {
@@ -1398,9 +1398,19 @@ function addFile(idCrit, idDep, input) {
 
     };
 
-    xhr.upload.onloadstart = function () {
-        load.innerHTML = "Подождите, идет загрузка";
-        input.disabled = "true";
+    xhr.upload.onloadstart = function (event) {
+
+        let fileName = addedFile.name;
+        let extAr = fileName.split('.');
+        let ext = extAr[1];
+        console.log(ext);
+        if(ext !== "pdf") {
+            alert("Неверный формат. Допустимый формат pdf");
+            xhr.abort();
+        }else{
+            load.innerHTML = "Подождите, идет загрузка";
+            input.disabled = "true";
+        }
     };
 
     xhr.upload.onload = function () {
