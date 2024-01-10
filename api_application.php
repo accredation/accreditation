@@ -648,6 +648,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
 
              <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button>
+                <button type="submit"  class="btn btn-light btn-fw" id="btnFormApplication">Форма заявления</button>
              <button data-tooltip="Печать критериев" type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
              <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Отчет о самоаккредитации</button>
 <!--                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>-->

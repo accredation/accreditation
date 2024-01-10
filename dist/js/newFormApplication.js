@@ -233,28 +233,28 @@ function newShowModal(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if (data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             if (data[0][16] != null) {
-                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + "/dorabotka/" + id_application + "/" + data[0][16] + "'>" + data[0][16] + "</a>");
+                divFileReportDorabotka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + "/dorabotka/" + id_application + "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if (data[0][8] != null) {
-                soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
+                soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
-                orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+                orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
             if (data[0][11] != null) {
-                ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+                ucomplect.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if (data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
@@ -704,7 +704,7 @@ async function newShowTab(element, id_sub) {
                         "    border-radius: 3px;\n" +
                         "    padding: 5px 8px;\n" +
                         "    outline: none;\n" +
-                        "    white-space: nowrap;\n" +
+                        "    white-space: normal;\n" +
                         "    -webkit-user-select: none;\n" +
                         "    cursor: pointer;\n" +
                         "    text-shadow: 1px 1px #fff;\n" +
@@ -780,7 +780,7 @@ async function newShowTab(element, id_sub) {
                         "    border-radius: 3px;\n" +
                         "    padding: 5px 8px;\n" +
                         "    outline: none;\n" +
-                        "    white-space: nowrap;\n" +
+                        "    white-space: normal;\n" +
                         "    -webkit-user-select: none;\n" +
                         "    cursor: pointer;\n" +
                         "    text-shadow: 1px 1px #fff;\n" +
@@ -854,7 +854,7 @@ async function newShowTab(element, id_sub) {
                         "    border-radius: 3px;\n" +
                         "    padding: 5px 8px;\n" +
                         "    outline: none;\n" +
-                        "    white-space: nowrap;\n" +
+                        "    white-space: normal;\n" +
                         "    -webkit-user-select: none;\n" +
                         "    cursor: pointer;\n" +
                         "    text-shadow: 1px 1px #fff;\n" +
@@ -931,7 +931,7 @@ async function newShowTab(element, id_sub) {
                         "    border-radius: 3px;\n" +
                         "    padding: 5px 8px;\n" +
                         "    outline: none;\n" +
-                        "    white-space: nowrap;\n" +
+                        "    white-space: normal;\n" +
                         "    -webkit-user-select: none;\n" +
                         "    cursor: pointer;\n" +
                         "    text-shadow: 1px 1px #fff;\n" +
@@ -2119,6 +2119,9 @@ function checkUserRole()
 
     }
 }
+document.getElementById("btnFormApplication").onclick = async function() {
+    await printAppForm();
+};
 
 //
 // $("#btnSend").on("click", async () =>{

@@ -10,6 +10,11 @@ tr div, td div {
 .hiddentab{
     display:none !important;
 }
+.inpFiles{
+    color: transparent;
+    width: 40%;
+}
+
 .ownUcomp{
     color: black;
     display: inline-block;
