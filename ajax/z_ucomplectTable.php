@@ -11,29 +11,41 @@ $rez1 = mysqli_query($con, $query1) or die("Ошибка " . mysqli_error($con))
 
 $subvisions = array();
 echo '<style> 
-.subdivision-cell{
-
-
+.ucomp {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.ucomp{
-border: solid;
-border-width: 1px;
-font-size: 13px;
-max-width: 90vw;
-
+.ucomp th, .ucomp td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 11px;
 }
 
-.ucomp td{
- max-width: 10vw;
-  word-wrap: break-word;
-border: solid;
-border-width: 1px;
+.ucomp th {
+  background-color: #f2f2f2;
 }
 
-th {
-border: solid;
-border-width: 1px;
+.ucomp tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ucomp tr:hover {
+  background-color: #f5f5f5;
+}
+
+.ucomp td[colspan="9"] {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.subdivision-cell {
+  font-weight: bold;
+}
+
+.contenteditable {
+  cursor: pointer;
 }
 
 .modal-body{overflow: auto;}
@@ -43,7 +55,7 @@ echo '<div class = "complectText">СВЕДЕНИЯ </div>
  о показателях укомплектованности специалистами с высшим и средним медицинским образованием
  </div>
  </br>
-<table class = "ucomp" >';
+<table class = "ucomp"  style="width: 100%;">';
 echo '<tr>
       <th>Структурное подразделение</th>
       <th>Число основных работников врачей на занятых должностях, человек</th>
@@ -83,7 +95,7 @@ while ($row1 = mysqli_fetch_assoc($rez1)) {
         $subvisionName = $subvisions[$subvisionId];
         $departments[$subvisionName][] = array('id' => $departmentId, 'name' => $departmentName);
         echo '<tr>
-              <td class="subdivision-cell">' . $departmentName . '</td>
+              <td class="subdivision-cell" style="width: 25%;">' . $departmentName . '</td>
               <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this , 2)"> '.$field2.'</td>
               <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 3)"> '.$field3.'</td>
               <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 4)"> '.$field4.'</td>
@@ -96,26 +108,6 @@ while ($row1 = mysqli_fetch_assoc($rez1)) {
               </tr>';
     }
 }
-
-//$query3 = "select sum(field2) as sum2, avg(field3) as sum3, avg(field4) as sum4, avg(field5) as sum5,
-//                sum(field6) as sum6, avg(field7) as sum7, avg(field8) as sum8, avg(field9) as sum9
-//           from z_department
-//            left join subvision s on z_department.id_subvision = s.id_subvision
-//            where s.id_application = '$id_app'
-//         ";
-//
-//$rez3 = mysqli_query($con, $query3) or die("Ошибка " . mysqli_error($con));
-//
-//if(mysqli_num_rows($rez3) == 1){
-//    $row = mysqli_fetch_assoc($rez3);
-//    $sum2 = $row['sum2'];
-//    $sum3 = $row['sum3'];
-//    $sum4 = $row['sum4'];
-//    $sum5 = $row['sum5'];
-//    $sum6 = $row['sum6'];
-//    $sum7 = $row['sum7'];
-//    $sum8 = $row['sum8'];
-//    $sum9 = $row['sum9'];
 
 $query2 = "select field1,field2,field3,field4,field5,field6,field7,field8
            from applications  
@@ -133,28 +125,15 @@ if(mysqli_num_rows($rez2) == 1) {
     $field8 = $row['field8'];
     echo '<tr>
               <td>Всего по учреждениям</td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 1)" >'.$field1.' </td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 2)" >'.$field2.' </td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 3)" >'.$field3.' </td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 4)" >'.$field4.' </td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 5)" >'.$field5.' </td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 6)" >'.$field6.' </td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 7)" >'.$field7.' </td>
-              <td contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 8)" >'.$field8.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 1)" >'.$field1.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 2)" >'.$field2.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 3)" >'.$field3.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 4)" >'.$field4.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 5)" >'.$field5.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 6)" >'.$field6.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 7)" >'.$field7.' </td>
+              <td style="font-size: 10px;" contenteditable="true" onblur="saveCommon(' . $id_app . ', this , 8)" >'.$field8.' </td>
               
               </tr>';
 }
 echo '</table>';
-
-
-//<td>Всего</td>
-//              <td id="sum2" > '.$sum2.'</td>
-//              <td id="sum3"> '.round($sum3,2).'</td>
-//              <td id="sum4"> '.round($sum4,2).'</td>
-//              <td id="sum5"> '.round($sum5,2).'</td>
-//              <td id="sum6"> '.$sum6.'</td>
-//              <td id="sum7"> '.round($sum7,2).'</td>
-//              <td id="sum8"> '.round($sum8,2).'</td>
-//              <td id="sum9"> '.round($sum9,2).'</td>
-//
-//              </tr>';
