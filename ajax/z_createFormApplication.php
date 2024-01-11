@@ -146,7 +146,7 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     $id_sub = $row_subs["id_subvision"];
     echo '
     <tr><td colspan="4" style="font-weight: 700; text-align: center">' . $name_sub . '</td></tr>';
-    $query_tds = "select tt.name as namet, ltc.name as namel, dep.name as named FROM z_department AS dep
+    $query_tds = "select tt.name as namet, ltc.name_profile as namel, dep.name as named FROM z_department AS dep
                         JOIN z_list_tables_criteria AS ltc ON ltc.id_list_tables_criteria = dep.id_list_tables_criteria
                         JOIN z_types_tables AS tt ON tt.id_types_tables = ltc.id_types_tables
                         where dep.id_subvision = '$id_sub'";
