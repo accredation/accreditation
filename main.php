@@ -224,19 +224,19 @@
                                       SELECT count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status > 1) and otmetka_all<71) as count25,(
+                                      where (id_status > 1) and otmetka_all<50) as count25,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status > 1) and otmetka_all>70 and otmetka_all<81) as count50,(
+                                      where (id_status > 1) and otmetka_all>49 and otmetka_all<70) as count50,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status >1) and otmetka_all>80 and otmetka_all<91) as count75,(
+                                      where (id_status >1) and otmetka_all>69 and otmetka_all<90) as count75,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status >1) and otmetka_all>90) as count100,(
+                                      where (id_status >1) and otmetka_all>89) as count100,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
@@ -293,19 +293,19 @@
                                       SELECT count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all<71) as count25,(
+                                      where id_status = 4 and otmetka_accred_all<50) as count25,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all>70 and otmetka_accred_all<81) as count50,(
+                                      where id_status = 4 and otmetka_accred_all>49 and otmetka_accred_all<70) as count50,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all>80 and otmetka_accred_all<91) as count75,(
+                                      where id_status = 4 and otmetka_accred_all>69 and otmetka_accred_all<90) as count75,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status = 4 and otmetka_accred_all>90) as count100,(
+                                      where id_status = 4 and otmetka_accred_all>89) as count100,(
                                       select count(*)
                                       FROM applications a
                                       left outer join report_application_mark ram on a.id_application=ram.id_application

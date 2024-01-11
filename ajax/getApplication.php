@@ -3,16 +3,22 @@ include "connection.php";
 
 $id_application = $_GET['id_application'];
 
-$rez = mysqli_query($con, "select avg(mark_percent) as coun from subvision where id_application='$id_application'");
+$rez = mysqli_query($con, "select sum(dep.mark_percent) as su, count(dep.mark_percent) as coun from z_department as dep 
+    left outer join subvision s on dep.id_subvision = s.id_subvision
+    left outer join applications a on s.id_application = a.id_application
+    where a.id_application = '$id_application'");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
 {
     $row = mysqli_fetch_assoc($rez); //она
     $count_all = $row['coun'];
-    if($count_all === null){
-        $count_all = 0.0;
+    $sum = $row['su'];
+    if($count_all === null || $count_all === "0"){
+        $reez = 0.0;
+    }else{
+        $reez = $sum / $count_all;
     }
-    mysqli_query($con, "update applications set mark_percent = '$count_all' where id_application='$id_application'");
+    mysqli_query($con, "update applications set mark_percent = '$reez' where id_application='$id_application'");
 }
 
 
@@ -47,6 +53,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
     $infDorabotkiFile = $row['infDorabotkiFile'];
     $dateInputDorabotki = $row['dateInputDorabotki'];
     $mark_percent = $row['mark_percent'];
+    $doverennost = $row['doverennost'];
 }
 
 array_push($cells,$naim);
@@ -68,6 +75,7 @@ array_push($cells,$reportSamoocenka);
 array_push($cells,$infDorabotkiFile);
 array_push($cells,$dateInputDorabotki);
 array_push($cells,$fact_adress);
+array_push($cells,$doverennost);
 
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";

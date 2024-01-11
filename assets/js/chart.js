@@ -179,9 +179,9 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'оценены до 70%',
-      'оценены 70% - 80%',
-      'оценены 80% - 90% ',
+      'оценены 0% - 49%',
+      'оценены 50% - 69%',
+      'оценены 70% - 89% ',
       'оценены 90% - 100%'
     ]
   };
@@ -216,9 +216,9 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'оценены до 70%',
-      'оценены 70% - 80%',
-      'оценены 80% - 90% ',
+      'оценены 0% - 49%',
+      'оценены 50% - 69%',
+      'оценены 70% - 89% ',
       'оценены 90% - 100%'
     ]
   };

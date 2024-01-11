@@ -3,7 +3,7 @@ include "connection.php";
 
 $id_application = $_GET['id_application'];
 
-$query = "SELECT DISTINCT s.id_subvision, s.name ,  rc.id_department , rc.name as name_otdel
+$query = "SELECT DISTINCT s.id_subvision, s.name ,  rc.id_department , rc.name as name_otdel, s.mark_percent as percent , rc.mark_percent as dpercent 
 FROM applications a
 left outer join subvision s on a.id_application=s.id_application
 left outer join z_department rc on s.id_subvision=rc.id_subvision
@@ -27,7 +27,9 @@ foreach ($data as $app) {
     $mark->name = $app['name'];
     $mark->id_department = $app['id_department'];
     $mark->name_otdel = $app['name_otdel'];
-   
+    $mark->mark_percent = $app['percent'];
+    $mark->mark_dpercent = $app['dpercent'];
+
     array_push($report_sub_marks,$mark);
 }
 

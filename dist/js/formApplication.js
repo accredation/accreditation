@@ -1,6 +1,10 @@
 let divSoprPismo = document.getElementById("divSoprovodPismo");
 let divOrgStrukt = document.getElementById("divOrgStrukt");
 let copyRaspisanie = document.getElementById("copyRaspisanie");
+
+let rukDiv = document.getElementById("rukDiv");
+let predDiv = document.getElementById("predDiv");
+let formDoverennost = document.getElementById("formDoverennost");
 let data_old = new Array();
 
 let status = 1;
@@ -333,6 +337,8 @@ function createApplication() {
 }
 
 function showModal(id_application, strMarks, strMarksAccred) {
+    rukDiv.classList.remove("hiddentab");
+    predDiv.classList.remove("hiddentab");
     let btnPrint = document.getElementById("newBtnPrint");
     let btnPrintReport = document.getElementById("btnNewPrintReport");
 
@@ -1075,7 +1081,7 @@ function createTableForPrintNo(tableForPrint) {
     divPrintTable.appendChild(divNameCriteriaTable);
 
     let table = document.createElement('table');
-    table.style = "border-collapse: collapse; border-spacing: 0;";
+    table.style = "border-collapse: collapse; border-spacing: 0;width:100%";
 
 
     let trHeadMain = document.createElement('tr');
@@ -1329,7 +1335,6 @@ function isAdressValid(value) {
     return ADRESS_REGEXP.test(value);
 }
 
-let formDoverennost = document.getElementById("formDoverennost");
 
 function showDoverennost(element) {
     formDoverennost.classList.remove("hiddentab");

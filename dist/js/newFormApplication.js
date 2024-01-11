@@ -149,6 +149,7 @@ function newShowModal(id_application) {
     let techOsn = document.getElementById("techOsn");
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
+    let doverennost = document.getElementById("doverennost");
     let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
@@ -162,6 +163,7 @@ function newShowModal(id_application) {
     let divTechOsn = document.getElementById("divTechOsn");
     let divReport = document.getElementById("divReport");
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
+    let divDoverennost = document.getElementById("divDoverennost");
     number_app.innerHTML = id_application;
     id_app = id_application;
     let modal = document.getElementById("myModal");
@@ -191,6 +193,7 @@ function newShowModal(id_application) {
         ucomplect.setAttribute("disabled", "true");
         techOsn.setAttribute("disabled", "true");
         ownUcompBtnClass.setAttribute("disabled", "true");
+        doverennost.setAttribute("disabled", "true");
 
         reportSamoocenka.setAttribute("disabled", "true");
         formFileReportDorabotka.setAttribute("disabled", "true");
@@ -229,6 +232,7 @@ function newShowModal(id_application) {
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
+
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
@@ -255,6 +259,20 @@ function newShowModal(id_application) {
             }
             if (data[0][12] != null) {
                 techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+            }
+            if (data[0][19] != null) {
+                let lico = document.getElementById("lico");
+                lico.options.selectedIndex = 2;
+                predDiv.classList.remove("hiddentab");
+                rukDiv.classList.add("hiddentab");
+                formDoverennost.classList.remove("hiddentab");
+                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
+            }else {
+                let lico = document.getElementById("lico");
+                lico.options.selectedIndex = 1;
+                rukDiv.classList.remove("hiddentab");
+                predDiv.classList.add("hiddentab");
+                formDoverennost.classList.add("hiddentab");
             }
             modal.classList.add("show");
             modal.style = "display: block";
@@ -1560,7 +1578,7 @@ function printNewReport() {
             return $.ajax({
                 url: "ajax/z_getSubForPrintReport.php",
                 method: "GET",
-                data: {id_application: id_application}
+                data: {id_application: id_application }
             });
         }).then((response) => {
             let subCriteriaForReport = JSON.parse(response);
@@ -1573,16 +1591,16 @@ function printNewReport() {
                     }
                     as = '';
                     id_s = item['id_subvision'];
-                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации: `;
+                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации ${parseFloat(item['mark_percent']).toFixed(2)}%: `;
                 }
                 if (index === subCriteriaForReport.length - 1) {
                     as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
                     textSubCriteriaChecked += `<div>${as}</div>`;
                 } else {
                     if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
-                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ".";
                     else
-                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ", ";
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%`+ ", ";
                 }
             });
         }).then(() => {
@@ -2038,7 +2056,7 @@ function saveCommon(idApp, text, fieldNum) {
         data: {idApp: idApp, fieldNum: fieldNum, text: text.innerText.replace(/[^\w\s\+\-%,.]/gi, '')}
     }).then(function (response) {
         let modalUcomplect = document.getElementById("modalUcomplect");
-        let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
+        let modalBody = modalUcomplect.getE("modal-body")[0];
 
         $.ajax({
             url: "ajax/z_ucomplectTable.php",
@@ -2122,6 +2140,70 @@ function checkUserRole()
 document.getElementById("btnFormApplication").onclick = async function() {
     await printAppForm();
 };
+
+function chengeLico(select){
+    switch(select.options[select.selectedIndex].value){
+        case "1":
+            rukDiv.classList.remove("hiddentab");
+            predDiv.classList.add("hiddentab");
+            formDoverennost.classList.add("hiddentab");
+            break;
+        case "2":
+            predDiv.classList.remove("hiddentab");
+            rukDiv.classList.add("hiddentab");
+            formDoverennost.classList.remove("hiddentab");
+            break;
+    }
+}
+
+$("#doverennost").on("change", () => {
+    let login = getCookie('login');
+    let divTechOsn = document.getElementById("divDoverennost");
+    let sopr = divTechOsn.getElementsByTagName("a")[0];
+    if (sopr) {
+        sopr.remove();
+    }
+    let techOsn = document.getElementById("doverennost");
+    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+
+    let id_application = document.getElementById("id_application");
+
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let techOsnFile = techOsn.files[0];
+    form.append("id_application", id_application.innerText);
+    form.append("doverennost", techOsnFile);
+
+    xhr.open("post", "ajax/postFileDoverennost.php", true);
+    // let techOsndiv = document.getElementById("techOsndiv");
+    // if (techOsndiv) {
+    //     techOsndiv.remove();
+    // }
+    let loadSopr = document.getElementById("loadDoverennost");
+    if (loadSopr) {
+        loadSopr.remove();
+    }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadDoverennost";
+    techOsn.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+    xhr.upload.onloadstart = function() {
+        load.innerHTML = "Подождите, идет загрузка";
+    };
+    xhr.upload.onload = function () {
+        load.innerHTML = "Файл загружен";
+    }
+    xhr.send(form);
+});
+
 
 //
 // $("#btnSend").on("click", async () =>{

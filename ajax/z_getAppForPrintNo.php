@@ -3,6 +3,7 @@ include "connection.php";
 
 $id_app = $_GET['id_app'];
 
+
 $query = "SELECT s.name, s.id_subvision, dep.id_department, dep.name as name_criteria, IFNULL(c.pp,'') as pp,
 IFNULL(c.name,'') as mark_name,
 case when IFNULL(ac.field3,'')=1 then 'Да' when IFNULL(ac.field3,'')=2 then 'Нет' when IFNULL(ac.field3,'')=3 then 'Не требуется' else '' end as field3,
