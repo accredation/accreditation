@@ -1935,7 +1935,7 @@ async function printAppForm() {
             method: "GET",
             data: {id_application: id_app}
         }).then((response) => {
-            var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+            var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
             WinPrint.document.write('<style>@page {\n' +
                 'margin: 1rem;\n' +
                 '}</style>');
@@ -2062,7 +2062,7 @@ function onInputAdressFact() {
 
 function printModalContent() {
     var modalBody = document.getElementById('modalUcomplect').querySelector('.modal-body');
-    var printWindow = window.open('', '', 'width=1200,height=800');
+    var printWindow = window.open('', '', 'width=1500,height=1100');
     printWindow.document.open();
     printWindow.document.write('<html><head><title>Укомплектованность</title></head><body>');
     printWindow.document.write(modalBody.innerHTML);

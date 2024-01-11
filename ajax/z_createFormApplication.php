@@ -18,7 +18,9 @@ th, td {
   padding: 8px;
   text-align: center;
 }
-
+td {
+  word-break: break-word;
+}
 th {
   background-color: #f2f2f2;
 }
@@ -130,7 +132,7 @@ tr:hover {
         <td style="border: 1px solid black;  width: 25%; text-align: left;">
             Наименование профиля заболеваний, состояния, синдрома
         </td>
-        <td style="width: 350px; border: 1px solid black;">
+        <td style="width: 25%;    word-break: break-word;">
             Наименование подразделения
         </td>
         </tr><tbody>';
@@ -151,8 +153,8 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     $result_tds = mysqli_query($con, $query_tds) or die("Ошибка " . mysqli_error($con));
     while ($row_tds = mysqli_fetch_assoc($result_tds)) {
         echo ' <tr>
-        <td style = "text-align: center">'.$ind.'</td>
-        <td>'.$row_tds["namet"].'</td>
+        <td style = "text-align: center;">'.$ind.'</td>
+        <td style="width: 25%;    word-break: break-word;">'.$row_tds["namet"].'</td>
         <td>'.$row_tds["namel"].'</td>
         <td>'.$row_tds["named"].'</td>
     </tr>

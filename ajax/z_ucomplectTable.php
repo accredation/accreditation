@@ -21,6 +21,7 @@ echo '<style>
   text-align: center;
   border: 1px solid #ddd;
   font-size: 11px;
+ 
 }
 
 .ucomp th {
@@ -57,7 +58,7 @@ echo '<div class = "complectText">СВЕДЕНИЯ </div>
  </br>
 <table class = "ucomp"  style="width: 100%;">';
 echo '<tr>
-      <th>Структурное подразделение</th>
+      <th style="width: 100%;">Структурное подразделение</th>
       <th>Число основных работников врачей на занятых должностях, человек</th>
       <th>Укомплектованность врачами-специалистами, %</th>
       <th>Укомплектованность должностей врачей физическими лицами (основные работники), %</th>
@@ -95,15 +96,15 @@ while ($row1 = mysqli_fetch_assoc($rez1)) {
         $subvisionName = $subvisions[$subvisionId];
         $departments[$subvisionName][] = array('id' => $departmentId, 'name' => $departmentName);
         echo '<tr>
-              <td class="subdivision-cell" style="width: 25%;">' . $departmentName . '</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this , 2)"> '.$field2.'</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 3)"> '.$field3.'</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 4)"> '.$field4.'</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 5)"> '.$field5.'</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 6)"> '.$field6.'</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 7)"> '.$field7.'</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 8)"> '.$field8.'</td>
-              <td contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 9)"> '.$field9.'</td>
+              <td class="subdivision-cell" style="width: 100%;    word-break: break-word; ">' . $departmentName . '</td>
+              <td   contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this , 2)"> '.$field2.'</td>
+              <td   contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 3)"> '.$field3.'</td>
+              <td   contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 4)"> '.$field4.'</td>
+              <td  contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 5)"> '.$field5.'</td>
+              <td  contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 6)"> '.$field6.'</td>
+              <td  contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 7)"> '.$field7.'</td>
+              <td  contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 8)"> '.$field8.'</td>
+              <td  contenteditable="true" onblur="saveUcompField(' . $subvisionId . ', ' . $departmentId . ', this, 9)"> '.$field9.'</td>
               
               </tr>';
     }
