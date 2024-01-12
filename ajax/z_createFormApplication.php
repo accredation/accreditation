@@ -62,7 +62,7 @@ tr:hover {
       <div style="
     position: relative;
     left: 75%;
-">(директор Рузанов Д.Ю.)</div>
+">(директор Щербинский А.А.)</div>
 <br><br><br>
       <div style="
     position: relative;
@@ -105,6 +105,8 @@ tr:hover {
         font-weight: 700;
     position: relative;
     left: 17%;
+    
+    
     font-size: 13px;
 ">контактная информация (телефон(факс), электронный адрес)</div>
       <div style="
@@ -147,12 +149,13 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     echo '
     <tr><td colspan="4" style="font-weight: 700; text-align: center">' . $name_sub . '</td></tr>';
     $query_tds = "select tt.name as namet, ltc.name_profile as namel, dep.name as named FROM z_department AS dep
-                        JOIN z_list_tables_criteria AS ltc ON ltc.id_list_tables_criteria = dep.id_list_tables_criteria
+                        JOIN z_list_tables_criteria AS ltc ON ltc.id_list_tables_criteria = dep.id_list_tables_criteria  
                         JOIN z_types_tables AS tt ON tt.id_types_tables = ltc.id_types_tables
                         where dep.id_subvision = '$id_sub'";
     $result_tds = mysqli_query($con, $query_tds) or die("Ошибка " . mysqli_error($con));
     while ($row_tds = mysqli_fetch_assoc($result_tds)) {
         echo ' <tr>
+ 
         <td style = "text-align: center;">'.$ind.'</td>
         <td style="width: 25%;    word-break: break-word;">'.$row_tds["namet"].'</td>
         <td>'.$row_tds["namel"].'</td>

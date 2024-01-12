@@ -1630,13 +1630,15 @@ function addTab() {
 function deleteTab(id_sub) {
     let isDelete = confirm("Вы уверены, что хотите удалить текущее подразделение?");
     if (isDelete) {
+        let nameTab = document.getElementById("button"+id_sub);
         $.ajax({
             url: "ajax/deleteTab.php",
             method: "POST",
             data: {id_sub: id_sub}
         })
             .done(function (response) {
-
+                let number_app = document.getElementById("id_application");
+                addHistoryAction(number_app.innerText,  getCookie('id_user'), 1, `Удалено структурное подразделение ${nameTab.innerText}`)
             });
 
 

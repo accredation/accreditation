@@ -1242,11 +1242,21 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                 // ОТОБРАЖЕНИЕ таблиц критериев по нажатию на чекбокс
                 let numTab = document.getElementById("tab" + openTabId + "-")
 
+                let chkbName = numTab.querySelector("#checkbox"+id_list_tables_criteria);
+                let lblName = chkbName.nextElementSibling.innerHTML;
+
                 let rightCard = numTab.querySelector("#cardRight");
+
+
+
                 let cardForAdding = rightCard.querySelector(":first-child");
                 let cardForAdding1 = cardForAdding.querySelector(":first-child");
                 if (cardForAdding1)
                     cardForAdding1.insertAdjacentHTML("afterbegin", response);
+
+
+                let nameTab = document.getElementById("button"+openTabId);
+                addHistoryAction(id_app,  getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`)
 
             });
 
@@ -1266,6 +1276,11 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                     let cardForAdding = rightCard.querySelector(":first-child");
                     let cardForAdding1 = cardForAdding.querySelector(":first-child");
                     cardForAdding1.innerHTML = "";
+                    let chkbName = numTab.querySelector("#checkbox"+id_list_tables_criteria);
+                    let lblName = chkbName.nextElementSibling.innerHTML;
+                    let nameTab = document.getElementById("button"+openTabId);
+                    addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${lblName} из структурного подразделения ${nameTab.innerText}`)
+
                 });
             [...formCheckInput].forEach(item => {
                 if (item.checked === false) {
@@ -1300,6 +1315,9 @@ function buttonSelected(inputCheck) {  // добавление отделени�
                     alert("Такое отделение уже существует");
                 }else {
                     alert("Добавлено отделение");
+                    let nameTab = document.getElementById("button"+openTabId);
+                    addHistoryAction(id_app,  getCookie('id_user'), 2, `Добавлено отделение ${department} в структурное подразделение ${nameTab.innerText}`)
+
                     let number;
                     let incrementedNumber;
                     let buttonText = inputCheck.textContent;
@@ -1488,6 +1506,16 @@ function deleteDepartment(id_department) {
     event.stopPropagation();
     let confirmDelete = confirm("Вы действительно хотите удалить отделение?");
     if (confirmDelete) {
+        let numTab = document.getElementById("tab" + openTabId + "-")
+        let depName = numTab.querySelector("[aria-controls='collapse"+id_department+"']");
+        let cutName ;//= depName.innerHTML.substring(0, depName.innerHTML.lastIndexOf('('));
+        if(depName.innerHTML.lastIndexOf('(') > 0){
+            cutName = depName.innerHTML.substring(0, depName.innerHTML.lastIndexOf('('));
+        } else {
+            cutName = depName.innerHTML
+        }
+
+        console.log(cutName);
         $.ajax({
             url: "ajax/z_deleteDepartment.php",
             method: "GET",
@@ -1496,10 +1524,15 @@ function deleteDepartment(id_department) {
             .done(function (response) {
                 console.log(response);
                 alert("Отделение удалено.");
+
+
+
                 let id_list_tables_criteria = response;
                 let tabActive = document.getElementById("tab" + openTabId + "-");
 
                 let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
+
+
 
                 if (!countButton.innerHTML) {
                     let rightCard = tabActive.querySelector("#cardRight");
@@ -1516,6 +1549,9 @@ function deleteDepartment(id_department) {
                     }
                 }
                 let cardH = document.getElementById("heading" + id_department);
+
+                let nameTab = document.getElementById("button"+openTabId);
+                 addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`)
                 if (cardH)
                     cardH.remove();
             })
@@ -1530,6 +1566,14 @@ function renameDepartment(id_department) {
     event.stopPropagation();
     let newDepartmentName = prompt("Введите новое название отделения:");
     if (newDepartmentName !== null && newDepartmentName.trim() !== "") {
+        let numTab = document.getElementById("tab" + openTabId + "-")
+        let depName = numTab.querySelector("[aria-controls='collapse"+id_department+"']");
+        let cutName ;//= depName.innerHTML.substring(0, depName.innerHTML.lastIndexOf('('));
+        if(depName.innerHTML.lastIndexOf('(') > 0){
+            cutName = depName.innerHTML.substring(0, depName.innerHTML.lastIndexOf('('));
+        } else {
+            cutName = depName.innerHTML
+        }
         $.ajax({
             url: "ajax/z_renameDepartment.php",
             method: "GET",
@@ -1542,6 +1586,8 @@ function renameDepartment(id_department) {
 
                 let newText = response ;
                 button.innerText = newText;
+                let nameTab = document.getElementById("button"+openTabId);
+                addHistoryAction(id_app,  getCookie('id_user'), 2, `Переименовано отделение ${cutName} на ${newDepartmentName} в структурном подразделении ${nameTab.innerText}`)
                 alert("Отделение переименовано.");
             })
             .fail(function (error) {
