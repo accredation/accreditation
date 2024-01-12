@@ -668,6 +668,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 
 <!--                </form>-->
              <button type="button" class="btn btn-danger closeD" data-bs-dismiss="modal">Закрыть</button>
+
          </div>
 
      </div>
@@ -713,13 +714,12 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 
 
 
-
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
 <!--<script>console.log(filesName)</script>-->
 <script src="dist/js/formApplication.js"></script>
 <script src="dist/js/newFormApplication.js"></script>
-
+<script src="dist/js/add_history_action.js"></script>
 <script>
 
 </script>

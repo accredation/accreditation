@@ -41,14 +41,14 @@ function newShowModal(id_application) {
     }
 
 
-    let btnSend = document.getElementById("btnSend");
+   // let btnSend = document.getElementById("btnSend");
 
 
     let btnPrint = document.getElementById("btnPrint");
     let btnPrintReport = document.getElementById("btnPrintReport");
 
     if (btnPrint) {
-        btnSend.id = "newBtnSend";
+      //  btnSend.id = "newBtnSend";
         btnPrint.id = "newBtnPrint";
         btnPrint.title = "Печать самооценки";
     } else {
@@ -67,15 +67,15 @@ function newShowModal(id_application) {
 
 
     let homeTab = document.getElementById("home-tab");
-    let btnSen = document.getElementById("newBtnSend");
+  //  let btnSen = document.getElementById("newBtnSend");
     let btnSu = document.getElementById("btnSuc");
     if (homeTab.classList.contains("active")) {
-        if (btnSen.classList.contains("hiddentab")) {
-            btnSen.classList.remove("hiddentab");
-        }
-        if (btnSu.classList.contains("hiddentab")) {
-            btnSu.classList.remove("hiddentab");
-        }
+      //  if (btnSen.classList.contains("hiddentab")) {
+       //     btnSen.classList.remove("hiddentab");
+      //  }
+        // if (btnSu.classList.contains("hiddentab")) {
+        //     btnSu.classList.remove("hiddentab");
+        // }
     }
     let footer = document.getElementsByClassName("modal-footer")[0];
     if (footer.classList.contains('hiddentab')) {
@@ -203,11 +203,11 @@ function newShowModal(id_application) {
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
 
-        if(btnSend)
-            btnSend.classList.add("hiddentab");
-        if (btnCalc) {
-            btnCalc.remove();
-        }
+      //  if(btnSend)
+      //      btnSend.classList.add("hiddentab");
+     //   if (btnCalc) {
+     //       btnCalc.remove();
+     //   }
     }
 
 
@@ -237,28 +237,28 @@ function newShowModal(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if (data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             if (data[0][16] != null) {
                 divFileReportDorabotka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + "/dorabotka/" + id_application + "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if (data[0][8] != null) {
-                soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
+                soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
-                orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+                orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
             if (data[0][11] != null) {
-                ucomplect.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+                ucomplect.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if (data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             if (data[0][19] != null) {
                 let lico = document.getElementById("lico");
@@ -266,7 +266,7 @@ function newShowModal(id_application) {
                 predDiv.classList.remove("hiddentab");
                 rukDiv.classList.add("hiddentab");
                 formDoverennost.classList.remove("hiddentab");
-                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
+                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }else {
                 let lico = document.getElementById("lico");
                 lico.options.selectedIndex = 1;
@@ -619,6 +619,8 @@ function newShowModal(id_application) {
     divBtnPrintReport.onclick = () => {
         printNewReport();
     };
+
+
 
 
 }
@@ -1006,7 +1008,7 @@ async function newShowTab(element, id_sub) {
             console.log(textStatus + ": " + errorThrown);
         }).then(async () => {
             await $.ajax({
-                url: "ajax/z_getAllTables.php",
+                url: "ajax/z_getAllTablesSupport.php",
                 method: "GET",
                 data: {id_sub: openTabId},
 
@@ -1024,9 +1026,10 @@ async function newShowTab(element, id_sub) {
                 //
                 console.log("AJAX Error: " + textStatus + ", " + errorThrown);
             }).then(() => {
+                let btnrename = document.getElementsByClassName("btn-rename");
+                let deleteicon = document.getElementsByClassName("delete-icon");
                 if (status == 2) {
-                    let btnrename = document.getElementsByClassName("btn-rename");
-                    let deleteicon = document.getElementsByClassName("delete-icon");
+                    
                     [...btnrename].forEach(item => {
                         item.classList.add("hiddentab");
                     });
@@ -1034,6 +1037,15 @@ async function newShowTab(element, id_sub) {
                         item.classList.add("hiddentab");
                     })
                 }
+
+                [...btnrename].forEach(item => {
+                    item.remove();
+                });
+                [...deleteicon].forEach(item => {
+                    item.remove();
+                })
+                
+                               
             });
         }).then(() => {
             $.ajax({
@@ -1130,6 +1142,8 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
         cardRight.classList.toggle("rightCardFS");
     }
 
+    aRollUp.remove();
+
     let cardBody = document.createElement("div");
     cardBody.className = "card-body";
     let container = document.createElement("div");
@@ -1139,17 +1153,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     let col12_2 = document.createElement("div");
     col12_2.className = "col-12";
 
-    let btnDelete = document.createElement("button");
-    btnDelete.innerHTML = "Удалить подразделение";
-    btnDelete.classList = "btn btn-danger";
-    btnDelete.id = "delPodr";
-    btnDelete.setAttribute("onclick", "deleteTab('" + id_sub + "')");
-    btnDelete.style = "margin-bottom: 15px";
-    if (idRole == 15) {
-
-    } else {
-        tabPane.appendChild(btnDelete);
-    }
+   
 
 
     col12_1.style = "display: flex";
@@ -1163,6 +1167,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     row2.appendChild(col12_2);
     container.appendChild(row2);
     cardBody.appendChild(container);
+    cardBody.style = "display: none"
     cardLeft.appendChild(cardBody);
     col12_1.appendChild(cardLeft);
     col12_1.appendChild(cardRight);
@@ -1201,11 +1206,9 @@ function newAddTab() {    // добавление subvision
             })
                 .done(function (response) {
                     let id = response;
-                    addHistoryAction(id_application,  getCookie('id_user'), 1, `Создано структурное подразделение ${nameTab}`)
+
                     newGetTabs(nameTab, id);
                 });
-                
-            
         } else {
             alert('Введите название подразделения');
         }
@@ -1356,11 +1359,11 @@ function newCollapseTable(thisDiv) {
             let fileInputs = document.querySelectorAll('input[type="file"]');
 
             selpickers.forEach((selpicker) => {
-                selpicker.disabled = false;
+                selpicker.disabled = true;
             });
 
             fileInputs.forEach((fileInput) => {
-                fileInput.disabled = false;
+                fileInput.disabled = true;
             });
 
             if(noteCells)
@@ -1383,13 +1386,13 @@ function changeField3(idCrit, idDep, select) {
 }
 
 function changeField5(idCrit, idDep, text) {
-    $.ajax({
-        url: "ajax/changeField5.php",
-        method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^\w\s]/gi, '')}
-    }).done(function (response) {
+    // $.ajax({
+    //     url: "ajax/changeField5.php",
+    //     method: "GET",
+    //     data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^\w\s]/gi, '')}
+    // }).done(function (response) {
 
-    })
+    // })
 }
 
 function addFile(idCrit, idDep, input) {
@@ -1452,6 +1455,7 @@ function addFile(idCrit, idDep, input) {
         };
         fileContainer.appendChild(fileLink);
         fileContainer.appendChild(deleteButton);
+        
         divA.appendChild(fileContainer);
     }
     xhr.send(form);
@@ -1459,28 +1463,28 @@ function addFile(idCrit, idDep, input) {
 
 
 function z_deleteFile(fileName, idCrit, idDepartment) {
-    if (confirm('Вы уверены, что хотите удалить этот файл?')) {
-        let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_criteria=' + idCrit + '&id_department=' + idDepartment;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const fileContainers = document.getElementsByClassName('file-container');
-                    for (let i = 0; i < fileContainers.length; i++) {
-                        if (fileContainers[i].contains(document.getElementById('delete_' + idCrit + '_' + idDepartment + '_' + fileName))) {
-                            fileContainers[i].remove();
-                            break;
-                        }
-                    }
-                } else {
-                    alert('Не удалось удалить файл. Попробуйте снова.');
-                }
-            })
-            .catch((error) => {
-                console.error('Ошибка при удалении файла:', error);
-                alert('Ошибка при удалении файла.');
-            });
-    }
+    // if (confirm('Вы уверены, что хотите удалить этот файл?')) {
+    //     let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_criteria=' + idCrit + '&id_department=' + idDepartment;
+    //     fetch(url)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 const fileContainers = document.getElementsByClassName('file-container');
+    //                 for (let i = 0; i < fileContainers.length; i++) {
+    //                     if (fileContainers[i].contains(document.getElementById('delete_' + idCrit + '_' + idDepartment + '_' + fileName))) {
+    //                         fileContainers[i].remove();
+    //                         break;
+    //                     }
+    //                 }
+    //             } else {
+    //                 alert('Не удалось удалить файл. Попробуйте снова.');
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.error('Ошибка при удалении файла:', error);
+    //             alert('Ошибка при удалении файла.');
+    //         });
+    // }
 }
 
 
@@ -2124,18 +2128,18 @@ function checkUserRole()
     }
     else{
 
-        inputFieldSokrNaim.disabled = false;
-        inputFieldunp.disabled = false;
-        inputFieldadress.disabled = false;
-        inputFieldadressFact.disabled = false;
-        inputFieldtel.disabled = false;
-        inputFieldemail.disabled = false;
-        inputFieldrukovoditel.disabled = false;
-        inputFieldpredstavitel.disabled = false;
-        inputFieldcopyRaspisanie.disabled = false;
-        inputFieldtechOsn.disabled = false;
-        inputFieldreportSamoocenka.disabled = false;
-        ownUcompBtn.disabled = false;
+        inputFieldSokrNaim.disabled = true;
+        inputFieldunp.disabled = true;
+        inputFieldadress.disabled = true;
+        inputFieldadressFact.disabled = true;
+        inputFieldtel.disabled = true;
+        inputFieldemail.disabled = true;
+        inputFieldrukovoditel.disabled = true;
+        inputFieldpredstavitel.disabled = true;
+        inputFieldcopyRaspisanie.disabled = true;
+        inputFieldtechOsn.disabled = true;
+        inputFieldreportSamoocenka.disabled = true;
+        ownUcompBtn.disabled = true;
 
     }
 }
@@ -2205,6 +2209,30 @@ $("#doverennost").on("change", () => {
     }
     xhr.send(form);
 });
+
+
+
+$("#btnJournalActions").on("click", () => {
+   
+   $.ajax({
+    url: "ajax/journal_actions.php",
+    method: "GET",
+    data: {id_app: id_app}
+
+})
+
+
+    .done(function (response) {    
+        console.log('12')
+
+      let journal = document.getElementById('journal');
+      journal.innerHTML = response;
+
+      showModalAction(id_app);
+
+    })
+});
+
 
 
 //
