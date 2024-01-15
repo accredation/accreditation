@@ -4,10 +4,34 @@ $id_app = $_GET['id_application'];
 //$id_list_tables_criteria =  $_GET['id_list_tables_criteria'];
 //$department =  $_GET['department'];
 //$login=  $_COOKIE['login'];
-
+//<div style="
+//    position: relative;
+//    left: 75%;
+//">Приложение 1</div>
+//      <div style="
+//    position: relative;
+//    left: 75%;
+//">к Положению</div>
+//      <div style="
+//    position: relative;
+//    left: 75%;
+//">о порядке проведения медицинской аккредитации</div>
+//      <div style="
+//    position: relative;
+//    left: 75%;
+//">организаций здравоохранения</div>
+//<br><br>
+//      <div style="
+//    position: relative;
+//    left: 75%;
+//">Форма</div>
+//<br><br>
 
 echo '
 <style>
+body{
+font-family: Georgia, \'Times New Roman\', Times, serif;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -32,37 +56,18 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #f5f5f5;
 }
+
 </style>
-<div style="
-    position: relative;
-    left: 75%;
-">Приложение 1</div>
+
       <div style="
     position: relative;
     left: 75%;
-">к Положению</div>
+    
+">Директору РНПЦ МТ</div>
       <div style="
     position: relative;
     left: 75%;
-">о порядке проведения медицинской аккредитации</div>
-      <div style="
-    position: relative;
-    left: 75%;
-">организаций здравоохранения</div>
-<br><br>
-      <div style="
-    position: relative;
-    left: 75%;
-">Форма</div>
-<br><br>
-      <div style="
-    position: relative;
-    left: 75%;
-">Руководителю уполномоченного органа</div>
-      <div style="
-    position: relative;
-    left: 75%;
-">(директор Щербинский А.А.)</div>
+">Щербинскому А.А.</div>
 <br><br><br>
       <div style="
     position: relative;
