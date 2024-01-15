@@ -1,36 +1,14 @@
 <?php
 include "connection.php";
 $id_app = $_GET['id_application'];
-//$id_list_tables_criteria =  $_GET['id_list_tables_criteria'];
-//$department =  $_GET['department'];
-//$login=  $_COOKIE['login'];
-//<div style="
-//    position: relative;
-//    left: 75%;
-//">Приложение 1</div>
-//      <div style="
-//    position: relative;
-//    left: 75%;
-//">к Положению</div>
-//      <div style="
-//    position: relative;
-//    left: 75%;
-//">о порядке проведения медицинской аккредитации</div>
-//      <div style="
-//    position: relative;
-//    left: 75%;
-//">организаций здравоохранения</div>
-//<br><br>
-//      <div style="
-//    position: relative;
-//    left: 75%;
-//">Форма</div>
-//<br><br>
+
+
 
 echo '
 <style>
 body{
-font-family: Georgia, \'Times New Roman\', Times, serif;
+
+font-family:  \'Times New Roman\' ;
 }
 table {
   width: 100%;
@@ -59,74 +37,84 @@ tr:hover {
 
 </style>
 
-      <div style="
+      <div style="font-size: 14pt;
     position: relative;
     left: 75%;
     
 ">Директору РНПЦ МТ</div>
-      <div style="
+      <div style=" font-size: 14pt;
     position: relative;
     left: 75%;
 ">Щербинскому А.А.</div>
 <br><br><br>
-      <div style="
+      <div style=" font-size: 14pt;
     position: relative;
-    left: 10%;
+    text-align: center;
 ">ЗАЯВЛЕНИЕ №</div>
 <br>
-      <div style="
+      <div style=" font-size: 15pt;
+    position: relative;
+    text-align: center;
+">о получении свидетельства о соответствии государственной</div>
+      <div style=" font-size: 15pt;
+    position: relative;
+    text-align: center;
+">организации здравоохранения базовым критериям медицинской</div>
+      <div style=" font-size: 15pt;
+    position: relative;
+   text-align: center;
+">аккредитации, внесении в него изменений</div>
+      <div style="font-size: 14pt;
     position: relative;
     left: 10%;
-">о выдаче свидетельства о соответствии государственной организации здравоохранения базовым критериям</div>
-      <div style="
+">
+<br>
+Прошу выдать______________________________________________________________</div>
+      <div style="font-style: italic;
     position: relative;
-    left: 8%;
-">медицинской аккредитации</div>
-      <div style="
-    position: relative;
-    left: 10%;
-">ПРОШУ ВЫДАТЬ________________________________________________________________________</div>
-      <div style="
-       font-weight: 700;
-    position: relative;
-    left: 20%;
-    font-size: 13px;
+    left: 35%;
+    font-size: 9pt;
 ">(наименование заинтересованного лица,</div>
       <div style="
     position: relative;
     left: 10%;
 ">________________________________________________________________________________________</div>
-      <div style="
-        font-weight: 700;
+      <div style="font-style: italic;
     position: relative;
-    left: 20%;
-    font-size: 13px;
+    left: 34%;
+    font-size: 9pt;
 ">его местонахождения, юридический адрес,</div>
       <div style="
     position: relative;
     left: 10%;
 ">________________________________________________________________________________________</div>
-      <div style="
-        font-weight: 700;
+      <div style="font-style: italic;
     position: relative;
-    left: 17%;
-    
-    
-    font-size: 13px;
+    left: 30%;
+    font-size: 9pt;
 ">контактная информация (телефон(факс), электронный адрес)</div>
       <div style="
     position: relative;
     left: 10%;
 ">________________________________________________________________________________________</div>
-<br><br>
-      <div style="
+<br>
+      <div style="font-size: 15pt;
     position: relative;
     left: 10%;
-">свидетельство о соответствии государственной организации здравоохранения базовым критериям медицинской</div>
-      <div style="
+">свидетельство о соответствии государственной организации </div>
+      <div style="font-size: 15pt;
     position: relative;
-    left: 8%;
-">аккредитации по видам оказываемой медицинской помощи по профилям заболеваний, состояний, синдромов:</div>
+    left: 10%;
+">здравоохранения базовым критериям медицинской аккредитации по видам </div>
+      <div style="font-size: 15pt;
+    position: relative;
+    left: 10%;
+">оказываемой медицинской помощи по профилям заболеваний, состояний, </div>
+      <div style="font-size: 15pt;
+    position: relative;
+    left: 10%;
+">синдромов, методов их исследования:</div>
+
  <div style="display: flex; justify-content: center; margin-top: 20px">
 <table style="border: 1px solid black; width: 80%;">
     <tr>
@@ -187,30 +175,53 @@ else{
 echo '</br></br>
 <div style="
     position: relative;
-    left: 10%;
-">'.$rukovod .'</div>
+    left: 10%;font-size: 14pt;
+">Руководитель (представитель)</div>
+<div style="
+    position: relative;
+    left: 10%;font-size: 14pt;
+">заинтересованного лица: </div>
+<br>
+<br>
 <div style="
     position: relative;
     left: 10%;
-">'.$predstavitel.'</div>
+">_______________________________________ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+___________________________
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+_________________________________</div>
 <div class = "podpiska" style="display: flex;">
-<div style="
-       font-weight: 700;
+ <div style="
     position: relative;
     left: 10%;
-    font-size: 13px;
+    font-size: 9pt;
 ">(наименование должности служащего)</div>
-<div style="
-       font-weight: 700;
+ <div style="
     position: relative;
-    left: 20%;
-    font-size: 13px;
+    left: 35%;
+    font-size: 9pt;
 ">(подпись)</div>
-<div style="
-       font-weight: 700;
+ <div style="
     position: relative;
-    left: 30%;
-    font-size: 13px;
+    left: 67%;
+    font-size: 9pt;
 ">(инициалы,фамилия)</div>
 </div>
 ';
