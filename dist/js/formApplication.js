@@ -1638,7 +1638,7 @@ function deleteTab(id_sub) {
         })
             .done(function (response) {
                 let number_app = document.getElementById("id_application");
-                addHistoryAction(number_app.innerText,  getCookie('id_user'), 1, `Удалено структурное подразделение ${nameTab.innerText}`)
+                addHistoryAction(number_app.innerText,  getCookie('id_user'), 1, `Удалено структурное подразделение ${nameTab.innerText}`, id_sub, '')
             });
 
 

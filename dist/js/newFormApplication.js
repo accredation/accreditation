@@ -1201,7 +1201,7 @@ function newAddTab() {    // добавление subvision
             })
                 .done(function (response) {
                     let id = response;
-                    addHistoryAction(id_application,  getCookie('id_user'), 1, `Создано структурное подразделение ${nameTab}`)
+                    addHistoryAction(id_application,  getCookie('id_user'), 1, `Создано структурное подразделение ${nameTab}`,'','')
                     newGetTabs(nameTab, id);
                 });
                 
@@ -1256,7 +1256,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
 
 
                 let nameTab = document.getElementById("button"+openTabId);
-                addHistoryAction(id_app,  getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`)
+                addHistoryAction(id_app,  getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`,openTabId, '')
 
             });
 
@@ -1279,7 +1279,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                     let chkbName = numTab.querySelector("#checkbox"+id_list_tables_criteria);
                     let lblName = chkbName.nextElementSibling.innerHTML;
                     let nameTab = document.getElementById("button"+openTabId);
-                    addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${lblName} из структурного подразделения ${nameTab.innerText}`)
+                    addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${lblName} из структурного подразделения ${nameTab.innerText}`,openTabId,'')
 
                 });
             [...formCheckInput].forEach(item => {
@@ -1316,7 +1316,7 @@ function buttonSelected(inputCheck) {  // добавление отделени�
                 }else {
                     alert("Добавлено отделение");
                     let nameTab = document.getElementById("button"+openTabId);
-                    addHistoryAction(id_app,  getCookie('id_user'), 2, `Добавлено отделение ${department} в структурное подразделение ${nameTab.innerText}`)
+                    addHistoryAction(id_app,  getCookie('id_user'), 2, `Добавлено отделение ${department} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
 
                     let number;
                     let incrementedNumber;
@@ -1551,7 +1551,7 @@ function deleteDepartment(id_department) {
                 let cardH = document.getElementById("heading" + id_department);
 
                 let nameTab = document.getElementById("button"+openTabId);
-                 addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`)
+                 addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
                 if (cardH)
                     cardH.remove();
             })
@@ -1587,7 +1587,7 @@ function renameDepartment(id_department) {
                 let newText = response ;
                 button.innerText = newText;
                 let nameTab = document.getElementById("button"+openTabId);
-                addHistoryAction(id_app,  getCookie('id_user'), 2, `Переименовано отделение ${cutName} на ${newDepartmentName} в структурном подразделении ${nameTab.innerText}`)
+                addHistoryAction(id_app,  getCookie('id_user'), 2, `Переименовано отделение ${cutName} на ${newDepartmentName} в структурном подразделении ${nameTab.innerText}`, openTabId, id_department)
                 alert("Отделение переименовано.");
             })
             .fail(function (error) {
