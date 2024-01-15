@@ -23,11 +23,11 @@ if (mysqli_num_rows($rez1) == 1) //если нашлась одна строка
     $row1 = mysqli_fetch_assoc($rez1);
     $count_str = $row1['count_str'];
 
-    if($count_str ==0){
+
         mysqli_query($con, "Insert into applications(`id_user`, `id_status`, `naim`, `date_create_app`) values ('$id', 1, '$name', CURDATE())");
 //        mysqli_query($con, "Insert into subvision(`name`,`id_application`)  select '$name', id_application from applications where id_user='$id' and id_status=1");
 
-    }
+
 
 }
 ?>

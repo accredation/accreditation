@@ -8,7 +8,7 @@ $rez = mysqli_query($con, "select sum(dep.mark_percent) as su, count(dep.mark_pe
     left outer join applications a on s.id_application = a.id_application
     where a.id_application = '$id_application'");
 
-if (mysqli_num_rows($rez) == 1) //если получена одна строка
+if (mysqli_num_rows($rez) >0) //если получена одна строка
 {
     $row = mysqli_fetch_assoc($rez); //она
     $count_all = $row['coun'];
@@ -29,7 +29,7 @@ $query = "SELECT * FROM applications, users WHERE id_application='$id_applicatio
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 $data = array();
 $cells = array();
-if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+if (mysqli_num_rows($rez) >0) //если нашлась одна строка, значит такой юзер существует в базе данных
 {
     $row = mysqli_fetch_assoc($rez);
 
@@ -54,6 +54,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
     $dateInputDorabotki = $row['dateInputDorabotki'];
     $mark_percent = $row['mark_percent'];
     $doverennost = $row['doverennost'];
+    $zakluchenieSootvetstviya = $row['zakluchenieSootvetstviya'];
 }
 
 array_push($cells,$naim);
@@ -76,6 +77,7 @@ array_push($cells,$infDorabotkiFile);
 array_push($cells,$dateInputDorabotki);
 array_push($cells,$fact_adress);
 array_push($cells,$doverennost);
+array_push($cells,$zakluchenieSootvetstviya);
 
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";

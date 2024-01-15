@@ -149,6 +149,7 @@ function newShowModal(id_application) {
     let techOsn = document.getElementById("techOsn");
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
+    let reportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
     let doverennost = document.getElementById("doverennost");
     let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
     let divDateDorabotka = document.getElementById("divDateDorabotka");
@@ -163,6 +164,7 @@ function newShowModal(id_application) {
     let divTechOsn = document.getElementById("divTechOsn");
     let divReport = document.getElementById("divReport");
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
+    let divFileReportZakluchenieSootvet = document.getElementById("divFileReportZakluchenieSootvet");
     let divDoverennost = document.getElementById("divDoverennost");
     number_app.innerHTML = id_application;
     id_app = id_application;
@@ -196,6 +198,7 @@ function newShowModal(id_application) {
         doverennost.setAttribute("disabled", "true");
 
         reportSamoocenka.setAttribute("disabled", "true");
+        reportZakluchenieSootvet.setAttribute("disabled", "true");
         formFileReportDorabotka.setAttribute("disabled", "true");
         formDateDorabotka.setAttribute("disabled", "true");
         formFileReportDorabotka.style.display = "none";
@@ -260,6 +263,10 @@ function newShowModal(id_application) {
             if (data[0][12] != null) {
                 techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
+            if (data[0][20] != null) {
+                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+            }
+
             if (data[0][19] != null) {
                 let lico = document.getElementById("lico");
                 lico.options.selectedIndex = 2;
@@ -297,6 +304,7 @@ function newShowModal(id_application) {
         let ucompl = divUcomplect.getElementsByTagName("a")[0];
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
+        let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
@@ -321,6 +329,9 @@ function newShowModal(id_application) {
                     await updateCollapse(id_criteria, id_sub, 0).then(() => {
                         if (samoocenka) {
                             samoocenka.remove();
+                        }
+                        if (divZakluchenieSootvet) {
+                            divZakluchenieSootvet.remove();
                         }
                         // Удалить все найденные элементы с тегом "a"
                         for (let anchor of fRD) {
@@ -368,6 +379,9 @@ function newShowModal(id_application) {
                 if (samoocenka) {
                     samoocenka.remove();
                 }
+                if (divZakluchenieSootvet) {
+                    divZakluchenieSootvet.remove();
+                }
                 // Удалить все найденные элементы с тегом "a"
                 for (let anchor of fRD) {
                     anchor.remove();
@@ -410,6 +424,9 @@ function newShowModal(id_application) {
         } else {
             if (samoocenka) {
                 samoocenka.remove();
+            }
+            if (divZakluchenieSootvet) {
+                divZakluchenieSootvet.remove();
             }
             // Удалить все найденные элементы с тегом "a"
             for (let anchor of fRD) {
@@ -461,6 +478,7 @@ function newShowModal(id_application) {
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
+        let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
 
@@ -483,6 +501,9 @@ function newShowModal(id_application) {
                     await updateCollapse(id_criteria, id_sub, 0).then(() => {
                         if (samoocenka) {
                             samoocenka.remove();
+                        }
+                        if (divZakluchenieSootvet) {
+                            divZakluchenieSootvet.remove();
                         }
                         // Удалить все найденные элементы с тегом "a"
                         for (let anchor of fRD) {
@@ -530,6 +551,9 @@ function newShowModal(id_application) {
                 if (samoocenka) {
                     samoocenka.remove();
                 }
+                if (divZakluchenieSootvet) {
+                    divZakluchenieSootvet.remove();
+                }
                 // Удалить все найденные элементы с тегом "a"
                 for (let anchor of fRD) {
                     anchor.remove();
@@ -572,6 +596,9 @@ function newShowModal(id_application) {
         } else {
             if (samoocenka) {
                 samoocenka.remove();
+            }
+            if (divZakluchenieSootvet) {
+                divZakluchenieSootvet.remove();
             }
             // Удалить все найденные элементы с тегом "a"
             for (let anchor of fRD) {
