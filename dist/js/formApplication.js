@@ -3222,6 +3222,62 @@ $("#reportSamoocenka").on("change", () => {
 });
 
 
+
+
+$("#reportZakluchenieSootvet").on("change", () => {
+    let login = getCookie('login');
+    // if(!login) {
+    //     login = getCookie('login1');
+    // }
+    let divFileReportZakluchenieSootvet = document.getElementById("divFileReportZakluchenieSootvet");
+    let soprSoot = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
+    if (soprSoot) {
+        soprSoot.remove();
+    }
+    let reportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
+    reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + reportZakluchenieSootvet.files[0].name + "'>" + reportZakluchenieSootvet.files[0].name + "</a>");
+
+    let id_application = document.getElementById("id_application");
+
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let reportZakluchenieSootvetFile = reportZakluchenieSootvet.files[0];
+    form.append("id_application", id_application.innerText);
+    form.append("reportZakluchenieSootvet", reportZakluchenieSootvetFile);
+
+    xhr.open("post", "ajax/postFileReportSootvetstviya.php", true);
+    let reportZakluchenieSootvetdiv = document.getElementById("reportZakluchenieSootvetdiv");
+    if (reportZakluchenieSootvetdiv) {
+        reportZakluchenieSootvetdiv.remove();
+    }
+    let loadSoprSoot = document.getElementById("loadReportSam");
+    if (loadSoprSoot) {
+        loadSoprSoot.remove();
+    }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadReportSam";
+    reportZakluchenieSootvet.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+    xhr.upload.onloadstart = function() {
+        load.innerHTML = "Подождите, идет загрузка";
+    };
+
+    xhr.upload.onload = function () {
+        load.innerHTML = "Файл загружен";
+    }
+    xhr.send(form);
+});
+
+
+
 async function updateCollapse(id_criteria, id_sub, opend) {
 
 

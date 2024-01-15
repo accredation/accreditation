@@ -611,6 +611,12 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" id="reportSamoocenka">
                                                 </div>
                                             </form>
+                                            <form id="formFileReportZakluchenieSootvet" >
+                                                <div class="form-group " id = "divFileReportZakluchenieSootvet">
+                                                    <label for="reportZakluchenieSootvet">Заключение о соответствии помещений государственных организаций здравоохранения и созданных в них условий требованиям законодательства в области санитарно-эпидемиологического благополучия населения</label>
+                                                    <input type="file" class="form-control-file" id="reportZakluchenieSootvet">
+                                                </div>
+                                            </form>
                                             <form id="formFileReportDorabotka" >
                                                 <div class="form-group " id = "divFileReportDorabotka" style="margin-bottom: 0px;" >
                                                     <label for="reportDorabotka">Информация о необходимости доработки</label>
