@@ -68,7 +68,7 @@ tr:hover {
     left: 10%;
 ">
 <br>
-Прошу выдать______________________________________________________________________________</div>
+Прошу выдать____________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 35%;
@@ -77,7 +77,7 @@ tr:hover {
       <div style="
     position: relative;
     left: 10%;
-">__________________________________________________________________________________________________________</div>
+">________________________________________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 34%;
@@ -86,7 +86,7 @@ tr:hover {
       <div style="
     position: relative;
     left: 10%;
-">__________________________________________________________________________________________________________</div>
+">________________________________________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 30%;
@@ -95,24 +95,14 @@ tr:hover {
       <div style="
     position: relative;
     left: 10%;
-">__________________________________________________________________________________________________________</div>
+">________________________________________________________________________________________________________________</div>
 <br>
-      <div style="font-size: 15pt;
+       <div style="width: 80%; font-size: 15pt;
     position: relative;
-    left: 10%;
-">свидетельство о соответствии государственной организации </div>
-      <div style="font-size: 15pt;
-    position: relative;
-    left: 10%;
-">здравоохранения базовым критериям медицинской аккредитации по видам </div>
-      <div style="font-size: 15pt;
-    position: relative;
-    left: 10%;
-">оказываемой медицинской помощи по профилям заболеваний, состояний, </div>
-      <div style="font-size: 15pt;
-    position: relative;
-    left: 10%;
-">синдромов, методов их исследования:</div>
+    left: 10%; text-align: justify;
+">свидетельство о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации по видам оказываемой медицинской помощи по профилям заболеваний, состояний, синдромов, методов их исследования:</div>
+     
+
 
  <div style="display: flex; justify-content: center; margin-top: 20px">
 <table style="border: 1px solid black; width: 80%;">
@@ -190,11 +180,12 @@ echo '</br></br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;
 ____________
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 ____________________</div>
