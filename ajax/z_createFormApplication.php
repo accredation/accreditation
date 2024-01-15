@@ -50,8 +50,7 @@ tr:hover {
       <div style=" font-size: 14pt;
     position: relative;
     text-align: center;
-">ЗАЯВЛЕНИЕ №</div>
-<br>
+">ЗАЯВЛЕНИЕ</div>
       <div style=" font-size: 15pt;
     position: relative;
     text-align: center;
@@ -69,7 +68,7 @@ tr:hover {
     left: 10%;
 ">
 <br>
-Прошу выдать______________________________________________________________</div>
+Прошу выдать______________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 35%;
@@ -78,7 +77,7 @@ tr:hover {
       <div style="
     position: relative;
     left: 10%;
-">________________________________________________________________________________________</div>
+">__________________________________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 34%;
@@ -87,7 +86,7 @@ tr:hover {
       <div style="
     position: relative;
     left: 10%;
-">________________________________________________________________________________________</div>
+">__________________________________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 30%;
@@ -96,7 +95,7 @@ tr:hover {
       <div style="
     position: relative;
     left: 10%;
-">________________________________________________________________________________________</div>
+">__________________________________________________________________________________________________________</div>
 <br>
       <div style="font-size: 15pt;
     position: relative;
@@ -118,13 +117,13 @@ tr:hover {
  <div style="display: flex; justify-content: center; margin-top: 20px">
 <table style="border: 1px solid black; width: 80%;">
     <tr>
-        <th  style="border: 1px solid black; text-align: center; width: 3%">
+        <th  style=" text-align: center; width: 3%">
             № п/п
         </th>
-        <td style="border: 1px solid black; width: 25%; text-align: center;">
+        <td style=" width: 25%; text-align: center;">
             Наименование вида медицинской помощи
         </td>
-        <td style="border: 1px solid black;  width: 25%; text-align: left;">
+        <td style="  width: 25%; text-align: left;">
             Наименование профиля заболеваний, состояния, синдрома
         </td>
         <td style="width: 25%;    word-break: break-word;">
@@ -186,27 +185,19 @@ echo '</br></br>
 <div style="
     position: relative;
     left: 10%;
-">_______________________________________ 
+">___________________________
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+____________
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-___________________________
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-_________________________________</div>
+____________________</div>
 <div class = "podpiska" style="display: flex;">
  <div style="
     position: relative;
@@ -215,12 +206,12 @@ _________________________________</div>
 ">(наименование должности служащего)</div>
  <div style="
     position: relative;
-    left: 35%;
+    left: 31%;
     font-size: 9pt;
 ">(подпись)</div>
  <div style="
     position: relative;
-    left: 67%;
+    left: 54%;
     font-size: 9pt;
 ">(инициалы,фамилия)</div>
 </div>
