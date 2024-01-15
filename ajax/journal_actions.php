@@ -6,7 +6,7 @@ echo '<div class="modal" id="journalActions" style="display: block" >
        
         <div class="modal-header" >
             <div style="display: flex">
-                <h4 class="modal-title">Журнал событий</h4>
+                <h4 class="modal-title" id="journalHeader">Журнал событий</h4>
             </div>
 
             <div style="display: flex">

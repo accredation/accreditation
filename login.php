@@ -24,14 +24,14 @@ include 'authorization/auth.php';
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.png"/>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             font-family: 'poppins', sans-serif;
             overflow: hidden;
         }
 
-        section{
+        section {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,35 +40,39 @@ include 'authorization/auth.php';
             background: url("/assets/images/backlog.jpg") no-repeat center;
             background-size: cover;
         }
-        .form-box{
+
+        .form-box {
             position: relative;
             width: 400px;
             height: 450px;
             background: transparent;
-            border: 2px solid rgba(255,255,255,0.5);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 20px;
             backdrop-filter: blur(15px);
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        h2{
+
+        h2 {
             font-size: 2em;
             color: #fff;
             text-align: center;
         }
-        .inputbox{
+
+        .inputbox {
             position: relative;
             margin: 30px 0;
             width: 310px;
             border-bottom: 2px solid #fff;
         }
+
         input:focus ~ label,
-        input:valid ~ label{
+        input:valid ~ label {
             top: -5px;
         }
 
-        .inputbox input{
+        .inputbox input {
             width: 100%;
             height: 50px;
             background: transparent;
@@ -79,8 +83,8 @@ include 'authorization/auth.php';
             color: #fff;
         }
 
-        .inputbox label{
-           position: absolute;
+        .inputbox label {
+            position: absolute;
             top: 50%;
             left: 5px;
             transform: translateY(-50%);
@@ -90,14 +94,15 @@ include 'authorization/auth.php';
             transition: .5s;
         }
 
-        .inputbox ion-icon{
+        .inputbox ion-icon {
             position: absolute;
             right: 8px;
             color: #fff;
             font-size: 1.2em;
             top: 20px;
         }
-        button{
+
+        button {
             width: 100%;
             height: 40px;
             border-radius: 40px;
@@ -109,12 +114,12 @@ include 'authorization/auth.php';
             font-weight: 600;
         }
 
-        .snow{
+        .snow {
             position: absolute;
             top: -10px;
             color: #c6d8e2;
             border-radius: 50%;
-            animation:  fall linear, rotate  infinite linear;
+            animation: fall linear, rotate infinite linear;
         }
 
         @keyframes fall {
@@ -132,18 +137,18 @@ include 'authorization/auth.php';
     <div class="form-box">
         <div class="form-value">
 
-                <h2>Авторизация </h2>
-                <div class="inputbox">
-                    <ion-icon name="mail-outline"></ion-icon>
-                    <input type="text" id="exampleInputEmail1" required/>
-                    <label for="">Логин</label>
-                </div>
-                <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" id="exampleInputPassword1" required/>
-                    <label for="">Пароль</label>
-                </div>
-                <button id="log_in" name="log_in">Войти</button>
+            <h2>Авторизация </h2>
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="text" id="exampleInputEmail1" required/>
+                <label for="">Логин</label>
+            </div>
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input type="password" id="exampleInputPassword1" required/>
+                <label for="">Пароль</label>
+            </div>
+            <button id="log_in" name="log_in">Войти</button>
 
         </div>
     </div>
@@ -197,59 +202,87 @@ include 'authorization/auth.php';
     log_in.onclick = () => {
 
         $.ajax({
-            url: "authorization/enter.php",
+            url: "authorization/sendKod.php",
             method: "POST",
             data: {
                 login: document.getElementById("exampleInputEmail1").value,
                 password: document.getElementById("exampleInputPassword1").value
             }
-        }).done(function (response) {
-            let arr = JSON.parse(response);
-            if (arr.length == "1") {
-                if (arr[0] == "1") {
-                    alert("Учетная запись занята");
-                } else
-                    alert("Неверные данные");
-            } else if (arr.length == "2") {
-                let lastSession = arr[1];
-                let currentDate = new Date();
-                let year = currentDate.getFullYear();
-                let month = String(currentDate.getMonth() + 1).padStart(2, '0');
-                let day = String(currentDate.getDate()).padStart(2, '0');
-                let hours = String(currentDate.getHours()).padStart(2, '0');
-                let minutes = String(currentDate.getMinutes()).padStart(2, '0');
-                let seconds = String(currentDate.getSeconds()).padStart(2, '0');
+        }).then((response) => {
+            if (response === "1") {
+                let vvediKod = prompt("Введите отправленный код");
+                if (vvediKod) {
+                    $.ajax({
+                        url: "authorization/checkAuth.php",
+                        method: "POST",
+                        data: {
+                            login: document.getElementById("exampleInputEmail1").value,
+                            kod: vvediKod
+                        }
+                    }).then((response) => {
+                        if (response == "Да") {
+                            $.ajax({
+                                url: "authorization/enter.php",
+                                method: "POST",
+                                data: {
+                                    login: document.getElementById("exampleInputEmail1").value,
+                                    password: document.getElementById("exampleInputPassword1").value
+                                }
+                            }).done(function (response) {
+                                let arr = JSON.parse(response);
+                                if (arr.length == "1") {
+                                    if (arr[0] == "1") {
+                                        alert("Учетная запись занята");
+                                    } else
+                                        alert("Неверные данные");
+                                } else if (arr.length == "2") {
+                                    let lastSession = arr[1];
+                                    let currentDate = new Date();
+                                    let year = currentDate.getFullYear();
+                                    let month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                                    let day = String(currentDate.getDate()).padStart(2, '0');
+                                    let hours = String(currentDate.getHours()).padStart(2, '0');
+                                    let minutes = String(currentDate.getMinutes()).padStart(2, '0');
+                                    let seconds = String(currentDate.getSeconds()).padStart(2, '0');
 
-                let formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                                    let formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-                const date1 = new Date(lastSession);
-                const date2 = new Date(formattedDate);
-                const diffInMs = date1 - date2;
-                const diffInSeconds = Math.floor(diffInMs / 1000);
-                const minutes1 = Math.floor(diffInSeconds / 60);
-                const seconds1 = diffInSeconds % 60;
+                                    const date1 = new Date(lastSession);
+                                    const date2 = new Date(formattedDate);
+                                    const diffInMs = date1 - date2;
+                                    const diffInSeconds = Math.floor(diffInMs / 1000);
+                                    const minutes1 = Math.floor(diffInSeconds / 60);
+                                    const seconds1 = diffInSeconds % 60;
 
-                let exampleInputPassword1 = document.getElementById("exampleInputPassword1");
-                let oldPTime = document.getElementById("pTime");
-                if (oldPTime)
-                    oldPTime.remove();
-                let pTime = document.createElement("p");
-                pTime.id = "pTime";
-                pTime.innerHTML = `Времени до окончания не закрытой сессии: ${minutes1} минут ${seconds1} секунд`;
-                let parPas = exampleInputPassword1.parentElement;
-                parPas.appendChild(pTime);
+                                    let exampleInputPassword1 = document.getElementById("exampleInputPassword1");
+                                    let oldPTime = document.getElementById("pTime");
+                                    if (oldPTime)
+                                        oldPTime.remove();
+                                    let pTime = document.createElement("p");
+                                    pTime.id = "pTime";
+                                    pTime.innerHTML = `Времени до окончания не закрытой сессии: ${minutes1} минут ${seconds1} секунд`;
+                                    let parPas = exampleInputPassword1.parentElement;
+                                    parPas.appendChild(pTime);
 
 
-            } else {
-                // document.cookie ="login="+document.getElementById("exampleInputEmail1").value+";";
+                                } else {
+                                    // document.cookie ="login="+document.getElementById("exampleInputEmail1").value+";";
 
-                location.href = "/index.php";
+                                    location.href = "/index.php";
+                                }
+
+                            })
+                        } else {
+                            alert("Неверный код")
+                        }
+                    })
+                }
             }
-
         })
+
     }
 
-    function makeSnow(){
+    function makeSnow() {
         const snow = document.createElement("div");
         const size = Math.random() * 35.5 + 3.5;
         snow.className = "snow";
@@ -257,18 +290,18 @@ include 'authorization/auth.php';
         snow.style.left = Math.random() * window.innerWidth + "px";
         snow.innerHTML = "*";
         snow.style.opacity = size / 8;
-        if(size < 7){
+        if (size < 7) {
             snow.style.zIndex = -5;
         }
         snow.style.animationDuration = Math.random() * 60 + 20 + "s";
         document.body.appendChild(snow);
         setTimeout(() =>
-            snow.remove(),
+                snow.remove(),
             7000
         )
     }
 
-    setInterval(makeSnow,40);
+    setInterval(makeSnow, 40);
 </script>
 <!-- container-scroller -->
 <!-- plugins:js -->

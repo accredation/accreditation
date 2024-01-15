@@ -2064,6 +2064,7 @@ async function sendApp() {
                     })
                         .done(function (response) {
                             if (response === "") {
+                                addHistoryAction(id_app,  getCookie('id_user'), 1, `Заявление № ${id_app} отправлено`, "", "")
                                 alert("Заявление отправлено");
                                 location.href = "/index.php?application";
                             } else {

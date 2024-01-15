@@ -4,12 +4,23 @@ include "connection.php";
 $id_app = $_GET['id_app'];
 
 
-$query = "SELECT ha.*, u.login
+$query = "select 1 as id, a.id_application as id_application, u.id_user as id_user, date_create_app as date_action, '' as time_action,
+       1 as type_action,'Заявление создано' as `action`,null,null, u.login as login
+from applications a
+left outer join users u on a.id_user=u.id_user
+where id_application = '$id_app'
+union
+SELECT ha.*, u.login
 from history_actions ha
 left outer join users u on ha.id_user=u.id_user
-where id_application = '$id_app'
-order by ha.date_action, ha.time_action 
+where ha.id_application = '$id_app'
 ";
+
+//SELECT ha.*, u.login
+//from history_actions ha
+//left outer join users u on ha.id_user=u.id_user
+//where id_application = '$id_app'
+//order by ha.date_action, ha.time_action
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 $reports = array();

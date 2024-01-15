@@ -85,7 +85,7 @@
                     <li class="nav-item">
                       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Самооценка</a>
                     </li>
-                   
+
                   </ul>
                   <div class="d-md-block d-none">
 <!--                    <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
@@ -178,7 +178,7 @@
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where uz.id_uz='$id_uz' and id_status in (2,3)";
+                                where  id_status in (2,3)";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>

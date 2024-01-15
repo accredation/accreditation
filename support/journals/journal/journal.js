@@ -14,6 +14,9 @@ function showModalAction(id_app) {
     let journalActions = document.getElementById('tableActions');
     journalActions.innerHTML = "Ожидайте. Идет подготовка журнала"
     id_application = id_app;
+
+    let journalHeader = document.getElementById('journalHeader');
+    journalHeader.innerHTML = `Журнал событий заявления №${id_application}`;
     prepereTableAction(id_app);
 
 }
