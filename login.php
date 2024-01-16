@@ -14,6 +14,9 @@ include 'authorization/auth.php';
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -154,6 +157,25 @@ include 'authorization/auth.php';
     </div>
 </section>
 
+<div class="modal fade" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="codeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="codeModalLabel">Введите отправленный код</h5>
+                <button style="width:100px;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="codeInput" class="form-control" required/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="codeSubmit">Отправить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--<div class="container-scroller">-->
 <!--    <div class="container-fluid page-body-wrapper full-page-wrapper">-->
 <!--        <div class="content-wrapper d-flex align-items-center auth">-->
@@ -200,7 +222,6 @@ include 'authorization/auth.php';
 
     let log_in = document.getElementById("log_in");
     log_in.onclick = () => {
-
         $.ajax({
             url: "authorization/sendKod.php",
             method: "POST",
@@ -210,76 +231,78 @@ include 'authorization/auth.php';
             }
         }).then((response) => {
             if (response === "1") {
-                let vvediKod = prompt("Введите отправленный код");
-                if (vvediKod) {
+                $('#codeModal').modal('show');
+            }
+         else {
+            alert("Неверный логин или пароль");
+        }
+        })
+    }
+
+    let codeSubmit = document.getElementById("codeSubmit");
+    codeSubmit.onclick = () => {
+        let vvediKod = document.getElementById("codeInput").value;
+        if (vvediKod) {
+            $.ajax({
+                url: "authorization/checkAuth.php",
+                method: "POST",
+                data: {
+                    login: document.getElementById("exampleInputEmail1").value,
+                    kod: vvediKod
+                }
+            }).then((response) => {
+                if (response == "Да") {
                     $.ajax({
-                        url: "authorization/checkAuth.php",
+                        url: "authorization/enter.php",
                         method: "POST",
                         data: {
                             login: document.getElementById("exampleInputEmail1").value,
-                            kod: vvediKod
+                            password: document.getElementById("exampleInputPassword1").value
                         }
-                    }).then((response) => {
-                        if (response == "Да") {
-                            $.ajax({
-                                url: "authorization/enter.php",
-                                method: "POST",
-                                data: {
-                                    login: document.getElementById("exampleInputEmail1").value,
-                                    password: document.getElementById("exampleInputPassword1").value
-                                }
-                            }).done(function (response) {
-                                let arr = JSON.parse(response);
-                                if (arr.length == "1") {
-                                    if (arr[0] == "1") {
-                                        alert("Учетная запись занята");
-                                    } else
-                                        alert("Неверные данные");
-                                } else if (arr.length == "2") {
-                                    let lastSession = arr[1];
-                                    let currentDate = new Date();
-                                    let year = currentDate.getFullYear();
-                                    let month = String(currentDate.getMonth() + 1).padStart(2, '0');
-                                    let day = String(currentDate.getDate()).padStart(2, '0');
-                                    let hours = String(currentDate.getHours()).padStart(2, '0');
-                                    let minutes = String(currentDate.getMinutes()).padStart(2, '0');
-                                    let seconds = String(currentDate.getSeconds()).padStart(2, '0');
+                    }).done(function (response) {
+                        let arr = JSON.parse(response);
+                        if (arr.length == "1") {
+                            if (arr[0] == "1") {
+                                alert("Учетная запись занята");
+                            } else
+                                alert("Неверные данные");
+                        } else if (arr.length == "2") {
+                            let lastSession = arr[1];
+                            let currentDate = new Date();
+                            let year = currentDate.getFullYear();
+                            let month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                            let day = String(currentDate.getDate()).padStart(2, '0');
+                            let hours = String(currentDate.getHours()).padStart(2, '0');
+                            let minutes = String(currentDate.getMinutes()).padStart(2, '0');
+                            let seconds = String(currentDate.getSeconds()).padStart(2, '0');
 
-                                    let formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                            let formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-                                    const date1 = new Date(lastSession);
-                                    const date2 = new Date(formattedDate);
-                                    const diffInMs = date1 - date2;
-                                    const diffInSeconds = Math.floor(diffInMs / 1000);
-                                    const minutes1 = Math.floor(diffInSeconds / 60);
-                                    const seconds1 = diffInSeconds % 60;
+                            const date1 = new Date(lastSession);
+                            const date2 = new Date(formattedDate);
+                            const diffInMs = date1 - date2;
+                            const diffInSeconds = Math.floor(diffInMs / 1000);
+                            const minutes1 = Math.floor(diffInSeconds / 60);
+                            const seconds1 = diffInSeconds % 60;
 
-                                    let exampleInputPassword1 = document.getElementById("exampleInputPassword1");
-                                    let oldPTime = document.getElementById("pTime");
-                                    if (oldPTime)
-                                        oldPTime.remove();
-                                    let pTime = document.createElement("p");
-                                    pTime.id = "pTime";
-                                    pTime.innerHTML = `Времени до окончания не закрытой сессии: ${minutes1} минут ${seconds1} секунд`;
-                                    let parPas = exampleInputPassword1.parentElement;
-                                    parPas.appendChild(pTime);
-
-
-                                } else {
-                                    // document.cookie ="login="+document.getElementById("exampleInputEmail1").value+";";
-
-                                    location.href = "/index.php";
-                                }
-
-                            })
+                            let exampleInputPassword1 = document.getElementById("exampleInputPassword1");
+                            let oldPTime = document.getElementById("pTime");
+                            if (oldPTime)
+                                oldPTime.remove();
+                            let pTime = document.createElement("p");
+                            pTime.id = "pTime";
+                            pTime.innerHTML = `Времени до окончания не закрытой сессии: ${minutes1} минут ${seconds1} секунд`;
+                            let parPas = exampleInputPassword1.parentElement;
+                            parPas.appendChild(pTime);
                         } else {
-                            alert("Неверный код")
+                            location.href = "/index.php";
                         }
                     })
+                } else {
+                    alert("Неверный код");
                 }
-            }
-        })
-
+            })
+        }
     }
 
     function makeSnow() {
