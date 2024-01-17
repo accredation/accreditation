@@ -2,6 +2,7 @@
 include "connection.php";
 $id_user = $_GET['id_user'];
 $login = $_GET['login'];
+$email = $_GET['email'];
 $password = $_GET['password'];
 $md5Pass = md5($password);
 $rez1 = mysqli_query($con,  "select password from users where password = '$password'");
@@ -13,7 +14,7 @@ if (mysqli_num_rows($rez1) > 0){
         http_response_code(400);
     }else {
 
-        mysqli_query($con, "update users set login = '$login', password='$md5Pass', id_role = '15' where id_user = '$id_user'");
+        mysqli_query($con, "update users set login = '$login', email = '$email', password='$md5Pass', id_role = '15' where id_user = '$id_user'");
     }
 
 }

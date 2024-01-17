@@ -1,7 +1,23 @@
 let id_app;
-
+let createrApp;
 function newShowModal(id_application) {
 
+    let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
+    if(formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
+        formFileReportZakluchenieSootvet.classList.remove("hiddentab");
+
+    createrApp = "";
+
+    $.ajax({
+        url: "ajax/getCreaterApp.php",
+        method: "GET",
+        data: {id_application: id_application}
+    }).then((response) => {
+        createrApp = response;
+    })
+
+    let formFileReportSamoocenka = document.getElementById("formFileReportSamoocenka");
+    formFileReportSamoocenka.classList.add("hiddentab");
     let formUcomplect = document.getElementById("formUcomplect");
     formUcomplect.style = "display: none";
     let newDivUcomplect = document.createElement("div");
@@ -239,31 +255,31 @@ function newShowModal(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if (data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             if (data[0][16] != null) {
                 divFileReportDorabotka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + "/dorabotka/" + id_application + "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if (data[0][8] != null) {
-                soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
+                soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
-                orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+                orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
             if (data[0][11] != null) {
-                ucomplect.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+                ucomplect.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if (data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             if (data[0][20] != null) {
-                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
 
             if (data[0][19] != null) {
@@ -272,7 +288,7 @@ function newShowModal(id_application) {
                 predDiv.classList.remove("hiddentab");
                 rukDiv.classList.add("hiddentab");
                 formDoverennost.classList.remove("hiddentab");
-                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
+                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             } else {
                 let lico = document.getElementById("lico");
                 lico.options.selectedIndex = 1;
@@ -1441,6 +1457,7 @@ function addFile(idCrit, idDep, input) {
         form = new FormData();
     let addedFile = input.files[0];
     form.append("idCrit", idCrit);
+    form.append("idApp", id_app);
     form.append("idDep", idDep);
     form.append("addedFile", addedFile);
 
@@ -1478,7 +1495,7 @@ function addFile(idCrit, idDep, input) {
         let fileContainer = document.createElement('div');
         fileContainer.classList.add('file-container');
         let fileLink = document.createElement('a');
-        fileLink.href = `/docs/documents/${login}/${idDep}/${addedFile.name}`;
+        fileLink.href = `/docs/documents/${createrApp}/${id_app}/${idDep}/${addedFile.name}`;
         fileLink.textContent = addedFile.name;
         let deleteButton = document.createElement('span');
         deleteButton.classList.add('delete-file');
@@ -2063,10 +2080,10 @@ async function sendApp() {
         }).then(response => {
             let objects = JSON.parse(response);
             if(objects.length === 0) {
-
+            // ||
+            //     divFileReportSamoocenka.getElementsByTagName("a").length == 0
                 if (
-                    divCopyRaspisanie.getElementsByTagName("a").length == 0 ||
-                    divFileReportSamoocenka.getElementsByTagName("a").length == 0
+                    divCopyRaspisanie.getElementsByTagName("a").length == 0
                 ) {
                     alert("Не все обязательные документы загружены! Заявление не отправлено.");
                 } else if (sokr.value.trim() === "" ||
@@ -2271,7 +2288,7 @@ $("#doverennost").on("change", () => {
         sopr.remove();
     }
     let techOsn = document.getElementById("doverennost");
-    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + id_app + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 

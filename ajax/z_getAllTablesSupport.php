@@ -6,7 +6,7 @@ $login = $_COOKIE['login'];
 
 
 
-$query_departments = "SELECT  z_department.* , us.login
+$query_departments = "SELECT  z_department.* , us.login, a.id_application
 FROM z_department 
 left outer join subvision s on z_department.id_subvision=s.id_subvision
 left outer join applications a on s.id_application=a.id_application
@@ -19,6 +19,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $department_name = $row_department['name'];
     $mark_percent = $row_department['mark_percent'];
     $login_name = $row_department['login'];
+    $id_app = $row_department['id_application'];
     if($mark_percent === null)
         $mark_percent = 0;
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: block; " onclick="newCollapseTable(this)">
@@ -102,7 +103,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {
                 echo '<div class="file-container" >';
-                echo '<a target = "_blank" href="/docs/documents/' . $login_name . '/' . $id_department . '/' . $file . '">' . $file . '</a>';
+                echo '<a target = "_blank" href="/docs/documents/' . $login_name . '/'.$id_app.'/' . $id_department . '/' . $file . '">' . $file . '</a>';
                 echo '</div>';
             }
         }

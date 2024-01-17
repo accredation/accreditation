@@ -41,6 +41,8 @@ let mark = {
 
 let OpenSub = 0;
 
+
+
 //shotab
 async function showTab(element, id_sub) {
     console.log("click", id_sub);
@@ -337,6 +339,21 @@ function createApplication() {
 }
 
 function showModal(id_application, strMarks, strMarksAccred) {
+    let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
+    formFileReportZakluchenieSootvet.classList.add("hiddentab");
+
+    createrApp = "";
+
+    $.ajax({
+        url: "ajax/getCreaterApp.php",
+        method: "GET",
+        data: {id_application: id_application}
+    }).then((response) => {
+        createrApp = response;
+    })
+
+
+
     rukDiv.classList.remove("hiddentab");
     predDiv.classList.remove("hiddentab");
     let btnPrint = document.getElementById("newBtnPrint");
@@ -515,28 +532,28 @@ function showModal(id_application, strMarks, strMarksAccred) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                fileReport.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + createrApp + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if (data[0][15] != null) {
-                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportSamoocenka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + createrApp + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
             if (data[0][16] != null) {
                 divFileReportDorabotka.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + "/dorabotka/" + id_application + "/" + data[0][16] + "'>" + data[0][16] + "</a>");
             }
             if (data[0][8] != null) {
-                soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
+                soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + createrApp + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + createrApp + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
-                orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
+                orgStrukt.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + createrApp + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
             }
             if (data[0][11] != null) {
-                ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
+                ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + createrApp + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if (data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + createrApp + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";

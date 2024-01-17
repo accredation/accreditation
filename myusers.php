@@ -97,6 +97,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Логин</th>
+                                                <th>Почта</th>
                                                 <th>Пароль</th>
                                                 <th></th>
                                                 <th></th>
@@ -113,6 +114,10 @@
                                                                                       id="luser_<?= $app['id_user'] ?>"
                                                                                       rows="5"><?= $app['login'] ?></textarea>
                                                     </td>
+                                                    <td style="width: 40%;"><textarea style="width: 100%; height: 100%"
+                                                                                      id="em_<?= $app['id_user'] ?>"
+                                                                                      rows="5"><?= $app['email'] ?></textarea>
+                                                    </td>
                                                     <td style="width: 40%"><textarea style="width: 100%; height: 100%"
                                                                                      id="puser_<?= $app['id_user'] ?>"
                                                                                      rows="5"><?= $app['password'] ?></textarea>
@@ -120,7 +125,7 @@
 
                                                     <td style="width: 10%">
                                                         <button class="btn btn-success btn-fw"
-                                                                onclick="savePodUser('<?= $app['id_user'] ?>', document.getElementById('luser_'+'<?= $app['id_user'] ?>').value, document.getElementById('puser_'+'<?= $app['id_user'] ?>').value)">
+                                                                onclick="savePodUser('<?= $app['id_user'] ?>', document.getElementById('luser_'+'<?= $app['id_user'] ?>').value, document.getElementById('puser_'+'<?= $app['id_user'] ?>').value, document.getElementById('em_'+'<?= $app['id_user'] ?>').value)">
                                                             Сохранить
                                                         </button>
                                                     </td>
@@ -203,10 +208,15 @@
 
 
 
-        function savePodUser(id_user, login, password) {
+        function savePodUser(id_user, login, password, email) {
             console.log(id_user, login, password);
             if ((!login) || (login === null) || (login.trim() === '')) {
                 alert('Поле логин не должно быть пустым!');
+                return
+            }
+
+            if ((!email) || (email === null) || (email.trim() === '')) {
+                alert('Поле почта не должно быть пустым!');
                 return
             }
 
@@ -218,7 +228,7 @@
             $.ajax({
                 url: "ajax/savePodUser.php",
                 method: "GET",
-                data: {id_user: id_user, login: login, password: password}
+                data: {id_user: id_user, login: login, password: password, email: email}
 
             })
                 .done(function (response) {
