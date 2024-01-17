@@ -146,6 +146,7 @@ function newShowModal(id_application) {
     document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заявления № ";
 
 
+
     let ownUcompBtnClass = document.getElementsByClassName("ownUcomp")[0];
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
@@ -221,7 +222,7 @@ function newShowModal(id_application) {
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
 
-        if (btnSend)
+        if(btnSend)
             btnSend.classList.add("hiddentab");
         if (btnCalc) {
             btnCalc.remove();
@@ -1212,6 +1213,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tabPane.appendChild(row1);
 
 
+
     if (status == 1) {
 
     } else {
@@ -1289,6 +1291,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                 let rightCard = numTab.querySelector("#cardRight");
 
 
+
                 let cardForAdding = rightCard.querySelector(":first-child");
                 let cardForAdding1 = cardForAdding.querySelector(":first-child");
                 if (cardForAdding1)
@@ -1320,6 +1323,18 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                     let lblName = chkbName.nextElementSibling.innerHTML;
                     let nameTab = document.getElementById("button" + openTabId);
                     addHistoryAction(id_app, getCookie('id_user'), 2, `Удалено отделение ${lblName} из структурного подразделения ${nameTab.innerText}`, openTabId, '')
+
+                    let tabActive = document.getElementById("tab" + openTabId + "-");
+                    let checkboxes = tabActive.querySelectorAll("[id^='checkbox']");
+                    checkboxes.forEach(function(checkbox) {
+                        let buttonText = checkbox.innerText;
+                        let colonIndex = buttonText.indexOf(":");
+                        if (colonIndex !== -1) {
+                            checkbox.innerText = buttonText.substring(0, colonIndex);
+                        }
+                    });
+
+
 
                 });
             [...formCheckInput].forEach(item => {
@@ -1396,6 +1411,7 @@ function newCollapseTable(thisDiv) {
     if (status == 2) {
 
 
+
         selpickers.forEach((selpicker) => {
             selpicker.disabled = true;
         });
@@ -1407,22 +1423,23 @@ function newCollapseTable(thisDiv) {
         noteCells.forEach((noteCell) => {
             noteCell.removeAttribute("contenteditable");
         });
-    } else {
-        let selpickers = document.querySelectorAll("#selpicker");
-        let fileInputs = document.querySelectorAll('input[type="file"]');
+    }
+    else{
+            let selpickers = document.querySelectorAll("#selpicker");
+            let fileInputs = document.querySelectorAll('input[type="file"]');
 
-        selpickers.forEach((selpicker) => {
-            selpicker.disabled = false;
-        });
-
-        fileInputs.forEach((fileInput) => {
-            fileInput.disabled = false;
-        });
-
-        if (noteCells)
-            noteCells.forEach((noteCell) => {
-                noteCell.setAttribute("contenteditable", "true");
+            selpickers.forEach((selpicker) => {
+                selpicker.disabled = false;
             });
+
+            fileInputs.forEach((fileInput) => {
+                fileInput.disabled = false;
+            });
+
+            if(noteCells)
+        noteCells.forEach((noteCell) => {
+            noteCell.setAttribute("contenteditable", "true");
+        });
 
     }
 }
@@ -1555,45 +1572,63 @@ function deleteDepartment(id_department) {
 
         console.log(cutName);
         $.ajax({
-            url: "ajax/z_deleteDepartment.php",
+            url: "ajax/z_getTableLevel.php",
             method: "GET",
             data: {id_sub: openTabId, id_department: id_department},
+        })  .done(function (response) {
+            console.log("response", response);
+            let parsedResponse = JSON.parse(response);
+           console.log("response.level" + parsedResponse.level);
+           if (parsedResponse.level == '1')
+           {
+                       let tabActive = document.getElementById("tab" + openTabId + "-");
+                       let formCheckInput = document.getElementsByClassName("form-check-input");
+                       let formButton = document.getElementsByClassName("form-button");
+                       let inputCheck = tabActive.querySelector("#checkbox" + parsedResponse.id_list_tables_criteria);
+                       console.log("response.id_list_tables_criteria" + parsedResponse.id_list_tables_criteria);
+                       console.log("checl" + inputCheck);
+                       inputCheck.checked = false;
+                       toggleActiveCheckbox(inputCheck, formCheckInput, formButton);
+           }
+           else{
+               $.ajax({
+                   url: "ajax/z_deleteDepartment.php",
+                   method: "GET",
+                   data: {id_sub: openTabId, id_department: id_department},
+               })
+                   .done(function (response) {
+                       console.log(response);
+
+                       let id_list_tables_criteria = response;
+                       let tabActive = document.getElementById("tab" + openTabId + "-");
+                       let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
+                       if (!countButton.innerHTML) {
+                           let rightCard = tabActive.querySelector("#cardRight");
+                           rightCard.innerHTML = "";
+                       } else {
+                           let countText = countButton.innerText;
+                           let countT = countText.split(":")[1];
+
+                           if (countT) {
+                               let count = countT.trim();
+                               let newT = countText.replace(count, String(Number(count) - 1));
+
+                               countButton.innerHTML = newT;
+                           }
+                       }
+                       let cardH = document.getElementById("heading" + id_department);
+
+                       let nameTab = document.getElementById("button"+openTabId);
+                       addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
+                       if (cardH)
+                           cardH.remove();
+                       alert("Отделение удалено.");
+                   })
+                   .fail(function (error) {
+                       console.error("Ошибка при удалении отдела:", error);
+                   });
+           }
         })
-            .done(function (response) {
-                console.log(response);
-                alert("Отделение удалено.");
-
-
-                let id_list_tables_criteria = response;
-                let tabActive = document.getElementById("tab" + openTabId + "-");
-
-                let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
-
-
-                if (!countButton.innerHTML) {
-                    let rightCard = tabActive.querySelector("#cardRight");
-                    rightCard.innerHTML = "";
-                } else {
-                    let countText = countButton.innerText;
-                    let countT = countText.split(":")[1];
-
-                    if (countT) {
-                        let count = countT.trim();
-                        let newT = countText.replace(count, String(Number(count) - 1));
-
-                        countButton.innerHTML = newT;
-                    }
-                }
-                let cardH = document.getElementById("heading" + id_department);
-
-                let nameTab = document.getElementById("button" + openTabId);
-                addHistoryAction(id_app, getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
-                if (cardH)
-                    cardH.remove();
-            })
-            .fail(function (error) {
-                console.error("Ошибка при удалении отдела:", error);
-            });
     }
 }
 
@@ -2173,7 +2208,6 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         })
     })
 }
-
 function saveCommon(idApp, text, fieldNum) {
     $.ajax({
         url: "ajax/z_saveUcompFieldCommon.php",
@@ -2214,7 +2248,8 @@ function printModalContent() {
     printWindow.print();
 }
 
-function checkUserRole() {
+function checkUserRole()
+{
     const inputFieldSokrNaim = document.getElementById("sokr");
     const inputFieldunp = document.getElementById("unp");
     const inputFieldadress = document.getElementById("adress");
@@ -2312,14 +2347,14 @@ $("#doverennost").on("change", () => {
     load.id = "loadDoverennost";
     techOsn.insertAdjacentElement("afterend", load);
 
-    xhr.upload.onprogress = function (event) {
+    xhr.upload.onprogress = function(event) {
         if (event.lengthComputable) {
             let progress = (event.loaded / event.total) * 100;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
     };
 
-    xhr.upload.onloadstart = function () {
+    xhr.upload.onloadstart = function() {
         load.innerHTML = "Подождите, идет загрузка";
     };
     xhr.upload.onload = function () {

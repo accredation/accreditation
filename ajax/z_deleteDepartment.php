@@ -40,8 +40,5 @@ if (mysqli_num_rows($rez) > 0)
         mysqli_query($con, "delete from z_department  WHERE id_subvision = '$id_sub' AND id_department = '$id_department'");
     }
 }
-
-
-
 mysqli_close($con);
 ?>
