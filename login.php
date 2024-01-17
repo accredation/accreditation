@@ -137,7 +137,7 @@ include 'authorization/auth.php';
 <body>
 
 <section>
-    <div class="form-box">
+    <div class="form-box" id="ssss">
         <div class="form-value">
 
             <h2>Авторизация </h2>
@@ -221,7 +221,16 @@ include 'authorization/auth.php';
     }
 
     let log_in = document.getElementById("log_in");
-    log_in.onclick = () => {
+    log_in.onclick = (event) => {
+        event.target.setAttribute("disabled",true);
+        let div11 = document.createElement('div');
+        div11.className = "spinner-border spinner-border-sm ml-1";
+        document.getElementById("exampleInputEmail1").setAttribute("disabled",true);
+        document.getElementById("exampleInputPassword1").setAttribute("disabled",true);
+        log_in.appendChild(div11)
+
+       // log_in.className = "spinner-border";
+
         $.ajax({
             url: "authorization/sendKod.php",
             method: "POST",
@@ -230,35 +239,43 @@ include 'authorization/auth.php';
                 password: document.getElementById("exampleInputPassword1").value
             }
         }).then((response) => {
+            event.target.removeAttribute("disabled");
+            document.getElementById("exampleInputEmail1").removeAttribute("disabled");
+            document.getElementById("exampleInputPassword1").removeAttribute("disabled");
+            div11.remove();
             if (response === "1") {
                 $('#codeModal').modal('show');
+            } else {
+                alert("Неверный логин или пароль");
             }
-         else {
-            alert("Неверный логин или пароль");
-        }
         })
     }
 
     let codeSubmit = document.getElementById("codeSubmit");
-    codeSubmit.onclick = () => {
+    codeSubmit.onclick =   () => {
+
+
+
         let vvediKod = document.getElementById("codeInput").value;
         if (vvediKod) {
-            $.ajax({
+
+             $.ajax({
                 url: "authorization/checkAuth.php",
                 method: "POST",
                 data: {
                     login: document.getElementById("exampleInputEmail1").value,
                     kod: vvediKod
                 }
+
             }).then((response) => {
+
                 if (response == "Да") {
                     checkTimeSession();
                 } else {
                     alert("Неверный код");
                 }
             })
-        }
-        else{
+        } else {
             checkTimeSession();
         }
     }
@@ -282,7 +299,7 @@ include 'authorization/auth.php';
         )
     }
 
-    function checkTimeSession(){
+    function checkTimeSession() {
         $.ajax({
             url: "authorization/enter.php",
             method: "POST",

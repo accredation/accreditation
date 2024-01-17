@@ -33,6 +33,8 @@ class ReportSub{
     public $name, $id_subvision, $id_criteria , $name_criteria, $str_num, $mark_name, $mark_class, $field4, $field5, $field6, $field7, $field8;
 }
 
+$marks = array();
+$report_sub_marks = array();
 foreach ($data as $app) {
     $obj = array();
     $mark = new ReportSub();

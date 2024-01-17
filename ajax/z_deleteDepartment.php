@@ -43,7 +43,5 @@ if (mysqli_num_rows($rez) > 0)
 
 
 
-
-
 mysqli_close($con);
 ?>
