@@ -1533,7 +1533,8 @@ function deleteDepartment(id_department) {
     event.stopPropagation();
     let confirmDelete = confirm("Вы действительно хотите удалить отделение?");
     if (confirmDelete) {
-        let numTab = document.getElementById("tab" + openTabId + "-")
+        let numTab = document.getElementById("tab" + openTabId + "-");
+
         let depName = numTab.querySelector("[aria-controls='collapse"+id_department+"']");
         let cutName ;//= depName.innerHTML.substring(0, depName.innerHTML.lastIndexOf('('));
         if(depName.innerHTML.lastIndexOf('(') > 0){
