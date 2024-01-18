@@ -1092,7 +1092,7 @@ function createTableForPrintNo(tableForPrint) {
     divPrintTable.appendChild(divNameSubTable);
 
     let divNameCriteriaTable = document.createElement('div');
-    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'] +' ' + Math.round(parseFloat(tableForPrint[0]['mark_percent']).toFixed(2))+'%' ;
     divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
 
     divPrintTable.appendChild(divNameCriteriaTable);
@@ -1120,24 +1120,24 @@ function createTableForPrintNo(tableForPrint) {
     */
 
     let th3_Main = document.createElement('th');
-    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоаккредитация)';
     th3_Main.style = "border: 1px solid black; text-align: center";
     th3_Main.setAttribute('colspan', '3');
 
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самооценке ОЗ';
-    th3.style = "border: 1px solid black";
+    th3.innerHTML = 'Сведения по самоценке соответствия критерию (да, нет, не применяется)';
+    th3.style = "border: 1px solid black; width: 15%; text-align: center";
 
     let th4 = document.createElement('th');
-    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-    th4.style = "width:350px; border: 1px solid black";
+    th4.innerHTML = 'Подтверждение выполнения критерия (наименование документа или иных подтверждающих сведений)';
+    th4.style = "border: 1px solid black; width: 30%; text-align: center";
 
 
     let th5 = document.createElement('th');
     th5.innerHTML = 'Примечание';
-    th5.style = "border: 1px solid black";
+    th5.style = "border: 1px solid black; width: 30%; text-align: center";
 
 
     trHeadMain.appendChild(thNum);
@@ -1167,7 +1167,7 @@ function createTableForPrintNo(tableForPrint) {
             let tdNaimSub = document.createElement('td');
             tdNaimSub.setAttribute('colspan', '6');
             tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
-            tdNaimSub.innerHTML = item['name'];
+            tdNaimSub.innerHTML = item['name'] ;
             trNaimSub.appendChild(tdNaimSub);
             tbody.appendChild(trNaimSub);
             numCriteria = -1;
@@ -1179,7 +1179,7 @@ function createTableForPrintNo(tableForPrint) {
             let tdNaim = document.createElement('td');
             tdNaim.setAttribute('colspan', '6');
             tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
-            tdNaim.innerHTML = item['name_criteria'];
+            tdNaim.innerHTML = item['name_criteria'] +' ' + Math.round(parseFloat(item['mark_percent']).toFixed(2))+'%' ;
             trNaim.appendChild(tdNaim);
             tbody.appendChild(trNaim);
 
@@ -1193,7 +1193,7 @@ function createTableForPrintNo(tableForPrint) {
 
             let th1_Main2 = document.createElement('td');
             th1_Main2.innerHTML = 'Критерий';
-            th1_Main2.style = "border: 1px solid black";
+            th1_Main2.style = "border: 1px solid black; text-align: center";
             th1_Main2.setAttribute('rowspan', '2');
             /*
                             let th2_Main2 = document.createElement('td');
@@ -1203,24 +1203,24 @@ function createTableForPrintNo(tableForPrint) {
             */
 
             let th3_Main2 = document.createElement('td');
-            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самоаккредитация)';
             th3_Main2.style = "border: 1px solid black; text-align: center";
             th3_Main2.setAttribute('colspan', '3');
 
 
             let trHead2 = document.createElement('tr');
             let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самооценке ОЗ';
-            th32.style = "border: 1px solid black";
+            th32.innerHTML = 'Сведения по самоценке соответствия критерию (да, нет, не применяется)';
+            th32.style = "border: 1px solid black; width: 15%; text-align: center";
 
             let th42 = document.createElement('td');
-            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
-            th4.style = "width:350px; border: 1px solid black";
+            th42.innerHTML = 'Подтверждение выполнения критерия (наименование документа или иных подтверждающих сведений)';
+            th4.style = "border: 1px solid black; width: 30%; text-align: center";
 
 
             let th52 = document.createElement('td');
             th52.innerHTML = 'Примечание';
-            th52.style = "border: 1px solid black";
+            th52.style = "border: 1px solid black; width: 30%; text-align: center";
 
 
             trHeadMain2.appendChild(thNum);
@@ -1243,34 +1243,38 @@ function createTableForPrintNo(tableForPrint) {
         numCriteria = -1;
 
         if (item['id_criteria'] !== null) {
+            let crit_bold = '';
+            if( item['field4'] == "Нет") {
+                crit_bold = 'font-weight: bold;'
+            }
 
             let tr = document.createElement('tr');
 
             let tdNum = document.createElement('td');
             tdNum.innerHTML = item['str_num'];
-            tdNum.style = "border: 1px solid black";
+            tdNum.style = "border: 1px solid black; padding: 0.2rem 0.75rem;" + crit_bold;
 
             let td1 = document.createElement('td');
             td1.innerHTML = item['mark_name'];
-            td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem; " + crit_bold;
             /*
                         let td2 = document.createElement('td');
                         td2.innerHTML = item['mark_class'];
                         td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
             */
             let td3 = document.createElement('td');
-            td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem; " + crit_bold;
             td3.innerHTML = item['field4'];
 
             let td4 = document.createElement('td');
-            td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem; " + crit_bold;
             let myArr = item['field5'].split(';');
             myArr.forEach(item => {
                 td4.innerHTML += item + "<br>";
             })
 
             let td5 = document.createElement('td');
-            td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem; " + crit_bold;
             td5.innerHTML = item['field6'];
 
 

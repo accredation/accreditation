@@ -307,7 +307,7 @@ function newShowModal(id_application) {
             }
             let mark_percent = data[2];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + parseFloat(mark_percent).toFixed(2) + "%";
+            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер
@@ -1675,19 +1675,37 @@ function printNewReport() {
         let number_app = document.getElementById("id_application");
         let id_application = number_app.innerHTML;
         let criteriaMark = document.createElement('div');
-        criteriaMark.textContent = '<strong>Достигнуты следующие результаты</strong><br/>';
+        criteriaMark.textContent = 'Результат самоаккредитации ';
         criteriaMark.style = "padding-top: 0.5rem; padding-bottom:1rem; ";
-        var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
-        WinPrint.document.write('<style>@page {\n' +
-            'margin: 1rem;\n' +
+        var WinPrint = window.open(`dddd`, ``, 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+        WinPrint.document.write('<style> @page {\n' +
+            'size: A4 landscape;\n' +
+            'margin-bottom: 10mm;\n' +
+            'margin-top: 8mm;\n' +
+            'margin-left: 10mm;\n' +
+            'margin-right: 5mm;\n' +
             '}' +
             'td{ max-width: 10vw;\n' +
             '  word-wrap: break-word;}</style>');
 
+        let divContainer = document.createElement('div');
+        divContainer.id = 'container';
+        let divContent = document.createElement('div');
+        divContent.id = 'content';
+        divContent.style = 'max-height:250mm; margin-bottom: 20px;';
+        let divFooter = document.createElement('div');
+        divFooter.id = 'footer';
+        divFooter.style = 'position:fixed; left: 0px; bottom: 0px; right: 0px; font-size:10px; margin-top: 5px;';
+        divFooter.innerHTML = 'numeration';
+        divContainer.appendChild(divContent);
+        divContainer.appendChild(divFooter);
+
+
+
         let textSubCriteriaChecked = '';
         let divTextSubCriteriaChecked = document.createElement('div');
         divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
-
+        let headTable;
         $.ajax({
             url: "ajax/getCalc.php",
             method: "GET",
@@ -1700,31 +1718,14 @@ function printNewReport() {
             });
         }).then((response) => {
             let subCriteriaForReport = JSON.parse(response);
-            let id_s = -1;
-            let as = '';
-            subCriteriaForReport.map((item, index) => {
-                if (id_s !== item['id_subvision']) {
-                    if (index != 0) {
-                        textSubCriteriaChecked += `<div>${as}</div>`;
-                    }
-                    as = '';
-                    id_s = item['id_subvision'];
-                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации ${parseFloat(item['mark_percent']).toFixed(2)}%: `;
-                }
-                if (index === subCriteriaForReport.length - 1) {
-                    as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
-                    textSubCriteriaChecked += `<div>${as}</div>`;
-                } else {
-                    if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
-                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ".";
-                    else
-                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ", ";
-                }
-            });
+            headTable = createTableForPrintSamoAccred(subCriteriaForReport);
+
         }).then(() => {
             let mainRightCard = document.getElementById("mainRightCard");
             let mainRightCardText = mainRightCard.innerHTML;
-            criteriaMark.textContent += mainRightCardText;
+            let naim = document.getElementById('naim');
+            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.lastIndexOf('-')+1, mainRightCardText.length);
+
             let table;
             return $.ajax({
                 url: "ajax/z_getAppForPrintNo.php",
@@ -1740,7 +1741,7 @@ function printNewReport() {
                 let unpText = unp.value;
                 table = createTableForPrintNo(tableForPrint);
             }
-        }).then(() => {
+        }).then((response) => {
             let sokr = document.getElementById('sokr');
             let naim = document.getElementById('naim');
 
@@ -1754,22 +1755,34 @@ function printNewReport() {
                 return dd + '.' + mm + '.' + yy;
             }
 
+
+
             let divReportTitle = document.createElement('div');
-            divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
-            divReportTitle.textContent = `Результат самооценки ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
+            let divReportTitle2 = document.createElement('div');
+            let divReportTitle3 = document.createElement('div');
+            WinPrint.document.write('<style> th{font-weight: 500; }</style>');
+            divReportTitle2.style = "padding-top: 0.5rem; font-size:1.4rem; padding-left:2rem; padding-right: 2rem; text-align:center";
+            divReportTitle2.textContent = `Отчет о результатах самоаккредитации`;
+            divReportTitle3.style = "padding-bottom:0.5rem; font-size:1.4rem; padding-left:2rem; padding-right: 2rem; text-align:center";
+            divReportTitle3.textContent = `${naim.value}  ${formatDate(new Date())}`;
+            divReportTitle.appendChild(divReportTitle2);
+            divReportTitle.appendChild(divReportTitle3);
             WinPrint.document.write(divReportTitle.innerHTML);
             WinPrint.document.write('<br/>');
-            WinPrint.document.write('<br/>');
-            divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+           // divTextSubCriteriaChecked.innerHTML = headTable;
+            divTextSubCriteriaChecked.appendChild(headTable);
             WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
             WinPrint.document.write('<br/>');
             WinPrint.document.write(criteriaMark.innerText);
+
             WinPrint.document.write('<br/>');
             if (table && table.textContent && table.textContent.length > 0) {
                 let divReportTitleFieldNo = document.createElement('div');
-                divReportTitleFieldNo.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
-                divReportTitleFieldNo.textContent = '<strong>Установлено несоответствие по следующим критериям:</strong>';
-                WinPrint.document.write(divReportTitleFieldNo.textContent);
+                let divReportTitleTableCriteriaAll = document.createElement('div');
+                divReportTitleTableCriteriaAll.style = "display: inline-block ;padding-top: 0.5rem; padding-bottom:1rem; font-size:1.4rem; margin-top: 2rem; text-align: center";
+                divReportTitleTableCriteriaAll.textContent = 'Сведения о соответствии базовым критериям медицинской аккредитации';
+                divReportTitleFieldNo.appendChild(divReportTitleTableCriteriaAll);
+                WinPrint.document.write(divReportTitleFieldNo.innerHTML);
                 WinPrint.document.write('<br/>');
                 WinPrint.document.write('<br/>');
                 WinPrint.document.write(table.innerHTML);
@@ -1796,6 +1809,122 @@ function printNewReport() {
         });
     })
 
+}
+
+
+function createTableForPrintSamoAccred(valueRespons) {
+
+    let divPrintTable = document.createElement('div');
+
+    let table = document.createElement('table');
+    table.style = "border-collapse: collapse; border-spacing: 0;width:100%";
+
+
+    let trHeadMain = document.createElement('tr');
+    trHeadMain.style = "font-style: normal"
+
+    let th1 = document.createElement('th');
+    th1.innerHTML = '№ п/п';
+    th1.style = "border: 1px solid black; width: 10%; font-style: normal";
+
+    let th2 = document.createElement('th');
+    th2.innerHTML = 'Название подразделения';
+    th2.style = "border: 1px solid black; width: 40%; font-style: normal";
+
+    let th3 = document.createElement('th');
+    th3.innerHTML = 'Группа критериев (полное название критерия)';
+    th3.style = "border: 1px solid black; width: 30%; font-style: normal";
+
+
+    let th4 = document.createElement('th');
+    th4.innerHTML = 'Результат самоаккредитации,%';
+    th4.style = "border: 1px solid black; width: 20%; font-style: normal";
+
+
+    trHeadMain.appendChild(th1);
+    trHeadMain.appendChild(th2);
+    trHeadMain.appendChild(th3);
+    trHeadMain.appendChild(th4);
+
+
+    table.appendChild(trHeadMain);
+
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+
+    let id_s = -1;
+    let num = 1;
+    valueRespons.map((item, index) => {
+
+        if (id_s !== item['id_subvision']) {
+
+
+                let trNaim = document.createElement('tr');
+                let tdNaim = document.createElement('td');
+                tdNaim.setAttribute('colspan', '4');
+                tdNaim.style = "border: 1px solid black; padding-top: 0.5rem; padding-bottom:0.5rem; padding-left: 2rem; font-weight: bold";
+                tdNaim.innerHTML = item['name'];
+                trNaim.appendChild(tdNaim);
+                tbody.appendChild(trNaim);
+
+
+
+            id_s = item['id_subvision'];
+        }
+
+        if (id_s == item['id_subvision']) {
+            let trNaim2 = document.createElement('tr');
+            let tdOtdel1 = document.createElement('td');
+           // tdNaim2.setAttribute('colspan', '4');
+            tdOtdel1.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; text-align: center; vertical-align: baseline";
+            tdOtdel1.innerHTML = `${num}`;
+
+            let tdOtdel2 = document.createElement('td');
+            tdOtdel2.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
+            let strNameOtdel = '';
+            if(item['name_otdel']!==null){
+                if(item['name_otdel'].indexOf('(') > 0){
+                   strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(')-1)
+                } else {
+                   strNameOtdel = item['name_otdel']
+                }
+            }
+
+            tdOtdel2.innerHTML = strNameOtdel;
+
+            let tdOtdel3 = document.createElement('td');
+            tdOtdel3.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem;padding-left: 0.3rem; vertical-align: baseline";
+            tdOtdel3.innerHTML = item['name_full'];
+
+            let tdOtdel4 = document.createElement('td');
+            tdOtdel4.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
+            tdOtdel4.innerHTML =  Math.round(parseFloat(item['mark_dpercent']).toFixed(2))+'%';
+
+            trNaim2.appendChild(tdOtdel1);
+            trNaim2.appendChild(tdOtdel2);
+            trNaim2.appendChild(tdOtdel3);
+            trNaim2.appendChild(tdOtdel4);
+            tbody.appendChild(trNaim2);
+
+
+            num +=1;
+
+        }
+        // else {
+        //     if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
+        //         as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ".";
+        //     else
+        //         as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ", ";
+        // }
+    });
+
+
+
+    divPrintTable.appendChild(table);
+
+    return divPrintTable;
 }
 
 $("#newBtnPrint").on("click", function () {
