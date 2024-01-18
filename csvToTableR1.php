@@ -1,25 +1,16 @@
 
 <?php
-$host = 'localhost';
-$user = 'f0770416_database';
-$password = 'root';
-$database = 'f0770416_database';
-$link = mysqli_connect($host, $user, $password, $database) or die ("Ошибка подключения " . mysqli_error($link));
-
+include "ajax/connection.php";
 
 $row = 1;
-if (($handle = fopen("archive_common-question.csv", "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+if (($handle = fopen("csv/r1.csv", "r")) !== FALSE) {
+    while (($data = fgetcsv($handle, 1500, ";")) !== FALSE) {
         $num = count($data);
-        echo "<p> $num полей в строке $row: <br /></p>\n";
         $row++;
-        $insertquery = "INSERT INTO `archive_common-question`(`id_akt`,
-                                     `num_akt`, `name`, `date_prik`, `type`, `file`, `url`)
-                                     VALUES ('{$data[0]}', '{$data[1]}', '{$data[2]}', '{$data[3]}',
-                                       '{$data[4]}', '{$data[5]}', '/index.php?common-question')";
-
-        $result = mysqli_query($link, $insertquery) or die("Ошибка " . mysqli_error($link));
-
+        $insertquery = "INSERT INTO `z_criteria`(`pp`,
+                                     `name`, `id_list_tables_criteria`)
+                                     VALUES ('{$data[0]}', '{$data[1]}', '1')";
+        $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
     }
     echo "се ок";
     fclose($handle);
