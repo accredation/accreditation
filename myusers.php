@@ -281,12 +281,18 @@
             textAr2.style = "width: 100%; height: 100%";
             textAr2.id = "newPassword";
             td2.appendChild(textAr2);
+            let td5 = document.createElement("td");
+            let textAr4 = document.createElement("textarea");
+            textAr4.setAttribute("rows", "5");
+            textAr4.style = "width: 100%; height: 100%";
+            textAr4.id = "newEmail";
+            td5.appendChild(textAr4);
             let td3 = document.createElement("td");
             let btn3 = document.createElement("button");
             btn3.className = "btn btn-success btn-fw";
             btn3.innerHTML = 'Сохранить';
             btn3.onclick = () => {
-                addNewPodUser(textAr1.value, textAr2.value)
+                addNewPodUser(textAr1.value, textAr2.value, textAr4.value)
             };
             td3.appendChild(btn3);
 
@@ -302,6 +308,7 @@
             td4.appendChild(btn4);
             newTr.appendChild(td1);
             newTr.appendChild(td2);
+            newTr.appendChild(td5);
             newTr.appendChild(td3);
             newTr.appendChild(td4);
 
@@ -313,7 +320,7 @@
 
         let id_userMain = getCookie('id_user');
 
-        function addNewPodUser(login, password, id_userMain) {
+        function addNewPodUser(login, password, email, id_userMain) {
             if ((!login) || (login === null) || (login.trim() === '')) {
                 alert('Поле логин не должно быть пустым!');
                 return
@@ -327,7 +334,7 @@
             $.ajax({
                 url: "ajax/addPodUser.php",
                 method: "GET",
-                data: {id_userMain: id_userMain, login: login, password: password}
+                data: {id_userMain: id_userMain, login: login, password: password, email:email}
 
             })
                 .done(function (response) {
