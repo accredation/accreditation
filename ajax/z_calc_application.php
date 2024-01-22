@@ -19,6 +19,7 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     }else{
         $reez = $sum / $count_all;
     }
+    $reez  = round($reez,0);
     mysqli_query($con, "update applications set mark_percent = '$reez' where id_application='$id_application'");
 }
 

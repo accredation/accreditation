@@ -1093,7 +1093,7 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
+                divMark.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
             })
         })
@@ -1107,7 +1107,7 @@ async function newShowTab(element, id_sub) {
             data: {id_application: id_app}
         }).then((response) => {
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
+            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
         })
 
 
@@ -2375,6 +2375,7 @@ function printModalContent() {
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
+    printWindow.close();
 }
 
 function checkUserRole()

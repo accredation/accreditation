@@ -3,12 +3,14 @@ include "connection.php";
 
 $id_application = $_GET['id_application'];
 
-$query = "SELECT DISTINCT s.id_subvision, s.name ,  rc.id_department , rc.name as name_otdel, s.mark_percent as percent , rc.mark_percent as dpercent, c.name_full 
+$query = "SELECT DISTINCT s.id_subvision, s.name ,  rc.id_department , rc.name as name_otdel, s.mark_percent as percent , rc.mark_percent as dpercent, c.name_full , c.level
 FROM applications a
 left outer join subvision s on a.id_application=s.id_application
 left outer join z_department rc on s.id_subvision=rc.id_subvision
 left outer join z_list_tables_criteria c on rc.id_list_tables_criteria=c.id_list_tables_criteria
-where a.id_application = '$id_application'";
+where a.id_application = '$id_application'
+order by s.id_subvision, c.level, rc.name
+";
 
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));

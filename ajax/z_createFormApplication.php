@@ -85,7 +85,7 @@ tr:hover {
     position: relative;
     left: 34%;
     font-size: 14pt;
-">его местонахождения, юридический адрес,</div>
+">его место нахождения, юридический адрес,</div>
       <div style="
     position: relative;
     left: 10%;

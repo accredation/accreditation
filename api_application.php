@@ -535,13 +535,13 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
                                             <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()"/></div>
                                             <div class="form-group">
                                                 <select name="" id="lico" onchange="chengeLico(this)">
-                                                    <option value="0">Выберите заинтересованное лицо</option>
-                                                    <option value="1">Руководитель заинтересованного лица</option>
-                                                    <option value="2">Представитель заинтересованного лица</option>
+                                                    <option value="0">Выбрать ответственное лицо</option>
+                                                    <option value="1">Руководитель</option>
+                                                    <option value="2">Представитель</option>
                                                 </select>
                                             </div>
-                                            <div id="rukDiv" class="form-group hiddentab"><label>Руководитель заинтересованного лица</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО"/></div>
-                                            <div id="predDiv" class="form-group hiddentab"><label>Представитель заинтересованного лица</label><input class="form-control" type="text" id="predstavitel" placeholder="Контактное лицо"/></div>
+                                            <div id="rukDiv" class="form-group hiddentab"><label>Руководитель</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО"/></div>
+                                            <div id="predDiv" class="form-group hiddentab"><label>Представитель</label><input class="form-control" type="text" id="predstavitel" placeholder="Контактное лицо"/></div>
                                             <form id="formDoverennost" class="hiddentab">
                                                 <div class="form-group" id = "divDoverennost">
                                                     <label for="doverennost">Доверенность</label>

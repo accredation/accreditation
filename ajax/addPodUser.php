@@ -11,13 +11,12 @@ $rez2 = mysqli_query($con,  "select * from users where login = '$login'");
 if (mysqli_num_rows($rez2) > 0){
     http_response_code(400);
 }else {
-
     if (mysqli_num_rows($rez) == 1) //если получена одна строка
     {
+
         $row = mysqli_fetch_assoc($rez); //она записывается в ассоциативный массив
         $id_uz = $row['id_uz'];
-        mysqli_query($con, "Insert into users(`login`, `email`,`password`, `id_role`, id_uz) values('$login','$email','$md5Pass', 15, '$id_uz') ");
-
+        mysqli_query($con, "Insert into users(`login`, `email`,`password`, `id_role`, `id_uz`) values('$login','$email','$md5Pass', '15', '$id_uz') ");
     }
 }
 ?>

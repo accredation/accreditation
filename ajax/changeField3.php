@@ -40,6 +40,8 @@ if($count_all === $count_notneed ){
 if($count_yes === "0"){
     $mark_department = 0;
 }
+$mark_department = round ($mark_department,0);
+
 
 mysqli_query($con, "update z_department set mark_percent = '$mark_department' where id_department='$idDep'");
 
@@ -54,6 +56,7 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     if($count_all === null){
         $count_all = 0.0;
     }
+    $count_all = round ($count_all,0);
     mysqli_query($con, "update subvision set mark_percent = '$count_all' where id_subvision='$id_subvision'");
 }
 

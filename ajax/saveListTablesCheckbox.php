@@ -134,7 +134,7 @@ if($row['id_role'] == 15){  }
         }
         echo '</div><input class  = "inpFiles" accept="application/pdf" onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
                 <td style="border: 1px solid black; max-width: 10vw;
-  word-wrap: break-word;" contenteditable="true" onblur="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
+  word-wrap: break-word;" contenteditable="true" oninput="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
             </tr>';
     }
 

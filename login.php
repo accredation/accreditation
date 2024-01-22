@@ -239,6 +239,9 @@ include 'authorization/auth.php';
                 password: document.getElementById("exampleInputPassword1").value
             }
         }).then((response) => {
+
+            let arr = JSON.parse(response);
+
             event.target.removeAttribute("disabled");
             document.getElementById("exampleInputEmail1").removeAttribute("disabled");
             document.getElementById("exampleInputPassword1").removeAttribute("disabled");
@@ -246,7 +249,15 @@ include 'authorization/auth.php';
             if (response === "1") {
                 $('#codeModal').modal('show');
             } else {
-                alert("Неверный логин или пароль");
+                if (arr.length == "2") {
+                    if (arr[0] == "1") {
+                        console.log(arr[0] + 'responic1');
+                        alert("Учетная запись занята");
+                    } else
+                        alert("Неверный логин или пароль");
+                } else {
+                    alert("Неверный логин или пароль");
+                }
             }
         })
     }

@@ -279,20 +279,21 @@
             let textAr2 = document.createElement("textarea");
             textAr2.setAttribute("rows", "5");
             textAr2.style = "width: 100%; height: 100%";
-            textAr2.id = "newPassword";
+            textAr2.id = "newEmail";
             td2.appendChild(textAr2);
             let td5 = document.createElement("td");
             let textAr4 = document.createElement("textarea");
             textAr4.setAttribute("rows", "5");
             textAr4.style = "width: 100%; height: 100%";
-            textAr4.id = "newEmail";
+            textAr4.id = "newPassword";
             td5.appendChild(textAr4);
             let td3 = document.createElement("td");
             let btn3 = document.createElement("button");
             btn3.className = "btn btn-success btn-fw";
             btn3.innerHTML = 'Сохранить';
+            let id_userMain = getCookie('id_user');
             btn3.onclick = () => {
-                addNewPodUser(textAr1.value, textAr2.value, textAr4.value)
+                addNewPodUser(textAr1.value, textAr2.value, textAr4.value,id_userMain)
             };
             td3.appendChild(btn3);
 
@@ -320,7 +321,7 @@
 
         let id_userMain = getCookie('id_user');
 
-        function addNewPodUser(login, password, email, id_userMain) {
+        function addNewPodUser(login,  email, password, id_userMain) {
             if ((!login) || (login === null) || (login.trim() === '')) {
                 alert('Поле логин не должно быть пустым!');
                 return
@@ -338,6 +339,7 @@
 
             })
                 .done(function (response) {
+
                     alert("Пользователь добавлен.");
                     location.href = "/index.php?myusers";
                 }).fail((jqXHR, textStatus, errorThrown)=>{

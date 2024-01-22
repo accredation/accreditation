@@ -15,6 +15,7 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     if($count_all === null){
         $count_all = 0.0;
     }
+    $avg  = round($avg,0);
     mysqli_query($con, "update subvision set mark_percent = '$avg' where id_subvision='$id_subvision'");
 }
 

@@ -14,7 +14,7 @@ class Crit{
 
 $id_sub = $_GET['id_sub'];
 
-$query = " select * from z_list_tables_criteria order by level";
+$query = " select * from z_list_tables_criteria order by level, name";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 $crits = array();

@@ -1,4 +1,5 @@
 <?php
+
 include '../ajax/connection.php';
 $error = array(); //массив для ошибок
 

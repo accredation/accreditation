@@ -285,7 +285,7 @@ function newShowModal(id_application) {
             }
             let mark_percent = data[2];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + parseFloat(mark_percent).toFixed(2) + "%";
+            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер
@@ -1063,7 +1063,7 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
+                divMark.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
             })
         })
@@ -1077,7 +1077,7 @@ async function newShowTab(element, id_sub) {
             data: {id_application: id_app}
         }).then((response) => {
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + parseFloat(response).toFixed(2) + "%";
+            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
         })
 
 
@@ -1598,16 +1598,16 @@ function printNewReport() {
                     }
                     as = '';
                     id_s = item['id_subvision'];
-                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации ${parseFloat(item['mark_percent']).toFixed(2)}%: `;
+                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации ${Math.round(parseFloat(item['mark_percent']).toFixed(2))}%: `;
                 }
                 if (index === subCriteriaForReport.length - 1) {
                     as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
                     textSubCriteriaChecked += `<div>${as}</div>`;
                 } else {
                     if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
-                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ".";
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${Math.round(parseFloat(item['mark_dpercent']).toFixed(2))}%` + ".";
                     else
-                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%`+ ", ";
+                        as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${Math.round(parseFloat(item['mark_dpercent']).toFixed(2))}%`+ ", ";
                 }
             });
         }).then(() => {
