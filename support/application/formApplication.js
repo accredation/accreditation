@@ -5,6 +5,7 @@ let copyRaspisanie = document.getElementById("copyRaspisanie");
 let rukDiv = document.getElementById("rukDiv");
 let predDiv = document.getElementById("predDiv");
 let formDoverennost = document.getElementById("formDoverennost");
+let formPrikazNaznach = document.getElementById("formPrikazNaznach");
 let data_old = new Array();
 
 let status = 1;
@@ -1342,6 +1343,14 @@ function showDoverennost(element) {
 
 function deleteDoverennost(element) {
     formDoverennost.classList.add("hiddentab");
+};
+
+function showPrikazNaznach(element) {
+    formPrikazNaznach.classList.remove("hiddentab");
+};
+
+function deletePrikazNaznach(element) {
+    formPrikazNaznach.classList.add("hiddentab");
 };
 
 function getTabs(name, id_sub) {

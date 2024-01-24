@@ -167,6 +167,7 @@ function newShowModal(id_application) {
     let reportSamoocenka = document.getElementById("reportSamoocenka");
     let reportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
     let doverennost = document.getElementById("doverennost");
+    let prikazNaznach = document.getElementById("prikazNaznach");
     let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
@@ -182,6 +183,7 @@ function newShowModal(id_application) {
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     let divFileReportZakluchenieSootvet = document.getElementById("divFileReportZakluchenieSootvet");
     let divDoverennost = document.getElementById("divDoverennost");
+    let divPrikazNaznach = document.getElementById("divPrikazNaznach");
     number_app.innerHTML = id_application;
     id_app = id_application;
     let modal = document.getElementById("myModal");
@@ -212,6 +214,7 @@ function newShowModal(id_application) {
         techOsn.setAttribute("disabled", "true");
         ownUcompBtnClass.setAttribute("disabled", "true");
         doverennost.setAttribute("disabled", "true");
+        prikazNaznach.setAttribute("disabled", "true");
 
         reportSamoocenka.setAttribute("disabled", "true");
         reportZakluchenieSootvet.setAttribute("disabled", "true");
@@ -282,16 +285,32 @@ function newShowModal(id_application) {
             if (data[0][20] != null) {
                 reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
+            let lico = document.getElementById("lico");
+            if (data[0][21] != null) {
+
+                lico.options.selectedIndex = 1;
+                predDiv.classList.remove("hiddentab");
+                rukDiv.classList.add("hiddentab");
+                formPrikazNaznach.classList.remove("hiddentab");
+                prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
+            }
+            else {
+
+                lico.options.selectedIndex = 2;
+                rukDiv.classList.remove("hiddentab");
+                predDiv.classList.add("hiddentab");
+                formPrikazNaznach.classList.add("hiddentab");
+            }
 
             if (data[0][19] != null) {
-                let lico = document.getElementById("lico");
+
                 lico.options.selectedIndex = 2;
                 predDiv.classList.remove("hiddentab");
                 rukDiv.classList.add("hiddentab");
                 formDoverennost.classList.remove("hiddentab");
                 doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             } else {
-                let lico = document.getElementById("lico");
+
                 lico.options.selectedIndex = 1;
                 rukDiv.classList.remove("hiddentab");
                 predDiv.classList.add("hiddentab");
@@ -2436,11 +2455,19 @@ function chengeLico(select) {
             rukDiv.classList.remove("hiddentab");
             predDiv.classList.add("hiddentab");
             formDoverennost.classList.add("hiddentab");
+            formPrikazNaznach.classList.remove("hiddentab");
             break;
         case "2":
             predDiv.classList.remove("hiddentab");
             rukDiv.classList.add("hiddentab");
             formDoverennost.classList.remove("hiddentab");
+            formPrikazNaznach.classList.add("hiddentab");
+            break;
+        case "0":
+            predDiv.classList.add("hiddentab");
+            rukDiv.classList.add("hiddentab");
+            formDoverennost.classList.add("hiddentab");
+            formPrikazNaznach.classList.add("hiddentab");
             break;
     }
 }
@@ -2475,6 +2502,54 @@ $("#doverennost").on("change", () => {
     let load = document.createElement("div");
     load.innerHTML = "Подождите, идет загрузка";
     load.id = "loadDoverennost";
+    techOsn.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+    xhr.upload.onloadstart = function() {
+        load.innerHTML = "Подождите, идет загрузка";
+    };
+    xhr.upload.onload = function () {
+        load.innerHTML = "Файл загружен";
+    }
+    xhr.send(form);
+});
+
+$("#prikazNaznach").on("change", () => {
+    let login = getCookie('login');
+    let divTechOsn = document.getElementById("divPrikazNaznach");
+    let sopr = divTechOsn.getElementsByTagName("a")[0];
+    if (sopr) {
+        sopr.remove();
+    }
+    let techOsn = document.getElementById("prikazNaznach");
+    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + id_app + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+
+    let id_application = document.getElementById("id_application");
+
+    let xhr = new XMLHttpRequest(),
+        form = new FormData();
+    let techOsnFile = techOsn.files[0];
+    form.append("id_application", id_application.innerText);
+    form.append("prikazNaznach", techOsnFile);
+
+    xhr.open("post", "ajax/postFilePrikazNaznach.php", true);
+    // let techOsndiv = document.getElementById("techOsndiv");
+    // if (techOsndiv) {
+    //     techOsndiv.remove();
+    // }
+    let loadSopr = document.getElementById("loadPrikazNaznach");
+    if (loadSopr) {
+        loadSopr.remove();
+    }
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadPrikazNaznach";
     techOsn.insertAdjacentElement("afterend", load);
 
     xhr.upload.onprogress = function(event) {

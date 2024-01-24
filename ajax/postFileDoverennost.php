@@ -23,4 +23,10 @@ if (isset($_FILES['doverennost']['name'])) {
 
     $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 }
+
+
+
+
+
+
 ?>

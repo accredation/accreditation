@@ -151,6 +151,7 @@ function newShowModal(id_application) {
     let fileReport = document.getElementById("fileReport");
     let reportSamoocenka = document.getElementById("reportSamoocenka");
     let doverennost = document.getElementById("doverennost");
+    let prikazNaznach = document.getElementById("prikazNaznach");
     let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
@@ -165,6 +166,7 @@ function newShowModal(id_application) {
     let divReport = document.getElementById("divReport");
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     let divDoverennost = document.getElementById("divDoverennost");
+    let divPrikazNaznach = document.getElementById("divPrikazNaznach");
     number_app.innerHTML = id_application;
     id_app = id_application;
     let modal = document.getElementById("myModal");
@@ -195,6 +197,7 @@ function newShowModal(id_application) {
         techOsn.setAttribute("disabled", "true");
         ownUcompBtnClass.setAttribute("disabled", "true");
         doverennost.setAttribute("disabled", "true");
+        prikazNaznach.setAttribute("disabled", "true");
 
         reportSamoocenka.setAttribute("disabled", "true");
         formFileReportDorabotka.setAttribute("disabled", "true");
@@ -260,6 +263,21 @@ function newShowModal(id_application) {
             }
             if (data[0][12] != null) {
                 techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13]  +'/'+ id_application+ "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+            }
+            if (data[0][21] != null) {
+                let lico = document.getElementById("lico");
+                lico.options.selectedIndex = 1;
+                predDiv.classList.remove("hiddentab");
+                rukDiv.classList.add("hiddentab");
+                formPrikazNaznach.classList.remove("hiddentab");
+                prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
+            }
+            else {
+                let lico = document.getElementById("lico");
+                lico.options.selectedIndex = 2;
+                rukDiv.classList.remove("hiddentab");
+                predDiv.classList.add("hiddentab");
+                formPrikazNaznach.classList.add("hiddentab");
             }
             if (data[0][19] != null) {
                 let lico = document.getElementById("lico");

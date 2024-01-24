@@ -548,6 +548,12 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
                                                     <input type="file" class="form-control-file" name="doverennost" id="doverennost" content="">
                                                 </div>
                                             </form>
+                                            <form id="formPrikazNaznach" class="hiddentab">
+                                                <div class="form-group" id = "divPrikazNaznach">
+                                                    <label for="prikazNaznach">Приказ о назначении руководителя</label>
+                                                    <input type="file" class="form-control-file" name="prikazNaznach" id="prikazNaznach" content="">
+                                                </div>
+                                            </form>
                                             <br/>
 <!--                                            <form id="formDoverennost" method="post" class="hiddentab">-->
 <!--                                                <div class="form-group" id="divDoverennost">-->

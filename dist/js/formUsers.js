@@ -50,6 +50,7 @@ function showModalApp(naim) {
     let naimEl = modal.querySelector("#naim");
     let unpEl = modal.querySelector("#unp");
     let dov = modal.querySelector("#divDoverennost");
+    let prik = modal.querySelector("#divPrikazNaznach");
     let data = new Array();
     $.ajax({
         url: "ajax/getApp.php",

@@ -43,7 +43,7 @@ if($count_yes === "0"){
 $mark_department = round ($mark_department,0);
 
 
-mysqli_query($con, "update z_department set mark_percent = '$mark_department' where id_department='$idDep'");
+mysqli_query($con, "update z_department set mark_percent = '$mark_department', mark_all = '$count_all', mark_yes='$count_yes', mark_not_need='$count_notneed' where id_department='$idDep'");
 
 $id_subvision = $_GET['id_sub'];
 
