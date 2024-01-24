@@ -157,7 +157,7 @@ include 'authorization/auth.php';
     </div>
 </section>
 
-<div class="modal fade" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="codeModalLabel" aria-hidden="true">
+<div class="modal fade" id="codeModal" tabindex="-1" role="dialog"   aria-labelledby="codeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,6 +204,7 @@ include 'authorization/auth.php';
 <!--</div>-->
 
 <script>
+
     function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -247,7 +248,12 @@ include 'authorization/auth.php';
             document.getElementById("exampleInputPassword1").removeAttribute("disabled");
             div11.remove();
             if (response === "1") {
-                $('#codeModal').modal('show');
+                $('#codeModal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+
             } else {
                 if (arr.length == "2") {
                     if (arr[0] == "1") {
