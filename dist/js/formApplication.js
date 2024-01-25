@@ -1711,6 +1711,9 @@ $("#btnSuc").on("click", function () {
     let rukovoditelText = rukovoditel.value;
     let predstavitelText = predstavitel.value;
 
+
+    let selected_lico_value = document.getElementById("lico").value;
+
     let id_application = number_app.innerText;
     let modal = document.getElementById("myModal");
     modal.classList.add("show");
@@ -1731,6 +1734,8 @@ $("#btnSuc").on("click", function () {
     form.append("email", emailText);
     form.append("rukovoditel", rukovoditelText);
     form.append("predstavitel", predstavitelText);
+    form.append("selected_lico_value", selected_lico_value);
+    
 
     let soprPismoFile = soprPismo.files[0];
     form.append("soprPismo", soprPismoFile);

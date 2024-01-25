@@ -285,37 +285,24 @@ function newShowModal(id_application) {
             if (data[0][20] != null) {
                 reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
             }
+            
             let lico = document.getElementById("lico");
-            if (data[0][21] != null) {
+            if (data[0][22] != null) {
+                lico.options.selectedIndex = data[0][22]; 
+                chengeLico(lico);
+            } else {
+                lico.options.selectedIndex = 0;  
+                chengeLico(lico);              
+            }
 
-                lico.options.selectedIndex = 1;
-                predDiv.classList.remove("hiddentab");
-                rukDiv.classList.add("hiddentab");
-                formPrikazNaznach.classList.remove("hiddentab");
+            if(data[0][21] != null){
                 prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
             }
-            else {
-
-                lico.options.selectedIndex = 2;
-                rukDiv.classList.remove("hiddentab");
-                predDiv.classList.add("hiddentab");
-                formPrikazNaznach.classList.add("hiddentab");
-            }
-
-            if (data[0][19] != null) {
-
-                lico.options.selectedIndex = 2;
-                predDiv.classList.remove("hiddentab");
-                rukDiv.classList.add("hiddentab");
-                formDoverennost.classList.remove("hiddentab");
+            
+            if(data[0][19]!= null) {
                 doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
-            } else {
-
-                lico.options.selectedIndex = 1;
-                rukDiv.classList.remove("hiddentab");
-                predDiv.classList.add("hiddentab");
-                formDoverennost.classList.add("hiddentab");
             }
+
             modal.classList.add("show");
             modal.style = "display: block";
 
@@ -342,7 +329,11 @@ function newShowModal(id_application) {
         let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
+        let doverennost = divDoverennost.getElementsByTagName("a")[0];
+        let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
+        
         let DD = formDateDorabotka.querySelectorAll("span");
+        
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -394,6 +385,14 @@ function newShowModal(id_application) {
                         if (tech) {
                             tech.remove();
                         }
+
+                        if(doverennost ){
+                            doverennost.remove();
+                        }
+                        if(prikazNaznach ){
+                            prikazNaznach.remove();
+                        }
+
                         modal.classList.remove("show");
                         modal.style = "display: none";
                         for (let i = tablist.children.length - 1; i > 0; i--) {
@@ -443,6 +442,12 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
+                if(doverennost ){
+                    doverennost.remove();
+                }
+                if(prikazNaznach ){
+                    prikazNaznach.remove();
+                }
                 modal.classList.remove("show");
                 modal.style = "display: none";
                 for (let i = tablist.children.length - 1; i > 0; i--) {
@@ -488,6 +493,12 @@ function newShowModal(id_application) {
             }
             if (tech) {
                 tech.remove();
+            }
+            if(doverennost ){
+                doverennost.remove();
+            }
+            if(prikazNaznach ){
+                prikazNaznach.remove();
             }
             modal.classList.remove("show");
             modal.style = "display: none";
@@ -516,7 +527,8 @@ function newShowModal(id_application) {
         let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
-
+        let doverennost = divDoverennost.getElementsByTagName("a")[0];
+        let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -565,6 +577,12 @@ function newShowModal(id_application) {
                         }
                         if (tech) {
                             tech.remove();
+                        }
+                        if(doverennost ){
+                            doverennost.remove();
+                        }
+                        if(prikazNaznach ){
+                            prikazNaznach.remove();
                         }
                         modal.classList.remove("show");
                         modal.style = "display: none";
@@ -615,6 +633,12 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
+                if(doverennost ){
+                    doverennost.remove();
+                }
+                if(prikazNaznach ){
+                    prikazNaznach.remove();
+                }
                 modal.classList.remove("show");
                 modal.style = "display: none";
                 for (let i = tablist.children.length - 1; i > 0; i--) {
@@ -660,6 +684,12 @@ function newShowModal(id_application) {
             }
             if (tech) {
                 tech.remove();
+            }
+            if(doverennost ){
+                doverennost.remove();
+            }
+            if(prikazNaznach ){
+                prikazNaznach.remove();
             }
             modal.classList.remove("show");
             modal.style = "display: none";

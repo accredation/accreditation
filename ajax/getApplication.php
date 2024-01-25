@@ -57,6 +57,7 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $doverennost = $row['doverennost'];
     $zakluchenieSootvetstviya = $row['zakluchenieSootvetstviya'];
     $prikazNaznach = $row['prikazNaznach'];
+    $selected_lico_value = $row['selected_lico_value'];
 }
 
 array_push($cells,$naim);
@@ -81,6 +82,7 @@ array_push($cells,$fact_adress);
 array_push($cells,$doverennost);
 array_push($cells,$zakluchenieSootvetstviya);
 array_push($cells,$prikazNaznach);
+array_push($cells,$selected_lico_value);
 
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";

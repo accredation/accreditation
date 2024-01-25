@@ -47,7 +47,7 @@ foreach ($data as $type) {
     $newType->typeName = $type['type_name'];
     array_push($arrayTypes, $newType);
 }
-$query = "SELECT u.id_user, `username`, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name 
+$query = "SELECT u.id_user, u.`username`, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name 
 FROM users u
 left outer join roles r on u.id_role=r.id_role
 left outer join uz uz on uz.id_uz=u.id_uz

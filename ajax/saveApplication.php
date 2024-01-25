@@ -22,6 +22,7 @@ $tel = $_POST['tel'];
 $email = $_POST['email'];
 $rukovoditel = $_POST['rukovoditel'];
 $predstavitel = $_POST['predstavitel'];
+$selected_lico_value = $_POST['selected_lico_value'];
 $id_application = $_POST['id_application'];
 
 
@@ -34,7 +35,7 @@ if (!file_exists('../docs/documents/'.$login)) {
 $insertquery =
     "UPDATE applications 
          set naim = '$naim', sokr_naim = '$sokr', unp = '$unp', ur_adress = '$adress', fact_adress = '$adressFact',
-             tel = '$tel', email = '$email', rukovoditel = '$rukovoditel', predstavitel = '$predstavitel'
+             tel = '$tel', email = '$email', rukovoditel = '$rukovoditel', predstavitel = '$predstavitel', selected_lico_value='$selected_lico_value'
 where id_application='$id_application'";
 
 $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
