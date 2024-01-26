@@ -295,11 +295,13 @@
                                ";
                                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        $i=0;
                                         ?>
 
                                         <table id="impTable" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
+                                                <th>Номер</th>
                                                 <th>Вопрос</th>
                                                 <th>Ответ</th>
                                                 <th></th>
@@ -308,11 +310,13 @@
                                             </thead>
                                             <tbody>
                                             <?php
-
+                                            
                                             foreach ($data as $app) {
+                                                $i++;
                                                 ?>
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer; height: 100px;">
+                                                    <td style="width: 5%;"><div><?= $i ?></div></td>
                                                     <td style="width: 40%;"><textarea style="width: 100%; height: 100%" id="question_<?= $app['id_question'] ?>" rows="5" ><?= $app['question'] ?></textarea></td>
                                                     <td style="width: 40%"><textarea style="width: 100%; height: 100%" id="answer_<?= $app['id_question'] ?>" rows="5" ><?= $app['answer'] ?></textarea></td>
 
@@ -671,7 +675,13 @@
                 let btnAddFaq=document.getElementById('btnAddFaq');
                 btnAddFaq.removeAttribute('disabled');
             }
+
+
+            let td5 = document.createElement("td");
+            td5.style = "width: 5%;";
+            
             td4.appendChild(btn4);
+            newTr.appendChild(td5);
             newTr.appendChild(td1);
             newTr.appendChild(td2);
             newTr.appendChild(td3);

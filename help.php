@@ -403,7 +403,7 @@
             <select id="typeQuestion">
                 <option selected disabled>Выберите тип</option>
                 <option value="">по использованию программы</option>
-                <option value="">по самооценке и заполнению таблиц критериев</option>
+                <!-- <option value="">по самооценке и заполнению таблиц критериев</option> -->
                 <option value="">предложения по программе или критериям</option>
             </select>
             </div>
