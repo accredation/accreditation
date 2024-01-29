@@ -541,7 +541,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
                                                 </select>
                                             </div>
                                             <div id="rukDiv" class="form-group hiddentab"><label>Руководитель</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО"/></div>
-                                            <div id="predDiv" class="form-group hiddentab"><label>Представитель</label><input class="form-control" type="text" id="predstavitel" placeholder="Контактное лицо"/></div>
+                                            <div id="predDiv" class="form-group hiddentab"><label>Представитель</label><input class="form-control" type="text" id="predstavitel" placeholder="Должность, ФИО"/></div>
                                             <form id="formDoverennost" class="hiddentab">
                                                 <div class="form-group" id = "divDoverennost">
                                                     <label for="doverennost">Доверенность</label>
