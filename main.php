@@ -222,25 +222,15 @@
                     <?php
                     $rez = mysqli_query($con, "                    SELECT (
                                       SELECT count(*)
-                                      FROM applications a
-                                      left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status > 1) and otmetka_all<50) as count25,(
+                                      FROM applications where id_status > 1 and year(date_create_app)=2024 and  mark_percent<50) as count25,(
                                       select count(*)
-                                      FROM applications a
-                                      left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status > 1) and otmetka_all>49 and otmetka_all<70) as count50,(
+                                      FROM applications where id_status > 1 and year(date_create_app)=2024 and  mark_percent>49 and mark_percent<70) as count50,(
                                       select count(*)
-                                      FROM applications a
-                                      left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status >1) and otmetka_all>69 and otmetka_all<90) as count75,(
+                                      FROM applications where id_status > 1 and year(date_create_app)=2024 and  mark_percent>69 and mark_percent<90) as count75,(
                                       select count(*)
-                                      FROM applications a
-                                      left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where (id_status >1) and otmetka_all>89) as count100,(
+                                      FROM applications where id_status > 1 and year(date_create_app)=2024 and  mark_percent>89) as count100,(
                                       select count(*)
-                                      FROM applications a
-                                      left outer join report_application_mark ram on a.id_application=ram.id_application
-                                      where id_status  >1) as countStatus4") or die("Ошибка " . mysqli_error($con));
+                                      FROM applications where id_status  > 1 and year(date_create_app)=2024) as countStatus4") or die("Ошибка " . mysqli_error($con));
                     if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                     {
                         $row = mysqli_fetch_assoc($rez);
@@ -252,7 +242,7 @@
                     $count100 = $row['count100'];
                     ?>
                     <!--                  </h3>-->
-                    <h4 class="card-title" style="margin-bottom: 0.3rem">Результаты самооценки организаций здравоохранения</h4>
+                    <h4 class="card-title" style="margin-bottom: 0.3rem">Результаты самоаккредитации организаций здравоохранения</h4>
                     <canvas id="doughnutChart4" style="height: 393px; display: block; width: 688px;"></canvas>
 
                     <script>

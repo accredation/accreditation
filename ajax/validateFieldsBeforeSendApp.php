@@ -31,8 +31,8 @@ left outer join `z_department` zd on s.id_subvision=zd.id_subvision
 left outer join `z_answer_criteria` zac on zd.id_department=zac.id_department
 left outer join `z_criteria` zc on zac.id_criteria=zc.id_criteria
 WHERE a.id_application = '$id_app' 
-  and (((zac.field3 = 1 and zac.field4 is null ) or ((zac.field3 = 2 or  zac.field3 = 3) and Ltrim(Rtrim(Isnull(zac.field5)))<>'' ) 
-            or zac.field3 is null) or zd.id_department is null )
+  and (((zac.field3 = 1 and ((Ltrim(Rtrim(zac.field4))='') or zac.field4 is null)))
+ or ((zac.field3 = 2 or  zac.field3 = 3) and (( Ltrim(Rtrim(zac.field5))='' ) or (zac.field5 is null)) or (zac.field3 is null or zac.field3=0))or zd.id_department is null )
 order by  sub_name,   dep_name, zc.pp          
             ";
 

@@ -2580,7 +2580,28 @@ $("#reshenieSoveta-tab").on("click", () => {
     allTabsMainPage[4].children[0].classList.add("show");
     allTabsMainPage[4].children[0].classList.add("active");
     status = 6;
-    //  console.log(status);
+
+
+});
+
+$("#accredArchive-tab").on("click", () => {
+
+    for (let i = 0; i <= 5; i++) {
+        if (i != 5)
+            allTabsMainPage[i].style = "display:none";
+        else {
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+
+    for (let i = 0; i <= 5; i++) {
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[5].children[0].classList.add("show");
+    allTabsMainPage[5].children[0].classList.add("active");
+    status = 2;
+
 
 });
 

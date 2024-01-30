@@ -2,6 +2,15 @@ let id_app;
 let createrApp;
 function newShowModal(id_application) {
 
+
+    let divSoprovodPismo = document.getElementById("divSoprovodPismo");
+    if(!divSoprovodPismo.classList.contains("hiddentab"))
+        divSoprovodPismo.classList.add("hiddentab");
+
+    let divOrgStrukt = document.getElementById("divOrgStrukt");
+    if(!divOrgStrukt.classList.contains("hiddentab"))
+        divOrgStrukt.classList.add("hiddentab");
+
     let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
     if(formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
         formFileReportZakluchenieSootvet.classList.remove("hiddentab");
@@ -17,7 +26,7 @@ function newShowModal(id_application) {
     })
 
     let formFileReportSamoocenka = document.getElementById("formFileReportSamoocenka");
-    formFileReportSamoocenka.classList.add("hiddentab");
+
     let formUcomplect = document.getElementById("formUcomplect");
     formUcomplect.style = "display: none";
     let newDivUcomplect = document.createElement("div");
@@ -25,7 +34,7 @@ function newShowModal(id_application) {
     let labelUcomplect = document.createElement("p");
     labelUcomplect.innerHTML = "Укомплектованность";
     newDivUcomplect.appendChild(labelUcomplect);
-    btnTableUcomplect.innerHTML = "Редактировать";
+    btnTableUcomplect.innerHTML = "Просмотр";
     btnTableUcomplect.classList = "ownUcomp"
     newDivUcomplect.appendChild(btnTableUcomplect);
     newDivUcomplect.style = "margin-bottom: 20px";
@@ -37,7 +46,7 @@ function newShowModal(id_application) {
 
         modalUcomplect.style = "display: block";
         $.ajax({
-            url: "ajax/z_ucomplectTable.php",
+            url: "ajax/z_accred_ucomplectTable.php",
             method: "GET",
             data: {id_application: id_app}
         }).then((response) => {
@@ -63,35 +72,14 @@ function newShowModal(id_application) {
     let btnPrint = document.getElementById("btnPrint");
     let btnPrintReport = document.getElementById("btnPrintReport");
 
-    if (btnPrint) {
-        btnSend.id = "newBtnSend";
-        btnPrint.id = "newBtnPrint";
-        btnPrint.title = "Печать самооценки";
-    } else {
-        let btnPrint = document.getElementById("newBtnPrint");
-        btnPrint.title = "Печать самооценки";
-    }
 
-
-    if (btnPrintReport) {
-        btnPrintReport.id = "btnNewPrintReport";
-        btnPrintReport.title = "Печать самооценки";
-    } else {
-        let btnPrintReport = document.getElementById("btnNewPrintReport");
-        btnPrintReport.title = "Печать самооценки";
-    }
 
 
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("newBtnSend");
     let btnSu = document.getElementById("btnSuc");
     if (homeTab.classList.contains("active")) {
-        if (btnSen.classList.contains("hiddentab")) {
-            btnSen.classList.remove("hiddentab");
-        }
-        if (btnSu.classList.contains("hiddentab")) {
-            btnSu.classList.remove("hiddentab");
-        }
+
     }
     let footer = document.getElementsByClassName("modal-footer")[0];
     if (footer.classList.contains('hiddentab')) {
@@ -173,8 +161,8 @@ function newShowModal(id_application) {
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
 
-    divSoprPismo.style = "display:none";
-    divOrgStrukt.style = "display:none";
+   // divSoprPismo.style = "display:none";
+  //  divOrgStrukt.style = "display:none";
 
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let divUcomplect = document.getElementById("divUcomplect");
@@ -196,40 +184,40 @@ function newShowModal(id_application) {
         checkUserRole();
 
     } else {
-        number_app.setAttribute("readonly", "");
-        naim.setAttribute("readonly", "");
-        sokr.setAttribute("readonly", "");
-        unp.setAttribute("readonly", "");
-        adress.setAttribute("readonly", "");
-        adressFact.setAttribute("readonly", "");
-        number_app.setAttribute("readonly", "");
-        tel.setAttribute("readonly", "");
-        email.setAttribute("readonly", "");
-        rukovoditel.setAttribute("readonly", "");
-        predstavitel.setAttribute("readonly", "");
-        soprPismo.setAttribute("disabled", "true");
-        copyRaspisanie.setAttribute("disabled", "true");
-        orgStrukt.setAttribute("disabled", "true");
-        ucomplect.setAttribute("disabled", "true");
-        techOsn.setAttribute("disabled", "true");
-        ownUcompBtnClass.setAttribute("disabled", "true");
-        doverennost.setAttribute("disabled", "true");
-        prikazNaznach.setAttribute("disabled", "true");
-
-        reportSamoocenka.setAttribute("disabled", "true");
-        reportZakluchenieSootvet.setAttribute("disabled", "true");
-        formFileReportDorabotka.setAttribute("disabled", "true");
-        formDateDorabotka.setAttribute("disabled", "true");
-        formFileReportDorabotka.style.display = "none";
-        formDateDorabotka.style.display = "none";
-        addtab.classList.add("hiddentab");
-        btnSuc.classList.add("hiddentab");
-
-        if(btnSend)
-            btnSend.classList.add("hiddentab");
-        if (btnCalc) {
-            btnCalc.remove();
-        }
+        // number_app.setAttribute("readonly", "");
+        // naim.setAttribute("readonly", "");
+        // sokr.setAttribute("readonly", "");
+        // unp.setAttribute("readonly", "");
+        // adress.setAttribute("readonly", "");
+        // adressFact.setAttribute("readonly", "");
+        // number_app.setAttribute("readonly", "");
+        // tel.setAttribute("readonly", "");
+        // email.setAttribute("readonly", "");
+        // rukovoditel.setAttribute("readonly", "");
+        // predstavitel.setAttribute("readonly", "");
+        // soprPismo.setAttribute("disabled", "true");
+        // copyRaspisanie.setAttribute("disabled", "true");
+        // orgStrukt.setAttribute("disabled", "true");
+        // ucomplect.setAttribute("disabled", "true");
+        // techOsn.setAttribute("disabled", "true");
+        // ownUcompBtnClass.setAttribute("disabled", "true");
+        // doverennost.setAttribute("disabled", "true");
+        // prikazNaznach.setAttribute("disabled", "true");
+        //
+        // reportSamoocenka.setAttribute("disabled", "true");
+        // reportZakluchenieSootvet.setAttribute("disabled", "true");
+        // formFileReportDorabotka.setAttribute("disabled", "true");
+        // formDateDorabotka.setAttribute("disabled", "true");
+        // formFileReportDorabotka.style.display = "none";
+        // formDateDorabotka.style.display = "none";
+        // addtab.classList.add("hiddentab");
+        // btnSuc.classList.add("hiddentab");
+        //
+        // if(btnSend)
+        //     btnSend.classList.add("hiddentab");
+        // if (btnCalc) {
+        //     btnCalc.remove();
+        // }
     }
 
 
@@ -707,17 +695,19 @@ function newShowModal(id_application) {
 
     });
 
-    let divBtnPrintReport = document.getElementById('btnNewPrintReport');
-    divBtnPrintReport.onclick = () => {
-        printNewReport();
-    };
+    // let divBtnPrintReport = document.getElementById('btnNewPrintReport');
+    // divBtnPrintReport.onclick = () => {
+    //     printNewReport();
+    // };
 
 
 }
 
 async function newShowTab(element, id_sub) {
     openTabId = id_sub;
+
     let tablist = document.getElementById("tablist");
+
     let mainSearch = document.getElementById("tab1");
 
 
@@ -1165,7 +1155,6 @@ async function newShowTab(element, id_sub) {
 }
 
 function newGetTabs(name, id_sub) {   // создание subvision и cardBody
-
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
     tab.classList.add("nav-item");
@@ -1186,7 +1175,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6]; // ЕСЛИ ДОБАВИЛИ ВКЛАДКУ ТОГДА НУЖНО ТУТ ТОЖЕ УВЕЛИЧИТЬ
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1619,23 +1608,22 @@ function deleteDepartment(id_department) {
             cutName = depName.innerHTML
         }
 
-        console.log(cutName);
+
         $.ajax({
             url: "ajax/z_getTableLevel.php",
             method: "GET",
             data: {id_sub: openTabId, id_department: id_department},
         })  .done(function (response) {
-            console.log("response", response);
+
             let parsedResponse = JSON.parse(response);
-           console.log("response.level" + parsedResponse.level);
+
            if (parsedResponse.level == '1')
            {
                        let tabActive = document.getElementById("tab" + openTabId + "-");
                        let formCheckInput = document.getElementsByClassName("form-check-input");
                        let formButton = document.getElementsByClassName("form-button");
                        let inputCheck = tabActive.querySelector("#checkbox" + parsedResponse.id_list_tables_criteria);
-                       console.log("response.id_list_tables_criteria" + parsedResponse.id_list_tables_criteria);
-                       console.log("checl" + inputCheck);
+
                        inputCheck.checked = false;
                        toggleActiveCheckbox(inputCheck, formCheckInput, formButton);
            }
@@ -1646,7 +1634,7 @@ function deleteDepartment(id_department) {
                    data: {id_sub: openTabId, id_department: id_department},
                })
                    .done(function (response) {
-                       console.log(response);
+
 
                        let id_list_tables_criteria = response;
                        let tabActive = document.getElementById("tab" + openTabId + "-");
@@ -1700,7 +1688,7 @@ function renameDepartment(id_department) {
             data: {id_department: id_department, new_department_name: newDepartmentName, id_sub: openTabId},
         })
             .done(function (response) {
-                console.log(response);
+
                 let cardH = document.getElementById("heading" + id_department);
                 let button = cardH.querySelector("button");
 
@@ -1994,7 +1982,7 @@ function newPrint() {
         data: {id_app: id_application}
     })
         .done(function (response) {
-            //  console.log(response);
+
             let tableForPrint = JSON.parse(response);
 
 
@@ -2442,7 +2430,7 @@ function checkUserRole()
     const inputFieldreportSamoocenka = document.getElementById("reportSamoocenka");
     const ownUcompBtn = document.getElementsByClassName("ownUcomp")[0];
 
-    console.log(idRole);
+
     if (idRole === "15") {
         inputFieldSokrNaim.disabled = true;
         inputFieldunp.disabled = true;
@@ -2475,9 +2463,9 @@ function checkUserRole()
     }
 }
 
-document.getElementById("btnFormApplication").onclick = async function () {
-    await printAppForm();
-};
+// document.getElementById("btnFormApplication").onclick = async function () {
+//     await printAppForm();
+// };
 
 function chengeLico(select) {
     switch (select.options[select.selectedIndex].value) {

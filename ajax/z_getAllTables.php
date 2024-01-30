@@ -95,7 +95,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
                 <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
                 <select id="selpicker" onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
-                <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
+                <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="0"></option>
                 <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
                 <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
                 <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не применяется</option>
