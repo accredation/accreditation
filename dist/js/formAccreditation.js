@@ -3,6 +3,12 @@
 // let tab3 = document.getElementById("tab-3");
 // let tab4 = document.getElementById("tab-4");
 // let tab5 = document.getElementById("tab-5");
+let divSoprPismo = document.getElementById("divSoprovodPismo");
+let divOrgStrukt = document.getElementById("divOrgStrukt");
+let copyRaspisanie = document.getElementById("copyRaspisanie");
+
+let rukDiv = document.getElementById("rukDiv");
+let predDiv = document.getElementById("predDiv");
 
 let data_old = new Array();
 let data_old1 = new Array();
@@ -479,6 +485,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
     let reportSamoocenka = document.getElementById("reportSamoocenka");
     let divFileReportDorabotka = document.getElementById("divFileReportDorabotka");
     let divDateDorabotka = document.getElementById("divDateDorabotka");
+
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
     let protfile = document.getElementById("protfile");
@@ -3069,3 +3076,20 @@ document.getElementById("fileInputZakl").addEventListener("change", function () 
         document.getElementById("zaklsoveta").value = file.name;
     }
 });
+
+async function updateCollapse(id_criteria, id_sub, opend) {
+
+
+    $.ajax({
+        url: "ajax/updateCollapseFlag.php",
+        method: "GET",
+        data: {
+            id_criteria: id_criteria,
+            id_sub: id_sub,
+            opend: opend
+        },
+        success: function (response) {
+            //   console.log("апдейт");
+        }
+    });
+}

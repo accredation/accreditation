@@ -271,7 +271,7 @@ function newShowModal(id_application) {
                 techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             if (data[0][20] != null) {
-                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
             }
             
             let lico = document.getElementById("lico");
@@ -315,6 +315,7 @@ function newShowModal(id_application) {
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
+        let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
@@ -1088,7 +1089,7 @@ async function newShowTab(element, id_sub) {
             console.log(textStatus + ": " + errorThrown);
         }).then(async () => {
             await $.ajax({
-                url: "ajax/z_getAllTables.php",
+                url: "ajax/z_getAllTablesAccred.php",
                 method: "GET",
                 data: {id_sub: openTabId},
 

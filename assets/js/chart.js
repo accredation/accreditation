@@ -141,7 +141,7 @@ $(function() {
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-      'Проводится самооценка',
+      'Проводится самоаккредитация',
       'Подали',
       'В работе',
       'Проведена оценка',

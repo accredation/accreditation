@@ -661,7 +661,7 @@
                             <h5 style="display: contents;" id="timeLeftSession"></h5>
                         </div>
 
-                    <button type="button" class="btn  btn-danger btn-close"  data-bs-dismiss="modal" >x</button>
+                    <button type="button" class="btn  btn-danger btn-close closeX"  data-bs-dismiss="modal" >x</button>
                     </div>
                 </div>
 
@@ -761,8 +761,8 @@
                                                     </div>
                                                 </form>
 
-                                                <form id="formReportSamoocenka" >
-                                                    <div class="form-group" id = "divReportSamoocenka">
+                                                <form id="formFileReportSamoocenka" >
+                                                    <div class="form-group" id = "divFileReportSamoocenka">
                                                         <label for="reportSamoocenka">Результат самооценки</label><br/>
                                                         <input type="file" class="form-control-file hiddentab" id="reportSamoocenka" disabled="true">
                                                     </div>
@@ -917,7 +917,7 @@
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия</button>
 
                     <!--                </form>-->
-                    <button type="button" class="btn btn-danger" id="closerModal" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-danger closeD" id="closerModal" data-bs-dismiss="modal">Закрыть</button>
                 </div>
 
             </div>

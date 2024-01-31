@@ -2205,22 +2205,39 @@ function checkUserRole()
     doverennost.disabled = true;
     prikazNaznach.disabled = true;
 
+    const btnJournalActions = document.getElementById("btnJournalActions");
+    if (idRole === "12"){
+        console.log('btnJournalActions tr');
+        btnJournalActions.style.display= "block";
+    } else {
+        btnJournalActions.style.display= "none";
+        console.log('btnJournalActions folse');
+    }
+
 }
 document.getElementById("btnFormApplication").onclick = async function() {
     await printAppForm();
 };
 
 function chengeLico(select){
-    switch(select.options[select.selectedIndex].value){
+    switch (select.options[select.selectedIndex].value) {
         case "1":
             rukDiv.classList.remove("hiddentab");
             predDiv.classList.add("hiddentab");
             formDoverennost.classList.add("hiddentab");
+            formPrikazNaznach.classList.remove("hiddentab");
             break;
         case "2":
             predDiv.classList.remove("hiddentab");
             rukDiv.classList.add("hiddentab");
             formDoverennost.classList.remove("hiddentab");
+            formPrikazNaznach.classList.add("hiddentab");
+            break;
+        case "0":
+            predDiv.classList.add("hiddentab");
+            rukDiv.classList.add("hiddentab");
+            formDoverennost.classList.add("hiddentab");
+            formPrikazNaznach.classList.add("hiddentab");
             break;
     }
 }

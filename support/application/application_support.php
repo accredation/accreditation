@@ -139,7 +139,7 @@
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where (id_status = 1 or id_status = 5) and (('$id_role'=12) or ('$id_role'=14 and (uz.oblast='$oblast')))";
+                                where  (('$id_role'=12 and (id_status = 1 or id_status = 5)) or ('$id_role'=14 and (uz.oblast='$oblast')) and (id_status = 1))";
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
