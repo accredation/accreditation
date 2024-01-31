@@ -79,7 +79,7 @@
 $login = $_COOKIE['login'];
 $query = "SELECT * FROM applications a
     left outer join users u on u.id_user = a.id_user
-    WHERE login='$login' and  id_status in (8)";
+    WHERE login='$login' and  id_status in (8,7,5) ";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных

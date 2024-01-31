@@ -85,14 +85,17 @@ function newShowModal(id_application) {
     let homeTab = document.getElementById("home-tab");
     let btnSen = document.getElementById("newBtnSend");
     let btnSu = document.getElementById("btnSuc");
-    if (homeTab.classList.contains("active")) {
-        if (btnSen.classList.contains("hiddentab")) {
-            btnSen.classList.remove("hiddentab");
+
+        if (homeTab.classList.contains("active")) {
+            if (idRole !== "15") {
+                if (btnSen.classList.contains("hiddentab")) {
+                    btnSen.classList.remove("hiddentab");
+                }
+            }
+            if (btnSu.classList.contains("hiddentab")) {
+                btnSu.classList.remove("hiddentab");
+            }
         }
-        if (btnSu.classList.contains("hiddentab")) {
-            btnSu.classList.remove("hiddentab");
-        }
-    }
     let footer = document.getElementsByClassName("modal-footer")[0];
     if (footer.classList.contains('hiddentab')) {
         footer.classList.remove('hiddentab');
@@ -133,8 +136,38 @@ function newShowModal(id_application) {
 
     let addtab = document.getElementById("addtab");
 
-    if (idRole === "15")
+    if (idRole === "15") {
+       let btnFormApplication = document.getElementById("btnFormApplication");
+       if(btnFormApplication){
+           if (!btnFormApplication.classList.contains("hiddentab")) {
+               btnFormApplication.classList.add("hiddentab");
+           }
+
+        //   btnFormApplication.remove();
+       }
+        if(btnSen){
+            if (!btnSen.classList.contains("hiddentab")) {
+                btnSen.classList.add("hiddentab");
+            }
+        }
+
         addtab.style = "display: none";
+        let licoSelect = document.getElementById("lico");
+        licoSelect.setAttribute("disabled",true);
+
+        let prikazNaznachSelel = document.getElementById("prikazNaznach");
+        prikazNaznachSelel.setAttribute("disabled",true);
+
+        let doverennostSelel = document.getElementById("doverennost");
+        doverennostSelel.setAttribute("disabled",true);
+
+        let reportZakluchenieSootvetSelect = document.getElementById("reportZakluchenieSootvet");
+        reportZakluchenieSootvetSelect.setAttribute("disabled",true);
+
+
+
+    }
+
 
     let btnSuc = document.getElementById("btnSuc");
     let btnCalc = document.getElementById("btnCalc");
@@ -172,6 +205,7 @@ function newShowModal(id_application) {
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
+    let licoSelect = document.getElementById("lico");
 
     divSoprPismo.style = "display:none";
     divOrgStrukt.style = "display:none";
@@ -215,6 +249,8 @@ function newShowModal(id_application) {
         ownUcompBtnClass.setAttribute("disabled", "true");
         doverennost.setAttribute("disabled", "true");
         prikazNaznach.setAttribute("disabled", "true");
+
+        licoSelect.setAttribute("disabled",true);
 
         reportSamoocenka.setAttribute("disabled", "true");
         reportZakluchenieSootvet.setAttribute("disabled", "true");
@@ -283,7 +319,7 @@ function newShowModal(id_application) {
                 techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             if (data[0][20] != null) {
-                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
+                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
             }
             
             let lico = document.getElementById("lico");
@@ -2293,6 +2329,13 @@ async function sendApp() {
         }).then(response => {
             let objects = JSON.parse(response);
             if(objects.length === 0) {
+                let licoSelect = document.getElementById("lico");
+                 let licoSelectlicoSelectalue = licoSelect.options.selectedIndex;
+                let divPrikazNaznach = document.getElementById("divPrikazNaznach");
+                let divDoverennost = document.getElementById("divDoverennost");
+                let doverennostSel = divDoverennost.getElementsByTagName("a")[0];
+                let prikazNaznachSel = divPrikazNaznach.getElementsByTagName("a")[0];
+
             // ||
             //     divFileReportSamoocenka.getElementsByTagName("a").length == 0
                 if (
@@ -2305,8 +2348,9 @@ async function sendApp() {
                     adressFact.value.trim() === "" ||
                     tel.value.trim() === "" ||
                     email.value.trim() === "" ||
-                    rukovoditel.value.trim() === "" ||
-                    predstavitel.value.trim() === ""
+                    licoSelectlicoSelectalue === 0 ||
+                    (( licoSelectlicoSelectalue === 1 && ( rukovoditel.value.trim() === "" || prikazNaznachSel === undefined )) ||
+                        (licoSelectlicoSelectalue === 2 && (predstavitel.value.trim() === "" || doverennostSel === undefined)))
                 ) {
                     alert("Не все обязательные поля заполнены.");
 
@@ -2441,6 +2485,7 @@ function checkUserRole()
     const inputFieldtechOsn = document.getElementById("techOsn");
     const inputFieldreportSamoocenka = document.getElementById("reportSamoocenka");
     const ownUcompBtn = document.getElementsByClassName("ownUcomp")[0];
+    const lico = document.getElementById("lico");
 
     console.log(idRole);
     if (idRole === "15") {
@@ -2456,6 +2501,8 @@ function checkUserRole()
         inputFieldtechOsn.disabled = true;
         inputFieldreportSamoocenka.disabled = true;
         ownUcompBtn.disabled = true;
+        lico.disabled = true;
+
 
     } else {
 
@@ -2471,7 +2518,7 @@ function checkUserRole()
         inputFieldtechOsn.disabled = false;
         inputFieldreportSamoocenka.disabled = false;
         ownUcompBtn.disabled = false;
-
+        lico.disabled = false;
     }
 }
 

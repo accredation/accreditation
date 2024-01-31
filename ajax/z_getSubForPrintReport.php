@@ -3,7 +3,7 @@ include "connection.php";
 
 $id_application = $_GET['id_application'];
 
-$query = "SELECT DISTINCT s.id_subvision, s.name ,  rc.id_department , rc.name as name_otdel, s.mark_percent as percent , rc.mark_percent as dpercent, c.name_full , c.level
+$query = "SELECT DISTINCT s.id_subvision, s.name ,  rc.id_department , rc.name as name_otdel, s.mark_percent as percent , IFNULL(rc.mark_percent,0) as dpercent, c.name_full , c.level
 FROM applications a
 left outer join subvision s on a.id_application=s.id_application
 left outer join z_department rc on s.id_subvision=rc.id_subvision

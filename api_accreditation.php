@@ -607,8 +607,8 @@
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Заявления5555</th>
-                                                <th>Дата решения совета4444</th>
+                                                <th>Заявления</th>
+                                                <th>Дата решения совета</th>
                                             </tr>
                                             </thead>
                                             <tbody>

@@ -9,7 +9,7 @@ IFNULL(c.name,'') as mark_name,
 case when IFNULL(ac.field3,'')=1 then 'Да' when IFNULL(ac.field3,'')=2 then 'Нет' when IFNULL(ac.field3,'')=3 then 'Не требуется' else '' end as field3,
 IFNULL(ac.field4,'') as field4, IFNULL(ac.field5,'') as field5,
 case when IFNULL(ac.field6,'')=1 then 'Да' when IFNULL(ac.field6,'')=2 then 'Нет' when IFNULL(ac.field6,'')=3 then 'Не требуется' else '' end as field6,
-IFNULL(ac.field7,'') as field7, IFNULL(ac.defect,'') as field8 , dep.mark_percent
+IFNULL(ac.field7,'') as field7, IFNULL(ac.defect,'') as field8 , IFNULL(dep.mark_percent,0) as mark_percent
 
 FROM subvision s
 left outer join z_department dep on s.id_subvision=dep.id_subvision
