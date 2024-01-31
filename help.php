@@ -402,9 +402,9 @@
             <label for="typeQuestion">Тип вопроса</label><br/>
             <select id="typeQuestion">
                 <option selected disabled>Выберите тип</option>
-                <option value="">по использованию программы</option>
+                <option value="">по эксплуатации информационной системы</option>
                 <!-- <option value="">по самооценке и заполнению таблиц критериев</option> -->
-                <option value="">предложения по программе или критериям</option>
+                <option value="">предложение по развитию информационной системы</option>
             </select>
             </div>
             <br/>

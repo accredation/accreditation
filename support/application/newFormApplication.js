@@ -118,7 +118,7 @@ function newShowModal(id_application) {
 
     let addtab = document.getElementById("addtab");
 
-    if (idRole === "15")
+
         addtab.style = "display: none";
 
     let btnSuc = document.getElementById("btnSuc");
@@ -156,6 +156,7 @@ function newShowModal(id_application) {
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
+    let licoSelect = document.getElementById("lico");
 
     divSoprPismo.style = "display:none";
     divOrgStrukt.style = "display:none";
@@ -167,13 +168,15 @@ function newShowModal(id_application) {
     let divFileReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     let divDoverennost = document.getElementById("divDoverennost");
     let divPrikazNaznach = document.getElementById("divPrikazNaznach");
+    let reportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
+    let divFileReportZakluchenieSootvet = document.getElementById("divFileReportZakluchenieSootvet");
     number_app.innerHTML = id_application;
     id_app = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
 
     //  naim.value = username;
-    if (status == 1 || status == 5) {
+    if (status == 1 || status == 5 || status == 2) {
         formFileReportDorabotka.style.display = "block";
         formDateDorabotka.style.display = "block";
         checkUserRole();
@@ -198,6 +201,9 @@ function newShowModal(id_application) {
         ownUcompBtnClass.setAttribute("disabled", "true");
         doverennost.setAttribute("disabled", "true");
         prikazNaznach.setAttribute("disabled", "true");
+        reportZakluchenieSootvet.setAttribute("disabled", "true");
+
+        licoSelect.setAttribute("disabled","true");
 
         reportSamoocenka.setAttribute("disabled", "true");
         formFileReportDorabotka.setAttribute("disabled", "true");
@@ -226,6 +232,7 @@ function newShowModal(id_application) {
                 data.push(i);
                 data_old.push(i);
             }
+            console.log(data);
             let login = getCookie('login');
             naim.value = data[0][0];
             sokr.value = data[0][1];
@@ -264,34 +271,25 @@ function newShowModal(id_application) {
             if (data[0][12] != null) {
                 techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13]  +'/'+ id_application+ "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
-            if (data[0][21] != null) {
-                let lico = document.getElementById("lico");
-                lico.options.selectedIndex = 1;
-                predDiv.classList.remove("hiddentab");
-                rukDiv.classList.add("hiddentab");
-                formPrikazNaznach.classList.remove("hiddentab");
+            if (data[0][20] != null) {
+                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
+            }
+
+            let lico = document.getElementById("lico");
+            if (data[0][22] != null) {
+                lico.options.selectedIndex = data[0][22];
+                chengeLico(lico);
+            } else {
+                lico.options.selectedIndex = 0;
+                chengeLico(lico);
+            }
+
+            if(data[0][21] != null){
                 prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
             }
-            else {
-                let lico = document.getElementById("lico");
-                lico.options.selectedIndex = 2;
-                rukDiv.classList.remove("hiddentab");
-                predDiv.classList.add("hiddentab");
-                formPrikazNaznach.classList.add("hiddentab");
-            }
-            if (data[0][19] != null) {
-                let lico = document.getElementById("lico");
-                lico.options.selectedIndex = 2;
-                predDiv.classList.remove("hiddentab");
-                rukDiv.classList.add("hiddentab");
-                formDoverennost.classList.remove("hiddentab");
-                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13]  +'/'+ id_application+ "/" + data[0][19] + "'>" + data[0][19] + "</a>");
-            }else {
-                let lico = document.getElementById("lico");
-                lico.options.selectedIndex = 1;
-                rukDiv.classList.remove("hiddentab");
-                predDiv.classList.add("hiddentab");
-                formDoverennost.classList.add("hiddentab");
+
+            if(data[0][19]!= null) {
+                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
             modal.classList.add("show");
             modal.style = "display: block";
@@ -319,9 +317,10 @@ function newShowModal(id_application) {
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
-
+        let doverennost = divDoverennost.getElementsByTagName("a")[0];
+        let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
+        let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         var collapseElement = document.getElementsByClassName('collapse');
-
         if ((typeof collapseElement !== 'undefined') && (collapseElement !== null)) {
             let collapseElement2 = [...collapseElement];
             let collapseElement3 = collapseElement2.filter((item) => item.classList.contains("show") === true)
@@ -366,6 +365,15 @@ function newShowModal(id_application) {
                         }
                         if (tech) {
                             tech.remove();
+                        }
+                        if (divZakluchenieSootvet) {
+                            divZakluchenieSootvet.remove();
+                        }
+                        if(doverennost ){
+                            doverennost.remove();
+                        }
+                        if(prikazNaznach ){
+                            prikazNaznach.remove();
                         }
                         modal.classList.remove("show");
                         modal.style = "display: none";
@@ -413,6 +421,15 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
+                if (divZakluchenieSootvet) {
+                    divZakluchenieSootvet.remove();
+                }
+                if(doverennost ){
+                    doverennost.remove();
+                }
+                if(prikazNaznach ){
+                    prikazNaznach.remove();
+                }
                 modal.classList.remove("show");
                 modal.style = "display: none";
                 for (let i = tablist.children.length - 1; i > 0; i--) {
@@ -455,6 +472,15 @@ function newShowModal(id_application) {
             }
             if (tech) {
                 tech.remove();
+            }
+            if (divZakluchenieSootvet) {
+                divZakluchenieSootvet.remove();
+            }
+            if(doverennost ){
+                doverennost.remove();
+            }
+            if(prikazNaznach ){
+                prikazNaznach.remove();
             }
             modal.classList.remove("show");
             modal.style = "display: none";
@@ -483,7 +509,9 @@ function newShowModal(id_application) {
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
 
-
+        let doverennost = divDoverennost.getElementsByTagName("a")[0];
+        let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
+        let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         var collapseElement = document.getElementsByClassName('collapse');
 
         if ((typeof collapseElement !== 'undefined') && (collapseElement !== null)) {
@@ -528,6 +556,15 @@ function newShowModal(id_application) {
                         }
                         if (tech) {
                             tech.remove();
+                        }
+                        if (divZakluchenieSootvet) {
+                            divZakluchenieSootvet.remove();
+                        }
+                        if(doverennost ){
+                            doverennost.remove();
+                        }
+                        if(prikazNaznach ){
+                            prikazNaznach.remove();
                         }
                         modal.classList.remove("show");
                         modal.style = "display: none";
@@ -575,6 +612,15 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
+                if (divZakluchenieSootvet) {
+                    divZakluchenieSootvet.remove();
+                }
+                if(doverennost ){
+                    doverennost.remove();
+                }
+                if(prikazNaznach ){
+                    prikazNaznach.remove();
+                }
                 modal.classList.remove("show");
                 modal.style = "display: none";
                 for (let i = tablist.children.length - 1; i > 0; i--) {
@@ -617,6 +663,15 @@ function newShowModal(id_application) {
             }
             if (tech) {
                 tech.remove();
+            }
+            if (divZakluchenieSootvet) {
+                divZakluchenieSootvet.remove();
+            }
+            if(doverennost ){
+                doverennost.remove();
+            }
+            if(prikazNaznach ){
+                prikazNaznach.remove();
             }
             modal.classList.remove("show");
             modal.style = "display: none";
@@ -1200,7 +1255,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     } else {
         cardLeft.classList.add("rolledUp");
         aRollUp.setAttribute("disabled", "true");
-        btnDelete.classList.add("hiddentab");
+    //    btnDelete.classList.add("hiddentab");
         container.classList.add("hiddentab");
 
     }
@@ -2128,39 +2183,28 @@ function checkUserRole()
     const inputFieldtechOsn  = document.getElementById("techOsn");
     const inputFieldreportSamoocenka  = document.getElementById("reportSamoocenka");
     const ownUcompBtn = document.getElementsByClassName("ownUcomp")[0];
-
+    const lico = document.getElementById("lico");
+    const reportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
+    const doverennost = document.getElementById("doverennost");
+    const prikazNaznach = document.getElementById("prikazNaznach");
     console.log(idRole);
-    if (idRole === "15"){
-        inputFieldSokrNaim.disabled = true;
-        inputFieldunp.disabled = true;
-        inputFieldadress.disabled = true;
-        inputFieldadressFact.disabled = true;
-        inputFieldtel.disabled = true;
-        inputFieldemail.disabled = true;
-        inputFieldrukovoditel.disabled = true;
-        inputFieldpredstavitel.disabled = true;
-        inputFieldcopyRaspisanie.disabled = true;
-        inputFieldtechOsn.disabled = true;
-        inputFieldreportSamoocenka.disabled = true;
-        ownUcompBtn.disabled = true;
+    inputFieldSokrNaim.disabled = true;
+    inputFieldunp.disabled = true;
+    inputFieldadress.disabled = true;
+    inputFieldadressFact.disabled = true;
+    inputFieldtel.disabled = true;
+    inputFieldemail.disabled = true;
+    inputFieldrukovoditel.disabled = true;
+    inputFieldpredstavitel.disabled = true;
+    inputFieldcopyRaspisanie.disabled = true;
+    inputFieldtechOsn.disabled = true;
+    inputFieldreportSamoocenka.disabled = true;
+    ownUcompBtn.disabled = true;
+    lico.disabled = true;
+    reportZakluchenieSootvet.disabled = true;
+    doverennost.disabled = true;
+    prikazNaznach.disabled = true;
 
-    }
-    else{
-
-        inputFieldSokrNaim.disabled = true;
-        inputFieldunp.disabled = true;
-        inputFieldadress.disabled = true;
-        inputFieldadressFact.disabled = true;
-        inputFieldtel.disabled = true;
-        inputFieldemail.disabled = true;
-        inputFieldrukovoditel.disabled = true;
-        inputFieldpredstavitel.disabled = true;
-        inputFieldcopyRaspisanie.disabled = true;
-        inputFieldtechOsn.disabled = true;
-        inputFieldreportSamoocenka.disabled = true;
-        ownUcompBtn.disabled = true;
-
-    }
 }
 document.getElementById("btnFormApplication").onclick = async function() {
     await printAppForm();

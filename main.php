@@ -121,7 +121,7 @@
                     <!--                <h5 class="mb-2 text-dark font-weight-normal">Всего заявлений</h5>-->
                     <!--                <h2 class="mb-4 text-dark font-weight-bold">-->
                     <?php
-                    $rez = mysqli_query($con, "Select count(*) as countUsers from users where last_act is not null and id_role=3") or die("Ошибка " . mysqli_error($con));
+                    $rez = mysqli_query($con, "Select count(*) as countUsers from users where last_time_online >= '2024-01-29'  and id_role=3") or die("Ошибка " . mysqli_error($con));
                     if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
                     {
                         $row = mysqli_fetch_assoc($rez);
