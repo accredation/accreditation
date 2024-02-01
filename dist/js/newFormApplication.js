@@ -350,7 +350,7 @@ function newShowModal(id_application) {
             }
             let mark_percent = data[2];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер
@@ -1179,7 +1179,7 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
+                divMark.innerHTML = "Самоакредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
             })
         })
@@ -1193,7 +1193,7 @@ async function newShowTab(element, id_sub) {
             data: {id_application: id_app}
         }).then((response) => {
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
         })
 
 

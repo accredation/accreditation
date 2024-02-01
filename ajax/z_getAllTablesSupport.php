@@ -26,7 +26,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
        <div class = "actCont" style="display: flex;">
          <div class="actions-container" style = "width: 80%;">
         <button class="btn btn-link" style="width: 100%;color: black;font-size: 14px;font-weight: 700;" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
-        ' . $department_name . ' (самооценка = ' . $mark_percent . '%)
+        ' . $department_name . ' (самоакредитация = ' . $mark_percent . '%)
         </button>
         </div>
        ';

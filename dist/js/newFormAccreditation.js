@@ -408,7 +408,7 @@ function newShowModal(id_application) {
             let mark_percent = data[2];
             let mark_accred_percent = data[3];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
             mainRightCard.innerHTML = mainRightCard.innerHTML +  "<br>Оценка соответствия - " + Math.round(parseFloat(mark_accred_percent).toFixed(2)) + "%";
 
         });
@@ -1242,7 +1242,7 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
+                divMark.innerHTML = "Самоакредитация - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
                 divMark.innerHTML = divMark.innerHTML + "<br>Количественная оценка - " + Math.round(parseFloat(data.mark_accred_percent).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
             })
@@ -1258,7 +1258,7 @@ async function newShowTab(element, id_sub) {
         }).then((response) => {
             let data = JSON.parse(response);
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
             mainRightCard.innerHTML = mainRightCard.innerHTML + "<br>Количественная оценка - " + Math.round(parseFloat(data.mark_accred_percent).toFixed(2)) + "%";
         })
 
