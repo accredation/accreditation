@@ -214,6 +214,8 @@ async function showTab(element, id_sub) {
                 //     footer.classList.remove("hiddentab");
                 // }
             })
+
+
         await createAccordionCards(id_sub);
         let submark = document.getElementById("subMark" + id_sub);
         if (submark) {
@@ -400,8 +402,11 @@ function showModal(id_application, strMarks, strMarksAccred) {
     let tabNeodobrennie = document.getElementById("neodobrennie-tab");
     let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
     let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
+    let accredArchive = document.getElementById("accredArchive-tab");
     let tabHome = document.getElementById("home-tab");
     let informgr = document.getElementById("informgr");
+    let sovetgr = document.getElementById("sovetgr");
+
 
     if (tabOdobrenie.classList.contains("active")) {
         btnOkReshenie.classList.remove("hiddentab");
@@ -414,6 +419,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
     } else if (tabNeodobrennie.classList.contains("active")) {
+
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnChecking.classList.remove("hiddentab");
         }
@@ -445,16 +451,44 @@ function showModal(id_application, strMarks, strMarksAccred) {
         informgr.style.display = "none";
         sovetgr.style.display = "block";
 
-    } else {
+    }else if (accredArchive.classList.contains("active")) {
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btncalc.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "block";
+        sovetgr.style.display = "block";
+        console.log ("archive" ,sovetgr);
+    }
+
+    else if (tabHome.classList.contains("active"))  {
+        console.log ("sovetgr" ,sovetgr);
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnNeOk.classList.remove("hiddentab");
+            btnChecking.classList.remove("hiddentab");
+            console.log ("sovetgrpred" ,sovetgr);
         }
         btnOk.classList.add("hiddentab");
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
+    }
+    else  {
+        console.log ("sovetgr" ,sovetgr);
+        sovetgr.style.display = "none";
+        informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
+            btnNeOk.classList.remove("hiddentab");
             btnChecking.classList.remove("hiddentab");
+            console.log ("sovetgrpred" ,sovetgr);
         }
+        btnOk.classList.add("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
@@ -497,7 +531,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
     let divUcomplect = document.getElementById("divUcomplect");
     let divTechOsn = document.getElementById("divTechOsn");
     let divReport = document.getElementById("divReport");
-    let divReportSamoocenka = document.getElementById("divReportSamoocenka");
+    let divReportSamoocenka = document.getElementById("divFileReportSamoocenka");
     number_app.innerHTML = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
@@ -1475,7 +1509,7 @@ function getTabs(name, id_sub) {
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1570,7 +1604,7 @@ function getMainTab(name, id_sub) {
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1787,7 +1821,7 @@ function saveTab(id_sub) {
 let id_open_criteria = 0;
 
 async function createAccordionCards(id_sub) {
-
+    console.log ("createAccordionCards ", id_sub)
     //   let marks_app = [];
     /*
         for (let i=marks_app.length-1; i>-1 ; i--) {
@@ -2015,6 +2049,7 @@ async function createAccordionCards(id_sub) {
                         //  document.getElementById("collapse"+id_open_criteria);
                         if (openedDiv.length > 0) {
 
+
                             if (id_open_criteria == id_criteria) {
                                 divCollapse.classList.toggle('show');
                             } else {
@@ -2050,7 +2085,7 @@ async function createAccordionCards(id_sub) {
 
     divAccordion.appendChild(divCard);
     cardRight.appendChild(divAccordion);
-
+    console.log (cardRight);
 }
 
 
@@ -2217,6 +2252,7 @@ function collapseTable(id_criteria, divCardBody, id_sub) {
                 input5.oninput = () => {
                     ChangeValue(id_criteria, item['id_mark'], 'field6', input5.value, item['id_mark_rating'], index, id_sub)
                 };
+                input5.setAttribute("disabled", "true");
                 //  input5.setAttribute("type","text-area");
                 td5.appendChild(input5);
 
@@ -2244,7 +2280,7 @@ function collapseTable(id_criteria, divCardBody, id_sub) {
 
                     }
                 }
-
+                input7.setAttribute("disabled", "true");
 
                 input7.style = "width:100%; height: 100%";
                 input7.setAttribute("rows", "3");
@@ -2277,6 +2313,7 @@ function collapseTable(id_criteria, divCardBody, id_sub) {
 
                 input8.style = "width:100%; height: 100%";
                 input8.setAttribute("rows", "3");
+
                 if (!item['field9']) {
                     input8.value = '';
                 } else {
@@ -2286,6 +2323,7 @@ function collapseTable(id_criteria, divCardBody, id_sub) {
                 input8.oninput = () => {
                     ChangeValue(id_criteria, item['id_mark'], 'field9', input8.value, item['id_mark_rating'], index, id_sub)
                 };
+                input8.setAttribute("disabled", "true");
                 //  input5.setAttribute("type","text-area");
                 let divtd9 = document.createElement("div");
                 divtd9.style = "height: 15rem";
@@ -2385,6 +2423,10 @@ function createSelectMark(id_criteria, id_mark, nameColumn, value, id_mark_ratin
 
 
     if (name_field === 'field4') {
+        newSelect.setAttribute("disabled", "");
+    }
+
+    if (name_field === 'field7') {
         newSelect.setAttribute("disabled", "");
     }
 
@@ -2499,14 +2541,14 @@ function saveMarks(id_sub) {
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         if (i != 0)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2517,14 +2559,14 @@ $("#home-tab").on("click", () => {
 
 $("#rassmotrenie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         if (i != 1)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2536,14 +2578,14 @@ $("#rassmotrenie-tab").on("click", () => {
 
 $("#odobrennie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         if (i != 2)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2555,14 +2597,14 @@ $("#odobrennie-tab").on("click", () => {
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         if (i != 3)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2573,14 +2615,14 @@ $("#neodobrennie-tab").on("click", () => {
 });
 
 $("#reshenieSoveta-tab").on("click", () => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         if (i != 4)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2607,7 +2649,7 @@ $("#accredArchive-tab").on("click", () => {
     }
     allTabsMainPage[5].children[0].classList.add("show");
     allTabsMainPage[5].children[0].classList.add("active");
-    status = 2;
+    status = 8;
 
 
 });
@@ -3078,8 +3120,6 @@ document.getElementById("fileInputZakl").addEventListener("change", function () 
 });
 
 async function updateCollapse(id_criteria, id_sub, opend) {
-
-
     $.ajax({
         url: "ajax/updateCollapseFlag.php",
         method: "GET",

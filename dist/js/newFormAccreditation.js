@@ -15,6 +15,11 @@ function newShowModal(id_application) {
     if(formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
         formFileReportZakluchenieSootvet.classList.remove("hiddentab");
 
+
+
+
+
+
     createrApp = "";
 
     $.ajax({
@@ -116,6 +121,107 @@ function newShowModal(id_application) {
         tab.children[0].classList.add("active");
         pane.classList.add("active");
     }
+    let btnChecking = document.getElementById("btnChecking");
+    let btnOk = document.getElementById("btnOk");
+    let btnNeOk = document.getElementById("btnNeOk");
+
+    let btncalc = document.getElementById("btnCalc");
+    let btnreport = document.getElementById("btnPrintReport");
+    let btnOkReshenie = document.getElementById("btnOkReshenie");
+    let btnOkonchatelnoeReshenie = document.getElementById("btnOkonchatelnoeReshenie");
+
+    let tabOdobrenie = document.getElementById("odobrennie-tab");
+    let tabNeodobrennie = document.getElementById("neodobrennie-tab");
+    let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
+    let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
+    let accredArchive = document.getElementById("accredArchive-tab");
+    let tabHome = document.getElementById("home-tab");
+    let informgr = document.getElementById("informgr");
+    let sovetgr = document.getElementById("sovetgr");
+
+
+    if (tabOdobrenie.classList.contains("active")) {
+        btnOkReshenie.classList.remove("hiddentab");
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
+    } else if (tabNeodobrennie.classList.contains("active")) {
+
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
+            btnChecking.classList.remove("hiddentab");
+        }
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
+    } else if (tabRassmotrenie.classList.contains("active")) {
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.remove("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
+        sovetgr.style.display = "none";
+        informgr.style.display = "none";
+
+    } else if (tabReshenieSoveta.classList.contains("active")) {
+        btnOkonchatelnoeReshenie.classList.remove("hiddentab");
+        btncalc.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "none";
+        sovetgr.style.display = "block";
+
+    }else if (accredArchive.classList.contains("active")) {
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btncalc.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "block";
+        sovetgr.style.display = "block";
+    }
+
+    else if (tabHome.classList.contains("active"))  {
+        sovetgr.style.display = "none";
+        informgr.style.display = "block";
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
+            btnNeOk.classList.remove("hiddentab");
+            btnChecking.classList.remove("hiddentab");
+        }
+        btnOk.classList.add("hiddentab");
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
+    }
+    else  {
+        sovetgr.style.display = "none";
+        informgr.style.display = "block";
+        if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
+            btnNeOk.classList.remove("hiddentab");
+            btnChecking.classList.remove("hiddentab");
+        }
+        btnOk.classList.add("hiddentab");
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        btncalc.classList.remove("hiddentab");
+        btnreport.classList.remove("hiddentab");
+    }
+
     openTabId = 0;
     let mainRightCard = document.getElementById("mainRightCard");
 
@@ -223,7 +329,7 @@ function newShowModal(id_application) {
 
     let data = new Array();
     $.ajax({
-        url: "ajax/getApplication.php",
+        url: "ajax/getApplicationAccred.php",
         method: "GET",
         data: {id_application: id_application}
     })
@@ -300,8 +406,10 @@ function newShowModal(id_application) {
 
             }
             let mark_percent = data[2];
+            let mark_accred_percent = data[3];
             let mainRightCard = document.getElementById("mainRightCard");
             mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = mainRightCard.innerHTML +  "<br>Оценка соответствия - " + Math.round(parseFloat(mark_accred_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер
@@ -1120,10 +1228,11 @@ async function newShowTab(element, id_sub) {
             });
         }).then(() => {
             $.ajax({
-                url: "ajax/z_calc_subvision.php",
+                url: "ajax/z_calc_subvision_accred.php",
                 method: "GET",
                 data: {id_sub: openTabId, id_application: id_app}
             }).then((response) => {
+                let data = JSON.parse(response);
                 let thisTab = document.getElementById("tab" + openTabId + "-");
                 let divMark = document.createElement("div");
                 divMark.id = "markSub";
@@ -1133,7 +1242,8 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
+                divMark.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
+                divMark.innerHTML = divMark.innerHTML + "<br>Количественная оценка - " + Math.round(parseFloat(data.mark_accred_percent).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
             })
         })
@@ -1142,12 +1252,14 @@ async function newShowTab(element, id_sub) {
     if (idNum == "1") {
 
         $.ajax({
-            url: "ajax/z_calc_application.php",
+            url: "ajax/z_calc_application_accred.php",
             method: "GET",
             data: {id_application: id_app}
         }).then((response) => {
+            let data = JSON.parse(response);
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(response).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Количественная самооценка - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = mainRightCard.innerHTML + "<br>Количественная оценка - " + Math.round(parseFloat(data.mark_accred_percent).toFixed(2)) + "%";
         })
 
 
@@ -1253,15 +1365,10 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
 
 
 
-    if (status == 1) {
-
-    } else {
-        cardLeft.classList.add("rolledUp");
-        aRollUp.setAttribute("disabled", "true");
-        btnDelete.classList.add("hiddentab");
-        container.classList.add("hiddentab");
-
-    }
+    cardLeft.classList.add("rolledUp");
+    aRollUp.setAttribute("disabled", "true");
+    btnDelete.classList.add("hiddentab");
+    container.classList.add("hiddentab");
     tabContent.appendChild(tabPane);
 
 
@@ -1447,12 +1554,17 @@ function newCollapseTable(thisDiv) {
     let noteCells = document.querySelectorAll('td[contenteditable="true"]');
     let selpickers = document.querySelectorAll("#selpicker");
     let fileInputs = document.querySelectorAll('input[type="file"]');
-    if (status == 2) {
 
+    let selpickersAccred = document.querySelectorAll("#selpickerAccred");
 
+    if ((status !== 2) && (status !== 3 )) {
 
         selpickers.forEach((selpicker) => {
             selpicker.disabled = true;
+        });
+
+        selpickersAccred.forEach((selpickerAccred) => {
+            selpickerAccred.disabled = true;
         });
 
         fileInputs.forEach((fileInput) => {
@@ -1464,11 +1576,16 @@ function newCollapseTable(thisDiv) {
         });
     }
     else{
+
             let selpickers = document.querySelectorAll("#selpicker");
             let fileInputs = document.querySelectorAll('input[type="file"]');
 
             selpickers.forEach((selpicker) => {
-                selpicker.disabled = false;
+                selpicker.disabled = true;
+            });
+
+            selpickersAccred.forEach((selpickerAccred) => {
+                selpickerAccred.disabled = false;
             });
 
             fileInputs.forEach((fileInput) => {
@@ -1503,6 +1620,39 @@ function changeField5(idCrit, idDep, text) {
 
     })
 }
+
+function changeField6(idCrit, idDep, select) {
+    $.ajax({
+        url: "ajax/changeField6.php",
+        method: "GET",
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+    })
+        .done(function (response) {
+
+        })
+}
+
+function changeField7(idCrit, idDep, text) {
+    $.ajax({
+        url: "ajax/changeField7.php",
+        method: "GET",
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^0-9a-zA-Zа-яёА-ЯЁ ]/u, '')}
+    }).done(function (response) {
+
+    })
+}
+
+function changeFieldDefect(idCrit, idDep, text) {
+    $.ajax({
+        url: "ajax/changeFieldDefect.php",
+        method: "GET",
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^0-9a-zA-Zа-яёА-ЯЁ ]/u, '')}
+    }).done(function (response) {
+
+    })
+}
+
+
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');

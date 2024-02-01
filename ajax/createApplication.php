@@ -4,7 +4,7 @@ $login = $_COOKIE['login'];
 
 
 
-$insertquery = "SELECT * FROM users WHERE login='$login'";
+$insertquery = "SELECT uz.id_uz, uz.username  FROM accreditation.uz left outer join accreditation.users us on uz.id_uz = us.id_uz WHERE login='$login'";
 
 $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 

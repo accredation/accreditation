@@ -20,14 +20,19 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $mark_percent = $row_department['mark_percent'];
     $login_name = $row_department['login'];
     $id_app = $row_department['id_application'];
+
+    $mark_accred_percent = $row_department['mark_accred_percent'];
     if($mark_percent === null)
         $mark_percent = 0;
+    if($mark_accred_percent === null)
+        $mark_accred_percent = 0;
+
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: block; " onclick="newCollapseTable(this)">
        <div class = "actCont" style="display: flex;">
          <div class="actions-container" style = "width: 80%;">
         <button class="btn btn-link" style="width: 100%;color: black;font-size: 14px;font-weight: 700;" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
-        ' . $department_name . ' (самооценка = ' . $mark_percent . '%)
-        </button>
+        ' . $department_name . ' (самооценка = ' . $mark_percent . '%)<div>(оценка соответствия = '.$mark_accred_percent. '%)</div>
+    </button>
         </div>
        ';
     $query = "SELECT id_role FROM users WHERE users.id_user = '{$_COOKIE['id_user']}'";
@@ -40,8 +45,6 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         else {
             echo'
         <div class ="actions-container2"  style = "width: 30%;">
-          <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
-          <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
         </div>';
         }
     }
@@ -70,6 +73,16 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
   word-wrap: break-word;">
                 Примечание
             </td>
+            <td style="border: 1px solid black; width: 10%; text-align: left;">
+                Сведения по оценке соответствия
+            </td>
+            <td style="width: 350px; border: 1px solid black;">
+                Документы и сведения, на основании которых проведена оценка соответствия
+            </td>
+            <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;">
+                Выявленные недостатки
+            </td>
+            
         </tr>
         <tbody>';
 
@@ -88,12 +101,17 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         } else {
             $files = array();
         }
+
+        $field6 = $row_criteria["field6"];
+        $field7 = $row_criteria["field7"];
+        $defect = $row_criteria["defect"];
+
         echo '<tr>
                 <td style="border: 1px solid black; text-align: center;">' . $row_criteria["pp"] . '</td>
                 <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
                 <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
-                <select id="selpicker" onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
-                <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="null"></option>
+                <select disabled="true" id="selpicker" onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
+                <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="0"></option>
                 <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
                 <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
                 <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не применяется</option>
@@ -110,7 +128,24 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         echo '</div></td>
                 <td style="border: 1px solid black; max-width: 10vw;
   word-wrap: break-word;" >' . $row_criteria["field5"] . '</td>
-            </tr>';
+            ';
+        echo '
+                
+                <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
+                <select  id="selpickerAccred" onchange="changeField6(' . $id_crit . ', ' . $id_department . ', this)">
+                <option ' . (($field6 === '0' || null) ? 'selected' : '') . 'value="0"></option>
+                <option ' . ($field6 === '1' ? 'selected' : '') . ' value="1">Да</option>
+                <option ' . ($field6 === '2' ? 'selected' : '') . ' value="2">Нет</option>
+                <option ' . ($field6 === '3' ? 'selected' : '') . ' value="3">Не применяется</option>
+                </select></div></td>
+                <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;" contenteditable="true" 
+                        oninput="changeField7(' . $id_crit . ', ' . $id_department . ', this)">' . $field7 . '</td>
+                <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;" contenteditable="true" 
+                        oninput="changeFieldDefect(' . $id_crit . ', ' . $id_department . ', this)">' . $defect . '</td>
+                ';
+
+
+        echo '</tr>';
     }
 
     echo '</tbody></table></div></div>';

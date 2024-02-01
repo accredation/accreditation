@@ -149,6 +149,7 @@ function newShowModal(id_application) {
             if (!btnSen.classList.contains("hiddentab")) {
                 btnSen.classList.add("hiddentab");
             }
+            btnSen.remove();
         }
 
         addtab.style = "display: none";
