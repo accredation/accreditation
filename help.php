@@ -346,23 +346,23 @@
 
         <?php } ?>
     </div>
-        <hr>
-        <div style="margin-top: 2.5rem; margin-left: 2.2rem; margin-right: 2.2rem">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/diUBoBL06YY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-    </div>
+        <!--  <hr>
+          <div style="margin-top: 2.5rem; margin-left: 2.2rem; margin-right: 2.2rem">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/diUBoBL06YY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>-->
+      </div>
 
-    <section class="content">
+      <section class="content">
 
 
-        <div class="card direct-chat direct-chat-primary" style="margin-top: 2rem">
+          <div class="card direct-chat direct-chat-primary" style="margin-top: 2rem">
 
-            <div class="card direct-chat direct-chat-primary" >
-                <div class="card-header" style="background-color: #148A8A; color: white; height: 3rem">
-                    <h3 class="card-title" style=" color: white;">Часто задаваемые вопросы</h3>
+              <div class="card direct-chat direct-chat-primary" >
+                  <div class="card-header" style="background-color: #148A8A; color: white; height: 3rem">
+                      <h3 class="card-title" style=" color: white;">Часто задаваемые вопросы</h3>
 
-                </div>
-            <!-- /.card-header -->
+                  </div>
+              <!-- /.card-header -->
             <div class="card-body">
                 <!-- Conversations are loaded here -->
                 <?php
