@@ -51,19 +51,19 @@ function newShowModal(id_application) {
     if (btnPrint) {
       //  btnSend.id = "newBtnSend";
         btnPrint.id = "newBtnPrint";
-        btnPrint.title = "Печать самооценки";
+        btnPrint.title = "Печать самоакредитации";
     } else {
         let btnPrint = document.getElementById("newBtnPrint");
-        btnPrint.title = "Печать самооценки";
+        btnPrint.title = "Печать самоакредитации";
     }
 
 
     if (btnPrintReport) {
         btnPrintReport.id = "btnNewPrintReport";
-        btnPrintReport.title = "Печать самооценки";
+        btnPrintReport.title = "Печать самоакредитации";
     } else {
         let btnPrintReport = document.getElementById("btnNewPrintReport");
-        btnPrintReport.title = "Печать самооценки";
+        btnPrintReport.title = "Печать самоакредитации";
     }
 
 
@@ -1671,7 +1671,7 @@ function printNewReport() {
                     }
                     as = '';
                     id_s = item['id_subvision'];
-                    as = `Самооценка ${item['name']} проведена по следующим отделениям медицинской аккредитации ${Math.round(parseFloat(item['mark_percent']).toFixed(2))}%: `;
+                    as = `Самоакредитация ${item['name']} проведена по следующим отделениям медицинской аккредитации ${Math.round(parseFloat(item['mark_percent']).toFixed(2))}%: `;
                 }
                 if (index === subCriteriaForReport.length - 1) {
                     as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
@@ -1718,7 +1718,7 @@ function printNewReport() {
 
             let divReportTitle = document.createElement('div');
             divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
-            divReportTitle.textContent = `Результат самооценки ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
+            divReportTitle.textContent = `Результат самоакредитации ${naim.value} (${sokr.value}) ${formatDate(new Date())}`;
             WinPrint.document.write(divReportTitle.innerHTML);
             WinPrint.document.write('<br/>');
             WinPrint.document.write('<br/>');
@@ -1853,18 +1853,18 @@ function newCreateTableForPrint(tableForPrint) {
     */
 
     let th3_Main = document.createElement('th');
-    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
     th3_Main.style = "border: 1px solid black; text-align: center";
     th3_Main.setAttribute('colspan', '3');
 
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.innerHTML = 'Сведения по самоакредитации ОЗ';
     th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('th');
-    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
     th4.style = "width:350px; border: 1px solid black";
 
 
@@ -1937,18 +1937,18 @@ function newCreateTableForPrint(tableForPrint) {
             */
 
             let th3_Main2 = document.createElement('td');
-            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
             th3_Main2.style = "border: 1px solid black; text-align: center";
             th3_Main2.setAttribute('colspan', '3');
 
 
             let trHead2 = document.createElement('tr');
             let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.innerHTML = 'Сведения по самоакредитации ОЗ';
             th32.style = "border: 1px solid black";
 
             let th42 = document.createElement('td');
-            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
             th4.style = "width:350px; border: 1px solid black";
 
 

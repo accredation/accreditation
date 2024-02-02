@@ -89,7 +89,7 @@ if($row['id_role'] == 15){  }
             Сведения по самоаккредитации ОЗ
         </td>
         <td style="width: 350px; border: 1px solid black;">
-            Документы и сведения, на основании которых проведена самооценка
+            Документы и сведения, на основании которых проведена самоакредитация
         </td>
         <td style="border: 1px solid black; max-width: 10vw;
   word-wrap: break-word;">

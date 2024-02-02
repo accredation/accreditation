@@ -2208,18 +2208,18 @@ function newCreateTableForPrint(tableForPrint) {
     */
 
     let th3_Main = document.createElement('th');
-    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
     th3_Main.style = "border: 1px solid black; text-align: center";
     th3_Main.setAttribute('colspan', '3');
 
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.innerHTML = 'Сведения по самоакредитации ОЗ';
     th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('th');
-    th4.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
     th4.style = "width:350px; border: 1px solid black";
 
 
@@ -2292,18 +2292,18 @@ function newCreateTableForPrint(tableForPrint) {
             */
 
             let th3_Main2 = document.createElement('td');
-            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самооценка)';
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
             th3_Main2.style = "border: 1px solid black; text-align: center";
             th3_Main2.setAttribute('colspan', '3');
 
 
             let trHead2 = document.createElement('tr');
             let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.innerHTML = 'Сведения по самоакредитации ОЗ';
             th32.style = "border: 1px solid black";
 
             let th42 = document.createElement('td');
-            th42.innerHTML = 'Документы и сведения, на основании которых проведена самооценка';
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
             th4.style = "width:350px; border: 1px solid black";
 
 

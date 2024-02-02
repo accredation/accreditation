@@ -11,7 +11,15 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     $row = mysqli_fetch_assoc($rez); //она
     $count_all = $row['coun'];
     $sum = $row['sum'];
-    $avg = $sum / $count_all;
+    if($sum === null){
+        $sum = 0;
+    }
+    if ($sum === 0 || $count_all ===0){
+        $avg = 0;
+    } else {
+        $avg = $sum / $count_all;
+    }
+
     if($count_all === null){
         $count_all = 0.0;
     }
@@ -34,8 +42,7 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
 //}
 
 
-
-echo $sum / $count_all;
+echo $avg;
 
 
 mysqli_close($con);

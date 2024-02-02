@@ -76,6 +76,17 @@ tr:hover {
     left: 35%;
     font-size: 14pt;
 ">(наименование заинтересованного лица,</div>
+<div style="
+    position: relative;
+    left: 10%;
+    font-size: 20pt;
+">_________________________________________________________________________</div>
+ <div style="
+    position: relative;
+    left: 10%;
+    font-size: 20pt;
+    line-height: 44pt;
+">_________________________________________________________________________</div>
       <div style="
     position: relative;
     left: 10%;
@@ -90,6 +101,14 @@ tr:hover {
     position: relative;
     left: 10%;
     font-size: 20pt;
+
+">_________________________________________________________________________</div>
+      <div style="
+    position: relative;
+    left: 10%;
+    font-size: 20pt;
+    margin-top: 12pt;
+}
 ">_________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
