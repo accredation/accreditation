@@ -573,6 +573,16 @@ window.onload = () => {
         }
 
     });
+    if(getCookie("timesRel") != ""){
+        document.cookie = "timesRel=";
+    }
+    else{
+        document.cookie = "timesRel=1";
+        new Promise((resolve, reject) =>{
+            setTimeout(() => location.reload(), 100)
+        } );
+    }
+
 }
 
 
@@ -627,8 +637,8 @@ function stopDrag() {
     document.removeEventListener("mouseup", stopDrag);
 }
 
-//header.addEventListener("mousedown", startDrag);
-//ззз
+// header.addEventListener("mousedown", startDrag);
+
 function handleColorChange(colorPicker, appId) {
     let ulId = document.getElementById("ul"+this.id_app);
     const selectedColor = colorPicker.value;
@@ -658,8 +668,6 @@ function handleColorChange(colorPicker, appId) {
 window.addEventListener('DOMContentLoaded', () => {
 
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'modules/accred_tasks/load_colors.php', true);
     $.ajax({
         url: "modules/accred_tasks/load_colors.php"
     }).then(response => {
@@ -687,9 +695,4 @@ window.addEventListener('DOMContentLoaded', () => {
             });
 
     });
-
-
-
-
-
 });

@@ -186,7 +186,7 @@
             </ul>
 
             <div style="display: flex; position: relative; z-index: 100; top:-25px">
-                <ul class="chart-bars "  id = "nowDate" style="margin: 0">
+                <ul class="chart-bars"  id = "nowDate" style="margin: 0">
                     <li data-duration="" data-color="red" id = "nowDateli"
                         style="margin: 0; position: absolute; padding: 1px;  width: 0; height: 100vh; z-index: 1"></li>
                 </ul>
