@@ -1195,22 +1195,20 @@ async function newShowTab(element, id_sub) {
             })
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
-        }).then(async () => {
-            await $.ajax({
+        }).then( () => {
+             $.ajax({
                 url: "ajax/z_getAllTablesAccred.php",
                 method: "GET",
                 data: {id_sub: openTabId},
+                success: (response) => {
 
-            }).then(function (response) {
-
-                let numTab = document.querySelector("#tab" + openTabId + "-");
-                let rightCard = numTab.querySelector("#cardRight");
-                let cardForAdding = rightCard.querySelector(":first-child");
-                let cardForAdding1 = cardForAdding.querySelector(":first-child");
-                if (cardForAdding1)
-                    cardForAdding1.insertAdjacentHTML("afterbegin", response);
-
-
+                    let numTab = document.querySelector("#tab" + openTabId + "-");
+                    let rightCard = numTab.querySelector("#cardRight");
+                    // let cardForAdding = rightCard.querySelector(":first-child");
+                    // let cardForAdding1 = cardForAdding.querySelector(":first-child");
+                    if (rightCard)
+                        rightCard.insertAdjacentHTML("afterbegin", response);
+                }
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 //
                 console.log("AJAX Error: " + textStatus + ", " + errorThrown);

@@ -6,7 +6,7 @@ $result = mysqli_query($con, $query) or die(mysqli_error($con));
 
 $colors = [];
 while ($row = mysqli_fetch_assoc($result)) {
-    $row['color'] = '#' . ltrim($row['color'], '#');
+
     $colors[] = $row;
 }
 

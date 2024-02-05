@@ -290,3 +290,4 @@ window.addEventListener("unload", async (event) => {
 //   //  await collapseUpdateOpened(id_open_criteria,openTabId);
 //
 // });
+

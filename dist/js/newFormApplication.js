@@ -228,6 +228,8 @@ function newShowModal(id_application) {
     if (status == 1 || status == 5) {
         formFileReportDorabotka.style.display = "block";
         formDateDorabotka.style.display = "block";
+        if(btnSend)
+        btnSend.classList.remove("hiddentab");
         checkUserRole();
 
     } else {
@@ -262,8 +264,13 @@ function newShowModal(id_application) {
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
 
-        if(btnSend)
+        if(!btnSend) {
+            btnSend = document.getElementById("newBtnSend")
+
             btnSend.classList.add("hiddentab");
+
+        }
+
         if (btnCalc) {
             btnCalc.remove();
         }

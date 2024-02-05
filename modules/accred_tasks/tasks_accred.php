@@ -31,10 +31,11 @@
                                                                 left outer join users u on a.id_user =u.id_user 
                                                                 left outer join users u1 on a.id_responsible =u1.id_user 
                                                                 left outer join users u2 on u2.id_user='$id_user'
+                                                                left outer join uz uz on uz.id_uz=u.id_uz
 
                                                                 where (a.id_status = 3 or a.id_status = 4) and 
                                                                          ((u2.id_role < 3 ) 
-                                                                        or (u2.id_role > 3 and u.oblast=u2.id_role ))";
+                                                                        or (u2.id_role > 3 and uz.oblast=u2.id_role ))";
                         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
@@ -187,7 +188,7 @@
             <div style="display: flex; position: relative; z-index: 100; top:-25px">
                 <ul class="chart-bars "  id = "nowDate" style="margin: 0">
                     <li data-duration="" data-color="red" id = "nowDateli"
-                        style="margin: 0; position: absolute; padding: 1px;  width: 0; height: 0px; z-index: 1"></li>
+                        style="margin: 0; position: absolute; padding: 1px;  width: 0; height: 100vh; z-index: 1"></li>
                 </ul>
             </div>
 

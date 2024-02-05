@@ -659,10 +659,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     const xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            const colors = JSON.parse(xhr.responseText);
+    xhr.open('GET', 'modules/accred_tasks/load_colors.php', true);
+    $.ajax({
+        url: "modules/accred_tasks/load_colors.php"
+    }).then(response => {
+            const colors = response;
             colors.forEach((colorData) => {
                 const { appId, color } = colorData;
 
@@ -684,11 +685,11 @@ window.addEventListener('DOMContentLoaded', () => {
                     targetTd.style.backgroundColor = color;
                 }
             });
-        }
-    };
 
-    xhr.open('GET', 'modules/accred_tasks/load_colors.php', true);
-    xhr.send(null);
+    });
+
+
+
 
 
 });
