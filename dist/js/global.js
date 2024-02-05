@@ -57,10 +57,30 @@ $(document).ready(function () {
         checkNotifications();
     }
 });
-
+let mylogin;
+let myidUser;
+let ageSess;
 function checkAuth() {
 
     let ageSession = getCookie('ageSession');
+    if(ageSession == ""){
+        document.cookie = "login="+mylogin;
+        document.cookie = "id_user="+myidUser;
+
+        $.ajax({
+            url: "authorization/outAfterClearCookie.php",
+            method: "POST",
+            data: {id_user: myidUser}
+        }).then(() => {
+            alert("Ваша сессия окончена, куки очищены");
+            location.href = "/login.php"
+        })
+    }else{
+        document.cookie = "login2="+getCookie("login");
+        document.cookie = "id_user2="+getCookie("id_user");
+        mylogin = getCookie("login2")
+        myidUser = getCookie("id_user2")
+    }
     let currentDate = new Date();
     let year = currentDate.getFullYear();
     let month = String(currentDate.getMonth() + 1).padStart(2, '0');

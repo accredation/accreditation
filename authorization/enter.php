@@ -66,15 +66,14 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
                     } else {
                         array_push($error,'1');
                         array_push($error, $row['last_time_session']);
-                     //   $error[] = "1";
                         echo json_encode($error);
                         return;
                     }
                 }
                 //
-//                $error[] = "1";
-//                echo json_encode($error);
-//                return;
+                $error[] = "1";
+                echo json_encode($error);
+                return;
             }
 
             $_SESSION['id_user'] = $row['id_user']; //записываем в сессию id пользователя

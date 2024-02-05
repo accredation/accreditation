@@ -12,7 +12,7 @@ include 'authorization/auth.php';
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="assets/vendors/css/vend.bundle.base.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -257,7 +257,6 @@ include 'authorization/auth.php';
             } else {
                 if (arr.length == "2") {
                     if (arr[0] == "1") {
-                        console.log(arr[0] + 'responic1');
                         alert("Учетная запись занята");
                     } else
                         alert("Неверный логин или пароль");
@@ -293,7 +292,7 @@ include 'authorization/auth.php';
                 }
             })
         } else {
-            checkTimeSession();
+            alert("Вы не ввели код");
         }
     }
 
