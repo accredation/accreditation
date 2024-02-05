@@ -566,6 +566,8 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
 
                                             <button class="btn-inverse-info" onclick="newAddTab()" id="addtab">+ добавить подразделение</button>
                                             <br/>
+                                            <span>Не используется для оценки отделений, кабинетов, амбулаторий, ФАП, УБ, подстанций</span>
+                                            <br/>
                                             <br/>
 
                                         </div>
