@@ -232,7 +232,7 @@
 
                                                 <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
 
-                                                    <td>Заявление <?= $app['username'] ?>  №<?= $app['app_id'] ?></td>
+                                                    <td>Заявление <?= $app['username'] ?>  <?= $app['id_rkk'] == "0" ? "№". $app['app_id'] : "" ?></td>
                                                     <td><?= $app['date_send'] ?></td>
 
 
@@ -910,7 +910,7 @@
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета</button>
 
-                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>
+<!--                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>-->
                     <button type="submit" class="btn btn-danger hiddentab" id="btnOkonchatelnoeReshenie">Окончательное решение</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
                     <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
@@ -934,7 +934,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">История заявления</h4><h4 class="modal-title hiddentab" id="app_id"></h4>
-                    <button type="button" class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x</button>
+                    <button type="button"  class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x</button>
                 </div>
 
                 <!-- Modal body -->
@@ -946,12 +946,13 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button"  class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
                 </div>
 
             </div>
         </div>
     </div>
+
 
 
     <div class="modal" id="modalUcomplect">
@@ -988,6 +989,35 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <!-- RKK -->
+
+    <div class="modal" id="modalRkk">
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Регистрация заявления</h4><h4 class="modal-title" id="app_id"></h4>
+                    <button type="button" id ="closexRkk" class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modalRkkbody">
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" id ="closeRkk" class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- RKK -->
+
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 

@@ -29,33 +29,35 @@ $(document).ready(function () {
         idRole = response;
         if (idRole !== "" && idRole !== undefined) {
 
-            let countOpenWindow = localStorage.getItem('countOpenWindow');
-            let i = 1;
-            if (countOpenWindow && countOpenWindow>1) {
-                console.log('countOpenWindow+1');
-                countOpenWindow = Number(countOpenWindow) + 1;
-                localStorage.setItem('countOpenWindow', countOpenWindow);
-            } else localStorage.setItem('countOpenWindow', '0');
+            // let countOpenWindow = localStorage.getItem('countOpenWindow');
+            // let i = 1;
+            // if (countOpenWindow && countOpenWindow>1) {
+            //     console.log('countOpenWindow+1');
+            //     countOpenWindow = Number(countOpenWindow) + 1;
+            //     localStorage.setItem('countOpenWindow', countOpenWindow);
+            // } else localStorage.setItem('countOpenWindow', '0');
 
             setInterval(() => checkAuth(), 1000);
         }
-    })
-    let loginFromCoockie = getCookie("login");
-    if (loginFromCoockie.length == "0") {
-        loginName.innerHTML = "Гость";
-        notificationDropdown.classList.add("hiddentab");
-        log_out.insertAdjacentHTML('afterbegin', ret_ex());
-    } else {
-        loginName.innerHTML = loginFromCoockie;
-        notificationDropdown.classList.remove("hiddentab");
-        log_out.insertAdjacentHTML('afterbegin', ret_ent());
-        accountAction.insertAdjacentHTML('afterbegin', divMsg());
-        if (idRole == "12" || loginFromCoockie == "hancharou@rnpcmt.by") {
-            accountAction.insertAdjacentHTML('afterbegin', divUsers());
+        let loginFromCoockie = getCookie("login");
+        if (loginFromCoockie.length == "0") {
+            loginName.innerHTML = "Гость";
+            notificationDropdown.classList.add("hiddentab");
+            log_out.insertAdjacentHTML('afterbegin', ret_ex());
+        } else {
+            loginName.innerHTML = loginFromCoockie;
+            console.log("LOGIN", idRole);
+            notificationDropdown.classList.remove("hiddentab");
+            log_out.insertAdjacentHTML('afterbegin', ret_ent());
+            accountAction.insertAdjacentHTML('afterbegin', divMsg());
+            if (idRole == "12" || loginFromCoockie == "hancharou@rnpcmt.by") {
+                accountAction.insertAdjacentHTML('afterbegin', divUsers());
+            }
+            getNotifications(); //
+            checkNotifications();
         }
-        getNotifications(); //
-        checkNotifications();
-    }
+    })
+
 });
 let mylogin;
 let myidUser;
@@ -114,11 +116,11 @@ function checkAuth() {
                 idRole = undefined;
                 alert("Ваша сессия закончена");
 
-                let countOpenWindow = localStorage.getItem('countOpenWindow');
-                if (countOpenWindow) {
-                    countOpenWindow = countOpenWindow - 1;
-                    localStorage.setItem('countOpenWindow', countOpenWindow)
-                }
+                // let countOpenWindow = localStorage.getItem('countOpenWindow');
+                // if (countOpenWindow) {
+                //     countOpenWindow = countOpenWindow - 1;
+                //     localStorage.setItem('countOpenWindow', countOpenWindow)
+                // }
 
 
                 location.href = "/";
@@ -241,21 +243,21 @@ function divUsers() {
 
 
 window.addEventListener("unload", async (event) => {
-    let countOpenWindow = localStorage.getItem('countOpenWindow');
-    countOpenWindow = countOpenWindow - 1;
-
-    if (countOpenWindow < 1 || !countOpenWindow) {
-        await $.ajax({
-            url: "authorization/check.php",
-            method: "GET",
-            data: {id: getCookie("id_user")}
-        }).done(function (response) {
-            idRole = undefined;
-            localStorage.removeItem('countOpenWindow');
-            location.href = "/";
-        })
-
-    } else localStorage.setItem('countOpenWindow', countOpenWindow);
+    // let countOpenWindow = localStorage.getItem('countOpenWindow');
+    // countOpenWindow = countOpenWindow - 1;
+    //
+    // if (countOpenWindow < 1 || !countOpenWindow) {
+    //     await $.ajax({
+    //         url: "authorization/check.php",
+    //         method: "GET",
+    //         data: {id: getCookie("id_user")}
+    //     }).done(function (response) {
+    //         idRole = undefined;
+    //         localStorage.removeItem('countOpenWindow');
+    //         location.href = "/";
+    //     })
+    //
+    // } else localStorage.setItem('countOpenWindow', countOpenWindow);
 
     // await $.ajax({
     //     url: "authorization/check.php",

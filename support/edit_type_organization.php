@@ -47,7 +47,7 @@ foreach ($data as $type) {
     $newType->typeName = $type['type_name'];
     array_push($arrayTypes, $newType);
 }
-$query = "SELECT u.id_user, u.`username`, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name 
+$query = "SELECT u.id_user, u.`username` as usname, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name 
 FROM users u
 left outer join roles r on u.id_role=r.id_role
 left outer join uz uz on uz.id_uz=u.id_uz
@@ -71,6 +71,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                 <tr>
                     <th>Пользователь</th>
                     <th>Логин</th>
+                    <th>Email</th>
                     <th>Роль</th>
                     <th>Тип</th>
                 </tr>
@@ -85,8 +86,9 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
                     <tr style="cursor: pointer;">
 
-                        <td><?= $user['username'] ?></td>
+                        <td><?= $user['usname'] ?></td>
                         <td><?= $user['login'] ?></td>
+                        <td><?= $user['email'] ?></td>
                         <td><?= $user['name'] ?></td>
                         <td><select name="" id="types<?= $user['id_user'] ?>" onchange="changeType(this)">
                                 <option value="<?= $user['id_type'] ?>"><?= $user['id_type'] ? $user['type_name'] : "Не выбрано" ?></option>
@@ -105,6 +107,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                 <tr>
                     <th>Пользователь</th>
                     <th>Логин</th>
+                    <th>Email</th>
                     <th>Роль</th>
                     <th>Тип</th>
                 </tr>

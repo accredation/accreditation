@@ -59,6 +59,8 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $prikazNaznach = $row['prikazNaznach'];
     $selected_lico_value = $row['selected_lico_value'];
     $mark_accred_percent = $row['mark_accred_percent'];
+    $id_rkk = $row['id_rkk'];
+    $response['id_rkk'] = $row['id_rkk'];
 }
 
 array_push($cells,$naim);
@@ -85,6 +87,7 @@ array_push($cells,$zakluchenieSootvetstviya);
 array_push($cells,$prikazNaznach);
 array_push($cells,$selected_lico_value);
 
+
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
@@ -102,7 +105,9 @@ array_push($data,$cells);
 array_push($data,$subvis_names);
 array_push($data,$mark_percent);
 array_push($data,$mark_accred_percent);
+array_push($data,$response['id_rkk']);
 echo json_encode($data);
+
 
 mysqli_close($con);
 ?>

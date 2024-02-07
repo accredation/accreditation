@@ -1,7 +1,9 @@
 let id_app;
 let createrApp;
-function newShowModal(id_application) {
+let idRkk;
 
+function newShowModal(id_application) {
+    let btnRkk;
 
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
     if(!divSoprovodPismo.classList.contains("hiddentab"))
@@ -69,6 +71,12 @@ function newShowModal(id_application) {
         modalUcomplect.style = "display: none";
 
     }
+
+
+
+
+
+
 
 
     let btnSend = document.getElementById("btnSend");
@@ -199,7 +207,7 @@ function newShowModal(id_application) {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
-            btnNeOk.classList.remove("hiddentab");
+            // btnNeOk.classList.remove("hiddentab");
             btnChecking.classList.remove("hiddentab");
         }
         btnOk.classList.add("hiddentab");
@@ -207,12 +215,13 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+
     }
     else  {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
-            btnNeOk.classList.remove("hiddentab");
+            // btnNeOk.classList.remove("hiddentab");
             btnChecking.classList.remove("hiddentab");
         }
         btnOk.classList.add("hiddentab");
@@ -348,7 +357,31 @@ function newShowModal(id_application) {
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
+            let data1 = JSON.parse(response);
+            idRkk = data1[4];
+            if(idRkk !== "0"){
+                btnChecking.classList.remove("hiddentab");
 
+            }else{
+                btnChecking.classList.add("hiddentab");
+                btnRkk = document.createElement("button");
+                btnRkk.innerText = 'Регистрация';
+                btnChecking.insertAdjacentElement("afterend",btnRkk);
+                btnRkk.className = "btn btn-success";
+                let modalRkk = document.getElementById("modalRkk");
+                modalRkk.style.display = "none";
+                btnRkk.onclick = () => {
+                    modalRkk.style.display = "block";
+                }
+                $("#closexRkk").on("click", () => {
+                    modalRkk.style.display = "none";
+                });
+
+                $("#closeRkk").on("click", () => {
+                    modalRkk.style.display = "none";
+                });
+
+            }
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
