@@ -174,31 +174,31 @@
             }
             if (isset($value)) {
 
-                //  require_once "ajax/includeRole.php";
+                  require_once "ajax/includeRole.php";
                 switch ($value) {
                     case 'application':
-//                        if(isset($role)) {
-//                            if ($role == "3")
-//                                include 'api_application.php';
-//                            else{
-//                                phpAlert("Вам недоступна эта страница");
-//                            }
-//                        }else{
-//                            phpAlert("Требуется авторизация");
-//                        }
-                        include 'api_application.php';
+                        if(isset($role)) {
+                            if ($role == "3")
+                                include 'api_application.php';
+                            else{
+                                phpAlert("Вам недоступна эта страница");
+                            }
+                        }else{
+                            phpAlert("Требуется авторизация");
+                        }
+//                        include 'api_application.php';
                         break;
                     case 'users':
-//                        if(isset($role)) {
-//                            if ($role != "3")
-//                                include 'api_accreditation.php';
-//                            else{
-//                                phpAlert("Вам недоступна эта страница");
-//                            }
-//                        }else{
-//                            phpAlert("Требуется авторизация");
-//                        }
-                        include 'api_accreditation.php';
+                        if(isset($role)) {
+                            if ($role != "3")
+                                include 'api_accreditation.php';
+                            else{
+                                phpAlert("Вам недоступна эта страница");
+                            }
+                        }else{
+                            phpAlert("Требуется авторизация");
+                        }
+//                        include 'api_accreditation.php';
                         break;
                     case 'help':
                         include 'help.php';

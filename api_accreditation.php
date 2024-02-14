@@ -1,26 +1,28 @@
 <style>
-    .rolledUp{
+    .rolledUp {
         width: 25px;
         transition: 2s linear;
     }
 
-    .rightCardFS{
+    .rightCardFS {
         width: 100%;
         transition: 2s linear;
     }
 
-    .rightCard65{
+    .rightCard65 {
         width: 100%;
         transition: 2s linear;
     }
 
-    .hiddentab{
+    .hiddentab {
         display: none;
     }
-    .margleft{
+
+    .margleft {
         padding-left: 20px;
     }
-    .inform{
+
+    .inform {
         height: 20%;
         position: relative;
         display: flex;
@@ -36,7 +38,7 @@
         padding: 2.5rem 2.5rem;
     }
 
-    .sovet{
+    .sovet {
         height: 60%;
         position: relative;
         display: flex;
@@ -56,13 +58,16 @@
         transform: scale(1.2);
         font-weight: bold;
     }
-    #formDateDorabotka{
+
+    #formDateDorabotka {
         margin-left: 35px;
     }
-    #formFileReportDorabotka{
+
+    #formFileReportDorabotka {
         margin-left: 35px;
     }
-    .history{
+
+    .history {
         display: flex;
         justify-content: center;
     }
@@ -84,12 +89,12 @@
     }
 
     .table-image {
+
     td, th {
         vertical-align: middle;
     }
+
     }
-
-
 
 
     .modalHistoryCl {
@@ -104,14 +109,17 @@
         overflow: hidden;
         outline: 0;
     }
+
     .modalHistoryCl-body {
         max-height: 480px;
         width: 640px;
         overflow-y: auto;
     }
+
     .showcl {
         display: block;
     }
+
     .hiddentabcl {
         display: none;
     }
@@ -131,8 +139,9 @@
         background-color: transparent;
         border: none;
     }
-    .btn-dangers{
-        color:red;
+
+    .btn-dangers {
+        color: red;
     }
 
 </style>
@@ -1005,6 +1014,121 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modalRkkbody">
+
+                    <div class="row">
+                        <div class="col-6 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="newform-group">
+                                        <label>Дата регистрации</label>
+                                        <span id = "dateRegistr"></span>
+                                    </div>
+
+
+                                    <div class="form-group"> <label>В заявлении листов</label><input id="countlist" type="text" class="form-control" required/></div>
+                                    <div class="form-group"><label>Техническое оснащение</label><input class="form-control" id="tech_osn_rkk" type="text" required/></div>
+                                    <div class="form-group"><label>Штатное расписание</label><input class="form-control" type="text" id="stat_rasp" required/></div>
+                                    <div class="form-group"><label>Укомплектованность</label><input class="form-control" type="text" id="ucomp_rkk" required/></div>
+                                    <div class="form-group"><label>Отчет о самоакредитации</label><input class="form-control" type="text" id="report_samoacred" required/></div>
+                                    <div class="form-group"><label>Дополнительные сведения</label><input class="form-control" id="dop_sved" type="text" /></div>
+                                    <div class="form-group" >
+                                        <label>Заявление принял (ФИО, должность)</label>
+                                        <select class="form-control" name="" id="prinyal_zayav">
+
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group"><label>Представитель заинтересованного лица (ФИО, должность)</label><input class="form-control" type="text" id="predst_rkk" required/></div>
+                                    <div class="form-group">
+                                        <label>Заявление</label>
+                                        <select class="form-control" name="" id="prinyal_zayav">
+                                            <option value="0">Выбор    </option>
+                                            <option value="1">Первичное    </option>
+                                            <option value="2">Вторичное   </option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group"><label>Регистрационный индекс -</label><input class="form-control" id="reg_index" type="text"/></div>
+                                    <div class="form-group"><label>Даты, индексы повторных заявлений</label><input class="form-control" id="povtor_index" type="text"/></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-6 grid-margin">
+                             <div class="card">
+                                <div class="card-body">
+
+                        <div class="form-group"> <label>Информация о направлении запросов и в другие организации</label><input id="info_napr_zapr" type="text" class="form-control"/></div>
+                        <div class="form-group"> <label>Информация о согласии заинтересованного лица на предоставление документа</label><input id="info_sogl" type="text" class="form-control"/></div>
+                        <div class="form-group" style = "display: flex;"> <label>Протокол заседания комиссии №</label><input id="protolol_zasedanie" type="text" class="form-control"/>
+                        <label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">Дата</label> <input id="date_zasedanie" type="date" class="form-control" style="max-width: 30%;"/>
+                        </div>
+                        <div class="form-group"> <label>Информация о возврате заявления при отказе в принятии</label><input id="info_vozvrat" type="text" class="form-control"/></div>
+                        <div class="form-group"> <label>Информация об отзыве заявления</label><input id="info_otzyv" type="text" class="form-control"/></div>
+                        <div class="form-group" style = "display: flex;  "> <label style="margin-right:1rem">Административное решение №</label><input id="admin_resh" type="text" class="form-control"/>
+                        <label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">Дата</label><input id="date_admin_resh" type="date" class="form-control"/>
+                        <label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">Листов</label><input id="count_admin_resh" type="text" class="form-control"/>
+                        </div>
+                        <div class="form-group" style = "display: flex;"> <label style="margin-right:1rem">Свидетельство №</label><input id="svidetelstvo" type="text" class="form-control"/>
+                        <label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">Дата</label><input id="date_svidetelstvo" type="date" class="form-control"/>
+                        <label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">Листов</label><input id="count_svidetelstvo" type="text" class="form-control"/>
+                        </div>
+
+                        <div class="form-group"> <label>Информация об уведомлении заинтересованного лица</label><input id="info_uved" type="text" class="form-control"/></div>
+                        <div class="form-group " style = "display: flex; justify-content: space-between;"> <label style="
+
+    margin-top: 1rem;">Отчет о медицинской аккредитации</label> <div style="display:flex"><label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">Листов</label><input id="count_medacr" type="text" class="form-control" /></div></div>
+                        <div class="form-group"> <label>Получил на руки (ФИО, должность)</label><input id="getter" type="text" class="form-control"/></div>
+                        <div class="form-group" style = "display: flex;"> <label style="
+    margin-right: 1rem;
+    margin-top: 1rem;">В дело №</label><input id="delo" type="text" class="form-control" style="max-width: 31%;"/>
+                        <span style="margin-left: 1rem;
+
+    margin-top: 1rem;">Снято с контроля</span>
+                        <label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">Дата</label>
+                        <input id="date_delo" type="date" class="form-control" style="max-width: 30%;"/>
+                        </div>
+
+                        <div class="form-group"> <label>Дополнительная информация</label> <input id="dop_info" type="text" class="form-control"/></div>
+
+
+                                </div>
+                             </div>
+                        </div>
+
+
+
+
+                        <div style="width: 100%">
+                            <div style="display:flex; justify-content: flex-end;">
+                                <button type="button" class="btn btn-success" id="" style="margin-right: 10px">Зарегистрировать</button>
+                                <button type="button" class="btn btn-warning" id="" style="margin-right: 10px">Отмена</button>
+                                <button type="button" class="btn btn-primary" id="" style="margin-right: 10px">Сохранить</button>
+                                <button type="button" class="btn btn-secondary" id="" style="margin-right: 10px">Печать</button>
+                                <button type="button" class="btn btn-info" id="" style="margin-right: 20px">Снять с контроля</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
 
                 </div>
                 <!-- Modal footer -->

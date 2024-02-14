@@ -257,6 +257,7 @@ include 'authorization/auth.php';
             } else {
                 if (arr.length == "2") {
                     if (arr[0] == "1") {
+                        console.log(arr[0] + 'responic1');
                         alert("Учетная запись занята");
                     } else
                         alert("Неверный логин или пароль");

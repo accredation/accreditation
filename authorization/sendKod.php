@@ -33,7 +33,7 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
 
                         $textSubj = "Код для авторизации в мед.аккредитации";
                         $msg = "Ваш код авторизации:\n
-                        $kod";
+                        $kod для логина $login";
                         $headers = 'From: support@rnpcmt.by' . "\r\n" .
                             'Content-type: text/html; charset=utf-8' . "\r\n" .
                             'X-Mailer: PHP/' . phpversion();

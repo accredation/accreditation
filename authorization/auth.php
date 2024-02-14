@@ -70,7 +70,7 @@ function login()
             {
                 $row = mysqli_fetch_assoc($rez); //она записывается в ассоциативный массив
 
-                setcookie("login", $row['login'], time() + 10, "/");
+                setcookie("login", $row['login'], time() + 1800, "/");
 
                 setcookie("password", md5($row['login'] . $row['password']), time() + 1800, "/");
 

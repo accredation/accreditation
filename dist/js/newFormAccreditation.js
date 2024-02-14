@@ -364,8 +364,10 @@ function newShowModal(id_application) {
 
             }else{
                 btnChecking.classList.add("hiddentab");
+
                 btnRkk = document.createElement("button");
                 btnRkk.innerText = 'Регистрация';
+                btnRkk.id = "btnRkkid";
                 btnChecking.insertAdjacentElement("afterend",btnRkk);
                 btnRkk.className = "btn btn-success";
                 let modalRkk = document.getElementById("modalRkk");
@@ -461,6 +463,7 @@ function newShowModal(id_application) {
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
+        let btnRkkid = document.getElementById("btnRkkid");
         
         let DD = formDateDorabotka.querySelectorAll("span");
         
@@ -499,6 +502,9 @@ function newShowModal(id_application) {
                         }
                         if (rep) {
                             rep.remove();
+                        }
+                        if (btnRkkid) {
+                            btnRkkid.remove();
                         }
                         if (sopr) {
                             sopr.remove();
@@ -557,6 +563,9 @@ function newShowModal(id_application) {
                 if (rep) {
                     rep.remove();
                 }
+                if (btnRkkid) {
+                    btnRkkid.remove();
+                }
                 if (sopr) {
                     sopr.remove();
                 }
@@ -608,6 +617,9 @@ function newShowModal(id_application) {
             }
             if (rep) {
                 rep.remove();
+            }
+            if (btnRkkid) {
+                btnRkkid.remove();
             }
             if (sopr) {
                 sopr.remove();
@@ -659,6 +671,7 @@ function newShowModal(id_application) {
         let DD = formDateDorabotka.querySelectorAll("span");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
+        let btnRkkid = document.getElementById("btnRkkid");
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -692,6 +705,9 @@ function newShowModal(id_application) {
                         }
                         if (rep) {
                             rep.remove();
+                        }
+                        if (btnRkkid) {
+                            btnRkkid.remove();
                         }
                         if (sopr) {
                             sopr.remove();
@@ -748,6 +764,9 @@ function newShowModal(id_application) {
                 if (rep) {
                     rep.remove();
                 }
+                if (btnRkkid) {
+                    btnRkkid.remove();
+                }
                 if (sopr) {
                     sopr.remove();
                 }
@@ -799,6 +818,9 @@ function newShowModal(id_application) {
             }
             if (rep) {
                 rep.remove();
+            }
+            if (btnRkkid) {
+                btnRkkid.remove();
             }
             if (sopr) {
                 sopr.remove();

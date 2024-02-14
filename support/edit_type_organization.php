@@ -47,11 +47,12 @@ foreach ($data as $type) {
     $newType->typeName = $type['type_name'];
     array_push($arrayTypes, $newType);
 }
-$query = "SELECT u.id_user, u.`username` as usname, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name 
+$query = "SELECT u.id_user, u.`username` as usname, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name, u.last_time_session, u.online
 FROM users u
 left outer join roles r on u.id_role=r.id_role
 left outer join uz uz on uz.id_uz=u.id_uz
-left outer join spr_type_organization st on uz.id_type=st.id_type";
+left outer join spr_type_organization st on uz.id_type=st.id_type
+where u.active = 1";
 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 ?>
@@ -74,6 +75,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Email</th>
                     <th>Роль</th>
                     <th>Тип</th>
+                    <th>Сессия</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -96,6 +98,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                     <option value="<?=$t->id_type?>"><?=$t->typeName?></option>
                                 <?php } ?>
                             </select></td>
+                        <td><?= $user['online'] !== '0' && $user['last_time_session'] !== 'null' ? "<button onclick='closeSess(".$user['id_user'].")'>Закрыть</button>" : "нет активной сессии"?></td>
 
                     </tr>
                     <?php
@@ -110,6 +113,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Email</th>
                     <th>Роль</th>
                     <th>Тип</th>
+                    <th>Сессия</th>
                 </tr>
                 </tfoot>
             </table>
@@ -161,6 +165,17 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
         }).done(function (response){
             console.log("id_us", id);
             console.log("id_type", id_type);
+        })
+    }
+
+    function closeSess(idUser){
+        $.ajax({
+            url: "closeSession.php",
+            method: "GET",
+            data: {id_user:idUser }
+
+        }).done(function (response){
+            alert("Сессия закрыта");
         })
     }
 </script>
