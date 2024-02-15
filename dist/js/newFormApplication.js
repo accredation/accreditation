@@ -228,8 +228,6 @@ function newShowModal(id_application) {
     if (status == 1 || status == 5) {
         formFileReportDorabotka.style.display = "block";
         formDateDorabotka.style.display = "block";
-        if(btnSend)
-        btnSend.classList.remove("hiddentab");
         checkUserRole();
 
     } else {
@@ -264,13 +262,8 @@ function newShowModal(id_application) {
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
 
-        if(!btnSend) {
-            btnSend = document.getElementById("newBtnSend")
-
+        if(btnSend)
             btnSend.classList.add("hiddentab");
-
-        }
-
         if (btnCalc) {
             btnCalc.remove();
         }
@@ -1590,12 +1583,18 @@ function addFile(idCrit, idDep, input) {
         let fileName = addedFile.name;
         let extAr = fileName.substring(fileName.lastIndexOf('.'), fileName.length);
         console.log(extAr);
-        if (extAr !== ".pdf") {
-            alert("Неверный формат. Допустимый формат pdf");
+        if(fileName.length > 120) {
+            alert('Слишком длинное имя файла');
             xhr.abort();
-        } else {
-            load.innerHTML = "Подождите, идет загрузка";
-            input.disabled = "true";
+        }
+        else {
+            if (extAr !== ".pdf") {
+                alert("Неверный формат. Допустимый формат pdf");
+                xhr.abort();
+            } else {
+                load.innerHTML = "Подождите, идет загрузка";
+                input.disabled = "true";
+            }
         }
     };
 

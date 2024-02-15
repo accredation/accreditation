@@ -23,7 +23,7 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
 
                     $time = date('Y-m-d H:i:s');
 
-                    if($row['last_time_session'] < $time ) {
+
                        //////////////////////
 
                         $kod = rand(1000, 9999);
@@ -38,21 +38,13 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
                             'Content-type: text/html; charset=utf-8' . "\r\n" .
                             'X-Mailer: PHP/' . phpversion();
 
-                        if (mail($row['email'], $textSubj, $msg, $headers)) {
+                        mail($row['email'], $textSubj, $msg, $headers);
                             echo "1";
-                        } else {
-                            echo "2";
-                        }
+
 
                         return;
                        ///////////////////////
-                    } else {
-                        array_push($error,'1');
-                        array_push($error, $row['last_time_session']);
-                     //   $error[] = "1";
-                        echo json_encode($error);
-                        return;
-                    }
+
 
 
 

@@ -37,7 +37,7 @@ $(document).ready(function () {
             //     localStorage.setItem('countOpenWindow', countOpenWindow);
             // } else localStorage.setItem('countOpenWindow', '0');
 
-            setInterval(() => checkAuth(), 1000);
+            // checkAuth();
         }
         let loginFromCoockie = getCookie("login");
         if (loginFromCoockie.length == "0") {
@@ -62,83 +62,7 @@ $(document).ready(function () {
 let mylogin;
 let myidUser;
 let ageSess;
-function checkAuth() {
 
-    let ageSession = getCookie('ageSession');
-    if(getCookie("login") === undefined) {
-        location.href = "/login.php";
-    }else {
-
-        if (ageSession == "") {
-            mylogin = localStorage.getItem("login");
-            myidUser = localStorage.getItem("id_user");
-
-            $.ajax({
-                url: "authorization/outAfterClearCookie.php",
-                method: "POST",
-                data: {id_user: myidUser}
-            }).then(() => {
-                alert("Ваша сессия окончена, куки очищены");
-                location.href = "/login.php"
-            })
-        } else {
-            localStorage.setItem("login", getCookie("login"));
-            localStorage.setItem("id_user", getCookie("id_user"));
-        }
-        let currentDate = new Date();
-        let year = currentDate.getFullYear();
-        let month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        let day = String(currentDate.getDate()).padStart(2, '0');
-        let hours = String(currentDate.getHours()).padStart(2, '0');
-        let minutes = String(currentDate.getMinutes()).padStart(2, '0');
-        let seconds = String(currentDate.getSeconds()).padStart(2, '0');
-
-        let formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-
-        let dateAgeSession = new Date(ageSession)
-        let dateNow = new Date(formattedDate)
-
-        const diffInMs = dateAgeSession - dateNow;
-        const diffInSeconds = Math.floor(diffInMs / 1000);
-        const minutes1 = Math.floor(diffInSeconds / 60);
-        let seconds1 = diffInSeconds % 60;
-
-        seconds1 = seconds1 < 10 ? "0" + seconds1 : seconds1;
-
-        let timeOut = document.getElementById("timeOut");
-        timeOut.innerHTML = `Сессия завершится через ${minutes1}:${seconds1}`;
-
-        if (dateAgeSession <= dateNow) {
-            //   console.log('тут надо написать выход из аккаунта');
-            $.ajax({
-                url: "authorization/check.php",
-                method: "GET",
-                data: {id: getCookie("id_user")},
-                success: () => {
-                    idRole = undefined;
-                    alert("Ваша сессия закончена");
-
-                    // let countOpenWindow = localStorage.getItem('countOpenWindow');
-                    // if (countOpenWindow) {
-                    //     countOpenWindow = countOpenWindow - 1;
-                    //     localStorage.setItem('countOpenWindow', countOpenWindow)
-                    // }
-
-
-                    location.href = "/";
-                }
-            })
-        }
-
-        const url = window.location.search;
-
-        if (url === "?users" || url === "?application") {
-            let timeLeftSession = document.getElementById("timeLeftSession");
-            timeLeftSession.innerHTML = `Сессия завершится через ${minutes1}:${seconds1}`;
-        }
-    }
-
-}
 
 
 function getCookie(cname) {

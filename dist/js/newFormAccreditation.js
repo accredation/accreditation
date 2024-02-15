@@ -1,9 +1,7 @@
 let id_app;
 let createrApp;
-let idRkk;
-
 function newShowModal(id_application) {
-    let btnRkk;
+
 
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
     if(!divSoprovodPismo.classList.contains("hiddentab"))
@@ -71,12 +69,6 @@ function newShowModal(id_application) {
         modalUcomplect.style = "display: none";
 
     }
-
-
-
-
-
-
 
 
     let btnSend = document.getElementById("btnSend");
@@ -207,7 +199,7 @@ function newShowModal(id_application) {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
-            // btnNeOk.classList.remove("hiddentab");
+            btnNeOk.classList.remove("hiddentab");
             btnChecking.classList.remove("hiddentab");
         }
         btnOk.classList.add("hiddentab");
@@ -215,13 +207,12 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
-
     }
     else  {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
-            // btnNeOk.classList.remove("hiddentab");
+            btnNeOk.classList.remove("hiddentab");
             btnChecking.classList.remove("hiddentab");
         }
         btnOk.classList.add("hiddentab");
@@ -357,33 +348,7 @@ function newShowModal(id_application) {
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
-            let data1 = JSON.parse(response);
-            idRkk = data1[4];
-            if(idRkk !== "0"){
-                btnChecking.classList.remove("hiddentab");
 
-            }else{
-                btnChecking.classList.add("hiddentab");
-
-                btnRkk = document.createElement("button");
-                btnRkk.innerText = 'Регистрация';
-                btnRkk.id = "btnRkkid";
-                btnChecking.insertAdjacentElement("afterend",btnRkk);
-                btnRkk.className = "btn btn-success";
-                let modalRkk = document.getElementById("modalRkk");
-                modalRkk.style.display = "none";
-                btnRkk.onclick = () => {
-                    modalRkk.style.display = "block";
-                }
-                $("#closexRkk").on("click", () => {
-                    modalRkk.style.display = "none";
-                });
-
-                $("#closeRkk").on("click", () => {
-                    modalRkk.style.display = "none";
-                });
-
-            }
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
@@ -463,7 +428,6 @@ function newShowModal(id_application) {
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
-        let btnRkkid = document.getElementById("btnRkkid");
         
         let DD = formDateDorabotka.querySelectorAll("span");
         
@@ -502,9 +466,6 @@ function newShowModal(id_application) {
                         }
                         if (rep) {
                             rep.remove();
-                        }
-                        if (btnRkkid) {
-                            btnRkkid.remove();
                         }
                         if (sopr) {
                             sopr.remove();
@@ -563,9 +524,6 @@ function newShowModal(id_application) {
                 if (rep) {
                     rep.remove();
                 }
-                if (btnRkkid) {
-                    btnRkkid.remove();
-                }
                 if (sopr) {
                     sopr.remove();
                 }
@@ -617,9 +575,6 @@ function newShowModal(id_application) {
             }
             if (rep) {
                 rep.remove();
-            }
-            if (btnRkkid) {
-                btnRkkid.remove();
             }
             if (sopr) {
                 sopr.remove();
@@ -671,7 +626,6 @@ function newShowModal(id_application) {
         let DD = formDateDorabotka.querySelectorAll("span");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
-        let btnRkkid = document.getElementById("btnRkkid");
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -705,9 +659,6 @@ function newShowModal(id_application) {
                         }
                         if (rep) {
                             rep.remove();
-                        }
-                        if (btnRkkid) {
-                            btnRkkid.remove();
                         }
                         if (sopr) {
                             sopr.remove();
@@ -764,9 +715,6 @@ function newShowModal(id_application) {
                 if (rep) {
                     rep.remove();
                 }
-                if (btnRkkid) {
-                    btnRkkid.remove();
-                }
                 if (sopr) {
                     sopr.remove();
                 }
@@ -818,9 +766,6 @@ function newShowModal(id_application) {
             }
             if (rep) {
                 rep.remove();
-            }
-            if (btnRkkid) {
-                btnRkkid.remove();
             }
             if (sopr) {
                 sopr.remove();

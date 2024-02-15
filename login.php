@@ -247,7 +247,7 @@ include 'authorization/auth.php';
             document.getElementById("exampleInputEmail1").removeAttribute("disabled");
             document.getElementById("exampleInputPassword1").removeAttribute("disabled");
             div11.remove();
-            if (response === "1") {
+            if (response === "1" ) {
                 $('#codeModal').modal({
                     backdrop: 'static',
                     keyboard: false,
@@ -255,15 +255,9 @@ include 'authorization/auth.php';
                 });
 
             } else {
-                if (arr.length == "2") {
-                    if (arr[0] == "1") {
-                        console.log(arr[0] + 'responic1');
-                        alert("Учетная запись занята");
-                    } else
-                        alert("Неверный логин или пароль");
-                } else {
+
                     alert("Неверный логин или пароль");
-                }
+
             }
         })
     }

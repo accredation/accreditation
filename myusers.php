@@ -402,12 +402,12 @@
 ?>
 
 <script>
-    $(document).ready(function () {
+
         $(document).ready(function () {
             let example_filter = document.getElementById("sotr_th_data");
             example_filter.click();
-            example_filter.click();
+
         })
-    })
+
 </script>
 
