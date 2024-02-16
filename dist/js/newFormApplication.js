@@ -2,11 +2,11 @@ let id_app;
 let createrApp;
 function newShowModal(id_application) {
 
-    let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
-    if (formFileReportZakluchenieSootvet) {
-        if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
-            formFileReportZakluchenieSootvet.classList.remove("hiddentab");
-    }
+    // let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
+    // if (formFileReportZakluchenieSootvet) {
+    //     if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
+    //         formFileReportZakluchenieSootvet.classList.remove("hiddentab");
+    // }
     createrApp = "";
 
     $.ajax({
@@ -367,13 +367,13 @@ if (reportZakluchenieSootvetSelect) {
         let ucompl = divUcomplect.getElementsByTagName("a")[0];
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
-        let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
+     //   let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
-        let fRD = formFileReportDorabotka.querySelectorAll("a");
+      //  let fRD = formFileReportDorabotka.querySelectorAll("a");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
         
-        let DD = formDateDorabotka.querySelectorAll("span");
+    //    let DD = formDateDorabotka.querySelectorAll("span");
         
 
         var collapseElement = document.getElementsByClassName('collapse');
@@ -397,17 +397,17 @@ if (reportZakluchenieSootvetSelect) {
                         if (samoocenka) {
                             samoocenka.remove();
                         }
-                        if (divZakluchenieSootvet) {
-                            divZakluchenieSootvet.remove();
-                        }
+                        // if (divZakluchenieSootvet) {
+                        //     divZakluchenieSootvet.remove();
+                        // }
                         // Удалить все найденные элементы с тегом "a"
-                        for (let anchor of fRD) {
-                            anchor.remove();
-                        }
+                        // for (let anchor of fRD) {
+                        //     anchor.remove();
+                        // }
 
-                        for (let anchor of DD) {
-                            anchor.remove();
-                        }
+                        // for (let anchor of DD) {
+                        //     anchor.remove();
+                        // }
                         if (rep) {
                             rep.remove();
                         }
@@ -454,17 +454,17 @@ if (reportZakluchenieSootvetSelect) {
                 if (samoocenka) {
                     samoocenka.remove();
                 }
-                if (divZakluchenieSootvet) {
-                    divZakluchenieSootvet.remove();
-                }
+                // if (divZakluchenieSootvet) {
+                //     divZakluchenieSootvet.remove();
+                // }
                 // Удалить все найденные элементы с тегом "a"
-                for (let anchor of fRD) {
-                    anchor.remove();
-                }
+                // for (let anchor of fRD) {
+                //     anchor.remove();
+                // }
 
-                for (let anchor of DD) {
-                    anchor.remove();
-                }
+                // for (let anchor of DD) {
+                //     anchor.remove();
+                // }
                 if (rep) {
                     rep.remove();
                 }
@@ -506,17 +506,17 @@ if (reportZakluchenieSootvetSelect) {
             if (samoocenka) {
                 samoocenka.remove();
             }
-            if (divZakluchenieSootvet) {
-                divZakluchenieSootvet.remove();
-            }
+            // if (divZakluchenieSootvet) {
+            //     divZakluchenieSootvet.remove();
+            // }
             // Удалить все найденные элементы с тегом "a"
-            for (let anchor of fRD) {
-                anchor.remove();
-            }
+            // for (let anchor of fRD) {
+            //     anchor.remove();
+            // }
 
-            for (let anchor of DD) {
-                anchor.remove();
-            }
+            // for (let anchor of DD) {
+            //     anchor.remove();
+            // }
             if (rep) {
                 rep.remove();
             }
@@ -565,9 +565,9 @@ if (reportZakluchenieSootvetSelect) {
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
-        let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
-        let fRD = formFileReportDorabotka.querySelectorAll("a");
-        let DD = formDateDorabotka.querySelectorAll("span");
+     //   let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
+     //   let fRD = formFileReportDorabotka.querySelectorAll("a");
+      //  let DD = formDateDorabotka.querySelectorAll("span");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
 
@@ -590,17 +590,17 @@ if (reportZakluchenieSootvetSelect) {
                         if (samoocenka) {
                             samoocenka.remove();
                         }
-                        if (divZakluchenieSootvet) {
-                            divZakluchenieSootvet.remove();
-                        }
+                        // if (divZakluchenieSootvet) {
+                        //     divZakluchenieSootvet.remove();
+                        // }
                         // Удалить все найденные элементы с тегом "a"
-                        for (let anchor of fRD) {
-                            anchor.remove();
-                        }
+                        // for (let anchor of fRD) {
+                        //     anchor.remove();
+                        // }
 
-                        for (let anchor of DD) {
-                            anchor.remove();
-                        }
+                        // for (let anchor of DD) {
+                        //     anchor.remove();
+                        // }
                         if (rep) {
                             rep.remove();
                         }
@@ -645,17 +645,17 @@ if (reportZakluchenieSootvetSelect) {
                 if (samoocenka) {
                     samoocenka.remove();
                 }
-                if (divZakluchenieSootvet) {
-                    divZakluchenieSootvet.remove();
-                }
+                // if (divZakluchenieSootvet) {
+                //     divZakluchenieSootvet.remove();
+                // }
                 // Удалить все найденные элементы с тегом "a"
-                for (let anchor of fRD) {
-                    anchor.remove();
-                }
+                // for (let anchor of fRD) {
+                //     anchor.remove();
+                // }
 
-                for (let anchor of DD) {
-                    anchor.remove();
-                }
+                // for (let anchor of DD) {
+                //     anchor.remove();
+                // }
                 if (rep) {
                     rep.remove();
                 }
@@ -697,17 +697,17 @@ if (reportZakluchenieSootvetSelect) {
             if (samoocenka) {
                 samoocenka.remove();
             }
-            if (divZakluchenieSootvet) {
-                divZakluchenieSootvet.remove();
-            }
+            // if (divZakluchenieSootvet) {
+            //     divZakluchenieSootvet.remove();
+            // }
             // Удалить все найденные элементы с тегом "a"
-            for (let anchor of fRD) {
-                anchor.remove();
-            }
+            // for (let anchor of fRD) {
+            //     anchor.remove();
+            // }
 
-            for (let anchor of DD) {
-                anchor.remove();
-            }
+            // for (let anchor of DD) {
+            //     anchor.remove();
+            // }
             if (rep) {
                 rep.remove();
             }
