@@ -162,10 +162,10 @@ function newShowModal(id_application) {
 
         let doverennostSelel = document.getElementById("doverennost");
         doverennostSelel.setAttribute("disabled",true);
-if (reportZakluchenieSootvetSelect) {
-    let reportZakluchenieSootvetSelect = document.getElementById("reportZakluchenieSootvet");
-    reportZakluchenieSootvetSelect.setAttribute("disabled", true);
-}
+// if (reportZakluchenieSootvetSelect) {
+//     let reportZakluchenieSootvetSelect = document.getElementById("reportZakluchenieSootvet");
+//     reportZakluchenieSootvetSelect.setAttribute("disabled", true);
+// }
 
 
 
