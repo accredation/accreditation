@@ -144,9 +144,13 @@
         color: red;
     }
 
+    .zvezda {
+        color: red;
+    }
+
 </style>
 
-<?php if(isset($_COOKIE['login'])){?>
+<?php if (isset($_COOKIE['login'])) { ?>
     <div class="content-wrapper">
         <div class="row" id="proBanner">
             <div class="col-12">
@@ -165,28 +169,34 @@
                 <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                     <ul class="nav nav-tabs tab-transparent" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Новые</a>
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab"
+                               aria-selected="true">Новые</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab" aria-selected="false">На рассмотрении</a>
+                            <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab"
+                               aria-selected="false">На рассмотрении</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Завершена оценка</a>
+                            <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab"
+                               aria-selected="false">Завершена оценка</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">На доработке</a>
+                            <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab"
+                               aria-selected="false">На доработке</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="reshenieSoveta-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Решение совета</a>
+                            <a class="nav-link" id="reshenieSoveta-tab" data-toggle="tab" href="#" role="tab"
+                               aria-selected="false">Решение совета</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="accredArchive-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Архив</a>
+                            <a class="nav-link" id="accredArchive-tab" data-toggle="tab" href="#" role="tab"
+                               aria-selected="false">Архив</a>
                         </li>
 
                     </ul>
                     <div class="d-md-block d-none">
-<!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
-<!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
+                        <!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
+                        <!--                        <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
                     </div>
                 </div>
                 <div class="tab-content tab-transparent-content">
@@ -206,25 +216,25 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3 && $role < 12){
+                                        if ($role > 3 && $role < 12) {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 2 and uz.oblast = '$role'";
-                                        }
-                                        else {
+                                        } else {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 2";
                                         }
-                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
@@ -236,12 +246,14 @@
 
                                             foreach ($data as $app) {
                                                 include "ajax/mainMark.php"
-/*                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">*/
+                                                /*                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">*/
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
 
-                                                    <td>Заявление <?= $app['username'] ?>  <?= $app['id_rkk'] == "0" ? "№". $app['app_id'] : "" ?></td>
+                                                    <td>
+                                                        Заявление <?= $app['username'] ?>  <?= $app['id_rkk'] == "0" ? "№" . $app['app_id'] : "" ?></td>
                                                     <td><?= $app['date_send'] ?></td>
 
 
@@ -264,11 +276,6 @@
                 </div>
 
 
-
-
-
-
-
                 <div class="tab-content tab-transparent-content">
                     <div class="tab-pane fade" id="rassmotrenie" role="tabpanel" aria-labelledby="rassmotrenie-tab">
                         <div class="row">
@@ -277,17 +284,17 @@
                                     <div class="card-body">
 
                                         <?php
-//                                        $login = $_COOKIE['login'];
-//                                        $insertquery = "SELECT * FROM users WHERE login='$login'";
-//
-//                                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
-//                                        $username = "";
-//                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
-//                                        {
-//                                            $row = mysqli_fetch_assoc($rez);
-//                                            $id = $row['id_user'];
-//                                            $username = $row['username'];
-//                                        }
+                                        //                                        $login = $_COOKIE['login'];
+                                        //                                        $insertquery = "SELECT * FROM users WHERE login='$login'";
+                                        //
+                                        //                                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+                                        //                                        $username = "";
+                                        //                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        //                                        {
+                                        //                                            $row = mysqli_fetch_assoc($rez);
+                                        //                                            $id = $row['id_user'];
+                                        //                                            $username = $row['username'];
+                                        //                                        }
                                         $query = "SELECT * FROM users where login = '$login'";
 
                                         $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
@@ -296,25 +303,25 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3 && $role < 12){
+                                        if ($role > 3 && $role < 12) {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 3 and u.oblast = '$role'";
-                                        }
-                                        else {
+                                        } else {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                     where id_status = 3";
                                         }
-                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
@@ -325,10 +332,11 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                    include "ajax/mainMark.php";
+                                                include "ajax/mainMark.php";
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
@@ -370,25 +378,25 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3 && $role < 12){
+                                        if ($role > 3 && $role < 12) {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 4 and u.oblast = '$role'";
-                                        }
-                                        else {
+                                        } else {
 
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user where id_status = 4";
                                         }
-                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
@@ -402,7 +410,8 @@
                                                 include "ajax/mainMark.php";
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
@@ -444,25 +453,25 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3 && $role < 12){
+                                        if ($role > 3 && $role < 12) {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 5 and u.oblast = '$role'";
-                                        }
-                                        else {
+                                        } else {
 
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user where id_status = 5";
                                         }
-                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
@@ -476,7 +485,8 @@
                                                 include "ajax/mainMark.php";
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
@@ -502,10 +512,6 @@
                 </div>
 
 
-
-
-
-
                 <div class="tab-content tab-transparent-content">
                     <div class="tab-pane fade" id="reshenieSoveta" role="tabpanel" aria-labelledby="reshenieSoveta-tab">
                         <div class="row">
@@ -522,25 +528,25 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3 && $role < 12){
+                                        if ($role > 3 && $role < 12) {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 6 and u.oblast = '$role'";
-                                        }
-                                        else {
+                                        } else {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 6";
                                         }
-                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
@@ -554,9 +560,10 @@
                                                 include "ajax/mainMark.php"
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')" style="cursor: pointer;">
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
 
-                                                    <td>Заявление <?= $app['username'] ?>  №<?= $app['app_id'] ?></td>
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
                                                     <td><?= $app['date_council'] ?></td>
 
 
@@ -595,25 +602,25 @@
                                             $row = mysqli_fetch_assoc($rez);
                                             $role = $row['id_role'];
                                         }
-                                        if ($role > 3 && $role < 12){
+                                        if ($role > 3 && $role < 12) {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 8 and u.oblast = '$role'";
-                                        }
-                                        else {
+                                        } else {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 8";
                                         }
-                                        $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
@@ -627,9 +634,10 @@
                                                 include "ajax/mainMark.php"
                                                 ?>
 
-                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')" style="cursor: pointer;">
+                                                <tr onclick="showModal('<?= $app['app_id'] ?>', '<?= $str_CalcSelfMark ?>', '<?= $str_CalcSelfMarkAccred ?>')"
+                                                    style="cursor: pointer;">
 
-                                                <td>Заявление <?= $app['username'] ?>  №<?= $app['app_id'] ?></td>
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
                                                     <td><?= $app['date_council'] ?></td>
 
 
@@ -659,7 +667,7 @@
             <div class="modal-content">
 
                 <!-- Modal Header -->
-                <div class="modal-header" >
+                <div class="modal-header">
                     <div style="display: flex">
                         <h4 class="modal-title">Создание заявления</h4>
                         <h4 id="id_application" style="margin-left: 5px"></h4>
@@ -670,7 +678,8 @@
                             <h5 style="display: contents;" id="timeLeftSession"></h5>
                         </div>
 
-                    <button type="button" class="btn  btn-danger btn-close closeX"  data-bs-dismiss="modal" >x</button>
+                        <button type="button" class="btn  btn-danger btn-close closeX" data-bs-dismiss="modal">x
+                        </button>
                     </div>
                 </div>
 
@@ -678,113 +687,149 @@
                 <div class="modal-body">
 
 
-
-
                     <div class="col-md-12">
                         <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                             <ul class="nav nav-tabs tab-transparent" role="tablist" id="tablist">
                                 <li class="nav-item" id="tab1" onclick="showTab(this)">
-                                    <button class="nav-link active"  data-toggle="tab" href="#" role="tab" aria-selected="true" id = "button1" >Общие сведения о заявителе</button>
+                                    <button class="nav-link active" data-toggle="tab" href="#" role="tab"
+                                            aria-selected="true" id="button1">Общие сведения о заявителе
+                                    </button>
                                 </li>
 
 
                                 <!--                            ...-->
                             </ul>
                             <div class="d-md-block d-none">
-<!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
-<!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
+                                <!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
+                                <!--                                <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>-->
                             </div>
                         </div>
                         <div class="tab-content tab-transparent-content">
-                            <div class="tab-pane fade show active" id="tab1-" role="tabpanel" aria-labelledby="business-tab" >
+                            <div class="tab-pane fade show active" id="tab1-" role="tabpanel"
+                                 aria-labelledby="business-tab">
 
                                 <div class="row">
                                     <div class="col-6 grid-margin">
                                         <div class="card">
                                             <div class="card-body">
 
-                                                <div class="form-group"> <label>Наименование юридического лица</label><input id="naim" type="text" class="form-control" readonly/></div>
-                                                <div class="form-group"><label>Сокращенное наименование</label><input class="form-control" id="sokr" type="text" readonly/></div>
-                                                <div class="form-group"><label>УНП</label><input class="form-control" type="text" id="unp" onfocusout="onInputUnp()" readonly/></div>
-                                                <div class="form-group"><label>Юридический адрес</label><input class="form-control" type="text" id="adress" onfocusout="onInputAdress()" readonly/></div>
-                                                <div class="form-group"><label>Фактический адрес</label><input class="form-control" type="text" id="adressFact" onfocusout="onInputAdressFact()" readonly/></div>
-                                                <div class="form-group"><label>Номер телефона</label><input class="form-control" id="tel" type="text" readonly/></div>
-                                                <div class="form-group"><label>Электронная почта</label><input class="form-control" type="email" id="email" onfocusout="onInputEmail()" readonly/></div>
+                                                <div class="form-group"><label>Наименование юридического
+                                                        лица</label><input id="naim" type="text" class="form-control"
+                                                                           readonly/></div>
+                                                <div class="form-group"><label>Сокращенное наименование</label><input
+                                                            class="form-control" id="sokr" type="text" readonly/></div>
+                                                <div class="form-group"><label>УНП</label><input class="form-control"
+                                                                                                 type="text" id="unp"
+                                                                                                 onfocusout="onInputUnp()"
+                                                                                                 readonly/></div>
+                                                <div class="form-group"><label>Юридический адрес</label><input
+                                                            class="form-control" type="text" id="adress"
+                                                            onfocusout="onInputAdress()" readonly/></div>
+                                                <div class="form-group"><label>Фактический адрес</label><input
+                                                            class="form-control" type="text" id="adressFact"
+                                                            onfocusout="onInputAdressFact()" readonly/></div>
+                                                <div class="form-group"><label>Номер телефона</label><input
+                                                            class="form-control" id="tel" type="text" readonly/></div>
+                                                <div class="form-group"><label>Электронная почта</label><input
+                                                            class="form-control" type="email" id="email"
+                                                            onfocusout="onInputEmail()" readonly/></div>
                                                 <div class="form-group">
-                                                    <select name="" id="lico" onchange="chengeLico(this)" disabled = "true">
+                                                    <select name="" id="lico" onchange="chengeLico(this)"
+                                                            disabled="true">
                                                         <option value="0">Выбрать ответственное лицо</option>
                                                         <option value="1">Руководитель</option>
                                                         <option value="2">Представитель</option>
                                                     </select>
                                                 </div>
-                                                <div id="rukDiv" class="form-group hiddentab"><label>Руководитель</label><input class="form-control" type="text" id="rukovoditel" placeholder="Должность, ФИО" readonly/></div>
-                                                <div id="predDiv" class="form-group hiddentab"><label>Представитель</label><input class="form-control" type="text" id="predstavitel" placeholder="Должность, ФИО" readonly/></div>
+                                                <div id="rukDiv" class="form-group hiddentab">
+                                                    <label>Руководитель</label><input class="form-control" type="text"
+                                                                                      id="rukovoditel"
+                                                                                      placeholder="Должность, ФИО"
+                                                                                      readonly/></div>
+                                                <div id="predDiv" class="form-group hiddentab">
+                                                    <label>Представитель</label><input class="form-control" type="text"
+                                                                                       id="predstavitel"
+                                                                                       placeholder="Должность, ФИО"
+                                                                                       readonly/></div>
                                                 <form id="formDoverennost" class="hiddentab">
-                                                    <div class="form-group" id = "divDoverennost">
+                                                    <div class="form-group" id="divDoverennost">
                                                         <label for="doverennost">Доверенность</label>
                                                         <div id="doverennost"></div>
                                                     </div>
                                                 </form>
                                                 <form id="formPrikazNaznach" class="hiddentab">
-                                                    <div class="form-group" id = "divPrikazNaznach">
-                                                        <label for="prikazNaznach">Приказ о назначении руководителя</label>
+                                                    <div class="form-group" id="divPrikazNaznach">
+                                                        <label for="prikazNaznach">Приказ о назначении
+                                                            руководителя</label>
 
                                                         <div id="prikazNaznach"></div>
                                                     </div>
                                                 </form>
                                                 <br/>
-                                                <div class="form-group"> <label style="font-size: 18px">Обязательные документы</label></div>
+                                                <div class="form-group"><label style="font-size: 18px">Обязательные
+                                                        документы</label></div>
 
                                                 <form id="formSoprovodPismo">
-                                                    <div class="form-group"  id = "divSoprovodPismo">
+                                                    <div class="form-group" id="divSoprovodPismo">
                                                         <label for="soprPismo">Сопроводительное письмо</label><br/>
-                                                        <input type="file" class="form-control-file hiddentab" name="Name" id="soprPismo" disabled="true">
+                                                        <input type="file" class="form-control-file hiddentab"
+                                                               name="Name" id="soprPismo" disabled="true">
                                                     </div>
                                                 </form>
 
                                                 <form id="formCopyRaspisanie">
-                                                    <div class="form-group" id = "divCopyRaspisanie">
-                                                        <label for="copyRaspisanie" >Копия штатного расписания</label><br/>
-                                                        <input type="file" class="form-control-file hiddentab" name="Name" id="copyRaspisanie" disabled="true">
+                                                    <div class="form-group" id="divCopyRaspisanie">
+                                                        <label for="copyRaspisanie">Копия штатного
+                                                            расписания</label><br/>
+                                                        <input type="file" class="form-control-file hiddentab"
+                                                               name="Name" id="copyRaspisanie" disabled="true">
                                                     </div>
                                                 </form>
 
-                                                <form id="formOrgStrukt" >
-                                                    <div class="form-group"  id = "divOrgStrukt">
+                                                <form id="formOrgStrukt">
+                                                    <div class="form-group" id="divOrgStrukt">
                                                         <label for="orgStrukt">Организационная структура</label><br/>
-                                                        <input type="file" class="form-control-file hiddentab" id="orgStrukt" disabled="true">
+                                                        <input type="file" class="form-control-file hiddentab"
+                                                               id="orgStrukt" disabled="true">
                                                     </div>
                                                 </form>
 
-                                                <form id="formUcomplect" >
-                                                    <div class="form-group" id = "divUcomplect">
+                                                <form id="formUcomplect">
+                                                    <div class="form-group" id="divUcomplect">
                                                         <label for="ucomplect">Укомплектованность</label><br/>
-                                                        <input type="file" class="form-control-file hiddentab" id="ucomplect">
+                                                        <input type="file" class="form-control-file hiddentab"
+                                                               id="ucomplect">
                                                     </div>
                                                 </form>
 
-                                                <form id="formTechOsn" >
-                                                    <div class="form-group" id = "divTechOsn">
+                                                <form id="formTechOsn">
+                                                    <div class="form-group" id="divTechOsn">
                                                         <label for="techOsn">Техническое оснащение</label><br/>
-                                                        <input type="file" class="form-control-file hiddentab" id="techOsn">
+                                                        <input type="file" class="form-control-file hiddentab"
+                                                               id="techOsn">
                                                     </div>
                                                 </form>
 
-                                                <form id="formFileReportSamoocenka" >
-                                                    <div class="form-group" id = "divFileReportSamoocenka">
+                                                <form id="formFileReportSamoocenka">
+                                                    <div class="form-group" id="divFileReportSamoocenka">
                                                         <label for="reportSamoocenka">Результат самооценки</label><br/>
-                                                        <input type="file" class="form-control-file hiddentab" id="reportSamoocenka" disabled="true">
+                                                        <input type="file" class="form-control-file hiddentab"
+                                                               id="reportSamoocenka" disabled="true">
                                                     </div>
                                                 </form>
 
-                                                <form id="formFileReportZakluchenieSootvet" >
-                                                    <div class="form-group " id = "divFileReportZakluchenieSootvet">
-                                                        <label for="reportZakluchenieSootvet">Заключение о соответствии помещений государственных организаций здравоохранения и созданных в них условий требованиям законодательства в области санитарно-эпидемиологического благополучия населения</label>
-                                                        <div id = "reportZakluchenieSootvet"></div>
+                                                <form id="formFileReportZakluchenieSootvet">
+                                                    <div class="form-group " id="divFileReportZakluchenieSootvet">
+                                                        <label for="reportZakluchenieSootvet">Заключение о соответствии
+                                                            помещений государственных организаций здравоохранения и
+                                                            созданных в них условий требованиям законодательства в
+                                                            области санитарно-эпидемиологического благополучия
+                                                            населения</label>
+                                                        <div id="reportZakluchenieSootvet"></div>
 
                                                     </div>
                                                 </form>
-<!--                                                <button class="btn-inverse-info" onclick="addTab()">+ добавить структурное подразделение</button>-->
+                                                <!--                                                <button class="btn-inverse-info" onclick="addTab()">+ добавить структурное подразделение</button>-->
                                                 <br/>
                                                 <br/>
 
@@ -794,38 +839,44 @@
                                     <div class="col-6 grid-margin">
 
 
-                                    <div class = "inform" id = "informgr" >
-                                        <div class="newform-group" id = "infile">
-                                            <label>Информация о необходимости доработки(нажмите на поле ввода, чтобы присоединить файл)</label>
-                                            <input id="infdorabotki" type="text" class="form-control" readonly/>
-                                            <input type="file" id="fileInputDorabotka" style="display: none;" accept=".pdf">
-                                            </div>
-                                        <br>
-                                        <div class="newform-group">
-                                            <label>Срок доработки (дата)</label>
-                                            <input id="dateInputDorabotki" type="date" class="form-control">
-                                        </div>
-                                        <br>
-                                        <div class="newform-group">
-                                            <input type="checkbox" id="checkboxInput" style="margin-right: 1rem"><label>Отправить уведомление на электронную почту ОЗ</label>
-
-                                    </div>
-
-
-                                    </div>
-
-                                        <div class = "sovet"  id="sovetgr" >
-
-                                            <div class="newform-group" id = "protfile">
-                                                <label>Протокол Совета (Проект)</label>
-                                                <input id="protokolsoveta" type="text" class="form-control" readonly/>
-                                                <input type="file" id="fileInputProtokol" style="display: none;" accept=".pdf">
+                                        <div class="inform" id="informgr">
+                                            <div class="newform-group" id="infile">
+                                                <label>Информация о необходимости доработки(нажмите на поле ввода, чтобы
+                                                    присоединить файл)</label>
+                                                <input id="infdorabotki" type="text" class="form-control" readonly/>
+                                                <input type="file" id="fileInputDorabotka" style="display: none;"
+                                                       accept=".pdf">
                                             </div>
                                             <br>
-                                            <div class="newform-group" id = "zaklfile">
+                                            <div class="newform-group">
+                                                <label>Срок доработки (дата)</label>
+                                                <input id="dateInputDorabotki" type="date" class="form-control">
+                                            </div>
+                                            <br>
+                                            <div class="newform-group">
+                                                <input type="checkbox" id="checkboxInput"
+                                                       style="margin-right: 1rem"><label>Отправить уведомление на
+                                                    электронную почту ОЗ</label>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="sovet" id="sovetgr">
+
+                                            <div class="newform-group" id="protfile">
+                                                <label>Протокол Совета (Проект)</label>
+                                                <input id="protokolsoveta" type="text" class="form-control" readonly/>
+                                                <input type="file" id="fileInputProtokol" style="display: none;"
+                                                       accept=".pdf">
+                                            </div>
+                                            <br>
+                                            <div class="newform-group" id="zaklfile">
                                                 <label>Заключение Совета (Проект)</label>
                                                 <input id="zaklsoveta" type="text" class="form-control" readonly/>
-                                                <input type="file" id="fileInputZakl" style="display: none;" accept=".pdf">
+                                                <input type="file" id="fileInputZakl" style="display: none;"
+                                                       accept=".pdf">
                                             </div>
                                             <br>
                                             <div class="newform-group">
@@ -837,20 +888,22 @@
                                                 <label for="resolution">Решение совета</label>
                                                 <select id="resolution" class="form-control">
                                                     <option value="Соответствует">Соответствует</option>
-                                                    <option value="Частично соответствует">Частично соответствует</option>
+                                                    <option value="Частично соответствует">Частично соответствует
+                                                    </option>
                                                     <option value="Не соответствует">Не соответствует</option>
                                                 </select>
 
                                             </div>
-                                             <br>
+                                            <br>
                                             <div class="newform-group">
                                                 <label>Срок решения</label>
                                                 <input id="dateInputSrok" type="date" class="form-control">
                                             </div>
                                             <br>
-                                            <button type="submit" class="btn btn-light btn-fw" id="btnSaveSovet">Сохранить</button>
+                                            <button type="submit" class="btn btn-light btn-fw" id="btnSaveSovet">
+                                                Сохранить
+                                            </button>
                                         </div>
-
 
 
                                         <div class="card">
@@ -858,36 +911,40 @@
 
                                             </div>
 
-                                            <form id="formReport" >
-                                                <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
+                                            <form id="formReport">
+                                                <div class="form-group" id="divReport" style="margin-left: 2.5rem">
                                                     <div style="margin-bottom:1rem">
 
                                                     </div>
 
 
                                                     <label for="fileReport" style="font-size: 24px">Отчет</label>
-                                                    <input type="file" class="form-control-file" id="fileReport" >
+                                                    <input type="file" class="form-control-file" id="fileReport">
                                                 </div>
                                             </form>
 
 
-                                            <form id="formFileReportDorabotka" >
-                                                <div class="form-group " id = "divFileReportDorabotka" style="margin-bottom: 0px;" >
-                                                    <label for="reportDorabotka">Информация о необходимости доработки</label>
+                                            <form id="formFileReportDorabotka">
+                                                <div class="form-group " id="divFileReportDorabotka"
+                                                     style="margin-bottom: 0px;">
+                                                    <label for="reportDorabotka">Информация о необходимости
+                                                        доработки</label>
                                                 </div>
                                             </form>
                                             <br>
-                                            <form id="formDateDorabotka" >
-                                                <div class="form-group " id = "divDateDorabotka"  style="margin-bottom: 0px;">
+                                            <form id="formDateDorabotka">
+                                                <div class="form-group " id="divDateDorabotka"
+                                                     style="margin-bottom: 0px;">
                                                     <label for="dateDorabotka">Срок доработки</label>
                                                 </div>
                                             </form>
                                             <br>
 
 
-
-                                            <div class = "history">
-                                                <button class="btn btn-success" id="history" onclick="showHistory()">История заявления</button>
+                                            <div class="history">
+                                                <button class="btn btn-success" id="history" onclick="showHistory()">
+                                                    История заявления
+                                                </button>
                                             </div>
 
                                         </div>
@@ -895,10 +952,9 @@
                                     </div>
 
 
-
                                     <div style="width: 100%">
                                         <div style="display:flex; justify-content: flex-end;">
-<!--                                            <button type="submit" class="btn btn-warning btn-fw" id="btnSuc" >Сохранить</button>-->
+                                            <!--                                            <button type="submit" class="btn btn-warning btn-fw" id="btnSuc" >Сохранить</button>-->
                                         </div>
                                     </div>
 
@@ -915,18 +971,25 @@
                     <!--                    <input type="text" name="count" id="count"/>-->
                     <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
 
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение</button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение
+                    </button>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета</button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета
+                    </button>
 
-<!--                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>-->
-                    <button type="submit" class="btn btn-danger hiddentab" id="btnOkonchatelnoeReshenie">Окончательное решение</button>
+                    <!--                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>-->
+                    <button type="submit" class="btn btn-danger hiddentab" id="btnOkonchatelnoeReshenie">Окончательное
+                        решение
+                    </button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
-                    <button type="submit"  class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
-                    <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия</button>
+                    <button type="submit" class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
+                    <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия
+                    </button>
 
                     <!--                </form>-->
-                    <button type="button" class="btn btn-danger closeD" id="closerModal" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-danger closeD" id="closerModal" data-bs-dismiss="modal">
+                        Закрыть
+                    </button>
                 </div>
 
             </div>
@@ -934,34 +997,30 @@
     </div>
 
 
-
-
     <div class="modalHistoryCl" id="modalHistory">
-        <div class="modal-dialog modal-lg" >
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">История заявления</h4><h4 class="modal-title hiddentab" id="app_id"></h4>
-                    <button type="button"  class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x</button>
+                    <button type="button" class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modalHistoryCl-body">
 
 
-
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button"  class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
                 </div>
 
             </div>
         </div>
     </div>
-
 
 
     <div class="modal" id="modalUcomplect">
@@ -969,14 +1028,16 @@
             <div class="modal-content">
 
                 <!-- Modal Header -->
-                <div class="modal-header" >
+                <div class="modal-header">
                     <div style="display: flex">
                         <h4 class="modal-title">Укомплектованность</h4>
                     </div>
 
                     <div style="display: flex">
 
-                        <button type="button" class="btn  btn-danger btn-close  closeXucomplect"  data-bs-dismiss="modal">x</button>
+                        <button type="button" class="btn  btn-danger btn-close  closeXucomplect"
+                                data-bs-dismiss="modal">x
+                        </button>
                     </div>
                 </div>
 
@@ -984,13 +1045,13 @@
                 <div class="modal-body">
 
 
-
-
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light btn-fw" id="printUcomp" data-bs-dismiss="modal" onclick="printModalContent()">Печать</button>
+                    <button type="button" class="btn btn-light btn-fw" id="printUcomp" data-bs-dismiss="modal"
+                            onclick="printModalContent()">Печать
+                    </button>
 
                     <button type="button" class="btn btn-danger closeUcomplect" data-bs-dismiss="modal">Закрыть</button>
                 </div>
@@ -1000,17 +1061,17 @@
     </div>
 
 
-
-
     <!-- RKK -->
 
     <div class="modal" id="modalRkk">
-        <div class="modal-dialog modal-lg" >
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Регистрация заявления</h4><h4 class="modal-title" id="app_id"></h4>
-                    <button type="button" id ="closexRkk" class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x</button>
+
+                    <h4 class="modal-title" id="sokr_name">Регистрация заявления </h4>
+                    <button type="button" id="closexRkk" class="btn  btn-dangers btn-closes" data-bs-dismiss="modal">x
+                    </button>
                 </div>
                 <!-- Modal body -->
                 <div class="modalRkkbody">
@@ -1021,119 +1082,161 @@
                                 <div class="card-body">
 
                                     <div class="newform-group">
-                                        <label>Дата регистрации</label>
-                                        <span id = "dateRegistr"></span>
+                                        <label>Дата регистрации<span class="zvezda">*</span></label>
+                                        <input id="dateRegistr" type="date" class="form-control" required/>
                                     </div>
+                                    <br>
 
 
-                                    <div class="form-group"> <label>В заявлении листов</label><input id="countlist" type="text" class="form-control" required/></div>
-                                    <div class="form-group"><label>Техническое оснащение</label><input class="form-control" id="tech_osn_rkk" type="text" required/></div>
-                                    <div class="form-group"><label>Штатное расписание</label><input class="form-control" type="text" id="stat_rasp" required/></div>
-                                    <div class="form-group"><label>Укомплектованность</label><input class="form-control" type="text" id="ucomp_rkk" required/></div>
-                                    <div class="form-group"><label>Отчет о самоакредитации</label><input class="form-control" type="text" id="report_samoacred" required/></div>
-                                    <div class="form-group"><label>Дополнительные сведения</label><input class="form-control" id="dop_sved" type="text" /></div>
-                                    <div class="form-group" >
-                                        <label>Заявление принял (ФИО, должность)</label>
-                                        <select class="form-control" name="" id="prinyal_zayav">
-
-                                        </select>
-
-                                    </div>
-                                    <div class="form-group"><label>Представитель заинтересованного лица (ФИО, должность)</label><input class="form-control" type="text" id="predst_rkk" required/></div>
+                                    <div class="form-group"><label>В заявлении листов<span
+                                                    class="zvezda">*</span></label><input id="countlist" type="text"
+                                                                                          class="form-control"
+                                                                                          required/></div>
+                                    <div class="form-group"><label>Техническое оснащение<span
+                                                    class="zvezda">*</span></label><input class="form-control"
+                                                                                          id="tech_osn_rkk" type="text"
+                                                                                          required/></div>
+                                    <div class="form-group"><label>Штатное расписание<span
+                                                    class="zvezda">*</span></label><input class="form-control"
+                                                                                          type="text" id="stat_rasp"
+                                                                                          required/></div>
+                                    <div class="form-group"><label>Укомплектованность<span
+                                                    class="zvezda">*</span></label><input class="form-control"
+                                                                                          type="text" id="ucomp_rkk"
+                                                                                          required/></div>
+                                    <div class="form-group"><label>Отчет о самоакредитации<span class="zvezda">*</span></label><input
+                                                class="form-control" type="text" id="report_samoacred" required/></div>
+                                    <div class="form-group"><label>Дополнительные сведения</label><input
+                                                class="form-control" id="dop_sved" type="text"/></div>
                                     <div class="form-group">
-                                        <label>Заявление</label>
+                                        <label>Заявление принял (ФИО, должность)<span class="zvezda">*</span></label>
                                         <select class="form-control" name="" id="prinyal_zayav">
-                                            <option value="0">Выбор    </option>
-                                            <option value="1">Первичное    </option>
-                                            <option value="2">Вторичное   </option>
+
                                         </select>
 
                                     </div>
-                                    <div class="form-group"><label>Регистрационный индекс -</label><input class="form-control" id="reg_index" type="text"/></div>
-                                    <div class="form-group"><label>Даты, индексы повторных заявлений</label><input class="form-control" id="povtor_index" type="text"/></div>
+                                    <div class="form-group"><label>Представитель заинтересованного лица (ФИО, должность)<span
+                                                    class="zvezda">*</span></label><input class="form-control"
+                                                                                          type="text" id="predst_rkk"
+                                                                                          required/></div>
+                                    <div class="form-group">
+                                        <label>Заявление<span class="zvezda">*</span></label>
+                                        <select class="form-control" name="" id="prinyal_zayav">
+                                            <option value="0">Выбор</option>
+                                            <option value="1">Первичное</option>
+                                            <option value="2">Вторичное</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group"><label>Регистрационный индекс -</label><input
+                                                class="form-control" id="reg_index" type="text"/></div>
+                                    <div class="form-group"><label>Даты, индексы повторных заявлений</label><input
+                                                class="form-control" id="povtor_index" type="text"/></div>
                                 </div>
                             </div>
                         </div>
 
 
-
                         <div class="col-6 grid-margin">
-                             <div class="card">
+                            <div class="card">
                                 <div class="card-body">
 
-                        <div class="form-group"> <label>Информация о направлении запросов и в другие организации</label><input id="info_napr_zapr" type="text" class="form-control"/></div>
-                        <div class="form-group"> <label>Информация о согласии заинтересованного лица на предоставление документа</label><input id="info_sogl" type="text" class="form-control"/></div>
-                        <div class="form-group" style = "display: flex;"> <label>Протокол заседания комиссии №</label><input id="protolol_zasedanie" type="text" class="form-control"/>
-                        <label style="margin-left: 1rem;
+                                    <div class="form-group"><label>Информация о направлении запросов и в другие
+                                            организации</label><input id="info_napr_zapr" type="text"
+                                                                      class="form-control"/></div>
+                                    <div class="form-group"><label>Информация о согласии заинтересованного лица на
+                                            предоставление документа</label><input id="info_sogl" type="text"
+                                                                                   class="form-control"/></div>
+                                    <div class="form-group" style="display: flex;"><label>Протокол заседания комиссии
+                                            №</label><input id="protolol_zasedanie" type="text" class="form-control"/>
+                                        <label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Дата</label> <input id="date_zasedanie" type="date" class="form-control" style="max-width: 30%;"/>
-                        </div>
-                        <div class="form-group"> <label>Информация о возврате заявления при отказе в принятии</label><input id="info_vozvrat" type="text" class="form-control"/></div>
-                        <div class="form-group"> <label>Информация об отзыве заявления</label><input id="info_otzyv" type="text" class="form-control"/></div>
-                        <div class="form-group" style = "display: flex;  "> <label style="margin-right:1rem">Административное решение №</label><input id="admin_resh" type="text" class="form-control"/>
-                        <label style="margin-left: 1rem;
+    margin-top: 1rem;">Дата</label> <input id="date_zasedanie" type="date" class="form-control"
+                                           style="max-width: 30%;"/>
+                                    </div>
+                                    <div class="form-group"><label>Информация о возврате заявления при отказе в
+                                            принятии</label><input id="info_vozvrat" type="text" class="form-control"/>
+                                    </div>
+                                    <div class="form-group"><label>Информация об отзыве заявления</label><input
+                                                id="info_otzyv" type="text" class="form-control"/></div>
+                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Административное
+                                            решение №</label><input id="admin_resh" type="text" class="form-control"/>
+                                        <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label><input id="date_admin_resh" type="date" class="form-control"/>
-                        <label style="margin-left: 1rem;
+                                        <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Листов</label><input id="count_admin_resh" type="text" class="form-control"/>
-                        </div>
-                        <div class="form-group" style = "display: flex;"> <label style="margin-right:1rem">Свидетельство №</label><input id="svidetelstvo" type="text" class="form-control"/>
-                        <label style="margin-left: 1rem;
+                                    </div>
+                                    <div class="form-group" style="display: flex;"><label style="margin-right:1rem">Свидетельство
+                                            №</label><input id="svidetelstvo" type="text" class="form-control"/>
+                                        <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label><input id="date_svidetelstvo" type="date" class="form-control"/>
-                        <label style="margin-left: 1rem;
+                                        <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Листов</label><input id="count_svidetelstvo" type="text" class="form-control"/>
-                        </div>
+                                    </div>
 
-                        <div class="form-group"> <label>Информация об уведомлении заинтересованного лица</label><input id="info_uved" type="text" class="form-control"/></div>
-                        <div class="form-group " style = "display: flex; justify-content: space-between;"> <label style="
+                                    <div class="form-group"><label>Информация об уведомлении заинтересованного
+                                            лица</label><input id="info_uved" type="text" class="form-control"/></div>
+                                    <div class="form-group " style="display: flex; justify-content: space-between;">
+                                        <label style="
 
-    margin-top: 1rem;">Отчет о медицинской аккредитации</label> <div style="display:flex"><label style="margin-left: 1rem;
+    margin-top: 1rem;">Отчет о медицинской аккредитации</label>
+                                        <div style="display:flex"><label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Листов</label><input id="count_medacr" type="text" class="form-control" /></div></div>
-                        <div class="form-group"> <label>Получил на руки (ФИО, должность)</label><input id="getter" type="text" class="form-control"/></div>
-                        <div class="form-group" style = "display: flex;"> <label style="
+    margin-top: 1rem;">Листов</label><input id="count_medacr" type="text" class="form-control"/></div>
+                                    </div>
+                                    <div class="form-group"><label>Получил на руки (ФИО, должность)</label><input
+                                                id="getter" type="text" class="form-control"/></div>
+                                    <div class="form-group" style="display: flex;"><label style="
     margin-right: 1rem;
     margin-top: 1rem;">В дело №</label><input id="delo" type="text" class="form-control" style="max-width: 31%;"/>
-                        <span style="margin-left: 1rem;
+                                        <span style="margin-left: 1rem;
 
     margin-top: 1rem;">Снято с контроля</span>
-                        <label style="margin-left: 1rem;
+                                        <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label>
-                        <input id="date_delo" type="date" class="form-control" style="max-width: 30%;"/>
-                        </div>
+                                        <input id="date_delo" type="date" class="form-control" style="max-width: 30%;"/>
+                                    </div>
 
-                        <div class="form-group"> <label>Дополнительная информация</label> <input id="dop_info" type="text" class="form-control"/></div>
+                                    <div class="form-group"><label>Дополнительная информация</label> <input
+                                                id="dop_info" type="text" class="form-control"/></div>
 
 
                                 </div>
-                             </div>
+                            </div>
                         </div>
-
-
 
 
                         <div style="width: 100%">
                             <div style="display:flex; justify-content: flex-end;">
-                                <button type="button" class="btn btn-success" id="" style="margin-right: 10px">Зарегистрировать</button>
-                                <button type="button" class="btn btn-warning" id="" style="margin-right: 10px">Отмена</button>
-                                <button type="button" class="btn btn-primary" id="" style="margin-right: 10px">Сохранить</button>
-                                <button type="button" class="btn btn-secondary" id="" style="margin-right: 10px">Печать</button>
-                                <button type="button" class="btn btn-info" id="" style="margin-right: 20px">Снять с контроля</button>
+                                <button type="button" class="btn btn-success" id="" style="margin-right: 10px">
+                                    Зарегистрировать
+                                </button>
+                                <button type="button" class="btn btn-warning" id="" style="margin-right: 10px">Отмена
+                                </button>
+                                <button type="button" class="btn btn-primary" id="" style="margin-right: 10px">
+                                    Сохранить
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="" style="margin-right: 10px">
+                                    Печать
+                                </button>
+                                <button type="button" class="btn btn-info" id="" style="margin-right: 20px">Снять с
+                                    контроля
+                                </button>
                             </div>
                         </div>
 
                     </div>
 
 
-
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" id ="closeRkk" class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" id="closeRkk" class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
                 </div>
 
             </div>

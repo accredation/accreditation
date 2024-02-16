@@ -1,7 +1,9 @@
 let id_app;
 let createrApp;
-function newShowModal(id_application) {
+let idRkk;
 
+function newShowModal(id_application) {
+    let btnRkk;
 
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
     if(!divSoprovodPismo.classList.contains("hiddentab"))
@@ -69,6 +71,12 @@ function newShowModal(id_application) {
         modalUcomplect.style = "display: none";
 
     }
+
+
+
+
+
+
 
 
     let btnSend = document.getElementById("btnSend");
@@ -199,7 +207,7 @@ function newShowModal(id_application) {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
-            btnNeOk.classList.remove("hiddentab");
+            // btnNeOk.classList.remove("hiddentab");
             btnChecking.classList.remove("hiddentab");
         }
         btnOk.classList.add("hiddentab");
@@ -207,12 +215,13 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+
     }
     else  {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
-            btnNeOk.classList.remove("hiddentab");
+            // btnNeOk.classList.remove("hiddentab");
             btnChecking.classList.remove("hiddentab");
         }
         btnOk.classList.add("hiddentab");
@@ -267,8 +276,8 @@ function newShowModal(id_application) {
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
 
-   // divSoprPismo.style = "display:none";
-  //  divOrgStrukt.style = "display:none";
+    // divSoprPismo.style = "display:none";
+    //  divOrgStrukt.style = "display:none";
 
     let divCopyRaspisanie = document.getElementById("divCopyRaspisanie");
     let divUcomplect = document.getElementById("divUcomplect");
@@ -341,6 +350,7 @@ function newShowModal(id_application) {
             let login = getCookie('login');
             naim.value = data[0][0];
             sokr.value = data[0][1];
+            document.getElementById("sokr_name").innerHTML += sokr.value;
             unp.value = data[0][2];
             adress.value = data[0][3];
             tel.value = data[0][4];
@@ -348,7 +358,33 @@ function newShowModal(id_application) {
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
+            let data1 = JSON.parse(response);
+            idRkk = data1[4];
+            if(idRkk !== "0"){
+                btnChecking.classList.remove("hiddentab");
 
+            }else{
+                btnChecking.classList.add("hiddentab");
+
+                btnRkk = document.createElement("button");
+                btnRkk.innerText = 'Регистрация';
+                btnRkk.id = "btnRkkid";
+                btnChecking.insertAdjacentElement("afterend",btnRkk);
+                btnRkk.className = "btn btn-success";
+                let modalRkk = document.getElementById("modalRkk");
+                modalRkk.style.display = "none";
+                btnRkk.onclick = () => {
+                    modalRkk.style.display = "block";
+                }
+                $("#closexRkk").on("click", () => {
+                    modalRkk.style.display = "none";
+                });
+
+                $("#closeRkk").on("click", () => {
+                    modalRkk.style.display = "none";
+                });
+
+            }
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
@@ -379,20 +415,20 @@ function newShowModal(id_application) {
             if (data[0][20] != null) {
                 reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
             }
-            
+
             let lico = document.getElementById("lico");
             if (data[0][22] != null) {
-                lico.options.selectedIndex = data[0][22]; 
+                lico.options.selectedIndex = data[0][22];
                 chengeLico(lico);
             } else {
-                lico.options.selectedIndex = 0;  
-                chengeLico(lico);              
+                lico.options.selectedIndex = 0;
+                chengeLico(lico);
             }
 
             if(data[0][21] != null){
                 prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
             }
-            
+
             if(data[0][19]!= null) {
                 doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
@@ -428,9 +464,10 @@ function newShowModal(id_application) {
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
-        
+        let btnRkkid = document.getElementById("btnRkkid");
+
         let DD = formDateDorabotka.querySelectorAll("span");
-        
+
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -466,6 +503,9 @@ function newShowModal(id_application) {
                         }
                         if (rep) {
                             rep.remove();
+                        }
+                        if (btnRkkid) {
+                            btnRkkid.remove();
                         }
                         if (sopr) {
                             sopr.remove();
@@ -524,6 +564,9 @@ function newShowModal(id_application) {
                 if (rep) {
                     rep.remove();
                 }
+                if (btnRkkid) {
+                    btnRkkid.remove();
+                }
                 if (sopr) {
                     sopr.remove();
                 }
@@ -575,6 +618,9 @@ function newShowModal(id_application) {
             }
             if (rep) {
                 rep.remove();
+            }
+            if (btnRkkid) {
+                btnRkkid.remove();
             }
             if (sopr) {
                 sopr.remove();
@@ -626,6 +672,7 @@ function newShowModal(id_application) {
         let DD = formDateDorabotka.querySelectorAll("span");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
+        let btnRkkid = document.getElementById("btnRkkid");
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -659,6 +706,9 @@ function newShowModal(id_application) {
                         }
                         if (rep) {
                             rep.remove();
+                        }
+                        if (btnRkkid) {
+                            btnRkkid.remove();
                         }
                         if (sopr) {
                             sopr.remove();
@@ -715,6 +765,9 @@ function newShowModal(id_application) {
                 if (rep) {
                     rep.remove();
                 }
+                if (btnRkkid) {
+                    btnRkkid.remove();
+                }
                 if (sopr) {
                     sopr.remove();
                 }
@@ -766,6 +819,9 @@ function newShowModal(id_application) {
             }
             if (rep) {
                 rep.remove();
+            }
+            if (btnRkkid) {
+                btnRkkid.remove();
             }
             if (sopr) {
                 sopr.remove();
@@ -1196,7 +1252,7 @@ async function newShowTab(element, id_sub) {
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
         }).then( () => {
-             $.ajax({
+            $.ajax({
                 url: "ajax/z_getAllTablesAccred.php",
                 method: "GET",
                 data: {id_sub: openTabId},
@@ -1575,25 +1631,25 @@ function newCollapseTable(thisDiv) {
     }
     else{
 
-            let selpickers = document.querySelectorAll("#selpicker");
-            let fileInputs = document.querySelectorAll('input[type="file"]');
+        let selpickers = document.querySelectorAll("#selpicker");
+        let fileInputs = document.querySelectorAll('input[type="file"]');
 
-            selpickers.forEach((selpicker) => {
-                selpicker.disabled = true;
-            });
-
-            selpickersAccred.forEach((selpickerAccred) => {
-                selpickerAccred.disabled = false;
-            });
-
-            fileInputs.forEach((fileInput) => {
-                fileInput.disabled = false;
-            });
-
-            if(noteCells)
-        noteCells.forEach((noteCell) => {
-            noteCell.setAttribute("contenteditable", "true");
+        selpickers.forEach((selpicker) => {
+            selpicker.disabled = true;
         });
+
+        selpickersAccred.forEach((selpickerAccred) => {
+            selpickerAccred.disabled = false;
+        });
+
+        fileInputs.forEach((fileInput) => {
+            fileInput.disabled = false;
+        });
+
+        if(noteCells)
+            noteCells.forEach((noteCell) => {
+                noteCell.setAttribute("contenteditable", "true");
+            });
 
     }
 }
@@ -1766,54 +1822,54 @@ function deleteDepartment(id_department) {
 
             let parsedResponse = JSON.parse(response);
 
-           if (parsedResponse.level == '1')
-           {
-                       let tabActive = document.getElementById("tab" + openTabId + "-");
-                       let formCheckInput = document.getElementsByClassName("form-check-input");
-                       let formButton = document.getElementsByClassName("form-button");
-                       let inputCheck = tabActive.querySelector("#checkbox" + parsedResponse.id_list_tables_criteria);
+            if (parsedResponse.level == '1')
+            {
+                let tabActive = document.getElementById("tab" + openTabId + "-");
+                let formCheckInput = document.getElementsByClassName("form-check-input");
+                let formButton = document.getElementsByClassName("form-button");
+                let inputCheck = tabActive.querySelector("#checkbox" + parsedResponse.id_list_tables_criteria);
 
-                       inputCheck.checked = false;
-                       toggleActiveCheckbox(inputCheck, formCheckInput, formButton);
-           }
-           else{
-               $.ajax({
-                   url: "ajax/z_deleteDepartment.php",
-                   method: "GET",
-                   data: {id_sub: openTabId, id_department: id_department},
-               })
-                   .done(function (response) {
+                inputCheck.checked = false;
+                toggleActiveCheckbox(inputCheck, formCheckInput, formButton);
+            }
+            else{
+                $.ajax({
+                    url: "ajax/z_deleteDepartment.php",
+                    method: "GET",
+                    data: {id_sub: openTabId, id_department: id_department},
+                })
+                    .done(function (response) {
 
 
-                       let id_list_tables_criteria = response;
-                       let tabActive = document.getElementById("tab" + openTabId + "-");
-                       let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
-                       if (!countButton.innerHTML) {
-                           let rightCard = tabActive.querySelector("#cardRight");
-                           rightCard.innerHTML = "";
-                       } else {
-                           let countText = countButton.innerText;
-                           let countT = countText.split(":")[1];
+                        let id_list_tables_criteria = response;
+                        let tabActive = document.getElementById("tab" + openTabId + "-");
+                        let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
+                        if (!countButton.innerHTML) {
+                            let rightCard = tabActive.querySelector("#cardRight");
+                            rightCard.innerHTML = "";
+                        } else {
+                            let countText = countButton.innerText;
+                            let countT = countText.split(":")[1];
 
-                           if (countT) {
-                               let count = countT.trim();
-                               let newT = countText.replace(count, String(Number(count) - 1));
+                            if (countT) {
+                                let count = countT.trim();
+                                let newT = countText.replace(count, String(Number(count) - 1));
 
-                               countButton.innerHTML = newT;
-                           }
-                       }
-                       let cardH = document.getElementById("heading" + id_department);
+                                countButton.innerHTML = newT;
+                            }
+                        }
+                        let cardH = document.getElementById("heading" + id_department);
 
-                       let nameTab = document.getElementById("button"+openTabId);
-                       addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
-                       if (cardH)
-                           cardH.remove();
-                       alert("Отделение удалено.");
-                   })
-                   .fail(function (error) {
-                       console.error("Ошибка при удалении отдела:", error);
-                   });
-           }
+                        let nameTab = document.getElementById("button"+openTabId);
+                        addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
+                        if (cardH)
+                            cardH.remove();
+                        alert("Отделение удалено.");
+                    })
+                    .fail(function (error) {
+                        console.error("Ошибка при удалении отдела:", error);
+                    });
+            }
         })
     }
 }
@@ -1955,7 +2011,7 @@ function printNewReport() {
             divReportTitle.appendChild(divReportTitle3);
             WinPrint.document.write(divReportTitle.innerHTML);
             WinPrint.document.write('<br/>');
-           // divTextSubCriteriaChecked.innerHTML = headTable;
+            // divTextSubCriteriaChecked.innerHTML = headTable;
             divTextSubCriteriaChecked.appendChild(headTable);
             WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
             WinPrint.document.write('<br/>');
@@ -2047,13 +2103,13 @@ function createTableForPrintSamoAccred(valueRespons) {
         if (id_s !== item['id_subvision']) {
 
 
-                let trNaim = document.createElement('tr');
-                let tdNaim = document.createElement('td');
-                tdNaim.setAttribute('colspan', '4');
-                tdNaim.style = "border: 1px solid black; padding-top: 0.5rem; padding-bottom:0.5rem; padding-left: 2rem; font-weight: bold";
-                tdNaim.innerHTML = item['name'];
-                trNaim.appendChild(tdNaim);
-                tbody.appendChild(trNaim);
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '4');
+            tdNaim.style = "border: 1px solid black; padding-top: 0.5rem; padding-bottom:0.5rem; padding-left: 2rem; font-weight: bold";
+            tdNaim.innerHTML = item['name'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
 
 
 
@@ -2063,7 +2119,7 @@ function createTableForPrintSamoAccred(valueRespons) {
         if (id_s == item['id_subvision']) {
             let trNaim2 = document.createElement('tr');
             let tdOtdel1 = document.createElement('td');
-           // tdNaim2.setAttribute('colspan', '4');
+            // tdNaim2.setAttribute('colspan', '4');
             tdOtdel1.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; text-align: center; vertical-align: baseline";
             tdOtdel1.innerHTML = `${num}`;
 
@@ -2072,9 +2128,9 @@ function createTableForPrintSamoAccred(valueRespons) {
             let strNameOtdel = '';
             if(item['name_otdel']!==null){
                 if(item['name_otdel'].indexOf('(') > 0){
-                   strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(')-1)
+                    strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(')-1)
                 } else {
-                   strNameOtdel = item['name_otdel']
+                    strNameOtdel = item['name_otdel']
                 }
             }
 
@@ -2430,8 +2486,8 @@ async function sendApp() {
         }).then(response => {
             let objects = JSON.parse(response);
             if(objects.length === 0) {
-            // ||
-            //     divFileReportSamoocenka.getElementsByTagName("a").length == 0
+                // ||
+                //     divFileReportSamoocenka.getElementsByTagName("a").length == 0
                 if (
                     divCopyRaspisanie.getElementsByTagName("a").length == 0
                 ) {
