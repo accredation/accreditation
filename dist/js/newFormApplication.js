@@ -3,9 +3,10 @@ let createrApp;
 function newShowModal(id_application) {
 
     let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
-    if(formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
-        formFileReportZakluchenieSootvet.classList.remove("hiddentab");
-
+    if (formFileReportZakluchenieSootvet) {
+        if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
+            formFileReportZakluchenieSootvet.classList.remove("hiddentab");
+    }
     createrApp = "";
 
     $.ajax({
@@ -161,9 +162,10 @@ function newShowModal(id_application) {
 
         let doverennostSelel = document.getElementById("doverennost");
         doverennostSelel.setAttribute("disabled",true);
-
-        let reportZakluchenieSootvetSelect = document.getElementById("reportZakluchenieSootvet");
-        reportZakluchenieSootvetSelect.setAttribute("disabled",true);
+if (reportZakluchenieSootvetSelect) {
+    let reportZakluchenieSootvetSelect = document.getElementById("reportZakluchenieSootvet");
+    reportZakluchenieSootvetSelect.setAttribute("disabled", true);
+}
 
 
 
@@ -226,8 +228,10 @@ function newShowModal(id_application) {
 
     //  naim.value = username;
     if (status == 1 || status == 5) {
-        formFileReportDorabotka.style.display = "block";
-        formDateDorabotka.style.display = "block";
+        if (formFileReportDorabotka) {
+            formFileReportDorabotka.style.display = "block";
+            formDateDorabotka.style.display = "block";
+        }
         checkUserRole();
 
     } else {
@@ -254,11 +258,11 @@ function newShowModal(id_application) {
         licoSelect.setAttribute("disabled",true);
 
         reportSamoocenka.setAttribute("disabled", "true");
-        reportZakluchenieSootvet.setAttribute("disabled", "true");
-        formFileReportDorabotka.setAttribute("disabled", "true");
-        formDateDorabotka.setAttribute("disabled", "true");
-        formFileReportDorabotka.style.display = "none";
-        formDateDorabotka.style.display = "none";
+     //   reportZakluchenieSootvet.setAttribute("disabled", "true");
+       // formFileReportDorabotka.setAttribute("disabled", "true");
+     //   formDateDorabotka.setAttribute("disabled", "true");
+     //   formFileReportDorabotka.style.display = "none";
+       // formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
 
@@ -319,9 +323,9 @@ function newShowModal(id_application) {
             if (data[0][12] != null) {
                 techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
-            if (data[0][20] != null) {
-                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
-            }
+            // if (data[0][20] != null) {
+            //     reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
+            // }
             
             let lico = document.getElementById("lico");
             if (data[0][22] != null) {

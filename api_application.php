@@ -35,9 +35,11 @@
     }
     #formDateDorabotka{
         margin-left: 2px;
+
     }
     #formFileReportDorabotka{
         margin-left: 2px;
+
     }
 
 
@@ -620,24 +622,25 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
                                                 </div>
                                             </form>
 
-                                            <form id="formFileReportZakluchenieSootvet" >
-                                                <div class="form-group " id = "divFileReportZakluchenieSootvet">
-                                                    <label for="reportZakluchenieSootvet">Заключение о соответствии помещений государственных организаций здравоохранения и созданных в них условий требованиям законодательства в области санитарно-эпидемиологического благополучия населения</label>
-                                                    <input type="file" class="form-control-file" id="reportZakluchenieSootvet">
-                                                </div>
-                                            </form>
-                                            <form id="formFileReportDorabotka" >
-                                                <div class="form-group " id = "divFileReportDorabotka" style="margin-bottom: 0px;" >
-                                                    <label for="reportDorabotka">Информация о необходимости доработки</label>
-                                                </div>
-                                            </form>
-                                            <br>
-                                            <form id="formDateDorabotka" >
-                                                <div class="form-group " id = "divDateDorabotka"  style="margin-bottom: 0px;">
-                                                    <label for="dateDorabotka">Срок доработки</label>
-                                                </div>
-                                            </form>
-                                            <br>
+<!--                                            <form id="formFileReportZakluchenieSootvet" >-->
+<!--                                                <div class="form-group " id = "divFileReportZakluchenieSootvet">-->
+<!--                                                    <label for="reportZakluchenieSootvet">Заключение о соответствии помещений государственных организаций здравоохранения и созданных в них условий требованиям законодательства в области санитарно-эпидемиологического благополучия населения</label>-->
+<!--                                                    <input type="file" class="form-control-file" id="reportZakluchenieSootvet">-->
+<!--                                                </div>-->
+<!--                                               -->
+<!--                                            </form>-->
+<!--                                            <form id="formFileReportDorabotka" >-->
+<!--                                                <div class="form-group " id = "divFileReportDorabotka" style="margin-bottom: 0px;" >-->
+<!--                                                    <label for="reportDorabotka">Информация о необходимости доработки</label>-->
+<!--                                                </div>-->
+<!--                                            </form>-->
+
+<!--                                            <form id="formDateDorabotka" >-->
+<!--                                                <div class="form-group " id = "divDateDorabotka"  style="margin-bottom: 0px;">-->
+<!--                                                    <label for="dateDorabotka">Срок доработки</label>-->
+<!--                                                </div>-->
+<!--                                            </form>-->
+
                                         </div>
                                         <div class="card-body" id="mainRightCard">
 
