@@ -2,11 +2,11 @@ let id_app;
 let createrApp;
 function newShowModal(id_application) {
 
-    // let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
-    // if (formFileReportZakluchenieSootvet) {
-    //     if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
-    //         formFileReportZakluchenieSootvet.classList.remove("hiddentab");
-    // }
+     let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
+
+        if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
+            formFileReportZakluchenieSootvet.classList.add("hiddentab");
+
     createrApp = "";
 
     $.ajax({
