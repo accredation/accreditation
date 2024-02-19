@@ -4,11 +4,10 @@ $id_app = $_GET['id_application'];
 
 
 //echo '<tr><td colspan="4" style="font-weight: 700; text-align: center">' . $name_sub . '</td></tr>';
-echo '
+echo '		
+<body>
 <style>
-body{
-
-font-family:  \'Times New Roman\' ;
+font-family:  "Times New Roman" ;
 }
 table {
   width: 100%;
@@ -37,8 +36,7 @@ tr:hover {
 }
 
 </style>
-
-<body>          
+</body>        
 <div style="font-size: 25pt;
     position: relative;
     left: 50%;
@@ -127,9 +125,9 @@ tr:hover {
  <div style="display: flex; justify-content: center; margin-top: 20px">
 <table style="border: 1px solid black; width: 80%;">
     <tr>
-        <th  style=" text-align: center; width: 5%">
+        <td  style=" text-align: center; width: 5%">
             № п/п
-        </th>
+        </td>
         <td style=" width: 25%; text-align: center;">
             Наименование вида медицинской помощи
         </td>
