@@ -37,7 +37,7 @@ tr:hover {
 
 </style>
 </body>        
-<div style="font-size: 25pt;
+<div style="font-size: 22pt;
     position: relative;
     left: 50%;
     
@@ -49,7 +49,7 @@ tr:hover {
 <br>
 <br>
 
-<div style=" font-size: 25pt;
+<div style=" font-size: 22pt;
     position: relative;
     text-align: center;
     margin-left: 5%;
@@ -60,7 +60,7 @@ tr:hover {
     организации здравоохранения базовым критериям медицинской<br>
     аккредитации, внесении в него изменений</div>
 
-<div style="font-size: 25pt;
+<div style="font-size: 22pt;
     position: relative;
     left: 10%;
 ">
@@ -75,7 +75,7 @@ tr:hover {
 	<div style="
     position: relative;
     left: 10%;
-    font-size: 30pt;
+    font-size: 22pt;
     line-height: 90px;
 ">______________________________________________________________________________________________________________________________________________________ 
 <br>______________________________________________________________________________________________________________________________________________________
@@ -85,19 +85,19 @@ tr:hover {
     font-style: italic;
     position: relative;
     left: 17%;
-    top: -1%;
+    top: -1.5%;
     font-size: 18pt;
 ">его место нахождения, юридический адрес,</div>
       <div style="
     position: relative;
     left: 10%;
-    font-size: 30pt;
+    font-size: 22pt;
 
 ">______________________________________________________________________________________________________________________________________________________</div>
       <div style="
     position: relative;
     left: 10%;
-    font-size: 30pt;
+    font-size: 22pt;
     margin-top: 3%;
 }
 ">______________________________________________________________________________________________________________________________________________________</div>
@@ -109,21 +109,21 @@ tr:hover {
       <div style="
     position: relative;
     left: 10%;
-    font-size: 30pt;
+    font-size: 22pt;
     line-height: 90px;
 ">______________________________________________________________________________________________________________________________________________________</div>
 <br>
        <div style="
     width: 89%;
-    font-size: 25pt;
+    font-size: 22pt;
     position: relative;
     left: 9%;
     text-align: justify;
 ">свидетельство о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации по видам оказываемой медицинской помощи по профилям заболеваний, состояниям, синдромам, методам их исследования:</div>
      
 
- <div style="display: flex; justify-content: center; margin-top: 20px">
-<table style="border: 1px solid black; width: 80%;">
+ <div style="display: flex; justify-content: center; margin-top: 20px;margin-left: 3%">
+<table style="border: 1px solid black; width: 98%;">
     <tr>
         <td  style=" text-align: center; width: 5%">
             № п/п
@@ -175,7 +175,7 @@ echo '</tbody></table>
 	page-break-before: avoid;
     position: relative;
     left: 8%;
-    font-size: 25pt;
+    font-size: 22pt;
 	">Руководитель (представитель)<br>
 	заинтересованного лица:
 	</div>
