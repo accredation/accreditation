@@ -123,7 +123,7 @@ tr:hover {
      
 
  <div style="display: flex; justify-content: center; margin-top: 20px;margin-left: 3%">
-<table style="border: 1px solid black; width: 98%;">
+<table style="border-collapse: collapse; border: 1px solid black; width: 98%;">
     <tr>
         <td  style=" text-align: center; width: 5%">
             № п/п
