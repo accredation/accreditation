@@ -7,8 +7,7 @@ $id_app = $_GET['id_application'];
 echo '
 <style>
 body{
-margin-top:30px;
-margin-right: -80px;
+
 font-family:  \'Times New Roman\' ;
 }
 table {
@@ -16,11 +15,11 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+td {
    border: 1px solid black;
   padding: 8px;
   text-align: center;
-  font-size: 19pt;
+  font-size: 21pt;
 }
 td {
   word-break: break-word;
@@ -39,94 +38,91 @@ tr:hover {
 
 </style>
 
-      <div style="font-size: 20pt;
+<body>          
+<div style="font-size: 25pt;
     position: relative;
-    left: 60%;
+    left: 50%;
     
-">Директору РНПЦ МТ</div>
-      <div style=" font-size: 20pt;
-    position: relative;
-    left: 60%;
-">Щербинскому А.А.</div>
-<br><br><br>
-      <div style=" font-size: 20pt;
-    position: relative;
-    text-align: center;
-">ЗАЯВЛЕНИЕ</div>
-      <div style=" font-size: 20pt;
+">
+<!-- Шапка заявления -->
+	Директору РНПЦ МТ<br>
+	Щербинскому А.А.</div>
+<br>
+<br>
+<br>
+
+<div style=" font-size: 25pt;
     position: relative;
     text-align: center;
-">о получении свидетельства о соответствии государственной</div>
-      <div style=" font-size: 20pt;
-    position: relative;
-    text-align: center;
-">организации здравоохранения базовым критериям медицинской</div>
-      <div style=" font-size: 20pt;
-    position: relative;
-   text-align: center;
-">аккредитации, внесении в него изменений</div>
-      <div style="font-size: 20pt;
+    margin-left: 5%;
+">
+<!-- Преамбула заявления -->
+	ЗАЯВЛЕНИЕ<br>
+    о получении свидетельства о соответствии государственной<br>
+    организации здравоохранения базовым критериям медицинской<br>
+    аккредитации, внесении в него изменений</div>
+
+<div style="font-size: 25pt;
     position: relative;
     left: 10%;
 ">
+<!-- Поля для заполнения данных о юр. лице -->
 <br>
-Прошу выдать_____________________________________________________________</div>
-      <div style="font-style: italic;
+Прошу выдать_________________________________________________</div>
+    <div style="font-style: italic;
     position: relative;
-    left: 35%;
-    font-size: 14pt;
+    left: 30%;
+    font-size: 18pt;
 ">(наименование заинтересованного лица,</div>
-<div style="
+	<div style="
     position: relative;
     left: 10%;
-    font-size: 20pt;
-">_________________________________________________________________________</div>
- <div style="
-    position: relative;
-    left: 10%;
-    font-size: 20pt;
-    line-height: 44pt;
-">_________________________________________________________________________</div>
+    font-size: 30pt;
+    line-height: 90px;
+">______________________________________________________________________________________________________________________________________________________ 
+<br>______________________________________________________________________________________________________________________________________________________
+<br>______________________________________________________________________________________________________________________________________________________
+	</div>
       <div style="
+    font-style: italic;
     position: relative;
-    left: 10%;
-    font-size: 20pt;
-">_________________________________________________________________________</div>
-      <div style="font-style: italic;
-    position: relative;
-    left: 34%;
-    font-size: 14pt;
+    left: 17%;
+    top: -1%;
+    font-size: 18pt;
 ">его место нахождения, юридический адрес,</div>
       <div style="
     position: relative;
     left: 10%;
-    font-size: 20pt;
+    font-size: 30pt;
 
-">_________________________________________________________________________</div>
+">______________________________________________________________________________________________________________________________________________________</div>
       <div style="
     position: relative;
     left: 10%;
-    font-size: 20pt;
-    margin-top: 12pt;
+    font-size: 30pt;
+    margin-top: 3%;
 }
-">_________________________________________________________________________</div>
+">______________________________________________________________________________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
-    left: 30%;
-    font-size: 14pt;
-">контактная информация (телефон (факс), электронный адрес)</div>
+    left: 17%;
+    font-size: 18pt;
+">контактная информация (телефон (факс), электронный адрес))</div>
       <div style="
     position: relative;
     left: 10%;
-    font-size: 20pt;
-">_________________________________________________________________________</div>
+    font-size: 30pt;
+    line-height: 90px;
+">______________________________________________________________________________________________________________________________________________________</div>
 <br>
-       <div style="width: 80%; font-size: 20pt;
+       <div style="
+    width: 89%;
+    font-size: 25pt;
     position: relative;
-    left: 10%; text-align: justify;
+    left: 9%;
+    text-align: justify;
 ">свидетельство о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации по видам оказываемой медицинской помощи по профилям заболеваний, состояниям, синдромам, методам их исследования:</div>
      
-
 
  <div style="display: flex; justify-content: center; margin-top: 20px">
 <table style="border: 1px solid black; width: 80%;">
@@ -171,64 +167,50 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     }
 }
 echo '</tbody></table>
-</div>';
+</div>';?>
 
-$query_rukovod = "SELECT ap.rukovoditel, ap.predstavitel from applications ap 
-                        WHERE ap.id_application = '$id_app'";
-$result_rukovod = mysqli_query($con, $query_rukovod) or die("Ошибка " . mysqli_error($con));
-if ($row_rukovod = mysqli_fetch_assoc($result_rukovod)) {
-    $rukovod = $row_rukovod['rukovoditel'] ?? 'Руководитель (представитель)';
-    $predstavitel = $row_rukovod['predstavitel'] ?? 'заинтересованного лица';
-}
-else{
-    $rukovod = 'Руководитель (представитель)';
-    $predstavitel = 'заинтересованного лица';
-}
-echo '</br></br>
-<div style="
-    position: relative;
-    left: 10%;font-size: 19pt;
-">Руководитель (представитель)</div>
-<div style="
-    position: relative;
-    left: 10%;font-size: 19pt;
-">заинтересованного лица: </div>
 <br>
 <br>
-<div style="
+<!-- Подпись -->
+<div style=" page-break-before: avoid; ">
+	<div style="
+	page-break-before: avoid;
     position: relative;
-    left: 10%;
-">___________________________________
+    left: 8%;
+    font-size: 25pt;
+	">Руководитель (представитель)<br>
+	заинтересованного лица:
+	</div>
+<br>
+<br>
+	<div style="
+    position: relative;
+    left: 8%;
+    font-size: 17pt;
+">_________________________________
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-________________________
+_______________
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
 
+__________________________
+	</div>
 
-__________________________</div>
-<div class = "podpiska" style="display: flex;">
- <div style="
-    position: relative;
-    left: 10%;
-    font-size: 14pt;
-">(наименование должности служащего)</div>
- <div style="
-    position: relative;
-    left: 25%;
-    font-size: 14pt;
-">(подпись)</div>
- <div style="
-    position: relative;
-    left: 43%;
-    font-size: 14pt;
-">(инициалы,фамилия)</div>
+ <div style="page-break-before: avoid;
+	font-style: italic;
+    	position: relative;
+    	left: 8%;
+    	font-size: 17pt;
+">	(наименование должности служащего)
+
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	(подпись)
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 	(инициалы,фамилия)
+	</div>
 </div>
-';
 
-?>
+</body>

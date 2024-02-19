@@ -1740,7 +1740,7 @@ function addFile(idCrit, idDep, input) {
         let fileName = addedFile.name;
         let extAr = fileName.substring(fileName.lastIndexOf('.'), fileName.length);
         console.log(extAr);
-        if (extAr !== ".pdf") {
+        if (extAr !== ".pdf" && extAr !== ".PDF") {
             alert("Неверный формат. Допустимый формат pdf");
             xhr.abort();
         } else {

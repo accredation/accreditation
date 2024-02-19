@@ -1592,7 +1592,7 @@ function addFile(idCrit, idDep, input) {
             xhr.abort();
         }
         else {
-            if (extAr !== ".pdf") {
+            if (extAr !== ".pdf" && extAr !== ".PDF") {
                 alert("Неверный формат. Допустимый формат pdf");
                 xhr.abort();
             } else {
