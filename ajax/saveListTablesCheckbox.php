@@ -4,6 +4,21 @@ $id_sub = $_GET['id_sub'];
 $id_list_tables_criteria = $_GET['id_list_tables_criteria'];
 $check = $_GET['check'];
 $login = $_COOKIE['login'];
+$department = $_GET['department'];
+
+
+$w = "SELECT `name` from z_list_tables_criteria where id_list_tables_criteria = '$id_list_tables_criteria'";
+$e = mysqli_query($con, $w) or die("Ошибка " . mysqli_error($con));
+
+if (mysqli_num_rows($e) == 1) {
+    $ro = mysqli_fetch_assoc($e);
+    $name_table = $ro['name'];
+}
+$fullName = $department. " (". $name_table . ")";
+$q = "SELECT * from z_department where `name` ='$fullName' and id_subvision = '$id_sub' ";
+$r = mysqli_query($con, $q) or die("Ошибка " . mysqli_error($con));
+
+
 
 $query = "SELECT * FROM z_selected_tables WHERE id_list_tables_criteria ='$id_list_tables_criteria' AND id_subvision = '$id_sub'";
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
@@ -16,13 +31,15 @@ if (mysqli_num_rows($rez) > 0) {
     $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 }
 
+
+
 $rez = mysqli_query($con, "SELECT `name` FROM z_list_tables_criteria WHERE id_list_tables_criteria ='$id_list_tables_criteria'");
 if (mysqli_num_rows($rez) == 1) {
     $row = mysqli_fetch_assoc($rez);
     $name = $row['name'];
 
-    $query2 = "INSERT INTO z_department (id_list_tables_criteria, `name`, id_subvision) VALUES ('$id_list_tables_criteria', '$name', '$id_sub') 
-               ON DUPLICATE KEY UPDATE `name` = '$name'";
+    $query2 = "INSERT INTO z_department (id_list_tables_criteria, `name`, id_subvision) VALUES ('$id_list_tables_criteria', '$fullName', '$id_sub') 
+               ON DUPLICATE KEY UPDATE `name` = '$fullName'";
     $rez2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
 
     $query3 = "SELECT * FROM z_department WHERE z_department.id_list_tables_criteria ='$id_list_tables_criteria' AND id_subvision = '$id_sub'";
@@ -53,7 +70,7 @@ if (mysqli_num_rows($rez) == 1) {
           <div class = "actCont" style="display: flex;">
          <div class="actions-container" style = "width: 80%;">
     <button class="btn btn-link" style="width: 100%;color: black;font-size: 14px;font-weight: 700;" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
-    ' . $name . '
+    ' . $department . '
     </button>
      </div>
         ';

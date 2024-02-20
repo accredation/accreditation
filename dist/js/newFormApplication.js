@@ -1357,42 +1357,48 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
 
 
     if (check == 1) {
-        [...formCheckInput].forEach(item => {
-            if (item.checked === false) {
-                item.setAttribute("disabled", true);
-            }
-        });
-        [...formButton].forEach(item => {
-            item.removeAttribute("disabled");
-        })
-
-        $.ajax({
-            url: "ajax/saveListTablesCheckbox.php",
-            method: "GET",
-            data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria, check: check}
-        })
-            .done(function (response) {
-                // ОТОБРАЖЕНИЕ таблиц критериев по нажатию на чекбокс
-                let numTab = document.getElementById("tab" + openTabId + "-")
-
-                let chkbName = numTab.querySelector("#checkbox" + id_list_tables_criteria);
-                let lblName = chkbName.nextElementSibling.innerHTML;
-
-                let rightCard = numTab.querySelector("#cardRight");
+        let department = prompt("Введите название отделения");
+        if (department !== undefined && department.trim() !== '') {
 
 
-
-                let cardForAdding = rightCard.querySelector(":first-child");
-                let cardForAdding1 = cardForAdding.querySelector(":first-child");
-                if (cardForAdding1)
-                    cardForAdding1.insertAdjacentHTML("afterbegin", response);
-
-
-                let nameTab = document.getElementById("button" + openTabId);
-                addHistoryAction(id_app, getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
-
+            [...formCheckInput].forEach(item => {
+                if (item.checked === false) {
+                    item.setAttribute("disabled", true);
+                }
             });
+            [...formButton].forEach(item => {
+                item.removeAttribute("disabled");
+            })
 
+            $.ajax({
+                url: "ajax/saveListTablesCheckbox.php",
+                method: "GET",
+                data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria, check: check, department: department}
+            })
+                .done(function (response) {
+                    // ОТОБРАЖЕНИЕ таблиц критериев по нажатию на чекбокс
+                    let numTab = document.getElementById("tab" + openTabId + "-")
+
+                    let chkbName = numTab.querySelector("#checkbox" + id_list_tables_criteria);
+                    let lblName = chkbName.nextElementSibling.innerHTML;
+
+                    let rightCard = numTab.querySelector("#cardRight");
+
+
+                    let cardForAdding = rightCard.querySelector(":first-child");
+                    let cardForAdding1 = cardForAdding.querySelector(":first-child");
+                    if (cardForAdding1)
+                        cardForAdding1.insertAdjacentHTML("afterbegin", response);
+
+
+                    let nameTab = document.getElementById("button" + openTabId);
+                    addHistoryAction(id_app, getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
+
+                });
+        }
+        else {
+            alert("Вы не ввели название отделения");
+        }
     } else {
 
         if (confirm("Осторожно! Все таблицы отделений будут удалены. Вы уверены, что хотите удалить?")) {
