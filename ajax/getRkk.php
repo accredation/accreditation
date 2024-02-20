@@ -18,7 +18,6 @@ if (mysqli_num_rows($rez) == 1) {
    $responce['id_user'] = $row['id_user'];
    $responce['predstavitel'] = $row['predstavitel'];
    $responce['perv_vtor'] = $row['perv_vtor'];
-   $responce['reg_index'] = $row['reg_index'];
    $responce['date_index_povt_app'] = $row['date_index_povt_app'];
    $responce['info_napr_zapr'] = $row['info_napr_zapr'];
    $responce['info_sogl'] = $row['info_sogl'];
@@ -26,7 +25,6 @@ if (mysqli_num_rows($rez) == 1) {
    $responce['date_protokol'] = $row['date_protokol'];
    $responce['info_vozvr'] = $row['info_vozvr'];
    $responce['info_otzyv'] = $row['info_otzyv'];
-   $responce['admin_resh'] = $row['admin_resh'];
    $responce['date_admin_resh'] = $row['date_admin_resh'];
    $responce['count_list_admin'] = $row['count_list_admin'];
    $responce['result'] = $row['result'];

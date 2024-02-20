@@ -368,6 +368,7 @@ function newShowModal(id_application) {
                 btnRkk.onclick = () => {
                     modalRkk.style.display = "block";
                     getRkk();
+                    refreshRkk(id_app);
                 }
                 $("#closexRkk").on("click", () => {
                     modalRkk.style.display = "none";
@@ -2947,5 +2948,25 @@ function getRkk() {
         dateRegistr.value = data['delo'];
         dateRegistr.value = data['date_delo'];
         dateRegistr.value = data['dop_info'];
+    });
+}
+
+function refreshRkk(id_app) {
+    $.ajax({
+        url: 'ajax/checkIdRkk.php',
+        method: 'GET',
+        data: {id_app: id_app},
+        success: function(response) {
+            if (response === '000') {
+                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info').removeAttr('disabled');
+                $('#registerRkk').css('display', 'none');
+            } else {
+                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info').attr('disabled', true);
+                $('#registerRkk').css('display', 'block');
+            }
+        },
+        error: function() {
+            console.log('Ошибка при выполнении AJAX-запроса');
+        }
     });
 }

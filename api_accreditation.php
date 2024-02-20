@@ -1129,7 +1129,7 @@
 
                                     </div>
                                     <div class="form-group"><label>Регистрационный индекс -</label><span
-                                                class="form-control" id="reg_index" ></span></div>
+                                                id="reg_index" ></span></div>
                                     <div class="form-group"><label>Даты, индексы повторных заявлений</label><input
                                                 class="form-control" id="povtor_index" type="text" disabled="true"/></div>
                                 </div>
@@ -1160,7 +1160,7 @@
                                     <div class="form-group"><label>Информация об отзыве заявления</label><input
                                                 id="info_otzyv" type="text" class="form-control" disabled="true"/></div>
                                     <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Административное
-                                            решение №</label><span id="admin_resh" class="form-control"></span>
+                                            решение №</label><span id="admin_resh"></span>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label><input id="date_admin_resh" type="date" class="form-control" disabled="true"/>
@@ -1221,7 +1221,7 @@
 
                         <div style="width: 100%">
                             <div style="display:flex; justify-content: flex-end;">
-                                <button type="button" class="btn btn-success" id="" style="margin-right: 10px">
+                                <button type="button" class="btn btn-success" id="registerRkk" style="margin-right: 10px">
                                     Зарегистрировать
                                 </button>
                                 <button type="button" class="btn btn-warning" id="" style="margin-right: 10px">Отмена
