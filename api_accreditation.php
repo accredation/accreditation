@@ -1111,7 +1111,7 @@
                                     <div class="form-group">
                                         <label>Заявление принял (ФИО, должность)<span class="zvezda">*</span></label>
                                         <select class="form-control" name="" id="prinyal_zayav">
-
+                                            <option value="0">Выбор заявления</option>
                                         </select>
 
                                     </div>

@@ -367,6 +367,7 @@ function newShowModal(id_application) {
                 modalRkk.style.display = "none";
                 btnRkk.onclick = () => {
                     modalRkk.style.display = "block";
+                    getRkk();
                 }
                 $("#closexRkk").on("click", () => {
                     modalRkk.style.display = "none";
@@ -1952,7 +1953,7 @@ function printNewReport() {
             let mainRightCard = document.getElementById("mainRightCard");
             let mainRightCardText = mainRightCard.innerHTML;
             let naim = document.getElementById('naim');
-            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.lastIndexOf('-')+1, mainRightCardText.length);
+            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.indexOf('-')+1, mainRightCardText.indexOf('%')+1);
 
             let table;
             return $.ajax({
@@ -2794,6 +2795,7 @@ $("#prikazNaznach").on("change", () => {
 // }))
 
 function saveRkk() {
+    console.log(id_app);
     let dateRegistr = document.getElementById("dateRegistr");
     let countlist = document.getElementById("countlist");
     let tech_osn_rkk = document.getElementById("tech_osn_rkk");
@@ -2830,7 +2832,7 @@ function saveRkk() {
     $.ajax({
         url: "ajax/saveRkk.php",
         method: "POST",
-        date: {
+        data: {
             dateRegistr: dateRegistr.value,
             countlist: countlist.value,
             tech_osn_rkk: tech_osn_rkk.value,
@@ -2838,9 +2840,9 @@ function saveRkk() {
             ucomp_rkk: ucomp_rkk.value,
             report_samoacred: report_samoacred.value,
             dop_sved: dop_sved.value,
-            prinyal_zayav: prinyal_zayav.value,
+            prinyal_zayav: prinyal_zayav.options[prinyal_zayav.options.selectedIndex].value,
             predst_rkk: predst_rkk.value,
-            perv_vtor_zayav: perv_vtor_zayav.value,
+            perv_vtor_zayav: perv_vtor_zayav.options[perv_vtor_zayav.options.selectedIndex].value,
             reg_index: reg_index.value,
             povtor_index: povtor_index.value,
             info_napr_zapr: info_napr_zapr.value,
@@ -2867,6 +2869,83 @@ function saveRkk() {
             id_application: id_app
         }
     }).done(function (result){
-    console.log(result);
+        if(result == "0")
+            alert("Не все обязательные поля заполнены!");
+    });
+}
+
+function getRkk() {
+    let dateRegistr = document.getElementById("dateRegistr");
+    let countlist = document.getElementById("countlist");
+    let tech_osn_rkk = document.getElementById("tech_osn_rkk");
+    let stat_rasp = document.getElementById("stat_rasp");
+    let ucomp_rkk = document.getElementById("ucomp_rkk");
+    let report_samoacred = document.getElementById("report_samoacred");
+    let dop_sved = document.getElementById("dop_sved");
+    let prinyal_zayav = document.getElementById("prinyal_zayav");
+    let predst_rkk = document.getElementById("predst_rkk");
+    let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
+    let reg_index = document.getElementById("reg_index");
+    let povtor_index = document.getElementById("povtor_index");
+    let info_napr_zapr = document.getElementById("info_napr_zapr");
+    let info_sogl = document.getElementById("info_sogl");
+    let protolol_zasedanie = document.getElementById("protolol_zasedanie");
+    let date_zasedanie = document.getElementById("date_zasedanie");
+    let info_vozvrat = document.getElementById("info_vozvrat");
+    let info_otzyv = document.getElementById("info_otzyv");
+    let admin_resh = document.getElementById("admin_resh");
+    let date_admin_resh = document.getElementById("date_admin_resh");
+    let count_admin_resh = document.getElementById("count_admin_resh");
+    let resultat = document.getElementById("resultat");
+    let svidetelstvo = document.getElementById("svidetelstvo");
+    let date_svidetelstvo = document.getElementById("date_svidetelstvo");
+    let po_n = document.getElementById("po_n");
+    let count_svidetelstvo = document.getElementById("count_svidetelstvo");
+    let info_uved = document.getElementById("info_uved");
+    let count_medacr = document.getElementById("count_medacr");
+    let getter = document.getElementById("getter");
+    let delo = document.getElementById("delo");
+    let delo_listov = document.getElementById("delo_listov");
+    let date_delo = document.getElementById("date_delo");
+    let dop_info = document.getElementById("dop_info");
+    $.ajax({
+        url: "ajax/getRkk.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).done(function (result){
+        let data = JSON.parse(result);
+        dateRegistr.value = data.date_reg;
+        countlist.value = data.count_list_app;
+        tech_osn_rkk.value = data.tech_osn;
+        stat_rasp.value = data.raspisanie;
+        ucomp_rkk.value = data.ucomplect;
+        report_samoacred.value = data['report_samoacred'];
+        dop_sved.value = data['dop_sved'];
+        prinyal_zayav.value = data['id_user'];
+        predst_rkk.value = data.predstavitel;
+        dateRegistr.value = data.perv_vtor;
+        dateRegistr.value = data['reg_index'];
+        dateRegistr.value = data.date_index_povt_app;
+        dateRegistr.value = data['info_napr_zapr'];
+        dateRegistr.value = data['info_sogl'];
+        dateRegistr.value = data.protokol_zased;
+        dateRegistr.value = data.date_protokol;
+        dateRegistr.value = data.info_vozvr;
+        dateRegistr.value = data['info_otzyv'];
+        dateRegistr.value = data['admin_resh'];
+        dateRegistr.value = data['date_admin_resh'];
+        dateRegistr.value = data.count_list_admin;
+        dateRegistr.value = data['result'];
+        dateRegistr.value = data['svidetelstvo'];
+        dateRegistr.value = data.date_sved;
+        dateRegistr.value = data.count_list_sved;
+        dateRegistr.value = data['info_uved'];
+        dateRegistr.value = data.count_list_report_medacr;
+        dateRegistr.value = data['getter'];
+        dateRegistr.value = data['delo'];
+        dateRegistr.value = data['date_delo'];
+        dateRegistr.value = data['dop_info'];
     });
 }
