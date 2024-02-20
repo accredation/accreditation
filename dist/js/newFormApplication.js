@@ -1592,7 +1592,9 @@ function addFile(idCrit, idDep, input) {
             xhr.abort();
         }
         else {
-            if (extAr !== ".pdf" && extAr !== ".PDF") {
+            if (extAr !== ".pdf" && extAr !== ".PDF" && extAr !== ".docx" && extAr !== ".DOCX" &&
+                extAr !== ".DOC" && extAr !== ".doc" && extAr !== ".XLSX" && extAr !== ".xlsx" &&
+                extAr !== ".XLS" && extAr !== ".xls") {
                 alert("Неверный формат. Допустимый формат pdf");
                 xhr.abort();
             } else {

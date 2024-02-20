@@ -2867,6 +2867,6 @@ function saveRkk() {
             id_application: id_app
         }
     }).done(function (result){
-
+    console.log(result);
     });
 }
