@@ -412,7 +412,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btnOkReshenie.classList.remove("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
@@ -431,7 +431,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         informgr.style.display = "none";
     } else if (tabRassmotrenie.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
@@ -445,7 +445,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         informgr.style.display = "none";
@@ -456,7 +456,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         informgr.style.display = "block";
@@ -708,7 +708,9 @@ function showModal(id_application, strMarks, strMarksAccred) {
         let mb = document.getElementsByClassName("modal-body")[0];
         let innerContent = mb.getElementsByClassName("tab-content tab-transparent-content")[0];
         let lastAct = innerContent.getElementsByClassName("tab-pane fade show remAccTab active")[0];
-        lastAct.remove();
+        if (lastAct) {
+            lastAct.remove();
+        }
     });
     $("#closerModal").on("click", () => {
         let sopr = divSoprPismo.getElementsByTagName("a")[0];
@@ -770,7 +772,9 @@ function showModal(id_application, strMarks, strMarksAccred) {
         let mb = document.getElementsByClassName("modal-body")[0];
         let innerContent = mb.getElementsByClassName("tab-content tab-transparent-content")[0];
         let lastAct = innerContent.getElementsByClassName("tab-pane fade show remAccTab active")[0];
-        lastAct.remove();
+        if (lastAct) {
+            lastAct.remove();
+        }
     });
 
 
@@ -828,55 +832,7 @@ function printReport() {
 }
 
 //function print()
-$("#btnPrint").on("click", () => {
 
-
-    let number_app = document.getElementById("id_application");
-    let id_application = number_app.innerHTML;
-
-    $.ajax({
-        url: "ajax/getAppForPrint.php",
-        method: "GET",
-        data: {id_app: id_application}
-    })
-        .done(function (response) {
-            let tableForPrint = JSON.parse(response);
-
-
-            let naim = document.getElementById("naim");
-            let unp = document.getElementById("unp");
-            let naimText = naim.value;
-            let unpText = unp.value;
-            var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
-
-            WinPrint.document.write('<style>@page {\n' +
-                'size: A4 landscape;\n' +
-                'margin: 1rem;\n' +
-                '}</style>');  // убрать колонтитул
-            // WinPrint.document.write('Наименование организации: ');
-            // WinPrint.document.write(naimText);
-            // WinPrint.document.write('<br/>');
-            // WinPrint.document.write('УНП: ');
-            // WinPrint.document.write(unpText);
-
-            let table = createTableForPrint(tableForPrint);
-
-
-            WinPrint.document.write('<br/>');
-            WinPrint.document.write(table.innerHTML);
-
-
-            WinPrint.document.close();
-            WinPrint.focus();
-            let naimOrg = document.getElementById("naim");
-            WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
-            WinPrint.print();
-            WinPrint.close();
-
-        });
-
-
-});
 
 function createTableForPrint(tableForPrint) {
 
@@ -1989,7 +1945,9 @@ async function createAccordionCards(id_sub) {
             btnCollapse.setAttribute("aria-controls", "collapse" + id_criteria);
 
             btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
-            var filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
+            if (name_criteria) {
+                let filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
+            }
             btnCollapse.innerHTML = filteredOutput;
 
             divCardHeader.appendChild(btnCollapse);
@@ -2634,7 +2592,56 @@ $("#reshenieSoveta-tab").on("click", () => {
 });
 
 $("#accredArchive-tab").on("click", () => {
+    let btnPrint = document.getElementById("btnPrint");
+    btnPrint.onclick = () => {
 
+
+        let number_app = document.getElementById("id_application");
+        let id_application = number_app.innerHTML;
+
+        $.ajax({
+            url: "ajax/getAppForPrint.php",
+            method: "GET",
+            data: {id_app: id_application}
+        })
+            .done(function (response) {
+                let tableForPrint = JSON.parse(response);
+
+
+                let naim = document.getElementById("naim");
+                let unp = document.getElementById("unp");
+                let naimText = naim.value;
+                let unpText = unp.value;
+                var WinPrint = window.open('', '', 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+
+                WinPrint.document.write('<style>@page {\n' +
+                    'size: A4 landscape;\n' +
+                    'margin: 1rem;\n' +
+                    '}</style>');  // убрать колонтитул
+                // WinPrint.document.write('Наименование организации: ');
+                // WinPrint.document.write(naimText);
+                // WinPrint.document.write('<br/>');
+                // WinPrint.document.write('УНП: ');
+                // WinPrint.document.write(unpText);
+
+                let table = createTableForPrint(tableForPrint);
+
+
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write(table.innerHTML);
+
+
+                WinPrint.document.close();
+                WinPrint.focus();
+                let naimOrg = document.getElementById("naim");
+                WinPrint.document.title = naimOrg.value + "_№" + id_application + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+                WinPrint.print();
+                WinPrint.close();
+
+            });
+
+
+    }
     for (let i = 0; i <= 5; i++) {
         if (i != 5)
             allTabsMainPage[i].style = "display:none";

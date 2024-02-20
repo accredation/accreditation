@@ -1121,7 +1121,7 @@
                                                                                           required/></div>
                                     <div class="form-group">
                                         <label>Заявление<span class="zvezda">*</span></label>
-                                        <select class="form-control" name="" id="prinyal_zayav">
+                                        <select class="form-control" name="" id="perv_vtor_zayav">
                                             <option value="0">Выбор</option>
                                             <option value="1">Первичное</option>
                                             <option value="2">Вторичное</option>
@@ -1168,11 +1168,16 @@
     margin-right: 1rem;
     margin-top: 1rem;">Листов</label><input id="count_admin_resh" type="text" class="form-control"/>
                                     </div>
+                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Результат</label><input id="resultat" type="text" class="form-control"/>
+                                    </div>
                                     <div class="form-group" style="display: flex;"><label style="margin-right:1rem">Свидетельство
                                             №</label><input id="svidetelstvo" type="text" class="form-control"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label><input id="date_svidetelstvo" type="date" class="form-control"/>
+                                        <label style="margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;">по №</label><input id="po_n" type="text" class="form-control"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Листов</label><input id="count_svidetelstvo" type="text" class="form-control"/>
@@ -1193,9 +1198,12 @@
                                     <div class="form-group" style="display: flex;"><label style="
     margin-right: 1rem;
     margin-top: 1rem;">В дело №</label><input id="delo" type="text" class="form-control" style="max-width: 31%;"/>
+                                        <label style="
+    margin-right: 1rem;
+    margin-top: 1rem;">Листов</label><input id="delo_listov" type="text" class="form-control" style="max-width: 31%;"/>
                                         <span style="margin-left: 1rem;
 
-    margin-top: 1rem;">Снято с контроля</span>
+    margin-top: 1rem;" id = "kontrol">Снято с контроля</span>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label>
@@ -1218,7 +1226,7 @@
                                 </button>
                                 <button type="button" class="btn btn-warning" id="" style="margin-right: 10px">Отмена
                                 </button>
-                                <button type="button" class="btn btn-primary" id="" style="margin-right: 10px">
+                                <button type="button" class="btn btn-primary" id="" style="margin-right: 10px" onclick="saveRkk()">
                                     Сохранить
                                 </button>
                                 <button type="button" class="btn btn-secondary" id="" style="margin-right: 10px">

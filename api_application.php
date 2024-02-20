@@ -99,7 +99,7 @@ if (mysqli_num_rows($rez) == 1) //если нашлась одна строка,
                 <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border ">
                   <ul class="nav nav-tabs tab-transparent" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Самоакредитация</a>
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab" aria-selected="true">Самоаккредитация</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab" aria-selected="false">На рассмотрении</a>
