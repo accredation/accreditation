@@ -1083,7 +1083,7 @@
 
                                     <div class="newform-group">
                                         <label>Дата регистрации<span class="zvezda">*</span></label>
-                                        <input id="dateRegistr" type="date" class="form-control" required/>
+                                        <input id="dateRegistr" type="date" class="form-control" required disabled="true"/>
                                     </div>
                                     <br>
 
@@ -1091,26 +1091,26 @@
                                     <div class="form-group"><label>В заявлении листов<span
                                                     class="zvezda">*</span></label><input id="countlist" type="text"
                                                                                           class="form-control"
-                                                                                          required/></div>
+                                                                                          required disabled="true"/></div>
                                     <div class="form-group"><label>Техническое оснащение<span
                                                     class="zvezda">*</span></label><input class="form-control"
                                                                                           id="tech_osn_rkk" type="text"
-                                                                                          required/></div>
+                                                                                          required disabled="true"/></div>
                                     <div class="form-group"><label>Штатное расписание<span
                                                     class="zvezda">*</span></label><input class="form-control"
                                                                                           type="text" id="stat_rasp"
-                                                                                          required/></div>
+                                                                                          required disabled="true"/></div>
                                     <div class="form-group"><label>Укомплектованность<span
                                                     class="zvezda">*</span></label><input class="form-control"
                                                                                           type="text" id="ucomp_rkk"
-                                                                                          required/></div>
+                                                                                          required disabled="true"/></div>
                                     <div class="form-group"><label>Отчет о самоакредитации<span class="zvezda">*</span></label><input
-                                                class="form-control" type="text" id="report_samoacred" required/></div>
+                                                class="form-control" type="text" id="report_samoacred" required disabled="true"/></div>
                                     <div class="form-group"><label>Дополнительные сведения</label><input
-                                                class="form-control" id="dop_sved" type="text"/></div>
+                                                class="form-control" id="dop_sved" type="text" disabled="true"/></div>
                                     <div class="form-group">
                                         <label>Заявление принял (ФИО, должность)<span class="zvezda">*</span></label>
-                                        <select class="form-control" name="" id="prinyal_zayav">
+                                        <select class="form-control" name="" id="prinyal_zayav" disabled="true">
                                             <option value="0">Выбор заявления</option>
                                         </select>
 
@@ -1118,20 +1118,20 @@
                                     <div class="form-group"><label>Представитель заинтересованного лица (ФИО, должность)<span
                                                     class="zvezda">*</span></label><input class="form-control"
                                                                                           type="text" id="predst_rkk"
-                                                                                          required/></div>
+                                                                                          required disabled="true"/></div>
                                     <div class="form-group">
                                         <label>Заявление<span class="zvezda">*</span></label>
-                                        <select class="form-control" name="" id="perv_vtor_zayav">
+                                        <select class="form-control" name="" id="perv_vtor_zayav" disabled="true">
                                             <option value="0">Выбор</option>
                                             <option value="1">Первичное</option>
                                             <option value="2">Вторичное</option>
                                         </select>
 
                                     </div>
-                                    <div class="form-group"><label>Регистрационный индекс -</label><input
-                                                class="form-control" id="reg_index" type="text"/></div>
+                                    <div class="form-group"><label>Регистрационный индекс -</label><span
+                                                class="form-control" id="reg_index" ></span></div>
                                     <div class="form-group"><label>Даты, индексы повторных заявлений</label><input
-                                                class="form-control" id="povtor_index" type="text"/></div>
+                                                class="form-control" id="povtor_index" type="text" disabled="true"/></div>
                                 </div>
                             </div>
                         </div>
@@ -1143,75 +1143,75 @@
 
                                     <div class="form-group"><label>Информация о направлении запросов и в другие
                                             организации</label><input id="info_napr_zapr" type="text"
-                                                                      class="form-control"/></div>
+                                                                      class="form-control" disabled="true"/></div>
                                     <div class="form-group"><label>Информация о согласии заинтересованного лица на
                                             предоставление документа</label><input id="info_sogl" type="text"
-                                                                                   class="form-control"/></div>
+                                                                                   class="form-control" disabled="true"/></div>
                                     <div class="form-group" style="display: flex;"><label>Протокол заседания комиссии
-                                            №</label><input id="protolol_zasedanie" type="text" class="form-control"/>
+                                            №</label><input id="protolol_zasedanie" type="text" class="form-control" disabled="true"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label> <input id="date_zasedanie" type="date" class="form-control"
-                                           style="max-width: 30%;"/>
+                                           style="max-width: 30%;" disabled="true" />
                                     </div>
                                     <div class="form-group"><label>Информация о возврате заявления при отказе в
-                                            принятии</label><input id="info_vozvrat" type="text" class="form-control"/>
+                                            принятии</label><input id="info_vozvrat" type="text" class="form-control" disabled="true"/>
                                     </div>
                                     <div class="form-group"><label>Информация об отзыве заявления</label><input
-                                                id="info_otzyv" type="text" class="form-control"/></div>
+                                                id="info_otzyv" type="text" class="form-control" disabled="true"/></div>
                                     <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Административное
-                                            решение №</label><input id="admin_resh" type="text" class="form-control"/>
+                                            решение №</label><span id="admin_resh" class="form-control"></span>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Дата</label><input id="date_admin_resh" type="date" class="form-control"/>
+    margin-top: 1rem;">Дата</label><input id="date_admin_resh" type="date" class="form-control" disabled="true"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Листов</label><input id="count_admin_resh" type="text" class="form-control"/>
+    margin-top: 1rem;">Листов</label><input id="count_admin_resh" type="text" class="form-control" disabled="true"/>
                                     </div>
-                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Результат</label><input id="resultat" type="text" class="form-control"/>
+                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Результат</label><input id="resultat" type="text" class="form-control" disabled="true"/>
                                     </div>
                                     <div class="form-group" style="display: flex;"><label style="margin-right:1rem">Свидетельство
                                             №</label><input id="svidetelstvo" type="text" class="form-control"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Дата</label><input id="date_svidetelstvo" type="date" class="form-control"/>
+    margin-top: 1rem;">Дата</label><input id="date_svidetelstvo" type="date" class="form-control" disabled="true"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">по №</label><input id="po_n" type="text" class="form-control"/>
+    margin-top: 1rem;">по №</label><input id="po_n" type="text" class="form-control" disabled="true"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Листов</label><input id="count_svidetelstvo" type="text" class="form-control"/>
+    margin-top: 1rem;">Листов</label><input id="count_svidetelstvo" type="text" class="form-control" disabled="true"/>
                                     </div>
 
                                     <div class="form-group"><label>Информация об уведомлении заинтересованного
-                                            лица</label><input id="info_uved" type="text" class="form-control"/></div>
+                                            лица</label><input id="info_uved" type="text" class="form-control" disabled="true"/></div>
                                     <div class="form-group " style="display: flex; justify-content: space-between;">
                                         <label style="
 
     margin-top: 1rem;">Отчет о медицинской аккредитации</label>
                                         <div style="display:flex"><label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Листов</label><input id="count_medacr" type="text" class="form-control"/></div>
+    margin-top: 1rem;">Листов</label><input id="count_medacr" type="text" class="form-control" disabled="true"/></div>
                                     </div>
                                     <div class="form-group"><label>Получил на руки (ФИО, должность)</label><input
-                                                id="getter" type="text" class="form-control"/></div>
+                                                id="getter" type="text" class="form-control" disabled="true"/></div>
                                     <div class="form-group" style="display: flex;"><label style="
     margin-right: 1rem;
-    margin-top: 1rem;">В дело №</label><input id="delo" type="text" class="form-control" style="max-width: 31%;"/>
+    margin-top: 1rem;">В дело №</label><input id="delo" type="text" class="form-control" style="max-width: 31%;" disabled="true"/>
                                         <label style="
     margin-right: 1rem;
-    margin-top: 1rem;">Листов</label><input id="delo_listov" type="text" class="form-control" style="max-width: 31%;"/>
+    margin-top: 1rem;">Листов</label><input id="delo_listov" type="text" class="form-control" style="max-width: 31%;" disabled="true"/>
                                         <span style="margin-left: 1rem;
 
     margin-top: 1rem;" id = "kontrol">Снято с контроля</span>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label>
-                                        <input id="date_delo" type="date" class="form-control" style="max-width: 30%;"/>
+                                        <input id="date_delo" type="date" class="form-control" style="max-width: 30%;" disabled="true"/>
                                     </div>
 
                                     <div class="form-group"><label>Дополнительная информация</label> <input
-                                                id="dop_info" type="text" class="form-control"/></div>
+                                                id="dop_info" type="text" class="form-control" disabled="true" /></div>
 
 
                                 </div>
