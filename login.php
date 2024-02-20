@@ -12,10 +12,10 @@ include 'authorization/auth.php';
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="assets/vendors/css/vend.bundle.base.css">
+<!--    <link rel="stylesheet" href="assets/vendors/css/vend.bundle.base.css">-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="dist/js/bootstrap.min.js"></script>
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
 
     <!-- endinject -->
     <!-- Plugin css for this page -->
@@ -291,24 +291,24 @@ include 'authorization/auth.php';
         }
     }
 
-    function makeSnow() {
-        const snow = document.createElement("div");
-        const size = Math.random() * 35.5 + 3.5;
-        snow.className = "snow";
-        snow.style.fontSize = size + "px";
-        snow.style.left = Math.random() * window.innerWidth + "px";
-        snow.innerHTML = "*";
-        snow.style.opacity = size / 8;
-        if (size < 7) {
-            snow.style.zIndex = -5;
-        }
-        snow.style.animationDuration = Math.random() * 60 + 20 + "s";
-        document.body.appendChild(snow);
-        setTimeout(() =>
-                snow.remove(),
-            7000
-        )
-    }
+    // function makeSnow() {
+    //     const snow = document.createElement("div");
+    //     const size = Math.random() * 35.5 + 3.5;
+    //     snow.className = "snow";
+    //     snow.style.fontSize = size + "px";
+    //     snow.style.left = Math.random() * window.innerWidth + "px";
+    //     snow.innerHTML = "*";
+    //     snow.style.opacity = size / 8;
+    //     if (size < 7) {
+    //         snow.style.zIndex = -5;
+    //     }
+    //     snow.style.animationDuration = Math.random() * 60 + 20 + "s";
+    //     document.body.appendChild(snow);
+    //     setTimeout(() =>
+    //             snow.remove(),
+    //         7000
+    //     )
+    // }
 
     function checkTimeSession() {
         $.ajax({
@@ -359,7 +359,7 @@ include 'authorization/auth.php';
         })
     }
 
-    setInterval(makeSnow, 40);
+    // setInterval(makeSnow, 40);
 </script>
 <!-- container-scroller -->
 <!-- plugins:js -->

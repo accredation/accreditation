@@ -17,7 +17,7 @@ left outer join z_criteria c on c.id_list_tables_criteria =ltc.id_list_tables_cr
 left outer join z_answer_criteria ac on c.id_criteria=ac.id_criteria and ac.id_department = dep.id_department
 left outer join applications a on s.id_application=a.id_application
 where  s.id_application = '$id_app' 
-and (a.id_status = 1) 
+ 
 
 order by s.id_subvision, dep.id_department, IFNULL(c.pp, 100000), c.id_criteria
 

@@ -6,20 +6,16 @@ function newShowModal(id_application) {
     let btnRkk;
 
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
-    if(!divSoprovodPismo.classList.contains("hiddentab"))
+    if (!divSoprovodPismo.classList.contains("hiddentab"))
         divSoprovodPismo.classList.add("hiddentab");
 
     let divOrgStrukt = document.getElementById("divOrgStrukt");
-    if(!divOrgStrukt.classList.contains("hiddentab"))
+    if (!divOrgStrukt.classList.contains("hiddentab"))
         divOrgStrukt.classList.add("hiddentab");
 
     let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
-    if(formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
+    if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
         formFileReportZakluchenieSootvet.classList.remove("hiddentab");
-
-
-
-
 
 
     createrApp = "";
@@ -73,19 +69,11 @@ function newShowModal(id_application) {
     }
 
 
-
-
-
-
-
-
     let btnSend = document.getElementById("btnSend");
 
 
     let btnPrint = document.getElementById("btnPrint");
     let btnPrintReport = document.getElementById("btnPrintReport");
-
-
 
 
     let homeTab = document.getElementById("home-tab");
@@ -152,7 +140,7 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.remove("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
@@ -171,7 +159,7 @@ function newShowModal(id_application) {
         informgr.style.display = "none";
     } else if (tabRassmotrenie.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
@@ -179,31 +167,32 @@ function newShowModal(id_application) {
         btnreport.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
+        btnPrint.onclick= ()=> {
 
+            newPrint();
+        };
     } else if (tabReshenieSoveta.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.remove("hiddentab");
         btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         informgr.style.display = "none";
         sovetgr.style.display = "block";
 
-    }else if (accredArchive.classList.contains("active")) {
+    } else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btnNeOk.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         informgr.style.display = "block";
         sovetgr.style.display = "block";
-    }
-
-    else if (tabHome.classList.contains("active"))  {
+    } else if (tabHome.classList.contains("active")) {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -215,9 +204,12 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+        btnPrint.onclick= ()=> {
 
-    }
-    else  {
+            newPrint();
+        };
+
+    } else {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -247,7 +239,6 @@ function newShowModal(id_application) {
 
 
     document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заявления № ";
-
 
 
     let ownUcompBtnClass = document.getElementsByClassName("ownUcomp")[0];
@@ -350,6 +341,7 @@ function newShowModal(id_application) {
             let login = getCookie('login');
             naim.value = data[0][0];
             sokr.value = data[0][1];
+            if(document.getElementById("sokr_name"))
             document.getElementById("sokr_name").innerHTML += sokr.value;
             unp.value = data[0][2];
             adress.value = data[0][3];
@@ -360,21 +352,22 @@ function newShowModal(id_application) {
             adressFact.value = data[0][18];
             let data1 = JSON.parse(response);
             idRkk = data1[4];
-            if(idRkk !== "0"){
+            if (idRkk !== "0") {
                 btnChecking.classList.remove("hiddentab");
 
-            }else{
+            } else {
                 btnChecking.classList.add("hiddentab");
 
                 btnRkk = document.createElement("button");
                 btnRkk.innerText = 'Регистрация';
                 btnRkk.id = "btnRkkid";
-                btnChecking.insertAdjacentElement("afterend",btnRkk);
+                btnChecking.insertAdjacentElement("afterend", btnRkk);
                 btnRkk.className = "btn btn-success";
                 let modalRkk = document.getElementById("modalRkk");
                 modalRkk.style.display = "none";
                 btnRkk.onclick = () => {
                     modalRkk.style.display = "block";
+                    getRkk();
                 }
                 $("#closexRkk").on("click", () => {
                     modalRkk.style.display = "none";
@@ -425,11 +418,11 @@ function newShowModal(id_application) {
                 chengeLico(lico);
             }
 
-            if(data[0][21] != null){
+            if (data[0][21] != null) {
                 prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
             }
 
-            if(data[0][19]!= null) {
+            if (data[0][19] != null) {
                 doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
 
@@ -444,8 +437,8 @@ function newShowModal(id_application) {
             let mark_percent = data[2];
             let mark_accred_percent = data[3];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
-            mainRightCard.innerHTML = mainRightCard.innerHTML +  "<br>Оценка соответствия - " + Math.round(parseFloat(mark_accred_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = mainRightCard.innerHTML + "<br>Оценка соответствия - " + Math.round(parseFloat(mark_accred_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер
@@ -523,10 +516,10 @@ function newShowModal(id_application) {
                             tech.remove();
                         }
 
-                        if(doverennost ){
+                        if (doverennost) {
                             doverennost.remove();
                         }
-                        if(prikazNaznach ){
+                        if (prikazNaznach) {
                             prikazNaznach.remove();
                         }
 
@@ -582,10 +575,10 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
-                if(doverennost ){
+                if (doverennost) {
                     doverennost.remove();
                 }
-                if(prikazNaznach ){
+                if (prikazNaznach) {
                     prikazNaznach.remove();
                 }
                 modal.classList.remove("show");
@@ -637,10 +630,10 @@ function newShowModal(id_application) {
             if (tech) {
                 tech.remove();
             }
-            if(doverennost ){
+            if (doverennost) {
                 doverennost.remove();
             }
-            if(prikazNaznach ){
+            if (prikazNaznach) {
                 prikazNaznach.remove();
             }
             modal.classList.remove("show");
@@ -725,10 +718,10 @@ function newShowModal(id_application) {
                         if (tech) {
                             tech.remove();
                         }
-                        if(doverennost ){
+                        if (doverennost) {
                             doverennost.remove();
                         }
-                        if(prikazNaznach ){
+                        if (prikazNaznach) {
                             prikazNaznach.remove();
                         }
                         modal.classList.remove("show");
@@ -783,10 +776,10 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
-                if(doverennost ){
+                if (doverennost) {
                     doverennost.remove();
                 }
-                if(prikazNaznach ){
+                if (prikazNaznach) {
                     prikazNaznach.remove();
                 }
                 modal.classList.remove("show");
@@ -838,10 +831,10 @@ function newShowModal(id_application) {
             if (tech) {
                 tech.remove();
             }
-            if(doverennost ){
+            if (doverennost) {
                 doverennost.remove();
             }
-            if(prikazNaznach ){
+            if (prikazNaznach) {
                 prikazNaznach.remove();
             }
             modal.classList.remove("show");
@@ -860,10 +853,11 @@ function newShowModal(id_application) {
 
     });
 
-    // let divBtnPrintReport = document.getElementById('btnNewPrintReport');
-    // divBtnPrintReport.onclick = () => {
-    //     printNewReport();
-    // };
+    let divBtnPrintReport = document.getElementById('btnPrintReport');
+    divBtnPrintReport.onclick = () => {
+        console.log("хуй")
+        printNewReport();
+    };
 
 
 }
@@ -1251,7 +1245,7 @@ async function newShowTab(element, id_sub) {
             })
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ": " + errorThrown);
-        }).then( () => {
+        }).then(() => {
             $.ajax({
                 url: "ajax/z_getAllTablesAccred.php",
                 method: "GET",
@@ -1296,7 +1290,7 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Самоакредитация - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
+                divMark.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
                 divMark.innerHTML = divMark.innerHTML + "<br>Количественная оценка - " + Math.round(parseFloat(data.mark_accred_percent).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
             })
@@ -1312,7 +1306,7 @@ async function newShowTab(element, id_sub) {
         }).then((response) => {
             let data = JSON.parse(response);
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
             mainRightCard.innerHTML = mainRightCard.innerHTML + "<br>Количественная оценка - " + Math.round(parseFloat(data.mark_accred_percent).toFixed(2)) + "%";
         })
 
@@ -1418,7 +1412,6 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tabPane.appendChild(row1);
 
 
-
     cardLeft.classList.add("rolledUp");
     aRollUp.setAttribute("disabled", "true");
     btnDelete.classList.add("hiddentab");
@@ -1491,7 +1484,6 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                 let rightCard = numTab.querySelector("#cardRight");
 
 
-
                 let cardForAdding = rightCard.querySelector(":first-child");
                 let cardForAdding1 = cardForAdding.querySelector(":first-child");
                 if (cardForAdding1)
@@ -1526,14 +1518,13 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
 
                     let tabActive = document.getElementById("tab" + openTabId + "-");
                     let checkboxes = tabActive.querySelectorAll("[id^='checkbox']");
-                    checkboxes.forEach(function(checkbox) {
+                    checkboxes.forEach(function (checkbox) {
                         let buttonText = checkbox.innerText;
                         let colonIndex = buttonText.indexOf(":");
                         if (colonIndex !== -1) {
                             checkbox.innerText = buttonText.substring(0, colonIndex);
                         }
                     });
-
 
 
                 });
@@ -1611,7 +1602,7 @@ function newCollapseTable(thisDiv) {
 
     let selpickersAccred = document.querySelectorAll("#selpickerAccred");
 
-    if ((status !== 2) && (status !== 3 )) {
+    if ((status !== 2) && (status !== 3)) {
 
         selpickers.forEach((selpicker) => {
             selpicker.disabled = true;
@@ -1628,8 +1619,7 @@ function newCollapseTable(thisDiv) {
         noteCells.forEach((noteCell) => {
             noteCell.removeAttribute("contenteditable");
         });
-    }
-    else{
+    } else {
 
         let selpickers = document.querySelectorAll("#selpicker");
         let fileInputs = document.querySelectorAll('input[type="file"]');
@@ -1646,7 +1636,7 @@ function newCollapseTable(thisDiv) {
             fileInput.disabled = false;
         });
 
-        if(noteCells)
+        if (noteCells)
             noteCells.forEach((noteCell) => {
                 noteCell.setAttribute("contenteditable", "true");
             });
@@ -1705,7 +1695,6 @@ function changeFieldDefect(idCrit, idDep, text) {
 
     })
 }
-
 
 
 function addFile(idCrit, idDep, input) {
@@ -1818,12 +1807,11 @@ function deleteDepartment(id_department) {
             url: "ajax/z_getTableLevel.php",
             method: "GET",
             data: {id_sub: openTabId, id_department: id_department},
-        })  .done(function (response) {
+        }).done(function (response) {
 
             let parsedResponse = JSON.parse(response);
 
-            if (parsedResponse.level == '1')
-            {
+            if (parsedResponse.level == '1') {
                 let tabActive = document.getElementById("tab" + openTabId + "-");
                 let formCheckInput = document.getElementsByClassName("form-check-input");
                 let formButton = document.getElementsByClassName("form-button");
@@ -1831,8 +1819,7 @@ function deleteDepartment(id_department) {
 
                 inputCheck.checked = false;
                 toggleActiveCheckbox(inputCheck, formCheckInput, formButton);
-            }
-            else{
+            } else {
                 $.ajax({
                     url: "ajax/z_deleteDepartment.php",
                     method: "GET",
@@ -1860,8 +1847,8 @@ function deleteDepartment(id_department) {
                         }
                         let cardH = document.getElementById("heading" + id_department);
 
-                        let nameTab = document.getElementById("button"+openTabId);
-                        addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
+                        let nameTab = document.getElementById("button" + openTabId);
+                        addHistoryAction(id_app, getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
                         if (cardH)
                             cardH.remove();
                         alert("Отделение удалено.");
@@ -1966,7 +1953,7 @@ function printNewReport() {
             let mainRightCard = document.getElementById("mainRightCard");
             let mainRightCardText = mainRightCard.innerHTML;
             let naim = document.getElementById('naim');
-            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.lastIndexOf('-')+1, mainRightCardText.length);
+            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.indexOf('-')+1, mainRightCardText.indexOf('%')+1);
 
             let table;
             return $.ajax({
@@ -2169,10 +2156,7 @@ function createTableForPrintSamoAccred(valueRespons) {
     return divPrintTable;
 }
 
-$("#newBtnPrint").on("click", function () {
 
-    newPrint();
-});
 
 function newPrint() {
 
@@ -2187,7 +2171,7 @@ function newPrint() {
         data: {id_app: id_application}
     })
         .done(function (response) {
-
+            //  console.log(response);
             let tableForPrint = JSON.parse(response);
 
 
@@ -2485,7 +2469,7 @@ async function sendApp() {
             data: {id_application: id_application.innerText}
         }).then(response => {
             let objects = JSON.parse(response);
-            if(objects.length === 0) {
+            if (objects.length === 0) {
                 // ||
                 //     divFileReportSamoocenka.getElementsByTagName("a").length == 0
                 if (
@@ -2525,35 +2509,34 @@ async function sendApp() {
 
 
                 }
-            }
-            else{
+            } else {
                 let errMsg = "Допущена ошибка: ";
                 let tmpSub = 0;
                 let tmpDep = 0;
-                objects.map((item )=> {
+                objects.map((item) => {
 
-                    if(tmpSub !== item['id_sub'] ) {
+                    if (tmpSub !== item['id_sub']) {
                         errMsg += "\nПодразделение " + item['sub_name'] + ": ";
                     }
 
-                    if(tmpDep !== item['id_department'] && item['id_department']!==null) {
+                    if (tmpDep !== item['id_department'] && item['id_department'] !== null) {
                         errMsg += "\nОтделение " + item['dep_name'] + ": \n Критерии: ";
                     }
 
-                    if(item['id_department']===null){
+                    if (item['id_department'] === null) {
                         errMsg += 'Нет информации по подразделению'
                     }
 
                     tmpDep = item['id_department'];
                     tmpSub = item['id_sub'];
 
-                    if(item['pp'] !== null){
+                    if (item['pp'] !== null) {
                         errMsg += item['pp'] + ", ";
                     }
 
 
                 })
-                errMsg=errMsg.substring(0, errMsg.length-2)
+                errMsg = errMsg.substring(0, errMsg.length - 2)
                 alert(errMsg);
             }
         })
@@ -2579,6 +2562,7 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         })
     })
 }
+
 function saveCommon(idApp, text, fieldNum) {
     $.ajax({
         url: "ajax/z_saveUcompFieldCommon.php",
@@ -2620,8 +2604,7 @@ function printModalContent() {
     printWindow.close();
 }
 
-function checkUserRole()
-{
+function checkUserRole() {
     const inputFieldSokrNaim = document.getElementById("sokr");
     const inputFieldunp = document.getElementById("unp");
     const inputFieldadress = document.getElementById("adress");
@@ -2727,14 +2710,14 @@ $("#doverennost").on("change", () => {
     load.id = "loadDoverennost";
     techOsn.insertAdjacentElement("afterend", load);
 
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         if (event.lengthComputable) {
             let progress = (event.loaded / event.total) * 100;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
     };
 
-    xhr.upload.onloadstart = function() {
+    xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
     };
     xhr.upload.onload = function () {
@@ -2775,14 +2758,14 @@ $("#prikazNaznach").on("change", () => {
     load.id = "loadPrikazNaznach";
     techOsn.insertAdjacentElement("afterend", load);
 
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         if (event.lengthComputable) {
             let progress = (event.loaded / event.total) * 100;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
     };
 
-    xhr.upload.onloadstart = function() {
+    xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
     };
     xhr.upload.onload = function () {
@@ -2811,3 +2794,158 @@ $("#prikazNaznach").on("change", () => {
 //     }, 3000);
 // }))
 
+function saveRkk() {
+    console.log(id_app);
+    let dateRegistr = document.getElementById("dateRegistr");
+    let countlist = document.getElementById("countlist");
+    let tech_osn_rkk = document.getElementById("tech_osn_rkk");
+    let stat_rasp = document.getElementById("stat_rasp");
+    let ucomp_rkk = document.getElementById("ucomp_rkk");
+    let report_samoacred = document.getElementById("report_samoacred");
+    let dop_sved = document.getElementById("dop_sved");
+    let prinyal_zayav = document.getElementById("prinyal_zayav");
+    let predst_rkk = document.getElementById("predst_rkk");
+    let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
+    let reg_index = document.getElementById("reg_index");
+    let povtor_index = document.getElementById("povtor_index");
+    let info_napr_zapr = document.getElementById("info_napr_zapr");
+    let info_sogl = document.getElementById("info_sogl");
+    let protolol_zasedanie = document.getElementById("protolol_zasedanie");
+    let date_zasedanie = document.getElementById("date_zasedanie");
+    let info_vozvrat = document.getElementById("info_vozvrat");
+    let info_otzyv = document.getElementById("info_otzyv");
+    let admin_resh = document.getElementById("admin_resh");
+    let date_admin_resh = document.getElementById("date_admin_resh");
+    let count_admin_resh = document.getElementById("count_admin_resh");
+    let resultat = document.getElementById("resultat");
+    let svidetelstvo = document.getElementById("svidetelstvo");
+    let date_svidetelstvo = document.getElementById("date_svidetelstvo");
+    let po_n = document.getElementById("po_n");
+    let count_svidetelstvo = document.getElementById("count_svidetelstvo");
+    let info_uved = document.getElementById("info_uved");
+    let count_medacr = document.getElementById("count_medacr");
+    let getter = document.getElementById("getter");
+    let delo = document.getElementById("delo");
+    let delo_listov = document.getElementById("delo_listov");
+    let date_delo = document.getElementById("date_delo");
+    let dop_info = document.getElementById("dop_info");
+    $.ajax({
+        url: "ajax/saveRkk.php",
+        method: "POST",
+        data: {
+            dateRegistr: dateRegistr.value,
+            countlist: countlist.value,
+            tech_osn_rkk: tech_osn_rkk.value,
+            stat_rasp: stat_rasp.value,
+            ucomp_rkk: ucomp_rkk.value,
+            report_samoacred: report_samoacred.value,
+            dop_sved: dop_sved.value,
+            prinyal_zayav: prinyal_zayav.options[prinyal_zayav.options.selectedIndex].value,
+            predst_rkk: predst_rkk.value,
+            perv_vtor_zayav: perv_vtor_zayav.options[perv_vtor_zayav.options.selectedIndex].value,
+            reg_index: reg_index.value,
+            povtor_index: povtor_index.value,
+            info_napr_zapr: info_napr_zapr.value,
+            info_sogl: info_sogl.value,
+            protolol_zasedanie: protolol_zasedanie.value,
+            date_zasedanie: date_zasedanie.value,
+            info_vozvrat: info_vozvrat.value,
+            info_otzyv: info_otzyv.value,
+            admin_resh: admin_resh.value,
+            date_admin_resh: date_admin_resh.value,
+            count_admin_resh: count_admin_resh.value,
+            resultat: resultat.value,
+            svidetelstvo: svidetelstvo.value,
+            date_svidetelstvo: date_svidetelstvo.value,
+            po_n: po_n.value,
+            count_svidetelstvo: count_svidetelstvo.value,
+            info_uved: info_uved.value,
+            count_medacr: count_medacr.value,
+            getter: getter.value,
+            delo: delo.value,
+            delo_listov: delo_listov.value,
+            date_delo: date_delo.value,
+            dop_info: dop_info.value,
+            id_application: id_app
+        }
+    }).done(function (result){
+        if(result == "0")
+            alert("Не все обязательные поля заполнены!");
+    });
+}
+
+function getRkk() {
+    let dateRegistr = document.getElementById("dateRegistr");
+    let countlist = document.getElementById("countlist");
+    let tech_osn_rkk = document.getElementById("tech_osn_rkk");
+    let stat_rasp = document.getElementById("stat_rasp");
+    let ucomp_rkk = document.getElementById("ucomp_rkk");
+    let report_samoacred = document.getElementById("report_samoacred");
+    let dop_sved = document.getElementById("dop_sved");
+    let prinyal_zayav = document.getElementById("prinyal_zayav");
+    let predst_rkk = document.getElementById("predst_rkk");
+    let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
+    let reg_index = document.getElementById("reg_index");
+    let povtor_index = document.getElementById("povtor_index");
+    let info_napr_zapr = document.getElementById("info_napr_zapr");
+    let info_sogl = document.getElementById("info_sogl");
+    let protolol_zasedanie = document.getElementById("protolol_zasedanie");
+    let date_zasedanie = document.getElementById("date_zasedanie");
+    let info_vozvrat = document.getElementById("info_vozvrat");
+    let info_otzyv = document.getElementById("info_otzyv");
+    let admin_resh = document.getElementById("admin_resh");
+    let date_admin_resh = document.getElementById("date_admin_resh");
+    let count_admin_resh = document.getElementById("count_admin_resh");
+    let resultat = document.getElementById("resultat");
+    let svidetelstvo = document.getElementById("svidetelstvo");
+    let date_svidetelstvo = document.getElementById("date_svidetelstvo");
+    let po_n = document.getElementById("po_n");
+    let count_svidetelstvo = document.getElementById("count_svidetelstvo");
+    let info_uved = document.getElementById("info_uved");
+    let count_medacr = document.getElementById("count_medacr");
+    let getter = document.getElementById("getter");
+    let delo = document.getElementById("delo");
+    let delo_listov = document.getElementById("delo_listov");
+    let date_delo = document.getElementById("date_delo");
+    let dop_info = document.getElementById("dop_info");
+    $.ajax({
+        url: "ajax/getRkk.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).done(function (result){
+        let data = JSON.parse(result);
+        dateRegistr.value = data.date_reg;
+        countlist.value = data.count_list_app;
+        tech_osn_rkk.value = data.tech_osn;
+        stat_rasp.value = data.raspisanie;
+        ucomp_rkk.value = data.ucomplect;
+        report_samoacred.value = data['report_samoacred'];
+        dop_sved.value = data['dop_sved'];
+        prinyal_zayav.value = data['id_user'];
+        predst_rkk.value = data.predstavitel;
+        dateRegistr.value = data.perv_vtor;
+        dateRegistr.value = data['reg_index'];
+        dateRegistr.value = data.date_index_povt_app;
+        dateRegistr.value = data['info_napr_zapr'];
+        dateRegistr.value = data['info_sogl'];
+        dateRegistr.value = data.protokol_zased;
+        dateRegistr.value = data.date_protokol;
+        dateRegistr.value = data.info_vozvr;
+        dateRegistr.value = data['info_otzyv'];
+        dateRegistr.value = data['admin_resh'];
+        dateRegistr.value = data['date_admin_resh'];
+        dateRegistr.value = data.count_list_admin;
+        dateRegistr.value = data['result'];
+        dateRegistr.value = data['svidetelstvo'];
+        dateRegistr.value = data.date_sved;
+        dateRegistr.value = data.count_list_sved;
+        dateRegistr.value = data['info_uved'];
+        dateRegistr.value = data.count_list_report_medacr;
+        dateRegistr.value = data['getter'];
+        dateRegistr.value = data['delo'];
+        dateRegistr.value = data['date_delo'];
+        dateRegistr.value = data['dop_info'];
+    });
+}

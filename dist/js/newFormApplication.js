@@ -1559,71 +1559,81 @@ function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
 
     let divA = document.getElementById(idCrit + "_" + idDep);
-
+    let arrayDives = divA.childNodes;
+    let arrayFiles = [];
+    arrayDives.forEach(item => {
+        arrayFiles.push(item.children[0].innerText)
+    });
     let xhr = new XMLHttpRequest(),
         form = new FormData();
     let addedFile = input.files[0];
-    form.append("idCrit", idCrit);
-    form.append("idApp", id_app);
-    form.append("idDep", idDep);
-    form.append("addedFile", addedFile);
+    let fileName = addedFile.name;
+    if(arrayFiles.indexOf(fileName) < 0) {
+        form.append("idCrit", idCrit);
+        form.append("idApp", id_app);
+        form.append("idDep", idDep);
+        form.append("addedFile", addedFile);
 
-    xhr.open("post", "ajax/changeField4.php", true);
+        xhr.open("post", "ajax/changeField4.php", true);
 
-    let load = document.createElement("div");
-    // load.innerHTML = "Подождите, идет загрузка";
-    divA.insertAdjacentElement("afterend", load);
+        let load = document.createElement("div");
+        // load.innerHTML = "Подождите, идет загрузка";
+        divA.insertAdjacentElement("afterend", load);
 
-    xhr.upload.onprogress = function (event) {
-        if (event.lengthComputable) {
-            let progress = (event.loaded / event.total) * 100;
-            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
-        }
+        xhr.upload.onprogress = function (event) {
+            if (event.lengthComputable) {
+                let progress = (event.loaded / event.total) * 100;
+                load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+            }
 
-    };
+        };
 
-    xhr.upload.onloadstart = function () {
+        xhr.upload.onloadstart = function () {
 
-        let fileName = addedFile.name;
-        let extAr = fileName.substring(fileName.lastIndexOf('.'), fileName.length);
-        console.log(extAr);
-        if(fileName.length > 120) {
-            alert('Слишком длинное имя файла');
-            xhr.abort();
-        }
-        else {
-            if (extAr !== ".pdf" && extAr !== ".PDF") {
-                alert("Неверный формат. Допустимый формат pdf");
+            let fileName = addedFile.name;
+            let extAr = fileName.substring(fileName.lastIndexOf('.'), fileName.length);
+            console.log(extAr);
+            if (fileName.length > 120) {
+                alert('Слишком длинное имя файла');
                 xhr.abort();
             } else {
-                load.innerHTML = "Подождите, идет загрузка";
-                input.disabled = "true";
+                if (extAr !== ".pdf" && extAr !== ".PDF" && extAr !== ".docx" && extAr !== ".DOCX" &&
+                    extAr !== ".DOC" && extAr !== ".doc" && extAr !== ".XLSX" && extAr !== ".xlsx" &&
+                    extAr !== ".XLS" && extAr !== ".xls") {
+                    alert("Неверный формат. Допустимый формат pdf");
+                    xhr.abort();
+                } else {
+                    load.innerHTML = "Подождите, идет загрузка";
+                    input.disabled = "true";
+                }
             }
-        }
-    };
-
-    xhr.upload.onload = function () {
-        input.removeAttribute("disabled");
-        load.remove();
-        let fileContainer = document.createElement('div');
-        fileContainer.classList.add('file-container');
-        let fileLink = document.createElement('a');
-        fileLink.href = `/docs/documents/${createrApp}/${id_app}/${idDep}/${addedFile.name}`;
-        fileLink.textContent = addedFile.name;
-        let deleteButton = document.createElement('span');
-        deleteButton.classList.add('delete-file');
-        deleteButton.textContent = '×';
-        deleteButton.style.cursor = 'pointer';
-        deleteButton.style.paddingLeft = '10px';
-        deleteButton.id = 'delete_' + idCrit + '_' + idDep + '_' + addedFile.name;
-        deleteButton.onclick = function () {
-            z_deleteFile(addedFile.name, idCrit, idDep);
         };
-        fileContainer.appendChild(fileLink);
-        fileContainer.appendChild(deleteButton);
-        divA.appendChild(fileContainer);
+
+        xhr.upload.onload = function () {
+            input.removeAttribute("disabled");
+            load.remove();
+            let fileContainer = document.createElement('div');
+            fileContainer.classList.add('file-container');
+            let fileLink = document.createElement('a');
+            fileLink.href = `/docs/documents/${createrApp}/${id_app}/${idDep}/${addedFile.name}`;
+            fileLink.textContent = addedFile.name;
+            let deleteButton = document.createElement('span');
+            deleteButton.classList.add('delete-file');
+            deleteButton.textContent = '×';
+            deleteButton.style.cursor = 'pointer';
+            deleteButton.style.paddingLeft = '10px';
+            deleteButton.id = 'delete_' + idCrit + '_' + idDep + '_' + addedFile.name;
+            deleteButton.onclick = function () {
+                z_deleteFile(addedFile.name, idCrit, idDep);
+            };
+            fileContainer.appendChild(fileLink);
+            fileContainer.appendChild(deleteButton);
+            divA.appendChild(fileContainer);
+        }
+        xhr.send(form);
+    }else{
+        alert("Файл с таким именем уже есть в этой ячейке");
     }
-    xhr.send(form);
 }
 
 

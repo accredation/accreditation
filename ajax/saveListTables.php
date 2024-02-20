@@ -100,7 +100,7 @@ if (mysqli_num_rows($r) == 0) {
             Сведения по самоаккредитации ОЗ
         </td>
         <td style="width: 350px; border: 1px solid black;">
-            Документы и сведения, на основании которых проведена самоакредитация
+            Документы и сведения, на основании которых проведена самоаккредитация
         </td>
         <td style="border: 1px solid black; max-width: 10vw;
   word-wrap: break-word;">
@@ -143,7 +143,7 @@ if (mysqli_num_rows($r) == 0) {
                 echo '</div>';
             }
         }
-        echo '</div><input class  = "inpFiles" accept="application/pdf" onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
+        echo '</div><input class  = "inpFiles"  onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
                 <td style="border: 1px solid black; max-width: 10vw;
   word-wrap: break-word;" contenteditable="true" oninput="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
             </tr>';
