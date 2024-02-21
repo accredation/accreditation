@@ -352,33 +352,34 @@ function newShowModal(id_application) {
             adressFact.value = data[0][18];
             let data1 = JSON.parse(response);
             idRkk = data1[4];
-            if (idRkk !== "0") {
+            if (idRkk == null) {
                 btnChecking.classList.remove("hiddentab");
 
             } else {
                 btnChecking.classList.add("hiddentab");
 
-                btnRkk = document.createElement("button");
-                btnRkk.innerText = 'Регистрация';
-                btnRkk.id = "btnRkkid";
-                btnChecking.insertAdjacentElement("afterend", btnRkk);
-                btnRkk.className = "btn btn-success";
-                let modalRkk = document.getElementById("modalRkk");
-                modalRkk.style.display = "none";
-                btnRkk.onclick = () => {
-                    modalRkk.style.display = "block";
-                    getRkk();
-                    refreshRkk(id_app);
-                }
-                $("#closexRkk").on("click", () => {
-                    modalRkk.style.display = "none";
-                });
 
-                $("#closeRkk").on("click", () => {
-                    modalRkk.style.display = "none";
-                });
 
             }
+            btnRkk = document.createElement("button");
+            btnRkk.innerText = 'Регистрация';
+            btnRkk.id = "btnRkkid";
+            btnChecking.insertAdjacentElement("afterend", btnRkk);
+            btnRkk.className = "btn btn-success";
+            let modalRkk = document.getElementById("modalRkk");
+            modalRkk.style.display = "none";
+            btnRkk.onclick = () => {
+                modalRkk.style.display = "block";
+                getRkk();
+                refreshRkk(id_app);
+            }
+            $("#closexRkk").on("click", () => {
+                modalRkk.style.display = "none";
+            });
+
+            $("#closeRkk").on("click", () => {
+                modalRkk.style.display = "none";
+            });
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
@@ -2916,39 +2917,94 @@ function getRkk() {
             id_application: id_app
         }
     }).done(function (result){
-        let data = JSON.parse(result);
-        dateRegistr.value = data.date_reg;
-        countlist.value = data.count_list_app;
-        tech_osn_rkk.value = data.tech_osn;
-        stat_rasp.value = data.raspisanie;
-        ucomp_rkk.value = data.ucomplect;
-        report_samoacred.value = data['report_samoacred'];
-        dop_sved.value = data['dop_sved'];
-        prinyal_zayav.value = data['id_user'];
-        predst_rkk.value = data.predstavitel;
-        dateRegistr.value = data.perv_vtor;
-        dateRegistr.value = data['reg_index'];
-        dateRegistr.value = data.date_index_povt_app;
-        dateRegistr.value = data['info_napr_zapr'];
-        dateRegistr.value = data['info_sogl'];
-        dateRegistr.value = data.protokol_zased;
-        dateRegistr.value = data.date_protokol;
-        dateRegistr.value = data.info_vozvr;
-        dateRegistr.value = data['info_otzyv'];
-        dateRegistr.value = data['admin_resh'];
-        dateRegistr.value = data['date_admin_resh'];
-        dateRegistr.value = data.count_list_admin;
-        dateRegistr.value = data['result'];
-        dateRegistr.value = data['svidetelstvo'];
-        dateRegistr.value = data.date_sved;
-        dateRegistr.value = data.count_list_sved;
-        dateRegistr.value = data['info_uved'];
-        dateRegistr.value = data.count_list_report_medacr;
-        dateRegistr.value = data['getter'];
-        dateRegistr.value = data['delo'];
-        dateRegistr.value = data['date_delo'];
-        dateRegistr.value = data['dop_info'];
+        if (result !== "no data") {
+            let data = JSON.parse(result);
+
+            dateRegistr.value = data.date_reg;
+            countlist.value = data.count_list_app;
+            tech_osn_rkk.value = data.tech_osn;
+            stat_rasp.value = data.raspisanie;
+            ucomp_rkk.value = data.ucomplect;
+            report_samoacred.value = data['report_samoacred'];
+            dop_sved.value = data['dop_sved'];
+            prinyal_zayav.value = data['id_user'];
+            predst_rkk.value = data.predstavitel;
+            perv_vtor_zayav.value = data.perv_vtor;
+            povtor_index.value = data.date_index_povt_app;
+            info_napr_zapr.value = data['info_napr_zapr'];
+            info_sogl.value = data['info_sogl'];
+            protolol_zasedanie.value = data.protokol_zased;
+            date_zasedanie.value = data.date_protokol;
+            info_vozvrat.value = data.info_vozvr;
+            info_otzyv.value = data['info_otzyv'];
+            date_admin_resh.value = data['date_admin_resh'];
+            count_admin_resh.value = data.count_list_admin;
+            resultat.value = data['result'];
+            svidetelstvo.value = data['svidetelstvo'];
+            date_svidetelstvo.value = data.date_sved;
+            po_n.value = data['dpo_n'];
+            count_svidetelstvo.value = data.count_list_sved;
+            info_uved.value = data['info_uved'];
+            count_medacr.value = data.count_list_report_medacr;
+            getter.value = data['getter'];
+            delo.value = data['delo'];
+            date_delo.value = data['date_delo'];
+            delo_listov.value = data['delo_listov'];
+            dop_info.value = data['dop_info'];
+        }
     });
+}
+
+
+function regRkk(){
+    $.ajax({
+        url: "ajax/regRkk.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).done(response => {
+        dateRegistr.disabled = false;
+        countlist.disabled = false;
+        tech_osn_rkk.disabled = false;
+        stat_rasp.disabled = false;
+        ucomp_rkk.disabled = false;
+        report_samoacred.disabled = false;
+        dop_sved.disabled = false;
+        prinyal_zayav.disabled = false;
+        predst_rkk.disabled = false;
+        perv_vtor_zayav.disabled = false;
+        reg_index.disabled = false;
+        povtor_index.disabled = false;
+        info_napr_zapr.disabled = false;
+        info_sogl.disabled = false;
+        protolol_zasedanie.disabled = false;
+        date_zasedanie.disabled = false;
+        info_vozvrat.disabled = false;
+        info_otzyv.disabled = false;
+        admin_resh.disabled = false;
+        date_admin_resh.disabled = false;
+        count_admin_resh.disabled = false;
+        resultat.disabled = false;
+        svidetelstvo.disabled = false;
+        date_svidetelstvo.disabled = false;
+        po_n.disabled = false;
+        count_svidetelstvo.disabled = false;
+        info_uved.disabled = false;
+        count_medacr.disabled = false;
+        getter.disabled = false;
+        delo.disabled = false;
+        delo_listov.disabled = false;
+        date_delo.disabled = false;
+        dop_info.disabled = false;
+        if (response === '000') {
+            $('#registerRkk').css('display', 'none');
+        }
+        else {
+            $('#registerRkk').css('display', 'block');
+        }
+        alert("Зарегистрировано");
+    })
 }
 
 function refreshRkk(id_app) {

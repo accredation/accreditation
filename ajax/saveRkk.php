@@ -13,7 +13,6 @@ if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_o
     $prinyal_zayav = $_POST['prinyal_zayav'];
     $predst_rkk = $_POST['predst_rkk'];
     $perv_vtor_zayav = $_POST['perv_vtor_zayav'];
-    $reg_index = $_POST['reg_index'];
     $povtor_index = $_POST['povtor_index'];
     $info_napr_zapr = $_POST['info_napr_zapr'];
     $info_sogl = $_POST['info_sogl'];
@@ -21,7 +20,6 @@ if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_o
     $date_zasedanie = $_POST['date_zasedanie'];
     $info_vozvrat = $_POST['info_vozvrat'];
     $info_otzyv = $_POST['info_otzyv'];
-    $admin_resh = $_POST['admin_resh'];
     $date_admin_resh = $_POST['date_admin_resh'];
     $count_admin_resh = $_POST['count_admin_resh'];
     $resultat = $_POST['resultat'];
@@ -44,6 +42,7 @@ if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_o
     $formatted_date_svidetelstvo = date("Y-m-d", strtotime($date_svidetelstvo));
     $rez = mysqli_query($con, "select * from rkk where id_application = '$id_application'");
     if (mysqli_num_rows($rez) == 1) {
+
         mysqli_query($con, "update rkk SET  
 date_reg = '$formatted_dateRegistr', 
 count_list_app = '$countlist', 
@@ -55,7 +54,6 @@ dop_sved = '$dop_sved',
 id_user = '$prinyal_zayav', 
 predstavitel = '$predst_rkk', 
 perv_vtor = '$perv_vtor_zayav', 
-reg_index = '$reg_index', 
 date_index_povt_app = '$povtor_index', 
 info_napr_zapr = '$info_napr_zapr', 
 info_sogl = '$info_sogl', 
@@ -63,7 +61,6 @@ protokol_zased = '$protolol_zasedanie',
 date_protokol = '$formatted_date_zasedanie', 
 info_vozvr = '$info_vozvrat', 
 info_otzyv = '$info_otzyv', 
-admin_resh = '$admin_resh', 
 date_admin_resh = '$formatted_date_admin_resh', 
 count_list_admin = '$count_admin_resh', 
 `result` = '$resultat', 
@@ -84,16 +81,14 @@ WHERE id_application = '$id_application';");
                  admin_resh,	date_admin_resh	,count_list_admin,	`result`,	svidetelstvo,	date_sved	,
                  count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info) 
                             values ('$id_application','$formatted_dateRegistr','$countlist','$tech_osn_rkk','$stat_rasp','$ucomp_rkk','$report_samoacred',
-                                    '$dop_sved','$prinyal_zayav', '$predst_rkk', '$perv_vtor_zayav', '$reg_index','$povtor_index','$info_napr_zapr','$info_sogl',
-                                    '$protolol_zasedanie', '$formatted_date_zasedanie','$info_vozvrat','$info_otzyv','$admin_resh','$formatted_date_admin_resh','$count_admin_resh',
+                                    '$dop_sved','$prinyal_zayav', '$predst_rkk', '$perv_vtor_zayav', '$povtor_index','$info_napr_zapr','$info_sogl',
+                                    '$protolol_zasedanie', '$formatted_date_zasedanie','$info_vozvrat','$info_otzyv','$formatted_date_admin_resh','$count_admin_resh',
                                     '$resultat','$svidetelstvo','$formatted_date_svidetelstvo','$count_svidetelstvo','$info_uved','$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info')");
 
     }
-}
-else {
+} else {
     echo "0";
 }
-
 
 
 ?>

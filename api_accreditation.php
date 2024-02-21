@@ -1221,7 +1221,7 @@
 
                         <div style="width: 100%">
                             <div style="display:flex; justify-content: flex-end;">
-                                <button type="button" class="btn btn-success" id="registerRkk" style="margin-right: 10px">
+                                <button type="button" class="btn btn-success" id="registerRkk" style="margin-right: 10px" onclick="regRkk()">
                                     Зарегистрировать
                                 </button>
                                 <button type="button" class="btn btn-warning" id="" style="margin-right: 10px">Отмена

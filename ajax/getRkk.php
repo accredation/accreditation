@@ -40,5 +40,8 @@ if (mysqli_num_rows($rez) == 1) {
 
    echo json_encode($responce);
 }
+else  {
+    echo "no data";
+}
 
 ?>

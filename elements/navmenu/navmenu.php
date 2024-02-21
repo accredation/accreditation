@@ -211,6 +211,12 @@
             </a>
             </li>
 
+                <li class="nav-item" id="nav11">
+                    <a class="nav-link"  href="/index.php?usersAccred" >
+                        <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                        <span class="menu-title" >Пользователи <br>аккредитации</span>
+                    </a>
+                </li>
 
                 <li class="nav-item" id="nav77">
                     <a class="nav-link"  href="/index.php?naznachenie_vrachei" >
@@ -245,6 +251,7 @@
     let nav8 = document.getElementById("nav8");
     let nav9 = document.getElementById("nav9");
     let nav10 = document.getElementById("nav10");
+    let nav11 = document.getElementById("nav11");
 
     switch(url){
         case "/index.php":
@@ -279,6 +286,9 @@
             break;
         case "/index.php?myusers":
             nav10.className = "nav-item active";
+            break;
+        case "/index.php?usersAccred":
+            nav11.className = "nav-item active";
             break;
         default:
             nav1.className = "nav-item active";
