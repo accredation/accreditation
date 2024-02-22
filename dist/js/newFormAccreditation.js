@@ -51,7 +51,7 @@ function newShowModal(id_application) {
         $.ajax({
             url: "ajax/z_accred_ucomplectTable.php",
             method: "GET",
-            data: {id_application: id_app}
+            data: {id_application: id_application}
         }).then((response) => {
             modalBody.innerHTML = response;
         })
@@ -167,7 +167,7 @@ function newShowModal(id_application) {
         btnreport.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
-        btnPrint.onclick= ()=> {
+        btnPrint.onclick = () => {
 
             newPrint();
         };
@@ -204,7 +204,7 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
-        btnPrint.onclick= ()=> {
+        btnPrint.onclick = () => {
 
             newPrint();
         };
@@ -341,8 +341,8 @@ function newShowModal(id_application) {
             let login = getCookie('login');
             naim.value = data[0][0];
             sokr.value = data[0][1];
-            if(document.getElementById("sokr_name"))
-            document.getElementById("sokr_name").innerHTML += sokr.value;
+            if (document.getElementById("sokr_name"))
+                document.getElementById("sokr_name").innerHTML += sokr.value;
             unp.value = data[0][2];
             adress.value = data[0][3];
             tel.value = data[0][4];
@@ -352,14 +352,10 @@ function newShowModal(id_application) {
             adressFact.value = data[0][18];
             let data1 = JSON.parse(response);
             idRkk = data1[4];
-            if (idRkk == null) {
+            if (idRkk !== "0") {
                 btnChecking.classList.remove("hiddentab");
-
             } else {
                 btnChecking.classList.add("hiddentab");
-
-
-
             }
             btnRkk = document.createElement("button");
             btnRkk.innerText = 'Регистрация';
@@ -1661,7 +1657,7 @@ function changeField5(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField5.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^0-9a-zA-Zа-яёА-ЯЁ ]/u, '')}
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
@@ -1682,7 +1678,7 @@ function changeField7(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField7.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^0-9a-zA-Zа-яёА-ЯЁ ]/u, '')}
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
@@ -1692,7 +1688,7 @@ function changeFieldDefect(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeFieldDefect.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^0-9a-zA-Zа-яёА-ЯЁ ]/u, '')}
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
@@ -1932,7 +1928,6 @@ function printNewReport() {
         divContainer.appendChild(divFooter);
 
 
-
         let textSubCriteriaChecked = '';
         let divTextSubCriteriaChecked = document.createElement('div');
         divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
@@ -1955,7 +1950,7 @@ function printNewReport() {
             let mainRightCard = document.getElementById("mainRightCard");
             let mainRightCardText = mainRightCard.innerHTML;
             let naim = document.getElementById('naim');
-            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.indexOf('-')+1, mainRightCardText.indexOf('%')+1);
+            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.indexOf('-') + 1, mainRightCardText.indexOf('%') + 1);
 
             let table;
             return $.ajax({
@@ -1985,7 +1980,6 @@ function printNewReport() {
                 if (yy < 10) yy = '0' + yy;
                 return dd + '.' + mm + '.' + yy;
             }
-
 
 
             let divReportTitle = document.createElement('div');
@@ -2101,7 +2095,6 @@ function createTableForPrintSamoAccred(valueRespons) {
             tbody.appendChild(trNaim);
 
 
-
             id_s = item['id_subvision'];
         }
 
@@ -2115,9 +2108,9 @@ function createTableForPrintSamoAccred(valueRespons) {
             let tdOtdel2 = document.createElement('td');
             tdOtdel2.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
             let strNameOtdel = '';
-            if(item['name_otdel']!==null){
-                if(item['name_otdel'].indexOf('(') > 0){
-                    strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(')-1)
+            if (item['name_otdel'] !== null) {
+                if (item['name_otdel'].indexOf('(') > 0) {
+                    strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(') - 1)
                 } else {
                     strNameOtdel = item['name_otdel']
                 }
@@ -2131,7 +2124,7 @@ function createTableForPrintSamoAccred(valueRespons) {
 
             let tdOtdel4 = document.createElement('td');
             tdOtdel4.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
-            tdOtdel4.innerHTML =  Math.round(parseFloat(item['mark_dpercent']).toFixed(2))+'%';
+            tdOtdel4.innerHTML = Math.round(parseFloat(item['mark_dpercent']).toFixed(2)) + '%';
 
             trNaim2.appendChild(tdOtdel1);
             trNaim2.appendChild(tdOtdel2);
@@ -2140,7 +2133,7 @@ function createTableForPrintSamoAccred(valueRespons) {
             tbody.appendChild(trNaim2);
 
 
-            num +=1;
+            num += 1;
 
         }
         // else {
@@ -2152,12 +2145,10 @@ function createTableForPrintSamoAccred(valueRespons) {
     });
 
 
-
     divPrintTable.appendChild(table);
 
     return divPrintTable;
 }
-
 
 
 function newPrint() {
@@ -2870,8 +2861,8 @@ function saveRkk() {
             dop_info: dop_info.value,
             id_application: id_app
         }
-    }).done(function (result){
-        if(result == "0")
+    }).done(function (result) {
+        if (result == "0")
             alert("Не все обязательные поля заполнены!");
     });
 }
@@ -2916,7 +2907,7 @@ function getRkk() {
         data: {
             id_application: id_app
         }
-    }).done(function (result){
+    }).done(function (result) {
         if (result !== "no data") {
             let data = JSON.parse(result);
 
@@ -2956,7 +2947,7 @@ function getRkk() {
 }
 
 
-function regRkk(){
+function regRkk() {
     $.ajax({
         url: "ajax/regRkk.php",
         method: "GET",
@@ -2999,11 +2990,12 @@ function regRkk(){
         dop_info.disabled = false;
         if (response === '000') {
             $('#registerRkk').css('display', 'none');
-        }
-        else {
+        } else {
             $('#registerRkk').css('display', 'block');
         }
+        $('#btnChecking').css('display', 'block');
         alert("Зарегистрировано");
+
     })
 }
 
@@ -3012,7 +3004,7 @@ function refreshRkk(id_app) {
         url: 'ajax/checkIdRkk.php',
         method: 'GET',
         data: {id_app: id_app},
-        success: function(response) {
+        success: function (response) {
             if (response === '000') {
                 $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info').removeAttr('disabled');
                 $('#registerRkk').css('display', 'none');
@@ -3021,7 +3013,7 @@ function refreshRkk(id_app) {
                 $('#registerRkk').css('display', 'block');
             }
         },
-        error: function() {
+        error: function () {
             console.log('Ошибка при выполнении AJAX-запроса');
         }
     });

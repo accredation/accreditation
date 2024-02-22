@@ -173,6 +173,7 @@
                                aria-selected="true">Новые</a>
                         </li>
                         <li class="nav-item">
+
                             <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab"
                                aria-selected="false">На рассмотрении</a>
                         </li>

@@ -18,7 +18,7 @@ $rez = mysqli_query($con, "select * from rkk where id_application = '$id_applica
 if (mysqli_num_rows($rez) == 1) {
     $row = mysqli_fetch_array($rez);
     $id_rkk = $row['id_rkk'];
-    if ($id_rkk !== "") {
+    if ($id_rkk !== "0") {
         mysqli_query($con, "update applications set id_rkk = '$id_rkk' where id_application = '$id_application'");
         echo "000";
     }

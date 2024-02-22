@@ -1555,7 +1555,7 @@ function changeField5(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField5.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^0-9a-zA-Zа-яёА-ЯЁ ]/u, '')}
+        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
