@@ -38,6 +38,8 @@ if (mysqli_num_rows($rez) == 1) {
    $responce['delo'] = $row['delo'];
    $responce['date_delo'] = $row['date_delo'];
    $responce['dop_info'] = $row['dop_info'];
+   $responce['po_n'] = $row['po_n'];
+   $responce['delo_listov'] = $row['delo_listov'];
 
    echo json_encode($responce);
 }

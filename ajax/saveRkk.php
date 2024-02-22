@@ -72,18 +72,21 @@ count_list_report_medacr = '$count_medacr',
 getter = '$getter', 
 delo = '$delo', 
 date_delo = '$formatted_date_delo', 
-dop_info = '$dop_info' 
+dop_info = '$dop_info', 
+delo_listov = '$delo_listov', 
+po_n = '$po_n' 
 WHERE id_application = '$id_application';");
     } else {
         mysqli_query($con, "insert into rkk (id_application, date_reg, count_list_app,tech_osn, raspisanie, ucomplect, 
                  report_samoacred, dop_sved,	id_user,	predstavitel,	perv_vtor,	reg_index,	date_index_povt_app,
                  info_napr_zapr,	info_sogl,	protokol_zased,	date_protokol	,info_vozvr,	info_otzyv,
                  admin_resh,	date_admin_resh	,count_list_admin,	`result`,	svidetelstvo,	date_sved	,
-                 count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info) 
+                 count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info, delo_listov, po_n ) 
                             values ('$id_application','$formatted_dateRegistr','$countlist','$tech_osn_rkk','$stat_rasp','$ucomp_rkk','$report_samoacred',
                                     '$dop_sved','$prinyal_zayav', '$predst_rkk', '$perv_vtor_zayav', '$povtor_index','$info_napr_zapr','$info_sogl',
                                     '$protolol_zasedanie', '$formatted_date_zasedanie','$info_vozvrat','$info_otzyv','$formatted_date_admin_resh','$count_admin_resh',
-                                    '$resultat','$svidetelstvo','$formatted_date_svidetelstvo','$count_svidetelstvo','$info_uved','$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info')");
+                                    '$resultat','$svidetelstvo','$formatted_date_svidetelstvo','$count_svidetelstvo','$info_uved',
+                                    '$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info', '$delo_listov', '$po_n' )");
 
     }
 } else {

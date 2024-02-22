@@ -9,10 +9,10 @@
             </li>
               <?php
 
-              if (isset($_SESSION['id_user'])) {
+              if (isset($_COOKIE['id_user'])) {
 
               //$query = "SELECT * FROM view_categ_user, category, users WHERE users.id_user = view_categ_user.id_user AND category.id_category = view_categ_user.id_categ AND users.id_user = '{$_SESSION['id_user']}'";
-              $query = "SELECT id_role FROM users WHERE users.id_user = '{$_SESSION['id_user']}'";
+              $query = "SELECT id_role FROM users WHERE users.id_user = '{$_COOKIE['id_user']}'";
 
               $result = mysqli_query($con, $query) or die (mysqli_error($con));
 
@@ -193,10 +193,10 @@
 
             <?php
 
-            if (isset($_SESSION['id_user'])) {
+            if (isset($_COOKIE['id_user'])) {
 
             //$query = "SELECT * FROM view_categ_user, category, users WHERE users.id_user = view_categ_user.id_user AND category.id_category = view_categ_user.id_categ AND users.id_user = '{$_SESSION['id_user']}'";
-            $query = "SELECT id_role FROM users WHERE users.id_user = '{$_SESSION['id_user']}'";
+            $query = "SELECT id_role FROM users WHERE users.id_user = '{$_COOKIE['id_user']}'";
 
             $result = mysqli_query($con, $query) or die (mysqli_error($con));
 

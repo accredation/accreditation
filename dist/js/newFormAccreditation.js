@@ -193,6 +193,31 @@ function newShowModal(id_application) {
         informgr.style.display = "block";
         sovetgr.style.display = "block";
     } else if (tabHome.classList.contains("active")) {
+
+        $.ajax({
+            url: "ajax/getIdRkk.php",
+            method: "GET",
+            data: {
+                id_application: id_application
+            }
+        }).done(function (result) {
+            if (result !== "no data") {
+                let data = JSON.parse(result);
+
+                idRkk = data.id_rkk;
+                console.log (idRkk +"dassdas");
+                if (idRkk !== "0") {
+                    btnChecking.classList.remove("hiddentab");
+                } else {
+                    btnChecking.classList.add("hiddentab");
+                }
+            }
+        });
+
+
+
+
+
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -352,11 +377,7 @@ function newShowModal(id_application) {
             adressFact.value = data[0][18];
             let data1 = JSON.parse(response);
             idRkk = data1[4];
-            if (idRkk !== "0") {
-                btnChecking.classList.remove("hiddentab");
-            } else {
-                btnChecking.classList.add("hiddentab");
-            }
+
             btnRkk = document.createElement("button");
             btnRkk.innerText = 'Регистрация';
             btnRkk.id = "btnRkkid";
@@ -2864,6 +2885,8 @@ function saveRkk() {
     }).done(function (result) {
         if (result == "0")
             alert("Не все обязательные поля заполнены!");
+        else
+            alert("Данные сохранены!");
     });
 }
 
@@ -2933,7 +2956,7 @@ function getRkk() {
             resultat.value = data['result'];
             svidetelstvo.value = data['svidetelstvo'];
             date_svidetelstvo.value = data.date_sved;
-            po_n.value = data['dpo_n'];
+            po_n.value = data['po_n'];
             count_svidetelstvo.value = data.count_list_sved;
             info_uved.value = data['info_uved'];
             count_medacr.value = data.count_list_report_medacr;
@@ -2993,7 +3016,7 @@ function regRkk() {
         } else {
             $('#registerRkk').css('display', 'block');
         }
-        $('#btnChecking').css('display', 'block');
+        $('#btnChecking').removeClass('hiddentab');
         alert("Зарегистрировано");
 
     })
