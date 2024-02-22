@@ -49,7 +49,7 @@
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <?php if (isset($_COOKIE['login'])) { ?>
-    <div class="content-wrapper">
+    <div class="content-wrapper hiddentab" id="usersContent">
         <div class="row" id="proBanner">
             <div class="col-12">
                 <!--    -->
@@ -227,7 +227,7 @@
             $.ajax({
                 url: "ajax/savePodUser.php",
                 method: "GET",
-                data: {id_user: id_user, login: login, password: password, email: email}
+                data: {id_user: id_user, login: login, password: password, email: email, id_role: 2}
 
             })
                 .done(function (response) {
@@ -402,9 +402,31 @@
 <script>
 
     $(document).ready(function () {
-        let example_filter = document.getElementById("sotr_th_data");
-        example_filter.click();
+        // let example_filter = document.getElementById("sotr_th_data");
+        // example_filter.click();
 
+
+        $.ajax({
+            url: "ajax/getRole.php",
+            method: "GET",
+            data: {role: idRole}
+        }).catch(function (xhr, status, error) {
+            console.log("fail");
+            idRole = undefined;
+        }).then((response) => {
+            idRole = response;
+
+            if (idRole !== "" && idRole !== undefined) {
+
+                if(idRole === "12"){
+                    let content = document.getElementById("usersContent");
+                    content.classList.remove("hiddentab");
+                }
+                else{
+                    alert("Доступ закрыт");
+                }
+            }
+        })
     })
 
 </script>

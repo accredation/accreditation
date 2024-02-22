@@ -1213,7 +1213,6 @@
                                     <div class="form-group"><label>Дополнительная информация</label> <input
                                                 id="dop_info" type="text" class="form-control" disabled="true" /></div>
 
-
                                 </div>
                             </div>
                         </div>

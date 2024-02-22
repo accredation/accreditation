@@ -34,27 +34,27 @@ function login()
 
             $sesId = $_COOKIE['PHPSESSID'];
 
-            setcookie("login", $_COOKIE['login'], time() + 7200, "/");
-            setcookie("password", $_COOKIE['password'], time() + 7200, "/");
+            setcookie("login", $_COOKIE['login'], time() + (86400 * 30), "/");
+            setcookie("password", $_COOKIE['password'], time() + (86400 * 30), "/");
             if ($_COOKIE['isMA'] == 1) {
-                setcookie("isMA", 1, time() + 7200, "/");
+                setcookie("isMA", 1, time() + (86400 * 30), "/");
             } else {
-                setcookie("isMA", 0, time() + 7200, "/");
+                setcookie("isMA", 0, time() + (86400 * 30), "/");
             }
             if ($_COOKIE['secretar'] == 1) {
-                setcookie("secretar", 1, time() + 7200, "/");
+                setcookie("secretar", 1, time() + (86400 * 30), "/");
             } else {
-                setcookie("secretar", 0, time() + 7200, "/");
+                setcookie("secretar", 0, time() + (86400 * 30), "/");
             }
             if ($_COOKIE['predsedatel'] == 1) {
-                setcookie("predsedatel", 1, time() + 7200, "/");
+                setcookie("predsedatel", 1, time() + (86400 * 30), "/");
             } else {
-                setcookie("predsedatel", 0, time() + 7200, "/");
+                setcookie("predsedatel", 0, time() + (86400 * 30), "/");
             }
             if ($_COOKIE['expert'] == 1) {
-                setcookie("expert", 1, time() + 7200, "/");
+                setcookie("expert", 1, time() + (86400 * 30), "/");
             } else {
-                setcookie("expert", 0, time() + 7200, "/");
+                setcookie("expert", 0, time() + (86400 * 30), "/");
             }
             lastAct($id, $sesId);
 
@@ -68,31 +68,31 @@ function login()
             {
                 $row = mysqli_fetch_assoc($rez); //она записывается в ассоциативный массив
 
-                setcookie("login", $row['login'], time() + 7200, "/");
+                setcookie("login", $row['login'], time() + (86400 * 30), "/");
 
-                setcookie("password", md5($row['login'] . $row['password']), time() + 7200, "/");
+                setcookie("password", md5($row['login'] . $row['password']), time() + (86400 * 30), "/");
 
                 $id = $_SESSION['id_user'];
-                setcookie("id_user", $id);
+                setcookie("id_user", $id, time() + (86400 * 30), "/");
                 if ($row['sotrudnik_MA'] == "1") {
-                    setcookie("isMA", 1, time() + 7200, "/");
+                    setcookie("isMA", 1, time() + (86400 * 30), "/");
                 } else {
-                    setcookie("isMA", 0, time() + 7200, "/");
+                    setcookie("isMA", 0, time() + (86400 * 30), "/");
                 }
                 if ($row['secretar'] == 1) {
-                    setcookie("secretar", 1, time() + 7200, "/");
+                    setcookie("secretar", 1, time() + (86400 * 30), "/");
                 } else {
-                    setcookie("secretar", 0, time() + 7200, "/");
+                    setcookie("secretar", 0, time() + (86400 * 30), "/");
                 }
                 if ($row['predsedatel'] == 1) {
-                    setcookie("predsedatel", 1, time() + 7200, "/");
+                    setcookie("predsedatel", 1, time() + (86400 * 30), "/");
                 } else {
-                    setcookie("predsedatel", 0, time() + 7200, "/");
+                    setcookie("predsedatel", 0, time() + (86400 * 30), "/");
                 }
                 if ($row['doctor_expert'] == 1) {
-                    setcookie("expert", 1, time() + 7200, "/");
+                    setcookie("expert", 1, time() + (86400 * 30), "/");
                 } else {
-                    setcookie("expert", 0, time() + 7200, "/");
+                    setcookie("expert", 0, time() + (86400 * 30), "/");
                 }
                 $sesId = $_COOKIE['PHPSESSID'];
                 if ($row['online'] == "0") {

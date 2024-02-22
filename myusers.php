@@ -228,7 +228,7 @@
             $.ajax({
                 url: "ajax/savePodUser.php",
                 method: "GET",
-                data: {id_user: id_user, login: login, password: password, email: email}
+                data: {id_user: id_user, login: login, password: password, email: email, id_role: 15}
 
             })
                 .done(function (response) {
