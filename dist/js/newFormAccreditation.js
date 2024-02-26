@@ -2843,6 +2843,8 @@ function saveRkk() {
     let delo_listov = document.getElementById("delo_listov");
     let date_delo = document.getElementById("date_delo");
     let dop_info = document.getElementById("dop_info");
+    let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
+    let checkboxValue = checkboxValueGuzo.checked ? "1" : "0";
     $.ajax({
         url: "ajax/saveRkk.php",
         method: "POST",
@@ -2880,7 +2882,9 @@ function saveRkk() {
             delo_listov: delo_listov.value,
             date_delo: date_delo.value,
             dop_info: dop_info.value,
+            checkboxValue:checkboxValue,
             id_application: id_app
+
         }
     }).done(function (result) {
         if (result == "0")
@@ -2924,6 +2928,8 @@ function getRkk() {
     let delo_listov = document.getElementById("delo_listov");
     let date_delo = document.getElementById("date_delo");
     let dop_info = document.getElementById("dop_info");
+    let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
+
     $.ajax({
         url: "ajax/getRkk.php",
         method: "GET",
@@ -2965,6 +2971,11 @@ function getRkk() {
             date_delo.value = data['date_delo'];
             delo_listov.value = data['delo_listov'];
             dop_info.value = data['dop_info'];
+            if (data['checkboxValueGuzo'] === "1") {
+                checkboxValueGuzo.checked = true;
+            } else {
+                checkboxValueGuzo.checked = false;
+            }
         }
     });
 }
@@ -3011,6 +3022,7 @@ function regRkk() {
         delo_listov.disabled = false;
         date_delo.disabled = false;
         dop_info.disabled = false;
+        checkboxValueGuzo.disabled = false;
         if (response === '000') {
             $('#registerRkk').css('display', 'none');
         } else {
@@ -3029,10 +3041,10 @@ function refreshRkk(id_app) {
         data: {id_app: id_app},
         success: function (response) {
             if (response === '000') {
-                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info').removeAttr('disabled');
+                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info, #checkboxValueGuzo').removeAttr('disabled');
                 $('#registerRkk').css('display', 'none');
             } else {
-                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info').attr('disabled', true);
+                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info, #checkboxValueGuzo').attr('disabled', true);
                 $('#registerRkk').css('display', 'block');
             }
         },
@@ -3040,4 +3052,13 @@ function refreshRkk(id_app) {
             console.log('Ошибка при выполнении AJAX-запроса');
         }
     });
+}
+
+function guzoChange(checkbox)
+{
+    if (checkbox.checked) {
+        checkbox.value = "1";
+    } else {
+        checkbox.value = "0";
+    }
 }

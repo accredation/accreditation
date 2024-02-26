@@ -35,6 +35,8 @@ if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_o
     $date_delo = $_POST['date_delo'];
     $dop_info = $_POST['dop_info'];
     $id_application = $_POST['id_application'];
+    $checkboxValue = $_POST['checkboxValue'];
+
     $formatted_dateRegistr = date("Y-m-d", strtotime($dateRegistr));
     $formatted_date_zasedanie = date("Y-m-d", strtotime($date_zasedanie));
     $formatted_date_admin_resh = date("Y-m-d", strtotime($date_admin_resh));
@@ -74,19 +76,20 @@ delo = '$delo',
 date_delo = '$formatted_date_delo', 
 dop_info = '$dop_info', 
 delo_listov = '$delo_listov', 
-po_n = '$po_n' 
+po_n = '$po_n',
+ checkboxValueGuzo = '$checkboxValue'
 WHERE id_application = '$id_application';");
     } else {
         mysqli_query($con, "insert into rkk (id_application, date_reg, count_list_app,tech_osn, raspisanie, ucomplect, 
                  report_samoacred, dop_sved,	id_user,	predstavitel,	perv_vtor,	reg_index,	date_index_povt_app,
                  info_napr_zapr,	info_sogl,	protokol_zased,	date_protokol	,info_vozvr,	info_otzyv,
                  admin_resh,	date_admin_resh	,count_list_admin,	`result`,	svidetelstvo,	date_sved	,
-                 count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info, delo_listov, po_n ) 
+                 count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info, delo_listov, po_n , checkboxValueGuzo ) 
                             values ('$id_application','$formatted_dateRegistr','$countlist','$tech_osn_rkk','$stat_rasp','$ucomp_rkk','$report_samoacred',
                                     '$dop_sved','$prinyal_zayav', '$predst_rkk', '$perv_vtor_zayav', '$povtor_index','$info_napr_zapr','$info_sogl',
                                     '$protolol_zasedanie', '$formatted_date_zasedanie','$info_vozvrat','$info_otzyv','$formatted_date_admin_resh','$count_admin_resh',
                                     '$resultat','$svidetelstvo','$formatted_date_svidetelstvo','$count_svidetelstvo','$info_uved',
-                                    '$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info', '$delo_listov', '$po_n' )");
+                                    '$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info', '$delo_listov', '$po_n' , '$checkboxValue' )");
 
     }
 } else {

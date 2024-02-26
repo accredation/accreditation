@@ -1133,7 +1133,14 @@
                                                 id="reg_index" ></span></div>
                                     <div class="form-group"><label>Даты, индексы повторных заявлений</label><input
                                                 class="form-control" id="povtor_index" type="text" disabled="true"/></div>
-                                </div>
+
+                                    <div class="form-group">
+                                        <label for="checkboxValue">Разрешить для ГУЗО</label>
+                                        <input type="checkbox" id="checkboxValueGuzo" name="checkboxValueGuzo" value="0" disabled="true" onchange="guzoChange(this)"/>
+                                    </div>
+
+                                   </div>
+
                             </div>
                         </div>
 
