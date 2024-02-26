@@ -3,7 +3,15 @@ include "connection.php";
 
 $id_application = $_GET['id_application'];
 
-
+// пометка 2 найти предыдущее заявление если оно есть
+//SELECT * FROM (
+//    SELECT * FROM accreditation.applications
+//    WHERE id_user = 185
+//    ORDER BY date_create_app DESC
+//    LIMIT 2
+//) AS subquery
+//ORDER BY date_create_app
+//LIMIT 1;
 $rez = mysqli_query($con, "select * from rkk where id_application = '$id_application'");
 if (mysqli_num_rows($rez) == 1) {
 

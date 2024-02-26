@@ -86,7 +86,7 @@ $query = "SELECT * FROM applications a
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
 {
-
+// пометка если оценка завершена или заявлений еще нет
 ?>
                 <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
                   <button class="btn bg-create p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
