@@ -3,7 +3,6 @@
 include "connection.php";
 
 $id_subvision = $_GET['id_sub'];
-
 $rez = mysqli_query($con, "select sum(mark_percent) as sum, count(*) as coun from z_department where id_subvision='$id_subvision'");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
