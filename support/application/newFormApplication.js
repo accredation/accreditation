@@ -301,7 +301,7 @@ function newShowModal(id_application) {
             }
             let mark_percent = data[2];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер
@@ -1136,7 +1136,7 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
+                divMark.innerHTML = "Самоакредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
             })
         })
@@ -1150,7 +1150,7 @@ async function newShowTab(element, id_sub) {
             data: {id_application: id_app}
         }).then((response) => {
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
         })
 
 
@@ -1671,7 +1671,7 @@ function printNewReport() {
                     }
                     as = '';
                     id_s = item['id_subvision'];
-                    as = `Самоаккредитация ${item['name']} проведена по следующим отделениям медицинской аккредитации ${Math.round(parseFloat(item['mark_percent']).toFixed(2))}%: `;
+                    as = `Самоакредитация ${item['name']} проведена по следующим отделениям медицинской аккредитации ${Math.round(parseFloat(item['mark_percent']).toFixed(2))}%: `;
                 }
                 if (index === subCriteriaForReport.length - 1) {
                     as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ".";
@@ -1853,7 +1853,7 @@ function newCreateTableForPrint(tableForPrint) {
     */
 
     let th3_Main = document.createElement('th');
-    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоаккредитация)';
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
     th3_Main.style = "border: 1px solid black; text-align: center";
     th3_Main.setAttribute('colspan', '3');
 
@@ -1864,7 +1864,7 @@ function newCreateTableForPrint(tableForPrint) {
     th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('th');
-    th4.innerHTML = 'Документы и сведения, на основании которых проведена самоаккредитация';
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
     th4.style = "width:350px; border: 1px solid black";
 
 
@@ -1937,7 +1937,7 @@ function newCreateTableForPrint(tableForPrint) {
             */
 
             let th3_Main2 = document.createElement('td');
-            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самоаккредитация)';
+            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
             th3_Main2.style = "border: 1px solid black; text-align: center";
             th3_Main2.setAttribute('colspan', '3');
 
@@ -1948,7 +1948,7 @@ function newCreateTableForPrint(tableForPrint) {
             th32.style = "border: 1px solid black";
 
             let th42 = document.createElement('td');
-            th42.innerHTML = 'Документы и сведения, на основании которых проведена самоаккредитация';
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
             th4.style = "width:350px; border: 1px solid black";
 
 

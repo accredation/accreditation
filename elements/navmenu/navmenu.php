@@ -279,7 +279,7 @@
             nav77.className = "nav-item active";
             break;
         case "/index.php?application_support":
-            nav8.className = "nav-item active";
+            nav2.className = "nav-item active";
             break;
         case "/index.php?report_first":
             nav9.className = "nav-item active";

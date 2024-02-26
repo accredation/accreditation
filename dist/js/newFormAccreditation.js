@@ -3062,3 +3062,17 @@ function guzoChange(checkbox)
         checkbox.value = "0";
     }
 }
+
+
+function setNewStatus(){
+
+    if(confirm("Вы точно хотите переместить заявление в статус самооценки?")) {
+        $.ajax({
+            url: "ajax/setNewStatus.php",
+            method: "POST",
+            data: {id_app: id_app}
+        }).done(response => {
+            alert("Заявление перемещено в статус самооценки");
+        })
+    }
+}
