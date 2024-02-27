@@ -1112,13 +1112,7 @@
                                                 class="form-control" type="text" id="report_samoacred" required disabled="true"/></div>
                                     <div class="form-group"><label>Дополнительные сведения</label><input
                                                 class="form-control" id="dop_sved" type="text" disabled="true"/></div>
-                                    <div class="form-group">
-                                        <label>Заявление принял (ФИО, должность)<span class="zvezda">*</span></label>
-                                        <select class="form-control" name="" id="prinyal_zayav" disabled="true">
-                                            <option value="0">Выбор заявления</option>
-                                        </select>
 
-                                    </div>
                                     <div class="form-group"><label>Представитель заинтересованного лица (ФИО, должность)<span
                                                     class="zvezda">*</span></label><input class="form-control"
                                                                                           type="text" id="predst_rkk"
