@@ -77,7 +77,7 @@
     $insertquery = "SELECT u.id_role, u.id_user, uz.oblast
                     FROM users u
                     left outer join uz on u.id_uz=uz.id_uz 
-                    WHERE login='$login' ";
+                    WHERE login='$login'";
 
     $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
     $username = "";
@@ -116,6 +116,10 @@
                             <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab"
                                aria-selected="false">Отправленные</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link " id="rkk-tab" data-toggle="tab" href="#rkk" role="tab"
+                               aria-selected="false">Зарегистрированные</a>
+                        </li>
                     </ul>
                     <div class="d-md-block d-none">
                         <!--                    <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
@@ -141,6 +145,7 @@
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
                                 where  '$id_role'=14 and (id_status = 1)";
+
                                         }else {
                                              $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
@@ -271,31 +276,33 @@
 
 
                 <div class="tab-content tab-transparent-content">
-                    <div class="tab-pane fade" id="odobrennie" role="tabpanel" aria-labelledby="odobrennie-tab">
+                    <div class="tab-pane fade" id="rkk" role="tabpanel" aria-labelledby="rkk-tab">
                         <div class="row">
                             <div class="col-12 grid-margin">
                                 <div class="card">
                                     <div class="card-body">
 
                                         <?php
-                                        $login = $_COOKIE['login'];
-                                        $insertquery = "SELECT * FROM users WHERE login='$login'";
 
-                                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 
-                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        if ($oblast == "0")
                                         {
-                                            $row = mysqli_fetch_assoc($rez);
-                                            $id = $row['id_user'];
-
-                                        }
-
-                                        $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where uz.id_uz='$id_uz' and id_status = 7";
+                                where  '$id_role'=14 and (id_status = 1)";
+
+                                        }else {
+                                            $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               left outer join uz uz on uz.id_uz=a.id_user
+                        
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where  (('$id_role'=12 and (id_status = 1 or id_status = 5)) or ('$id_role'=14 and (uz.oblast='$oblast')) and (checkboxValueGuzo = 1))";
+                                        }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
@@ -305,7 +312,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
-                                                <th>Дата одобрения</th>
+                                                <th>Дата доработки</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -314,16 +321,16 @@
                                             foreach ($data as $app) {
                                                 $username = $app['username'];
                                                 include "ajax/mainMark.php";
-                                                /*<?= $str_CalcSelfMarkAccred ?>*/ // второй параметр для showModal
+                                                $id_application = $app['app_id'];
                                                 ?>
+
 
                                                 <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
                                                     style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
-                                                    <td><?= $app['date_complete'] ?></td>
-
+                                                    <td><?= $app['dateInputDorabotki'] ?></td>
 
                                                 </tr>
                                                 <?php
@@ -368,7 +375,7 @@
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where uz.id_uz='$id_uz' and id_status = 5";
+                                where uz.id_uz='$id' and id_status = 5";
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
@@ -441,7 +448,7 @@
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where uz.id_uz='$id_uz' and id_status in (8)";
+                                where uz.id_uz='$id' and id_status in (8)";
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
                                         ?>
@@ -811,6 +818,7 @@
     <script src="/support/application/formApplication.js"></script>
     <script src="/support/application/newFormApplication.js"></script>
     <script src="support/journals/journal/journal.js"></script>
+
 
     <script>
 

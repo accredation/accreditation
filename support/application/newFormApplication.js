@@ -211,7 +211,8 @@ function newShowModal(id_application) {
         formFileReportDorabotka.style.display = "none";
         formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
-        btnSuc.classList.add("hiddentab");
+        if  (btnSuc){
+        btnSuc.classList.add("hiddentab"); }
 
       //  if(btnSend)
       //      btnSend.classList.add("hiddentab");

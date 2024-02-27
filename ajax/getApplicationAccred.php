@@ -2,7 +2,6 @@
 include "connection.php";
 
 $id_application = $_GET['id_application'];
-
 $rez = mysqli_query($con, "select sum(dep.mark_accred_percent) as su, count(dep.mark_accred_percent) as coun from z_department as dep 
     left outer join subvision s on dep.id_subvision = s.id_subvision
     left outer join applications a on s.id_application = a.id_application

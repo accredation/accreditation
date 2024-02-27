@@ -3058,7 +3058,9 @@ function refreshRkk(id_app) {
 function guzoChange(checkbox)
 {
     if (checkbox.checked) {
+
         checkbox.value = "1";
+
     } else {
         checkbox.value = "0";
     }
@@ -3076,6 +3078,30 @@ function setNewStatus(){
             alert("Заявление перемещено в статус самооценки");
         })
     }
+}
+
+function printRkk(){
+    $.ajax({
+        url: "ajax/z_printRkk.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).done(response => {
+        var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
+        WinPrint.document.write('<style>@page {\n' +
+            'margin: 1rem;\n' +
+            '}</style>');
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write(response);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.document.title = "РКК_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.print();
+        WinPrint.close();
+
+        resolve();
+    });
 }
 
 function printRkk(){
