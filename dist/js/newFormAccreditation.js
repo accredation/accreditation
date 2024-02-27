@@ -2974,8 +2974,7 @@ function getRkk() {
             delo_listov.value = data['delo_listov'];
             dop_info.value = data['dop_info'];
             if (data['checkboxValueGuzo'] === "1") {
-                checkboxValueGuzo.checked = true;
-            } else {
+                checkboxValueGuzo.checked = true;            } else {
                 checkboxValueGuzo.checked = false;
             }
         }
@@ -3077,4 +3076,28 @@ function setNewStatus(){
             alert("Заявление перемещено в статус самооценки");
         })
     }
+}
+
+function printRkk(){
+    $.ajax({
+        url: "ajax/z_printRkk.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).done(response => {
+        var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
+        WinPrint.document.write('<style>@page {\n' +
+            'margin: 1rem;\n' +
+            '}</style>');
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write(response);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.document.title = "РКК_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.print();
+        WinPrint.close();
+
+        resolve();
+    });
 }

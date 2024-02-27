@@ -975,7 +975,7 @@
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение
                     </button>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
-                    <?php if($_COOKIE['password'] == '08442653d1f9741bee7ddcaeb6447d4d') { ?>
+                    <?php if($_COOKIE['password'] == '58251aa12e53bf68ea88bc0589810ccb') { ?>
                     <button type="submit" class="btn btn-warning" onclick="setNewStatus()">Отзыв</button>
                     <?php }?>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета
@@ -1239,7 +1239,7 @@
                                 <button type="button" class="btn btn-primary" id="" style="margin-right: 10px" onclick="saveRkk()">
                                     Сохранить
                                 </button>
-                                <button type="button" class="btn btn-secondary" id="" style="margin-right: 10px">
+                                <button type="button" class="btn btn-secondary" id="" onclick="printRkk()" style="margin-right: 10px">
                                     Печать
                                 </button>
                                 <button type="button" class="btn btn-info" id="" style="margin-right: 20px">Снять с

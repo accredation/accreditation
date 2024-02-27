@@ -2,6 +2,15 @@
 include "connection.php";
 
 $id_application = $_GET['id_application'];
+$id_user = $_COOKIE['id_user'];
+
+$queryUs = "SELECT username from users WHERE id_user = '$id_user'";
+  $rezUs =  mysqli_query($con, $queryUs);
+
+  if(mysqli_num_rows($rezUs) == 1){
+      $rowUs = mysqli_fetch_assoc($rezUs);
+      $username = $rowUs['username'];
+  }
 
 // пометка 2 найти предыдущее заявление если оно есть
 //SELECT * FROM (
@@ -27,7 +36,7 @@ if (mysqli_num_rows($rez) == 1) {
     $row = mysqli_fetch_array($rez);
     $id_rkk = $row['id_rkk'];
     if ($id_rkk !== "0") {
-        mysqli_query($con, "update applications set id_rkk = '$id_rkk' where id_application = '$id_application'");
+        mysqli_query($con, "update applications set id_rkk = '$id_rkk', zaregal = '$username' where id_application = '$id_application'");
         echo "000";
     }
     else{
