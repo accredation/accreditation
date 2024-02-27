@@ -366,8 +366,10 @@ function newShowModal(id_application) {
             let login = getCookie('login');
             naim.value = data[0][0];
             sokr.value = data[0][1];
-            if (document.getElementById("sokr_name"))
+            if (document.getElementById("sokr_name")) {
+                document.getElementById("sokr_name").innerHTML = "Регистрация заявления ";
                 document.getElementById("sokr_name").innerHTML += sokr.value;
+            }
             unp.value = data[0][2];
             adress.value = data[0][3];
             tel.value = data[0][4];

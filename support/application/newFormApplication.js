@@ -2315,6 +2315,22 @@ $("#btnJournalActions").on("click", () => {
 });
 
 
+function deleteApp(){
+    if(confirm(`Вы уверены, что хотите удалить заявление №${id_app}`)){
+        $.ajax({
+            url: "ajax/deleteApp.php",
+            method: "POST",
+            data: {id_app: id_app}
+        }).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            alert("Заявление не пустое!");
+        })
+    }
+
+}
+
+
 
 //
 // $("#btnSend").on("click", async () =>{

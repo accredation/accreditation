@@ -725,7 +725,9 @@
                     <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
 
                     <!-- <button type="submit" class="btn btn-success btn-fw" id="btnSend">Отправить</button> -->
-
+                    <button type="button" class="btn btn-danger btn-fw"  data-bs-dismiss="modal"
+                            onclick="deleteApp()">Удалить заявление
+                    </button>
                     <button type="submit" class="btn btn-success btn-fw" id="btnJournalActions">Журнал событий</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnFormApplication">Форма заявления</button>
                     <button data-tooltip="Печать критериев" type="submit" class="btn btn-light btn-fw" id="btnPrint">
@@ -776,6 +778,8 @@
                     <button type="button" class="btn btn-light btn-fw" id="printUcomp" data-bs-dismiss="modal"
                             onclick="printModalContent()">Печать
                     </button>
+
+
 
                     <button type="button" class="btn btn-danger closeUcomplect" data-bs-dismiss="modal">Закрыть</button>
                 </div>
