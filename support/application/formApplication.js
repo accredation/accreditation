@@ -2477,7 +2477,7 @@ $("#rassmotrenie-tab").on("click", () => {
 
 });
 
-$("#odobrennie-tab").on("click", () => {
+$("#rkk-tab").on("click", () => {
 
     for (let i = 0; i < 5; i++) {
         if (i != 2)

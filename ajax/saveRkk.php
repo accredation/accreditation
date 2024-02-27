@@ -79,6 +79,10 @@ delo_listov = '$delo_listov',
 po_n = '$po_n',
  checkboxValueGuzo = '$checkboxValue'
 WHERE id_application = '$id_application';");
+
+        mysqli_query($con, "update applications SET
+ checkboxValueGuzo = '$checkboxValue'
+WHERE id_application = '$id_application';");
     } else {
         mysqli_query($con, "insert into rkk (id_application, date_reg, count_list_app,tech_osn, raspisanie, ucomplect, 
                  report_samoacred, dop_sved,	id_user,	predstavitel,	perv_vtor,	reg_index,	date_index_povt_app,
@@ -91,6 +95,9 @@ WHERE id_application = '$id_application';");
                                     '$resultat','$svidetelstvo','$formatted_date_svidetelstvo','$count_svidetelstvo','$info_uved',
                                     '$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info', '$delo_listov', '$po_n' , '$checkboxValue' )");
 
+        mysqli_query($con, "update applications SET
+ checkboxValueGuzo = '$checkboxValue'
+WHERE id_application = '$id_application';");
     }
 } else {
     echo "0";
