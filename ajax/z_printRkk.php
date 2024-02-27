@@ -79,7 +79,12 @@ font-family:  "Times New Roman" ;
 table {
   width: 100%;
   border-collapse: collapse;
+  page-break-inside: avoid;
 }
+
+.page-break {
+        page-break-before: always; /* или page-break-after: always; */
+    }
 
 td {
    border: 1px solid black;
@@ -194,28 +199,28 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">6.2</td>
         <td style = "width: 40%; text-align: left;">копия штатного расписания;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$raspisanie.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">6.3</td>
         <td style = "width: 40%; text-align: left;">сведения о показателях укомплектованности специалистами с высшим и средним специальным медицинским образованием (по штатным должностям, физическим лицам, коэффициенту совместительства) по форме, устанавливаемой Министерством здравоохранения;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$ucomplect.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">6.4</td>
         <td style = "width: 40%; text-align: left;">отчет о результатах самоаккредитации в произвольной форме;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$report_samoacred.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">6.5</td>
         <td style = "width: 40%; text-align: left;">дополнительные документы и сведения</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$dop_sved.'</td>
     </tr>
     
     <tr>
@@ -232,7 +237,7 @@ echo ' <tr>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
     </tr>
     
-    <tr>
+    <tr class="page-break">
  
         <td style = " width: 10%; text-align: center;">9</td>
         <td style = "width: 40%; text-align: left;">Срок исполнения</td>
@@ -243,56 +248,56 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">10</td>
         <td style = "width: 40%; text-align: left;">Информация о направлении запросов в другие государственные органы, иные организации</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_napr_zapr.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">11</td>
         <td style = "width: 40%; text-align: left;">Информация о согласии заинтересованного лица на представление документов и (или) сведений</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_sogl.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">12</td>
         <td style = "width: 40%; text-align: left;">Номер и дата протокола заседания комиссии</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">№'.$protokol_zased.' '. $date_protokol .'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">13</td>
         <td style = "width: 40%; text-align: left;">Информация о возврате заявления и прилагаемых к нему документов и сведений в случае принятия решения об отказе в принятии заявления заинтересованного лица</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_vozvr.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">14</td>
         <td style = "width: 40%; text-align: left;">Информация об отзыве заявления</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_otzyv.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">15</td>
         <td style = "width: 40%; text-align: left;">Дата и номер принятого административного решения</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">№'.$id_rkk.' '. $date_admin_resh .'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">16</td>
         <td style = "width: 40%; text-align: left;">Результат принятого административного решения</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$rezult.'</td>
     </tr>
     
      <tr>
  
         <td style = " width: 10%; text-align: center;">17</td>
         <td style = "width: 40%; text-align: left;">Информация об уведомлении заинтересованного лица о принятом административном решении</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_uved.'</td>
     </tr>
     
     <tr>
@@ -306,21 +311,21 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">18.1</td>
         <td style = "width: 40%; text-align: left;">административное решение;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$count_list_admin.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">18.2</td>
         <td style = "width: 40%; text-align: left;">свидетельство о медицинской аккредитации;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$po_n.' '. $date_sved .' '. $count_list_sved. '</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">18.3</td>
         <td style = "width: 40%; text-align: left;">отчет о проведении медицинской аккредитации</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$count_list_report_medacr.'</td>
     </tr>
     
     <tr>
@@ -334,31 +339,29 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">20</td>
         <td style = "width: 40%; text-align: left;">Даты, индексы повторных заявлений</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$date_index_povt_app.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">21</td>
         <td style = "width: 40%; text-align: left;">Отметка о снятии с контроля</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$date_delo.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">22</td>
         <td style = "width: 40%; text-align: left;">Документ подшит в дело</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$delo. ' '. $delo_listov .'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">23</td>
         <td style = "width: 40%; text-align: left;">Дополнительная информация</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
-    </tr>
-    
-    
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$dop_info.'</td>
+    </tr>    
     ';
 
 echo '</tbody></table>
