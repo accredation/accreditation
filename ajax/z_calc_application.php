@@ -1,7 +1,6 @@
 <?php
 
 include "connection.php";
-
 $id_application = $_GET['id_application'];
 
 $rez = mysqli_query($con, "select sum(dep.mark_percent) as su, count(dep.mark_percent) as coun from z_department as dep 
