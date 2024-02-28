@@ -1,9 +1,10 @@
-let id_app;
+let id_appp;
 let createrApp;
 let idRkk;
 
-function newShowModal(id_application) {
+function newShowModall(id_application) {
     let btnRkk;
+    console.log('newShowMod')
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
     if (!divSoprovodPismo.classList.contains("hiddentab"))
         divSoprovodPismo.classList.add("hiddentab");
@@ -110,7 +111,7 @@ function newShowModal(id_application) {
         }
     }
     let tab = document.getElementById("tab1");
-    tab.setAttribute("onclick", "newShowTab(this," + 1 + ")");
+    tab.setAttribute("onclick", "newShowTabs(this," + 1 + ")");
     let pane = document.getElementById("tab1-");
     if (!tab.children[0].classList.contains("active")) {
         tab.children[0].classList.add("active");
@@ -125,7 +126,7 @@ function newShowModal(id_application) {
     let btnOkReshenie = document.getElementById("btnOkReshenie");
     let btnOkonchatelnoeReshenie = document.getElementById("btnOkonchatelnoeReshenie");
 
-    let tabOdobrenie = document.getElementById("odobrennie-tab");
+    let tabOdobrenie = document.getElementById("rkk-tab");
     let tabNeodobrennie = document.getElementById("neodobrennie-tab");
     let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
     let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
@@ -136,15 +137,10 @@ function newShowModal(id_application) {
 
 
     if (tabOdobrenie.classList.contains("active")) {
-        btnOkReshenie.classList.remove("hiddentab");
-        btnOkonchatelnoeReshenie.classList.add("hiddentab");
-        btnChecking.classList.add("hiddentab");
+
         // btnNeOk.classList.add("hiddentab");
-        btnOk.classList.add("hiddentab");
-        sovetgr.style.display = "none";
-        informgr.style.display = "none";
-        btncalc.classList.remove("hiddentab");
-        btnreport.classList.remove("hiddentab");
+
+        // btnreport.classList.remove("hiddentab");
     } else if (tabNeodobrennie.classList.contains("active")) {
 
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -303,7 +299,7 @@ function newShowModal(id_application) {
     let divDoverennost = document.getElementById("divDoverennost");
     let divPrikazNaznach = document.getElementById("divPrikazNaznach");
     number_app.innerHTML = id_application;
-    id_app = id_application;
+    id_appp = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
 
@@ -314,40 +310,7 @@ function newShowModal(id_application) {
         checkUserRole();
 
     } else {
-        // number_app.setAttribute("readonly", "");
-        // naim.setAttribute("readonly", "");
-        // sokr.setAttribute("readonly", "");
-        // unp.setAttribute("readonly", "");
-        // adress.setAttribute("readonly", "");
-        // adressFact.setAttribute("readonly", "");
-        // number_app.setAttribute("readonly", "");
-        // tel.setAttribute("readonly", "");
-        // email.setAttribute("readonly", "");
-        // rukovoditel.setAttribute("readonly", "");
-        // predstavitel.setAttribute("readonly", "");
-        // soprPismo.setAttribute("disabled", "true");
-        // copyRaspisanie.setAttribute("disabled", "true");
-        // orgStrukt.setAttribute("disabled", "true");
-        // ucomplect.setAttribute("disabled", "true");
-        // techOsn.setAttribute("disabled", "true");
-        // ownUcompBtnClass.setAttribute("disabled", "true");
-        // doverennost.setAttribute("disabled", "true");
-        // prikazNaznach.setAttribute("disabled", "true");
-        //
-        // reportSamoocenka.setAttribute("disabled", "true");
-        // reportZakluchenieSootvet.setAttribute("disabled", "true");
-        // formFileReportDorabotka.setAttribute("disabled", "true");
-        // formDateDorabotka.setAttribute("disabled", "true");
-        // formFileReportDorabotka.style.display = "none";
-        // formDateDorabotka.style.display = "none";
-        // addtab.classList.add("hiddentab");
-        // btnSuc.classList.add("hiddentab");
-        //
-        // if(btnSend)
-        //     btnSend.classList.add("hiddentab");
-        // if (btnCalc) {
-        //     btnCalc.remove();
-        // }
+
     }
 
 
@@ -379,25 +342,7 @@ function newShowModal(id_application) {
             let data1 = JSON.parse(response);
             idRkk = data1[4];
 
-            btnRkk = document.createElement("button");
-            btnRkk.innerText = 'Регистрация';
-            btnRkk.id = "btnRkkid";
-            btnChecking.insertAdjacentElement("afterend", btnRkk);
-            btnRkk.className = "btn btn-success";
-            let modalRkk = document.getElementById("modalRkk");
-            modalRkk.style.display = "none";
-            btnRkk.onclick = () => {
-                modalRkk.style.display = "block";
-                getRkk();
-                refreshRkk(id_app);
-            }
-            $("#closexRkk").on("click", () => {
-                modalRkk.style.display = "none";
-            });
 
-            $("#closeRkk").on("click", () => {
-                modalRkk.style.display = "none";
-            });
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
@@ -451,7 +396,7 @@ function newShowModal(id_application) {
 
             for (let obj of data[1]) {
 
-                newGetTabs(obj[1], obj[0]);
+                newGetTabss(obj[1], obj[0]);
 
             }
             let mark_percent = data[2];
@@ -882,7 +827,7 @@ function newShowModal(id_application) {
 
 }
 
-async function newShowTab(element, id_sub) {
+async function newShowTabs(element, id_sub) {
     openTabId = id_sub;
 
     let tablist = document.getElementById("tablist");
@@ -1298,7 +1243,7 @@ async function newShowTab(element, id_sub) {
             $.ajax({
                 url: "ajax/z_calc_subvision_accred.php",
                 method: "GET",
-                data: {id_sub: openTabId, id_application: id_app}
+                data: {id_sub: openTabId, id_application: id_appp}
             }).then((response) => {
                 let data = JSON.parse(response);
                 let thisTab = document.getElementById("tab" + openTabId + "-");
@@ -1322,7 +1267,7 @@ async function newShowTab(element, id_sub) {
         $.ajax({
             url: "ajax/z_calc_application_accred.php",
             method: "GET",
-            data: {id_application: id_app}
+            data: {id_application: id_appp}
         }).then((response) => {
             let data = JSON.parse(response);
             let mainRightCard = document.getElementById("mainRightCard");
@@ -1335,7 +1280,7 @@ async function newShowTab(element, id_sub) {
 
 }
 
-function newGetTabs(name, id_sub) {   // создание subvision и cardBody
+function newGetTabss(name, id_sub) {   // создание subvision и cardBody
     let tablist = document.getElementById("tablist");
     let tab = document.createElement("li");
     tab.classList.add("nav-item");
@@ -1347,7 +1292,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     a.setAttribute("role", "tab");
     a.setAttribute("aria-selected", "false");
 
-    tab.setAttribute("onclick", "newShowTab(this," + id_sub + ")");
+    tab.setAttribute("onclick", "newShowTabs(this," + id_sub + ")");
 
     a.innerHTML = "" + name;
     tab.appendChild(a);
@@ -1355,8 +1300,8 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tab.id = "tab" + id_sub;
     tablist.appendChild(tab);
 
-
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6]; // ЕСЛИ ДОБАВИЛИ ВКЛАДКУ ТОГДА НУЖНО ТУТ ТОЖЕ УВЕЛИЧИТЬ
+    let myModal = document.getElementById("myModal");
+    let tabContent = myModal.getElementsByClassName("tab-content tab-transparent-content")[0]; // ЕСЛИ ДОБАВИЛИ ВКЛАДКУ ТОГДА НУЖНО ТУТ ТОЖЕ УВЕЛИЧИТЬ
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1458,7 +1403,7 @@ function newAddTab() {    // добавление subvision
                 .done(function (response) {
                     let id = response;
                     addHistoryAction(id_application, getCookie('id_user'), 1, `Создано структурное подразделение ${nameTab}`, '', '')
-                    newGetTabs(nameTab, id);
+                    newGetTabss(nameTab, id);
                 });
 
 
@@ -1511,7 +1456,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
 
 
                 let nameTab = document.getElementById("button" + openTabId);
-                addHistoryAction(id_app, getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
+                addHistoryAction(id_appp, getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
 
             });
 
@@ -1534,7 +1479,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                     let chkbName = numTab.querySelector("#checkbox" + id_list_tables_criteria);
                     let lblName = chkbName.nextElementSibling.innerHTML;
                     let nameTab = document.getElementById("button" + openTabId);
-                    addHistoryAction(id_app, getCookie('id_user'), 2, `Удалено отделение ${lblName} из структурного подразделения ${nameTab.innerText}`, openTabId, '')
+                    addHistoryAction(id_appp, getCookie('id_user'), 2, `Удалено отделение ${lblName} из структурного подразделения ${nameTab.innerText}`, openTabId, '')
 
                     let tabActive = document.getElementById("tab" + openTabId + "-");
                     let checkboxes = tabActive.querySelectorAll("[id^='checkbox']");
@@ -1582,7 +1527,7 @@ function buttonSelected(inputCheck) {  // добавление отделени�
                 } else {
                     alert("Добавлено отделение");
                     let nameTab = document.getElementById("button" + openTabId);
-                    addHistoryAction(id_app, getCookie('id_user'), 2, `Добавлено отделение ${department} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
+                    addHistoryAction(id_appp, getCookie('id_user'), 2, `Добавлено отделение ${department} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
 
                     let number;
                     let incrementedNumber;
@@ -1726,7 +1671,7 @@ function addFile(idCrit, idDep, input) {
         form = new FormData();
     let addedFile = input.files[0];
     form.append("idCrit", idCrit);
-    form.append("idApp", id_app);
+    form.append("idApp", id_appp);
     form.append("idDep", idDep);
     form.append("addedFile", addedFile);
 
@@ -1764,7 +1709,7 @@ function addFile(idCrit, idDep, input) {
         let fileContainer = document.createElement('div');
         fileContainer.classList.add('file-container');
         let fileLink = document.createElement('a');
-        fileLink.href = `/docs/documents/${createrApp}/${id_app}/${idDep}/${addedFile.name}`;
+        fileLink.href = `/docs/documents/${createrApp}/${id_appp}/${idDep}/${addedFile.name}`;
         fileLink.textContent = addedFile.name;
         let deleteButton = document.createElement('span');
         deleteButton.classList.add('delete-file');
@@ -1868,7 +1813,7 @@ function deleteDepartment(id_department) {
                         let cardH = document.getElementById("heading" + id_department);
 
                         let nameTab = document.getElementById("button" + openTabId);
-                        addHistoryAction(id_app, getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
+                        addHistoryAction(id_appp, getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
                         if (cardH)
                             cardH.remove();
                         alert("Отделение удалено.");
@@ -1907,7 +1852,7 @@ function renameDepartment(id_department) {
                 let newText = response;
                 button.innerText = newText;
                 let nameTab = document.getElementById("button" + openTabId);
-                addHistoryAction(id_app, getCookie('id_user'), 2, `Переименовано отделение ${cutName} на ${newDepartmentName} в структурном подразделении ${nameTab.innerText}`, openTabId, id_department)
+                addHistoryAction(id_appp, getCookie('id_user'), 2, `Переименовано отделение ${cutName} на ${newDepartmentName} в структурном подразделении ${nameTab.innerText}`, openTabId, id_department)
                 alert("Отделение переименовано.");
             })
             .fail(function (error) {
@@ -2439,7 +2384,7 @@ async function printAppForm() {
         $.ajax({
             url: "ajax/z_createFormApplication.php",
             method: "GET",
-            data: {id_application: id_app}
+            data: {id_application: id_appp}
         }).then((response) => {
             var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
             WinPrint.document.write('<style>@page {\n' +
@@ -2449,7 +2394,7 @@ async function printAppForm() {
             WinPrint.document.write(response);
             WinPrint.document.close();
             WinPrint.focus();
-            WinPrint.document.title = "Заявление_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+            WinPrint.document.title = "Заявление_№" + id_appp + "_" + new Date().toLocaleDateString().replaceAll(".", "");
             WinPrint.print();
             WinPrint.close();
 
@@ -2512,7 +2457,7 @@ async function sendApp() {
                             })
                                 .done(function (response) {
                                     if (response === "") {
-                                        addHistoryAction(id_app, getCookie('id_user'), 1, `Заявление № ${id_app} отправлено`, "", "")
+                                        addHistoryAction(id_appp, getCookie('id_user'), 1, `Заявление № ${id_appp} отправлено`, "", "")
                                         alert("Заявление отправлено");
                                         location.href = "/index.php?application";
                                     } else {
@@ -2571,7 +2516,7 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         $.ajax({
             url: "ajax/z_ucomplectTable.php",
             method: "GET",
-            data: {id_application: id_app}
+            data: {id_application: id_appp}
         }).then((response) => {
             modalBody.innerHTML = response;
         })
@@ -2590,7 +2535,7 @@ function saveCommon(idApp, text, fieldNum) {
         $.ajax({
             url: "ajax/z_ucomplectTable.php",
             method: "GET",
-            data: {id_application: id_app}
+            data: {id_application: id_appp}
         }).then((response) => {
             modalBody.innerHTML = response;
         })
@@ -2701,7 +2646,7 @@ $("#doverennost").on("change", () => {
         sopr.remove();
     }
     let techOsn = document.getElementById("doverennost");
-    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + id_app + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + id_appp + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -2749,7 +2694,7 @@ $("#prikazNaznach").on("change", () => {
         sopr.remove();
     }
     let techOsn = document.getElementById("prikazNaznach");
-    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + id_app + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + id_appp + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -2884,7 +2829,7 @@ function saveRkk() {
             date_delo: date_delo.value,
             dop_info: dop_info.value,
             checkboxValue:checkboxValue,
-            id_application: id_app
+            id_application: id_appp
 
         }
     }).done(function (result) {
@@ -2935,7 +2880,7 @@ function getRkk() {
         url: "ajax/getRkk.php",
         method: "GET",
         data: {
-            id_application: id_app
+            id_application: id_appp
         }
     }).done(function (result) {
         if (result !== "no data") {
@@ -2986,7 +2931,7 @@ function regRkk() {
         url: "ajax/regRkk.php",
         method: "GET",
         data: {
-            id_application: id_app
+            id_application: id_appp
         }
     }).done(response => {
         dateRegistr.disabled = false;
@@ -3072,7 +3017,7 @@ function setNewStatus(){
         $.ajax({
             url: "ajax/setNewStatus.php",
             method: "POST",
-            data: {id_app: id_app}
+            data: {id_app: id_appp}
         }).done(response => {
             alert("Заявление перемещено в статус самооценки");
         })
@@ -3084,7 +3029,7 @@ function printRkk(){
         url: "ajax/z_printRkk.php",
         method: "GET",
         data: {
-            id_application: id_app
+            id_application: id_appp
         }
     }).done(response => {
         var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
@@ -3095,7 +3040,7 @@ function printRkk(){
         WinPrint.document.write(response);
         WinPrint.document.close();
         WinPrint.focus();
-        WinPrint.document.title = "РКК_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.document.title = "РКК_№" + id_appp + "_" + new Date().toLocaleDateString().replaceAll(".", "");
         WinPrint.print();
         WinPrint.close();
 
@@ -3108,7 +3053,7 @@ function printRkk(){
         url: "ajax/z_printRkk.php",
         method: "GET",
         data: {
-            id_application: id_app
+            id_application: id_appp
         }
     }).done(response => {
         var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
@@ -3119,7 +3064,7 @@ function printRkk(){
         WinPrint.document.write(response);
         WinPrint.document.close();
         WinPrint.focus();
-        WinPrint.document.title = "РКК_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.document.title = "РКК_№" + id_appp + "_" + new Date().toLocaleDateString().replaceAll(".", "");
         WinPrint.print();
         WinPrint.close();
 

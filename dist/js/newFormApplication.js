@@ -1,7 +1,7 @@
 let id_app;
 let createrApp;
 function newShowModal(id_application) {
-
+    id_app = id_application;
      let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
 
         if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
