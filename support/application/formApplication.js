@@ -2439,14 +2439,18 @@ function saveMarks(id_sub, divCardBody, flag) {
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0; i < 5; i++) {
+
+        scriptAccred.remove(); // отключить скрипт
+        document.body.appendChild(scriptAUsers); // включить скрипт
+
+    for (let i = 0; i < 3; i++) {
         if (i != 0)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2458,7 +2462,11 @@ $("#home-tab").on("click", () => {
 
 $("#rassmotrenie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+        scriptAccred.remove(); // отключить скрипт
+        document.body.appendChild(scriptAUsers); // включить скрипт
+
+
+    for (let i = 0; i < 3; i++) {
         if (i != 1)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2466,7 +2474,7 @@ $("#rassmotrenie-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2476,10 +2484,21 @@ $("#rassmotrenie-tab").on("click", () => {
     //  console.log(status);
 
 });
+const scriptAccred = document.createElement("script");
+scriptAccred.type = "text/javascript";
+scriptAccred.src = "support/application/newFormGuzo.js";
+
+const scriptAUsers = document.createElement("script");
+scriptAUsers.type = "text/javascript";
+scriptAUsers.src = "/support/application/newFormApplication.js";
+document.body.appendChild(scriptAUsers);
 
 $("#rkk-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+        scriptAUsers.remove();
+        document.body.appendChild(scriptAccred); // включить скрипт
+
+    for (let i = 0; i < 3; i++) {
         if (i != 2)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2487,13 +2506,13 @@ $("#rkk-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
     allTabsMainPage[2].children[0].classList.add("show");
     allTabsMainPage[2].children[0].classList.add("active");
-    status = 7;
+    status = 3;
     //  console.log(status);
 
 });

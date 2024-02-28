@@ -340,6 +340,7 @@ function createApplication() {
 }
 
 function showModal(id_application, strMarks, strMarksAccred) {
+
     let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
     formFileReportZakluchenieSootvet.classList.add("hiddentab");
 
@@ -2984,7 +2985,7 @@ $("#soprPismo").on("change", () => {
         sopr.remove();
     }
     let soprPismo = document.getElementById("soprPismo");
-    soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + soprPismo.files[0].name + "'>" + soprPismo.files[0].name + "</a>");
+    soprPismo.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/"+ id_app + "/" + soprPismo.files[0].name + "'>" + soprPismo.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3031,7 +3032,7 @@ $("#copyRaspisanie").on("change", async () => {
     }
     let copyRasp = document.getElementById("copyRaspisanie");
 
-    copyRasp.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + copyRasp.files[0].name + "'>" + copyRasp.files[0].name + "</a>");
+    copyRasp.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/"+ id_app + "/" + copyRasp.files[0].name + "'>" + copyRasp.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3076,7 +3077,7 @@ $("#orgStrukt").on("change", () => {
         sopr.remove();
     }
     let orgStruct = document.getElementById("orgStrukt");
-    orgStruct.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + orgStruct.files[0].name + "'>" + orgStruct.files[0].name + "</a>");
+    orgStruct.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/"+ id_app + "/" + orgStruct.files[0].name + "'>" + orgStruct.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3120,7 +3121,7 @@ $("#ucomplect").on("change", () => {
         sopr.remove();
     }
     let ucomplect = document.getElementById("ucomplect");
-    ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/" + ucomplect.files[0].name + "'>" + ucomplect.files[0].name + "</a>");
+    ucomplect.insertAdjacentHTML("afterend", "<a href='/docs/documents/" + login + "/"+ id_app + "/" + ucomplect.files[0].name + "'>" + ucomplect.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3165,7 +3166,7 @@ $("#techOsn").on("change", () => {
         sopr.remove();
     }
     let techOsn = document.getElementById("techOsn");
-    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
+    techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/"+ id_app + "/" + techOsn.files[0].name + "'>" + techOsn.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3216,7 +3217,7 @@ $("#reportSamoocenka").on("change", () => {
         sopr.remove();
     }
     let reportSamoocenka = document.getElementById("reportSamoocenka");
-    reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + reportSamoocenka.files[0].name + "'>" + reportSamoocenka.files[0].name + "</a>");
+    reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/"+ id_app + "/" + reportSamoocenka.files[0].name + "'>" + reportSamoocenka.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 
@@ -3271,7 +3272,7 @@ $("#reportZakluchenieSootvet").on("change", () => {
         soprSoot.remove();
     }
     let reportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
-    reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/" + reportZakluchenieSootvet.files[0].name + "'>" + reportZakluchenieSootvet.files[0].name + "</a>");
+    reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + login + "/"+ id_app + "/" + reportZakluchenieSootvet.files[0].name + "'>" + reportZakluchenieSootvet.files[0].name + "</a>");
 
     let id_application = document.getElementById("id_application");
 

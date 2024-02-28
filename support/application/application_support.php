@@ -325,7 +325,7 @@
                                                 ?>
 
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                <tr onclick="newShowModall('<?= $app['app_id'] ?>')"
                                                     style="cursor: pointer;">
 
 
@@ -816,7 +816,7 @@
     <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
     <!--<script>console.log(filesName)</script>-->
     <script src="/support/application/formApplication.js"></script>
-    <script src="/support/application/newFormApplication.js"></script>
+<!--    <script src="/support/application/newFormApplication.js"></script>-->
     <script src="support/journals/journal/journal.js"></script>
 
 

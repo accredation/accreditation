@@ -975,7 +975,7 @@
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение
                     </button>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
-                    <?php if($_COOKIE['password'] == '58251aa12e53bf68ea88bc0589810ccb') { ?>
+                    <?php if($_COOKIE['login'] == 'kuznec@rnpcmt.by') { ?>
                     <button type="submit" class="btn btn-warning" onclick="setNewStatus()">Отзыв</button>
                     <?php }?>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета
