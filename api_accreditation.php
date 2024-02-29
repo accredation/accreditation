@@ -181,7 +181,7 @@
                             <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab"
                                aria-selected="false">Завершена оценка</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item hiddentab" >
                             <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab"
                                aria-selected="false">На доработке</a>
                         </li>

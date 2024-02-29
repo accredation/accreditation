@@ -2929,7 +2929,8 @@ function getRkk() {
     let date_delo = document.getElementById("date_delo");
     let dop_info = document.getElementById("dop_info");
     let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
-
+    reg_index.innerHTML = "";
+    admin_resh.innerHTML = "";
     $.ajax({
         url: "ajax/getRkk.php",
         method: "GET",

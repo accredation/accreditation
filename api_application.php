@@ -109,7 +109,7 @@ if (mysqli_num_rows($rez) > 0) //если нашлась одна строка, 
                     <li class="nav-item">
                       <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Решение комиссии</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item hiddentab">
                       <a class="nav-link" id="neodobrennie-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">На доработке</a>
                     </li>
                       <li class="nav-item">
@@ -614,6 +614,8 @@ if (mysqli_num_rows($rez) > 0) //если нашлась одна строка, 
                                                 <div class="form-group" id = "divTechOsn">
                                                     <label for="techOsn">Техническое оснащение</label>
                                                     <input type="file" class="form-control-file" id="techOsn">
+                                                    <br>
+                                                    <span> сведения принимаются только по утвержденной форме  </span>
                                                 </div>
                                             </form>
 
