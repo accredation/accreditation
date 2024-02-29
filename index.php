@@ -1,6 +1,20 @@
 <?php require_once 'ajax/connection.php'; ?>
 <?php include 'authorization/auth.php'; ?>
 <?php include 'authorization/out.php'; ?>
+<?php if(isset($_COOKIE['login'])) {
+
+    if (!isset($_GET['role'])) {
+        $login = $_COOKIE['login'];
+        $query = "SELECT * FROM users where login = '$login'";
+
+        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+        {
+            $row = mysqli_fetch_assoc($rez);
+            $role = $row['id_role'];
+        }
+    }
+}?>
 
 <?php login(); ?>
 <?php out(); ?>
@@ -177,28 +191,28 @@
                 //  require_once "ajax/includeRole.php";
                 switch ($value) {
                     case 'application':
-//                        if(isset($role)) {
-//                            if ($role == "3")
-//                                include 'api_application.php';
-//                            else{
-//                                phpAlert("Вам недоступна эта страница");
-//                            }
-//                        }else{
-//                            phpAlert("Требуется авторизация");
-//                        }
-                        include 'api_application.php';
+                        if(isset($role)) {
+                            if ($role == "3")
+                                include 'api_application.php';
+                            else{
+                                phpAlert("Вам недоступна эта страница");
+                            }
+                        }else{
+                            phpAlert("Требуется авторизация");
+                        }
+//                        include 'api_application.php';
                         break;
                     case 'users':
-//                        if(isset($role)) {
-//                            if ($role != "3")
-//                                include 'api_accreditation.php';
-//                            else{
-//                                phpAlert("Вам недоступна эта страница");
-//                            }
-//                        }else{
-//                            phpAlert("Требуется авторизация");
-//                        }
-                        include 'api_accreditation.php';
+                        if(isset($role)) {
+                            if ($role == "2")
+                                include 'api_accreditation.php';
+                            else{
+                                phpAlert("Вам недоступна эта страница");
+                            }
+                        }else{
+                            phpAlert("Требуется авторизация");
+                        }
+//                        include 'api_accreditation.php';
                         break;
                     case 'help':
                         include 'help.php';
