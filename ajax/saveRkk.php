@@ -2,7 +2,7 @@
 include "connection.php";
 
 if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_osn_rkk'] !== "" && $_POST['stat_rasp'] !== "" && $_POST['ucomp_rkk'] !== ""
-    && $_POST['report_samoacred'] !== "" && $_POST['prinyal_zayav'] !== "" && $_POST['predst_rkk'] !== "" && $_POST['perv_vtor_zayav'] !== "") {
+    && $_POST['report_samoacred'] !== "" && $_POST['predst_rkk'] !== "" && $_POST['perv_vtor_zayav'] !== "") {
     $dateRegistr = $_POST['dateRegistr'];
     $countlist = $_POST['countlist'];
     $tech_osn_rkk = $_POST['tech_osn_rkk'];
@@ -10,7 +10,6 @@ if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_o
     $ucomp_rkk = $_POST['ucomp_rkk'];
     $report_samoacred = $_POST['report_samoacred'];
     $dop_sved = $_POST['dop_sved'];
-    $prinyal_zayav = $_POST['prinyal_zayav'];
     $predst_rkk = $_POST['predst_rkk'];
     $perv_vtor_zayav = $_POST['perv_vtor_zayav'];
     $povtor_index = $_POST['povtor_index'];
@@ -53,7 +52,6 @@ raspisanie = '$stat_rasp',
 ucomplect = '$ucomp_rkk', 
 report_samoacred = '$report_samoacred', 
 dop_sved = '$dop_sved', 
-id_user = '$prinyal_zayav', 
 predstavitel = '$predst_rkk', 
 perv_vtor = '$perv_vtor_zayav', 
 date_index_povt_app = '$povtor_index', 
@@ -85,12 +83,12 @@ WHERE id_application = '$id_application';");
 WHERE id_application = '$id_application';");
     } else {
         mysqli_query($con, "insert into rkk (id_application, date_reg, count_list_app,tech_osn, raspisanie, ucomplect, 
-                 report_samoacred, dop_sved,	id_user,	predstavitel,	perv_vtor,	reg_index,	date_index_povt_app,
+                 report_samoacred, dop_sved,		predstavitel,	perv_vtor,	reg_index,	date_index_povt_app,
                  info_napr_zapr,	info_sogl,	protokol_zased,	date_protokol	,info_vozvr,	info_otzyv,
                  admin_resh,	date_admin_resh	,count_list_admin,	`result`,	svidetelstvo,	date_sved	,
                  count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info, delo_listov, po_n , checkboxValueGuzo ) 
                             values ('$id_application','$formatted_dateRegistr','$countlist','$tech_osn_rkk','$stat_rasp','$ucomp_rkk','$report_samoacred',
-                                    '$dop_sved','$prinyal_zayav', '$predst_rkk', '$perv_vtor_zayav', '$povtor_index','$info_napr_zapr','$info_sogl',
+                                    '$dop_sved', '$predst_rkk', '$perv_vtor_zayav', '$povtor_index','$info_napr_zapr','$info_sogl',
                                     '$protolol_zasedanie', '$formatted_date_zasedanie','$info_vozvrat','$info_otzyv','$formatted_date_admin_resh','$count_admin_resh',
                                     '$resultat','$svidetelstvo','$formatted_date_svidetelstvo','$count_svidetelstvo','$info_uved',
                                     '$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info', '$delo_listov', '$po_n' , '$checkboxValue' )");

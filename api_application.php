@@ -81,24 +81,19 @@
 $login = $_COOKIE['login'];
 $query = "SELECT * FROM applications a
     left outer join users u on u.id_user = a.id_user
-    WHERE login='$login' and  id_status in (8,7,5) ";
+    WHERE login='$login' and  id_status not in (4,8) ";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
-if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+if (mysqli_num_rows($rez) > 0) //если нашлась одна строка, значит такой юзер существует в базе данных
 {
 // пометка если оценка завершена или заявлений еще нет
-    /*
-      SELECT *
-FROM accreditation.uz as  uz
-LEFT OUTER JOIN accreditation.users as u ON u.username = uz.username
-LEFT OUTER JOIN accreditation.applications as app ON app.id_user = u.id_user
-WHERE u.login = '$login' AND app.id_status IN ('4', '5', '7');
-    */
+
 ?>
-                <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
+
+                  <?php }
+   else { ?>  <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
                   <button class="btn bg-create p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
-                </div>
-                  <?php } ?>
+                </div> <?php }  ?>
               </div>
             </div>
             <div class="row">

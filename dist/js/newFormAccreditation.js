@@ -2818,7 +2818,7 @@ function saveRkk() {
     let ucomp_rkk = document.getElementById("ucomp_rkk");
     let report_samoacred = document.getElementById("report_samoacred");
     let dop_sved = document.getElementById("dop_sved");
-    let prinyal_zayav = document.getElementById("prinyal_zayav");
+    // let prinyal_zayav = document.getElementById("prinyal_zayav");
     let predst_rkk = document.getElementById("predst_rkk");
     let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
     let reg_index = document.getElementById("reg_index");
@@ -2857,7 +2857,6 @@ function saveRkk() {
             ucomp_rkk: ucomp_rkk.value,
             report_samoacred: report_samoacred.value,
             dop_sved: dop_sved.value,
-            prinyal_zayav: prinyal_zayav.options[prinyal_zayav.options.selectedIndex].value,
             predst_rkk: predst_rkk.value,
             perv_vtor_zayav: perv_vtor_zayav.options[perv_vtor_zayav.options.selectedIndex].value,
             reg_index: reg_index.value,
@@ -2903,7 +2902,7 @@ function getRkk() {
     let ucomp_rkk = document.getElementById("ucomp_rkk");
     let report_samoacred = document.getElementById("report_samoacred");
     let dop_sved = document.getElementById("dop_sved");
-    let prinyal_zayav = document.getElementById("prinyal_zayav");
+    // let prinyal_zayav = document.getElementById("prinyal_zayav");
     let predst_rkk = document.getElementById("predst_rkk");
     let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
     let reg_index = document.getElementById("reg_index");
@@ -2941,6 +2940,8 @@ function getRkk() {
         if (result !== "no data") {
             let data = JSON.parse(result);
 
+            reg_index.innerHTML = data['id_rkk'];
+            admin_resh.innerHTML = data['id_rkk'];
             dateRegistr.value = data.date_reg;
             countlist.value = data.count_list_app;
             tech_osn_rkk.value = data.tech_osn;
@@ -2948,7 +2949,7 @@ function getRkk() {
             ucomp_rkk.value = data.ucomplect;
             report_samoacred.value = data['report_samoacred'];
             dop_sved.value = data['dop_sved'];
-            prinyal_zayav.value = data['id_user'];
+            // prinyal_zayav.value = data['id_user'];
             predst_rkk.value = data.predstavitel;
             perv_vtor_zayav.value = data.perv_vtor;
             povtor_index.value = data.date_index_povt_app;
@@ -2996,7 +2997,7 @@ function regRkk() {
         ucomp_rkk.disabled = false;
         report_samoacred.disabled = false;
         dop_sved.disabled = false;
-        prinyal_zayav.disabled = false;
+        // prinyal_zayav.disabled = false;
         predst_rkk.disabled = false;
         perv_vtor_zayav.disabled = false;
         reg_index.disabled = false;
@@ -3041,10 +3042,10 @@ function refreshRkk(id_app) {
         data: {id_app: id_app},
         success: function (response) {
             if (response === '000') {
-                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info, #checkboxValueGuzo').removeAttr('disabled');
+                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info, #checkboxValueGuzo').removeAttr('disabled');
                 $('#registerRkk').css('display', 'none');
             } else {
-                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index, #prinyal_zayav ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info, #checkboxValueGuzo').attr('disabled', true);
+                $('#dateRegistr, #countlist, #tech_osn_rkk, #stat_rasp, #ucomp_rkk, #report_samoacred, #dop_sved, #predst_rkk, #perv_vtor_zayav ,#povtor_index ,#info_napr_zapr, #info_sogl, #protolol_zasedanie, #date_zasedanie, #info_vozvrat, #info_otzyv, #admin_resh, #date_admin_resh, #count_admin_resh, #resultat, #svidetelstvo, #date_svidetelstvo, #po_n, #count_svidetelstvo, #info_uved, #count_medacr, #getter, #delo, #delo_listov, #kontrol, #date_delo, #dop_info, #checkboxValueGuzo').attr('disabled', true);
                 $('#registerRkk').css('display', 'block');
             }
         },

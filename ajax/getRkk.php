@@ -5,9 +5,12 @@ $id_application = $_GET['id_application'];
 $rez = mysqli_query($con, "select * from rkk where id_application = '$id_application'");
 if (mysqli_num_rows($rez) == 1) {
    $row = mysqli_fetch_assoc($rez);
-    $date_reg = $row['date_reg']; // Предположим, что $row['date_reg'] содержит дату в формате "гггг-мм-дд"
-    $formatted_date_reg = date("d.m.Y", strtotime($date_reg)); // Преобразование формата даты
+    if (!empty($row['date_reg'])) {
+        $date_reg = $row['date_reg']; // Предположим, что $row['date_reg'] содержит дату в формате "гггг-мм-дд"
+        $formatted_date_reg = date("d.m.Y", strtotime($date_reg)); // Преобразование формата даты
+
     $responce['date_reg'] = $formatted_date_reg; // Присваиваем отформатированную дату обратно в $responce['date_reg']
+    }
     $responce['id_rkk'] = $row['id_rkk'];
    $responce['date_reg'] = $row['date_reg'];
    $responce['count_list_app'] = $row['count_list_app'];
