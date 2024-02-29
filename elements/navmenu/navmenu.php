@@ -134,6 +134,12 @@
                           <span class="menu-title">Заявления</span>
                       </a>
                   </li>
+                  <li class="nav-item" id="nav1001">
+                      <a class="nav-link"  href="/index.php?myusersGuzo" >
+                          <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                          <span class="menu-title">Пользователи</span>
+                      </a>
+                  </li>
                   <li class="nav-item" id="nav9">
                       <a class="nav-link collapsed" data-toggle="collapse" href="#ui-reports" aria-controls="ui-reports">
                           <span class="icon-bg"><i class="mdi fa-flag menu-icon"></i></span>
@@ -251,6 +257,7 @@
     let nav8 = document.getElementById("nav8");
     let nav9 = document.getElementById("nav9");
     let nav10 = document.getElementById("nav10");
+    let nav1001 = document.getElementById("nav1001");
     let nav11 = document.getElementById("nav11");
 
     switch(url){
@@ -286,6 +293,9 @@
             break;
         case "/index.php?myusers":
             nav10.className = "nav-item active";
+            break;
+        case "/index.php?myusersGuzo":
+            nav1001.className = "nav-item active";
             break;
         case "/index.php?usersAccred":
             nav11.className = "nav-item active";

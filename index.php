@@ -206,6 +206,9 @@
                     case 'myusers':
                         include 'myusers.php';
                         break;
+                    case 'myusersGuzo':
+                        include 'myusersGuzo.php';
+                        break;
                     case 'usersAccred':
                         include 'usersAccred.php';
                         break;
