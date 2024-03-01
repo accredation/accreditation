@@ -2612,7 +2612,7 @@ $("#btnSend").on("click", async (event) => {
                     .done(async function (response) {
                         if (response == 0) {
 
-                            await printReport();
+                            // await printReport();
                             await $.ajax({
                                 url: "ajax/sendApp.php",
                                 method: "GET",
@@ -2622,7 +2622,7 @@ $("#btnSend").on("click", async (event) => {
                                     if (response == "") {
                                         alert("Заявление отправлено");
                                         calcMarks();
-                                        collapseUpdateOpened(id_open_criteria, openTabId);
+                                        // collapseUpdateOpened(id_open_criteria, openTabId);
                                         location.href = "/index.php?application";
                                     } else {
                                         alert(response);

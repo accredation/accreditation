@@ -2382,8 +2382,8 @@ async function sendApp() {
                     alert("Не все обязательные поля заполнены.");
 
                 } else {
-                    printAppForm().then(() => {
-                        printNewReport().then(() => {
+                    // printAppForm().then(() => {
+                    //     printNewReport().then(() => {
                             $.ajax({
                                 url: "ajax/newSendApp.php",
                                 method: "GET",
@@ -2398,8 +2398,8 @@ async function sendApp() {
                                         alert(response);
                                     }
                                 });
-                        })
-                    })
+                    //     })
+                    // })
 
 
                 }
