@@ -192,7 +192,7 @@
                 switch ($value) {
                     case 'application':
                         if(isset($role)) {
-                            if ($role == "3")
+                            if ($role == "3" || $role == "15")
                                 include 'api_application.php';
                             else{
                                 phpAlert("Вам недоступна эта страница");

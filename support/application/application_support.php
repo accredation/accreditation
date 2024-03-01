@@ -116,10 +116,15 @@
                             <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab"
                                aria-selected="false">Отправленные</a>
                         </li>
+                        <?php include "ajax/includeRole.php";
+                        if ($role == "14"){
+                        ?>
+
                         <li class="nav-item">
                             <a class="nav-link " id="rkk-tab" data-toggle="tab" href="#rkk" role="tab"
                                aria-selected="false">Зарегистрированные</a>
                         </li>
+                        <?php }?>
                     </ul>
                     <div class="d-md-block d-none">
                         <!--                    <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->

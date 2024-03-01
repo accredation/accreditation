@@ -1645,7 +1645,7 @@ function addFile(idCrit, idDep, input) {
 
 function z_deleteFile(fileName, idCrit, idDepartment) {
     if (confirm('Вы уверены, что хотите удалить этот файл?')) {
-        let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_criteria=' + idCrit + '&id_department=' + idDepartment;
+        let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_criteria=' + idCrit + '&id_department=' + idDepartment + '&id_application=' + id_app;
         fetch(url)
             .then(response => response.json())
             .then(data => {

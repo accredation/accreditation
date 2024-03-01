@@ -3,6 +3,7 @@ if (isset($_GET['file_name']) && isset($_GET['id_criteria']) && isset($_GET['id_
     include "connection.php";
 
     $fileName = $_GET['file_name'];
+    $id_application = $_GET['id_application'];
     $idCrit = $_GET['id_criteria'];
     $idDepartment = $_GET['id_department'];
     $login  =$_COOKIE["login"];
@@ -14,9 +15,9 @@ if (isset($_GET['file_name']) && isset($_GET['id_criteria']) && isset($_GET['id_
     $row = mysqli_fetch_assoc($result);
     $filesString = $row['field4'];
     $filesArray = explode(';', $filesString);
-    if (($key = array_search($fileName, $filesArray)) !== false) {
-        unset($filesArray[$key]);
-    }
+
+        unlink("../docs/documents/".$login. "/".$id_application. "/". $idDepartment. "/" . $fileName);
+
     $newFilesString = implode(';', $filesArray);
     $updateQuery = "UPDATE z_answer_criteria SET field4 = '$newFilesString' WHERE id_criteria = '$idCrit' AND id_department = '$idDepartment'";
     $updateResult = mysqli_query($con, $updateQuery);

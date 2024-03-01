@@ -2,7 +2,7 @@
 include "connection.php";
 $id_app = $_GET['id_application'];
 
-$query = "SELECT * FROM rkk, applications where rkk.id_application = '$id_app' and applications.id_rkk = rkk.id_rkk";
+$query = "SELECT r.*, applications.*, r.ucomplect as ucomplect_rkk  FROM rkk as r, applications where r.id_application = '$id_app' and applications.id_rkk = r.id_rkk";
 
 $result = mysqli_query($con, $query);
 
@@ -13,7 +13,7 @@ if (mysqli_num_rows($result) == 1) {
     $count_list_app = $row['count_list_app'];
     $tech_osn = $row['tech_osn'];
     $raspisanie = $row['raspisanie'];
-    $ucomplect = $row['ucomplect'];
+    $ucomplect = $row['ucomplect_rkk'];
     $report_samoacred = $row['report_samoacred'];
     $dop_sved = $row['dop_sved'];
     $id_user = $row['id_user'];

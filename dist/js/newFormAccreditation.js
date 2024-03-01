@@ -2929,8 +2929,39 @@ function getRkk() {
     let date_delo = document.getElementById("date_delo");
     let dop_info = document.getElementById("dop_info");
     let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
+
+    dateRegistr.innerHTML = "";
+    countlist.innerHTML = "";
+    tech_osn_rkk.innerHTML = "";
+    stat_rasp.innerHTML = "";
+    ucomp_rkk.innerHTML = "";
+    report_samoacred.innerHTML = "";
+    dop_sved.innerHTML = "";
+    predst_rkk.innerHTML = "";
+    povtor_index.innerHTML = "";
+    info_napr_zapr.innerHTML = "";
+    info_sogl.innerHTML = "";
+    protolol_zasedanie.innerHTML = "";
+    date_zasedanie.innerHTML = "";
+    info_vozvrat.innerHTML = "";
+    info_otzyv.innerHTML = "";
+    date_admin_resh.innerHTML = "";
+    count_admin_resh.innerHTML = "";
+    resultat.innerHTML = "";
+    svidetelstvo.innerHTML = "";
+    date_svidetelstvo.innerHTML = "";
+    po_n.innerHTML = "";
+    count_svidetelstvo.innerHTML = "";
+    info_uved.innerHTML = "";
+    count_medacr.innerHTML = "";
+    getter.innerHTML = "";
+    delo.innerHTML = "";
+    delo_listov.innerHTML = "";
+    date_delo.innerHTML = "";
+    dop_info.innerHTML = "";
     reg_index.innerHTML = "";
     admin_resh.innerHTML = "";
+
     $.ajax({
         url: "ajax/getRkk.php",
         method: "GET",
@@ -2978,6 +3009,9 @@ function getRkk() {
                 checkboxValueGuzo.checked = true;            } else {
                 checkboxValueGuzo.checked = false;
             }
+        }
+        else {
+            console.log("AAAAAAAAAAAAAAAAAA");
         }
     });
 }

@@ -1120,7 +1120,7 @@
                                     <div class="form-group">
                                         <label>Заявление<span class="zvezda">*</span></label>
                                         <select class="form-control" name="" id="perv_vtor_zayav" disabled="true">
-                                            <option value="0" selected>Выбор</option>
+                                            <option value="0" >Выбор</option>
                                             <option value="1">Первичное</option>
                                             <option value="2">Вторичное</option>
                                         </select>

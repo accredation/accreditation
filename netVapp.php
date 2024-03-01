@@ -13,7 +13,7 @@ LEFT OUTER JOIN z_criteria zc ON zc.id_criteria = zac.id_criteria
 WHERE a.id_application = '$id_app' AND zac.field4 IS NOT NULL;";
 
 $result = mysqli_query($con, $query);
-
+$i = 0;
 echo "<table border='1'><tbody>";
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
@@ -28,7 +28,7 @@ if (mysqli_num_rows($result) > 0) {
 
                 $subPath = "/" . $row['login'] . "/" . $row['id_application'] . "/" . $row['id_department'] . "/" . $file;
                 $filePath = 'docs/documents' . $subPath;
-
+$i++;
                 if (file_exists($filePath)) {
                     echo "";
                 } else {
@@ -49,3 +49,4 @@ if (mysqli_num_rows($result) > 0) {
     }
 }
 echo "</tbody></table>";
+echo "Общее количество файлов: " . $i;
