@@ -15,7 +15,7 @@ if (isset($_GET['file_name']) && isset($_GET['id_criteria']) && isset($_GET['id_
     $row = mysqli_fetch_assoc($result);
     $filesString = $row['field4'];
     $filesArray = explode(';', $filesString);
-
+    if(file_exists("../docs/documents/".$login. "/".$id_application. "/". $idDepartment. "/" . $fileName))
         unlink("../docs/documents/".$login. "/".$id_application. "/". $idDepartment. "/" . $fileName);
 
     $newFilesString = implode(';', $filesArray);
