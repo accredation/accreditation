@@ -141,7 +141,7 @@ function newShowModall(id_application) {
         // btnNeOk.classList.add("hiddentab");
 
         // btnreport.classList.remove("hiddentab");
-    } else if (tabNeodobrennie.classList.contains("active")) {
+    } else if (tabNeodobrennie && tabNeodobrennie.classList.contains("active")) {
 
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnChecking.classList.remove("hiddentab");
@@ -819,8 +819,9 @@ function newShowModall(id_application) {
     });
 
     let divBtnPrintReport = document.getElementById('btnPrintReport');
+    if(divBtnPrintReport)
     divBtnPrintReport.onclick = () => {
-        console.log("хуй")
+
         printNewReport();
     };
 
@@ -3071,3 +3072,4 @@ function printRkk(){
         resolve();
     });
 }
+

@@ -1959,18 +1959,20 @@ async function createAccordionCards(id_sub) {
             btnCollapse.setAttribute("aria-controls", "collapse" + id_criteria);
 
             btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
-            let filteredOutput;
-            if (name_criteria) {
-                filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
-            }
-            console.log("qweeeeee", filteredOutput);
-            btnCollapse.innerHTML = filteredOutput;
 
-            divCardHeader.appendChild(btnCollapse);
+            if (name_criteria) {
+               let filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
+                btnCollapse.innerHTML = filteredOutput;
+
+                divCardHeader.appendChild(btnCollapse);
+                divCard.appendChild(divCardHeader);
+            }
+          //  console.log("qweeeeee", filteredOutput);
+
 
 
             //  divCardHeader.innerHTML += "<br/>";
-            divCard.appendChild(divCardHeader);
+
 
             let divCollapse = document.createElement("div");
             divCollapse.className = "collapse";

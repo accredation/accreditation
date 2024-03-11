@@ -124,6 +124,14 @@
                             <a class="nav-link " id="rkk-tab" data-toggle="tab" href="#rkk" role="tab"
                                aria-selected="false">Зарегистрированные</a>
                         </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab"
+                                   aria-selected="false">Завершена оценка</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="reshenieSoveta-tab" data-toggle="tab" href="#" role="tab"
+                                   aria-selected="false">Решение совета</a>
+                            </li>
                         <?php }?>
                     </ul>
                     <div class="d-md-block d-none">
@@ -336,6 +344,155 @@
 
                                                     <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
                                                     <td><?= $app['dateInputDorabotki'] ?></td>
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="tab-content tab-transparent-content">
+                    <div class="tab-pane fade" id="odobrennie" role="tabpanel" aria-labelledby="odobrennie-tab">
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <?php
+                                        $query = "SELECT * FROM users where login = '$login'";
+
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ($role > 3 && $role < 12) {
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join uz uz on uz.id_uz=a.id_user
+                                                   where id_status = 4 and u.oblast = '$role'";
+                                        } else {
+
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join uz uz on uz.id_uz=a.id_user where id_status = 4";
+                                        }
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
+                                        ?>
+
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Заявления</th>
+                                                <th>Дата одобрения</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+
+                                            foreach ($data as $app) {
+                                                include "ajax/mainMark.php";
+                                                ?>
+
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
+
+
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
+                                                    <td><?= $app['date_complete'] ?></td>
+
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="tab-content tab-transparent-content">
+                    <div class="tab-pane fade" id="reshenieSoveta" role="tabpanel" aria-labelledby="reshenieSoveta-tab">
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <?php
+                                        $query = "SELECT * FROM users where login = '$login'";
+
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ($role > 3 && $role < 12) {
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join uz uz on uz.id_uz=a.id_user
+                                                   where id_status = 6 and u.oblast = '$role'";
+                                        } else {
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join uz uz on uz.id_uz=a.id_user
+                                                   where id_status = 6";
+                                        }
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
+                                        ?>
+
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Заявления</th>
+                                                <th>Дата решения совета</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+
+                                            foreach ($data as $app) {
+                                                include "ajax/mainMark.php"
+                                                ?>
+
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
+
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
+                                                    <td><?= $app['date_council'] ?></td>
+
 
                                                 </tr>
                                                 <?php

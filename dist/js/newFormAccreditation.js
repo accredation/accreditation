@@ -3152,3 +3152,20 @@ function printRkk(){
         resolve();
     });
 }
+
+function toArchive(pervtor){
+    $.ajax({
+        url: "ajax/toArchive.php",
+        method: "POST",
+        data: {
+            id_application: id_app, pervtor: pervtor
+        }
+    }).done(response => {
+        alert("Заявление отозвано и перенесено в архив");
+        location.href = "/";
+    })
+}
+
+document.getElementById("btnFormApplication").onclick = async function () {
+    await printAppForm();
+};

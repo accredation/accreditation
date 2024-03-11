@@ -1054,8 +1054,8 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal">Отзыв заявления</button>
-                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal">Отзказ в принятии</button>
+                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" onclick="toArchive(1)">Отзыв заявления</button>
+                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" onclick="toArchive(2)">Отзказ в принятии</button>
                 </div>
                 <div class="modal-footer" style="margin-top: 3rem">
                     <!--                <form action="getApplication.php" method="post">-->
@@ -1064,6 +1064,7 @@
 
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение
                     </button>
+
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
                     <?php if($_COOKIE['login'] == 'kuznec@rnpcmt.by') { ?>
                     <button type="submit" class="btn btn-warning" onclick="setNewStatus()">Отзыв</button>
@@ -1075,6 +1076,8 @@
                     <button type="submit" class="btn btn-danger hiddentab" id="btnOkonchatelnoeReshenie">Окончательное
                         решение
                     </button>
+                    <button type="submit"  class="btn btn-light btn-fw" id="btnFormApplication">Форма заявления</button>
+
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия

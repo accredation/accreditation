@@ -1181,7 +1181,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[7];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
