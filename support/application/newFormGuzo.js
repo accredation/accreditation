@@ -134,12 +134,15 @@ function newShowModall(id_application) {
     let tabHome = document.getElementById("home-tab");
     let informgr = document.getElementById("informgr");
     let sovetgr = document.getElementById("sovetgr");
+    let btnJournalActions = document.getElementById("btnJournalActions");
 
 
     if (tabOdobrenie.classList.contains("active")) {
 
         // btnNeOk.classList.add("hiddentab");
+        btnOk.classList.remove("hiddentab");
 
+        btnJournalActions.style.display = "block";
         // btnreport.classList.remove("hiddentab");
     } else if (tabNeodobrennie && tabNeodobrennie.classList.contains("active")) {
 
@@ -3073,3 +3076,60 @@ function printRkk(){
     });
 }
 
+$("#btnOk").on("click", () => {
+    let id_application = document.getElementById("id_application");
+    $.ajax({
+        url: "ajax/validateFieldsBeforeOkGuzo.php",
+        method: "GET",
+        data: {id_application: id_application.innerText}
+    }).then(response => {
+        let objects = JSON.parse(response);
+        if (objects.length === 0) {
+
+            let divReport = document.getElementById("divReport");
+            let a = divReport.getElementsByTagName("a")[0];
+            if (a) {
+                $.ajax({
+                    url: "ajax/changeStatusOkGuzo.php",
+                    method: "GET",
+                    data: {id_application: id_application.innerText}
+                })
+                    .done(function (response) {
+
+                        alert("Оценка завершена");
+                        location.href = "/index.php?application_support";
+                    });
+            } else
+                alert("Не прикреплен отчет!");
+        }else{
+            let errMsg = "Допущена ошибка: ";
+            let tmpSub = 0;
+            let tmpDep = 0;
+            objects.map((item )=> {
+
+                if(tmpSub !== item['id_sub'] ) {
+                    errMsg += "\nПодразделение " + item['sub_name'] + ": ";
+                }
+
+                if(tmpDep !== item['id_department'] && item['id_department']!==null) {
+                    errMsg += "\nОтделение " + item['dep_name'] + ": \n Критерии: ";
+                }
+
+                if(item['id_department']===null){
+                    errMsg += 'Нет информации по подразделению'
+                }
+
+                tmpDep = item['id_department'];
+                tmpSub = item['id_sub'];
+
+                if(item['pp'] !== null){
+                    errMsg += item['pp'] + ", ";
+                }
+
+
+            })
+            errMsg=errMsg.substring(0, errMsg.length-2)
+            alert(errMsg);
+        }
+    })
+});

@@ -900,6 +900,7 @@
                             onclick="deleteApp()">Удалить заявление
                     </button>
                     <?php } ?>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
                     <button type="submit" class="btn btn-success btn-fw" id="btnJournalActions">Журнал событий</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnFormApplication">Форма заявления</button>
                     <button data-tooltip="Печать критериев" type="submit" class="btn btn-light btn-fw" id="btnPrint">
