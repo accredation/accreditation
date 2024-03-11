@@ -2,7 +2,7 @@
 include "connection.php";
 $id_app = $_GET['id_application'];
 
-$query = "SELECT r.*, applications.*, r.ucomplect as ucomplect_rkk  FROM rkk as r, applications where r.id_application = '$id_app' and applications.id_rkk = r.id_rkk";
+$query = "SELECT r.*, applications.*, r.ucomplect as ucomplect_rkk, r.tech_osn as tech_osn_rkk, r.predstavitel as predstavitel_rkk   FROM rkk as r, applications where r.id_application = '$id_app' and applications.id_rkk = r.id_rkk";
 
 $result = mysqli_query($con, $query);
 
@@ -11,13 +11,13 @@ if (mysqli_num_rows($result) == 1) {
     $id_rkk = $row['id_rkk'];
     $date_reg = $row['date_reg'];
     $count_list_app = $row['count_list_app'];
-    $tech_osn = $row['tech_osn'];
+    $tech_osn = $row['tech_osn_rkk'];
     $raspisanie = $row['raspisanie'];
     $ucomplect = $row['ucomplect_rkk'];
     $report_samoacred = $row['report_samoacred'];
     $dop_sved = $row['dop_sved'];
     $id_user = $row['id_user'];
-    $predstavitel = $row['predstavitel'];
+    $predstavitel = $row['predstavitel_rkk'];
     $perv_vtor = $row['perv_vtor'];
     $date_index_povt_app = $row['date_index_povt_app'];
     $info_napr_zapr = $row['info_napr_zapr'];
@@ -192,7 +192,7 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">6.1</td>
         <td style = "width: 40%; text-align: left;">сведения об используемой медицинской технике по форме, устанавливаемой Министерством здравоохранения;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$tech_osn.'</td>
     </tr>
     
     <tr>
@@ -234,7 +234,7 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">8</td>
         <td style = "width: 40%; text-align: left;">Заинтересованному лицу разъяснены права и обязанности</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$predstavitel.'</td>
     </tr>
     
     <tr class="page-break">

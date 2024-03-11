@@ -128,7 +128,7 @@
               }
               else if($row['id_role'] == 14){
                   ?>
-                  <li class="nav-item" id="nav2">
+                  <li class="nav-item" id="nav8">
                       <a class="nav-link"  href="/index.php?application_support" >
                           <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
                           <span class="menu-title">Заявления</span>

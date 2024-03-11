@@ -403,6 +403,8 @@ function showModal(id_application, strMarks, strMarksAccred) {
     let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
     let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
     let accredArchive = document.getElementById("accredArchive-tab");
+    let accredArchiveNew = document.getElementById("accredArchiveNew-tab");
+
     let tabHome = document.getElementById("home-tab");
     let informgr = document.getElementById("informgr");
     let sovetgr = document.getElementById("sovetgr");
@@ -452,6 +454,18 @@ function showModal(id_application, strMarks, strMarksAccred) {
         sovetgr.style.display = "block";
 
     }else if (accredArchive.classList.contains("active")) {
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btncalc.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "block";
+        sovetgr.style.display = "block";
+        console.log ("archive" ,sovetgr);
+    }
+    else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
@@ -1465,7 +1479,7 @@ function getTabs(name, id_sub) {
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[7];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1560,7 +1574,7 @@ function getMainTab(name, id_sub) {
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[7];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1945,9 +1959,11 @@ async function createAccordionCards(id_sub) {
             btnCollapse.setAttribute("aria-controls", "collapse" + id_criteria);
 
             btnCollapse.style = "text-decoration: none; color: black; font-size: 0.9rem;";
+            let filteredOutput;
             if (name_criteria) {
-                let filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
+                filteredOutput = name_criteria.innerHTML.replace(/\(null\)/g, '');
             }
+            console.log("qweeeeee", filteredOutput);
             btnCollapse.innerHTML = filteredOutput;
 
             divCardHeader.appendChild(btnCollapse);
@@ -2499,14 +2515,14 @@ function saveMarks(id_sub) {
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         if (i != 0)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2517,14 +2533,14 @@ $("#home-tab").on("click", () => {
 
 $("#rassmotrenie-tab").on("click", () => {
 
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         if (i != 1)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2536,14 +2552,14 @@ $("#rassmotrenie-tab").on("click", () => {
 
 $("#odobrennie-tab").on("click", () => {
 
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         if (i != 2)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2555,14 +2571,14 @@ $("#odobrennie-tab").on("click", () => {
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         if (i != 3)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2573,20 +2589,39 @@ $("#neodobrennie-tab").on("click", () => {
 });
 
 $("#reshenieSoveta-tab").on("click", () => {
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         if (i != 4)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
     allTabsMainPage[4].children[0].classList.add("show");
     allTabsMainPage[4].children[0].classList.add("active");
     status = 6;
+
+
+});
+
+$("#accredArchiveNew-tab").on("click", () => {
+    for (let i = 0; i <= 6; i++) {
+        if (i != 5)
+            allTabsMainPage[i].style = "display:none";
+        else {
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0; i <= 6; i++) {
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[5].children[0].classList.add("show");
+    allTabsMainPage[5].children[0].classList.add("active");
+    status = 9;
 
 
 });
@@ -2642,20 +2677,20 @@ $("#accredArchive-tab").on("click", () => {
 
 
     }
-    for (let i = 0; i <= 5; i++) {
-        if (i != 5)
+    for (let i = 0; i <= 6; i++) {
+        if (i != 6)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
 
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
-    allTabsMainPage[5].children[0].classList.add("show");
-    allTabsMainPage[5].children[0].classList.add("active");
+    allTabsMainPage[6].children[0].classList.add("show");
+    allTabsMainPage[6].children[0].classList.add("active");
     status = 8;
 
 

@@ -130,6 +130,7 @@ function newShowModal(id_application) {
     let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
     let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
     let accredArchive = document.getElementById("accredArchive-tab");
+    let accredArchiveNew = document.getElementById("accredArchiveNew-tab");
     let tabHome = document.getElementById("home-tab");
     let informgr = document.getElementById("informgr");
     let sovetgr = document.getElementById("sovetgr");
@@ -191,7 +192,19 @@ function newShowModal(id_application) {
         btnOk.classList.add("hiddentab");
         informgr.style.display = "block";
         sovetgr.style.display = "block";
-    } else if (tabHome.classList.contains("active")) {
+    }
+    else if (accredArchiveNew.classList.contains("active")) {
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btncalc.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "block";
+        sovetgr.style.display = "block";
+    }
+    else if (tabHome.classList.contains("active")) {
 
         $.ajax({
             url: "ajax/getIdRkk.php",
@@ -1356,7 +1369,7 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6]; // ЕСЛИ ДОБАВИЛИ ВКЛАДКУ ТОГДА НУЖНО ТУТ ТОЖЕ УВЕЛИЧИТЬ
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[7]; // ЕСЛИ ДОБАВИЛИ ВКЛАДКУ ТОГДА НУЖНО ТУТ ТОЖЕ УВЕЛИЧИТЬ
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -3115,29 +3128,6 @@ function setNewStatus(){
     }
 }
 
-function printRkk(){
-    $.ajax({
-        url: "ajax/z_printRkk.php",
-        method: "GET",
-        data: {
-            id_application: id_app
-        }
-    }).done(response => {
-        var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
-        WinPrint.document.write('<style>@page {\n' +
-            'margin: 1rem;\n' +
-            '}</style>');
-        WinPrint.document.write('<br/>');
-        WinPrint.document.write(response);
-        WinPrint.document.close();
-        WinPrint.focus();
-        WinPrint.document.title = "РКК_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
-        WinPrint.print();
-        WinPrint.close();
-
-        resolve();
-    });
-}
 
 function printRkk(){
     $.ajax({

@@ -336,7 +336,7 @@ function createApplication() {
             btncr.removeAttribute("disabled");
         });
     alert("Заявление создано");
-    location.href = "/index.php?application";
+   location.href = "/index.php?application";
 }
 
 function showModal(id_application, strMarks, strMarksAccred) {
@@ -1423,7 +1423,7 @@ function getTabs(name, id_sub) {
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -1548,7 +1548,7 @@ function getMainTab(name, id_sub) {
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[5];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -2467,14 +2467,14 @@ function saveMarks(id_sub, divCardBody, flag) {
 let allTabsMainPage = document.getElementsByClassName("tab-content tab-transparent-content");
 
 $("#home-tab").on("click", () => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 0)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2486,7 +2486,7 @@ $("#home-tab").on("click", () => {
 
 $("#rassmotrenie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 1)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2494,7 +2494,7 @@ $("#rassmotrenie-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2507,7 +2507,7 @@ $("#rassmotrenie-tab").on("click", () => {
 
 $("#odobrennie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 2)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2515,7 +2515,7 @@ $("#odobrennie-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2528,7 +2528,7 @@ $("#odobrennie-tab").on("click", () => {
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 3)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2536,7 +2536,7 @@ $("#neodobrennie-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2549,7 +2549,28 @@ $("#neodobrennie-tab").on("click", () => {
 
 $("#archive-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
+        if (i != 5)
+            allTabsMainPage[i].style = "display:none";
+        else {
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+
+    for (let i = 0; i < 6; i++) {
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[5].children[0].classList.add("show");
+    allTabsMainPage[5].children[0].classList.add("active");
+    status = 8;
+    //   console.log(status);
+
+});
+
+$("#archiveNew-tab").on("click", () => {
+
+    for (let i = 0; i < 6; i++) {
         if (i != 4)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2557,16 +2578,17 @@ $("#archive-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
     allTabsMainPage[4].children[0].classList.add("show");
     allTabsMainPage[4].children[0].classList.add("active");
-    status = 8;
+    status = 9;
     //   console.log(status);
 
 });
+
 
 $("#btnSend").on("click", async (event) => {
 

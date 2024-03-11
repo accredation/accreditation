@@ -190,8 +190,13 @@
                                aria-selected="false">Решение совета</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="accredArchive-tab" data-toggle="tab" href="#" role="tab"
+                            <a class="nav-link" id="accredArchiveNew-tab" data-toggle="tab" href="#" role="tab"
                                aria-selected="false">Архив</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="accredArchive-tab" data-toggle="tab" href="#" role="tab"
+                               aria-selected="false">Архив 2023</a>
                         </li>
 
                     </ul>
@@ -305,16 +310,18 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12) {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id, rkk.date_reg
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
+                                                    left outer join rkk on rkk.id_rkk=a.id_rkk  
                                                    where id_status = 3 and u.oblast = '$role'";
                                         } else {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id, rkk.date_reg
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
+                                                    left outer join rkk on rkk.id_rkk=a.id_rkk   
                                                     where id_status = 3";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
@@ -326,7 +333,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
-                                                <th>Дата принятия на рассмотрение</th>
+                                                <th>Дата регистрации</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -341,7 +348,7 @@
 
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
-                                                    <td><?= $app['date_accept'] ?></td>
+                                                    <td><?= $app['date_reg'] ?></td>
 
 
                                                 </tr>
@@ -585,6 +592,85 @@
 
                     </div>
                 </div>
+
+
+
+
+                <div class="tab-content tab-transparent-content">
+                    <div class="tab-pane fade" id="accredArchiveNew" role="tabpanel" aria-labelledby="accredArchiveNew-tab">
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <?php
+                                        $query = "SELECT * FROM users where login = '$login'";
+
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ($role > 3 && $role < 12) {
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join uz uz on uz.id_uz=a.id_user
+                                                   where id_status = 9 and u.oblast = '$role'";
+                                        } else {
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                                    FROM applications a
+                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
+                                                    left outer join uz uz on uz.id_uz=a.id_user
+                                                   where id_status = 9";
+                                        }
+                                        $result = mysqli_query($con, $query) or die (mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
+                                        ?>
+
+                                        <table id="example" class="table table-striped table-bordered"
+                                               style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Заявления</th>
+                                                <th>Дата решения совета</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+
+                                            foreach ($data as $app) {
+                                                include "ajax/mainMark.php"
+                                                ?>
+
+                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                    style="cursor: pointer;">
+
+                                                    <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
+                                                    <td><?= $app['date_council'] ?></td>
+
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
 
 
                 <div class="tab-content tab-transparent-content">
@@ -967,6 +1053,10 @@
                     </div>
                 </div>
                 <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal">Отзыв заявления</button>
+                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal">Отзказ в принятии</button>
+                </div>
                 <div class="modal-footer" style="margin-top: 3rem">
                     <!--                <form action="getApplication.php" method="post">-->
                     <!--                    <input type="text" name="count" id="count"/>-->
