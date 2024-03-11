@@ -138,7 +138,7 @@ function newShowModall(id_application) {
 
 
     if (tabOdobrenie.classList.contains("active")) {
-
+        console.log("XUY");
         // btnNeOk.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
 
