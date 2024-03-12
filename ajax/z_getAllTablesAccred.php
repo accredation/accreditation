@@ -20,6 +20,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $mark_percent = $row_department['mark_percent'];
     $login_name = $row_department['login'];
     $id_app = $row_department['id_application'];
+    $readyornot  = $row_department['readyornot'];
 
     $mark_accred_percent = $row_department['mark_accred_percent'];
     if($mark_percent === null)
@@ -40,9 +41,22 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     if (mysqli_num_rows($result) == 1) //если получена одна строка
     {
         $row = mysqli_fetch_assoc($result);
-        if($row['id_role'] == 15){  }
+        if($row['id_role'] == 15){
 
-        else {
+        }
+        else if($row['id_role'] == 14) {
+                if($readyornot == '0') {
+                    echo '
+        <div class ="actions-container3" readyornot="'.$readyornot.'"  style = "width: 30%;"><button  onclick="updateReadyOrNot(' . $id_department . ', 1); event.stopPropagation();" class="ready0" data-id_department="' . $id_department . '">Готово</button>
+        </div>';
+                }
+                else if ($readyornot == '1'){
+                    echo '
+        <div class ="actions-container3" readyornot="'.$readyornot.'" style = "width: 30%;"><button onclick="updateReadyOrNot(' . $id_department . ', 0); event.stopPropagation();" class="ready1" data-id_department="' . $id_department . '">Редактировать</button>
+        </div>';
+                }
+
+        } else {
             echo'
         <div class ="actions-container2"  style = "width: 30%;">
         </div>';
@@ -73,7 +87,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
   word-wrap: break-word;">
                 Примечание
             </td>
-            <td style="border: 1px solid black; width: 10%; text-align: left;">
+            <td style="border: 1px solid black; width: 10%; text-align: left;" >
                 Сведения по оценке соответствия
             </td>
             <td style="width: 350px; border: 1px solid black;">
@@ -138,9 +152,9 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 <option ' . ($field6 === '2' ? 'selected' : '') . ' value="2">Нет</option>
                 <option ' . ($field6 === '3' ? 'selected' : '') . ' value="3">Не применяется</option>
                 </select></div></td>
-                <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;" contenteditable="true" 
+                <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;" contenteditable="true" id="td7"
                         oninput="changeField7(' . $id_crit . ', ' . $id_department . ', this)">' . $field7 . '</td>
-                <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;" contenteditable="true" 
+                <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;" contenteditable="true"  id="tdDef"
                         oninput="changeFieldDefect(' . $id_crit . ', ' . $id_department . ', this)">' . $defect . '</td>
                 ';
 

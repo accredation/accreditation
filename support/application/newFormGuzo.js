@@ -1558,8 +1558,28 @@ function buttonSelected(inputCheck) {  // добавление отделени�
 }
 
 function newCollapseTable(thisDiv) {
-    let card = thisDiv.parentElement;
     let idDep = thisDiv.id.substring(7);
+    let btnUpd = document.querySelector("[data-id_department='"+idDep+"']");
+    console.log(btnUpd);
+    let cb = document.getElementById("cardBody" + idDep);
+    let tableCb = cb.children[0];
+    let allCells = tableCb.getElementsByTagName("td");
+
+
+
+    if(btnUpd.innerHTML === "Редактировать"){
+        console.log("Нельзя");
+        [...allCells].forEach(item => {
+            item.setAttribute("contenteditable", "false");
+        })
+    }else{
+        console.log("Можно");
+        [...allCells].forEach(item => {
+            item.setAttribute("contenteditable", "true");
+        })
+    }
+    let card = thisDiv.parentElement;
+
     let thisCollapse = card.querySelector("#collapse" + thisDiv.id.substring(7));
     if (thisCollapse.classList.contains("show")) {
         thisCollapse.classList.remove("show");
@@ -3144,3 +3164,48 @@ $("#btnOk").on("click", () => {
         })
     }
 });
+
+
+
+function updateReadyOrNot(id_department, value) {
+    let btnUpd = document.querySelector("[data-id_department='"+id_department+"']");
+    let readyornot = btnUpd.getAttribute("readyornot");
+    console.log (id_department + "iddep" , value + "value");
+    let cb = document.getElementById("cardBody" + id_department);
+    let tableCb = cb.children[0];
+    let allCells = tableCb.getElementsByTagName("td");
+
+    if (readyornot === "0"){
+        value = 1;
+        btnUpd.setAttribute("readyornot", 1);
+        [...allCells].forEach(item => {
+            item.setAttribute("contenteditable", "false");
+        })
+    }
+    else{
+        value = 0 ;
+        btnUpd.setAttribute("readyornot", 0);
+        [...allCells].forEach(item => {
+            item.setAttribute("contenteditable", "true");
+        })
+    }
+    $.ajax({
+        url: '../ajax/updateReadyornot.php',
+        method: 'POST',
+        data:{   id_department: id_department, value: value },
+        success: function(response) {
+            if (value === 1) {
+                btnUpd.innerHTML = "Редактировать";
+
+            } else {
+                btnUpd.innerHTML = "Готово";
+            }
+
+        },
+        error: function(xhr, status, error) {
+            console.error('Ошибка при обновлении значения: ' + error);
+        }
+    });
+}
+
+
