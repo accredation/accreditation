@@ -1559,6 +1559,7 @@ function buttonSelected(inputCheck) {  // добавление отделени�
 
 function newCollapseTable(thisDiv) {
     let card = thisDiv.parentElement;
+    let idDep = thisDiv.id.substring(7);
     let thisCollapse = card.querySelector("#collapse" + thisDiv.id.substring(7));
     if (thisCollapse.classList.contains("show")) {
         thisCollapse.classList.remove("show");
@@ -1611,6 +1612,11 @@ function newCollapseTable(thisDiv) {
             });
 
     }
+    let colId = "collapse" + idDep;
+    let btnCol = document.querySelector("[aria-controls='" + colId + "']").innerHTML;
+    let nameDep = btnCol.substring(0, btnCol.indexOf("("));
+    let nameTab = document.getElementById("button" + openTabId);
+    addHistoryAction(id_appp, getCookie('id_user'), 1, `Использование таблицы ${nameDep} в подразделении ${nameTab.innerText}`, openTabId, idDep);
 }
 
 function changeField3(idCrit, idDep, select) {
@@ -3077,59 +3083,64 @@ function printRkk(){
 }
 
 $("#btnOk").on("click", () => {
-    let id_application = document.getElementById("id_application");
-    $.ajax({
-        url: "ajax/validateFieldsBeforeOkGuzo.php",
-        method: "GET",
-        data: {id_application: id_application.innerText}
-    }).then(response => {
-        let objects = JSON.parse(response);
-        if (objects.length === 0) {
+    if (confirm("Подтвердите завершение оценки")) {
 
-            let divReport = document.getElementById("divReport");
-            let a = divReport.getElementsByTagName("a")[0];
-            if (a) {
-                $.ajax({
-                    url: "ajax/changeStatusOkGuzo.php",
-                    method: "GET",
-                    data: {id_application: id_application.innerText}
+
+        let id_application = document.getElementById("id_application");
+        $.ajax({
+            url: "ajax/validateFieldsBeforeOkGuzo.php",
+            method: "GET",
+            data: {id_application: id_application.innerText}
+        }).then(response => {
+            let objects = JSON.parse(response);
+            if (objects.length === 0) {
+
+                let divReport = document.getElementById("divReport");
+                let a = divReport.getElementsByTagName("a")[0];
+                if (a) {
+                    $.ajax({
+                        url: "ajax/changeStatusOkGuzo.php",
+                        method: "GET",
+                        data: {id_application: id_application.innerText}
+                    })
+                        .done(function (response) {
+
+                            alert("Оценка завершена");
+                            location.href = "/index.php?application_support";
+                        });
+                } else
+                    alert("Не прикреплен отчет!");
+            } else {
+                let errMsg = "Допущена ошибка: ";
+                let tmpSub = 0;
+                let tmpDep = 0;
+                objects.map((item) => {
+
+                    if (tmpSub !== item['id_sub']) {
+                        errMsg += "\nПодразделение " + item['sub_name'] + ": ";
+                    }
+
+                    if (tmpDep !== item['id_department'] && item['id_department'] !== null) {
+                        errMsg += "\nОтделение " + item['dep_name'] + ": \n Критерии: ";
+                    }
+
+                    if (item['id_department'] === null) {
+                        errMsg += 'Нет информации по подразделению'
+                    }
+
+                    tmpDep = item['id_department'];
+                    tmpSub = item['id_sub'];
+
+                    if (item['pp'] !== null) {
+                        errMsg += item['pp'] + ", ";
+                    }
+
+
                 })
-                    .done(function (response) {
+                errMsg = errMsg.substring(0, errMsg.length - 2)
+                alert(errMsg);
 
-                        alert("Оценка завершена");
-                        location.href = "/index.php?application_support";
-                    });
-            } else
-                alert("Не прикреплен отчет!");
-        }else{
-            let errMsg = "Допущена ошибка: ";
-            let tmpSub = 0;
-            let tmpDep = 0;
-            objects.map((item )=> {
-
-                if(tmpSub !== item['id_sub'] ) {
-                    errMsg += "\nПодразделение " + item['sub_name'] + ": ";
-                }
-
-                if(tmpDep !== item['id_department'] && item['id_department']!==null) {
-                    errMsg += "\nОтделение " + item['dep_name'] + ": \n Критерии: ";
-                }
-
-                if(item['id_department']===null){
-                    errMsg += 'Нет информации по подразделению'
-                }
-
-                tmpDep = item['id_department'];
-                tmpSub = item['id_sub'];
-
-                if(item['pp'] !== null){
-                    errMsg += item['pp'] + ", ";
-                }
-
-
-            })
-            errMsg=errMsg.substring(0, errMsg.length-2)
-            alert(errMsg);
-        }
-    })
+            }
+        })
+    }
 });

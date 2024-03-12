@@ -978,6 +978,7 @@
             //$('.dataTables_length').addClass('bs-select');
         });
     </script>
+    <script src = "/dist/js/add_history_action.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
     <!--<script>console.log(filesName)</script>-->
