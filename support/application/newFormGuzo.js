@@ -4,7 +4,7 @@ let idRkk;
 
 function newShowModall(id_application) {
     let btnRkk;
-    console.log('newShowMod')
+    // console.log('newShowMod')
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
     if (!divSoprovodPismo.classList.contains("hiddentab"))
         divSoprovodPismo.classList.add("hiddentab");
@@ -138,7 +138,7 @@ function newShowModall(id_application) {
 
 
     if (tabOdobrenie.classList.contains("active")) {
-        console.log("XUY");
+        // console.log("XUY");
         // btnNeOk.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
 
@@ -1560,24 +1560,16 @@ function buttonSelected(inputCheck) {  // добавление отделени�
 function newCollapseTable(thisDiv) {
     let idDep = thisDiv.id.substring(7);
     let btnUpd = document.querySelector("[data-id_department='"+idDep+"']");
-    console.log(btnUpd);
+    // console.log(btnUpd);
     let cb = document.getElementById("cardBody" + idDep);
     let tableCb = cb.children[0];
     let allCells = tableCb.getElementsByTagName("td");
+    let allSelect = tableCb.querySelectorAll("#selpickerAccred");
+    let specificTds = tableCb.querySelectorAll("#td7, #tdDef");
 
 
 
-    if(btnUpd.innerHTML === "Редактировать"){
-        console.log("Нельзя");
-        [...allCells].forEach(item => {
-            item.setAttribute("contenteditable", "false");
-        })
-    }else{
-        console.log("Можно");
-        [...allCells].forEach(item => {
-            item.setAttribute("contenteditable", "true");
-        })
-    }
+
     let card = thisDiv.parentElement;
 
     let thisCollapse = card.querySelector("#collapse" + thisDiv.id.substring(7));
@@ -1586,52 +1578,75 @@ function newCollapseTable(thisDiv) {
     } else {
         thisCollapse.classList.add("show");
     }
-    let noteCells = document.querySelectorAll('td[contenteditable="true"]');
-    let selpickers = document.querySelectorAll("#selpicker");
-    let fileInputs = document.querySelectorAll('input[type="file"]');
+    // let noteCells = document.querySelectorAll('td[contenteditable="true"]');
+    // let selpickers = document.querySelectorAll("#selpicker");
+    // let fileInputs = document.querySelectorAll('input[type="file"]');
+    //
+    // let selpickersAccred = document.querySelectorAll("#selpickerAccred");
+    //
+    // if ((status !== 2) && (status !== 3)) {
+    //
+    //     selpickers.forEach((selpicker) => {
+    //         selpicker.disabled = true;
+    //     });
+    //
+    //     selpickersAccred.forEach((selpickerAccred) => {
+    //         selpickerAccred.disabled = true;
+    //     });
+    //
+    //     fileInputs.forEach((fileInput) => {
+    //         fileInput.disabled = true;
+    //     });
+    //
+    //     noteCells.forEach((noteCell) => {
+    //         noteCell.removeAttribute("contenteditable");
+    //     });
+    // } else {
+    //
+    //     let selpickers = document.querySelectorAll("#selpicker");
+    //     let fileInputs = document.querySelectorAll('input[type="file"]');
+    //
+    //     selpickers.forEach((selpicker) => {
+    //         selpicker.disabled = true;
+    //     });
+    //
+    //     selpickersAccred.forEach((selpickerAccred) => {
+    //         selpickerAccred.disabled = false;
+    //     });
+    //
+    //     fileInputs.forEach((fileInput) => {
+    //         fileInput.disabled = false;
+    //     });
+    //
+    //     if (noteCells)
+    //         noteCells.forEach((noteCell) => {
+    //             noteCell.setAttribute("contenteditable", "true");
+    //         });
+    //
+    // }
 
-    let selpickersAccred = document.querySelectorAll("#selpickerAccred");
-
-    if ((status !== 2) && (status !== 3)) {
-
-        selpickers.forEach((selpicker) => {
-            selpicker.disabled = true;
+    if(btnUpd.innerHTML === "Редактировать"){
+        [...specificTds].forEach(item => {
+            item.setAttribute("contenteditable", "false");
         });
 
-        selpickersAccred.forEach((selpickerAccred) => {
-            selpickerAccred.disabled = true;
+        allSelect.forEach(item => {
+            item.disabled = true;
+
         });
 
-        fileInputs.forEach((fileInput) => {
-            fileInput.disabled = true;
+    }else{
+        [...specificTds].forEach(item => {
+            item.setAttribute("contenteditable", "true");
         });
 
-        noteCells.forEach((noteCell) => {
-            noteCell.removeAttribute("contenteditable");
+        allSelect.forEach(item => {
+            item.removeAttribute("disabled");
         });
-    } else {
-
-        let selpickers = document.querySelectorAll("#selpicker");
-        let fileInputs = document.querySelectorAll('input[type="file"]');
-
-        selpickers.forEach((selpicker) => {
-            selpicker.disabled = true;
-        });
-
-        selpickersAccred.forEach((selpickerAccred) => {
-            selpickerAccred.disabled = false;
-        });
-
-        fileInputs.forEach((fileInput) => {
-            fileInput.disabled = false;
-        });
-
-        if (noteCells)
-            noteCells.forEach((noteCell) => {
-                noteCell.setAttribute("contenteditable", "true");
-            });
 
     }
+
+
     let colId = "collapse" + idDep;
     let btnCol = document.querySelector("[aria-controls='" + colId + "']").innerHTML;
     let nameDep = btnCol.substring(0, btnCol.indexOf("("));
@@ -1723,7 +1738,7 @@ function addFile(idCrit, idDep, input) {
 
         let fileName = addedFile.name;
         let extAr = fileName.substring(fileName.lastIndexOf('.'), fileName.length);
-        console.log(extAr);
+        // console.log(extAr);
         if (extAr !== ".pdf" && extAr !== ".PDF") {
             alert("Неверный формат. Допустимый формат pdf");
             xhr.abort();
@@ -2785,7 +2800,7 @@ $("#prikazNaznach").on("change", () => {
 // }))
 
 function saveRkk() {
-    console.log(id_app);
+    // console.log(id_app);
     let dateRegistr = document.getElementById("dateRegistr");
     let countlist = document.getElementById("countlist");
     let tech_osn_rkk = document.getElementById("tech_osn_rkk");
@@ -3167,6 +3182,10 @@ $("#btnOk").on("click", () => {
 
 
 
+
+
+
+
 function updateReadyOrNot(id_department, value) {
     let btnUpd = document.querySelector("[data-id_department='"+id_department+"']");
     let readyornot = btnUpd.getAttribute("readyornot");
@@ -3174,20 +3193,30 @@ function updateReadyOrNot(id_department, value) {
     let cb = document.getElementById("cardBody" + id_department);
     let tableCb = cb.children[0];
     let allCells = tableCb.getElementsByTagName("td");
+    let allSelect = tableCb.querySelectorAll("#selpickerAccred");
+    let specificTds = tableCb.querySelectorAll("#td7, #tdDef");
 
     if (readyornot === "0"){
         value = 1;
         btnUpd.setAttribute("readyornot", 1);
-        [...allCells].forEach(item => {
+        [...specificTds].forEach(item => {
             item.setAttribute("contenteditable", "false");
-        })
+        });
+
+            [...allSelect].forEach(item => {
+            item.setAttribute("disabled", "true");
+        });
     }
     else{
         value = 0 ;
         btnUpd.setAttribute("readyornot", 0);
-        [...allCells].forEach(item => {
+        [...specificTds].forEach(item => {
             item.setAttribute("contenteditable", "true");
-        })
+        });
+
+            [...allSelect].forEach(item => {
+            item.removeAttribute("disabled");
+        });
     }
     $.ajax({
         url: '../ajax/updateReadyornot.php',
