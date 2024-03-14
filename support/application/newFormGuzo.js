@@ -2627,6 +2627,13 @@ function checkUserRole() {
     const ownUcompBtn = document.getElementsByClassName("ownUcomp")[0];
 
 
+
+    const divFileReportSamoocenka1  =  document.getElementById("divFileReportSamoocenka");
+    const divFileReportDorabotka1  =  document.getElementById("divFileReportDorabotka");
+    const divDateDorabotka1  =  document.getElementById("divDateDorabotka");
+
+
+
     if (idRole === "15") {
 
         inputFieldSokrNaim.disabled = true;
@@ -2640,12 +2647,21 @@ function checkUserRole() {
         inputFieldcopyRaspisanie.disabled = true;
         inputFieldtechOsn.disabled = true;
         inputFieldreportSamoocenka.disabled = true;
-        ownUcompBtn.disabled = true;
+       // ownUcompBtn.disabled = true;
         inputprikazNaznach.disabled = true;
         inputreportZakluchenieSootvet.disabled = true;
 
+        inputFieldcopyRaspisanie.style = "width: auto;margin-bottom: 0px;";
+        inputFieldtechOsn.style ="width: auto;margin-bottom: 0px;";
+        inputFieldreportSamoocenka.style = "width: auto;margin-bottom: 0px;";
+        inputprikazNaznach.style = "width: auto;margin-bottom: 0px;";
+        inputreportZakluchenieSootvet.style = "width: auto;margin-bottom: 0px;";
+
+        divFileReportSamoocenka1.style = "display:block";
+        divFileReportDorabotka1.style = "display:block";
+        divDateDorabotka1.style = "display:block";
+
     } else if (idRole === "14") {
-console.log ("хуй")
         inputFieldSokrNaim.disabled = true;
         inputFieldunp.disabled = true;
         inputFieldadress.disabled = true;
@@ -2657,9 +2673,29 @@ console.log ("хуй")
         inputFieldcopyRaspisanie.disabled = true;
         inputFieldtechOsn.disabled = true;
         inputFieldreportSamoocenka.disabled = true;
-        ownUcompBtn.disabled = true;
+      //  ownUcompBtn.disabled = true;
         inputprikazNaznach.disabled = true;
         inputreportZakluchenieSootvet.disabled = true;
+
+        //
+        // inputFieldSokrNaim.style = "width: 0px;margin-bottom: -35px;";
+        // inputFieldunp.style = "width: 0px;margin-bottom: -35px;";
+        // inputFieldadress.style = "width: 0px;margin-bottom: -35px;";
+        // inputFieldadressFact.style = "width: 0px;margin-bottom: -35px;";
+        // inputFieldtel.style = "width: 0px;margin-bottom: -35px;";
+        // inputFieldemail.style = "width: 0px;margin-bottom: -35px;";
+        // inputFieldrukovoditel.style = "width: 0px;margin-bottom: -35px;";
+        // inputFieldpredstavitel.style = "width: 0px;margin-bottom: -35px;";
+         inputFieldcopyRaspisanie.style = "width: 0px;margin-bottom: -35px;";
+         inputFieldtechOsn.style = "width: 0px;margin-bottom: -35px;";
+         inputFieldreportSamoocenka.style = "width: 0px;margin-bottom: -35px;";
+         inputprikazNaznach.style = "width: 0px;margin-bottom: -35px;";
+         inputreportZakluchenieSootvet.style = "width: 0px;margin-bottom: -35px;";
+
+
+         divFileReportSamoocenka1.style = "display:none";
+         divFileReportDorabotka1.style = "display:none";
+         divDateDorabotka1.style = "display:none";
 
     }
     else {
@@ -2677,6 +2713,17 @@ console.log ("хуй")
         ownUcompBtn.disabled = false;
         inputprikazNaznach.disabled = false;
         inputreportZakluchenieSootvet.disabled = false;
+
+
+        inputFieldcopyRaspisanie.style = "width: auto;margin-bottom: 0px;";
+        inputFieldtechOsn.style ="width: auto;margin-bottom: 0px;";
+        inputFieldreportSamoocenka.style = "width: auto;margin-bottom: 0px;";
+        inputprikazNaznach.style = "width: auto;margin-bottom: 0px;";
+        inputreportZakluchenieSootvet.style = "width: auto;margin-bottom: 0px;";
+
+        divFileReportSamoocenka1.style = "display:block";
+        divFileReportDorabotka1.style = "display:block";
+        divDateDorabotka1.style = "display:block";
 
 
 
