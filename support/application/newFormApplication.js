@@ -2198,6 +2198,9 @@ function checkUserRole()
     const reportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
     const doverennost = document.getElementById("doverennost");
     const prikazNaznach = document.getElementById("prikazNaznach");
+
+
+
     console.log(idRole);
     inputFieldSokrNaim.disabled = true;
     inputFieldunp.disabled = true;
