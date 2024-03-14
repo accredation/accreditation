@@ -350,7 +350,10 @@ function newShowModall(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                let fileNames = data[0][14].split(';');
+                fileNames.forEach((fileName) => {
+                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/Отчеты/" + fileName + "'>" + fileName + "</a><br>");
+                });
             }
             if (data[0][15] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
@@ -3331,4 +3334,26 @@ $("#btnJournalActions").on("click", () => {
             showModalAction(id_appp);
 
         })
+});
+
+
+$("#formReport").on("change", () => {
+    let fileReport = document.getElementById("fileReport");
+    let filesContainer = document.getElementById("filesContainer");
+    filesContainer.innerHTML = "";
+
+    for (let i = 0; i < fileReport.files.length; i++) {
+        let file = fileReport.files[i];
+        filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/Отчеты/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+    let id_application = document.getElementById("id_application");
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+    for (let i = 0; i < fileReport.files.length; i++) {
+        form.append("fileReport[]", fileReport.files[i]);
+    }
+    form.append("id_application", id_application.innerText);
+    xhr.open("post", "ajax/postFileReportGuzo.php", true);
+    xhr.send(form);
 });

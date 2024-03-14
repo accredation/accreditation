@@ -862,13 +862,20 @@
                                             <div class="card-body" id="mainRightCard">
 
                                             </div>
-                                            <form id="formReport">
-                                                <div class="form-group" id="divReport" style="margin-left: 2.5rem">
-                                                    <!--                                                <label for="" style="font-size: 24px">Отчет</label><br/>-->
-                                                    <input type="file" class="form-control-file hiddentab"
-                                                           id="fileReport">
-                                                </div>
-                                            </form>
+
+                       <?php if ($role == "14"){
+                        ?>
+                           <form id="formReport">
+                               <div class="form-group" id="divReport" style="margin-left: 2.5rem">
+                                   <label for="" style="font-size: 24px">Отчет</label><br/>
+                                   <input type="file"  class="form-control-file"
+                                          id="fileReport" multiple>
+                               </div>
+                               <div id="filesContainer" style="margin-left: 50px;  margin-top: -15px;"></div>
+                           </form>
+
+                        <?php }?>
+
                                         </div>
                                     </div>
                                     <!--                                <div style="width: 100%">-->
