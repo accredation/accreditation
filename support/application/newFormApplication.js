@@ -10,7 +10,13 @@ function newShowModal(id_application) {
     let labelUcomplect = document.createElement("p");
     labelUcomplect.innerHTML = "Укомплектованность";
     newDivUcomplect.appendChild(labelUcomplect);
-    btnTableUcomplect.innerHTML = "Редактировать";
+    if (idRole==14){
+        btnTableUcomplect.innerHTML = "Просмотр";
+    }
+    else{
+        btnTableUcomplect.innerHTML = "Редактировать";
+    }
+
     btnTableUcomplect.classList = "ownUcomp"
     newDivUcomplect.appendChild(btnTableUcomplect);
     newDivUcomplect.style = "margin-bottom: 20px";

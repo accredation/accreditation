@@ -313,7 +313,7 @@ function newShowModall(id_application) {
         checkUserRole();
 
     } else {
-
+        checkUserRole();
     }
 
 
@@ -828,7 +828,7 @@ function newShowModall(id_application) {
         printNewReport();
     };
 
-
+    checkUserRole();
 }
 
 async function newShowTabs(element, id_sub) {
@@ -2610,6 +2610,9 @@ function printModalContent() {
 }
 
 function checkUserRole() {
+
+    const inputreportZakluchenieSootvet = document.getElementById("reportZakluchenieSootvet");
+    const inputprikazNaznach = document.getElementById("prikazNaznach");
     const inputFieldSokrNaim = document.getElementById("sokr");
     const inputFieldunp = document.getElementById("unp");
     const inputFieldadress = document.getElementById("adress");
@@ -2625,6 +2628,7 @@ function checkUserRole() {
 
 
     if (idRole === "15") {
+
         inputFieldSokrNaim.disabled = true;
         inputFieldunp.disabled = true;
         inputFieldadress.disabled = true;
@@ -2637,9 +2641,28 @@ function checkUserRole() {
         inputFieldtechOsn.disabled = true;
         inputFieldreportSamoocenka.disabled = true;
         ownUcompBtn.disabled = true;
+        inputprikazNaznach.disabled = true;
+        inputreportZakluchenieSootvet.disabled = true;
 
-    } else {
+    } else if (idRole === "14") {
+console.log ("хуй")
+        inputFieldSokrNaim.disabled = true;
+        inputFieldunp.disabled = true;
+        inputFieldadress.disabled = true;
+        inputFieldadressFact.disabled = true;
+        inputFieldtel.disabled = true;
+        inputFieldemail.disabled = true;
+        inputFieldrukovoditel.disabled = true;
+        inputFieldpredstavitel.disabled = true;
+        inputFieldcopyRaspisanie.disabled = true;
+        inputFieldtechOsn.disabled = true;
+        inputFieldreportSamoocenka.disabled = true;
+        ownUcompBtn.disabled = true;
+        inputprikazNaznach.disabled = true;
+        inputreportZakluchenieSootvet.disabled = true;
 
+    }
+    else {
         inputFieldSokrNaim.disabled = false;
         inputFieldunp.disabled = false;
         inputFieldadress.disabled = false;
@@ -2652,6 +2675,10 @@ function checkUserRole() {
         inputFieldtechOsn.disabled = false;
         inputFieldreportSamoocenka.disabled = false;
         ownUcompBtn.disabled = false;
+        inputprikazNaznach.disabled = false;
+        inputreportZakluchenieSootvet.disabled = false;
+
+
 
     }
 }
@@ -3238,3 +3265,23 @@ function updateReadyOrNot(id_department, value) {
 }
 
 
+$("#btnJournalActions").on("click", () => {
+    console.log(id_appp)
+    $.ajax({
+        url: "ajax/journal_actions.php",
+        method: "GET",
+        data: {id_app: id_appp}
+
+    })
+
+
+        .done(function (response) {
+            console.log('12')
+
+            let journal = document.getElementById('journal');
+            journal.innerHTML = response;
+
+            showModalAction(id_appp);
+
+        })
+});

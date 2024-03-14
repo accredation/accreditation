@@ -110,7 +110,7 @@
                     <ul class="nav nav-tabs tab-transparent" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab"
-                               aria-selected="true">Самооценка</a>
+                               aria-selected="true">Самоакредитация</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab"
@@ -122,7 +122,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link " id="rkk-tab" data-toggle="tab" href="#rkk" role="tab"
-                               aria-selected="false">Зарегистрированные</a>
+                               aria-selected="false">На рассмотрении</a>
                         </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="odobrennie-tab" data-toggle="tab" href="#" role="tab"
@@ -130,7 +130,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="reshenieSoveta-tab" data-toggle="tab" href="#" role="tab"
-                                   aria-selected="false">Решение совета</a>
+                                   aria-selected="false">Решение</a>
                             </li>
                         <?php }?>
                     </ul>
