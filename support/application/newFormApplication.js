@@ -1,6 +1,7 @@
 let id_app;
 
 function newShowModal(id_application) {
+
     let formFileReportSamoocenka = document.getElementById("formFileReportSamoocenka");
     formFileReportSamoocenka.classList.add("hiddentab");
     let formUcomplect = document.getElementById("formUcomplect");
@@ -702,6 +703,11 @@ function newShowModal(id_application) {
     };
 
 
+
+    let divfilesContainer = document.getElementById('filesContainer');
+    divfilesContainer.innerHTML = "";
+    let fileReport1 =   document.getElementById('fileReport');
+    fileReport1.classList.add("hiddentab");
 
 
 }

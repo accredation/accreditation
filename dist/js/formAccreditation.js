@@ -2864,22 +2864,23 @@ $("#btnCalc").on("click", () => {
 });
 
 $("#formReport").on("change", () => {
-    let divReport = document.getElementById("divReport");
-    let sopr = divReport.getElementsByTagName("a")[0];
-    if (sopr)
-        sopr.remove();
     let fileReport = document.getElementById("fileReport");
-    fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/Отчеты/" + fileReport.files[0].name + "'>" + fileReport.files[0].name + "</a>");
+    let filesContainer = document.getElementById("filesContainer");
+    filesContainer.innerHTML = "";
+
+    for (let i = 0; i < fileReport.files.length; i++) {
+        let file = fileReport.files[i];
+        filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/Отчеты/" + file.name + "'>" + file.name + "</a><br>");
+    }
 
     let id_application = document.getElementById("id_application");
-
-    let xhr = new XMLHttpRequest(),
-        form = new FormData();
-    let orgStructFile = fileReport.files[0];
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+    for (let i = 0; i < fileReport.files.length; i++) {
+        form.append("fileReport[]", fileReport.files[i]);
+    }
     form.append("id_application", id_application.innerText);
-    form.append("fileReport", orgStructFile);
-
-    xhr.open("post", "ajax/postFileReport.php", true);
+    xhr.open("post", "ajax/postFileReportGuzo.php", true);
     xhr.send(form);
 });
 

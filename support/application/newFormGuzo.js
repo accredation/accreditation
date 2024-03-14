@@ -830,6 +830,12 @@ function newShowModall(id_application) {
     };
 
     checkUserRole();
+
+   let divfilesContainer = document.getElementById('filesContainer');
+    divfilesContainer.innerHTML = "";
+    let fileReport1 =   document.getElementById('fileReport');
+    fileReport1.classList.remove("hiddentab");
+
 }
 
 async function newShowTabs(element, id_sub) {

@@ -1000,14 +1000,11 @@
 
                                             <form id="formReport">
                                                 <div class="form-group" id="divReport" style="margin-left: 2.5rem">
-                                                    <div style="margin-bottom:1rem">
-
-                                                    </div>
-
-
-                                                    <label for="fileReport" style="font-size: 24px">Отчет</label>
-                                                    <input type="file" class="form-control-file" id="fileReport">
+                                                    <label for="" style="font-size: 24px">Отчет</label><br/>
+                                                    <input type="file"  class="form-control-file"
+                                                           id="fileReport" multiple>
                                                 </div>
+                                                <div id="filesContainer" style="margin-left: 50px;  margin-top: -15px;"></div>
                                             </form>
 
 

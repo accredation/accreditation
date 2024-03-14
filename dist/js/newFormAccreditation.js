@@ -892,7 +892,8 @@ function newShowModal(id_application) {
         printNewReport();
     };
 
-
+    let divfilesContainer = document.getElementById('filesContainer');
+    divfilesContainer.innerHTML = "";
 }
 
 async function newShowTab(element, id_sub) {
