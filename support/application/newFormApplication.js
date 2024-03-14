@@ -2206,7 +2206,7 @@ function checkUserRole()
     inputFieldcopyRaspisanie.disabled = true;
     inputFieldtechOsn.disabled = true;
     inputFieldreportSamoocenka.disabled = true;
-    ownUcompBtn.disabled = true;
+    //ownUcompBtn.disabled = true;
     lico.disabled = true;
     reportZakluchenieSootvet.disabled = true;
     doverennost.disabled = true;

@@ -2659,9 +2659,27 @@ function checkUserRole() {
         inputFieldcopyRaspisanie.disabled = true;
         inputFieldtechOsn.disabled = true;
         inputFieldreportSamoocenka.disabled = true;
-        ownUcompBtn.disabled = true;
+     //   ownUcompBtn.disabled = true;
 
-    } else {
+    }
+    else if (idRole === "14") {
+        inputFieldSokrNaim.disabled = true;
+        inputFieldunp.disabled = true;
+        inputFieldadress.disabled = true;
+        inputFieldadressFact.disabled = true;
+        inputFieldtel.disabled = true;
+        inputFieldemail.disabled = true;
+        inputFieldrukovoditel.disabled = true;
+        inputFieldpredstavitel.disabled = true;
+        inputFieldcopyRaspisanie.disabled = true;
+        inputFieldtechOsn.disabled = true;
+        inputFieldreportSamoocenka.disabled = true;
+        //  ownUcompBtn.disabled = true;
+        inputprikazNaznach.disabled = true;
+        inputreportZakluchenieSootvet.disabled = true;
+
+    }
+    else {
 
         inputFieldSokrNaim.disabled = false;
         inputFieldunp.disabled = false;
