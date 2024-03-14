@@ -2370,7 +2370,7 @@ function newCreateTableForPrint(tableForPrint) {
 
             let th42 = document.createElement('td');
             th42.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
-            th4.style = "width:350px; border: 1px solid black";
+            th4.style = "width: 25%;    word-break: break-word; border: 1px solid black";
 
 
             let th52 = document.createElement('td');
