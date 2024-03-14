@@ -2675,7 +2675,7 @@ async function calcMarks() {
         });
 }
 
-function print() {
+$("#printRep").on("click", function(){
 
 
     let number_app = document.getElementById("id_application");
@@ -2725,7 +2725,7 @@ function print() {
         });
 
 
-}
+});
 
 
 function createTableForPrint(tableForPrint) {

@@ -1800,7 +1800,11 @@ function newPrint() {
                 'margin: 1rem;\n' +
                 '}</style>');  // убрать колонтитул
 
-
+            let divReportTitle2 = document.createElement('div');
+            divReportTitle2.style = "padding-top: 0.5rem; font-size:1.4rem; padding-left:2rem; padding-right: 2rem; text-align:center; position: relative; transform: translate(-50%, -50%)\";";
+            divReportTitle2.innerHTML = `КОНТРОЛЬНЫЙ ЛИСТ<br>
+по оценке соответствия базовым критериям медицинской аккредитации к оказанию медицинской помощи по<br> видам, профилям заболеваний, состояниям, синдромам`;
+            WinPrint.document.write(divReportTitle2.outerHTML);
             let table = newCreateTableForPrint(tableForPrint);
 
 
@@ -1860,23 +1864,23 @@ function newCreateTableForPrint(tableForPrint) {
     */
 
     let th3_Main = document.createElement('th');
-    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
+    th3_Main.innerHTML = 'Сведения об оценке соответствия критериям';
     th3_Main.style = "border: 1px solid black; text-align: center";
     th3_Main.setAttribute('colspan', '3');
 
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
+    th3.innerHTML = 'Сведения по оценке соответствия критерию (да, нет, не применяется)';
     th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('th');
-    th4.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
     th4.style = "width:350px; border: 1px solid black";
 
 
     let th5 = document.createElement('th');
-    th5.innerHTML = 'Примечание';
+    th5.innerHTML = 'Выявленные несоответствия';
     th5.style = "border: 1px solid black";
 
 
@@ -1944,23 +1948,23 @@ function newCreateTableForPrint(tableForPrint) {
             */
 
             let th3_Main2 = document.createElement('td');
-            th3_Main2.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
+            th3_Main2.innerHTML = 'Сведения об оценке соответствия критериям';
             th3_Main2.style = "border: 1px solid black; text-align: center";
             th3_Main2.setAttribute('colspan', '3');
 
 
             let trHead2 = document.createElement('tr');
             let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
+            th32.innerHTML = 'Сведения по оценке соответствия критерию (да, нет, не применяется)';
             th32.style = "border: 1px solid black";
 
             let th42 = document.createElement('td');
-            th42.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
             th4.style = "width:350px; border: 1px solid black";
 
 
             let th52 = document.createElement('td');
-            th52.innerHTML = 'Примечание';
+            th52.innerHTML = 'Выявленные несоответствия';
             th52.style = "border: 1px solid black";
 
 
@@ -1999,15 +2003,15 @@ function newCreateTableForPrint(tableForPrint) {
             */
             let td3 = document.createElement('td');
             td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-            td3.innerHTML = item['field4'];
+            td3.innerHTML = item['field7'];
 
             let td4 = document.createElement('td');
             td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-            td4.innerHTML = item['field5'];
+            td4.innerHTML = item['field8'];
 
             let td5 = document.createElement('td');
             td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
-            td5.innerHTML = item['field6'];
+            td5.innerHTML = item['field9'];
 
 
             tr.appendChild(tdNum);
