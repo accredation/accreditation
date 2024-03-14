@@ -1093,7 +1093,7 @@ function createTableForPrintNo(tableForPrint) {
     thNum.setAttribute('rowspan', '2');
 
     let th1_Main = document.createElement('th');
-    th1_Main.innerHTML = 'Критерий';
+    th1_Main.innerHTML = 'Наименование критерия';
     th1_Main.style = "border: 1px solid black; ";
     th1_Main.setAttribute('rowspan', '2');
     /*
@@ -1111,7 +1111,7 @@ function createTableForPrintNo(tableForPrint) {
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
     th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('th');
@@ -1176,7 +1176,7 @@ function createTableForPrintNo(tableForPrint) {
             thNum.setAttribute('rowspan', '2');
 
             let th1_Main2 = document.createElement('td');
-            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.innerHTML = 'Наименование критерия';
             th1_Main2.style = "border: 1px solid black";
             th1_Main2.setAttribute('rowspan', '2');
             /*
@@ -1194,7 +1194,7 @@ function createTableForPrintNo(tableForPrint) {
 
             let trHead2 = document.createElement('tr');
             let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
             th32.style = "border: 1px solid black";
 
             let th42 = document.createElement('td');
@@ -2063,7 +2063,7 @@ async function collapseTable(id_criteria, divCardBody, id_sub) {
 
     //  let trHead = document.createElement('trHead');
     let th1 = document.createElement('td');
-    th1.innerHTML = 'Критерий';
+    th1.innerHTML = 'Наименование критерия';
     th1.style = "border: 1px solid black;width: 25%; text-align: center";
     /*
         let th2 = document.createElement('td');
@@ -2071,7 +2071,7 @@ async function collapseTable(id_criteria, divCardBody, id_sub) {
         th2.style = "border: 1px solid black;width: 5%;";
     */
     let th3 = document.createElement('td');
-    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
     th3.style = "border: 1px solid black;width: 10%; text-align: left";
 
     let th4 = document.createElement('td');
@@ -2756,7 +2756,7 @@ function createTableForPrint(tableForPrint) {
     thNum.setAttribute('rowspan', '2');
 
     let th1_Main = document.createElement('th');
-    th1_Main.innerHTML = 'Критерий';
+    th1_Main.innerHTML = 'Наименование критерия';
     th1_Main.style = "border: 1px solid black; ";
     th1_Main.setAttribute('rowspan', '2');
     /*
@@ -2774,7 +2774,7 @@ function createTableForPrint(tableForPrint) {
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самооценке ОЗ';
+    th3.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
     th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('th');
@@ -2840,7 +2840,7 @@ function createTableForPrint(tableForPrint) {
             thNum.setAttribute('rowspan', '2');
 
             let th1_Main2 = document.createElement('td');
-            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.innerHTML = 'Наименование критерия';
             th1_Main2.style = "border: 1px solid black";
             th1_Main2.setAttribute('rowspan', '2');
             /*
@@ -2858,7 +2858,7 @@ function createTableForPrint(tableForPrint) {
 
             let trHead2 = document.createElement('tr');
             let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самооценке ОЗ';
+            th32.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
             th32.style = "border: 1px solid black";
 
             let th42 = document.createElement('td');

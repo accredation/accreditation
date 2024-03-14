@@ -75,10 +75,11 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 № п/п
             </th>
             <td style="border: 1px solid black; width: 25%; text-align: center;">
-                Критерий
+                Наименование критерия
             </td>
             <td style="border: 1px solid black; width: 10%; text-align: left;">
-                Сведения по самоаккредитации ОЗ
+                Сведения по самоаккредитации (да, нет,
+не применяется)
             </td>
             <td style="width: 350px; border: 1px solid black;">
                 Документы и сведения, на основании которых проведена самоаккредитация
@@ -88,13 +89,13 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 Примечание
             </td>
             <td style="border: 1px solid black; width: 10%; text-align: left;" >
-                Сведения по оценке соответствия
+                Сведения по оценке соответствия критерию (да, нет, не применяется) 
             </td>
             <td style="width: 350px; border: 1px solid black;">
                 Документы и сведения, на основании которых проведена оценка соответствия
             </td>
             <td style="border: 1px solid black; max-width: 10vw; word-wrap: break-word;">
-                Выявленные недостатки
+                Выявленные несоответствия
             </td>
             
         </tr>

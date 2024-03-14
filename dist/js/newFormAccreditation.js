@@ -2263,7 +2263,7 @@ function newCreateTableForPrint(tableForPrint) {
     thNum.setAttribute('rowspan', '2');
 
     let th1_Main = document.createElement('th');
-    th1_Main.innerHTML = 'Критерий';
+    th1_Main.innerHTML = 'Наименование критерия';
     th1_Main.style = "border: 1px solid black; ";
     th1_Main.setAttribute('rowspan', '2');
     /*
@@ -2274,19 +2274,19 @@ function newCreateTableForPrint(tableForPrint) {
     */
 
     let th3_Main = document.createElement('th');
-    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоакредитация)';
+    th3_Main.innerHTML = 'Сведения о соблюдении критериев (самоаккредитация)';
     th3_Main.style = "border: 1px solid black; text-align: center";
     th3_Main.setAttribute('colspan', '3');
 
 
     let trHead = document.createElement('tr');
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Сведения по самоакредитации ОЗ';
+    th3.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
     th3.style = "border: 1px solid black";
 
     let th4 = document.createElement('th');
     th4.innerHTML = 'Документы и сведения, на основании которых проведена самоакредитация';
-    th4.style = "width:350px; border: 1px solid black";
+    th4.style = "width: 25%;    word-break: break-word; border: 1px solid black";
 
 
     let th5 = document.createElement('th');
@@ -2347,7 +2347,7 @@ function newCreateTableForPrint(tableForPrint) {
             thNum.setAttribute('rowspan', '2');
 
             let th1_Main2 = document.createElement('td');
-            th1_Main2.innerHTML = 'Критерий';
+            th1_Main2.innerHTML = 'Наименование критерия';
             th1_Main2.style = "border: 1px solid black";
             th1_Main2.setAttribute('rowspan', '2');
             /*
@@ -2365,7 +2365,7 @@ function newCreateTableForPrint(tableForPrint) {
 
             let trHead2 = document.createElement('tr');
             let th32 = document.createElement('td');
-            th32.innerHTML = 'Сведения по самоакредитации ОЗ';
+            th32.innerHTML = 'Сведения по самоаккредитации (да, нет, не применяется)';
             th32.style = "border: 1px solid black";
 
             let th42 = document.createElement('td');

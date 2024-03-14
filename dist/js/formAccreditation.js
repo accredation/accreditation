@@ -876,7 +876,7 @@ function createTableForPrint(tableForPrint) {
     thNum.setAttribute('rowspan', '2');
 
     let th1_Main = document.createElement('th');
-    th1_Main.innerHTML = 'Критерий';
+    th1_Main.innerHTML = 'Наименование критерия';
     th1_Main.style = "border: 1px solid black";
     th1_Main.setAttribute('rowspan', '2');
 
@@ -980,7 +980,7 @@ function createTableForPrint(tableForPrint) {
                 thNum.setAttribute('rowspan', '2');
 
                 let th1_Main2 = document.createElement('td');
-                th1_Main2.innerHTML = 'Критерий';
+                th1_Main2.innerHTML = 'Наименование критерия';
                 th1_Main2.style = "border: 1px solid black";
                 th1_Main2.setAttribute('rowspan', '2');
 
@@ -2111,7 +2111,7 @@ function collapseTable(id_criteria, divCardBody, id_sub) {
 
     //  let trHead = document.createElement('trHead');
     let th1 = document.createElement('td');
-    th1.innerHTML = 'Критерий';
+    th1.innerHTML = 'Наименование критерия';
     th1.style = "border: 1px solid black";
 
     // let th2 = document.createElement('td');

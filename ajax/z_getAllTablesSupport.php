@@ -58,10 +58,10 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 № п/п
             </th>
             <td style="border: 1px solid black; width: 25%; text-align: center;">
-                Критерий
+                Наименование критерия
             </td>
             <td style="border: 1px solid black; width: 10%; text-align: left;">
-                Сведения по самоаккредитации ОЗ
+                Сведения по самоаккредитации (да, нет, не применяется)
             </td>
             <td style="width: 350px; border: 1px solid black;">
                 Документы и сведения, на основании которых проведена самоаккредитация

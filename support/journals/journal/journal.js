@@ -17,7 +17,7 @@ function showModalAction(id_app) {
 
     let journalHeader = document.getElementById('journalHeader');
     journalHeader.innerHTML = `Журнал событий заявления №${id_application}`;
-    prepereTableAction(id_app);
+    prepereTableAction(id_application);
 
 }
 
