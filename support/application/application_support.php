@@ -913,6 +913,8 @@
                     <button data-tooltip="Печать критериев" type="submit" class="btn btn-light btn-fw" id="newBtnPrint">
                         Печать
                     </button>
+                    <button type="submit" class="btn btn-light btn-fw" id="btnPrintReportOcenka">Отчет по оценке
+                    </button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrintReport">Отчет о самоаккредитации
                     </button>
                     <!--                <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать самооценку</button>-->
