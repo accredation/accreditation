@@ -1666,7 +1666,7 @@ function newCollapseTable(thisDiv) {
     let btnCol = document.querySelector("[aria-controls='" + colId + "']").innerHTML;
     let nameDep = btnCol.substring(0, btnCol.indexOf("("));
     let nameTab = document.getElementById("button" + openTabId);
-    addHistoryAction(id_appp, getCookie('id_user'), 1, `Использование таблицы ${nameDep} в подразделении ${nameTab.innerText}`, openTabId, idDep);
+
 }
 
 function changeField3(idCrit, idDep, select) {
@@ -3794,6 +3794,13 @@ function updateReadyOrNot(id_department, value) {
             console.error('Ошибка при обновлении значения: ' + error);
         }
     });
+    let idDep = id_department;
+    let colId = "collapse" + idDep;
+    let btnCol = document.querySelector("[aria-controls='" + colId + "']").innerHTML;
+    let nameDep = btnCol.substring(0, btnCol.indexOf("("));
+    let nameTab = document.getElementById("button" + openTabId);
+    addHistoryAction(id_appp, getCookie('id_user'), 1, `Использование таблицы ${nameDep} в подразделении ${nameTab.innerText}`, openTabId, idDep);
+
 }
 
 

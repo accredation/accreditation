@@ -772,7 +772,7 @@
                                                 <!--                                            </form>-->
 
 
-                                                <button class="btn-inverse-info" onclick="newAddTab()" id="addtab">+
+                                                <button class="btn-inverse-info hiddentab" onclick="newAddTab()" id="addtab">+
                                                     добавить подразделение
                                                 </button>
                                                 <br/>
