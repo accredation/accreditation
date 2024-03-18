@@ -286,61 +286,64 @@
     }
 </style>
 <div class="content-wrapper">
-    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_1_h" onclick="togleDiv('razled_1_h','razled_1_row')">Регламентирующие документы &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
+    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_1_h" onclick="togleDiv('razled_1_h','razled_1_row')">Регламентирующие документы &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2> <?= $role === "12" ? '<input type="file" class="btn btn-linkedin" onchange="addFile(this,1)"/><span ></span>' : ''?><br/>
     <div class="row hidden" id="razled_1_row" style="display: none;">
             <?php
                 $query_RAZDEL_1 = "SELECT * FROM `documents` where razdel  = 1 order by str_num ";
                 $result_RAZDEL_1=mysqli_query($con, $query_RAZDEL_1) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_1); $data[] = $row);
-                
+
                 foreach ($data as $app_RAZDEL_1) {
-                    
+
                 ?>
-                <div class="col-lg-2 mb-2">
+                <div class="col-lg-2 mb-2" id="docid<?= $app_RAZDEL_1['document_id']?>">
                     <a href="documentation/Регламентирующие документы/<?= $app_RAZDEL_1['doc_name_with_type'] ?>" class="file-link">
                         <img src="assets/images/<?= $app_RAZDEL_1['img_name'] ?>" alt="<?= $app_RAZDEL_1['doc_type'] ?>" class="file-icon">
                         <span class="file-name"><?= $app_RAZDEL_1['doc_name'] ?></span>
+                        <?= $role === "12" ? '<button class="btn btn-warning" onclick="delDoc(this)">Удалить</button>' : ''; ?>
                     </a>
                 </div>
             <?php } ?>
 
     </div>
 
-    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_2_h" onclick="togleDiv('razled_2_h','razled_2_row')" >Формы обязательных документов&nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
+    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_2_h" onclick="togleDiv('razled_2_h','razled_2_row')" >Формы обязательных документов&nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><?= $role === "12" ? '<input type="file" class="btn btn-linkedin" onchange="addFile(this,2)"/><span ></span>' : '' ?><br/>
     <div class="row hidden" id="razled_2_row" style="display: none;">
         <?php
                 $query_RAZDEL_2 = "SELECT * FROM `documents` where razdel  = 2  order by str_num ";
                 $result_RAZDEL_2=mysqli_query($con, $query_RAZDEL_2) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_2); $data[] = $row);
-                
+
                 foreach ($data as $app_RAZDEL_2) {
-                    
+
                 ?>
                 <div class="col-lg-2 mb-2">
                     <a href="documentation/Формы обязательных документов/<?= $app_RAZDEL_2['doc_name_with_type'] ?>" class="file-link">
                         <img src="assets/images/<?= $app_RAZDEL_2['img_name'] ?>" alt="<?= $app_RAZDEL_2['doc_type'] ?>" class="file-icon">
                         <span class="file-name"><?= $app_RAZDEL_2['doc_name'] ?></span>
+                        <?= $role === "12" ? '<button class="btn btn-warning" onclick="delDoc(this)">Удалить</button>' : ''; ?>
                     </a>
                 </div>
         <?php } ?>
 
     </div>
 
-    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_3_h" onclick="togleDiv('razled_3_h','razled_3_row')">Обучающие материалы и видео &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><br/>
+    <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_3_h" onclick="togleDiv('razled_3_h','razled_3_row')">Обучающие материалы и видео &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><?= $role === "12" ? '<input type="file" class="btn btn-linkedin" onchange="addFile(this,3)"/><span ></span>' : '' ?><br/>
     <div class="hidden" id="razled_3_row" style="display: none;">
     <div class="row ">
     <?php
                 $query_RAZDEL_3 = "SELECT * FROM `documents` where razdel  = 3 order by str_num ";
                 $result_RAZDEL_3=mysqli_query($con, $query_RAZDEL_3) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_3); $data[] = $row);
-                
+
                 foreach ($data as $app_RAZDEL_3) {
-                    
+
                 ?>
                 <div class="col-lg-2 mb-2">
                     <a target="_blank" href="<?= $app_RAZDEL_3['doc_type'] !== "youtube" ?  "documentation/Обучающие материалы и видео/" .$app_RAZDEL_3['doc_name_with_type'] : $app_RAZDEL_3['doc_name_with_type']?>" class="file-link">
                         <img src="assets/images/<?= $app_RAZDEL_3['img_name'] ?>" alt="<?= $app_RAZDEL_3['doc_type'] ?>" class="file-icon">
                         <span class="file-name"><?= $app_RAZDEL_3['doc_name'] ?></span>
+                        <?= $role === "12" ? '<button class="btn btn-warning" onclick="delDoc(this)">Удалить</button>' : ''; ?>
                     </a>
                 </div>
 
@@ -510,7 +513,8 @@
 
     });
 
-      let itemMenu = document.querySelector("[href='help.php']");
+      let itemMenu = document.querySelector("[href='index.php?help']");
+      if(itemMenu)
       itemMenu.style = "color: #148A8A;";
 
 </script>
@@ -552,5 +556,118 @@
 
 
        }
+    }
+
+
+    function delDoc(element){
+        event.preventDefault();
+        if(confirm('Уверены что хотите удалить этот файл?')) {
+            let parA = element.parentElement;
+            let parDiv = parA.parentElement;
+            let idDoc = parDiv.id.substr(5);
+            $.ajax({
+                url: "ajax/delDoc.php",
+                method: "POST",
+                data: {idDoc: idDoc},
+                success: function (data) {
+                    parDiv.remove();
+                    alert("Документ удален");
+                }
+            })
+        }
+    }
+
+    function addFile(element, razdel){
+
+      if(confirm('Хотите добавить файл')){
+          let xhr = new XMLHttpRequest(),
+              form = new FormData();
+          let docFile = element.files[0];
+          let lastDotIndex = docFile.name.lastIndexOf(".");
+          let fileName = docFile.name.substring(0, lastDotIndex);
+          let fileExtension = docFile.name.substring(lastDotIndex + 1);
+
+          form.append("docFile", docFile);
+          form.append("fileName", fileName);
+          form.append("fileExtension", fileExtension.toLowerCase());
+          form.append("razdel", razdel);
+
+          xhr.open("post", "ajax/postFileDocHelp.php", true);
+
+          let loadSopr = element.nextElementSibling;
+          if (loadSopr.innerText !== "") {
+              loadSopr.remove();
+          }
+          let load = document.createElement("span");
+          load.innerHTML = "Подождите, идет загрузка";
+          element.insertAdjacentElement("afterend", load);
+
+          xhr.upload.onprogress = function (event) {
+              if (event.lengthComputable) {
+                  let progress = (event.loaded / event.total) * 100;
+                  load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+              }
+          };
+
+          xhr.upload.onloadstart = function () {
+              load.innerHTML = "Подождите, идет загрузка";
+          };
+          let divDoc = document.createElement("div");
+          xhr.upload.onload = function () {
+
+
+              let nameRazdel;
+              load.innerHTML = "Файл загружен";
+
+
+              divDoc.className = "col-lg-2 mb-2";
+
+              let aFile = document.createElement("a");
+              aFile.setAttribute("target", "_blank");
+              switch (razdel) {
+                  case 1:
+                      nameRazdel = "Регламентирующие документы";
+                      break;
+                  case 2:
+                      nameRazdel = "Формы обязательных документов";
+                      break;
+                  case 3:
+                      nameRazdel = "Обучающие материалы и видео";
+                      break;
+              }
+              aFile.setAttribute("href", "documentation/" + nameRazdel + "/" + element.files[0].name);
+              let imgFile = document.createElement("img");
+              imgFile.setAttribute("src", "assets/images/pdf_icon.png");
+              imgFile.setAttribute("alt", "PDF");
+              imgFile.className = "file-icon";
+              let spanFile = document.createElement("span");
+              spanFile.innerHTML = element.files[0].name;
+              spanFile.className = "file-name";
+              let buttonDelFile = document.createElement("button");
+              buttonDelFile.innerHTML = "Удалить";
+              buttonDelFile.className = "btn btn-warning";
+              buttonDelFile.setAttribute("onclick", "delDoc(this)");
+              aFile.appendChild(imgFile);
+              aFile.appendChild(spanFile);
+              aFile.appendChild(buttonDelFile);
+              divDoc.appendChild(aFile);
+              let divRazdel = document.getElementById("razled_" + razdel + "_row");
+              divRazdel.appendChild(divDoc);
+
+          }
+
+          $.ajax({
+              url: "ajax/getIdLastDoc.php",
+              method: "GET",
+
+              success: function (data) {
+                  data = Number(data) + 1;
+                  divDoc.setAttribute("id", "docid" + data);
+              }
+          });
+          xhr.send(form);
+      }else{
+          alert("Нет");
+      }
     }
 </script>
