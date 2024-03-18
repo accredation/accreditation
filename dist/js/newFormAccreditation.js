@@ -3217,7 +3217,6 @@ function printSved(el){
         WinPrint.document.write('<style>@page {\n' +
             'margin: 1rem;\n' +
             '}</style>');
-        WinPrint.document.write('<br/>');
         WinPrint.document.write(response);
         WinPrint.document.close();
         WinPrint.focus();
