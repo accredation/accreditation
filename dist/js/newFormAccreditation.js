@@ -117,6 +117,7 @@ function newShowModal(id_application) {
         pane.classList.add("active");
     }
     let btnChecking = document.getElementById("btnChecking");
+    let btnPrintSved = document.getElementById("btnPrintSved");
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
 
@@ -146,11 +147,14 @@ function newShowModal(id_application) {
         informgr.style.display = "none";
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+        btnPrintSved.classList.remove("hiddentab");
+
     } else if (tabNeodobrennie.classList.contains("active")) {
 
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnChecking.classList.remove("hiddentab");
         }
+        btnPrintSved.classList.add("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
@@ -167,6 +171,7 @@ function newShowModal(id_application) {
         btnreport.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
+        btnPrintSved.classList.add("hiddentab");
         btnPrint.onclick = () => {
 
             newPrint();
@@ -181,6 +186,7 @@ function newShowModal(id_application) {
         btnOk.classList.add("hiddentab");
         informgr.style.display = "none";
         sovetgr.style.display = "block";
+        btnPrintSved.classList.remove("hiddentab");
 
     } else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -192,6 +198,7 @@ function newShowModal(id_application) {
         btnOk.classList.add("hiddentab");
         informgr.style.display = "block";
         sovetgr.style.display = "block";
+        btnPrintSved.classList.add("hiddentab");
     }
     else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -203,6 +210,7 @@ function newShowModal(id_application) {
         btnOk.classList.add("hiddentab");
         informgr.style.display = "block";
         sovetgr.style.display = "block";
+        btnPrintSved.classList.add("hiddentab");
     }
     else if (tabHome.classList.contains("active")) {
 
@@ -3196,3 +3204,25 @@ function toArchive(pervtor){
 document.getElementById("btnFormApplication").onclick = async function () {
     await printAppForm();
 };
+
+function printSved(el){
+    $.ajax({
+        url: "ajax/z_createFormSvidetelstvo.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).then(response => {
+        var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
+        WinPrint.document.write('<style>@page {\n' +
+            'margin: 1rem;\n' +
+            '}</style>');
+        WinPrint.document.write('<br/>');
+        WinPrint.document.write(response);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.document.title = "Заявление_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.print();
+        WinPrint.close();
+    })
+}

@@ -37,9 +37,6 @@ tr:hover {
 
 </style>
 </body>        
-<br>
-<br>
-<br>
 
 <div style=" font-size: 22pt;
     position: relative;

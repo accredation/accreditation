@@ -1059,8 +1059,8 @@
                     <!--                    <input type="text" name="count" id="count"/>-->
                     <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
 
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение
-                    </button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnPrintSved" onclick="printSved(this)">Свидетельство</button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение</button>
 
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
                     <?php if($_COOKIE['login'] == 'kuznec@rnpcmt.by') { ?>
