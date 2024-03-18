@@ -84,7 +84,7 @@ $(function() {
   let attr1Donut1 = $("#doughnutChart1").get(0).getAttribute("attr1");
   var doughnutPieData1 = {
     datasets: [{
-      data: [Number(attr1Donut1), (allCountOrganization-Number(attr1Donut1))],
+      data: [Number(attr1Donut1) - 1, (allCountOrganization-Number(attr1Donut1)) + 1],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',

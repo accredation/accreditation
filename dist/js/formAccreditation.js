@@ -2797,9 +2797,9 @@ $("#btnOkonchatelnoeReshenie").on("click", () => {
 
 $("#btnOk").on("click", () => {
     let id_application = document.getElementById("id_application");
-    let divReport = document.getElementById("divReport");
-    let a = divReport.getElementsByTagName("a")[0];
-    if (a) {
+    let filesContainer = document.getElementById("filesContainer");
+    let a = filesContainer.length;
+    if (a > 0) {
         $.ajax({
             url: "ajax/changeStatusOk.php",
             method: "GET",

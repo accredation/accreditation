@@ -1,15 +1,16 @@
 <?php
 include "connection.php";
 $id_application = $_POST['id_application'];
-if (!file_exists('../docs/documents/Отчеты/')) {
-    mkdir('../docs/documents/Отчеты/', 0777, true);
+$login = $_POST['login'];
+if (!file_exists('../docs/documents/' . $login . '/' . $id_application . '/')) {
+    mkdir('../docs/documents/' . $login . '/' . $id_application . '/', 0777, true);
 }
 if (isset($_FILES['fileReport']['name'])) {
     $fileNames = array();
     foreach ($_FILES['fileReport']['name'] as $key => $value) {
         $file_name = $_FILES['fileReport']['name'][$key];
         $file_tmp = $_FILES['fileReport']['tmp_name'][$key];
-        move_uploaded_file($file_tmp, "../docs/documents/Отчеты/" . $file_name);
+        move_uploaded_file($file_tmp, '../docs/documents/' . $login . '/' . $id_application . '/' . $file_name);
         $fileNames[] = $file_name;
     }
 

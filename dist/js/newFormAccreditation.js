@@ -414,8 +414,12 @@ function newShowModal(id_application) {
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
+
             if (data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                let fileNames = data[0][14].split(';');
+                fileNames.forEach((fileName) => {
+                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                });
             }
             if (data[0][15] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
