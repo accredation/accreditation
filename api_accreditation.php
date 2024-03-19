@@ -1263,7 +1263,13 @@
     margin-right: 1rem;
     margin-top: 1rem;">Листов</label><input id="count_admin_resh" type="text" class="form-control" disabled="true"/>
                                     </div>
-                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Результат</label><input id="resultat" type="text" class="form-control" disabled="true"/>
+                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Результат</label>
+                                        <select name="" id="resultat">
+                                            <option value="0">Не выбрано</option>
+                                            <option value="1">Выдача свидетельства</option>
+                                            <option value="2">Отказ в выдаче свидетельства</option>
+                                            <option value="3">Отказ в приеме заявления</option>
+                                        </select>
                                     </div>
                                     <div class="form-group" style="display: flex;"><label style="margin-right:1rem">Свидетельство
                                             №</label><input id="svidetelstvo" type="text" class="form-control"/>

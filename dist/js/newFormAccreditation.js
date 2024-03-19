@@ -2918,7 +2918,7 @@ function saveRkk() {
             admin_resh: admin_resh.value,
             date_admin_resh: date_admin_resh.value,
             count_admin_resh: count_admin_resh.value,
-            resultat: resultat.value,
+            resultat: resultat[resultat.options.selectedIndex].value,
             svidetelstvo: svidetelstvo.value,
             date_svidetelstvo: date_svidetelstvo.value,
             po_n: po_n.value,
@@ -2995,7 +2995,7 @@ function getRkk() {
     info_otzyv.value = "";
     date_admin_resh.value = "";
     count_admin_resh.value = "";
-    resultat.value = "";
+    resultat.options.selectedIndex = 0;
     svidetelstvo.value = "";
     date_svidetelstvo.value = "";
     po_n.value = "";
@@ -3041,7 +3041,7 @@ function getRkk() {
             info_otzyv.value = data['info_otzyv'];
             date_admin_resh.value = data['date_admin_resh'];
             count_admin_resh.value = data.count_list_admin;
-            resultat.value = data['result'];
+            resultat.options.selectedIndex = Number(data['result']);
             svidetelstvo.value = data['svidetelstvo'];
             date_svidetelstvo.value = data.date_sved;
             po_n.value = data['po_n'];

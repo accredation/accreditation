@@ -70,6 +70,18 @@ $months = [
 
 $new_date_reg = $dateTime->format('j ') . $months[$dateTime->format('F')] . $dateTime->format(' Y');
 
+switch ($rezult){
+    case "1":
+        $rezult = "Выдача свидетельства";
+        break;
+    case "2":
+        $rezult = "Отказ в выдаче свидетельства";
+        break;
+    case "3":
+        $rezult = "Отказ в приеме заявления";
+        break;
+}
+
 //echo '<tr><td colspan="4" style="font-weight: 700; text-align: center">' . $name_sub . '</td></tr>';
 echo '		
 <body>
