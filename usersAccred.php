@@ -175,6 +175,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="dist/js/add_history_action.js"></script>
     <!--<script>--><?php //include 'getApplication.php' ?><!--</script>-->
     <!--<script>console.log(filesName)</script>-->
     <!-- <script src="dist/js/formApplication.js"></script> -->
@@ -224,6 +225,12 @@
                 return
             }
 
+            let letterRegex = /[a-zA-Z]/;
+            if (!letterRegex.test(password)) {
+                alert('Пароль не должен состоять только из цифр');
+                return;
+            }
+
             $.ajax({
                 url: "ajax/savePodUser.php",
                 method: "GET",
@@ -231,7 +238,7 @@
 
             })
                 .done(function (response) {
-                    alert("Данные сохранены.");
+                    addHistoryChangePassword(id_user, "", 2, "Изменение пароля " + login + " на пароль " + password);
                 }).fail((jqXHR, textStatus, errorThrown)=>{
                 if(jqXHR.status === 400) {
                     alert("Пользователь с таким логином существует");
@@ -328,6 +335,12 @@
             if ((!password) || (password === null) || (password.trim() === '')) {
                 alert('Поле пароль не должно быть пустым!');
                 return
+            }
+
+            let letterRegex = /[a-zA-Z]/;
+            if (!letterRegex.test(password)) {
+                alert('Пароль не должен состоять только из цифр');
+                return;
             }
 
             $.ajax({

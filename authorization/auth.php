@@ -34,31 +34,56 @@ function login()
 
             $sesId = $_COOKIE['PHPSESSID'];
 
-            setcookie("login", $_COOKIE['login'], time() + (86400 * 30), "/");
-            setcookie("password", $_COOKIE['password'], time() + (86400 * 30), "/");
-            if ($_COOKIE['isMA'] == 1) {
-                setcookie("isMA", 1, time() + (86400 * 30), "/");
-            } else {
-                setcookie("isMA", 0, time() + (86400 * 30), "/");
-            }
-            if ($_COOKIE['secretar'] == 1) {
-                setcookie("secretar", 1, time() + (86400 * 30), "/");
-            } else {
-                setcookie("secretar", 0, time() + (86400 * 30), "/");
-            }
-            if ($_COOKIE['predsedatel'] == 1) {
-                setcookie("predsedatel", 1, time() + (86400 * 30), "/");
-            } else {
-                setcookie("predsedatel", 0, time() + (86400 * 30), "/");
-            }
-            if ($_COOKIE['expert'] == 1) {
-                setcookie("expert", 1, time() + (86400 * 30), "/");
-            } else {
-                setcookie("expert", 0, time() + (86400 * 30), "/");
-            }
-            lastAct($id, $sesId);
+            $rez = mysqli_query($con, "SELECT * FROM users WHERE id_user='{$id}'"); //запрашивается строка с искомым id
 
-            return true;
+            if (mysqli_num_rows($rez) == 1) //если получена одна строка
+            {
+                $row = mysqli_fetch_assoc($rez); //она записывается в ассоциативный массив
+
+                if (md5($row['login'] . $row['password']) == $_COOKIE['password']) {
+                    setcookie("id_user", $id, time() + (86400 * 30), "/");
+                    setcookie("login", $_COOKIE['login'], time() + (86400 * 30), "/");
+                    setcookie("password", $_COOKIE['password'], time() + (86400 * 30), "/");
+                    if ($_COOKIE['isMA'] == 1) {
+                        setcookie("isMA", 1, time() + (86400 * 30), "/");
+                    } else {
+                        setcookie("isMA", 0, time() + (86400 * 30), "/");
+                    }
+                    if ($_COOKIE['secretar'] == 1) {
+                        setcookie("secretar", 1, time() + (86400 * 30), "/");
+                    } else {
+                        setcookie("secretar", 0, time() + (86400 * 30), "/");
+                    }
+                    if ($_COOKIE['predsedatel'] == 1) {
+                        setcookie("predsedatel", 1, time() + (86400 * 30), "/");
+                    } else {
+                        setcookie("predsedatel", 0, time() + (86400 * 30), "/");
+                    }
+                    if ($_COOKIE['expert'] == 1) {
+                        setcookie("expert", 1, time() + (86400 * 30), "/");
+                    } else {
+                        setcookie("expert", 0, time() + (86400 * 30), "/");
+                    }
+                    lastAct($id, $sesId);
+
+                    return true;
+                }
+                else{
+                    mysqli_query($con, "UPDATE users SET online=0, last_time_session=null WHERE id_user='$id'"); //обнуляется поле online, говорящее, что пользователь вышел с сайта (пригодится в будущем)
+                    unset($_SESSION['id_user']); //удалятся переменная сессии
+
+                    SetCookie("login", ""); //удаляются cookie с логином
+                    SetCookie("isMA", ""); //удаляются cookie с логином
+                    SetCookie("id_user", ""); //удаляются cookie с логином
+                    SetCookie("expert", ""); //удаляются cookie с логином
+                    SetCookie("predsedatel", ""); //удаляются cookie с логином
+                    SetCookie("secretar", ""); //удаляются cookie с логином
+                    SetCookie("ageSession", ""); //удаляются cookie с логином
+
+                    SetCookie("password", ""); //удаляются cookie с паролем
+                    header('Location: http://'.$_SERVER['HTTP_HOST'].'/index.php');
+                }
+            }
 
         } else //иначе добавляются cookie с логином и паролем, чтобы после перезапуска браузера сессия не слетала
         {

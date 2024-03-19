@@ -47,7 +47,7 @@ foreach ($data as $type) {
     $newType->typeName = $type['type_name'];
     array_push($arrayTypes, $newType);
 }
-$query = "SELECT u.id_user, u.`username` as usname, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name, u.last_time_session, u.online
+$query = "SELECT u.id_user, u.`username` as usname, u.password, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name, u.last_time_session, u.online
 FROM users u
 left outer join roles r on u.id_role=r.id_role
 left outer join uz uz on uz.id_uz=u.id_uz
@@ -75,7 +75,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Email</th>
                     <th>Роль</th>
                     <th>Тип</th>
-                    <th>Сессия</th>
+                    <th>Пароль</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,14 +91,14 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                         <td><?= $user['usname'] ?></td>
                         <td><?= $user['login'] ?></td>
                         <td><?= $user['email'] ?></td>
-                        <td><?= $user['name'] ?></td>
+                        <td ><?= $user['name'] ?></td>
                         <td><select name="" id="types<?= $user['id_user'] ?>" onchange="changeType(this)">
                                 <option value="<?= $user['id_type'] ?>"><?= $user['id_type'] ? $user['type_name'] : "Не выбрано" ?></option>
                                 <?php foreach ($arrayTypes as $t){ ?>
                                     <option value="<?=$t->id_type?>"><?=$t->typeName?></option>
                                 <?php } ?>
                             </select></td>
-                        <td><?= $user['online'] !== '0' && $user['last_time_session'] !== 'null' ? "<button onclick='closeSess(".$user['id_user'].")'>Закрыть</button>" : "нет активной сессии"?></td>
+                        <td id="pass<?= $user['id_user'] ?>" contenteditable="true" oncontextmenu="changePassword(this)"><?= $user['password'] ?></td>
 
                     </tr>
                     <?php
@@ -113,7 +113,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Email</th>
                     <th>Роль</th>
                     <th>Тип</th>
-                    <th>Сессия</th>
+                    <th>Пароль</th>
                 </tr>
                 </tfoot>
             </table>
@@ -138,6 +138,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 <!-- endinject -->
 <!-- Custom js for this page -->
 <script src="../assets/js/dashboard.js"></script>
+<script src="../dist/js/add_history_action.js"></script>
 
 
 <script src="../dist/js/jquery.dataTables.min.js"></script>
@@ -166,6 +167,21 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
             console.log("id_us", id);
             console.log("id_type", id_type);
         })
+    }
+
+    function changePassword(thisTd){
+        let tr = thisTd.parentElement;
+        let login = tr.children[1].innerText;
+        let newPass = thisTd.innerText;
+        let confirmation = confirm("Вы уверены, что хотите изменить пароль пользователя " + login + " на " + newPass + "?");
+        if(confirmation) {
+            let id = thisTd.id.substring(4);
+            console.log("newPass", newPass);
+            console.log("id", id);
+            addHistoryChangePassword(id, newPass, 1, "Изменение пароля у " + login + " на пароль " + newPass);
+        }else{
+            return false;
+        }
     }
 
     function closeSess(idUser){

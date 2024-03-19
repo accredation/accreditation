@@ -8,3 +8,23 @@ function addHistoryAction(id_application, id_user, type_action, action, id_subvi
         
         });    
 }
+
+function addHistoryChangePassword(id_user, newPass, type_action, name_action) {
+    let url;
+    switch(type_action) {
+        case 1:
+            url = "../ajax/changeUserPassword.php";
+            break;
+        case 2:
+            url = "ajax/addHistoryChangePassAccred.php";
+            break;
+    }
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: {id_user: id_user, newPass: newPass, name_action: name_action}
+    })
+        .done(function (response) {
+            alert("Пароль изменен");
+        });
+}

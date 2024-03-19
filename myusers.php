@@ -224,7 +224,11 @@
                 alert('Поле пароль не должно быть пустым!');
                 return
             }
-
+            let letterRegex = /[a-zA-Z]/;
+            if (!letterRegex.test(password)) {
+                alert('Пароль не должен состоять только из цифр');
+                return;
+            }
             $.ajax({
                 url: "ajax/savePodUser.php",
                 method: "GET",
@@ -330,6 +334,12 @@
             if ((!password) || (password === null) || (password.trim() === '')) {
                 alert('Поле пароль не должно быть пустым!');
                 return
+            }
+
+            let letterRegex = /[a-zA-Z]/;
+            if (!letterRegex.test(password)) {
+                alert('Пароль не должен состоять только из цифр');
+                return;
             }
 
             $.ajax({
