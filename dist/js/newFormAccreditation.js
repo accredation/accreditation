@@ -3205,6 +3205,7 @@ document.getElementById("btnFormApplication").onclick = async function () {
     await printAppForm();
 };
 
+
 function printSved(el){
     $.ajax({
         url: "ajax/z_createFormSvidetelstvo.php",
@@ -3220,8 +3221,37 @@ function printSved(el){
         WinPrint.document.write(response);
         WinPrint.document.close();
         WinPrint.focus();
-        WinPrint.document.title = "Заявление_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.document.title = "Свидетельство_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
         WinPrint.print();
         WinPrint.close();
     })
+}
+
+
+function printSvedCheckbox(el){
+    $.ajax({
+        url: "ajax/z_createFormSvidetelstvoCheckbox.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).then(response => {
+        let modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '50px';
+        modal.style.left = '50px';
+        modal.style.width = '80%';
+        modal.style.height = '80%';
+        modal.style.overflowY = 'scroll';
+        modal.style.backgroundColor = 'white';
+        modal.innerHTML = response;
+        let closeButton = document.createElement('button');
+        closeButton.textContent = 'Закрыть';
+        closeButton.addEventListener('click', function() {
+            modal.remove();
+        });
+        modal.appendChild(closeButton);
+
+        document.body.appendChild(modal);
+    });
 }
