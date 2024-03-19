@@ -54,37 +54,36 @@ tr:hover {
 ">
 <!-- Поля для заполнения данных о юр. лице -->
 <br>
-Дата регистрации___________________________20____г.___ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;№___________________</div>
-	<div style="font-size: 22pt;
+Дата регистрации____________________20____г.___ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;№_________________</div>
+<div style="font-size: 22pt;
     position: relative;
     left: 10%;
 ">
 <!-- Поля для заполнения данных о юр. лице -->
 <br>
-Настоящее свидетельство выдано___________________________________________________________________________________</div>
+Настоящее свидетельство выдано_________________________________________</div>
       <div style="
     position: relative;
     left: 10%;
     font-size: 22pt;
     margin-top: 3%;
-}
-">______________________________________________________________________________________________________________________________________________________</div>
+}">______________________________________________________________________________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
-    left: 17%;
+    left: 35%;
     font-size: 18pt;
 ">наименование заинтересованного лица</div>
       <div style="
     position: relative;
     left: 10%;
     font-size: 22pt;
-    line-height: 90px;
+    line-height: 80px;
 ">______________________________________________________________________________________________________________________________________________________</div>
  <div style="
     position: relative;
     left: 10%;
     font-size: 22pt;
-    line-height: 90px;
+    line-height: 80px;
 ">______________________________________________________________________________________________________________________________________________________</div>
 <br>
        <div style="
@@ -124,7 +123,7 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     $query_tds = "select tt.name as namet, ltc.name_profile as namel, dep.name as named FROM z_department AS dep
                         JOIN z_list_tables_criteria AS ltc ON ltc.id_list_tables_criteria = dep.id_list_tables_criteria  
                         JOIN z_types_tables AS tt ON tt.id_types_tables = ltc.id_types_tables
-                        where dep.id_subvision = '$id_sub'";
+                        where dep.id_subvision = '$id_sub' and dep.accred_svid = 1";
     $result_tds = mysqli_query($con, $query_tds) or die("Ошибка " . mysqli_error($con));
     while ($row_tds = mysqli_fetch_assoc($result_tds)) {
         echo ' <tr>
@@ -140,7 +139,6 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
 }
 echo '</tbody></table>
 </div>';?>
-
 <br>
 <br>
 <!-- Подпись -->
@@ -150,9 +148,10 @@ echo '</tbody></table>
     position: relative;
     left: 8%;
     font-size: 22pt;
-	">Свидетельство действительно до ___ ______________________20___г.
+	">Свидетельство действительно до ___ ___________20___г.
     </div>
-    <br>    <br>
+    <br>
+    <br>
     <div style="
 	page-break-before: avoid;
     position: relative;
@@ -165,18 +164,17 @@ echo '</tbody></table>
     position: relative;
     left: 8%;
     font-size: 22pt;
-	">Решение уполномоченного органа от ___ ______________________20___г. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;№___________________
+	">Решение уполномоченного органа от ___ ___________20___г. &nbsp;&nbsp;&nbsp;&nbsp;№_________
     </div>
     <br>
-
-    <br><br>
+    <br>
     <div style="
 	page-break-before: avoid;
     position: relative;
     left: 8%;
     font-size: 22pt;
-	">Руководитель (представитель)<br>
-        заинтересованного лица:
+	">Руководитель<br>
+        уполномоченного органа:
     </div>
     <br>
     <br>

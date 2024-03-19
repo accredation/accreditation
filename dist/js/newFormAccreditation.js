@@ -3205,6 +3205,7 @@ document.getElementById("btnFormApplication").onclick = async function () {
     await printAppForm();
 };
 
+
 function printSved(el){
     $.ajax({
         url: "ajax/z_createFormSvidetelstvo.php",
@@ -3220,8 +3221,39 @@ function printSved(el){
         WinPrint.document.write(response);
         WinPrint.document.close();
         WinPrint.focus();
-        WinPrint.document.title = "Заявление_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+        WinPrint.document.title = "Свидетельство_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");
         WinPrint.print();
         WinPrint.close();
     })
+}
+
+
+function printSvedCheckbox(el) {
+    $.ajax({
+        url: "ajax/z_createFormSvidetelstvoCheckbox.php",
+        method: "GET",
+        data: {
+            id_application: id_app
+        }
+    }).then(response => {
+        $('#modalBody').html(response);
+        $('#modalSvidetelstvo').modal('show');
+    });
+}
+
+
+function svidCheckbox(checkbox) {
+    let checked = checkbox.checked ? 1 : 0;
+    let id_dept = checkbox.getAttribute('data-id');
+    console.log(id_dept + "iddept", checked + "checkedddd");
+    $.ajax({
+        url: 'ajax/updateSvidCheckbox.php',
+        method: 'POST',
+        data: { id_dept: id_dept, checked: checked },
+        success: function(response) {
+
+        },
+        error: function(xhr, status, error) {
+        }
+    });
 }

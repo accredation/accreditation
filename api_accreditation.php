@@ -1059,7 +1059,7 @@
                     <!--                    <input type="text" name="count" id="count"/>-->
                     <!--                <p id="btnSuc" style="cursor: pointer">Загрузить данные</p>-->
 
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnPrintSved" onclick="printSved(this)">Свидетельство</button>
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnPrintSved" onclick="printSvedCheckbox(this)">Свидетельство</button>
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnChecking">На рассмотрение</button>
 
                     <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOk">Завершить оценку</button>
@@ -1340,6 +1340,28 @@
                 <div class="modal-footer">
                     <button type="button" id="closeRkk" class="btn btn-dangers" data-bs-dismiss="modal">Закрыть</button>
                 </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="modalSvidetelstvo" tabindex="-1" role="dialog" aria-labelledby="modalSvidetelstvoLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalSvidetelstvoLabel"></h4>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success btn-fw" id="btnPrintSvidetelstvo" onclick="printSved(this)">Сформировать свидетельство</button>
+                </div>
+
+
+
 
             </div>
         </div>
