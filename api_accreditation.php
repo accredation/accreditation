@@ -1345,6 +1345,28 @@
         </div>
     </div>
 
+
+
+    <div class="modal fade" id="modalSvidetelstvo" tabindex="-1" role="dialog" aria-labelledby="modalSvidetelstvoLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalSvidetelstvoLabel"></h4>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success btn-fw" id="btnPrintSvidetelstvo" onclick="printSved(this)">Сформировать свидетельство</button>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
     <!-- RKK -->
 
 

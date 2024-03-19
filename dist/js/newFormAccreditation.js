@@ -3228,7 +3228,7 @@ function printSved(el){
 }
 
 
-function printSvedCheckbox(el){
+function printSvedCheckbox(el) {
     $.ajax({
         url: "ajax/z_createFormSvidetelstvoCheckbox.php",
         method: "GET",
@@ -3236,22 +3236,24 @@ function printSvedCheckbox(el){
             id_application: id_app
         }
     }).then(response => {
-        let modal = document.createElement('div');
-        modal.style.position = 'fixed';
-        modal.style.top = '50px';
-        modal.style.left = '50px';
-        modal.style.width = '80%';
-        modal.style.height = '80%';
-        modal.style.overflowY = 'scroll';
-        modal.style.backgroundColor = 'white';
-        modal.innerHTML = response;
-        let closeButton = document.createElement('button');
-        closeButton.textContent = 'Закрыть';
-        closeButton.addEventListener('click', function() {
-            modal.remove();
-        });
-        modal.appendChild(closeButton);
+        $('#modalBody').html(response);
+        $('#modalSvidetelstvo').modal('show');
+    });
+}
 
-        document.body.appendChild(modal);
+
+function svidCheckbox(checkbox) {
+    let checked = checkbox.checked ? 1 : 0;
+    let id_dept = checkbox.getAttribute('data-id');
+    console.log(id_dept + "iddept", checked + "checkedddd");
+    $.ajax({
+        url: 'ajax/updateSvidCheckbox.php',
+        method: 'POST',
+        data: { id_dept: id_dept, checked: checked },
+        success: function(response) {
+
+        },
+        error: function(xhr, status, error) {
+        }
     });
 }
