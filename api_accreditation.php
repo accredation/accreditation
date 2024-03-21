@@ -1052,7 +1052,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" onclick="toArchive(1)">Отзыв заявления</button>
-                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" onclick="toArchive(2)">Отзказ в принятии</button>
+                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" onclick="toArchive(2)">Отказ в принятии</button>
                 </div>
                 <div class="modal-footer" style="margin-top: 3rem">
                     <!--                <form action="getApplication.php" method="post">-->

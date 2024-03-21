@@ -53,6 +53,7 @@ left outer join roles r on u.id_role=r.id_role
 left outer join uz uz on uz.id_uz=u.id_uz
 left outer join spr_type_organization st on uz.id_type=st.id_type
 where u.active = 1";
+
 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 ?>
