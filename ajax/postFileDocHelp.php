@@ -46,6 +46,10 @@ switch ($fileExtension) {
         $fileExtension = "PPTX";
         $imgName = "pptx-icon.png";
         break;
+    case "zip":
+        $fileExtension = "ZIP";
+        $imgName = "zip-file.png";
+        break;
 }
 if (!file_exists("../documentation/".$nameRazdel."/")) {
     mkdir("../documentation/".$nameRazdel."/", 0777, true);

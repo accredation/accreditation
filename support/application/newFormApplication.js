@@ -309,7 +309,7 @@ function newShowModal(id_application) {
             }
             let mark_percent = data[2];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер

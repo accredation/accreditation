@@ -354,7 +354,7 @@ function newShowModal(id_application) {
             }
             let mark_percent = data[2];
             let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Самоакредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
+            mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
 
         });
     // выводим полученный ответ на консоль браузер
@@ -1183,8 +1183,9 @@ async function newShowTab(element, id_sub) {
                 }
                 divMark.style = "text-align: right;";
 
-                divMark.innerHTML = "Самоакредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
+                divMark.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(response).toFixed(2)) + "%";
                 thisTab.appendChild(divMark);
+
             })
         })
     }
