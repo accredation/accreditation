@@ -263,6 +263,9 @@ function preperaReport(){
 
     let reportRow = document.getElementById('reportRow');
     reportRow.style="background-color: white";
+
+    let btnReportPrint = document.getElementById(`btnReportPrint`);
+    btnReportPrint.removeAttribute('disabled')
 }
 
 function ReportCheckedOblast(){
@@ -301,117 +304,139 @@ function prepereTableReport(dataParametrs){
 
     let th1 = document.createElement('th');
     th1.innerHTML = 'Рег. индекс';
+    th1.id='th1'
     th1.style = "border: 1px solid black; width: 5%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th2 = document.createElement('th');
     th2.innerHTML = 'дробь (/000%) Рег. индекс';
+    th2.id='th2'
     th2.style = "border: 1px solid black; width: 5%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
-    let th_1 = document.createElement('th');
-    th_1.innerHTML = '№ заявления';
-    th_1.style = "border: 1px solid black; width: 5%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
-    
     let th3 = document.createElement('th');
-    th3.innerHTML = 'Наименование Юр. Лицо';
-    th3.style = "border: 1px solid black; min-width: 400px; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
-
-
+    th3.innerHTML = '№ заявления';
+    th3.id='th3'
+    th3.style = "border: 1px solid black; width: 5%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+    
     let th4 = document.createElement('th');
-    th4.innerHTML = 'первичный/повторный';
-    th4.style = "border: 1px solid black; width: 10%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+    th4.innerHTML = 'Наименование Юр. Лицо';
+    th4.id='th4'
+    th4.style = "border: 1px solid black; min-width: 400px; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+
 
     let th5 = document.createElement('th');
-    th5.innerHTML = 'Дата регистрации';
-    th5.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
-
+    th5.innerHTML = 'первичный/повторный';
+    th5.id='th5'
+    th5.style = "border: 1px solid black; width: 10%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th6 = document.createElement('th');
-    th6.innerHTML = 'Юр. Адрес';
+    th6.innerHTML = 'Дата регистрации';
+    th6.id='th6'
     th6.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
-    
+
+
     let th7 = document.createElement('th');
-    th7.innerHTML = 'Фактич. Адрес';
+    th7.innerHTML = 'Юр. Адрес';
+    th7.id='th7'
     th7.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
     
     let th8 = document.createElement('th');
-    th8.innerHTML = 'телефон';
-    th8.style = "border: 1px solid black; min-width: 200px; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+    th8.innerHTML = 'Фактич. Адрес';
+    th8.id='th8'
+    th8.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
     
     let th9 = document.createElement('th');
-    th9.innerHTML = 'Email';
-    th9.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"  
-
+    th9.innerHTML = 'телефон';
+    th9.id='th9'
+    th9.style = "border: 1px solid black; min-width: 200px; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+    
     let th10 = document.createElement('th');
-    th10.innerHTML = 'Административное решение';
-    th10.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+    th10.innerHTML = 'Email';
+    th10.id='th10'
+    th10.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"  
 
     let th11 = document.createElement('th');
-    th11.innerHTML = 'Номер административного решения';
+    th11.innerHTML = 'Административное решение';
+    th11.id='th11'
     th11.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
-   
+
     let th12 = document.createElement('th');
-    th12.innerHTML = 'Дата административного решения';
+    th12.innerHTML = 'Номер административного решения';
+    th12.id='th12'
     th12.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+   
+    let th13 = document.createElement('th');
+    th13.innerHTML = 'Дата административного решения';
+    th13.id='th13'
+    th13.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
   
 
     let th14 = document.createElement('th');
     th14.innerHTML = 'Номер свидетельства';
+    th14.id='th14'
     th14.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th15 = document.createElement('th');
     th15.innerHTML = 'Срок действия сетрификата';
+    th15.id='th15'
     th15.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th16 = document.createElement('th');
     th16.innerHTML = 'Срок действия';
+    th16.id='th16'
     th16.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th17 = document.createElement('th');
     th17.innerHTML = 'Отметка о снятии контроля';
+    th17.id='th17'
     th17.style = "border: 1px solid black; min-width: 125px; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th18 = document.createElement('th');
     th18.innerHTML = 'Документ в дело номер';
+    th18.id='th18'
     th18.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th19 = document.createElement('th');
     th19.innerHTML = 'Зарегистрировал';
+    th19.id='th19'
     th19.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th20 = document.createElement('th');
     th20.innerHTML = 'Уведомление';
+    th20.id='th20'
     th20.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th21 = document.createElement('th');
     th21.innerHTML = 'Получил свидетельство ФИО, дата';
+    th21.id='th21'
     th21.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th22 = document.createElement('th');
     th22.innerHTML = 'Регион';
+    th22.id='th22'
     th22.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
 
     trHead.appendChild(th1);
     trHead.appendChild(th2);
-    trHead.appendChild(th_1);
     trHead.appendChild(th3);
+    trHead.appendChild(th4);
 
     if(dataParametrs.pervtor === true){
-        trHead.appendChild(th4);
+        trHead.appendChild(th5);
     }
     
-    trHead.appendChild(th5);
+    trHead.appendChild(th6);
     if(dataParametrs.with_contact === true){
 
-        trHead.appendChild(th6);
         trHead.appendChild(th7);
         trHead.appendChild(th8);
         trHead.appendChild(th9);
+        trHead.appendChild(th10);
     }
-    trHead.appendChild(th10);
     trHead.appendChild(th11);
     trHead.appendChild(th12);
+    trHead.appendChild(th13);
     trHead.appendChild(th14);
     trHead.appendChild(th15);
 //    trHead.appendChild(th16);
@@ -433,6 +458,8 @@ function prepereTableReport(dataParametrs){
     return table
 }
 
+
+let dataReport = new Array();
 
 function reportPrepere(dataParametrs){
     let divForTable = document.getElementById(`divForTable`);
@@ -478,6 +505,7 @@ function reportPrepere(dataParametrs){
     }).done(function (response){
         for (let i of JSON.parse(response)){
             data.push(i);
+            dataReport.push(i)
         }
 
       //  console.log(JSON.parse(response))
@@ -493,115 +521,137 @@ function reportPrepere(dataParametrs){
                 let tr = document.createElement('tr');
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['id_rkk'];
+                td1.className='td1'
                 td1.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td2 = document.createElement('td');
                 td2.innerHTML = item['num_rkk'];
+                td2.className='td2'
                 td2.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                               
-                let td_1 = document.createElement('td');
-                td_1.innerHTML = item['id_application'];
-                td_1.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
-
                 let td3 = document.createElement('td');
-                td3.innerHTML = item['naim'];
+                td3.innerHTML = item['id_application'];
+                td3.className='td3'
                 td3.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td4 = document.createElement('td');
-                td4.innerHTML = item['perv_vtor'];
+                td4.innerHTML = item['naim'];
+                td4.className='td4'
                 td4.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td5 = document.createElement('td');
-                td5.innerHTML = item['date_reg'];
+                td5.innerHTML = item['perv_vtor'];
+                td5.className='td5'
                 td5.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
-                
-                    let td6 = document.createElement('td');
-                    td6.innerHTML = item['ur_adress'];
-                    td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                let td6 = document.createElement('td');
+                td6.innerHTML = item['date_reg'];
+                td6.className='td6'
+                td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
+                
                     let td7 = document.createElement('td');
-                    td7.innerHTML = item['fact_adress'];
+                    td7.innerHTML = item['ur_adress'];
+                    td7.className='td7'
                     td7.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                     let td8 = document.createElement('td');
-                    td8.innerHTML = item['tel'];
+                    td8.innerHTML = item['fact_adress'];
+                    td8.className='td8'
                     td8.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                     let td9 = document.createElement('td');
-                    td9.innerHTML = item['email'];
+                    td9.innerHTML = item['tel'];
+                    td9.className='td9'
                     td9.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+
+                    let td10 = document.createElement('td');
+                    td10.innerHTML = item['email'];
+                    td10.className='td10'
+                    td10.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                 
 
-                let td10 = document.createElement('td');
-                td10.innerHTML = item['adm_reah'];
-                td10.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
-
                 let td11 = document.createElement('td');
-                td11.innerHTML = item['adm_resh_num'];
+                td11.innerHTML = item['adm_reah'];
+                td11.className='td11'
                 td11.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td12 = document.createElement('td');
-                td12.innerHTML = item['date_admin_resh'];
+                td12.innerHTML = item['adm_resh_num'];
+                td12.className='td12'
                 td12.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+
+                let td13 = document.createElement('td');
+                td13.innerHTML = item['date_admin_resh'];
+                td13.className='td13'
+                td13.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td14 = document.createElement('td');
                 td14.innerHTML = item['svidetelstvo'];
+                td14.className='td14'
                 td14.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td15 = document.createElement('td');
                 td15.innerHTML = item['date_sved'];
+                td15.className='td15'
                 td15.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td16 = document.createElement('td');
                 td16.innerHTML = item['sved_srok_deist'];
+                td16.className='td16'
                 td16.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td17 = document.createElement('td');
                 td17.innerHTML = item['date_delo'];
+                td17.className='td17'
                 td17.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td18 = document.createElement('td');
                 td18.innerHTML = item['delo'];
+                td18.className='td18'
                 td18.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td19 = document.createElement('td');
                 td19.innerHTML = item['zaregal'];
+                td19.className='td19'
                 td19.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                 
                 let td20 = document.createElement('td');
                 td20.innerHTML = item['info_uved'];
+                td20.className='td20'
                 td20.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td21 = document.createElement('td');
                 td21.innerHTML = item['getter'];
+                td21.className='td21'
                 td21.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td22 = document.createElement('td');
                 td22.innerHTML = item['oblast'];
+                td22.className='td22'
                 td22.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                 
                 
                 tr.appendChild(td1);
                 tr.appendChild(td2);
-                tr.appendChild(td_1);
                 tr.appendChild(td3);
+                tr.appendChild(td4);
 
                 if(dataParametrs.pervtor === true){
-                    tr.appendChild(td4);
+                    tr.appendChild(td5);
                 }
 
-                tr.appendChild(td5);
+                tr.appendChild(td6);
 
                 if(dataParametrs.with_contact === true){
-                    tr.appendChild(td6);
                     tr.appendChild(td7);
                     tr.appendChild(td8);
                     tr.appendChild(td9);
+                    tr.appendChild(td10);
                 }
-                tr.appendChild(td10);
                 tr.appendChild(td11);
                 tr.appendChild(td12);
+                tr.appendChild(td13);
                 tr.appendChild(td14);
                 tr.appendChild(td15);
             //    tr.appendChild(td16);
@@ -701,6 +751,13 @@ function reportPrepere(dataParametrs){
 
     */
 
+    let divReportUsl = document.createElement('div');
+         divReportUsl.id = 'divReportUsl';
+         divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
+         divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
+         
+    divForTable.appendChild(divReportUsl);     
+
     let divTable = document.createElement('div');
     divTable.id = 'divTable'
     let butnJournal = document.getElementById('butnJournal');
@@ -717,10 +774,16 @@ function reportPrepere(dataParametrs){
 
 
 function printReport(){
+
+
+    
+
+    printTable()
+    
     
     var WinPrint = window.open('g','g','left=50,top=50,toolbar=0,scrollbars=0,status=0');
     WinPrint.document.write('<style>@page {\n' +
-        'size: legal landscape;\n' +
+        'size: A4 landscape;\n' +
         'margin: 1rem;\n' +
         '}</style>');
     
@@ -735,10 +798,92 @@ function printReport(){
     divTable.style = ``;
    // let divReportUsl = document.getElementById('divReportUsl');    
    // divReportUsl.removeAttribute('hidden');
+   //let printMe = divForTable;    
    
+   
+    //let printMe = document.getElementById('printMe'); 
+
+    let pageCount = data[data.length-1].page;
+
+    console.log(data)
+    
+     for (let j = 0; j <= pageCount; j++) {
+        let divBreakRem = document.getElementById('divBreak')
+        if(divBreakRem){
+            divBreakRem.remove();
+        }
+        
+        data.map(item => {
+            let thEl_ = document.getElementById(item.id)
+            let tdEl_ = document.getElementsByClassName(`td${item.id.substring(2)}`)
+
+            thEl_.style.display = '';
+            thEl_.style.maxWidth = Math.floor(item.width) + 'px';
+
+        //     if (thEl_.classList.contains("hiddenCol")) {
+        //   //      thEl_.classList.remove("hiddenCol");
+        //     }
+
+             for (let i = 0; i < tdEl_.length; i++) {
+                tdEl_[i].style.display = '';
+                tdEl_[i].style.maxWidth = Math.floor(item.width) + 'px';
+        //     //  tdEl_[i].removeAttribute('display');
+        //       if (tdEl_[i].classList.contains("hiddenCol")) {
+        //    //     tdEl_[i].classList.remove("hiddenCol");
+        //         }
+
+              }
+            
+        })  
+     
+         data.map(item => {
+            let thEl = document.getElementById(item.id)
+            let tdEl = document.getElementsByClassName(`td${item.id.substring(2)}`)
+           
+            if(item.page!=j){
+             //  thEl.classList.add("hiddenCol");
+               // console.log(thEl.style.toString() + 'display: none')
+               // thEl.style =  thEl.style + 'display: none'
+              //  thEl.setAttribute('display',none);
+            //    console.log(thEl.style)
+
+                thEl.style.display = 'none';
+                thEl.style.maxWidth = Math.floor(item.width)+ 'px';
+                for (let i = 0; i < tdEl.length; i++) {
+                    tdEl[i].style.display = 'none';
+                    tdEl[i].style.maxWidth = Math.floor(item.width)+ 'px';
+                   // tdEl[i].classList.add("hiddenCol");
+                   // tdEl[i].style = tdEl[i].style + 'display: none'
+                  //  tdEl[i].setAttribute('display','none');
+                }
+    
+    
+            //    tdEl.style = 'display: none'
+            }
+          //  console.log(`td${item.id.substring(2)}`)
+            
+        })  
+        let divBreak =  document.createElement('p');
+        divBreak.style = 'overflow:hidden;page-break-before:always;';
+        divBreak.id = 'divBreak'
+        ///divForTable
+       // 
+
+        
+        if(j != pageCount){
+            divForTable.appendChild(divBreak)
+        }
+        
+        WinPrint.document.write(divForTable.innerHTML);
+
+    
+    }
+
+    
 
 
-    WinPrint.document.write(divForTable.innerHTML);
+    console.log(divForTable)
+    
    
 
     WinPrint.document.close();
@@ -748,4 +893,104 @@ function printReport(){
 
     divTable.style = `overflow-x:auto; max-width: ${contentWidth}px;overflow-block: visible; max-height: 600px;`;
    // divReportUsl.setAttribute('hidden','true');
+
+
+   data.map(item => {
+    let thEl_ = document.getElementById(item.id)
+    let tdEl_ = document.getElementsByClassName(`td${item.id.substring(2)}`)
+
+    thEl_.style.display = '';
+    thEl_.style.maxWidth = Math.floor(item.width) + 'px';
+
+     for (let i = 0; i < tdEl_.length; i++) {
+        tdEl_[i].style.display = '';
+        tdEl_[i].style.maxWidth = Math.floor(item.width) + 'px';
+
+
+      }
+    
+    })  
+
+   
 }
+
+let data = new Array();
+
+function printTable(){
+
+    data = new Array();
+
+
+    let divReportRow = document.getElementById('reportRow');   
+    let divForTable = document.getElementById('divForTable');   
+     
+   // let divTable = [...divForTable ] // divForTable;// document.createElement('div');
+  //  divTable.id = 'divTablePrint';
+   // divTable.textContent = 'Table for print'
+  //  divReportRow.appendChild(divTable)
+
+     let printMe = document.getElementById('printMe');  
+	 let thead = printMe.getElementsByTagName("thead")[0]
+	 let th = thead.getElementsByTagName("th")
+ 
+	 let itemTh2 = [...th];
+	 let itemTh = []
+	 itemTh2.map(item => {
+		 itemTh=[...itemTh, item];
+	 })
+	 
+	 
+	 
+	 let clWidth = 1530
+	 let i = 0
+ 
+	 //console.log(itemTh.length)
+
+     let thWidth = 0;
+ 
+	 itemTh.map((item) => {
+		 let rect = item.getBoundingClientRect()
+
+         thWidth = thWidth + rect.width
+
+         data = [...data, { id: item.id, page: Math.floor(thWidth / 1530), width: rect.width, left: rect.left }];
+
+         console.log(thWidth, '  thWidth' )  
+        })
+
+
+
+
+     //   console.log(thWidth, '  thWidth' )  
+     //   console.log(data)  
+}
+
+
+function printReport2(data){
+
+        let printMe = document.getElementById('divForTable');  
+        let dateNow = new Date;
+        tableToExcel(printMe,'Журнал', `Журнал_РКК_${new Date().toLocaleDateString()}.xls`)
+}
+
+var tableToExcel = (function() {
+    var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html  ><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { 	    	 
+        return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) 
+    }
+    , downloadURI = function(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        link.click();
+    }
+
+    return function(table, name, fileName) {
+        if (!table.nodeType) table = document.getElementById(table)
+            var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+        var resuri = uri + base64(format(template, ctx))
+        downloadURI(resuri, fileName);
+    }
+})();  

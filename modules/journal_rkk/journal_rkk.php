@@ -1,4 +1,5 @@
 
+
 <?php if(isset($_COOKIE['login'])){?>
     <div class="content-wrapper">
 
@@ -399,8 +400,8 @@
                         id="btnReportPrint"
                         class="btn btn-success btn-fw"
                         disabled
-                        onclick="printReport()"
-                    >Печать</button>
+                        onclick="printReport2()"
+                    >Экспорт в xls</button>
 
                    
                 </div>
@@ -410,7 +411,7 @@
             <div id="reportRow" class="row">
                 <div class=" m-3 " style="font-size: 1rem; line-height: 3rem;">
                                 
-                        <div id="divForTable" ></div>
+                        <div id="divForTable"  class="page-break"></div>
    
                 </div>
             </div>
