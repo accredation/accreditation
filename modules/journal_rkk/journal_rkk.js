@@ -710,6 +710,9 @@ function reportPrepere(dataParametrs){
         let typeO = document.getElementById("typeOrg");
         let value3 = typeO.options[typeO.selectedIndex].innerText;
 
+        let divReportTitle = document.createElement('div');
+         divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
+
         divReportTitle.textContent = `Анализ результатов медицинской аккредитации`;
         //: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
 
@@ -751,11 +754,94 @@ function reportPrepere(dataParametrs){
 
     */
 
+    let divReportTitle = document.createElement('div');
+    divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
+
+    divReportTitle.textContent = `Журнал регистрации РКК`;
+
+
     let divReportUsl = document.createElement('div');
          divReportUsl.id = 'divReportUsl';
          divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
-         divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
+         divReportUsl.innerHTML = '<b>' + `Условия отбора:`+'</b>' + '<br/>';
+
+         console.log(dataParametrs)
+
+        if(dataParametrs.date_reg == 1) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Дата регистрации:'+'</b>' + ' с ' + dataParametrs.date_reg_at + ' по ' + dataParametrs.date_reg_to + '<br/>'
+        }
+
+        if(dataParametrs.date_protokol == 1) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Дата протокола:'+'</b>' + ' с ' + dataParametrs.date_protokol_at + ' по ' + dataParametrs.date_protokol_to + '<br/>'
+        }
+
+        if(dataParametrs.date_admin_resh == 1) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Дата административного решения:'+'</b>' + ' с ' + dataParametrs.date_admin_resh_at + ' по ' + dataParametrs.date_admin_resh_to + '<br/>'
+        }
+
+        if(dataParametrs.date_sved == 1) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Срок действия свидетельства:'+'</b>' + ' с ' + dataParametrs.date_sved_at + ' по ' + dataParametrs.date_sved_to + '<br/>'
+        }        
+      
+        if(dataParametrs.date_delo == 1) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Дата снятия с контроля:'+'</b>' + ' с '  + dataParametrs.date_delo_at + ' по ' + dataParametrs.date_delo_to + '<br/>'
+        } 
+        
+        if(dataParametrs.checkAllOblast === true) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Регион :'+'</b>' + 'Все регионы<br/>'
+        } else {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Регион:'+'</b> ' +  dataParametrs.checkOblasts + '<br/>'
+        }
+
+        if(dataParametrs.adm_resh == 1) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Вид административного решения:'+'</b>'
+            if(dataParametrs.checkbox_adm_resh_1 === true){
+                divReportUsl.innerHTML  = divReportUsl.innerHTML + ' Выдача свидетельства'
+            }
+            if(dataParametrs.checkbox_adm_resh_2 === true){
+                if(dataParametrs.checkbox_adm_resh_1 === true){
+                    divReportUsl.innerHTML  = divReportUsl.innerHTML + ', '
+                } 
+                divReportUsl.innerHTML  = divReportUsl.innerHTML + ' Отказ в выдаче свидетельства'
+            }
+            if(dataParametrs.checkbox_adm_resh_3 === true){
+                if((dataParametrs.checkbox_adm_resh_1 === true)||(dataParametrs.checkbox_adm_resh_2 === true)){
+                    divReportUsl.innerHTML  = divReportUsl.innerHTML + ', '
+                } 
+                divReportUsl.innerHTML  = divReportUsl.innerHTML + ' Отказ в приеме заявления'
+            }
+           
+            divReportUsl.innerHTML  = divReportUsl.innerHTML + '<br/>'
+        } 
+
+
+        if(dataParametrs.pervtor == 1) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Заявление:'+'</b>'
+            if(dataParametrs.checkbox_pervtor_1 === true){
+                divReportUsl.innerHTML  = divReportUsl.innerHTML + ' первичное'
+            }
+            if(dataParametrs.checkbox_pervtor_2 === true){
+                if(dataParametrs.checkbox_pervtor_1 === true){
+                    divReportUsl.innerHTML  = divReportUsl.innerHTML + ', '
+                } 
+                divReportUsl.innerHTML  = divReportUsl.innerHTML + ' повторное'
+            }
+           
+            divReportUsl.innerHTML  = divReportUsl.innerHTML + '<br/>'
+        } 
+
+
+        if(dataParametrs.otz === true) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Отозванные заявления'+'</b>'+ '<br/>'      
+        } 
+        
+        if(dataParametrs.otkaz === true) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Отказ в приеме заявления'+'</b>'+ '<br/>'      
+        } 
+
+    
          
+    divForTable.appendChild(divReportTitle);          
     divForTable.appendChild(divReportUsl);     
 
     let divTable = document.createElement('div');
