@@ -14,6 +14,9 @@
             $role = $row['id_role'];
         }
     }
+}
+else{
+    $role = "";
 }?>
 
 <?php login(); ?>
@@ -258,6 +261,9 @@
                         break;
                     case 'report_application_status':
                         include 'modules/report/report_application_status/report_application_status.php';
+                        break;
+                    case 'journal_rkk':
+                        include 'modules/journal_rkk/journal_rkk.php';
                         break;
                 }
             } else {

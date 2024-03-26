@@ -1,6 +1,7 @@
 let id_app;
 let createrApp;
 let idRkk;
+let loginApp;
 
 function newShowModal(id_application) {
     let btnRkk;
@@ -422,11 +423,22 @@ function newShowModal(id_application) {
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
-
+            if (data[0][23] != null) {
+                let fileNames = data[0][23].split(';');
+                fileNames.forEach((fileName) => {
+                    filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                });
+            }
+            if (data[0][24] != null) {
+                let fileNames = data[0][24].split(';');
+                fileNames.forEach((fileName) => {
+                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/"  + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                });
+            }
             if (data[0][14] != null) {
                 let fileNames = data[0][14].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][15] != null) {
@@ -906,6 +918,23 @@ function newShowModal(id_application) {
 
     let divfilesContainer = document.getElementById('filesContainer');
     divfilesContainer.innerHTML = "";
+
+    let divfilesContainerAdminResh = document.getElementById('filesContainerAdminResh');
+    divfilesContainerAdminResh.innerHTML = "";
+
+    let divfilesContainerProtokolKom = document.getElementById('filesContainerProtokolKom');
+    divfilesContainerProtokolKom.innerHTML = "";
+
+
+    $.ajax({
+        url: "ajax/getLoginApp.php",
+        method: "GET",
+        data: {id_app: id_app}
+    }).done(function (response) {
+        let data = JSON.parse(response);
+        loginApp = data.loginApp;
+    });
+
 }
 
 async function newShowTab(element, id_sub) {
@@ -3257,3 +3286,73 @@ function svidCheckbox(checkbox) {
         }
     });
 }
+
+
+$("#formAdminResh").on("change", () => {
+    let fileReport = document.getElementById("fileAdminResh");
+    let filesContainerAdminResh = document.getElementById("filesContainerAdminResh");
+    filesContainerAdminResh.innerHTML = "";
+
+    for (let i = 0; i < fileReport.files.length; i++) {
+        let file = fileReport.files[i];
+        filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+    let id_application = document.getElementById("id_application");
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+    for (let i = 0; i < fileReport.files.length; i++) {
+        form.append("fileReport[]", fileReport.files[i]);
+    }
+    form.append("id_application", id_application.innerText);
+    form.append("login", loginApp);
+    xhr.open("post", "ajax/postFileAdminResh.php", true);
+    xhr.send(form);
+});
+
+
+$("#formProtokolKom").on("change", () => {
+    let fileReport = document.getElementById("fileProtokolKom");
+    let filesContainerProtokolKom = document.getElementById("filesContainerProtokolKom");
+    filesContainerProtokolKom.innerHTML = "";
+
+    for (let i = 0; i < fileReport.files.length; i++) {
+        let file = fileReport.files[i];
+        filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+    let id_application = document.getElementById("id_application");
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+    for (let i = 0; i < fileReport.files.length; i++) {
+        form.append("fileReport[]", fileReport.files[i]);
+    }
+    form.append("id_application", id_application.innerText);
+    form.append("login", loginApp);
+    xhr.open("post", "ajax/postFileAdminCom.php", true);
+    xhr.send(form);
+});
+
+
+
+$("#formReport").on("change", () => {
+    let fileReport = document.getElementById("fileReport");
+    let filesContainer = document.getElementById("filesContainer");
+    filesContainer.innerHTML = "";
+    let id_application = document.getElementById("id_application");
+    for (let i = 0; i < fileReport.files.length; i++) {
+        let file = fileReport.files[i];
+        filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+    for (let i = 0; i < fileReport.files.length; i++) {
+        form.append("fileReport[]", fileReport.files[i]);
+    }
+    form.append("id_application", id_application.innerText);
+    form.append("login", loginApp);
+    xhr.open("post", "ajax/postFileReportGuzo.php", true);
+    xhr.send(form);
+});

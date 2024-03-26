@@ -23,7 +23,7 @@
     }
 
     .inform {
-        height: 20%;
+        height: 23%;
         position: relative;
         display: flex;
         -webkit-box-orient: vertical;
@@ -997,6 +997,26 @@
                                             <div class="card-body" id="mainRightCard">
 
                                             </div>
+
+
+                                            <form id="formAdminResh">
+                                                <div class="form-group" id="divAdminResh" style="margin-left: 2.5rem">
+                                                    <label for="" style="font-size: 24px">Административное решение</label><br/>
+                                                    <input type="file"  class="form-control-file"
+                                                           id="fileAdminResh" multiple>
+                                                </div>
+                                                <div id="filesContainerAdminResh" style="margin-left: 50px;  margin-top: -15px;"></div>
+                                            </form>
+
+
+                                            <form id="formProtokolKom">
+                                                <div class="form-group" id="divProtokolKom" style="margin-left: 2.5rem">
+                                                    <label for="" style="font-size: 24px">Протокол комиссии</label><br/>
+                                                    <input type="file"  class="form-control-file"
+                                                           id="fileProtokolKom" multiple>
+                                                </div>
+                                                <div id="filesContainerProtokolKom" style="margin-left: 50px;  margin-top: -15px;"></div>
+                                            </form>
 
                                             <form id="formReport">
                                                 <div class="form-group" id="divReport" style="margin-left: 2.5rem">

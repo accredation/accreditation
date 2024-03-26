@@ -1,7 +1,7 @@
 let id_appp;
 let createrApp;
 let idRkk;
-let loginApp
+let loginApp;
 
 function newShowModall(id_application) {
     let btnRkk;

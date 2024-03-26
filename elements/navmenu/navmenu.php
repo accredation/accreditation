@@ -59,6 +59,12 @@
                   if($row['id_role'] == 2)
                   {
                   ?>
+                      <li class="nav-item" id="nav13">
+                          <a class="nav-link" href="/index.php?journal_rkk" >
+                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                              <span class="menu-title">Журнал РКК</span>
+                          </a>
+                      </li>
                       <li class="nav-item" id="nav7">
                           <a class="nav-link" href="/index.php?tasks_accred" >
                               <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
@@ -259,6 +265,7 @@
     let nav10 = document.getElementById("nav10");
     let nav1001 = document.getElementById("nav1001");
     let nav11 = document.getElementById("nav11");
+    let nav13 = document.getElementById("nav13");
 
     switch(url){
         case "/index.php":
@@ -299,6 +306,9 @@
             break;
         case "/index.php?usersAccred":
             nav11.className = "nav-item active";
+            break;
+        case "/index.php?journal_rkk":
+            nav13.className = "nav-item active";
             break;
         default:
             nav1.className = "nav-item active";

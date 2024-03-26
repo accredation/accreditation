@@ -16,6 +16,7 @@ function lastAct($id, $sesId)
     $page = $_SERVER['REQUEST_URI'];
 
     mysqli_query($con, "UPDATE users SET online='$sesId', last_act='$sesId', last_time_online='$time', last_page='$page' WHERE id_user='$id'");
+
 }
 
 function login()
@@ -25,12 +26,12 @@ function login()
     ini_set("session.use_trans_sid", true);
     session_start();
 
-    if (isset($_SESSION['id_user'])) //если сесcия есть
+    if (isset($_COOKIE['id_user'])) //если сесcия есть
     {
 
         if (isset($_COOKIE['login']) && isset($_COOKIE['password'])) //если cookie есть, обновляется время их жизни и возвращается true
         {
-            $id = $_SESSION['id_user'];
+            $id = $_COOKIE['id_user'];
 
             $sesId = $_COOKIE['PHPSESSID'];
 

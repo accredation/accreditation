@@ -60,6 +60,9 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $mark_accred_percent = $row['mark_accred_percent'];
     $id_rkk = $row['id_rkk'];
     $response['id_rkk'] = $row['id_rkk'];
+    $protokolKom = $row['protokolKom'];
+    $adminResh = $row['adminResh'];
+
 }
 
 array_push($cells,$naim);
@@ -85,6 +88,8 @@ array_push($cells,$doverennost);
 array_push($cells,$zakluchenieSootvetstviya);
 array_push($cells,$prikazNaznach);
 array_push($cells,$selected_lico_value);
+array_push($cells,$protokolKom);//23
+array_push($cells,$adminResh);//24
 
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";

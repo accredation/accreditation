@@ -47,12 +47,11 @@ foreach ($data as $type) {
     $newType->typeName = $type['type_name'];
     array_push($arrayTypes, $newType);
 }
-$query = "SELECT u.id_user, u.`username` as usname, u.password, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name, u.last_time_session, u.online
+$query = "SELECT u.id_user, u.`username` as usname, u.password, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name, u.last_time_session, u.online, u.active
 FROM users u
 left outer join roles r on u.id_role=r.id_role
 left outer join uz uz on uz.id_uz=u.id_uz
-left outer join spr_type_organization st on uz.id_type=st.id_type
-where u.active = 1";
+left outer join spr_type_organization st on uz.id_type=st.id_type";
 
 $result=mysqli_query($con, $query) or die ( mysqli_error($con));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -77,6 +76,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Роль</th>
                     <th>Тип</th>
                     <th>Пароль</th>
+                    <th>Статус</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -100,6 +100,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                 <?php } ?>
                             </select></td>
                         <td id="pass<?= $user['id_user'] ?>" contenteditable="true" oncontextmenu="changePassword(this)"><?= $user['password'] ?></td>
+                        <td id="active<?= $user['id_user'] ?>"  ><input onchange="changeActive(this)" type="checkbox" <?= $user['active'] === "1" ? 'checked' : ''?>></td>
 
                     </tr>
                     <?php
@@ -115,6 +116,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Роль</th>
                     <th>Тип</th>
                     <th>Пароль</th>
+                    <th>Статус</th>
                 </tr>
                 </tfoot>
             </table>
@@ -193,6 +195,19 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
         }).done(function (response){
             alert("Сессия закрыта");
+        })
+    }
+
+    function changeActive(el){
+        let idUser = el.parentElement.id.substring(6);
+        let checked = el.checked ? 1 : 0;
+        $.ajax({
+            url: "../ajax/changeActive.php",
+            method: "POST",
+            data: {id_user:idUser, checked: checked }
+
+        }).done(function (response){
+
         })
     }
 </script>
