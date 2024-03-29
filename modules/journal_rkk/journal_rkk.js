@@ -329,7 +329,7 @@ function prepereTableReport(dataParametrs){
     th5.style = "border: 1px solid black; width: 10%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th6 = document.createElement('th');
-    th6.innerHTML = 'Дата регистрации';
+    th6.innerHTML = 'Дата регистрации заявления';
     th6.id='th6'
     th6.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
@@ -419,7 +419,7 @@ function prepereTableReport(dataParametrs){
 
     trHead.appendChild(th1);
     trHead.appendChild(th2);
-    trHead.appendChild(th3);
+  //  trHead.appendChild(th3);
     trHead.appendChild(th4);
 
     if(dataParametrs.pervtor === true){
@@ -634,7 +634,7 @@ function reportPrepere(dataParametrs){
                 
                 tr.appendChild(td1);
                 tr.appendChild(td2);
-                tr.appendChild(td3);
+               // tr.appendChild(td3);
                 tr.appendChild(td4);
 
                 if(dataParametrs.pervtor === true){
@@ -683,76 +683,6 @@ function reportPrepere(dataParametrs){
     })
 
 
-   // let table = prepereTableReport()
-
-    /*
-    
-
-    $.ajax({
-        url: "modules/report/report_analiz_ocenka/getReportOcenkaWithOutYurLica.php",
-        method: "GET",
-        data: {}
-        
-    }).done(function (response){
-        
-
-         let divReportTitle = document.createElement('div');
-         divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
-
-        let select1 = document.getElementById("oblast");
-        let value1 = select1.options[select1.selectedIndex].innerText;
-
-        let select2 = document.getElementById("status");
-        let value2 = select2.options[select2.selectedIndex].innerText;
-
-        let date1 = document.getElementById("dateAccept");
-        let date2 = document.getElementById("dateComplete");
-        let typeO = document.getElementById("typeOrg");
-        let value3 = typeO.options[typeO.selectedIndex].innerText;
-
-        let divReportTitle = document.createElement('div');
-         divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
-
-        divReportTitle.textContent = `Анализ результатов медицинской аккредитации`;
-        //: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
-
-         let divReportUsl = document.createElement('div');
-         divReportUsl.id = 'divReportUsl';
-         divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
-         divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
-         divReportUsl.innerHTML = divReportUsl.textContent + '<br/>'
-
-           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + status_text + '<br/>'
-
-           if(status_value!=1) {
-            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Период:'+'</b>' + ' с' + dateAccept_value + ' по ' + dateComplete_value + '<br/>'
-           }
-
-           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' + ' Область:'+'</b>' + oblast_text + '<br/>'
-           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Тип организации: '+'</b>' + typeOrg_text + '<br/>'
-           
-           
-           divReportUsl.innerHTML = divReportUsl.innerHTML +   '<b>' +' Таблицы критериев: '+'</b>' + criteriaAll_text;
-          
-           if((criteriaAll_value == 1) && (arrCriteriaStr_report_analiz_ocenka.length>0)) {
-                let arr =  arrCriteriaStr_report_analiz_ocenka.map(item=>{
-                    return item.criteria_name
-                })
-            divReportUsl.innerHTML = divReportUsl.innerHTML + '<br/>'+   '<b>' +' По критериям: '+'</b>' + arr;
-           }
-           
-
-        //   divReportUsl.setAttribute('hidden','true');
-
-         
-            divForTable.appendChild(divReportTitle);         
-            divForTable.appendChild(divReportUsl);         
-            divForTable.appendChild(table); 
-         
-
-    });
-
-    */
 
     let divReportTitle = document.createElement('div');
     divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
@@ -764,8 +694,6 @@ function reportPrepere(dataParametrs){
          divReportUsl.id = 'divReportUsl';
          divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
          divReportUsl.innerHTML = '<b>' + `Условия отбора:`+'</b>' + '<br/>';
-
-         console.log(dataParametrs)
 
         if(dataParametrs.date_reg == 1) {
             divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Дата регистрации:'+'</b>' + ' с ' + dataParametrs.date_reg_at + ' по ' + dataParametrs.date_reg_to + '<br/>'
@@ -861,9 +789,6 @@ function reportPrepere(dataParametrs){
 
 function printReport(){
 
-
-    
-
     printTable()
     
     
@@ -906,17 +831,12 @@ function printReport(){
             thEl_.style.display = '';
             thEl_.style.maxWidth = Math.floor(item.width) + 'px';
 
-        //     if (thEl_.classList.contains("hiddenCol")) {
-        //   //      thEl_.classList.remove("hiddenCol");
-        //     }
+       
 
              for (let i = 0; i < tdEl_.length; i++) {
                 tdEl_[i].style.display = '';
                 tdEl_[i].style.maxWidth = Math.floor(item.width) + 'px';
-        //     //  tdEl_[i].removeAttribute('display');
-        //       if (tdEl_[i].classList.contains("hiddenCol")) {
-        //    //     tdEl_[i].classList.remove("hiddenCol");
-        //         }
+       
 
               }
             
@@ -927,34 +847,26 @@ function printReport(){
             let tdEl = document.getElementsByClassName(`td${item.id.substring(2)}`)
            
             if(item.page!=j){
-             //  thEl.classList.add("hiddenCol");
-               // console.log(thEl.style.toString() + 'display: none')
-               // thEl.style =  thEl.style + 'display: none'
-              //  thEl.setAttribute('display',none);
-            //    console.log(thEl.style)
+         
 
                 thEl.style.display = 'none';
                 thEl.style.maxWidth = Math.floor(item.width)+ 'px';
                 for (let i = 0; i < tdEl.length; i++) {
                     tdEl[i].style.display = 'none';
                     tdEl[i].style.maxWidth = Math.floor(item.width)+ 'px';
-                   // tdEl[i].classList.add("hiddenCol");
-                   // tdEl[i].style = tdEl[i].style + 'display: none'
-                  //  tdEl[i].setAttribute('display','none');
+                  
                 }
     
     
-            //    tdEl.style = 'display: none'
+            
             }
-          //  console.log(`td${item.id.substring(2)}`)
+        
             
         })  
         let divBreak =  document.createElement('p');
         divBreak.style = 'overflow:hidden;page-break-before:always;';
         divBreak.id = 'divBreak'
-        ///divForTable
-       // 
-
+      
         
         if(j != pageCount){
             divForTable.appendChild(divBreak)
@@ -964,13 +876,6 @@ function printReport(){
 
     
     }
-
-    
-
-
-    console.log(divForTable)
-    
-   
 
     WinPrint.document.close();
     WinPrint.focus();
@@ -1010,10 +915,7 @@ function printTable(){
     let divReportRow = document.getElementById('reportRow');   
     let divForTable = document.getElementById('divForTable');   
      
-   // let divTable = [...divForTable ] // divForTable;// document.createElement('div');
-  //  divTable.id = 'divTablePrint';
-   // divTable.textContent = 'Table for print'
-  //  divReportRow.appendChild(divTable)
+  
 
      let printMe = document.getElementById('printMe');  
 	 let thead = printMe.getElementsByTagName("thead")[0]
@@ -1030,8 +932,6 @@ function printTable(){
 	 let clWidth = 1530
 	 let i = 0
  
-	 //console.log(itemTh.length)
-
      let thWidth = 0;
  
 	 itemTh.map((item) => {
@@ -1044,11 +944,6 @@ function printTable(){
          console.log(thWidth, '  thWidth' )  
         })
 
-
-
-
-     //   console.log(thWidth, '  thWidth' )  
-     //   console.log(data)  
 }
 
 
