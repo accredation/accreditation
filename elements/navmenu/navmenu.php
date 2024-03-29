@@ -59,12 +59,6 @@
                   if($row['id_role'] == 2)
                   {
                   ?>
-                      <li class="nav-item" id="nav13">
-                          <a class="nav-link" href="/index.php?journal_rkk" >
-                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-                              <span class="menu-title">Журнал РКК</span>
-                          </a>
-                      </li>
                       <li class="nav-item" id="nav7">
                           <a class="nav-link" href="/index.php?tasks_accred" >
                               <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
@@ -118,9 +112,33 @@
                                           <p style="white-space: normal; line-height: 1">Отчет по статусам заявлений организаций здравоохранения</p>
                                       </a>
                                   </li>
+
+                                  <li class="nav-item" style="height: 100%">
+                                    <a href="/index.php?report_date_schedule" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                        <p style="white-space: normal; line-height: 1">Контроль сроков подачи заявлений по графику</p>
+                                    </a>
+                                  </li>
                               </ul>
                           </div>
                       </li>
+
+                      <li class="nav-item" id="nav12">
+                          <a class="nav-link" href="/index.php?journal_rkk" >
+                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                              <span class="menu-title">Журнал РКК</span>
+                          </a>
+                      </li>
+
+                      <li class="nav-item" id="nav14">
+                          <a class="nav-link" href="/index.php?schedule_uz" >
+                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                              <span class="menu-title">График ОЗ</span>
+                          </a>
+                      </li>
+
+
+
 
                       <?php
               }?>
@@ -265,7 +283,9 @@
     let nav10 = document.getElementById("nav10");
     let nav1001 = document.getElementById("nav1001");
     let nav11 = document.getElementById("nav11");
-    let nav13 = document.getElementById("nav13");
+    let nav12 = document.getElementById("nav12");
+
+    let nav14 = document.getElementById("nav14");
 
     switch(url){
         case "/index.php":
@@ -308,7 +328,10 @@
             nav11.className = "nav-item active";
             break;
         case "/index.php?journal_rkk":
-            nav13.className = "nav-item active";
+            nav12.className = "nav-item active";
+            break;
+        case "/index.php?schedule_uz":
+            nav14.className = "nav-item active";
             break;
         default:
             nav1.className = "nav-item active";

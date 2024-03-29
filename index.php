@@ -265,6 +265,14 @@ else{
                     case 'journal_rkk':
                         include 'modules/journal_rkk/journal_rkk.php';
                         break;
+                    case 'schedule_uz':
+                        include 'modules/form_date_schedule_uz/schedule_uz.php';
+                        break;
+                    case 'report_date_schedule':
+                        include 'modules/report/report_date_schedule/report_date_schedule.php';
+                        break;
+
+                        
                 }
             } else {
                 include 'main.php';
