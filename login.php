@@ -86,6 +86,10 @@ include 'authorization/auth.php';
             color: #fff;
         }
 
+        .inputbox input:disabled + label {
+            display: none;
+        }
+
         .inputbox label {
             position: absolute;
             top: 50%;
@@ -94,7 +98,7 @@ include 'authorization/auth.php';
             color: #fff;
             font-size: 1em;
             pointer-events: none;
-            transition: .5s;
+
         }
 
         .inputbox ion-icon {
