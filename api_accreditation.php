@@ -1096,6 +1096,8 @@
                     <button type="submit"  class="btn btn-light btn-fw" id="btnFormApplication">Форма заявления</button>
 
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
+                    <button type="submit" class="btn btn-light btn-fw" id="btnPrintReportOcenka">Отчет по оценке
+                    </button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия
                     </button>

@@ -136,6 +136,8 @@ function newShowModal(id_application) {
     let tabHome = document.getElementById("home-tab");
     let informgr = document.getElementById("informgr");
     let sovetgr = document.getElementById("sovetgr");
+    let btnPrintReportOcenka = document.getElementById("btnPrintReportOcenka");
+
 
 
     if (tabOdobrenie.classList.contains("active")) {
@@ -149,7 +151,7 @@ function newShowModal(id_application) {
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         btnPrintSved.classList.remove("hiddentab");
-
+        btnPrintReportOcenka.classList.add("hiddentab");
     } else if (tabNeodobrennie.classList.contains("active")) {
 
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -160,6 +162,7 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
+        btnPrintReportOcenka.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
     } else if (tabRassmotrenie.classList.contains("active")) {
@@ -173,6 +176,7 @@ function newShowModal(id_application) {
         sovetgr.style.display = "none";
         informgr.style.display = "none";
         btnPrintSved.classList.add("hiddentab");
+        btnPrintReportOcenka.classList.remove("hiddentab");
         btnPrint.onclick = () => {
 
             newPrint();
@@ -188,6 +192,7 @@ function newShowModal(id_application) {
         informgr.style.display = "none";
         sovetgr.style.display = "block";
         btnPrintSved.classList.remove("hiddentab");
+        btnPrintReportOcenka.classList.add("hiddentab");
 
     } else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -200,6 +205,7 @@ function newShowModal(id_application) {
         informgr.style.display = "block";
         sovetgr.style.display = "block";
         btnPrintSved.classList.add("hiddentab");
+        btnPrintReportOcenka.classList.add("hiddentab");
     }
     else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -212,6 +218,7 @@ function newShowModal(id_application) {
         informgr.style.display = "block";
         sovetgr.style.display = "block";
         btnPrintSved.classList.add("hiddentab");
+        btnPrintReportOcenka.classList.add("hiddentab");
     }
     else if (tabHome.classList.contains("active")) {
 
@@ -250,6 +257,7 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+        btnPrintReportOcenka.classList.add("hiddentab");
         btnPrint.onclick = () => {
 
             newPrint();
@@ -934,6 +942,15 @@ function newShowModal(id_application) {
         let data = JSON.parse(response);
         loginApp = data.loginApp;
     });
+
+
+    let divBtnPrintReportOcenka = document.getElementById('btnPrintReportOcenka');
+    if(divBtnPrintReportOcenka)
+        divBtnPrintReportOcenka.onclick = () => {
+
+            printNewReportOcenka();
+        };
+
 
 }
 
@@ -3356,3 +3373,473 @@ $("#formReport").on("change", () => {
     xhr.open("post", "ajax/postFileReportGuzo.php", true);
     xhr.send(form);
 });
+
+
+function printNewReportOcenka() {
+    return new Promise((resolve, reject) => {
+        let number_app = document.getElementById("id_application");
+        let id_application = number_app.innerHTML;
+        let criteriaMark = document.createElement('div');
+        criteriaMark.textContent = 'Результат оценки, ';
+        criteriaMark.style = "padding-top: 0.5rem; padding-bottom:1rem; ";
+        var WinPrint = window.open(`dddd`, ``, 'left=50,top=50,width=800,height=640,toolbar=0,scrollbars=1,status=0');
+        WinPrint.document.write('<style> @page {\n' +
+            'size: A4 landscape;\n' +
+            'margin-bottom: 10mm;\n' +
+            'margin-top: 8mm;\n' +
+            'margin-left: 10mm;\n' +
+            'margin-right: 5mm;\n' +
+            '}' +
+            'td{ max-width: 10vw;\n' +
+            '  word-wrap: break-word;}</style>');
+
+        let divContainer = document.createElement('div');
+        divContainer.id = 'container';
+        let divContent = document.createElement('div');
+        divContent.id = 'content';
+        divContent.style = 'max-height:250mm; margin-bottom: 20px;';
+        let divFooter = document.createElement('div');
+        divFooter.id = 'footer';
+        divFooter.style = 'position:fixed; left: 0px; bottom: 0px; right: 0px; font-size:10px; margin-top: 5px;';
+        divFooter.innerHTML = 'numeration';
+        divContainer.appendChild(divContent);
+        divContainer.appendChild(divFooter);
+
+
+        let textSubCriteriaChecked = '';
+        let divTextSubCriteriaChecked = document.createElement('div');
+        divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
+        let headTable;
+        $.ajax({
+            url: "ajax/getCalc.php",
+            method: "GET",
+            data: {id_application: id_application}
+        }).then(() => {
+            return $.ajax({
+                url: "ajax/z_getSubForPrintReportOcenka.php",
+                method: "GET",
+                data: {id_application: id_application}
+            });
+        }).then((response) => {
+            let subCriteriaForReport = JSON.parse(response);
+            headTable = createTableForPrintSamoAccredOcenka(subCriteriaForReport);
+
+        }).then(() => {
+            let mainRightCard = document.getElementById("mainRightCard");
+            let mainRightCardText = mainRightCard.innerHTML;
+            let naim = document.getElementById('naim');
+            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.lastIndexOf('-') + 1, mainRightCardText.lastIndexOf('%') + 1);
+
+            let table;
+            return $.ajax({
+                url: "ajax/z_getAppForPrintNoOcenka.php",
+                method: "GET",
+                data: {id_app: id_application}
+            });
+        }).then((response) => {
+            let tableForPrint = JSON.parse(response);
+            if (tableForPrint.length !== 0) {
+                let naim = document.getElementById("naim");
+                let unp = document.getElementById("unp");
+                let naimText = naim.value;
+                let unpText = unp.value;
+                table = createTableForPrintNoOcenka(tableForPrint);
+            }
+        }).then((response) => {
+            let sokr = document.getElementById('sokr');
+            let naim = document.getElementById('naim');
+
+            function formatDate(date) {
+                var dd = date.getDate();
+                if (dd < 10) dd = '0' + dd;
+                var mm = date.getMonth() + 1;
+                if (mm < 10) mm = '0' + mm;
+                var yy = date.getFullYear() % 100;
+                if (yy < 10) yy = '0' + yy;
+                return dd + '.' + mm + '.' + yy;
+            }
+
+
+            let divReportTitle = document.createElement('div');
+            let divReportTitle2 = document.createElement('div');
+            let divReportTitle3 = document.createElement('div');
+            WinPrint.document.write('<style> th{font-weight: 500; }</style>');
+            divReportTitle2.style = "padding-top: 0.5rem; font-size:1.4rem; padding-left:2rem; padding-right: 2rem; text-align:center";
+            divReportTitle2.textContent = `Результаты оценки для групп критериев медицинской аккредитации и перечень выявленных несоответствий базовым критериям медицинской аккредитации`;
+            divReportTitle3.style = "padding-bottom:0.5rem; font-size:1.4rem; padding-left:2rem; padding-right: 2rem; text-align:center";
+            divReportTitle3.textContent = `${naim.value}  ${formatDate(new Date())}`;
+            divReportTitle.appendChild(divReportTitle2);
+            divReportTitle.appendChild(divReportTitle3);
+            WinPrint.document.write(divReportTitle.innerHTML);
+            WinPrint.document.write('<br/>');
+            // divTextSubCriteriaChecked.innerHTML = headTable;
+            divTextSubCriteriaChecked.appendChild(headTable);
+            WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
+            WinPrint.document.write('<br/>');
+            WinPrint.document.write(criteriaMark.innerText);
+
+            WinPrint.document.write('<br/>');
+            if (table && table.textContent && table.textContent.length > 0) {
+                let divReportTitleFieldNo = document.createElement('div');
+                let divReportTitleTableCriteriaAll = document.createElement('div');
+                divReportTitleTableCriteriaAll.style = "display: inline-block ;padding-top: 0.5rem; padding-bottom:1rem; font-size:1.4rem; margin-top: 2rem; text-align: center";
+                divReportTitleTableCriteriaAll.textContent = 'Сведения о соответствии базовым критериям медицинской аккредитации';
+                divReportTitleFieldNo.appendChild(divReportTitleTableCriteriaAll);
+                WinPrint.document.write(divReportTitleFieldNo.innerHTML);
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write(table.innerHTML);
+            } else {
+                WinPrint.document.write(divReportTitle.innerHTML);
+                WinPrint.document.write('<br/>');
+                WinPrint.document.write('<br/>');
+                divTextSubCriteriaChecked.innerHTML = textSubCriteriaChecked;
+                WinPrint.document.close();
+                WinPrint.focus();
+
+                WinPrint.print();
+                WinPrint.close();
+            }
+            WinPrint.document.close();
+            WinPrint.focus();
+            let naimOrg = document.getElementById("naim");
+            WinPrint.document.title = "Отчет о самоаккредитации_" + naimOrg.value + "_" + new Date().toLocaleDateString().replaceAll(".", "");
+            WinPrint.print();
+            WinPrint.close();
+            resolve();
+        }).catch((error) => {
+            console.error(error);
+        });
+    })
+
+}
+
+function createTableForPrintSamoAccredOcenka(valueRespons) {
+
+    let divPrintTable = document.createElement('div');
+
+    let table = document.createElement('table');
+    table.style = "border-collapse: collapse; border-spacing: 0;width:100%";
+
+
+    let trHeadMain = document.createElement('tr');
+    trHeadMain.style = "font-style: normal"
+
+    let th1 = document.createElement('th');
+    th1.innerHTML = '№ п/п';
+    th1.style = "border: 1px solid black; width: 10%; font-style: normal";
+
+    let th2 = document.createElement('th');
+    th2.innerHTML = 'Название подразделения';
+    th2.style = "border: 1px solid black; width: 40%; font-style: normal";
+
+    let th3 = document.createElement('th');
+    th3.innerHTML = 'Группа критериев (полное название критерия)';
+    th3.style = "border: 1px solid black; width: 30%; font-style: normal";
+
+
+    let th4 = document.createElement('th');
+    th4.innerHTML = 'Результат оценки,%';
+    th4.style = "border: 1px solid black; width: 20%; font-style: normal";
+
+
+    trHeadMain.appendChild(th1);
+    trHeadMain.appendChild(th2);
+    trHeadMain.appendChild(th3);
+    trHeadMain.appendChild(th4);
+
+
+    table.appendChild(trHeadMain);
+
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+
+    let id_s = -1;
+    let num = 1;
+    valueRespons.map((item, index) => {
+
+        if (id_s !== item['id_subvision']) {
+
+
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '4');
+            tdNaim.style = "border: 1px solid black; padding-top: 0.5rem; padding-bottom:0.5rem; padding-left: 2rem; font-weight: bold";
+            tdNaim.innerHTML = item['name'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
+
+
+            id_s = item['id_subvision'];
+        }
+
+        if (id_s == item['id_subvision']) {
+            let trNaim2 = document.createElement('tr');
+            let tdOtdel1 = document.createElement('td');
+            // tdNaim2.setAttribute('colspan', '4');
+            tdOtdel1.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; text-align: center; vertical-align: baseline";
+            tdOtdel1.innerHTML = `${num}`;
+
+            let tdOtdel2 = document.createElement('td');
+            tdOtdel2.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
+            let strNameOtdel = '';
+            if (item['name_otdel'] !== null) {
+                if (item['name_otdel'].indexOf('(') > 0) {
+                    strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(') - 1)
+                } else {
+                    strNameOtdel = item['name_otdel']
+                }
+            }
+
+            tdOtdel2.innerHTML = strNameOtdel;
+
+            let tdOtdel3 = document.createElement('td');
+            tdOtdel3.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem;padding-left: 0.3rem; vertical-align: baseline";
+            tdOtdel3.innerHTML = item['name_full'];
+
+            let tdOtdel4 = document.createElement('td');
+            tdOtdel4.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
+            tdOtdel4.innerHTML = Math.round(parseFloat(item['mark_dpercent']).toFixed(2)) + '%';
+
+            trNaim2.appendChild(tdOtdel1);
+            trNaim2.appendChild(tdOtdel2);
+            trNaim2.appendChild(tdOtdel3);
+            trNaim2.appendChild(tdOtdel4);
+            tbody.appendChild(trNaim2);
+
+
+            num += 1;
+
+        }
+        // else {
+        //     if (subCriteriaForReport[index + 1]['name'] && subCriteriaForReport[index]['name'] !== subCriteriaForReport[index + 1]['name'])
+        //         as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ".";
+        //     else
+        //         as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ", ";
+        // }
+    });
+
+
+    divPrintTable.appendChild(table);
+
+    return divPrintTable;
+}
+
+
+function createTableForPrintNoOcenka(tableForPrint) {
+
+    let divPrintTable = document.createElement('div');
+
+    let divNameSubTable = document.createElement('div');
+    divNameSubTable.textContent = tableForPrint[0]['name'];
+    divNameSubTable.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+
+    divPrintTable.appendChild(divNameSubTable);
+
+    let divNameCriteriaTable = document.createElement('div');
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+    divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
+
+    divPrintTable.appendChild(divNameCriteriaTable);
+
+    let table = document.createElement('table');
+    table.style = "border-collapse: collapse; border-spacing: 0;width:100%";
+
+
+    let trHeadMain = document.createElement('tr');
+
+    let thNum = document.createElement('th');
+    thNum.innerHTML = '№ п/п';
+    thNum.style = "border: 1px solid black";
+    thNum.setAttribute('rowspan', '2');
+
+    let th1_Main = document.createElement('th');
+    th1_Main.innerHTML = 'Наименование критерия';
+    th1_Main.style = "border: 1px solid black; ";
+    th1_Main.setAttribute('rowspan', '2');
+    /*
+        let th2_Main = document.createElement('th');
+        th2_Main.innerHTML = 'Класс критерия';
+        th2_Main.style = "border: 1px solid black";
+        th2_Main.setAttribute('rowspan','2');
+    */
+
+    let th3_Main = document.createElement('th');
+    th3_Main.innerHTML = 'Сведения о несоответствии базовым критериям медицинской аккредитации';
+    th3_Main.style = "border: 1px solid black; text-align: center";
+    th3_Main.setAttribute('colspan', '3');
+
+
+    let trHead = document.createElement('tr');
+    let th3 = document.createElement('th');
+    th3.innerHTML = 'Сведения по оценке соответствия критерию (нет)';
+    th3.style = "border: 1px solid black";
+
+    let th4 = document.createElement('th');
+    th4.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+    th4.style = "width:350px; border: 1px solid black";
+
+
+    let th5 = document.createElement('th');
+    th5.innerHTML = 'Выявленные несоответствия';
+    th5.style = "border: 1px solid black";
+
+
+    trHeadMain.appendChild(thNum);
+    trHeadMain.appendChild(th1_Main);
+    //  trHeadMain.appendChild(th2_Main);
+    trHeadMain.appendChild(th3_Main);
+
+
+    table.appendChild(trHeadMain);
+    trHead.appendChild(th3);
+    trHead.appendChild(th4);
+    trHead.appendChild(th5);
+
+
+    table.appendChild(trHead);
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+    numCriteria = 0;
+    numSub = tableForPrint[0]['id_subvision'];
+
+    tableForPrint.map((item, index) => {
+        if (numSub !== item['id_subvision']) {
+
+            let trNaimSub = document.createElement('tr');
+            let tdNaimSub = document.createElement('td');
+            tdNaimSub.setAttribute('colspan', '6');
+            tdNaimSub.style = "padding-top: 2rem; padding-bottom:1rem; font-size:1.8rem; font-weight: 600";
+            tdNaimSub.innerHTML = item['name'];
+            trNaimSub.appendChild(tdNaimSub);
+            tbody.appendChild(trNaimSub);
+            numCriteria = -1;
+
+        }
+
+        if ((numCriteria !== item['id_criteria']) && (index !== 0)) {
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '6');
+            tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
+            tdNaim.innerHTML = item['name_criteria'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
+
+
+            let trHeadMain2 = document.createElement('tr');
+
+            let thNum = document.createElement('th');
+            thNum.innerHTML = '№ п/п';
+            thNum.style = "border: 1px solid black";
+            thNum.setAttribute('rowspan', '2');
+
+            let th1_Main2 = document.createElement('td');
+            th1_Main2.innerHTML = 'Наименование критерия';
+            th1_Main2.style = "border: 1px solid black";
+            th1_Main2.setAttribute('rowspan', '2');
+            /*
+                            let th2_Main2 = document.createElement('td');
+                            th2_Main2.innerHTML = 'Класс критерия';
+                            th2_Main2.style = "border: 1px solid black";
+                            th2_Main2.setAttribute('rowspan','2');
+            */
+
+            let th3_Main2 = document.createElement('td');
+            th3_Main2.innerHTML = 'Сведения о несоответствии базовым критериям медицинской аккредитации';
+            th3_Main2.style = "border: 1px solid black; text-align: center";
+            th3_Main2.setAttribute('colspan', '3');
+
+
+            let trHead2 = document.createElement('tr');
+            let th32 = document.createElement('td');
+            th32.innerHTML = 'Сведения по оценке соответствия критерию (нет)';
+            th32.style = "border: 1px solid black";
+
+            let th42 = document.createElement('td');
+            th42.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
+            th4.style = "width:350px; border: 1px solid black";
+
+
+            let th52 = document.createElement('td');
+            th52.innerHTML = 'Выявленные несоответствия';
+            th52.style = "border: 1px solid black";
+
+
+            trHeadMain2.appendChild(thNum);
+            trHeadMain2.appendChild(th1_Main2);
+            //      trHeadMain2.appendChild(th2_Main2);
+            trHeadMain2.appendChild(th3_Main2);
+
+
+            tbody.appendChild(trHeadMain2);
+            trHead2.appendChild(th32);
+            trHead2.appendChild(th42);
+            trHead2.appendChild(th52);
+
+            tbody.appendChild(trHead2);
+        }
+
+
+        // }
+
+        numCriteria = -1;
+
+        if (item['id_criteria'] !== null) {
+
+            let tr = document.createElement('tr');
+
+            let tdNum = document.createElement('td');
+            tdNum.innerHTML = item['str_num'];
+            tdNum.style = "border: 1px solid black";
+
+            let td1 = document.createElement('td');
+            td1.innerHTML = item['mark_name'];
+            td1.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            /*
+                        let td2 = document.createElement('td');
+                        td2.innerHTML = item['mark_class'];
+                        td2.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            */
+            let td3 = document.createElement('td');
+            td3.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td3.innerHTML = item['field7'];
+
+            let td4 = document.createElement('td');
+            td4.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            let myArr = item['field8'].split(';');
+            myArr.forEach(item => {
+                td4.innerHTML += item + "<br>";
+            })
+
+            let td5 = document.createElement('td');
+            td5.style = "border: 1px solid black; padding: 0.2rem 0.75rem";
+            td5.innerHTML = item['field9'];
+
+
+            tr.appendChild(tdNum);
+            tr.appendChild(td1);
+            //      tr.appendChild(td2);
+            tr.appendChild(td3);
+
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+
+            tbody.appendChild(tr);
+            numSub = item['id_subvision']
+
+        }
+
+
+        numCriteria = item['id_criteria'];
+    })
+
+
+    divPrintTable.appendChild(table);
+
+    return divPrintTable;
+}
