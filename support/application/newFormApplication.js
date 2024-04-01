@@ -321,7 +321,9 @@ function newShowModal(id_application) {
         let org = divOrgStrukt.getElementsByTagName("a")[0];
         let ucompl = divUcomplect.getElementsByTagName("a")[0];
         let tech = divTechOsn.getElementsByTagName("a")[0];
-        let rep = divReport.getElementsByTagName("a")[0];
+        let rep;
+        if(divReport)
+        rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
@@ -512,7 +514,9 @@ function newShowModal(id_application) {
         let org = divOrgStrukt.getElementsByTagName("a")[0];
         let ucompl = divUcomplect.getElementsByTagName("a")[0];
         let tech = divTechOsn.getElementsByTagName("a")[0];
-        let rep = divReport.getElementsByTagName("a")[0];
+        let rep;
+        if(divReport)
+            rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
         let fRD = formFileReportDorabotka.querySelectorAll("a");
         let DD = formDateDorabotka.querySelectorAll("span");
@@ -705,6 +709,7 @@ function newShowModal(id_application) {
 
 
     let divfilesContainer = document.getElementById('filesContainer');
+    if(divfilesContainer)
     divfilesContainer.innerHTML = "";
     let fileReport1 =   document.getElementById('fileReport');
     fileReport1.classList.add("hiddentab");
