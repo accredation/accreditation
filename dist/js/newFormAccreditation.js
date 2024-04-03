@@ -3328,6 +3328,29 @@ $("#formAdminResh").on("change", () => {
 });
 
 
+$("#formFileReportZakluchenieSootvet").on("change", () => {
+    let fileReport = document.getElementById("reportZakluchenieSootvet");
+    let filesContainerAdminResh = document.getElementById("reportZakluchenieSootvet");
+    filesContainerAdminResh.innerHTML = "";
+
+    for (let i = 0; i < fileReport.files.length; i++) {
+        let file = fileReport.files[i];
+        filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+    let id_application = document.getElementById("id_application");
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+    for (let i = 0; i < fileReport.files.length; i++) {
+        form.append("fileReport[]", fileReport.files[i]);
+    }
+    form.append("id_application", id_application.innerText);
+    form.append("login", loginApp);
+    xhr.open("post", "ajax/postFileReportZakluchenieSootvet.php", true);
+    xhr.send(form);
+});
+
+
 $("#formProtokolKom").on("change", () => {
     let fileReport = document.getElementById("fileProtokolKom");
     let filesContainerProtokolKom = document.getElementById("filesContainerProtokolKom");
@@ -3842,4 +3865,37 @@ function createTableForPrintNoOcenka(tableForPrint) {
     divPrintTable.appendChild(table);
 
     return divPrintTable;
+}
+
+
+
+
+function changeSootv(selectElement) {
+    let selectedValue = selectElement.value;
+    $.ajax({
+        url: 'saveSootvetstvie.php',
+        type: 'POST',
+        contentType: 'application/json',
+        data: { value: selectedValue, id_app:id_app},
+        success: function() {
+            console.log("Данные успешно сохранены");
+            updateData();
+        },
+        error: function() {
+            console.error("Ошибка при сохранении данных");
+        }
+    });
+}
+
+function updateData() {
+    $.ajax({
+        url: 'getSootvetstvie.php',
+        type: 'GET',
+        success: function(responseData) {
+            console.log("Актуальные данные получены:", responseData);
+        },
+        error: function() {
+            console.error("Ошибка при получении данных");
+        }
+    });
 }

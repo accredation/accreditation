@@ -2798,7 +2798,7 @@ $("#btnOkonchatelnoeReshenie").on("click", () => {
 $("#btnOk").on("click", () => {
     let id_application = document.getElementById("id_application");
     let filesContainer = document.getElementById("filesContainer");
-    let a = filesContainer.length;
+    let a = filesContainer.children.length;
     if (a > 0) {
         $.ajax({
             url: "ajax/changeStatusOk.php",
