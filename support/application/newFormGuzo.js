@@ -3055,7 +3055,7 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
 
         $.ajax({
-            url: "ajax/z_ucomplectTable.php",
+            url: "ajax/z_accred_ucomplectTable.php",
             method: "GET",
             data: {id_application: id_appp}
         }).then((response) => {
@@ -3074,7 +3074,7 @@ function saveCommon(idApp, text, fieldNum) {
         let modalBody = modalUcomplect.getE("modal-body")[0];
 
         $.ajax({
-            url: "ajax/z_ucomplectTable.php",
+            url: "ajax/z_accred_ucomplectTable.php",
             method: "GET",
             data: {id_application: id_appp}
         }).then((response) => {

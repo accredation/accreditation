@@ -26,15 +26,27 @@ function newShowModal(id_application) {
     let modalUcomplect = document.getElementById("modalUcomplect");
     let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
     btnTableUcomplect.onclick = () => {
+        if (idRole==14){
+            modalUcomplect.style = "display: block";
+            $.ajax({
+                url: "ajax/z_accred_ucomplectTable.php",
+                method: "GET",
+                data: {id_application: id_app}
+            }).then((response) => {
+                modalBody.innerHTML = response;
+            })
+        }
+        else{
+            modalUcomplect.style = "display: block";
+            $.ajax({
+                url: "ajax/z_ucomplectTable.php",
+                method: "GET",
+                data: {id_application: id_app}
+            }).then((response) => {
+                modalBody.innerHTML = response;
+            })
+        }
 
-        modalUcomplect.style = "display: block";
-        $.ajax({
-            url: "ajax/z_ucomplectTable.php",
-            method: "GET",
-            data: {id_application: id_app}
-        }).then((response) => {
-            modalBody.innerHTML = response;
-        })
     }
 
     let closeXucomplect = document.getElementsByClassName("closeXucomplect")[0];
