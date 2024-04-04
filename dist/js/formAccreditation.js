@@ -2806,7 +2806,6 @@ $("#btnOk").on("click", () => {
             data: {id_application: id_application.innerText}
         })
             .done(function (response) {
-
                 alert("Оценка завершена");
                 location.href = "/index.php?users";
             });

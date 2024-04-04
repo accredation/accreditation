@@ -3334,20 +3334,26 @@ $("#formAdminResh").on("change", () => {
 
 
 $("#formFileReportZakluchenieSootvet").on("change", () => {
-    let fileReport = document.getElementById("reportZakluchenieSootvet");
     let filesContainerAdminResh = document.getElementById("reportZakluchenieSootvet");
-    filesContainerAdminResh.innerHTML = "";
 
-    for (let i = 0; i < fileReport.files.length; i++) {
-        let file = fileReport.files[i];
-        filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+
+
+        let file = filesContainerAdminResh.files[0];
+    let nextElement = filesContainerAdminResh.nextElementSibling;
+
+    while (nextElement) {
+        let elementToRemove = nextElement;
+        nextElement = nextElement.nextElementSibling;
+        elementToRemove.remove();
     }
+        filesContainerAdminResh.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+
 
     let id_application = document.getElementById("id_application");
     let xhr = new XMLHttpRequest();
     let form = new FormData();
-    for (let i = 0; i < fileReport.files.length; i++) {
-        form.append("fileReport[]", fileReport.files[i]);
+    for (let i = 0; i < filesContainerAdminResh.files.length; i++) {
+        form.append("fileReport[]", filesContainerAdminResh.files[i]);
     }
     form.append("id_application", id_application.innerText);
     form.append("login", loginApp);

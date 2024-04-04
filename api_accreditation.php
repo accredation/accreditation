@@ -911,7 +911,7 @@
                                                             здравоохранения и созданных в них условий требованиям законодательства
                                                             в области санитарно-эпидемиологического благополучия населения</label>
                                                         <input type="file" class="form-control-file" id="reportZakluchenieSootvet">
-                                                        <div id="reportZakluchenieSootvet"></div>
+
                                                     </div>
                                                 </form>
                                                 <div class="form-group">
