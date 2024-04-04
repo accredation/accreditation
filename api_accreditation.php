@@ -918,7 +918,7 @@
                                                     <select name="" id="sootvetstvie" onchange="changeSootv(this)">
                                                         <option value="0">Выбрать параметр соответствия</option>
                                                         <option value="1">Соответствует</option>
-                                                        <option value="2">Не соотвутствует</option>
+                                                        <option value="2">Не соответствует</option>
                                                     </select>
                                                 </div>
 

@@ -137,6 +137,7 @@ function newShowModal(id_application) {
     let informgr = document.getElementById("informgr");
     let sovetgr = document.getElementById("sovetgr");
     let btnPrintReportOcenka = document.getElementById("btnPrintReportOcenka");
+    let divFileReportSamoocenka1 = document.getElementById("divFileReportSamoocenka");
 
 
 
@@ -153,6 +154,7 @@ function newShowModal(id_application) {
         btnreport.classList.remove("hiddentab");
         btnPrintSved.classList.remove("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
+        divFileReportSamoocenka1.classList.add("hiddentab");
     } else if (tabNeodobrennie.classList.contains("active")) {
 
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -166,6 +168,7 @@ function newShowModal(id_application) {
         btnPrintReportOcenka.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
+        divFileReportSamoocenka1.classList.add("hiddentab");
     } else if (tabRassmotrenie.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -178,6 +181,7 @@ function newShowModal(id_application) {
         informgr.style.display = "none";
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.remove("hiddentab");
+        divFileReportSamoocenka1.classList.add("hiddentab");
 
 
         btnPrint.onclick = () => {
@@ -196,6 +200,7 @@ function newShowModal(id_application) {
         sovetgr.style.display = "block";
         btnPrintSved.classList.remove("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
+        divFileReportSamoocenka1.classList.add("hiddentab");
 
     } else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -209,6 +214,7 @@ function newShowModal(id_application) {
         sovetgr.style.display = "block";
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
+        divFileReportSamoocenka1.classList.add("hiddentab");
     }
     else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -222,6 +228,7 @@ function newShowModal(id_application) {
         sovetgr.style.display = "block";
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
+        divFileReportSamoocenka1.classList.add("hiddentab");
     }
     else if (tabHome.classList.contains("active")) {
 
@@ -261,6 +268,7 @@ function newShowModal(id_application) {
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
+        divFileReportSamoocenka1.classList.add("hiddentab");
         btnPrint.onclick = () => {
 
             newPrint();
@@ -278,6 +286,7 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+        divFileReportSamoocenka1.classList.add("hiddentab");
     }
 
     openTabId = 0;
