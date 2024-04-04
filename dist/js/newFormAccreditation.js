@@ -140,6 +140,7 @@ function newShowModal(id_application) {
 
 
 
+
     if (tabOdobrenie.classList.contains("active")) {
         btnOkReshenie.classList.remove("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -177,6 +178,8 @@ function newShowModal(id_application) {
         informgr.style.display = "none";
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.remove("hiddentab");
+
+
         btnPrint.onclick = () => {
 
             newPrint();
@@ -332,6 +335,7 @@ function newShowModal(id_application) {
     let divFileReportZakluchenieSootvet = document.getElementById("divFileReportZakluchenieSootvet");
     let divDoverennost = document.getElementById("divDoverennost");
     let divPrikazNaznach = document.getElementById("divPrikazNaznach");
+    let sootvetstvie = document.getElementById("sootvetstvie")
     number_app.innerHTML = id_application;
     id_app = id_application;
     let modal = document.getElementById("myModal");
@@ -399,6 +403,7 @@ function newShowModal(id_application) {
                 document.getElementById("sokr_name").innerHTML = "Регистрация заявления ";
                 document.getElementById("sokr_name").innerHTML += sokr.value;
             }
+            sootvetstvie.value = data[0][25];
             unp.value = data[0][2];
             adress.value = data[0][3];
             tel.value = data[0][4];
@@ -3873,13 +3878,12 @@ function createTableForPrintNoOcenka(tableForPrint) {
 function changeSootv(selectElement) {
     let selectedValue = selectElement.value;
     $.ajax({
-        url: 'saveSootvetstvie.php',
-        type: 'POST',
-        contentType: 'application/json',
+        url: 'ajax/saveSootvetstvie.php',
+        method: 'POST',
         data: { value: selectedValue, id_app:id_app},
         success: function() {
             console.log("Данные успешно сохранены");
-            updateData();
+
         },
         error: function() {
             console.error("Ошибка при сохранении данных");
@@ -3887,15 +3891,3 @@ function changeSootv(selectElement) {
     });
 }
 
-function updateData() {
-    $.ajax({
-        url: 'getSootvetstvie.php',
-        type: 'GET',
-        success: function(responseData) {
-            console.log("Актуальные данные получены:", responseData);
-        },
-        error: function() {
-            console.error("Ошибка при получении данных");
-        }
-    });
-}

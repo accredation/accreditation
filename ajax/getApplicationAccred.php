@@ -62,6 +62,8 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $response['id_rkk'] = $row['id_rkk'];
     $protokolKom = $row['protokolKom'];
     $adminResh = $row['adminResh'];
+    $sootvetstvie  = $row['sootvetstvie'];
+
 
 }
 
@@ -90,6 +92,7 @@ array_push($cells,$prikazNaznach);
 array_push($cells,$selected_lico_value);
 array_push($cells,$protokolKom);//23
 array_push($cells,$adminResh);//24
+array_push($cells,$sootvetstvie);//25
 
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
