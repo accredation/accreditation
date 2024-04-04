@@ -140,6 +140,7 @@ function newShowModal(id_application) {
 
 
 
+
     if (tabOdobrenie.classList.contains("active")) {
         btnOkReshenie.classList.remove("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -177,6 +178,8 @@ function newShowModal(id_application) {
         informgr.style.display = "none";
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.remove("hiddentab");
+
+
         btnPrint.onclick = () => {
 
             newPrint();
@@ -332,6 +335,7 @@ function newShowModal(id_application) {
     let divFileReportZakluchenieSootvet = document.getElementById("divFileReportZakluchenieSootvet");
     let divDoverennost = document.getElementById("divDoverennost");
     let divPrikazNaznach = document.getElementById("divPrikazNaznach");
+    let sootvetstvie = document.getElementById("sootvetstvie")
     number_app.innerHTML = id_application;
     id_app = id_application;
     let modal = document.getElementById("myModal");
@@ -399,6 +403,7 @@ function newShowModal(id_application) {
                 document.getElementById("sokr_name").innerHTML = "Регистрация заявления ";
                 document.getElementById("sokr_name").innerHTML += sokr.value;
             }
+            sootvetstvie.value = data[0][25];
             unp.value = data[0][2];
             adress.value = data[0][3];
             tel.value = data[0][4];
@@ -3328,6 +3333,29 @@ $("#formAdminResh").on("change", () => {
 });
 
 
+$("#formFileReportZakluchenieSootvet").on("change", () => {
+    let fileReport = document.getElementById("reportZakluchenieSootvet");
+    let filesContainerAdminResh = document.getElementById("reportZakluchenieSootvet");
+    filesContainerAdminResh.innerHTML = "";
+
+    for (let i = 0; i < fileReport.files.length; i++) {
+        let file = fileReport.files[i];
+        filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+    let id_application = document.getElementById("id_application");
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+    for (let i = 0; i < fileReport.files.length; i++) {
+        form.append("fileReport[]", fileReport.files[i]);
+    }
+    form.append("id_application", id_application.innerText);
+    form.append("login", loginApp);
+    xhr.open("post", "ajax/postFileReportZakluchenieSootvet.php", true);
+    xhr.send(form);
+});
+
+
 $("#formProtokolKom").on("change", () => {
     let fileReport = document.getElementById("fileProtokolKom");
     let filesContainerProtokolKom = document.getElementById("filesContainerProtokolKom");
@@ -3843,3 +3871,23 @@ function createTableForPrintNoOcenka(tableForPrint) {
 
     return divPrintTable;
 }
+
+
+
+
+function changeSootv(selectElement) {
+    let selectedValue = selectElement.value;
+    $.ajax({
+        url: 'ajax/saveSootvetstvie.php',
+        method: 'POST',
+        data: { value: selectedValue, id_app:id_app},
+        success: function() {
+            console.log("Данные успешно сохранены");
+
+        },
+        error: function() {
+            console.error("Ошибка при сохранении данных");
+        }
+    });
+}
+
