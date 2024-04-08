@@ -2,73 +2,128 @@
 
 include "../../../ajax/connection.php";
 
-$id_oblast = $_GET['id_oblast'];
-$id_status = $_GET['id_status'];
-$dateAccept = $_GET['dateAccept'];
-$dateComplete = $_GET['dateComplete'];
-$id_type_org = $_GET['id_type_org'];
+$date_create_at = $_GET['date_create_at'];
+$date_create_to = $_GET['date_create_to'];
+$oblastsIdStr = $_GET['oblastsId'];
+$statusIdStr = $_GET['statusId'];
+$typeIdStr = $_GET['typeId'];
 $criteriaAll = $_GET['criteriaAll'];
-$id_scriteria_str = $_GET['id_scriteria_str'];
+$criteriaIdStr = $_GET['criteriaIdStr'];
+
+
 
 $date = date('d-m-y');
 
-if(empty($dateAccept)){
-    $dateAccept = $date;
-} /*else {
-    $dateAccept = "'$dateAccept'";
-}
-*/
+if(empty($date_create_at)){
+    $date_create_at = $date;
+} 
 
-// echo "\"$date_accept\"";
+if(empty($date_create_to)){
+    $date_create_to = $date;
+} 
 
-if(empty($dateComplete)){
-    $dateComplete = $date;
+/////////////////////////////////////////////////////////////////
+//////////////// формирование условия по области
+$oblastsIdStr2 = explode(',', $oblastsIdStr);
+$oblastsIdStr3 = '';
 
-} /*else {
-    $dateComplete = "'$dateComplete'";
-}*/
-
- 
-
-$id_scriteria_str2 = explode(',', $id_scriteria_str);
-$id_scriteria_str3 = '';
-
-foreach($id_scriteria_str2 as $str){
-    $id_scriteria_str3 .= '(' . 'rc.id_criteria' . '=' . $str . ') or';
+foreach($oblastsIdStr2 as $str1){
+    $oblastsIdStr3 .= '(' . 'uz.oblast' . '=' . $str1 . ') or';
     //echo $str . "<br />";
 }
 
-if($id_scriteria_str === ''){
-    $id_scriteria_str3 = '0 = 0';
+if($oblastsIdStr === ''){
+    $oblastsIdStr3 = '0 = 0';
 } else {
-$id_scriteria_str3 = substr($id_scriteria_str3,0,-2);
-$id_scriteria_str3 = '(' . $id_scriteria_str3 . ')';
+$oblastsIdStr3 = substr($oblastsIdStr3,0,-2);
+$oblastsIdStr3 = '(' . $oblastsIdStr3 . ')';
 }
 
-//echo $ur_lica_value;
 
-$query = "SELECT st.name_status, app.date_send, sto.type_name as type_org, 
-CONCAT( app.naim, ' №', app.id_application) as naim, app.id_application, 
-CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria, 
-count(rc.id_criteria) as crit_count
-from applications app
-left outer join users u on app.id_user=u.id_user
-left outer join uz uz on uz.id_uz=u.id_uz
-left outer join status st on app.id_status=st.id_status
-left outer join subvision s on app.id_application=s.id_application
-left outer join rating_criteria rc on s.id_subvision=rc.id_subvision
-left outer join criteria c on rc.id_criteria=c.id_criteria
-left outer join conditions con on c.conditions_id=con.conditions_id
-left outer join spr_type_organization sto on uz.id_type=sto.id_type
-where rc.id_rating_criteria is not null 
-    and (('$id_type_org' = 0) or ('$id_type_org'<>0 and uz.id_type='$id_type_org' ))
-    and (('$id_oblast' = 0) or ('$id_oblast'<>0 and uz.oblast='$id_oblast' ))
-    and (('$id_status' = 0) or ('$id_status'<>0 and app.id_status='$id_status' ))
-    and ((('$id_status' <> 1) and ((app.date_send is null) or (app.date_send is not null and (app.date_send >= '$dateAccept' and app.date_send <= '$dateComplete'))))
-    or (('$id_status' = 1) ))
-    and (('$criteriaAll' = 0) or ('$criteriaAll'=1 and $id_scriteria_str3 )  )
-group by st.name_status, app.date_send, type_org, naim, app.id_application, name_criteria
-order by st.name_status, app.date_send, type_org, naim, app.id_application, name_criteria
+
+//////////////////////////////////////////////////////////////
+///////////// условие по статусу
+$statusIdStr2 = explode(',', $statusIdStr);
+$statusIdStr3 = '';
+
+foreach($statusIdStr2 as $str2){
+    if ($str2 == '1'){
+        $statusIdStr3 .= '(' . 'app.id_status' . '=' . $str2 . ') or';
+    }
+    if($str2 !== '1'){
+        $statusIdStr3 .= "(" . "app.id_status" . "=" . $str2 . " and (app.date_send >= '".$date_create_at."' and app.date_send <= '".$date_create_to."')) or";
+    }
+    
+    //echo $str . "<br />";
+}
+
+if($statusIdStr === ''){
+    $statusIdStr3 = "(app.id_status = 1 or (app.id_status <> 1 and (app.date_send >= '".$date_create_at."' and app.date_send <= '".$date_create_to."')))";
+} else {
+$statusIdStr3 = substr($statusIdStr3,0,-2);
+$statusIdStr3 = '(' . $statusIdStr3 . ')';
+} 
+
+ 
+
+/////////////////////////////////////////////////////////////
+//////////// условие по типу ОЗ
+$typeIdStr2 = explode(',', $typeIdStr);
+$typeIdStr3 = '';
+
+foreach($typeIdStr2 as $str3){
+    $typeIdStr3 .= '(' . 'uz.id_type' . '=' . $str3 . ') or';
+    //echo $str . "<br />";
+}
+
+if($typeIdStr === ''){
+    $typeIdStr3 = '0 = 0';
+} else {
+$typeIdStr3 = substr($typeIdStr3,0,-2);
+$typeIdStr3 = '(' . $typeIdStr3 . ')';
+}
+
+
+////////////////////////////////////////////////////////////
+/////////// условие по критериям
+$criteriaIdStr2 = explode(',', $criteriaIdStr);
+$criteriaIdStr3 = '';
+
+foreach($criteriaIdStr2 as $str){
+    $criteriaIdStr3 .= '(' . 'dep.id_list_tables_criteria' . '=' . $str . ') or';
+    //echo $str . "<br />";
+}
+
+if($criteriaIdStr === ''){
+    $criteriaIdStr3 = '0 = 0';
+} else {
+$criteriaIdStr3 = substr($criteriaIdStr3,0,-2);
+$criteriaIdStr3 = '(' . $criteriaIdStr3 . ')';
+}
+
+
+$query = "
+SELECT st.name_status_report as name_status , app.date_send, sto.type_name as type_org, 
+    CONCAT( app.naim, ' №', app.id_application) as naim, app.id_application, 
+  ltc.name as name_criteria , count(dep.id_list_tables_criteria) as crit_count
+from accreditation.applications app
+left outer join accreditation.users u on app.id_user=u.id_user
+    left outer join accreditation.uz uz on uz.id_uz=u.id_uz
+    
+left outer join accreditation.status st on app.id_status=st.id_status
+left outer join accreditation.subvision s on app.id_application=s.id_application
+left outer join accreditation.z_department dep on s.id_subvision=dep.id_subvision
+left outer join accreditation.z_list_tables_criteria ltc on dep.id_list_tables_criteria=ltc.id_list_tables_criteria
+left outer join accreditation.z_types_tables tt on ltc.id_types_tables = tt.id_types_tables
+left outer join accreditation.spr_type_organization sto on uz.id_type=sto.id_type
+where app.id_status<>8
+and dep.id_list_tables_criteria is not null
+and $statusIdStr3
+and $oblastsIdStr3
+and $typeIdStr3
+and (('$criteriaAll' = 0) or ('$criteriaAll'=1 and $criteriaIdStr3 )  )
+group by name_status, app.date_send, type_org, naim, app.id_application, name_criteria
+order by name_status, app.date_send, type_org, naim, app.id_application, name_criteria
 ";
 
 // ('$id_scriteria_str'='' or ('$id_scriteria_str'<>'' and 

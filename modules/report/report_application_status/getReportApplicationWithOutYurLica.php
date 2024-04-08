@@ -2,45 +2,99 @@
 
 include "../../../ajax/connection.php";
 
-$id_oblast = $_GET['id_oblast'];
-$id_status = $_GET['id_status'];
-$dateAccept = $_GET['dateAccept'];
-$dateComplete = $_GET['dateComplete'];
-$id_type_org = $_GET['id_type_org'];
+$date_create_at = $_GET['date_create_at'];
+$date_create_to = $_GET['date_create_to'];
+$oblastsIdStr = $_GET['oblastsId'];
+$statusIdStr = $_GET['statusId'];
+$typeIdStr = $_GET['typeId'];
+
 
 $date = date('d-m-y');
 
-if(empty($dateAccept)){
-    $dateAccept = $date;
-} /*else {
-    $dateAccept = "'$dateAccept'";
+if(empty($date_create_at)){
+    $date_create_at = $date;
+} 
+
+if(empty($date_create_to)){
+    $date_create_to = $date;
+} 
+
+/////////////////////////////////////////////////////////////////
+//////////////// формирование условия по области
+$oblastsIdStr2 = explode(',', $oblastsIdStr);
+$oblastsIdStr3 = '';
+
+foreach($oblastsIdStr2 as $str1){
+    $oblastsIdStr3 .= '(' . 'uz.oblast' . '=' . $str1 . ') or';
+    //echo $str . "<br />";
 }
-*/
 
-// echo "\"$date_accept\"";
+if($oblastsIdStr === ''){
+    $oblastsIdStr3 = '0 = 0';
+} else {
+$oblastsIdStr3 = substr($oblastsIdStr3,0,-2);
+$oblastsIdStr3 = '(' . $oblastsIdStr3 . ')';
+}
 
-if(empty($dateComplete)){
-    $dateComplete = $date;
 
-} /*else {
-    $dateComplete = "'$dateComplete'";
-}*/
+
+//////////////////////////////////////////////////////////////
+///////////// условие по статусу
+$statusIdStr2 = explode(',', $statusIdStr);
+$statusIdStr3 = '';
+foreach($statusIdStr2 as $str2){
+    if ($str2 == '1'){
+        $statusIdStr3 .= '(' . 'app.id_status' . '=' . $str2 . ') or';
+    }
+    if($str2 !== '1'){
+        $statusIdStr3 .= "(" . "app.id_status" . "=" . $str2 . " and (app.date_send >= '".$date_create_at."' and app.date_send <= '".$date_create_to."')) or";
+    }
+    
+    //echo $str . "<br />";
+}
+
+if($statusIdStr === ''){
+    $statusIdStr3 = "(app.id_status = 1 or (app.id_status <> 1 and (app.date_send >= '".$date_create_at."' and app.date_send <= '".$date_create_to."')))";
+} else {
+$statusIdStr3 = substr($statusIdStr3,0,-2);
+$statusIdStr3 = '(' . $statusIdStr3 . ')';
+} 
+ 
+
+/////////////////////////////////////////////////////////////
+//////////// условие по типу ОЗ
+$typeIdStr2 = explode(',', $typeIdStr);
+$typeIdStr3 = '';
+
+foreach($typeIdStr2 as $str3){
+    $typeIdStr3 .= '(' . 'uz.id_type' . '=' . $str3 . ') or';
+    //echo $str . "<br />";
+}
+
+if($typeIdStr === ''){
+    $typeIdStr3 = '0 = 0';
+} else {
+$typeIdStr3 = substr($typeIdStr3,0,-2);
+$typeIdStr3 = '(' . $typeIdStr3 . ')';
+}
+
 
 $query = "
-SELECT REPLACE(r.name, 'Аккредитация', '') as oblast_name, count(a.id_application) as app_count 
-FROM accreditation.applications a
-left outer join accreditation.users u on a.id_user=u.id_user
-left outer join uz uz on uz.id_uz=u.id_uz
-left outer join accreditation.roles r on uz.oblast=r.id_role
-where u.id_role=3 
-    and (('$id_type_org' = 0) or ('$id_type_org'<>0 and uz.id_type='$id_type_org' ))
-    and (('$id_oblast' = 0) or ('$id_oblast'<>0 and uz.oblast='$id_oblast' ))
-    and (('$id_status' = 0) or ('$id_status'<>0 and a.id_status='$id_status' ))
-    and ((('$id_status' <> 1) and ((a.date_send is null) or (a.date_send is not null and (a.date_send >= '$dateAccept' and a.date_send <= '$dateComplete'))))
-    or (('$id_status' = 1) ))
 
-group by r.name
-order by r.name
+select so.oblast as oblast_name, count(app.id_application) as app_count 
+from accreditation.applications app
+left outer join accreditation.users u on app.id_user=u.id_user
+ left outer join accreditation.uz uz on uz.id_uz=u.id_uz
+ left outer join accreditation.spr_oblast so on uz.oblast=so.id_oblast   
+left outer join accreditation.status st on app.id_status=st.id_status
+where app.id_status<>8
+and $statusIdStr3
+and $oblastsIdStr3
+and $typeIdStr3
+
+group by oblast_name
+order by oblast_name
+
 ";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));

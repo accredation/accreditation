@@ -141,6 +141,11 @@ function preperaReport(){
     btnReportPrint.removeAttribute('disabled')
 }
 
+function asdasd(){
+    ReportCheckedOblast()
+    console.log(arrOblastSTR_journal_rkk.toString())
+}
+
 function ReportCheckedOblast(){
 
     arrOblastId_journal_rkk = [];

@@ -422,7 +422,7 @@ function prepereTableReport(dataParametrs){
   //  trHead.appendChild(th3);
     trHead.appendChild(th4);
 
-    if(dataParametrs.pervtor === true){
+    if(dataParametrs.pervtor === 1){
         trHead.appendChild(th5);
     }
     
@@ -637,7 +637,7 @@ function reportPrepere(dataParametrs){
                // tr.appendChild(td3);
                 tr.appendChild(td4);
 
-                if(dataParametrs.pervtor === true){
+                if(dataParametrs.pervtor === 1){
                     tr.appendChild(td5);
                 }
 

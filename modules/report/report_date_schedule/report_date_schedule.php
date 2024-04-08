@@ -164,7 +164,7 @@
 
                         <span>Регион</span>
 
-                        <div class="row " style="display: contents;">
+                        <div class="row " style="display: contents;" onclick="asdasd()">
                           
 
                                 <?php
