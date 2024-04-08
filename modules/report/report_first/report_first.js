@@ -22,47 +22,147 @@ function CheckCriteria(elem, id_criteria){
         arrCriteriaStr = [...arrCriteriaStr, {id_criteria, criteria_name: spanCrit_str} ]
     }
 
-
+/*
     if(!btnReportPrint.hasAttribute('disabled')){
         btnReportPrint.setAttribute('disabled','true')
     }
+    */
+}
+
+
+function CheckCheckBoxElement(elem, element_name, name_el_for_str, name_class_for_search){
+
+    let checkBox = document.getElementById(`checkbox_id_${element_name}`);
+
+    if(elem != 'checkBox'){
+        
+        checkBox.checked = !checkBox.checked;
+    }
+    
+    ReportCheckedOblast(name_el_for_str, name_class_for_search)
+
+    // if(!btnReportPrint.hasAttribute('disabled')){
+    //     btnReportPrint.setAttribute('disabled','true')
+    // }
+}
+
+
+function ReportCheckedOblast(name_el_for_str, name_class_for_search, report_key_value = false){
+
+  //  console.log(name_el_for_str, name_class_for_search)
+
+    arrOblastId_journal_rkk = [];
+    arrOblastSTR_journal_rkk = [];
+
+    let oblast = document.getElementsByClassName(`${name_class_for_search}`);
+        if (oblast.length !== 0) {
+            for (let i = 0; i < oblast.length; i++) {                       
+                let checkBox = document.getElementById(`checkbox_id_${name_class_for_search}_${oblast[i].id}`);
+                
+                if(checkBox.checked){
+                    arrOblastId_journal_rkk = [...arrOblastId_journal_rkk, oblast[i].id];
+
+                    let spanCheckBox = document.getElementById(`span_id_${name_class_for_search}_${oblast[i].id}`).innerText.trim();
+                    arrOblastSTR_journal_rkk = [...arrOblastSTR_journal_rkk, spanCheckBox ]
+                }
+                
+            }
+        } 
+    
+        let divElementStr = document.getElementById(`${name_el_for_str}`);
+        if(arrOblastSTR_journal_rkk.toString() == ''){
+            divElementStr.value = 'Все';
+        } else {
+            divElementStr.value = arrOblastSTR_journal_rkk.toString();
+        }
+
+
+        
+      ////  Передать в обьект по ключу name_class_for_search == область, тип, статус
+
+    if (report_key_value != false){
+        return [arrOblastId_journal_rkk, arrOblastSTR_journal_rkk.toString()]
+    }
+
+    
 }
 
 function preperaReport(){
 
+    let dataParametrs = {
+        
+        date_create_at: null,
+        date_create_to: null, 
+        OblastStr : '',
+        OblastsId : '',
+        StatusStr : '',
+        StatusId : '',
+        TypeStr : '',
+        TypeId : '',
+        criteriaAll : '',
+        criteriaAllText: '',
+        criteriaIdStr: '',
+        criteriaArr: '',
+
+    }
+
     let reportRow = document.getElementById('reportRow');
     reportRow.style="background-color: white";
 
-    let status = document.getElementById(`status`);
-    let status_value = status.value;
-    let status_text =  status.options[status.options.selectedIndex].textContent;
-
     let dateAccept = document.getElementById(`dateAccept`);
     let dateAccept_value = dateAccept.value;
+    dataParametrs.date_create_at = dateAccept_value
 
     let dateComplete = document.getElementById(`dateComplete`);
     let dateComplete_value = dateComplete.value;
+    dataParametrs.date_create_to = dateComplete_value
 
-    if(status_value!=1){
-        if(!dateAccept_value) {
-            alert('Введите дату начала периода подачи заявления')
-            return
-        }
     
-        if(!dateComplete_value){
-            alert('Введите дату завершения периода подачи заявления')
-            return
-        }
-
-        if(dateAccept_value>dateComplete_value) {
-            alert('Неверно заданы даты отчетного периода')
-            return
-        }
+    if(!dateAccept_value) {
+        alert('Введите дату начала отчетного периода')
+        return
     }
+
+    if(!dateComplete_value){
+        alert('Введите дату завершения отчетного периода')
+        return
+    }
+
+    if(dateAccept_value>dateComplete_value) {
+        alert('Неверно заданы даты отчетного периода')
+        return
+    }
+
+
     
-   
-    let btnReport = document.getElementById(`btnReport`);
-    btnReport.setAttribute('disabled', 'true');
+    let oblast= ReportCheckedOblast( 'divOblastStr', 'oblast', 'report_key_value')
+    dataParametrs.OblastsId = oblast[0].toString()
+    dataParametrs.OblastStr = oblast[1]
+    
+
+
+    let status= ReportCheckedOblast( 'divStatusStr', 'status', 'report_key_value')
+    dataParametrs.StatusId = status[0].toString()
+    dataParametrs.StatusStr = status[1]
+
+    let type= ReportCheckedOblast( 'divTypeStr', 'type', 'report_key_value')
+    dataParametrs.TypeId = type[0].toString()
+    dataParametrs.TypeStr = type[1]
+    
+    let criteriaAll = document.getElementById(`criteriaAll`);
+    let criteriaAll_value = criteriaAll.value;
+    let criteriaAll_text = criteriaAll.options[criteriaAll.options.selectedIndex].textContent;
+    dataParametrs.criteriaAll = criteriaAll_value
+    dataParametrs.criteriaAllText = criteriaAll_text
+    dataParametrs.criteriaIdStr =arrCriteriaId.toString()
+    dataParametrs.criteriaArr = arrCriteriaStr
+    
+    let flag_yur_lica = document.getElementById(`flag_yur_lica`);
+    let flag_yur_lica_value = flag_yur_lica.checked;
+  
+
+ //   let btnReport = document.getElementById(`btnReport`);
+ //   btnReport.setAttribute('disabled', 'true');
 
     let btnReportPrint = document.getElementById(`btnReportPrint`);
     btnReportPrint.removeAttribute('disabled')
@@ -70,76 +170,27 @@ function preperaReport(){
     let divForTable = document.getElementById(`divForTable`);
     divForTable.innerHTML = '';
 
-    let oblast = document.getElementById(`oblast`);
-    let oblast_value = oblast.value;
-    let oblast_text =   oblast.options[oblast.options.selectedIndex].textContent;
-
-
-
-    let typeOrg = document.getElementById(`typeOrg`);
-    let typeOrg_value = typeOrg.value;
-    let typeOrg_text =  typeOrg.options[typeOrg.options.selectedIndex].textContent;
-
-    let criteriaAll = document.getElementById(`criteriaAll`);
-    let criteriaAll_value = criteriaAll.value;
-    let criteriaAll_text = criteriaAll.options[criteriaAll.options.selectedIndex].textContent;
-
-
-    let flag_yur_lica = document.getElementById(`flag_yur_lica`);
-    let flag_yur_lica_value = flag_yur_lica.checked;
-    
- //   console.log(oblast_value, status_value, dateAccept_value, dateComplete_value, typeOrg_value, criteriaAll_value)
-
     if(flag_yur_lica_value){
-        console.log('1');
-        reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId.toString())
+        reportWithOutYurLica(dataParametrs)
     } else {
-        console.log('2');
-        reportYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId.toString())
+        reportYurLica(dataParametrs)
     }
 
     btnReport.removeAttribute('disabled');
+
+    
 }
 
 
-function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_str){
+function reportYurLica(dataParametrs){
     let divForTable = document.getElementById(`divForTable`);
     divForTable.innerHTML = '';
 
-    
-    let data = new Array();
-
-    $.ajax({
-        url: "modules/report/report_first/getReportFirstYurLica.php",
-        method: "GET",
-        data: {id_oblast: oblast_value, id_status: status_value, dateAccept: dateAccept_value, 
-            dateComplete: dateComplete_value, id_type_org: typeOrg_value, criteriaAll: criteriaAll_value, id_scriteria_str: arrCriteriaId_str}
-        
-    }).done(function (response){
-        for (let i of JSON.parse(response)){
-            data.push(i);
-        }
-        
-        let table = document.createElement('table');
-    //    table.classList.add('table-striped');
-    //    table.classList.add('table-bordered');
+    let table = document.createElement('table');
+        table.id = "printMe"
         table.style = " border-spacing: 0; border: none";
 
         let trHead = document.createElement('tr');
-        let th1 = document.createElement('th');
-        // th1.innerHTML = 'Статус';
-        th1.style = "border: 1px solid black;width: 10%; text-align: center;line-height: normal;";
-
-        let th2 = document.createElement('th');
-        th2.innerHTML = 'Дата подачи';
-        th2.style = "border: 1px solid black;width: 10%; text-align: center;line-height: normal";
-
-        let th3 = document.createElement('th');
-        // th3.innerHTML = 'Тип организации';
-        th3.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
-
-
-        let trHead2 = document.createElement('tr');
 
 
         let th5 = document.createElement('th');
@@ -151,97 +202,47 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
         th6.innerHTML = 'количество';
         th6.style = "border: 1px solid black;width: 25%; text-align: center;line-height: normal";
 
-         trHead.appendChild(th1);
-         trHead.appendChild(th2);
-         trHead.appendChild(th3);
-
-         trHead2.appendChild(th5);
-         trHead2.appendChild(th6);
+         trHead.appendChild(th5);
+         trHead.appendChild(th6);
      
-       //  table.appendChild(trHead);
-         table.appendChild(trHead2);
+         table.appendChild(trHead);
+    
+    let data = new Array();
+
+    $.ajax({
+        url: "modules/report/report_first/getReportFirstYurLica.php",
+        method: "GET",
+        data: {
+            date_create_at: dataParametrs.date_create_at,
+            date_create_to: dataParametrs.date_create_to, 
+            oblastsId : dataParametrs.OblastsId,
+            statusId : dataParametrs.StatusId,
+            typeId : dataParametrs.TypeId,
+            criteriaAll : dataParametrs.criteriaAll,
+            criteriaIdStr: dataParametrs.criteriaIdStr,
+        }
+        
+    }).done(function (response){
+        for (let i of JSON.parse(response)){
+            data.push(i);
+        }
+
      
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
 
-         let type_criteria = 0;
+         let id_types_tables = 0;
            if(data.length > 0){
                 data.map((item,index) => {
-                    
-                    // let idx = index-1;
-                    // if(index === 0){
-                    //     idx=0;
-                    // }
-                    //
-                    // let strFlag = true;
-                    //
-                    // if(index>0){
-                    //     if ((data[idx].status) == item['status']) {
-                    //         if ((data[idx].date_send) == item['date_send']) {
-                    //             if ((data[idx].type_org_name) == item['type_org_name']) {
-                    //                 strFlag = false
-                    //             } else {
-                    //                 strFlag = true
-                    //             }
-                    //
-                    //         } else {
-                    //             strFlag = true
-                    //         }
-                    //     }else {
-                    //         strFlag = true
-                    //     }
-                    //
-                    // }
-                    //
-                    //
-                    // if(strFlag == true){
-                    //     let tr = document.createElement('tr');
-                    //
-                    //     let td1 = document.createElement('td');
-                    //     td1.innerHTML = item['status'];
-                    //
-                    //     let td2 = document.createElement('td');
-                    //     td2.innerHTML = (index != 0) ? (item['date_send'] != data[idx].date_send) ? item['date_send'] : ''  : item['date_send'];
-                    //
-                    //     let td3 = document.createElement('td');
-                    //     td3.innerHTML = item['type_org_name'] ;
-                    //
-                    //     if(index>0){
-                    //         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem; padding-top:0.7rem ";
-                    //         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
-                    //         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
-                    //
-                    //     } else {
-                    //         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem ";
-                    //         td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
-                    //         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem";
-                    //     }
-                    //
-                    //     // tr.appendChild(td1);
-                    //     //tr.appendChild(td2);
-                    //     // tr.appendChild(td3);
-                    //     tbody.appendChild(tr);
-                    //
-                    //     string = item['status'] + ' ' + item['date_send'] + ' ' +item['type_org_name'];
-                    //
-                    // }
-
-                    
-                    if(type_criteria !== Number(item['type_criteria'])){
+                                        
+                    if(id_types_tables !== Number(item['id_types_tables'])){
 
                       //  console.log('type_criteria', type_criteria);
                         let trNameBlok = document.createElement('tr');
                         let tdNameBlok = document.createElement('td');
 
-                        if(item['type_criteria'] == '1'){
-                            tdNameBlok.innerHTML = 'Общие критерии';
-                        }
-                        if(item['type_criteria'] == '2'){
-                            tdNameBlok.innerHTML = 'Профильные критерии';
-                        }
-                        if(item['type_criteria'] == '3'){
-                            tdNameBlok.innerHTML = 'Дополнительные критерии';
-                        }
+
+                        tdNameBlok.innerHTML = item['type_criteria'];
                         
                         tdNameBlok.setAttribute('colspan',3);
     
@@ -252,16 +253,11 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                         }
     
     
-                        type_criteria = Number(item['type_criteria']);
+                        id_types_tables = Number(item['id_types_tables']);
 
                         trNameBlok.appendChild(tdNameBlok);
                         tbody.appendChild(trNameBlok);
                     }
-
-                    
-
-              //     let type_criteria = item['name_criteria'];
-
                     
                     let tr2 = document.createElement('tr');
                     let td5 = document.createElement('td');
@@ -279,82 +275,76 @@ function reportYurLica(oblast_value,oblast_text, status_value,status_text, dateA
                     tbody.appendChild(tr2);
 
                 })
+           }else {
+        
+            let divForTable = document.getElementById(`divForTable`);
+            divForTable.innerHTML = '';
+            divForTable.innerHTML = 'По данным параметрам нет записей';
+    
            }
-
+        })
          let divReportTitle = document.createElement('div');
+         divReportTitle.id ='divReportTitle';
          divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
-
-        let select1 = document.getElementById("oblast");
-        let value1 = select1.options[select1.selectedIndex].innerText;
-
-        let select2 = document.getElementById("status");
-        let value2 = select2.options[select2.selectedIndex].innerText;
-
-        let date1 = document.getElementById("dateAccept");
-        let date2 = document.getElementById("dateComplete");
-        let typeO = document.getElementById("typeOrg");
-        let value3 = typeO.options[typeO.selectedIndex].innerText;
-
-        divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки`;
-        //: регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
-
-         let divReportUsl = document.createElement('div');
-         divReportUsl.id = 'divReportUsl';
-         divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
-         divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
-         divReportUsl.innerHTML = divReportUsl.textContent + '<br/>'
-
-         divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + status_text + '<br/>'
-           if(status_value!=1) {
-            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Период:'+'</b>' + ' с' + dateAccept_value + ' по ' + dateComplete_value + '<br/>'
-           }
-
-           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' + ' Область:'+'</b>' + oblast_text + '<br/>'
-           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Тип организации: '+'</b>' + typeOrg_text + '<br/>'
-           divReportUsl.innerHTML = divReportUsl.innerHTML +   '<b>' +' Таблицы критериев: '+'</b>' + criteriaAll_text;
-          
-           if((criteriaAll_value == 1) && (arrCriteriaStr.length>0)) {
-                let arr =  arrCriteriaStr.map(item=>{
-                    return item.criteria_name
-                })
-            divReportUsl.innerHTML = divReportUsl.innerHTML + '<br/>'+   '<b>' +' По критериям: '+'</b>' + arr;
-           }
+         divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки`;
+               
+         let divReportUsl = returnReportDivUls(dataParametrs)
            
 
-           divReportUsl.setAttribute('hidden','true');
-
-         
+        //   divReportUsl.setAttribute('hidden','true');
+      
             divForTable.appendChild(divReportTitle);         
             divForTable.appendChild(divReportUsl);         
             divForTable.appendChild(table); 
-         
 
-    });
 }
 
-function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text, dateAccept_value, dateComplete_value, typeOrg_value,typeOrg_text, criteriaAll_value,criteriaAll_text, arrCriteriaId_str){
+function returnReportDivUls(dataParametrs){
+    let divReportUsl = document.createElement('div');
+    divReportUsl.id = 'divReportUsl';
+    divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
+    divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
+    divReportUsl.innerHTML = divReportUsl.textContent + '<br/>'
+    divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +'Отчетный период:'+'</b>' + ' с ' + dataParametrs.date_create_at + ' по ' + dataParametrs.date_create_to + '<br/>'
+       let uslStatus = 'Все'; 
+    if(dataParametrs.StatusStr !== ''){
+       uslStatus = dataParametrs.StatusStr
+    }
+    divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + uslStatus + '<br/>'
+     
+    let uslOblast = 'Все'; 
+    if(dataParametrs.OblastStr !== ''){
+       uslOblast = dataParametrs.OblastStr
+    }
+      divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' + ' Область:'+'</b>' + uslOblast + '<br/>'
+     
+      let uslType = 'Все'; 
+      if(dataParametrs.TypeStr !== ''){
+         uslType = dataParametrs.TypeStr
+      }  
+      divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Тип организации: '+'</b>' + uslType + '<br/>'
+     
+      divReportUsl.innerHTML = divReportUsl.innerHTML +   '<b>' +' Таблицы критериев: '+'</b>' + dataParametrs.criteriaAllText;
+     
+      if((dataParametrs.criteriaAll == 1) && (dataParametrs.criteriaArr.length>0)) {
+           let arr =  dataParametrs.criteriaArr.map(item=>{
+               return item.criteria_name
+           })
+        
+       divReportUsl.innerHTML = divReportUsl.innerHTML + '<br/>'+   '<b>' +' По критериям: '+'</b>' + arr;
+        }
+
+    return divReportUsl    
+}
+
+
+
+function reportWithOutYurLica(dataParametrs){
     let divForTable = document.getElementById(`divForTable`);
     divForTable.innerHTML = '';
 
-    let data = new Array();
 
-    $.ajax({
-        url: "modules/report/report_first/getReportFirst.php",
-        method: "GET",
-        data: {id_oblast: oblast_value, id_status: status_value, dateAccept: dateAccept_value, 
-            dateComplete: dateComplete_value, id_type_org: typeOrg_value, criteriaAll: criteriaAll_value, id_scriteria_str: arrCriteriaId_str}
-        
-    }).done(function (response){
-        for (let i of JSON.parse(response)){
-            data.push(i);
-        }
-
-
-     //   console.log(data);
-
-         
-        
-        let table = document.createElement('table');
+    let table = document.createElement('table');
      //   table.classList.add('table-striped');
       //  table.classList.add('table-bordered');
         table.style = "border: none; border-spacing: 0;";
@@ -395,7 +385,28 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
          trHead2.appendChild(th5);
          trHead2.appendChild(th6);
          table.appendChild(trHead2);
-     
+
+
+    let data = new Array();
+
+    $.ajax({
+        url: "modules/report/report_first/getReportFirst.php",
+        method: "GET",
+        data: {
+            date_create_at: dataParametrs.date_create_at,
+            date_create_to: dataParametrs.date_create_to, 
+            oblastsId : dataParametrs.OblastsId,
+            statusId : dataParametrs.StatusId,
+            typeId : dataParametrs.TypeId,
+            criteriaAll : dataParametrs.criteriaAll,
+            criteriaIdStr: dataParametrs.criteriaIdStr,
+        }
+        
+    }).done(function (response){
+        for (let i of JSON.parse(response)){
+            data.push(i);
+        }
+
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
 
@@ -457,13 +468,13 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
 
                     if(index>0){
                         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem; padding-top:0.7rem ";
-                        td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
+                        td2.style = "padding: 0.2rem 0.75rem; min-width: 150px; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
                         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
                         td4.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; padding-top:0.7rem";
 
                     } else {
                         td1.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal;  font-style:italic; font-size: 1.2rem;  ";
-                        td2.style = "padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
+                        td2.style = "padding: 0.2rem 0.75rem; min-width: 150px; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                         td3.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                         td4.style = " padding: 0.2rem 0.75rem; text-align:center; line-height: normal; font-style:italic; font-size: 1.2rem; ";
                     }
@@ -528,6 +539,10 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                     tbody.appendChild(tr2);
 
                 })
+           } else {
+            let divForTable = document.getElementById(`divForTable`);
+            divForTable.innerHTML = '';
+            divForTable.innerHTML = 'По данным параметрам нет записей';
            }
 
            itogOz = 0;
@@ -545,7 +560,7 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
                                 itogOz ++
                             }
                         })
-           }
+           } 
 
            let trItogOZ = document.createElement('tr');
            let tdItog = document.createElement('td');
@@ -577,74 +592,47 @@ function reportWithOutYurLica(oblast_value,oblast_text, status_value,status_text
            tbody.appendChild(trItogCrit);
 
 
-         let divReportTitle = document.createElement('div');
+         
+
+    });
+
+        let divReportTitle = document.createElement('div');
+        divReportTitle.id='divReportTitle'
          divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
-        let select1 = document.getElementById("oblast");
-        let value1 = select1.options[select1.selectedIndex].innerText;
-
-        let select2 = document.getElementById("status");
-        let value2 = select2.options[select2.selectedIndex].innerText;
-
-        let date1 = document.getElementById("dateAccept");
-        let date2 = document.getElementById("dateComplete");
-        let typeO = document.getElementById("typeOrg");
-        let value3 = typeO.options[typeO.selectedIndex].innerText;
-
         divReportTitle.textContent = `Структура организаций здравоохранения по результатам самооценки`;
-         // : регион "` + value1 +`", со статусом "` + value2 + `", в период с `+  new Date(date1.value).toLocaleDateString() +` по ` +  new Date(date2.value).toLocaleDateString() +`; тип организации "` + value3 +`"`;
-
-
-        let divReportUsl = document.createElement('div');
-         divReportUsl.id = 'divReportUsl';
-         divReportUsl.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:1.2rem; line-height: normal;";
-         divReportUsl.textContent = '<b>' + `Условия отбора:`+'</b>';
-         divReportUsl.innerHTML = divReportUsl.textContent + '<br/>'
-
-         divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Статус: '+'</b>' + status_text + '<br/>'
-
-           if(status_value!=1) {
-            divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Период:'+'</b>' + ' с' + dateAccept_value + ' по ' + dateComplete_value + '<br/>'
-           }
-
-           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' + ' Область:'+'</b>' + oblast_text + '<br/>'
-           divReportUsl.innerHTML = divReportUsl.innerHTML + '<b>' +' Тип организации: '+'</b>' + typeOrg_text + '<br/>'
-           
-           divReportUsl.innerHTML = divReportUsl.innerHTML +   '<b>' +' Таблицы критериев: '+'</b>' + criteriaAll_text;
-          
-           if((criteriaAll_value == 1) && (arrCriteriaStr.length>0)) {
-                let arr =  arrCriteriaStr.map(item=>{
-                    return item.criteria_name
-                })
-            divReportUsl.innerHTML = divReportUsl.innerHTML + '<br/>'+   '<b>' +' По критериям: '+'</b>' + arr;
-           }
-           
-
-           divReportUsl.setAttribute('hidden','true');
+                 
+           let divReportUsl = returnReportDivUls(dataParametrs)
+         //  divReportUsl.setAttribute('hidden','true');
 
          
             divForTable.appendChild(divReportTitle);         
             divForTable.appendChild(divReportUsl);         
             divForTable.appendChild(table); 
-
-    });
 }
 
+
+
 function chengeAllCrit(value){
-    let divCrit1 = document.getElementById(`divCrit1`);  
-    let divCrit2 = document.getElementById(`divCrit2`);  
-    let divCrit3 = document.getElementById(`divCrit3`);  
+   let divCrit1 = document.getElementById(`divCrit1`);  
+   let divCrit2 = document.getElementById(`divCrit2`);  
+   let divCrit3 = document.getElementById(`divCrit3`);  
+    let divCrit4 = document.getElementById(`divCrit4`);  
+    
     
     if(value==0){
       
-        divCrit1.setAttribute('hidden','true');
-        divCrit2.setAttribute('hidden','true');
-        divCrit3.setAttribute('hidden','true');
+       divCrit1.setAttribute('hidden','true');
+       divCrit2.setAttribute('hidden','true');
+       divCrit3.setAttribute('hidden','true');
+        divCrit4.setAttribute('hidden','true');  
+    
     
     } else {
        
-            divCrit1.removeAttribute('hidden');
-            divCrit2.removeAttribute('hidden');
-            divCrit3.removeAttribute('hidden');
+           divCrit1.removeAttribute('hidden');
+           divCrit2.removeAttribute('hidden');
+           divCrit3.removeAttribute('hidden');
+            divCrit4.removeAttribute('hidden');
            
     }
    
@@ -703,10 +691,45 @@ function disablePrint(){
 
 }
 
+
+
+function printReport2(data){
+
+    let printMe = document.getElementById('divForTable');  
+    let usl = document.getElementById('divReportTitle'); 
+    usl.style.textAlign = 'left' 
+
+    let dateNow = new Date;
+    tableToExcel(printMe,'Структура организаций здравоохранения по результатам самооценки', `Структура_организаций_здравоохранения_по_результатам_самооценки_${new Date().toLocaleDateString()}.xls`)
+    usl.style.textAlign = 'center' 
+}
+
+var tableToExcel = (function() {
+var uri = 'data:application/vnd.ms-excel;base64,'
+, template = '<html  ><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+, base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+, format = function(s, c) { 	    	 
+    return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) 
+}
+, downloadURI = function(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+}
+
+return function(table, name, fileName) {
+    if (!table.nodeType) table = document.getElementById(table)
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+    var resuri = uri + base64(format(template, ctx))
+    downloadURI(resuri, fileName);
+}
+})();  
+
 let ui_reports = document.getElementById("ui-reports");
 ui_reports.classList.add("show");
 let itemMenu = document.querySelector("[href=\"#ui-reports\"]");
 itemMenu.classList.add("collapsed");
 itemMenu.setAttribute("aria-expanded", "true");
 let itemA = document.querySelector("[href=\"/index.php?report_first\"]");
-itemA.style = "color: #39ff39; padding: 0rem 0rem 0rem 2rem;";
+itemA.style = "color: #39ff39; padding: 0rem 0rem 0rem 2rem;"

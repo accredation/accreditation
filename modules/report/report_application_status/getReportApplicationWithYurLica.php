@@ -2,55 +2,110 @@
 
 include "../../../ajax/connection.php";
 
-$id_oblast = $_GET['id_oblast'];
-$id_status = $_GET['id_status'];
-$dateAccept = $_GET['dateAccept'];
-$dateComplete = $_GET['dateComplete'];
-$id_type_org = $_GET['id_type_org'];
+$date_create_at = $_GET['date_create_at'];
+$date_create_to = $_GET['date_create_to'];
+$oblastsIdStr = $_GET['oblastsId'];
+$statusIdStr = $_GET['statusId'];
+$typeIdStr = $_GET['typeId'];
+
 
 $date = date('d-m-y');
 
-if(empty($dateAccept)){
-    $dateAccept = $date;
-} /*else {
-    $dateAccept = "'$dateAccept'";
+if(empty($date_create_at)){
+    $date_create_at = $date;
+} 
+
+if(empty($date_create_to)){
+    $date_create_to = $date;
+} 
+
+/////////////////////////////////////////////////////////////////
+//////////////// формирование условия по области
+$oblastsIdStr2 = explode(',', $oblastsIdStr);
+$oblastsIdStr3 = '';
+
+foreach($oblastsIdStr2 as $str1){
+    $oblastsIdStr3 .= '(' . 'uz.oblast' . '=' . $str1 . ') or';
+    //echo $str . "<br />";
 }
-*/
 
-// echo "\"$date_accept\"";
+if($oblastsIdStr === ''){
+    $oblastsIdStr3 = '0 = 0';
+} else {
+$oblastsIdStr3 = substr($oblastsIdStr3,0,-2);
+$oblastsIdStr3 = '(' . $oblastsIdStr3 . ')';
+}
 
-if(empty($dateComplete)){
-    $dateComplete = $date;
 
-} /*else {
-    $dateComplete = "'$dateComplete'";
-}*/
 
+//////////////////////////////////////////////////////////////
+///////////// условие по статусу
+$statusIdStr2 = explode(',', $statusIdStr);
+$statusIdStr3 = '';
+foreach($statusIdStr2 as $str2){
+    if ($str2 == '1'){
+        $statusIdStr3 .= '(' . 'app.id_status' . '=' . $str2 . ') or';
+    }
+    if($str2 !== '1'){
+        $statusIdStr3 .= "(" . "app.id_status" . "=" . $str2 . " and (app.date_send >= '".$date_create_at."' and app.date_send <= '".$date_create_to."')) or";
+    }
+    
+    //echo $str . "<br />";
+}
+
+if($statusIdStr === ''){
+    $statusIdStr3 = "(app.id_status = 1 or (app.id_status <> 1 and (app.date_send >= '".$date_create_at."' and app.date_send <= '".$date_create_to."')))";
+} else {
+$statusIdStr3 = substr($statusIdStr3,0,-2);
+$statusIdStr3 = '(' . $statusIdStr3 . ')';
+} 
  
 
+/////////////////////////////////////////////////////////////
+//////////// условие по типу ОЗ
+$typeIdStr2 = explode(',', $typeIdStr);
+$typeIdStr3 = '';
 
-$query = "SELECT REPLACE(r.name, 'Аккредитация', '')  as oblast_name, CONCAT( a.naim, ' №', a.id_application) as naim, 
-st.name_status, a.date_send, sto.type_name as type_org , count(m.id_criteria) as crit_all, count(rm.field4>0) as crit_otm
-FROM accreditation.applications a
-left outer join accreditation.users u on a.id_user=u.id_user
-left outer join uz uz on uz.id_uz=u.id_uz
-left outer join accreditation.roles r on u.oblast=r.id_role
-left outer join accreditation.status st on a.id_status=st.id_status
+foreach($typeIdStr2 as $str3){
+    $typeIdStr3 .= '(' . 'uz.id_type' . '=' . $str3 . ') or';
+    //echo $str . "<br />";
+}
+
+if($typeIdStr === ''){
+    $typeIdStr3 = '0 = 0';
+} else {
+$typeIdStr3 = substr($typeIdStr3,0,-2);
+$typeIdStr3 = '(' . $typeIdStr3 . ')';
+}
+
+
+
+$query = "
+SELECT so.oblast as oblast_name, 
+    CONCAT( app.naim, ' №', app.id_application) as naim, app.id_application, 
+    st.name_status_report as name_status , app.date_send, sto.type_name as type_org, 
+  count(dep.id_list_tables_criteria) as crit_all,
+  count(zac.field3>0) as crit_otm
+  
+from accreditation.applications app
+left outer join accreditation.users u on app.id_user=u.id_user
+    left outer join accreditation.uz uz on uz.id_uz=u.id_uz
+    left outer join accreditation.spr_oblast so on uz.oblast=so.id_oblast      
+left outer join accreditation.status st on app.id_status=st.id_status
+left outer join accreditation.subvision s on app.id_application=s.id_application
+left outer join accreditation.z_department dep on s.id_subvision=dep.id_subvision
+left outer join accreditation.z_list_tables_criteria ltc on dep.id_list_tables_criteria=ltc.id_list_tables_criteria
+left outer join accreditation.z_types_tables tt on ltc.id_types_tables = tt.id_types_tables
 left outer join accreditation.spr_type_organization sto on uz.id_type=sto.id_type
-left outer join accreditation.subvision s on a.id_application=s.id_application
-left outer join accreditation.rating_criteria rc on s.id_subvision=rc.id_subvision
-left outer join accreditation.mark m on rc.id_criteria =m.id_criteria
-left outer join accreditation.mark_rating rm on m.id_mark=rm.id_mark and s.id_subvision=rm.id_subvision
-where u.id_role=3 
-    
-    and (('$id_type_org' = 0) or ('$id_type_org'<>0 and uz.id_type='$id_type_org' ))
-    and (('$id_oblast' = 0) or ('$id_oblast'<>0 and uz.oblast='$id_oblast' ))
-    and (('$id_status' = 0) or ('$id_status'<>0 and a.id_status='$id_status' ))
-    and ((('$id_status' <> 1) and ((a.date_send is null) or (a.date_send is not null and (a.date_send >= '$dateAccept' and a.date_send <= '$dateComplete'))))
-    or (('$id_status' = 1) ))
+left outer join accreditation.z_answer_criteria zac on dep.id_department=zac.id_department
+where app.id_status<>8
+and $statusIdStr3
+and $oblastsIdStr3
+and $typeIdStr3
 
-group by oblast_name, CONCAT( a.naim, ' №', a.id_application), st.name_status, a.date_send, type_org  
-order by oblast_name, st.name_status, a.date_send, type_org, CONCAT( a.naim, ' №', a.id_application)
+group by oblast_name,  CONCAT( app.naim, ' №', app.id_application), app.id_application,  name_status, app.date_send, type_org  
+order by oblast_name, name_status, app.date_send, type_org,  CONCAT( app.naim, ' №', app.id_application)
+
 ";
 
 // ('$id_scriteria_str'='' or ('$id_scriteria_str'<>'' and 

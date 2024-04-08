@@ -1,79 +1,236 @@
 <link rel="stylesheet" href="modules/report/report_analiz_ocenka/report_analiz_ocenka.css">
+<script src="modules/component/bootstrap.bundle.js"></script>
+
 <?php if(isset($_COOKIE['login'])){?>
     <div class="content-wrapper">
 
-            <h2 class="text-dark font-weight-bold mb-2">Анализ результатов медицинской аккредитации  </h2>
+            <h2 class="text-dark font-weight-bold mb-2 ">Анализ результатов медицинской аккредитации  </h2>
+
             <div class="row mb-2">
-                <div class="col-sm-6 col-md-3 col-lg-3 mb-2" style="font-size: 1rem; line-height: 3rem;">
-                        <span class="mr-2">Выберите область</span>
-                        
-                        <select id="oblast" class="form-select-my" onclick="disablePrint()">
-                            <option value="0">Все</option>
-                            <option value="4">Минздрав</option>
-                            <option value="5">Минск</option>
-                            <option value="6">Минская область</option>
-                            <option value="7">Гомель</option>
-                            <option value="8">Могилев</option>
-                            <option value="9">Витебск</option>
-                            <option value="10">Гродно</option>
-                            <option value="11">Брест</option>          
-                        </select>
+                <div class="col-sm-6 col-md-5 col-lg-5">   
+
+                <div class="form-group mr-3 mb-0" style="display: inline-flex;">
+                    <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Дата подачи заявления с</label>
+                    <input type="date" class="form-control"  style="font-size: 1rem;" id="dateAccept" onclick="disablePrint()">
+                </div>
+
+                <div class="form-group  mb-0" style="display: inline-flex;">
+                    <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">по</label>
+                    <input type="date" class="form-control" style="font-size: 1rem;" id="dateComplete" onclick="disablePrint()">
+                </div>
+
 
                 </div>
 
-                <div class="col-sm-6 col-md-3 col-lg-3 mb-2" style="font-size: 1rem; line-height: 3rem;">
+            </div>
+
+
+
+            <div class="row mb-2" style="padding-left: 9px;">
+                
+                <div class=" mb-2 mr-5" style="font-size: 1rem; line-height: 3rem;">
+                    <div class="d-flex ">
+                        <span class="mr-2" >Область</span>
+                        <div class="btn-group" style="color: black;">
+
+                            <div data-bs-toggle="dropdown"  data-bs-auto-close="outside"
+                                style="min-width: 300px;
+                                display: flex;" >
+                            <input style="line-height: 2.4rem;       
+                                    border: 1px solid rgba(151, 151, 151, 0.3);
+                                    border-radius: 2px;
+                                    min-width: 300px;
+                                    padding: 0 1.375rem;
+                                    " 
+                                    
+                                    readonly
+                                    value="Все"
+                                    id="divOblastStr"
+                                    />
+                                
+                            <button class="btn btn-success dropdown-toggle" type="button"  aria-expanded="false">
+                                
+                            </button>
+                            </div>
+
+                            <ul class="dropdown-menu" style="min-width: 300px">
+                                <?php
+                                    $query = "SELECT id_oblast, oblast
+                                    FROM accreditation.spr_oblast
+                                    where id_oblast > 0
+                                    order by order_num";
+                                    $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+
+                                        foreach ($data as $app) {
+                                ?>
+                                        <li  >    
+                                            <div class="d-flex ml-2 mr-2 mb-2">
+                                                <div class="d-flex oblast" 
+                                                     id="<?= $app['id_oblast']?>"
+                                                >
+                                                    <input class="dropdown-item"
+                                                        style="vertical-align: top; margin-right: 0.5rem;" 
+                                                        type="checkbox" 
+                                                        id="checkbox_id_oblast_<?= $app['id_oblast']?>"     
+                                                        onclick="CheckCheckBoxElement(`checkBox`,'oblast_<?= $app['id_oblast']?>', 'divOblastStr', 'oblast')"                      
+                                                    />
+                                                                
+                                                    <span
+                                                        style="line-height: normal; cursor: pointer;min-width: max-content" 
+                                                        id="span_id_oblast_<?= $app['id_oblast']?>"    
+                                                        onclick="CheckCheckBoxElement(`span`,'oblast_<?= $app['id_oblast']?>', 'divOblastStr', 'oblast')"   
+                                                        ><?= $app['oblast']?>
+                                                    </span>
+                                                </div>            
+                                            </div>
+                                        </li>                                         
+                                <?php }?>
+
+                                
+                            
+                            </ul>
+                        </div>  
+                    </div>
+                </div>
+
+
+
+                <div class="mb-2 mr-5 " style="font-size: 1rem; line-height: 3rem;">
+                    <div class="d-flex ">
                         <span class="mr-2">Статус</span>
-                        
-                        <select id='status' class="form-select-my" onclick="disablePrint()">
-                            <option value="0">Все</option>
-                            <option value="1">Самооценка</option>
-                            <option value="2">Новое</option>
-                            <option value="3">На рассмотрении</option>
-                            <option value="4">Завершена оценка</option>
-                            <option value="5">На доработке</option>
-                            <option value="6">Решение совета</option>
-                            <option value="7">Окончательное решение совета</option>
-                        </select>
+                        <div class="btn-group" style="color: black;">
 
+                            <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                style="min-width: 300px;
+                                display: flex;" >
+                            <input style="line-height: 2.4rem;       
+                                    border: 1px solid rgba(151, 151, 151, 0.3);
+                                    border-radius: 2px;
+                                    min-width: 300px;
+                                    padding: 0 1.375rem;
+                                    " 
+                                    
+                                    readonly
+                                    value="Все"
+                                    id="divStatusStr"
+                                    />
+                                
+                            <button class="btn btn-success dropdown-toggle" type="button"  aria-expanded="false">
+                                
+                            </button>
+                            </div>
+
+                            <ul class="dropdown-menu" style="min-width: 300px">
+                                <?php
+                                    $query = "SELECT id_status, name_status_report
+                                    FROM accreditation.status
+                                    where id_status <> 8
+                                    ";
+                                    $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+
+                                        foreach ($data as $app) {
+                                ?>
+                                        <li >    
+                                            <div class="d-flex ml-2 mr-2 mb-2">
+                                                <div class="d-flex status" 
+                                                id="<?= $app['id_status']?>">
+                                                    <input class="dropdown-item" 
+                                                        style="vertical-align: top; margin-right: 0.5rem;" 
+                                                        type="checkbox" 
+                                                        id="checkbox_id_status_<?= $app['id_status']?>"   
+                                                        onclick="CheckCheckBoxElement(`checkBox`,'status_<?= $app['id_status']?>', 'divStatusStr', 'status')"                        
+                                                    />
+                                                                
+                                                    <span 
+                                                        style="line-height: normal; cursor: pointer;min-width: max-content" 
+                                                        id="span_id_status_<?= $app['id_status']?>" 
+                                                        onclick="CheckCheckBoxElement(`span`,'status_<?= $app['id_status']?>', 'divStatusStr', 'status')"        
+                                                        ><?= $app['name_status_report']?>
+                                                    </span>
+                                                </div>            
+                                            </div>
+                                        </li>                                         
+                                <?php }?>
+
+                                
+                            
+                            </ul>
+                        </div>  
+                    </div>
                 </div>
 
-                <div class="col-sm-6 col-md-5 col-lg-5 mb-2">   
 
-                        <div class="form-group mr-3" style="display: inline-flex;">
-                            <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Дата подачи заявления с</label>
-                            <input type="date" class="form-control"  style="font-size: 1rem;" id="dateAccept" onclick="disablePrint()">
-                        </div>
-                        
-                        <div class="form-group" style="display: inline-flex;">
-                            <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">по</label>
-                            <input type="date" class="form-control" style="font-size: 1rem;" id="dateComplete" onclick="disablePrint()">
-                        </div>
-                    
-                    
-                </div>
 
-            
-
-                <div class="col-sm-6 col-md-5 col-lg-5 mb-2" style="font-size: 1rem; line-height: 3rem;">
+                <div class=" mb-2 mr-5 " style="font-size: 1rem; line-height: 3rem;">
+                    <div class="d-flex ">
                         <span class="mr-2">Тип организации</span>
-                        
-                        <select id="typeOrg" class="form-select-my" onclick="disablePrint()">
-                            <option value="0">Все</option>  
-                            <?php
-                                $query = "SELECT id_type, type_name
-                                            FROM spr_type_organization";
-                                $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                    for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+                        <div class="btn-group" style="color: black;">
 
-                                    foreach ($data as $app) {
-                                    //  $id_otvetstvennogo = $app['id_otvetstvennogo'];
+                            <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                style="min-width: 300px;
+                                display: flex;" >
+                            <input style="line-height: 2.4rem;       
+                                    border: 1px solid rgba(151, 151, 151, 0.3);
+                                    border-radius: 2px;
+                                    min-width: 300px;
+                                    padding: 0 1.375rem;
+                                    " 
+                                    
+                                    readonly
+                                    value="Все"
+                                    id="divTypeStr"
+                                    />
+                                
+                            <button class="btn btn-success dropdown-toggle" type="button"  aria-expanded="false">
+                                
+                            </button>
+                            </div>
 
-                            ?>
-                                    <option value="<?= $app['id_type']?>"><?= $app['type_name']?></option>                                               
-                            <?php }?>
-                        </select>
+                            <ul class="dropdown-menu" style="min-width: 300px">
+                                <?php
+                                    $query = "SELECT id_type, type_name
+                                    FROM accreditation.spr_type_organization
+                                    ";
+                                    $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
+                                        foreach ($data as $app) {
+                                ?>
+                                        <li >    
+                                            <div class="d-flex ml-2 mr-2 mb-2">
+                                                <div class="d-flex type"
+                                                    id="<?= $app['id_type']?>">
+                                                    <input class="dropdown-item" 
+                                                        style="vertical-align: top; margin-right: 0.5rem;" 
+                                                        type="checkbox" 
+                                                        id="checkbox_id_type_<?= $app['id_type']?>"   
+                                                        onclick="CheckCheckBoxElement(`checkBox`,'type_<?= $app['id_type']?>', 'divTypeStr', 'type')"                          
+                                                    />
+                                                                
+                                                    <span 
+                                                        style="line-height: normal; cursor: pointer;min-width: max-content" 
+                                                        id="span_id_type_<?= $app['id_type']?>"   
+                                                        onclick="CheckCheckBoxElement(`span`,'type_<?= $app['id_type']?>', 'divTypeStr', 'type')"      
+                                                        ><?= $app['type_name']?>
+                                                    </span>
+                                                </div>            
+                                            </div>
+                                        </li>                                         
+                                <?php }?>
+
+                                
+                            
+                            </ul>
+                        </div>  
+                    </div>
                 </div>
+
+
+            </div>
+                
+            <div class="row">   
 
                 <div class="col-sm-6 col-md-5 col-lg-5 mb-2" style="font-size: 1rem; line-height: 3rem;">
                         <span class="mr-2">Таблицы критериев</span>
@@ -88,121 +245,74 @@
 
                         <div class="form-group mr-3" style="display: inline-flex;">
                             <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Отдельно по юр. лицам</label>
-                            <input type="checkbox" class="form-control"  style="font-size: 1rem;" id="flag_yur_lica" onclick="disablePrint()">
+                            <input type="checkbox" class="form-control"  style="font-size: 1rem;" id="flag_yur_lica" >
                         </div>                   
                     
                 </div>
                 
             </div>
                 
-            <div class="row">
-                <div class="col-sm-6 col-md-3 col-lg-3 mb-2 mr-4" style="font-size: 1rem; line-height: 3rem;"  id="divCrit1" hidden>
-                        <div class=""  >Общие  критериев</div>
-                        <div  style="max-height: 300px; overflow: auto; " >
-                                <?php
-                                    $query = "SELECT id_criteria, CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria
-                                                FROM criteria c
-                                                left outer join conditions con on c.conditions_id=con.conditions_id
-                                                where c.type_criteria=1
-                                                order by c.name
-                                                ";
+            <div class="row d-flex"  >
+                            <?php
+                                    $query = "SELECT id_types_tables, name
+                                    FROM accreditation.z_types_tables
+                                    ";
                                     $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
-
+                                        
                                         foreach ($data as $app) {
-                                                                                
-                                ?>
-                                         <div class="d-flex mb-2" id="<?= $app['id_criteria']?>" >
+                                        
+                            ?>
+
+                                    <div class=" mb-2 mr-4" style="font-size: 1rem; line-height: 3rem; max-width: 24%;
+                                        min-width: 360px;"  id="divCrit<?= $app['id_types_tables']?>" hidden>
+                                        <div class=""  style='line-height: normal;
+                                        text-align: left;'><?= $app['name']?>  </div>
+                                        <hr>
+                                        <div class=" " style="max-height: 300px; overflow: auto; " >
+
+                                              <?php
+                                                        $id_types_tables =  $app['id_types_tables'];
+                                                        $query1 = "SELECT id_list_tables_criteria, name as name_criteria
+                                                        FROM accreditation.z_list_tables_criteria
+                                                        where id_types_tables= '$id_types_tables'
+                                                        order by level, name
+                                                        ";
+                                                        $result1=mysqli_query($con, $query1) or die ( mysqli_error($con));
+                                                            for ($data1 = []; $row1= mysqli_fetch_assoc($result1); $data1[] = $row1);
+                                                            
+                                                            foreach ($data1 as $app1) {
+                                                            
+                                                ?>
+
+                                                    <div class="d-flex mb-2" id="<?= $app1['id_list_tables_criteria']?>" >
+                                                        
+                                                        <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                                                type="checkbox" 
+                                                                id="checkbox_criteria_<?= $app1['id_list_tables_criteria']?>" 
+                                                                onclick="CheckCriteria(`checkBox`,'<?= $app1['id_list_tables_criteria']?>' )"
+                                                        />
+                                                        <span 
+                                                            style="line-height: normal; cursor: pointer;"
+                                                            id="span_criteria_<?= $app1['id_list_tables_criteria']?>"
+                                                            onclick="CheckCriteria(`span`,'<?= $app1['id_list_tables_criteria']?>')"
+                                                            ><?= $app1['name_criteria']?></span>
+                                                    </div>   
+                                                                
+
+                                                                                    
+                                                    <?php }?>  
+
+                                        </div>    
+                                    </div>            
                                             
-                                            <input  style="vertical-align: top; margin-right: 0.5rem;" 
-                                                    type="checkbox" 
-                                                    id="checkbox_criteria_<?= $app['id_criteria']?>" 
-                                                    onclick="CheckCriteria(`checkBox`,'<?= $app['id_criteria']?>' )"
-                                            />
-                                            <span style="line-height: normal; cursor: pointer;"
-                                            id="span_criteria_<?= $app['id_criteria']?>"
-                                            onclick="CheckCriteria(`span`,'<?= $app['id_criteria']?>')"
-                                            ><?= $app['name_criteria']?></span>
-                                        </div>
-                                             
+
+                                                                
                                 <?php }?>
-                        </div>
-
-                </div>
-
-                <div class="col-sm-6 col-md-3 col-lg-3 mb-2 mr-4" style="font-size: 1rem; line-height: 3rem;" id="divCrit2" hidden='true'>
-                        
-                        <div class="mr-2" >Профильные  критериев</div>
-                        <div  style="max-height: 300px; overflow: auto" >
-                                <?php
-                                    $query = "SELECT id_criteria, CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria
-                                                FROM criteria c
-                                                left outer join conditions con on c.conditions_id=con.conditions_id
-                                                where c.type_criteria=2
-                                                order by c.name
-                                                ";
-                                    $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
-
-                                        foreach ($data as $app) {
-                                        //  $id_otvetstvennogo = $app['id_otvetstvennogo'];
-
-                                ?>
-                                         <div class="d-flex mb-2" id="<?= $app['id_criteria']?>" >
-                                            
-                                            <input  style="vertical-align: top; margin-right: 0.5rem;" 
-                                                    type="checkbox" 
-                                                    id="checkbox_criteria_<?= $app['id_criteria']?>" 
-                                                    onclick="CheckCriteria(`checkBox`,'<?= $app['id_criteria']?>' )"
-                                            />
-                                            <span 
-                                                style="line-height: normal; cursor: pointer;"
-                                                id="span_criteria_<?= $app['id_criteria']?>"
-                                                onclick="CheckCriteria(`span`,'<?= $app['id_criteria']?>')"
-                                            ><?= $app['name_criteria']?></span>
-                                        </div>
-                                             
-                                <?php }?>
-                        </div>
 
 
-                </div>
 
-                <div class="col-sm-6 col-md-3 col-lg-3 mb-2 mr-2" style="font-size: 1rem; line-height: 3rem;" id="divCrit3" hidden='true'>
-                                    
-                        <div class="mr-2"  >Дополнительные  критериев</div>
-                        <div  style="max-height: 300px; overflow: auto" >
-                                <?php
-                                    $query = "SELECT id_criteria, CONCAT(c.name, IFNUll(CONCAT(' (', con.conditions,')'),'') ) as name_criteria
-                                                FROM criteria c
-                                                left outer join conditions con on c.conditions_id=con.conditions_id
-                                                where c.type_criteria=3
-                                                order by c.name
-                                                ";
-                                    $result=mysqli_query($con, $query) or die ( mysqli_error($con));
-                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
-                                        foreach ($data as $app) {
-
-                                ?>
-                                         <div class="d-flex mb-2" id="<?= $app['id_criteria']?>" >
-                                            
-                                            <input  style="vertical-align: top; margin-right: 0.5rem;" 
-                                                    type="checkbox" 
-                                                    id="checkbox_criteria_<?= $app['id_criteria']?>" 
-                                                    onclick="CheckCriteria(`checkBox`,'<?= $app['id_criteria']?>' )"
-                                            />
-                                            <span 
-                                                style="line-height: normal; cursor: pointer;"
-                                                id="span_criteria_<?= $app['id_criteria']?>"
-                                                onclick="CheckCriteria(`span`,'<?= $app['id_criteria']?>')"
-                                                ><?= $app['name_criteria']?></span>
-                                        </div>
-                                             
-                                <?php }?>
-                        </div>
-
-                </div>
                 
 
             </div>
@@ -219,8 +329,8 @@
                         id="btnReportPrint"
                         class="btn btn-success btn-fw"
                         disabled
-                        onclick="printReport()"
-                    >Печатать отчета </button>
+                        onclick="printReport2()"
+                    >Экспорт в xls</button>
                 </div>
                 
             </div>
