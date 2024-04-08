@@ -5,7 +5,7 @@
     
     <div class="content-wrapper">
 
-            <h2 class="text-dark font-weight-bold mb-4" style='text-align: center'>Контроль сроков подачи заявлений по графику</h2>
+            <h2 class="text-dark font-weight-bold mb-4" style='text-align: left'>Контроль сроков подачи заявлений по графику</h2>
 
 
             <div >

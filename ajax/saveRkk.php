@@ -78,7 +78,7 @@ po_n = '$po_n',
  checkboxValueGuzo = '$checkboxValue'
 WHERE id_application = '$id_application';");
 
-        mysqli_query($con, "update applications SET
+        mysqli_query($con, "update rkk SET
  checkboxValueGuzo = '$checkboxValue'
 WHERE id_application = '$id_application';");
     } else {
@@ -93,7 +93,7 @@ WHERE id_application = '$id_application';");
                                     '$resultat','$svidetelstvo','$formatted_date_svidetelstvo','$count_svidetelstvo','$info_uved',
                                     '$count_medacr','$getter','$delo','$formatted_date_delo', '$dop_info', '$delo_listov', '$po_n' , '$checkboxValue' )");
 
-        mysqli_query($con, "update applications SET
+        mysqli_query($con, "update rkk SET
  checkboxValueGuzo = '$checkboxValue'
 WHERE id_application = '$id_application';");
     }

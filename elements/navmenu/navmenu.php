@@ -59,19 +59,19 @@
                   if($row['id_role'] == 2)
                   {
                   ?>
-                      <li class="nav-item" id="nav7">
-                          <a class="nav-link" href="/index.php?tasks_accred" >
-                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-                              <span class="menu-title">Задачи</span>
-                          </a>
-                      </li>
+<!--                      <li class="nav-item" id="nav7">-->
+<!--                          <a class="nav-link" href="/index.php?tasks_accred" >-->
+<!--                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>-->
+<!--                              <span class="menu-title">Задачи</span>-->
+<!--                          </a>-->
+<!--                      </li>-->
 
-                      <li class="nav-item" id="nav77">
-                          <a class="nav-link"  href="/index.php?naznachenie_vrachei" >
-                              <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>
-                              <span class="menu-title">Врачи-эксперты</span>
-                          </a>
-                      </li>
+<!--                      <li class="nav-item" id="nav77">-->
+<!--                          <a class="nav-link"  href="/index.php?naznachenie_vrachei" >-->
+<!--                              <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>-->
+<!--                              <span class="menu-title">Врачи-эксперты</span>-->
+<!--                          </a>-->
+<!--                      </li>-->
 
                       <li class="nav-item" id="nav9">
                           <a class="nav-link collapsed" data-toggle="collapse" href="#ui-reports" aria-controls="ui-reports">
@@ -99,12 +99,12 @@
                                       </a>
                                   </li>
 
-                                  <li class="nav-item" style="height: 100%">
-                                      <a href="/index.php?report_doctor_work" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
-
-                                          <p style="white-space: normal; line-height: 1">Нагрузка врачей-экспертов</p>
-                                      </a>
-                                  </li>
+<!--                                  <li class="nav-item" style="height: 100%">-->
+<!--                                      <a href="/index.php?report_doctor_work" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">-->
+<!---->
+<!--                                          <p style="white-space: normal; line-height: 1">Нагрузка врачей-экспертов</p>-->
+<!--                                      </a>-->
+<!--                                  </li>-->
 
                                   <li class="nav-item" style="height: 100%">
                                       <a href="/index.php?report_application_status" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
@@ -248,12 +248,12 @@
                     </a>
                 </li>
 
-                <li class="nav-item" id="nav77">
-                    <a class="nav-link"  href="/index.php?naznachenie_vrachei" >
-                        <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>
-                        <span class="menu-title">Врачи-эксперты</span>
-                    </a>
-                </li>
+<!--                <li class="nav-item" id="nav77">-->
+<!--                    <a class="nav-link"  href="/index.php?naznachenie_vrachei" >-->
+<!--                        <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>-->
+<!--                        <span class="menu-title">Врачи-эксперты</span>-->
+<!--                    </a>-->
+<!--                </li>-->
 
 
 

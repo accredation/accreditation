@@ -157,7 +157,7 @@
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where  '$id_role'=14 and (id_status = 1)";
+                                where  '$id_role'=12 and (id_status = 1)";
 
                                         }else {
                                              $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id

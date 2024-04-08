@@ -3700,7 +3700,7 @@ $("#btnOk").on("click", () => {
             let objects = JSON.parse(response);
             if (objects.length === 0) {
 
-                let divReport = document.getElementById("divReport");
+                let divReport = document.getElementById("filesContainer");
                 let a = divReport.getElementsByTagName("a")[0];
                 if (a) {
                     $.ajax({
