@@ -35,6 +35,14 @@ $checkOblastsId_ = $_GET['checkOblastsId'];
 $otz_ = $_GET['otz'];
 $otkaz_ = $_GET['otkaz'];
 
+$checkbox_guzo_1_ = $_GET['checkbox_guzo_1'];
+$checkbox_guzo_2_ = $_GET['checkbox_guzo_2'];
+
+$search_check = $_GET['search_check'];
+$radio_search_1 = $_GET['radio_search_1'];
+$radio_search_2 = $_GET['radio_search_2'];
+$text_search = $_GET['text_search'];
+
 
 
 $date = date('d-m-y');
@@ -107,6 +115,25 @@ $adm = '';
  }
 
 
+ $guzo = '';
+
+ if($checkbox_guzo_1_ === "true") {
+    $guzo = $guzo  . "a.checkboxValueGuzo=1"; 
+ } 
+
+ if($checkbox_guzo_2_ === "true") {
+    if(strlen($guzo)>0){
+        $guzo = $guzo . ' or ';
+     }
+    $guzo = $guzo  . "a.checkboxValueGuzo=0"; 
+ } 
+
+ if($guzo === ''){
+    $guzo = '(' . 0 .'='. 0 . ')';
+ }
+
+
+
 
  $otz_str = '';
 
@@ -142,11 +169,30 @@ $checkOblastsId_3 = '(' . $checkOblastsId_3 . ')';
 }
 
 
+
+$search = '';
+
+if($radio_search_1 === "true"){
+   $search =  " rkk.svidetelstvo like('".$text_search."')";  
+};
+
+if($radio_search_2 === "true"){
+   $search =  " a.naim like('%".$text_search."%')";  
+}; 
+
+
+
+if($search_check === "false"){  
+   $search = "0 = 0";   
+}
+
+
+
 $query = "SELECT rkk.id_rkk, case when a.id_rkk_perv is not null then rkk.id_rkk +'/' + id_rkk_perv else rkk.id_rkk end as num_rkk, rkk.id_application, a.naim, case when rkk.perv_vtor = 1 then 'первичное' when rkk.perv_vtor = 2 then 'повторное' else '' end as perv_vtor,
 rkk.date_reg, a.ur_adress, a.fact_adress, a.tel, a.email, 
 case when rkk.result='1' then 'Выдача свидетельства' when rkk.result='2' then 'Отказ в выдаче свидетельства' when rkk.result='3' then 'Отказ в приеме заявления'
 else '' end as adm_reah,  rkk.id_rkk as adm_resh_num, rkk.date_admin_resh, rkk.svidetelstvo, rkk.date_sved, 
-'пока хз' as sved_srok_deist, rkk.date_delo, rkk.delo, a.zaregal, rkk.info_uved, rkk.getter, so.oblast, rkk.date_protokol
+'пока хз' as sved_srok_deist, rkk.date_delo, rkk.delo, a.zaregal, CONCAT( CONVERT(rkk.date_sved, char), ' ', rkk.info_uved) as info_uved , rkk.getter, so.oblast, rkk.date_protokol
 from accreditation.rkk 
 left outer join accreditation.applications a on rkk.id_application=a.id_application
 left outer join accreditation.uz u on a.id_user=u.id_uz
@@ -160,7 +206,9 @@ and (('$date_delo_' = 0) or ('$date_delo_'=1 and rkk.date_delo between '$date_de
 and (('$adm_resh_' = 0) or ('$adm_resh_'=1 and $adm))
 and (('$pervtor_' = 0) or ('$pervtor_'=1 and $perv_vtor)) 
 and $otz_str
+and $guzo
 and (('$checkAllOblast_' = 'true') or ('$checkAllOblast_'='false' and $checkOblastsId_3 )  )
+and $search
 ";
 
 

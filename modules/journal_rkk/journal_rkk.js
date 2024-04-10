@@ -62,6 +62,67 @@ function disablePrint(){
 
 }
 
+
+function CheckRadioElement(elem, element_name){
+
+    let checkbox_search = document.getElementById('checkbox_search_1').checked
+
+    if(checkbox_search){
+
+        let radio_checked = document.getElementById(`radio_${element_name}`);
+
+        let radio_journal = document.getElementById(`radio_journal`);
+        let radio_form = radio_journal.getElementsByTagName('input');
+
+        for (let i = 1; i <= radio_form.length ; i++) {
+            let radio = document.getElementById(`radio_search_`+i);
+            if((radio.checked)&&(i !== element_name)){
+                radio.checked = false
+            } 
+            
+        }
+
+        radio_checked.checked = true
+    }
+    
+}
+
+
+function CheckCheckBoxSearch(elem){
+    
+    let checkBox = document.getElementById(`checkbox_search_1`);
+
+    if(elem != 'checkBox'){
+        
+        checkBox.checked = !checkBox.checked;
+    }
+
+    let radio_search_1 = document.getElementById(`radio_search_1`);
+    let radio_search_2 = document.getElementById(`radio_search_2`);
+    let search_text = document.getElementById(`search_text`);
+
+
+    if(checkBox.checked){
+        radio_search_1.removeAttribute('disabled')
+        radio_search_2.removeAttribute('disabled')
+        search_text.removeAttribute('disabled')
+        
+    } else {
+        radio_search_1.setAttribute('disabled','true')
+        radio_search_2.setAttribute('disabled','true')
+        search_text.setAttribute('disabled','true')
+        search_text.value = '';
+    }
+
+    
+
+    // if(!btnReportPrint.hasAttribute('disabled')){
+    //     btnReportPrint.setAttribute('disabled','true')
+    // }
+}
+
+
+
 function validateDate(date_at, date_to, date_name){
     
     let div_date_name = document.getElementById(date_name).innerText;
@@ -115,8 +176,15 @@ function preperaReport(){
         checkAllOblast : false,
         checkOblasts : '',
         checkOblastsId : '',
-        otz: false,
-        otkaz: false,
+        otz : false,
+        otkaz : false,
+        guzo : 0,
+        checkbox_guzo_1 :false,
+        checkbox_guzo_2 : false,
+        search_check: false,
+        radio_search_1: false,
+        radio_search_2: false,
+        text_search: '',
 
     }
 
@@ -242,6 +310,21 @@ function preperaReport(){
     }
     
 
+    let checkbox_guzo_1 = document.getElementById(`checkbox_guzo_1`);
+    let checkbox_guzo_1_value = checkbox_guzo_1.checked;
+    dataParametrs.checkbox_guzo_1 = checkbox_guzo_1.checked;
+
+    let checkbox_guzo_2 = document.getElementById(`checkbox_guzo_2`);
+    let checkbox_guzo_2_value = checkbox_guzo_2.checked;
+    dataParametrs.checkbox_guzo_2= checkbox_guzo_2.checked;
+
+    if(checkbox_guzo_2_value || checkbox_guzo_1_value){
+        dataParametrs.guzo= 1;
+    } else {
+        dataParametrs.guzo= 0;  
+    }
+    
+
     let checkAllOblast = document.getElementById(`checkbox_oblast_0`).checked;
     dataParametrs.checkAllOblast= checkAllOblast;
    
@@ -256,6 +339,26 @@ function preperaReport(){
 
     let checkbox_otkaz = document.getElementById(`checkbox_otkaz`);
     dataParametrs.otkaz = checkbox_otkaz.checked;
+
+
+    let search_check = document.getElementById(`checkbox_search_1`);
+    dataParametrs.search_check = search_check.checked;
+
+    let radio_search_1 = document.getElementById(`radio_search_1`);
+    dataParametrs.radio_search_1 = radio_search_1.checked;
+
+    let radio_search_2 = document.getElementById(`radio_search_2`);
+    dataParametrs.radio_search_2 = radio_search_2.checked;
+
+    let text_search = document.getElementById(`search_text`);
+    if((text_search.value.trim().length===0 ) && (search_check.checked)){
+        alert(`Незаполено поле поиск`)
+        return;
+    }
+
+    dataParametrs.text_search = text_search.value.trim()
+
+
 
 
 
@@ -402,7 +505,7 @@ function prepereTableReport(dataParametrs){
     th19.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th20 = document.createElement('th');
-    th20.innerHTML = 'Уведомление';
+    th20.innerHTML = 'Информация о профилях и видах МП которые не были заявлены';
     th20.id='th20'
     th20.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
@@ -467,6 +570,8 @@ function reportPrepere(dataParametrs){
 
     let table = prepereTableReport(dataParametrs)
 
+    console.log(dataParametrs)
+
     let data = new Array();
     $.ajax({
         url: "modules/journal_rkk/getJournalRkk.php",
@@ -498,8 +603,13 @@ function reportPrepere(dataParametrs){
             checkOblasts : dataParametrs.checkOblasts,
             checkOblastsId : dataParametrs.checkOblastsId,
             otz: dataParametrs.otz,
-            otkaz: dataParametrs.otkaz
-
+            otkaz: dataParametrs.otkaz,
+            checkbox_guzo_1: dataParametrs.checkbox_guzo_1,
+            checkbox_guzo_2: dataParametrs.checkbox_guzo_2,
+            search_check: dataParametrs.search_check,
+            radio_search_1: dataParametrs.radio_search_1,
+            radio_search_2: dataParametrs.radio_search_2,
+            text_search: dataParametrs.text_search,
         }
         
     }).done(function (response){
@@ -742,9 +852,30 @@ function reportPrepere(dataParametrs){
             divReportUsl.innerHTML  = divReportUsl.innerHTML + '<br/>'
         } 
 
+        if((dataParametrs.guzo == 1) || (dataParametrs.pervtor == 1)){
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Заявление:'+'</b>'
+        }
+
+        if(dataParametrs.guzo == 1) {
+       //     divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Заявление:'+'</b>'
+            if(dataParametrs.checkbox_guzo_1 === true){
+                divReportUsl.innerHTML  = divReportUsl.innerHTML + ' ГУЗО, Комитет'
+            }
+            if(dataParametrs.checkbox_guzo_2 === true){
+                if(dataParametrs.checkbox_guzo_1 === true){
+                    divReportUsl.innerHTML  = divReportUsl.innerHTML + ', '
+                } 
+                divReportUsl.innerHTML  = divReportUsl.innerHTML + ' Внутреняя комиссия'
+            }
+           
+            if(dataParametrs.pervtor != 1){
+            divReportUsl.innerHTML  = divReportUsl.innerHTML + '<br/>'
+            }
+        }
+
 
         if(dataParametrs.pervtor == 1) {
-            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Заявление:'+'</b>'
+        //    divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Заявление:'+'</b>'
             if(dataParametrs.checkbox_pervtor_1 === true){
                 divReportUsl.innerHTML  = divReportUsl.innerHTML + ' первичное'
             }
