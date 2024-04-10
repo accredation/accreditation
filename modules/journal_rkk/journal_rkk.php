@@ -57,7 +57,7 @@
                                 style="line-height: normal; cursor: pointer;"
                                 id="span_info"
                                 onclick="CheckCheckBoxElement(`span`,'info' )"                               
-                                >С датами уведомления и получения свидетельства</span>
+                                >С датами выдачи свидетельства и информацией о незаявленных профилях</span>
                         </div>
                         
                         </div>
@@ -92,7 +92,7 @@
                         <div class="mb-1">  
                             <div style="justify-content: space-between; display: flex;">
                                 <div class="form-group mr-3 mb-0" style="display: inline-flex;">
-                                    <div id="date_protokol" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Дата протокола с</div>
+                                    <div id="date_protokol" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Дата протокола</div>
                                 </div>
 
                                 <div>
@@ -113,7 +113,7 @@
                         <div class="mb-1">   
                             <div style="justify-content: space-between; display: flex;">
                                 <div class="form-group mr-3 mb-0" style="display: inline-flex;">
-                                    <div id="date_admin_resh" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Дата адм. решения</div>
+                                    <div id="date_admin_resh" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Дата уведомления</div>
                                 </div>
 
                                 <div>
@@ -303,7 +303,40 @@
                             <div>Заявление</div>
                         </div> 
 
-                        
+                        <div class="row">
+                            <div class="col-sm-8 col-md-8 col-lg-8 ">
+
+                            <div class="d-flex mb-2" >
+                                                            
+                                <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                    type="checkbox" 
+                                    id="checkbox_guzo_1" 
+                                    onclick="CheckCheckBoxElement(`checkBox`,'guzo_1' )"                             
+                                />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;"
+                                    id="span_guzo_1"
+                                    onclick="CheckCheckBoxElement(`span`,'guzo_1' )"                         
+                                    >ГУЗО, Комитет</span>
+                            </div>
+
+                            <div class="d-flex mb-2 " >
+                                                            
+                                <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                    type="checkbox" 
+                                    id="checkbox_guzo_2" 
+                                    onclick="CheckCheckBoxElement(`checkBox`,'guzo_2' )"                             
+                                />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;"
+                                    id="span_guzo_2"
+                                    onclick="CheckCheckBoxElement(`span`,'guzo_2' )"                         
+                                    >Внутреняя комиссия</span>
+                            </div>    
+
+                            </div>
+
+                            <div class="col-sm-3 col-md-3 col-lg-3 ml-3 ">
 
                             <div class="d-flex mb-2" >
                                                             
@@ -319,7 +352,7 @@
                                     >первичное</span>
                             </div>
 
-                            <div class="d-flex mb-2 ml-4" >
+                            <div class="d-flex mb-2" >
                                                             
                                 <input  style="vertical-align: top; margin-right: 0.5rem;" 
                                     type="checkbox" 
@@ -333,11 +366,8 @@
                                     >повторное</span>
                             </div>
 
-
-                       
-                        
-                        
-                        
+                            </div>
+                        </div>
                     </div>
 
 
@@ -374,6 +404,84 @@
 
                        
                         
+
+
+
+                            
+                        
+                        
+                    </div>
+
+
+                    <div class=" mb-4 ml-2 row" style="display: flex; ">      
+                                <div class="mr-3 p-0 col"  style="max-width: 65px;">
+                                    <div class="d-flex mb-2" >
+                                                                    
+                                        <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                            type="checkbox" 
+                                            id="checkbox_search_1" 
+                                            onclick="CheckCheckBoxSearch(`checkBox`)"                                       
+                                        />
+                                        <span 
+                                            style="line-height: normal; cursor: pointer;"
+                                            id="span_search_1"
+                                            onclick="CheckCheckBoxSearch(`span`)"                             
+                                            >Поиск</span>
+                                    </div>
+                                </div> 
+
+                                <div id="radio_journal" class="col" style="max-width: 235px;">
+
+                                    <div class="d-flex mb-2" >
+                                                                    
+                                        <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                            type="radio" 
+                                            checked="true"
+                                            id="radio_search_1" 
+                                            disabled
+                                            onclick="CheckRadioElement(`radio`,'search_1' )"                                       
+                                        />
+                                        <span 
+                                            style="line-height: normal; cursor: pointer;"
+                                            id="span_search_1"
+                                            
+                                            onclick="CheckRadioElement(`span`,'search_1' )"                             
+                                            >№ свидетельства</span>
+                                    </div>
+
+                                    <div class="d-flex mb-2 " >
+                                                                    
+                                        <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                            type="radio" 
+                                            id="radio_search_2" 
+                                            disabled
+                                            onclick="CheckRadioElement(`radio`,'search_2' )"                              
+                                        />
+                                        <span 
+                                            style="line-height: normal; cursor: pointer;"
+                                            id="span_search_2"
+                                            onclick="CheckRadioElement(`span`,'search_2' )"                           
+                                            >По названию организации</span>
+                                    </div>
+
+
+                                    
+
+                                    
+
+                                </div>
+
+                                <div class="form-group mb-2 ml-2 col" >
+                                                                    
+                                        <input  class="form-control" 
+                                            type="text" 
+                                            disabled
+                                            id="search_text"                              
+                                        />
+                                        
+                                    </div>
+                            
+
                         
                         
                     </div>
