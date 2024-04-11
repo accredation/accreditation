@@ -141,7 +141,7 @@ function newShowModal(id_application) {
         addtab.style = "display: none";
 
     let btnSuc = document.getElementById("btnSuc");
-    let btnCalc = document.getElementById("btnCalc");
+    // let btnCalc = document.getElementById("btnCalc");
 
 
     //  console.log(aButton);

@@ -419,6 +419,8 @@
     </div>
     <div class="container-fluid1" style="margin-top: 2rem; width: 80%;">
     <h2>Техническая поддержка</h2>
+        <br>
+        <a href="docs/documentation/Предоставление доступа в ИС Медицинская аккредитация для комиссий ГУЗО.docx" target="_blank">Предоставление доступа в ИС Медицинская аккредитация для комиссий ГУЗО</a>
     <div class="row" style="margin-top: 2rem">
 
         <!-- Left col -->

@@ -187,7 +187,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="reshenieSoveta-tab" data-toggle="tab" href="#" role="tab"
-                               aria-selected="false">Решение совета</a>
+                               aria-selected="false">Решение</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="accredArchiveNew-tab" data-toggle="tab" href="#" role="tab"
@@ -258,7 +258,7 @@
                                                 <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
                                                     style="cursor: pointer;">
 
-                                                    <td>
+                                                    <td >
                                                         Заявление <?= $app['username'] ?>  <?= $app['id_rkk'] == "0" ? "№" . $app['app_id'] : "" ?></td>
                                                     <td><?= $app['date_send'] ?></td>
 
@@ -332,8 +332,9 @@
                                                style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Заявления</th>
+                                                <th >Заявления</th>
                                                 <th>Дата регистрации</th>
+                                                <th>Дата комиссии</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -343,12 +344,13 @@
                                                 include "ajax/mainMark.php";
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                <tr <?= $app['checkboxValueGuzo'] == "1" ? "style='font-weight:900;'" : ""?> onclick="newShowModal('<?= $app['app_id'] ?>')"
                                                     style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
                                                     <td><?= $app['date_reg'] ?></td>
+                                                    <td><?= $app['date_council'] ?></td>
 
 
                                                 </tr>
@@ -407,8 +409,9 @@
                                                style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Заявления</th>
+                                                <th >Заявления</th>
                                                 <th>Дата одобрения</th>
+                                                <th>Дата комиссии</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -418,12 +421,13 @@
                                                 include "ajax/mainMark.php";
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                <tr <?= $app['checkboxValueGuzo'] == "1" ? "style='font-weight:900;'" : ""?> onclick="newShowModal('<?= $app['app_id'] ?>')"
                                                     style="cursor: pointer;">
 
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
                                                     <td><?= $app['date_complete'] ?></td>
+                                                    <td><?= $app['date_council'] ?></td>
 
 
                                                 </tr>
@@ -633,7 +637,7 @@
                                                style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Заявления</th>
+                                                <th >Заявления</th>
                                                 <th>Дата решения совета</th>
                                             </tr>
                                             </thead>
@@ -644,7 +648,7 @@
                                                 include "ajax/mainMark.php"
                                                 ?>
 
-                                                <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
+                                                <tr <?= $app['checkboxValueGuzo'] == "1" ? "style='font-weight: 900;'" : ""?> onclick="newShowModal('<?= $app['app_id'] ?>')"
                                                     style="cursor: pointer;">
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
@@ -1024,6 +1028,14 @@
                                                 </div>
                                                 <div id="filesContainerProtokolKom" style="margin-left: 50px;  margin-top: -15px;"></div>
                                             </form>
+                                            <form id="formDateKom">
+                                                <div class="form-group" id="divDateKom" style="margin-left: 2.5rem">
+                                                    <label for="" style="font-size: 24px">Дата комиссии</label><br/>
+                                                    <input style="    width: auto;" type="date"  class="form-control"
+                                                           id="dateKom" />
+                                                </div>
+
+                                            </form>
 
                                             <form id="formReport">
                                                 <div class="form-group" id="divReport" style="margin-left: 2.5rem">
@@ -1033,6 +1045,8 @@
                                                 </div>
                                                 <div id="filesContainer" style="margin-left: 50px;  margin-top: -15px;"></div>
                                             </form>
+
+
 
 
                                             <form id="formFileReportDorabotka">
@@ -1093,7 +1107,7 @@
                     <?php if($_COOKIE['login'] == 'kuznec@rnpcmt.by') { ?>
                     <button type="submit" class="btn btn-warning" onclick="setNewStatus()">Отзыв</button>
                     <?php }?>
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Решение совета
+                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Вынести решение
                     </button>
 
                     <!--                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>-->
@@ -1105,9 +1119,8 @@
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrint">Печать</button>
                     <button type="submit" class="btn btn-light btn-fw" id="btnPrintReportOcenka">Отчет по оценке
                     </button>
-                    <button type="submit" class="btn btn-light btn-fw" id="btnPrintReport">Сформировать отчет</button>
-                    <button type="submit" class="btn btn-light btn-fw" id="btnCalc">Рассчитать результат соответствия
-                    </button>
+                    <button type="submit" class="btn btn-light btn-fw" id="btnPrintReport">Отчет о самоаккредитации</button>
+
 
                     <!--                </form>-->
                     <button type="button" class="btn btn-danger closeD" id="closerModal" data-bs-dismiss="modal">
@@ -1265,11 +1278,9 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <div class="form-group"><label>Информация о направлении запросов и в другие
-                                            организации</label><input id="info_napr_zapr" type="text"
+                                    <div class="form-group"><label>Приказ о создании комиссии</label><input id="info_napr_zapr" type="text"
                                                                       class="form-control" disabled="true"/></div>
-                                    <div class="form-group"><label>Информация о согласии заинтересованного лица на
-                                            предоставление документа</label><input id="info_sogl" type="text"
+                                    <div class="form-group"><label>Информация о выезде комиссии</label><input id="info_sogl" type="text"
                                                                                    class="form-control" disabled="true"/></div>
                                     <div class="form-group" style="display: flex;"><label>Протокол заседания комиссии
                                             №</label><input id="protolol_zasedanie" type="text" class="form-control" disabled="true"/>
@@ -1278,19 +1289,17 @@
     margin-top: 1rem;">Дата</label> <input id="date_zasedanie" type="date" class="form-control"
                                            style="max-width: 30%;" disabled="true" />
                                     </div>
-                                    <div class="form-group"><label>Информация о возврате заявления при отказе в
-                                            принятии</label><input id="info_vozvrat" type="text" class="form-control" disabled="true"/>
+                                    <div class="form-group"><label>Документы и сведения, возвращенные представителю заинтересованного лица</label><input id="info_vozvrat" type="text" class="form-control" disabled="true"/>
                                     </div>
-                                    <div class="form-group"><label>Информация об отзыве заявления</label><input
+                                    <div class="form-group"><label>Отметка об отзыве заявления</label><input
                                                 id="info_otzyv" type="text" class="form-control" disabled="true"/></div>
-                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Административное
-                                            решение №</label><span id="admin_resh"></span>
+                                    <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Уведомление о принятом административном решении</label><span id="admin_resh"></span>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 1rem;">Дата</label><input id="date_admin_resh" type="date" class="form-control" disabled="true"/>
                                         <label style="margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 1rem;">Листов</label><input id="count_admin_resh" type="text" class="form-control" disabled="true"/>
+    margin-top: 1rem;">№</label><input id="count_admin_resh" type="text" class="form-control" disabled="true"/>
                                     </div>
                                     <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Результат</label>
                                         <select name="" id="resultat">
@@ -1313,8 +1322,7 @@
     margin-top: 1rem;">Листов</label><input id="count_svidetelstvo" type="text" class="form-control" disabled="true"/>
                                     </div>
 
-                                    <div class="form-group"><label>Информация об уведомлении заинтересованного
-                                            лица</label><input id="info_uved" type="text" class="form-control" disabled="true"/></div>
+                                    <div class="form-group"><label>Информация о профилях и видах МП которые не были заявлены</label><input id="info_uved" type="text" class="form-control" disabled="true"/></div>
                                     <div class="form-group " style="display: flex; justify-content: space-between;">
                                         <label style="
 

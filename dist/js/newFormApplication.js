@@ -1,11 +1,22 @@
 let id_app;
 let createrApp;
+
 function newShowModal(id_application) {
     id_app = id_application;
-     let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
+    let formFileReportZakluchenieSootvet = document.getElementById("formFileReportZakluchenieSootvet");
 
-        if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
-            formFileReportZakluchenieSootvet.classList.add("hiddentab");
+    if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
+        formFileReportZakluchenieSootvet.classList.add("hiddentab");
+
+    let fileAdminResh = document.getElementById("fileAdminResh");
+    $.ajax({
+        url: "ajax/getFileAdminResh.php",
+        method: "POST",
+        data: {id_app: id_app}
+    }).then(response => {
+        fileAdminResh.innerHTML = response;
+        fileAdminResh.href = `docs/documents/${getCookie('login')}/${id_app}/${response}`;
+    })
 
     createrApp = "";
 
@@ -87,16 +98,16 @@ function newShowModal(id_application) {
     let btnSen = document.getElementById("newBtnSend");
     let btnSu = document.getElementById("btnSuc");
 
-        if (homeTab.classList.contains("active")) {
-            if (idRole !== "15") {
-                if (btnSen.classList.contains("hiddentab")) {
-                    btnSen.classList.remove("hiddentab");
-                }
-            }
-            if (btnSu.classList.contains("hiddentab")) {
-                btnSu.classList.remove("hiddentab");
+    if (homeTab.classList.contains("active")) {
+        if (idRole !== "15") {
+            if (btnSen.classList.contains("hiddentab")) {
+                btnSen.classList.remove("hiddentab");
             }
         }
+        if (btnSu.classList.contains("hiddentab")) {
+            btnSu.classList.remove("hiddentab");
+        }
+    }
     let footer = document.getElementsByClassName("modal-footer")[0];
     if (footer.classList.contains('hiddentab')) {
         footer.classList.remove('hiddentab');
@@ -138,15 +149,15 @@ function newShowModal(id_application) {
     let addtab = document.getElementById("addtab");
 
     if (idRole === "15") {
-       let btnFormApplication = document.getElementById("btnFormApplication");
-       if(btnFormApplication){
-           if (!btnFormApplication.classList.contains("hiddentab")) {
-               btnFormApplication.classList.add("hiddentab");
-           }
+        let btnFormApplication = document.getElementById("btnFormApplication");
+        if (btnFormApplication) {
+            if (!btnFormApplication.classList.contains("hiddentab")) {
+                btnFormApplication.classList.add("hiddentab");
+            }
 
-        //   btnFormApplication.remove();
-       }
-        if(btnSen){
+            //   btnFormApplication.remove();
+        }
+        if (btnSen) {
             if (!btnSen.classList.contains("hiddentab")) {
                 btnSen.classList.add("hiddentab");
             }
@@ -155,32 +166,30 @@ function newShowModal(id_application) {
 
         addtab.style = "display: none";
         let licoSelect = document.getElementById("lico");
-        licoSelect.setAttribute("disabled",true);
+        licoSelect.setAttribute("disabled", true);
 
         let prikazNaznachSelel = document.getElementById("prikazNaznach");
-        prikazNaznachSelel.setAttribute("disabled",true);
+        prikazNaznachSelel.setAttribute("disabled", true);
 
         let doverennostSelel = document.getElementById("doverennost");
-        doverennostSelel.setAttribute("disabled",true);
+        doverennostSelel.setAttribute("disabled", true);
 // if (reportZakluchenieSootvetSelect) {
 //     let reportZakluchenieSootvetSelect = document.getElementById("reportZakluchenieSootvet");
 //     reportZakluchenieSootvetSelect.setAttribute("disabled", true);
 // }
 
 
-
     }
 
 
     let btnSuc = document.getElementById("btnSuc");
-    let btnCalc = document.getElementById("btnCalc");
+    // let btnCalc = document.getElementById("btnCalc");
 
 
     //  console.log(aButton);
 
 
     document.getElementsByClassName("modal-title")[0].innerHTML = "Редактирование заявления № ";
-
 
 
     let ownUcompBtnClass = document.getElementsByClassName("ownUcomp")[0];
@@ -255,22 +264,22 @@ function newShowModal(id_application) {
         doverennost.setAttribute("disabled", "true");
         prikazNaznach.setAttribute("disabled", "true");
 
-        licoSelect.setAttribute("disabled",true);
+        licoSelect.setAttribute("disabled", true);
 
         reportSamoocenka.setAttribute("disabled", "true");
-     //   reportZakluchenieSootvet.setAttribute("disabled", "true");
-       // formFileReportDorabotka.setAttribute("disabled", "true");
-     //   formDateDorabotka.setAttribute("disabled", "true");
-     //   formFileReportDorabotka.style.display = "none";
-       // formDateDorabotka.style.display = "none";
+        //   reportZakluchenieSootvet.setAttribute("disabled", "true");
+        // formFileReportDorabotka.setAttribute("disabled", "true");
+        //   formDateDorabotka.setAttribute("disabled", "true");
+        //   formFileReportDorabotka.style.display = "none";
+        // formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
 
-        if(btnSend)
+        if (btnSend)
             btnSend.classList.add("hiddentab");
-        if (btnCalc) {
-            btnCalc.remove();
-        }
+        // if (btnCalc) {
+        //     btnCalc.remove();
+        // }
     }
 
 
@@ -326,21 +335,21 @@ function newShowModal(id_application) {
             // if (data[0][20] != null) {
             //     reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
             // }
-            
+
             let lico = document.getElementById("lico");
             if (data[0][22] != null) {
-                lico.options.selectedIndex = data[0][22]; 
+                lico.options.selectedIndex = data[0][22];
                 chengeLico(lico);
             } else {
-                lico.options.selectedIndex = 0;  
-                chengeLico(lico);              
+                lico.options.selectedIndex = 0;
+                chengeLico(lico);
             }
 
-            if(data[0][21] != null){
+            if (data[0][21] != null) {
                 prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
             }
-            
-            if(data[0][19]!= null) {
+
+            if (data[0][19] != null) {
                 doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
 
@@ -367,14 +376,14 @@ function newShowModal(id_application) {
         let ucompl = divUcomplect.getElementsByTagName("a")[0];
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
-     //   let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
+        //   let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
-      //  let fRD = formFileReportDorabotka.querySelectorAll("a");
+        //  let fRD = formFileReportDorabotka.querySelectorAll("a");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
-        
-    //    let DD = formDateDorabotka.querySelectorAll("span");
-        
+
+        //    let DD = formDateDorabotka.querySelectorAll("span");
+
 
         var collapseElement = document.getElementsByClassName('collapse');
 
@@ -427,10 +436,10 @@ function newShowModal(id_application) {
                             tech.remove();
                         }
 
-                        if(doverennost ){
+                        if (doverennost) {
                             doverennost.remove();
                         }
-                        if(prikazNaznach ){
+                        if (prikazNaznach) {
                             prikazNaznach.remove();
                         }
 
@@ -483,10 +492,10 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
-                if(doverennost ){
+                if (doverennost) {
                     doverennost.remove();
                 }
-                if(prikazNaznach ){
+                if (prikazNaznach) {
                     prikazNaznach.remove();
                 }
                 modal.classList.remove("show");
@@ -535,10 +544,10 @@ function newShowModal(id_application) {
             if (tech) {
                 tech.remove();
             }
-            if(doverennost ){
+            if (doverennost) {
                 doverennost.remove();
             }
-            if(prikazNaznach ){
+            if (prikazNaznach) {
                 prikazNaznach.remove();
             }
             modal.classList.remove("show");
@@ -565,9 +574,9 @@ function newShowModal(id_application) {
         let tech = divTechOsn.getElementsByTagName("a")[0];
         let rep = divReport.getElementsByTagName("a")[0];
         let samoocenka = divFileReportSamoocenka.getElementsByTagName("a")[0];
-     //   let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
-     //   let fRD = formFileReportDorabotka.querySelectorAll("a");
-      //  let DD = formDateDorabotka.querySelectorAll("span");
+        //   let divZakluchenieSootvet = divFileReportZakluchenieSootvet.getElementsByTagName("a")[0];
+        //   let fRD = formFileReportDorabotka.querySelectorAll("a");
+        //  let DD = formDateDorabotka.querySelectorAll("span");
         let doverennost = divDoverennost.getElementsByTagName("a")[0];
         let prikazNaznach = divPrikazNaznach.getElementsByTagName("a")[0];
 
@@ -619,10 +628,10 @@ function newShowModal(id_application) {
                         if (tech) {
                             tech.remove();
                         }
-                        if(doverennost ){
+                        if (doverennost) {
                             doverennost.remove();
                         }
-                        if(prikazNaznach ){
+                        if (prikazNaznach) {
                             prikazNaznach.remove();
                         }
                         modal.classList.remove("show");
@@ -674,10 +683,10 @@ function newShowModal(id_application) {
                 if (tech) {
                     tech.remove();
                 }
-                if(doverennost ){
+                if (doverennost) {
                     doverennost.remove();
                 }
-                if(prikazNaznach ){
+                if (prikazNaznach) {
                     prikazNaznach.remove();
                 }
                 modal.classList.remove("show");
@@ -726,10 +735,10 @@ function newShowModal(id_application) {
             if (tech) {
                 tech.remove();
             }
-            if(doverennost ){
+            if (doverennost) {
                 doverennost.remove();
             }
-            if(prikazNaznach ){
+            if (prikazNaznach) {
                 prikazNaznach.remove();
             }
             modal.classList.remove("show");
@@ -1304,7 +1313,6 @@ function newGetTabs(name, id_sub) {   // создание subvision и cardBody
     tabPane.appendChild(row1);
 
 
-
     if (status == 1) {
 
     } else {
@@ -1374,7 +1382,12 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
             $.ajax({
                 url: "ajax/saveListTablesCheckbox.php",
                 method: "GET",
-                data: {id_sub: openTabId, id_list_tables_criteria: id_list_tables_criteria, check: check, department: department}
+                data: {
+                    id_sub: openTabId,
+                    id_list_tables_criteria: id_list_tables_criteria,
+                    check: check,
+                    department: department
+                }
             })
                 .done(function (response) {
                     // ОТОБРАЖЕНИЕ таблиц критериев по нажатию на чекбокс
@@ -1396,8 +1409,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
                     addHistoryAction(id_app, getCookie('id_user'), 2, `Добавлено отделение ${lblName} в структурное подразделение ${nameTab.innerText}`, openTabId, '')
 
                 });
-        }
-        else {
+        } else {
             alert("Вы не ввели название отделения");
         }
     } else {
@@ -1423,14 +1435,13 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
 
                     let tabActive = document.getElementById("tab" + openTabId + "-");
                     let checkboxes = tabActive.querySelectorAll("[id^='checkbox']");
-                    checkboxes.forEach(function(checkbox) {
+                    checkboxes.forEach(function (checkbox) {
                         let buttonText = checkbox.innerText;
                         let colonIndex = buttonText.indexOf(":");
                         if (colonIndex !== -1) {
                             checkbox.innerText = buttonText.substring(0, colonIndex);
                         }
                     });
-
 
 
                 });
@@ -1505,9 +1516,12 @@ function newCollapseTable(thisDiv) {
     let noteCells = document.querySelectorAll('td[contenteditable="true"]');
     let selpickers = document.querySelectorAll("#selpicker");
     let fileInputs = document.querySelectorAll('input[type="file"]');
-    if (status == 2) {
+    let xDeleteFiles = document.getElementsByClassName("delete-file");
+    if (status > 1) {
 
-
+        [...xDeleteFiles].forEach(item => {
+            item.style.display = "none";
+        })
 
         selpickers.forEach((selpicker) => {
             selpicker.disabled = true;
@@ -1520,23 +1534,22 @@ function newCollapseTable(thisDiv) {
         noteCells.forEach((noteCell) => {
             noteCell.removeAttribute("contenteditable");
         });
-    }
-    else{
-            let selpickers = document.querySelectorAll("#selpicker");
-            let fileInputs = document.querySelectorAll('input[type="file"]');
+    } else {
+        let selpickers = document.querySelectorAll("#selpicker");
+        let fileInputs = document.querySelectorAll('input[type="file"]');
 
-            selpickers.forEach((selpicker) => {
-                selpicker.disabled = false;
-            });
-
-            fileInputs.forEach((fileInput) => {
-                fileInput.disabled = false;
-            });
-
-            if(noteCells)
-        noteCells.forEach((noteCell) => {
-            noteCell.setAttribute("contenteditable", "true");
+        selpickers.forEach((selpicker) => {
+            selpicker.disabled = false;
         });
+
+        fileInputs.forEach((fileInput) => {
+            fileInput.disabled = false;
+        });
+
+        if (noteCells)
+            noteCells.forEach((noteCell) => {
+                noteCell.setAttribute("contenteditable", "true");
+            });
 
     }
 }
@@ -1575,7 +1588,7 @@ function addFile(idCrit, idDep, input) {
         form = new FormData();
     let addedFile = input.files[0];
     let fileName = addedFile.name;
-    if(arrayFiles.indexOf(fileName) < 0) {
+    if (arrayFiles.indexOf(fileName) < 0) {
         form.append("idCrit", idCrit);
         form.append("idApp", id_app);
         form.append("idDep", idDep);
@@ -1638,7 +1651,7 @@ function addFile(idCrit, idDep, input) {
             divA.appendChild(fileContainer);
         }
         xhr.send(form);
-    }else{
+    } else {
         alert("Файл с таким именем уже есть в этой ячейке");
     }
 }
@@ -1688,59 +1701,57 @@ function deleteDepartment(id_department) {
             url: "ajax/z_getTableLevel.php",
             method: "GET",
             data: {id_sub: openTabId, id_department: id_department},
-        })  .done(function (response) {
+        }).done(function (response) {
             console.log("response", response);
             let parsedResponse = JSON.parse(response);
-           console.log("response.level" + parsedResponse.level);
-           if (parsedResponse.level == '1')
-           {
-                       let tabActive = document.getElementById("tab" + openTabId + "-");
-                       let formCheckInput = document.getElementsByClassName("form-check-input");
-                       let formButton = document.getElementsByClassName("form-button");
-                       let inputCheck = tabActive.querySelector("#checkbox" + parsedResponse.id_list_tables_criteria);
-                       console.log("response.id_list_tables_criteria" + parsedResponse.id_list_tables_criteria);
-                       console.log("checl" + inputCheck);
-                       inputCheck.checked = false;
-                       toggleActiveCheckbox(inputCheck, formCheckInput, formButton);
-           }
-           else{
-               $.ajax({
-                   url: "ajax/z_deleteDepartment.php",
-                   method: "GET",
-                   data: {id_sub: openTabId, id_department: id_department},
-               })
-                   .done(function (response) {
-                       console.log(response);
+            console.log("response.level" + parsedResponse.level);
+            if (parsedResponse.level == '1') {
+                let tabActive = document.getElementById("tab" + openTabId + "-");
+                let formCheckInput = document.getElementsByClassName("form-check-input");
+                let formButton = document.getElementsByClassName("form-button");
+                let inputCheck = tabActive.querySelector("#checkbox" + parsedResponse.id_list_tables_criteria);
+                console.log("response.id_list_tables_criteria" + parsedResponse.id_list_tables_criteria);
+                console.log("checl" + inputCheck);
+                inputCheck.checked = false;
+                toggleActiveCheckbox(inputCheck, formCheckInput, formButton);
+            } else {
+                $.ajax({
+                    url: "ajax/z_deleteDepartment.php",
+                    method: "GET",
+                    data: {id_sub: openTabId, id_department: id_department},
+                })
+                    .done(function (response) {
+                        console.log(response);
 
-                       let id_list_tables_criteria = response;
-                       let tabActive = document.getElementById("tab" + openTabId + "-");
-                       let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
-                       if (!countButton.innerHTML) {
-                           let rightCard = tabActive.querySelector("#cardRight");
-                           rightCard.innerHTML = "";
-                       } else {
-                           let countText = countButton.innerText;
-                           let countT = countText.split(":")[1];
+                        let id_list_tables_criteria = response;
+                        let tabActive = document.getElementById("tab" + openTabId + "-");
+                        let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
+                        if (!countButton.innerHTML) {
+                            let rightCard = tabActive.querySelector("#cardRight");
+                            rightCard.innerHTML = "";
+                        } else {
+                            let countText = countButton.innerText;
+                            let countT = countText.split(":")[1];
 
-                           if (countT) {
-                               let count = countT.trim();
-                               let newT = countText.replace(count, String(Number(count) - 1));
+                            if (countT) {
+                                let count = countT.trim();
+                                let newT = countText.replace(count, String(Number(count) - 1));
 
-                               countButton.innerHTML = newT;
-                           }
-                       }
-                       let cardH = document.getElementById("heading" + id_department);
+                                countButton.innerHTML = newT;
+                            }
+                        }
+                        let cardH = document.getElementById("heading" + id_department);
 
-                       let nameTab = document.getElementById("button"+openTabId);
-                       addHistoryAction(id_app,  getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
-                       if (cardH)
-                           cardH.remove();
-                       alert("Отделение удалено.");
-                   })
-                   .fail(function (error) {
-                       console.error("Ошибка при удалении отдела:", error);
-                   });
-           }
+                        let nameTab = document.getElementById("button" + openTabId);
+                        addHistoryAction(id_app, getCookie('id_user'), 2, `Удалено отделение ${cutName} из структурного подразделения ${nameTab.innerText}`, openTabId, id_department)
+                        if (cardH)
+                            cardH.remove();
+                        alert("Отделение удалено.");
+                    })
+                    .fail(function (error) {
+                        console.error("Ошибка при удалении отдела:", error);
+                    });
+            }
         })
     }
 }
@@ -1814,7 +1825,6 @@ function printNewReport() {
         divContainer.appendChild(divFooter);
 
 
-
         let textSubCriteriaChecked = '';
         let divTextSubCriteriaChecked = document.createElement('div');
         divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
@@ -1837,7 +1847,7 @@ function printNewReport() {
             let mainRightCard = document.getElementById("mainRightCard");
             let mainRightCardText = mainRightCard.innerHTML;
             let naim = document.getElementById('naim');
-            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.lastIndexOf('-')+1, mainRightCardText.length);
+            criteriaMark.textContent += `${naim.value}` + ` среднее значение групп критериев ` + mainRightCardText.substring(mainRightCardText.lastIndexOf('-') + 1, mainRightCardText.length);
 
             let table;
             return $.ajax({
@@ -1869,7 +1879,6 @@ function printNewReport() {
             }
 
 
-
             let divReportTitle = document.createElement('div');
             let divReportTitle2 = document.createElement('div');
             let divReportTitle3 = document.createElement('div');
@@ -1882,7 +1891,7 @@ function printNewReport() {
             divReportTitle.appendChild(divReportTitle3);
             WinPrint.document.write(divReportTitle.innerHTML);
             WinPrint.document.write('<br/>');
-           // divTextSubCriteriaChecked.innerHTML = headTable;
+            // divTextSubCriteriaChecked.innerHTML = headTable;
             divTextSubCriteriaChecked.appendChild(headTable);
             WinPrint.document.write(divTextSubCriteriaChecked.innerHTML);
             WinPrint.document.write('<br/>');
@@ -1974,14 +1983,13 @@ function createTableForPrintSamoAccred(valueRespons) {
         if (id_s !== item['id_subvision']) {
 
 
-                let trNaim = document.createElement('tr');
-                let tdNaim = document.createElement('td');
-                tdNaim.setAttribute('colspan', '4');
-                tdNaim.style = "border: 1px solid black; padding-top: 0.5rem; padding-bottom:0.5rem; padding-left: 2rem; font-weight: bold";
-                tdNaim.innerHTML = item['name'];
-                trNaim.appendChild(tdNaim);
-                tbody.appendChild(trNaim);
-
+            let trNaim = document.createElement('tr');
+            let tdNaim = document.createElement('td');
+            tdNaim.setAttribute('colspan', '4');
+            tdNaim.style = "border: 1px solid black; padding-top: 0.5rem; padding-bottom:0.5rem; padding-left: 2rem; font-weight: bold";
+            tdNaim.innerHTML = item['name'];
+            trNaim.appendChild(tdNaim);
+            tbody.appendChild(trNaim);
 
 
             id_s = item['id_subvision'];
@@ -1990,18 +1998,18 @@ function createTableForPrintSamoAccred(valueRespons) {
         if (id_s == item['id_subvision']) {
             let trNaim2 = document.createElement('tr');
             let tdOtdel1 = document.createElement('td');
-           // tdNaim2.setAttribute('colspan', '4');
+            // tdNaim2.setAttribute('colspan', '4');
             tdOtdel1.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; text-align: center; vertical-align: baseline";
             tdOtdel1.innerHTML = `${num}`;
 
             let tdOtdel2 = document.createElement('td');
             tdOtdel2.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
             let strNameOtdel = '';
-            if(item['name_otdel']!==null){
-                if(item['name_otdel'].indexOf('(') > 0){
-                   strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(')-1)
+            if (item['name_otdel'] !== null) {
+                if (item['name_otdel'].indexOf('(') > 0) {
+                    strNameOtdel = item['name_otdel'].substring(0, item['name_otdel'].indexOf('(') - 1)
                 } else {
-                   strNameOtdel = item['name_otdel']
+                    strNameOtdel = item['name_otdel']
                 }
             }
 
@@ -2013,7 +2021,7 @@ function createTableForPrintSamoAccred(valueRespons) {
 
             let tdOtdel4 = document.createElement('td');
             tdOtdel4.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
-            tdOtdel4.innerHTML =  Math.round(parseFloat(item['mark_dpercent']).toFixed(2))+'%';
+            tdOtdel4.innerHTML = Math.round(parseFloat(item['mark_dpercent']).toFixed(2)) + '%';
 
             trNaim2.appendChild(tdOtdel1);
             trNaim2.appendChild(tdOtdel2);
@@ -2022,7 +2030,7 @@ function createTableForPrintSamoAccred(valueRespons) {
             tbody.appendChild(trNaim2);
 
 
-            num +=1;
+            num += 1;
 
         }
         // else {
@@ -2032,7 +2040,6 @@ function createTableForPrintSamoAccred(valueRespons) {
         //         as += item['name_otdel'] == null ? 'не выбраны отделения' : item['name_otdel'] + ` ${parseFloat(item['mark_dpercent']).toFixed(2)}%` + ", ";
         // }
     });
-
 
 
     divPrintTable.appendChild(table);
@@ -2356,16 +2363,16 @@ async function sendApp() {
             data: {id_application: id_application.innerText}
         }).then(response => {
             let objects = JSON.parse(response);
-            if(objects.length === 0) {
+            if (objects.length === 0) {
                 let licoSelect = document.getElementById("lico");
-                 let licoSelectlicoSelectalue = licoSelect.options.selectedIndex;
+                let licoSelectlicoSelectalue = licoSelect.options.selectedIndex;
                 let divPrikazNaznach = document.getElementById("divPrikazNaznach");
                 let divDoverennost = document.getElementById("divDoverennost");
                 let doverennostSel = divDoverennost.getElementsByTagName("a")[0];
                 let prikazNaznachSel = divPrikazNaznach.getElementsByTagName("a")[0];
 
-            // ||
-            //     divFileReportSamoocenka.getElementsByTagName("a").length == 0
+                // ||
+                //     divFileReportSamoocenka.getElementsByTagName("a").length == 0
                 if (
                     divCopyRaspisanie.getElementsByTagName("a").length == 0
                 ) {
@@ -2377,7 +2384,7 @@ async function sendApp() {
                     tel.value.trim() === "" ||
                     email.value.trim() === "" ||
                     licoSelectlicoSelectalue === 0 ||
-                    (( licoSelectlicoSelectalue === 1 && ( rukovoditel.value.trim() === "" || prikazNaznachSel === undefined )) ||
+                    ((licoSelectlicoSelectalue === 1 && (rukovoditel.value.trim() === "" || prikazNaznachSel === undefined)) ||
                         (licoSelectlicoSelectalue === 2 && (predstavitel.value.trim() === "" || doverennostSel === undefined)))
                 ) {
                     alert("Не все обязательные поля заполнены.");
@@ -2385,54 +2392,53 @@ async function sendApp() {
                 } else {
                     // printAppForm().then(() => {
                     //     printNewReport().then(() => {
-                            $.ajax({
-                                url: "ajax/newSendApp.php",
-                                method: "GET",
-                                data: {id_application: id_application.innerText}
-                            })
-                                .done(function (response) {
-                                    if (response === "") {
-                                        addHistoryAction(id_app, getCookie('id_user'), 1, `Заявление № ${id_app} отправлено`, "", "")
-                                        alert("Заявление отправлено");
-                                        location.href = "/index.php?application";
-                                    } else {
-                                        alert(response);
-                                    }
-                                });
+                    $.ajax({
+                        url: "ajax/newSendApp.php",
+                        method: "GET",
+                        data: {id_application: id_application.innerText}
+                    })
+                        .done(function (response) {
+                            if (response === "") {
+                                addHistoryAction(id_app, getCookie('id_user'), 1, `Заявление № ${id_app} отправлено`, "", "")
+                                alert("Заявление отправлено");
+                                location.href = "/index.php?application";
+                            } else {
+                                alert(response);
+                            }
+                        });
                     //     })
                     // })
 
 
                 }
-            }
-            else{
+            } else {
                 let errMsg = "Допущена ошибка: ";
                 let tmpSub = 0;
                 let tmpDep = 0;
-                objects.map((item )=> {
+                objects.map((item) => {
 
-                    if(tmpSub !== item['id_sub'] ) {
+                    if (tmpSub !== item['id_sub']) {
                         errMsg += "\nПодразделение " + item['sub_name'] + ": ";
                     }
 
-                    if(tmpDep !== item['id_department'] && item['id_department']!==null) {
+                    if (tmpDep !== item['id_department'] && item['id_department'] !== null) {
                         errMsg += "\nОтделение " + item['dep_name'] + ": \n Критерии: ";
                     }
 
-                    if(item['id_department']===null){
+                    if (item['id_department'] === null) {
                         errMsg += 'Нет информации по подразделению'
                     }
 
                     tmpDep = item['id_department'];
                     tmpSub = item['id_sub'];
 
-                    if(item['pp'] !== null){
+                    if (item['pp'] !== null) {
                         errMsg += item['pp'] + ", ";
                     }
 
 
                 })
-                errMsg=errMsg.substring(0, errMsg.length-2)
+                errMsg = errMsg.substring(0, errMsg.length - 2)
                 alert(errMsg);
             }
         })
@@ -2458,6 +2464,7 @@ function saveUcompField(idSub, idDep, text, fieldNum) {
         })
     })
 }
+
 function saveCommon(idApp, text, fieldNum) {
     $.ajax({
         url: "ajax/z_saveUcompFieldCommon.php",
@@ -2499,8 +2506,7 @@ function printModalContent() {
     printWindow.close();
 }
 
-function checkUserRole()
-{
+function checkUserRole() {
     const inputFieldSokrNaim = document.getElementById("sokr");
     const inputFieldunp = document.getElementById("unp");
     const inputFieldadress = document.getElementById("adress");
@@ -2609,14 +2615,14 @@ $("#doverennost").on("change", () => {
     load.id = "loadDoverennost";
     techOsn.insertAdjacentElement("afterend", load);
 
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         if (event.lengthComputable) {
             let progress = (event.loaded / event.total) * 100;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
     };
 
-    xhr.upload.onloadstart = function() {
+    xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
     };
     xhr.upload.onload = function () {
@@ -2657,14 +2663,14 @@ $("#prikazNaznach").on("change", () => {
     load.id = "loadPrikazNaznach";
     techOsn.insertAdjacentElement("afterend", load);
 
-    xhr.upload.onprogress = function(event) {
+    xhr.upload.onprogress = function (event) {
         if (event.lengthComputable) {
             let progress = (event.loaded / event.total) * 100;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
     };
 
-    xhr.upload.onloadstart = function() {
+    xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
     };
     xhr.upload.onload = function () {

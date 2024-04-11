@@ -298,26 +298,35 @@
                                         <?php
 
 
-                                        if ($oblast == "0")
-                                        {
-                                            $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
-                                FROM applications a
-                               left outer join report_application_mark ram on a.id_application=ram.id_application
-                               left outer join uz uz on uz.id_uz=a.id_user
-                               -- left outer join users u on uz.id_uz =u.id_uz 
-                                where  '$id_role'=14 and (id_status = 1)";
+                                        $query = "SELECT * FROM users where login = '$login'";
 
-                                        }else {
+                                        $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+                                        if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                                        {
+                                            $row = mysqli_fetch_assoc($rez);
+                                            $role = $row['id_role'];
+                                        }
+                                        if ($role > 3 && $role < 12) {
                                             $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                         
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where  (('$id_role'=12 and (id_status = 1 or id_status = 5)) or ('$id_role'=14 and (uz.oblast='$oblast')) and (checkboxValueGuzo = 1))";
+                                where  (('$id_role'=12 and (id_status = 3)) or ('$id_role'=14 and (uz.oblast='$oblast')))";
+                                        } else {
+
+                                            $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               left outer join users us on us.id_user=a.id_user
+                        
+                                left outer join uz uz on uz.id_uz =us.id_uz 
+                                where  uz.oblast='$oblast' and id_status = 3 and a.checkboxValueGuzo = 1";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
+
                                         ?>
 
                                         <table id="example" class="table table-striped table-bordered"
@@ -381,17 +390,22 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12) {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
-                                                    FROM applications a
-                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join uz uz on uz.id_uz=a.id_user
-                                                   where id_status = 4 and u.oblast = '$role'";
+                                            $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               left outer join uz uz on uz.id_uz=a.id_user
+                        
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where  (('$id_role'=12 and (id_status = 4)) or ('$id_role'=14 and (uz.oblast='$oblast')))";
                                         } else {
 
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
-                                                    FROM applications a
-                                                   left outer join report_application_mark ram on a.id_application=ram.id_application
-                                                    left outer join uz uz on uz.id_uz=a.id_user where id_status = 4";
+                                            $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               left outer join uz uz on uz.id_uz=a.id_user
+                        
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where  uz.oblast='$oblast' and id_status = 4 and a.checkboxValueGuzo = 1";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;

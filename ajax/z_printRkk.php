@@ -128,7 +128,7 @@ tr:hover {
     margin-left: 5%;
 ">
 <!-- Преамбула заявления -->
-    Регистрационно-контрольная карточка <br> регистрации заявления заинтересованного лица</div>
+    Регистрационно-контрольная карточка <br> регистрации заявления</div>
     <div style="display: block; margin-top: 30px">
 <div style="display: flex; font-size: 15pt;
      margin-bottom: 30px; margin-left: 5%;  justify-content: space-between;
@@ -147,14 +147,14 @@ tr:hover {
 <table style="border-collapse: collapse; border: 1px solid black; width: 98%; ">
     <tr>
         <td colspan="2" style=" text-align: center; width: 50%">
-            Наименование документов и (или) сведений
+            Реквизиты
         </td>
         <td style=" width: 50%; text-align: center;">
             Информация
         </td>
        
         </tr>
-        <tr > <td colspan="3">Этап 1. Прием документов и сведений</td></tr>
+        <tr > <td colspan="3">Этап 1. Регистрация заявления</td></tr>
         <tbody>';
 
 
@@ -196,7 +196,7 @@ echo ' <tr>
     <tr>
  
         <td style = " width: 10%; text-align: center;">6</td>
-        <td style = "width: 40%; text-align: left;">Документы и сведения, представленных заинтересованным лицом:</td>
+        <td style = "width: 40%; text-align: left;">Документы и сведения, представленные вместе с заявлением:</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
     </tr>
     
@@ -238,14 +238,14 @@ echo ' <tr>
     <tr>
  
         <td style = " width: 10%; text-align: center;">7</td>
-        <td style = "width: 40%; text-align: left;">Информация о работнике, принявшем заявление и прилагаемые к нему документы и сведения</td>
+        <td style = "width: 40%; text-align: left;">Информация о работнике, принявшем заявление и представленные вместе ним документы и сведения</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$zaregal.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">8</td>
-        <td style = "width: 40%; text-align: left;">Заинтересованному лицу разъяснены права и обязанности</td>
+        <td style = "width: 40%; text-align: left;">Отметка о разъяснении заинтересованному лицу его прав и обязанностей</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$predstavitel.'</td>
     </tr>
     
@@ -253,21 +253,21 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">9</td>
         <td style = "width: 40%; text-align: left;">Срок исполнения</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
     </tr>
     <tr > <td colspan="3">Этап 2. Ход рассмотрения</td></tr>
     <tr>
  
         <td style = " width: 10%; text-align: center;">10</td>
-        <td style = "width: 40%; text-align: left;">Информация о направлении запросов в другие государственные органы, иные организации</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_napr_zapr.'</td>
+        <td style = "width: 40%; text-align: left;">Приказ о создании комиссии</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">11</td>
-        <td style = "width: 40%; text-align: left;">Информация о согласии заинтересованного лица на представление документов и (или) сведений</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_sogl.'</td>
+        <td style = "width: 40%; text-align: left;">Информация о выезде комиссии</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
     </tr>
     
     <tr>
@@ -280,22 +280,22 @@ echo ' <tr>
     <tr>
  
         <td style = " width: 10%; text-align: center;">13</td>
-        <td style = "width: 40%; text-align: left;">Информация о возврате заявления и прилагаемых к нему документов и сведений в случае принятия решения об отказе в принятии заявления заинтересованного лица</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_vozvr.'</td>
+        <td style = "width: 40%; text-align: left;">Документы и сведения, возвращенные представителю заинтересованного лица (в случае отказа в приеме заявления, отзыва заявления)</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">14</td>
-        <td style = "width: 40%; text-align: left;">Информация об отзыве заявления</td>
+        <td style = "width: 40%; text-align: left;">Отметка об отзыве заявления</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_otzyv.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">15</td>
-        <td style = "width: 40%; text-align: left;">Дата и номер принятого административного решения</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">№'.$id_rkk.' '. $date_admin_resh .'</td>
+        <td style = "width: 40%; text-align: left;">Отметка об уведомлении о принятом административном решении</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'. $date_admin_resh .'</td>
     </tr>
     
     <tr>
@@ -308,7 +308,7 @@ echo ' <tr>
      <tr>
  
         <td style = " width: 10%; text-align: center;">17</td>
-        <td style = "width: 40%; text-align: left;">Информация об уведомлении заинтересованного лица о принятом административном решении</td>
+        <td style = "width: 40%; text-align: left;">Информация о профилях заболеваний, состояниях, синдромах, методах их исследования и видах медицинской помощи, которые не были заявлены государственной организацией здравоохранения</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_uved.'</td>
     </tr>
     
@@ -316,41 +316,36 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">18</td>
         <td style = "width: 40%; text-align: left;">Документы и сведения, выданные заинтересованному лицу (указать количество листов):</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">18.1</td>
-        <td style = "width: 40%; text-align: left;">административное решение;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$count_list_admin.'</td>
-    </tr>
-    
-    <tr>
- 
-        <td style = " width: 10%; text-align: center;">18.2</td>
-        <td style = "width: 40%; text-align: left;">свидетельство о медицинской аккредитации;</td>
+        <td style = "width: 40%; text-align: left;">свидетельство о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации;</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$po_n.' '. $date_sved .' '. $count_list_sved. '</td>
     </tr>
     
     <tr>
  
-        <td style = " width: 10%; text-align: center;">18.3</td>
-        <td style = "width: 40%; text-align: left;">отчет о проведении медицинской аккредитации</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$count_list_report_medacr.'</td>
+        <td style = " width: 10%; text-align: center;">18.2</td>
+        <td style = "width: 40%; text-align: left;">информация (отчет) о результатах проведения медицинской аккредитации</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
     </tr>
+    
+
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">19</td>
-        <td style = "width: 40%; text-align: left;">Информация о получении заинтересованным лицом документов и сведений</td>
+        <td style = "width: 40%; text-align: left;">Отметка о получении заинтересованным лицом документов и сведений</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">20</td>
-        <td style = "width: 40%; text-align: left;">Даты, индексы повторных заявлений</td>
+        <td style = "width: 40%; text-align: left;">Даты, индексы первичных заявлений</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$date_index_povt_app.'</td>
     </tr>
     

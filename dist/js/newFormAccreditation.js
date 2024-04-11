@@ -122,7 +122,6 @@ function newShowModal(id_application) {
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
 
-    let btncalc = document.getElementById("btnCalc");
     let btnreport = document.getElementById("btnPrintReport");
     let btnOkReshenie = document.getElementById("btnOkReshenie");
     let btnOkonchatelnoeReshenie = document.getElementById("btnOkonchatelnoeReshenie");
@@ -150,10 +149,9 @@ function newShowModal(id_application) {
         btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
-        btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         btnPrintSved.classList.remove("hiddentab");
-        btnPrintReportOcenka.classList.add("hiddentab");
+        btnPrintReportOcenka.classList.remove("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
     } else if (tabNeodobrennie.classList.contains("active")) {
 
@@ -165,7 +163,7 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
-        btnPrintReportOcenka.classList.add("hiddentab");
+        btnPrintReportOcenka.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
         divFileReportSamoocenka1.classList.add("hiddentab");
@@ -175,7 +173,6 @@ function newShowModal(id_application) {
         btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
@@ -190,7 +187,6 @@ function newShowModal(id_application) {
         };
     } else if (tabReshenieSoveta.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.remove("hiddentab");
-        btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -204,7 +200,6 @@ function newShowModal(id_application) {
 
     } else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
-        btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -218,7 +213,6 @@ function newShowModal(id_application) {
     }
     else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
-        btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -265,7 +259,6 @@ function newShowModal(id_application) {
         btnOk.classList.add("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
@@ -284,7 +277,6 @@ function newShowModal(id_application) {
         btnOk.classList.add("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
     }
@@ -298,7 +290,6 @@ function newShowModal(id_application) {
         addtab.style = "display: none";
 
     let btnSuc = document.getElementById("btnSuc");
-    let btnCalc = document.getElementById("btnCalc");
 
 
     //  console.log(aButton);
@@ -332,6 +323,7 @@ function newShowModal(id_application) {
     let divDateDorabotka = document.getElementById("divDateDorabotka");
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
+    let dateKom = document.getElementById("dateKom");
 
     // divSoprPismo.style = "display:none";
     //  divOrgStrukt.style = "display:none";
@@ -349,6 +341,70 @@ function newShowModal(id_application) {
     id_app = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
+    let formReport = document.getElementById("formReport");
+    let fgSvid = document.getElementById("fgSvid");
+    if(fgSvid){
+        fgSvid.remove();
+    }
+
+    if(status == 4){
+
+        const formGroup = document.createElement('div');
+        formGroup.className = 'form-group';
+        formGroup.id = 'fgSvid';
+
+// Создание элемента label
+        const label = document.createElement('label');
+        label.textContent = 'Выдать свидетельство';
+        label.style = 'margin-left: 2.5rem; display:block;';
+// Создание элемента select
+        const select = document.createElement('select');
+        select.name = 'giveSvid';
+        select.id = 'giveSvid';
+        select.style = 'margin-left: 2.5rem; display:block;';
+
+// Создание опций для select
+        const option0 = new Option('', '0');
+        const option1 = new Option('Полное', '1');
+        const option2 = new Option('Частичное', '2');
+        $.ajax({
+            url: "ajax/getGiveSvid.php",
+            method: "POST",
+            data: {
+                id_app: id_application
+            }
+        }).then(response => {
+            switch(response){
+                case "0":
+                    option0.selected = true;
+                    break;
+                case "1":
+                    option1.selected = true;
+                    break;
+                case "2":
+                    option2.selected = true;
+                    break;
+            }
+        })
+        select.appendChild(option0);
+        select.appendChild(option1);
+        select.appendChild(option2);
+
+        select.onchange = () => {
+            $.ajax({
+                url: "ajax/changeGiveSvid.php",
+                method: "GET",
+                data: {
+                    id_app: id_application,
+                    giveSvid: select.value
+                }
+            })
+        }// Добавление label и select в div
+        formGroup.appendChild(label);
+        formGroup.appendChild(select);
+        formReport.style = "margin-bottom: 1.5rem";
+        formReport.insertAdjacentElement("afterend", formGroup);
+    }
 
     //  naim.value = username;
     if (status == 1 || status == 5) {
@@ -420,6 +476,7 @@ function newShowModal(id_application) {
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
+            dateKom.value = data[0][26];
             let data1 = JSON.parse(response);
             idRkk = data1[4];
 
@@ -934,7 +991,6 @@ function newShowModal(id_application) {
 
     let divBtnPrintReport = document.getElementById('btnPrintReport');
     divBtnPrintReport.onclick = () => {
-        console.log("хуй")
         printNewReport();
     };
 
@@ -3906,3 +3962,19 @@ function changeSootv(selectElement) {
     });
 }
 
+$("#dateKom").on("change", function () {
+    let date = $("#dateKom").val();
+    console.log(date);
+    $.ajax({
+        url: 'ajax/saveDateKom.php',
+        method: 'POST',
+        data: { date: date, id_app:id_app},
+        success: function() {
+            console.log("Данные успешно сохранены");
+
+        },
+        error: function() {
+            console.error("Ошибка при сохранении данных");
+        }
+    })
+});

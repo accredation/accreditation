@@ -393,7 +393,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
     let btnOk = document.getElementById("btnOk");
     let btnNeOk = document.getElementById("btnNeOk");
 
-    let btncalc = document.getElementById("btnCalc");
+    // let btncalc = document.getElementById("btnCalc");
     let btnreport = document.getElementById("btnPrintReport");
     let btnOkReshenie = document.getElementById("btnOkReshenie");
     let btnOkonchatelnoeReshenie = document.getElementById("btnOkonchatelnoeReshenie");
@@ -418,7 +418,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btnOk.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
-        btncalc.classList.remove("hiddentab");
+        // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
     } else if (tabNeodobrennie.classList.contains("active")) {
 
@@ -437,14 +437,14 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btnChecking.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btncalc.classList.remove("hiddentab");
+        // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
 
     } else if (tabReshenieSoveta.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.remove("hiddentab");
-        btncalc.classList.add("hiddentab");
+        // btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -455,7 +455,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
 
     }else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
-        btncalc.classList.add("hiddentab");
+        // btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -467,7 +467,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
     }
     else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
-        btncalc.classList.add("hiddentab");
+        // btncalc.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -490,7 +490,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btnOk.classList.add("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btncalc.classList.remove("hiddentab");
+        // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
     }
     else  {
@@ -505,7 +505,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
         btnOk.classList.add("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
-        btncalc.classList.remove("hiddentab");
+        // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
     }
 
@@ -2849,18 +2849,18 @@ $("#btnNeOk").on("click", () => {
     }
 });
 
-$("#btnCalc").on("click", () => {
-    let id_application = document.getElementById("id_application");
-
-    $.ajax({
-        url: "ajax/getCalcAccred.php",
-        method: "GET",
-        data: {id_application: id_application.innerText}
-    })
-        .done(function (response) {
-            location.href = "/index.php?users";
-        });
-});
+// $("#btnCalc").on("click", () => {
+//     let id_application = document.getElementById("id_application");
+//
+//     $.ajax({
+//         url: "ajax/getCalcAccred.php",
+//         method: "GET",
+//         data: {id_application: id_application.innerText}
+//     })
+//         .done(function (response) {
+//             location.href = "/index.php?users";
+//         });
+// });
 
 
 

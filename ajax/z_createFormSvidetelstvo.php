@@ -18,7 +18,7 @@ td {
    border: 1px solid black;
   padding: 8px;
   text-align: center;
-  font-size: 21pt;
+  font-size: 15pt;
 }
 td {
   word-break: break-word;
@@ -38,36 +38,37 @@ tr:hover {
 </style>
 </body>        
 
-<div style=" font-size: 22pt;
-    position: relative;
-    text-align: center;
-    margin-left: 5%;
-">
-<!-- Преамбула заявления -->
-	Свидетельство<br>
-    о соответствии государственной  организации здравоохранения базовым<br>
-    критериям медицинской аккредитации<br></div>
+<br>
+<br>
+<br>
 
 <div style="font-size: 22pt;
     position: relative;
     left: 10%;
 ">
 <!-- Поля для заполнения данных о юр. лице -->
+
 <br>
-Дата регистрации____________________20____г.___ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;№_________________</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Дата регистрации____________________20____г.___ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div style="font-size: 22pt;
     position: relative;
     left: 10%;
 ">
 <!-- Поля для заполнения данных о юр. лице -->
 <br>
-Настоящее свидетельство выдано_________________________________________</div>
+Настоящее свидетельство выдано__________________________</div>
       <div style="
     position: relative;
     left: 10%;
     font-size: 22pt;
     margin-top: 3%;
-}">______________________________________________________________________________________________________________________________________________________</div>
+}">_______________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 35%;
@@ -78,13 +79,13 @@ tr:hover {
     left: 10%;
     font-size: 22pt;
     line-height: 80px;
-">______________________________________________________________________________________________________________________________________________________</div>
+">_______________________________________________________</div>
  <div style="
     position: relative;
     left: 10%;
     font-size: 22pt;
     line-height: 80px;
-">______________________________________________________________________________________________________________________________________________________</div>
+">_______________________________________________________</div>
 <br>
        <div style="
     width: 89%;
@@ -92,11 +93,11 @@ tr:hover {
     position: relative;
     left: 9%;
     text-align: justify;
-">о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации по следующим видам оказываемой медицинской помощи по профилям заболеваний, состояниям, синдромам:</div>
+"></div>
      
 
- <div style="display: flex; justify-content: center; margin-top: 20px;margin-left: 3%">
-<table style="border-collapse: collapse; border: 1px solid black; width: 98%;">
+ <div style="display: flex; justify-content: center; margin-top: 20px;margin-left: 0.6%">
+<table style="border-collapse: collapse; border: 1px solid black; width: 81%; ">
     <tr>
         <td  style=" text-align: center; width: 5%">
             № п/п
@@ -142,69 +143,67 @@ echo '</tbody></table>
 <br>
 <br>
 <!-- Подпись -->
-<div style=" page-break-before: avoid; ">
+<div style="position: absolute; page-break-before: avoid; ">
     <div style="
 	page-break-before: avoid;
     position: relative;
-    left: 8%;
-    font-size: 22pt;
-	">Свидетельство действительно до ___ ___________20___г.
+    left: 12%;
+    font-size: 20pt;
+	">Свидетельство действительно до ___ ________20__г.
     </div>
     <br>
     <br>
     <div style="
 	page-break-before: avoid;
     position: relative;
-    left: 8%;
-    font-size: 22pt;
+    left: 12%;
+    font-size: 20pt;
 	">Основание:
     </div>
     <div style="
 	page-break-before: avoid;
     position: relative;
-    left: 8%;
-    font-size: 22pt;
-	">Решение уполномоченного органа от ___ ___________20___г. &nbsp;&nbsp;&nbsp;&nbsp;№_________
+    left: 12%;
+    font-size: 20pt;
+	">Решение уполномоченного органа от ___ ________20__г. &nbsp;&nbsp;&nbsp;№________
     </div>
     <br>
     <br>
-    <div style="
-	page-break-before: avoid;
-    position: relative;
-    left: 8%;
-    font-size: 22pt;
-	">Руководитель<br>
-        уполномоченного органа:
-    </div>
-    <br>
-    <br>
+<!--    <div style="-->
+<!--	page-break-before: avoid;-->
+<!--    position: relative;-->
+<!--    left: 8%;-->
+<!--    font-size: 20pt;-->
+<!--    margin-top: 50px;-->
+<!--	">Директор-->
+<!--    </div>-->
     <div style="
     position: relative;
-    left: 8%;
-    font-size: 17pt;
-">_________________________________
+    left: 12%;
+    font-size: 20pt;
+">Директор&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        _______________
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;____________
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        __________________________
+        А.А.Щербинский
     </div>
 
     <div style="page-break-before: avoid;
 	font-style: italic;
     	position: relative;
-    	left: 8%;
-    	font-size: 17pt;
-">	(наименование должности служащего)
+    	left: 12%;
+    	font-size: 14pt;
+">	(Руководитель уполномоченного органа)
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         (подпись)
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        (инициалы,фамилия)
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(инициалы,фамилия)
     </div>
 </div>
 

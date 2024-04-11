@@ -19,7 +19,10 @@ left outer join z_answer_criteria ac on c.id_criteria=ac.id_criteria and ac.id_d
 left outer join applications a on s.id_application=a.id_application
 where  s.id_application = '$id_app' 
 
-order by s.id_subvision, dep.id_department, IFNULL(c.pp, 100000), c.id_criteria
+order by s.id_subvision, dep.id_department, CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(c.pp, '.', 1), '.', -1) AS UNSIGNED), 
+CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(c.pp, '.', 2), '.', -1) AS UNSIGNED), 
+CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(c.pp, '.', 3), '.', -1) AS UNSIGNED);
+
 
 ";
 

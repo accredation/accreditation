@@ -416,7 +416,7 @@ function showModal(id_application, strMarks, strMarksAccred) {
 
     let addtab = document.getElementById("addtab");
     let btnSuc = document.getElementById("btnSuc");
-    let btnCalc = document.getElementById("btnCalc");
+    // let btnCalc = document.getElementById("btnCalc");
 
 
     //  console.log(aButton);
@@ -487,9 +487,9 @@ function showModal(id_application, strMarks, strMarksAccred) {
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
         btnSen.classList.add("hiddentab");
-        if (btnCalc) {
-            btnCalc.remove();
-        }
+        // if (btnCalc) {
+        //     btnCalc.remove();
+        // }
     }
 
     let data = new Array();
@@ -2636,9 +2636,9 @@ $("#btnSend").on("click", async (event) => {
 
 });
 
-$("#btnCalc").on("click", () => {
-    calcMarks();
-});
+// $("#btnCalc").on("click", () => {
+//     calcMarks();
+// });
 
 $("#button1").on("click", (e) => {
     // let id_application = document.getElementById("id_application");

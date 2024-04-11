@@ -293,7 +293,7 @@ if (mysqli_num_rows($rez) > 0) //если нашлась одна строка, 
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where uz.id_uz='$id_uz' and id_status = 7";
+                                where uz.id_uz='$id_uz' and id_status = 6";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
@@ -722,8 +722,14 @@ if (mysqli_num_rows($rez) > 0) //если нашлась одна строка, 
                                         </div>
                                         <form id="formReport" >
                                             <div class="form-group" id = "divReport" style="margin-left: 2.5rem">
-<!--                                                <label for="" style="font-size: 24px">Отчет</label><br/>-->
+                                                <label for="" style="font-size: 24px">Отчет</label><br/>
                                                 <input type="file" class="form-control-file hiddentab" id="fileReport" >
+                                            </div>
+                                        </form>
+                                        <form id="formAdminResh" >
+                                            <div class="form-group" id = "divAdminResh" style="margin-left: 2.5rem">
+                                                <label for="" style="font-size: 24px">Административное решение</label><br/>
+                                                <a id="fileAdminResh" ></a>
                                             </div>
                                         </form>
                                     </div>
