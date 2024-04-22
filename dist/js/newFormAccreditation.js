@@ -3331,10 +3331,9 @@ function printSved(el){
         }
     }).then(response => {
         var WinPrint = window.open('', '', 'left=50,top=50,width=1200,height=860,toolbar=0,scrollbars=1,status=0');
-        WinPrint.document.write('<style>@page {\n' +
-            'margin: 1rem;\n' +
-            '}</style>');
+        WinPrint.document.write('<html><head><style>@page { margin: 14.5rem 1rem 8.5rem;} tr { page-break-inside: avoid; }</style></head><body>');
         WinPrint.document.write(response);
+        WinPrint.document.write('</body></html>');
         WinPrint.document.close();
         WinPrint.focus();
         WinPrint.document.title = "Свидетельство_№" + id_app + "_" + new Date().toLocaleDateString().replaceAll(".", "");

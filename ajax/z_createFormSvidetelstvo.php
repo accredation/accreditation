@@ -2,7 +2,27 @@
 include "connection.php";
 $id_app = $_GET['id_application'];
 
+function convertDate($date) {
+    $dateObj = date_create_from_format('Y-m-d', $date);
+    return date_format($dateObj, 'd.m.Y');
+}
 
+// Пример использования
+$queryN = "SELECT naim from applications 
+                        WHERE id_application = '$id_app'";
+$resultN = mysqli_query($con, $queryN) or die("Ошибка " . mysqli_error($con));
+$row = mysqli_fetch_array($resultN);
+$naim = $row['naim'];
+
+$queryDates = "SELECT date_protokol, date_sved, date_admin_resh, protokol_zased from rkk 
+                        WHERE id_application = '$id_app'";
+$resultDates = mysqli_query($con, $queryDates) or die("Ошибка " . mysqli_error($con));
+$row = mysqli_fetch_array($resultDates);
+
+$dateReg = convertDate($row['date_protokol']);
+$dateSved = convertDate($row['date_sved']);
+$dateAdminResh = convertDate($row['date_admin_resh']);
+$po_n = $row['protokol_zased'];
 //echo '<tr><td colspan="4" style="font-weight: 700; text-align: center">' . $name_sub . '</td></tr>';
 echo '		
 <body>
@@ -35,12 +55,10 @@ tr:hover {
   background-color: #f5f5f5;
 }
 
-</style>
+</style> 
 </body>        
 
 <br>
-<br>
-<br>
 
 <div style="font-size: 22pt;
     position: relative;
@@ -48,52 +66,36 @@ tr:hover {
 ">
 <!-- Поля для заполнения данных о юр. лице -->
 
+
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-Дата регистрации____________________20____г.___ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+Дата регистрации &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$dateReg.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div style="font-size: 22pt;
     position: relative;
-    left: 10%;
+    left: 10%; width: 81%; text-align: justify;
 ">
 <!-- Поля для заполнения данных о юр. лице -->
 <br>
-Настоящее свидетельство выдано__________________________</div>
+Настоящее свидетельство выдано '.$naim.'</div>
       <div style="
     position: relative;
     left: 10%;
-    font-size: 22pt;
-    margin-top: 3%;
-}">_______________________________________________________</div>
+    font-size: 8pt;
+    font-weight: 900;
+}">_______________________________________________________________________________________________________________________________________________________</div>
       <div style="font-style: italic;
     position: relative;
     left: 35%;
     font-size: 18pt;
 ">наименование заинтересованного лица</div>
-      <div style="
-    position: relative;
-    left: 10%;
-    font-size: 22pt;
-    line-height: 80px;
-">_______________________________________________________</div>
- <div style="
-    position: relative;
-    left: 10%;
-    font-size: 22pt;
-    line-height: 80px;
-">_______________________________________________________</div>
+
 <br>
-       <div style="
-    width: 89%;
+        <div style="
+    width: 81%;
     font-size: 22pt;
     position: relative;
-    left: 9%;
+    left: 10%;
     text-align: justify;
-"></div>
+">о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации по следующим видам оказываемой медицинской помощи по профилям заболеваний, состояниям, синдромам:</div>
      
 
  <div style="display: flex; justify-content: center; margin-top: 20px;margin-left: 0.6%">
@@ -139,7 +141,7 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     }
 }
 echo '</tbody></table>
-</div>';?>
+</div>
 <br>
 <br>
 <!-- Подпись -->
@@ -147,25 +149,25 @@ echo '</tbody></table>
     <div style="
 	page-break-before: avoid;
     position: relative;
-    left: 12%;
+    left: 12.5%;
     font-size: 20pt;
-	">Свидетельство действительно до ___ ________20__г.
-    </div>
+	">Свидетельство действительно до '.$dateSved.
+    '</div>
     <br>
     <br>
     <div style="
 	page-break-before: avoid;
     position: relative;
-    left: 12%;
+    left: 12.5%;
     font-size: 20pt;
 	">Основание:
     </div>
     <div style="
 	page-break-before: avoid;
     position: relative;
-    left: 12%;
+    left: 12.5%;
     font-size: 20pt;
-	">Решение уполномоченного органа от ___ ________20__г. &nbsp;&nbsp;&nbsp;№________
+	">Решение уполномоченного органа от '.$dateReg.' &nbsp;&nbsp;&nbsp;№'.$po_n.'
     </div>
     <br>
     <br>
@@ -179,7 +181,7 @@ echo '</tbody></table>
 <!--    </div>-->
     <div style="
     position: relative;
-    left: 12%;
+    left: 12.5%;
     font-size: 20pt;
 ">Директор&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -196,6 +198,7 @@ echo '</tbody></table>
     	position: relative;
     	left: 12%;
     	font-size: 14pt;
+
 ">	(Руководитель уполномоченного органа)
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -207,4 +210,5 @@ echo '</tbody></table>
     </div>
 </div>
 
-</body>
+</body>'
+;?>

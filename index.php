@@ -201,6 +201,7 @@ else{
                                 phpAlert("Вам недоступна эта страница");
                             }
                         }else{
+
                             phpAlert("Требуется авторизация");
                         }
 //                        include 'api_application.php';
