@@ -947,7 +947,7 @@ function printReport(){
 
     let pageCount = data[data.length-1].page;
 
-    console.log(data)
+ 
     
      for (let j = 0; j <= pageCount; j++) {
         let divBreakRem = document.getElementById('divBreak')

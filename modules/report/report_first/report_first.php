@@ -125,7 +125,7 @@
                                 <?php
                                     $query = "SELECT id_status, name_status_report
                                     FROM accreditation.status
-                                    where id_status <> 8
+                                    where id_status not in (5,8)
                                     ";
                                     $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);

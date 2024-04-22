@@ -86,12 +86,15 @@
                                           <p style="white-space: normal; line-height: 1">Структура организаций здравоохранения по результатам самооценки</p>
                                       </a>
                                   </li>
+
+                                
                                   <li class="nav-item" style="height: 100%">
                                       <a href="/index.php?report_analiz_samoocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
 
                                           <p style="white-space: normal; line-height: 1">Анализ результатов самооценки организаций здравоохранения</p>
                                       </a>
                                   </li>
+
                                   <li class="nav-item" style="height: 100%">
                                       <a href="/index.php?report_analiz_ocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
 
@@ -119,6 +122,15 @@
                                         <p style="white-space: normal; line-height: 1">Контроль сроков подачи заявлений по графику</p>
                                     </a>
                                   </li>
+
+                                  <li class="nav-item" style="height: 100%">
+                                    <a href="/index.php?report_vid_profile_oz" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                        <p style="white-space: normal; line-height: 1">Отчет по видам медицинской помощи и профилям ОЗ установленных в перечне</p>
+                                    </a>
+                                  </li>
+
+                                  
                               </ul>
                           </div>
                       </li>
@@ -134,6 +146,13 @@
                           <a class="nav-link" href="/index.php?schedule_uz" >
                               <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
                               <span class="menu-title">График ОЗ</span>
+                          </a>
+                      </li>
+                     
+                      <li class="nav-item" id="nav15">
+                          <a class="nav-link" href="/index.php?vid_profile_oz" >
+                              <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                              <span class="menu-title">Виды и профили ОЗ</span>
                           </a>
                       </li>
 
@@ -286,6 +305,7 @@
     let nav12 = document.getElementById("nav12");
 
     let nav14 = document.getElementById("nav14");
+    let nav15 = document.getElementById("nav15");
 
     switch(url){
         case "/index.php":
@@ -333,6 +353,9 @@
         case "/index.php?schedule_uz":
             nav14.className = "nav-item active";
             break;
+        case "/index.php?vid_profile_oz":
+            nav15.className = "nav-item active";
+            break;    
         default:
             nav1.className = "nav-item active";
             break;

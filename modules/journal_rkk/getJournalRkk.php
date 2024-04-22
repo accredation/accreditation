@@ -118,14 +118,14 @@ $adm = '';
  $guzo = '';
 
  if($checkbox_guzo_1_ === "true") {
-    $guzo = $guzo  . "a.checkboxValueGuzo=1"; 
+    $guzo = $guzo  . "rkk.checkboxValueGuzo=1"; 
  } 
 
  if($checkbox_guzo_2_ === "true") {
     if(strlen($guzo)>0){
         $guzo = $guzo . ' or ';
      }
-    $guzo = $guzo  . "a.checkboxValueGuzo=0"; 
+    $guzo = $guzo  . "rkk.checkboxValueGuzo=0"; 
  } 
 
  if($guzo === ''){
