@@ -415,6 +415,7 @@
 
         $(document).ready(function () {
             let example_filter = document.getElementById("sotr_th_data");
+            if(example_filter)
             example_filter.click();
 
         })

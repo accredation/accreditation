@@ -3469,6 +3469,27 @@ $("#formReport").on("change", () => {
     form.append("id_application", id_application.innerText);
     form.append("login", loginApp);
     xhr.open("post", "ajax/postFileReportGuzo.php", true);
+
+
+
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadPrikazNaznach";
+    fileReport.insertAdjacentElement("afterend", load);
+
+    xhr.upload.onprogress = function (event) {
+        if (event.lengthComputable) {
+            let progress = (event.loaded / event.total) * 100;
+            load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
+        }
+    };
+
+    xhr.upload.onloadstart = function () {
+        load.innerHTML = "Подождите, идет загрузка";
+    };
+    xhr.upload.onload = function () {
+        load.innerHTML = "Файл загружен";
+    }
     xhr.send(form);
 });
 
