@@ -783,3 +783,5 @@ itemMenu.children[1].style = "color: #00e735";
 document.getElementById("nav1").classList.remove("active");
 let itemA = document.querySelector("[href=\"/index.php?report_analiz_ocenka\"]");
 itemA.style = "color: #39ff39; padding: 0rem 0rem 0rem 2rem;";
+
+

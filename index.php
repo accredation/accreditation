@@ -251,6 +251,7 @@ else{
                     case 'report_first':
                         include 'modules/report/report_first/report_first.php';
                         break;
+                  
                     case 'report_analiz_samoocenka':
                         include 'modules/report/report_analiz_samoocenka/report_analiz_samoocenka.php';
                         break;
@@ -272,7 +273,12 @@ else{
                     case 'report_date_schedule':
                         include 'modules/report/report_date_schedule/report_date_schedule.php';
                         break;
-
+                    case 'vid_profile_oz':
+                        include 'modules/vid_profile_oz/vid_profile_oz.php';
+                        break;   
+                    case 'report_vid_profile_oz':
+                        include 'modules/report/report_vid_profile_oz/report_vid_profile_oz.php';
+                        break;       
                         
                 }
             } else {
