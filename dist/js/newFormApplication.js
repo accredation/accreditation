@@ -1,5 +1,7 @@
 let id_app;
 let createrApp;
+let pervtor;
+let sel_pervtor = 1;
 
 function newShowModal(id_application) {
     id_app = id_application;
@@ -200,6 +202,7 @@ function newShowModal(id_application) {
     let unp = document.getElementById("unp");
     let adress = document.getElementById("adress");
     let adressFact = document.getElementById("adressFact");
+    let selPervtor = document.getElementById("pervtor");
     let tel = document.getElementById("tel");
     let email = document.getElementById("email");
     let rukovoditel = document.getElementById("rukovoditel");
@@ -304,6 +307,13 @@ function newShowModal(id_application) {
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
+            pervtor = data[0][23];
+            selPervtor.options.selectedIndex = Number(data[0][25]) - 1;
+            sel_pervtor = data[0][25];
+            let id_old_app = data[0][24];
+            if(id_old_app){
+                id_application = id_old_app;
+            }
 
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
@@ -870,6 +880,8 @@ async function newShowTab(element, id_sub) {
                         "    text-shadow: 1px 1px #fff;\n" +
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt;width:90%;";
+                    // ТУТ задание
+                    if(sel_pervtor == "1")
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -946,6 +958,7 @@ async function newShowTab(element, id_sub) {
                         "    text-shadow: 1px 1px #fff;\n" +
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt;width:90%;";
+                    if(sel_pervtor == "1")
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -1020,6 +1033,7 @@ async function newShowTab(element, id_sub) {
                         "    text-shadow: 1px 1px #fff;\n" +
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt;width:90%;";
+                    if(sel_pervtor == "1")
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -1097,6 +1111,7 @@ async function newShowTab(element, id_sub) {
                         "    text-shadow: 1px 1px #fff;\n" +
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt; width:90%;";
+                    if(sel_pervtor == "1")
                     inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
@@ -1650,6 +1665,7 @@ function addFile(idCrit, idDep, input) {
             fileContainer.appendChild(deleteButton);
             divA.appendChild(fileContainer);
         }
+
         xhr.send(form);
     } else {
         alert("Файл с таким именем уже есть в этой ячейке");
@@ -2699,3 +2715,14 @@ $("#prikazNaznach").on("change", () => {
 //     }, 3000);
 // }))
 
+$("#pervtor").on("change", () => {
+    let thisSel = document.getElementById("pervtor");
+    var selectedValue = thisSel.options[thisSel.options.selectedIndex].value;
+    $.ajax({
+        url: "ajax/changePervtor.php",
+        method: "POST",
+        data: { id_app: id_app, sel_pervtor: selectedValue}
+    }).then((response) => {
+        sel_pervtor = selectedValue;
+    })
+})

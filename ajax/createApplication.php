@@ -25,12 +25,41 @@ if (mysqli_num_rows($rez1) == 1) {
             mysqli_query($con, "Insert into applications(`id_user`, `id_status`, `naim`, `date_create_app`) values ('$id', 1, '$name', CURDATE())");
     }
     else{
-        $query1 = "Select * from applications where id_user = '$id' and id_status = 9 and pervtor = 1";
+        $query1 = "Select * from applications where id_user = '$id' and (id_status = 9 or id_status = 6)"; // and pervtor = 1
         $rez2 = mysqli_query($con, $query1) or die("Ошибка " . mysqli_error($con));
-        if (mysqli_num_rows($rez2) == 1) {
+        if (mysqli_num_rows($rez2) > 0) {
             $row = mysqli_fetch_assoc($rez2);
             $id_rkk = $row['id_rkk'];
-            mysqli_query($con, "Insert into applications(`id_user`, `id_status`, `naim`, `date_create_app`, pervtor, id_rkk_perv ) values ('$id', 1, '$name', CURDATE(),2, '$id_rkk')");
+            $id_old_app = $row['id_application'];
+
+            $sokr = $row['sokr_naim'];
+            $unp = $row['unp'];
+            $ur_adress = $row['ur_adress'];
+            $fact_adress = $row['fact_adress'];
+            $tel = $row['tel'];
+            $email = $row['email'];
+            $rukovoditel = $row['rukovoditel'];
+            $predstavitel = $row['predstavitel'];
+            $soprovod_pismo = $row['soprovod_pismo'];
+            $copy_rasp = $row['copy_rasp'];
+            $org_structure = $row['org_structure'];
+            $ucomplect = $row['ucomplect'];
+            $tech_osn = $row['tech_osn'];
+            $report = $row['fileReport'];
+            $reportSamoocenka = $row['fileReportSamoocenka'];
+            $infDorabotkiFile = $row['infDorabotkiFile'];
+            $mark_percent = $row['mark_percent'];
+            $doverennost = $row['doverennost'];
+            $zakluchenieSootvetstviya = $row['zakluchenieSootvetstviya'];
+            $prikazNaznach = $row['prikazNaznach'];
+            $selected_lico_value = $row['selected_lico_value'];
+            mysqli_query($con, "Insert into applications(`id_user`, `id_status`, `naim`, `date_create_app`, pervtor, id_rkk_perv,
+                         sokr_naim, unp, ur_adress, fact_adress, tel, email, rukovoditel,predstavitel,soprovod_pismo, copy_rasp, org_structure, ucomplect,
+                         tech_osn, fileReport, fileReportSamoocenka, infDorabotkiFile, doverennost, zakluchenieSootvetstviya, prikazNaznach, 
+                         selected_lico_value, id_old_app) values ('$id', 1, '$name', CURDATE(), 2, '$id_rkk', '$sokr', '$unp', '$ur_adress', '$fact_adress','$tel', '$email', '$rukovoditel',
+                                                      '$predstavitel', '$soprovod_pismo', '$copy_rasp', '$org_structure', '$ucomplect', '$tech_osn',
+                                                      '$report', '$reportSamoocenka', '$infDorabotkiFile', '$doverennost', '$zakluchenieSootvetstviya',
+                                                      '$prikazNaznach', '$selected_lico_value', $id_old_app)");
         }
     }
 //        mysqli_query($con, "Insert into subvision(`name`,`id_application`)  select '$name', id_application from applications where id_user='$id' and id_status=1");

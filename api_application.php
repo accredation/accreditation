@@ -81,17 +81,14 @@
 $login = $_COOKIE['login'];
 $query = "SELECT * FROM applications a
     left outer join users u on u.id_user = a.id_user
-    WHERE login='$login' and  id_status not in (4,8,9) ";
+    WHERE login='$login' and id_status in (1,2,3,4,5)";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
-if (mysqli_num_rows($rez) > 0) //если нашлась одна строка, значит такой юзер существует в базе данных
-{
+if (mysqli_num_rows($rez) == 0) //если нашлась одна строка, значит такой юзер существует в базе данных
+
 // пометка если оценка завершена или заявлений еще нет
 
-?>
-
-                  <?php }
-   else { ?>  <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
+   { ?>  <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
                   <button class="btn bg-create p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" onclick="createApplication()"> Создать заявление </button>
                 </div> <?php }  ?>
               </div>
@@ -637,7 +634,16 @@ if (mysqli_num_rows($rez) > 0) //если нашлась одна строка, 
 <!--                                                </div>-->
 <!--                                            </form>-->
 
-
+                                            <form id="formPervtor" >
+                                                <div class="form-group" id = "divPervtor">
+                                                    <label for="pervtor">Тип подачи заявления</label><br>
+                                                    <select name="pervtor" id="pervtor">
+                                                        <option value="1">Первичное</option>
+                                                        <option value="2">Повторное</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                            <br/>
 
                                             <button class="btn-inverse-info" onclick="newAddTab()" id="addtab">+ добавить вкладку</button>
                                             <br/>

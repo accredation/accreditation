@@ -237,7 +237,6 @@ function newShowModal(id_application) {
                 let data = JSON.parse(result);
 
                 idRkk = data.id_rkk;
-                console.log (idRkk +"dassdas");
                 if (idRkk !== "0") {
                     btnChecking.classList.remove("hiddentab");
                 } else {
@@ -448,6 +447,55 @@ function newShowModal(id_application) {
         //     btnCalc.remove();
         // }
     }
+    let formPlanUstr = document.getElementById("formPlanUstr");
+    let divDatePlanUstr = document.getElementById("divDatePlanUstr");
+    if(formPlanUstr){
+        formPlanUstr.remove();
+    }
+    if(divDatePlanUstr){
+        divDatePlanUstr.remove();
+    }
+    if(status == 4) {
+
+        formPlanUstr = document.createElement("form");
+        formPlanUstr.id = "formPlanUstr";
+        let divPlanUstr = document.createElement("div");
+        divPlanUstr.id = "divPlanUstr";
+        divPlanUstr.className = "form-group";
+        divPlanUstr.style = "margin-left: 2.5rem;";
+        let labelPlanUstr = document.createElement("label");
+        labelPlanUstr.style = "font-size: 24px;";
+        labelPlanUstr.innerHTML = "План об устранении недостатков";
+        let brli = document.createElement("br");
+        let inputPlanUstr = document.createElement("input");
+        inputPlanUstr.type = "file";
+        inputPlanUstr.className = "form-control-file";
+        inputPlanUstr.id = "inputPlanUstr";
+        divPlanUstr.appendChild(labelPlanUstr);
+        divPlanUstr.appendChild(brli);
+        divPlanUstr.appendChild(inputPlanUstr);
+        formPlanUstr.appendChild(divPlanUstr);
+
+        divDatePlanUstr = document.createElement("div");
+        divDatePlanUstr.className = "form-group";
+        divDatePlanUstr.style = "margin-left: 2.5rem;";
+        divDatePlanUstr.id = "divDatePlanUstr";
+        let labelDatePlanUstr = document.createElement("label");
+        labelDatePlanUstr.style = "font-size: 24px;";
+        labelDatePlanUstr.innerHTML = "Дата утверждения плана";
+        let inputDatePlanUstr = document.createElement("input");
+        inputDatePlanUstr.type = "date";
+        inputDatePlanUstr.className = "form-control";
+        inputDatePlanUstr.style = "width: auto;";
+        inputDatePlanUstr.id = "inputDatePlanUstr";
+        divDatePlanUstr.appendChild(labelDatePlanUstr);
+        divDatePlanUstr.appendChild(brli);
+        divDatePlanUstr.appendChild(inputDatePlanUstr);
+
+
+        formReport.insertAdjacentElement("afterend", divDatePlanUstr);
+        formReport.insertAdjacentElement("afterend", formPlanUstr);
+    }
 
 
     let data = new Array();
@@ -468,7 +516,7 @@ function newShowModal(id_application) {
                 document.getElementById("sokr_name").innerHTML = "Регистрация заявления ";
                 document.getElementById("sokr_name").innerHTML += sokr.value;
             }
-            sootvetstvie.value = data[0][25];
+            sootvetstvie.options.selectedIndex = data[0][25];
             unp.value = data[0][2];
             adress.value = data[0][3];
             tel.value = data[0][4];
@@ -3175,7 +3223,7 @@ function getRkk() {
             }
         }
         else {
-            console.log("AAAAAAAAAAAAAAAAAA");
+
         }
     });
 }
