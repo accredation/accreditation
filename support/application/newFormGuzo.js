@@ -1970,16 +1970,17 @@ function printNewReport() {
         let divTextSubCriteriaChecked = document.createElement('div');
         divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
         let headTable;
-        $.ajax({
-            url: "ajax/getCalc.php",
-            method: "GET",
-            data: {id_application: id_application}
-        }).then(() => {
-            return $.ajax({
+        // $.ajax({
+        //     url: "ajax/getCalc.php",
+        //     method: "GET",
+        //     data: {id_application: id_application}
+        // }).then(() => {
+        //     return
+            $.ajax({
                 url: "ajax/z_getSubForPrintReport.php",
                 method: "GET",
                 data: {id_application: id_application}
-            });
+            // });
         }).then((response) => {
             let subCriteriaForReport = JSON.parse(response);
             headTable = createTableForPrintSamoAccred(subCriteriaForReport);
@@ -2108,16 +2109,17 @@ function printNewReportOcenka() {
         let divTextSubCriteriaChecked = document.createElement('div');
         divTextSubCriteriaChecked.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem;";
         let headTable;
-        $.ajax({
-            url: "ajax/getCalc.php",
-            method: "GET",
-            data: {id_application: id_application}
-        }).then(() => {
-            return $.ajax({
+        // $.ajax({
+        //     url: "ajax/getCalc.php",
+        //     method: "GET",
+        //     data: {id_application: id_application}
+        // }).then(() => {
+        //     return
+            $.ajax({
                 url: "ajax/z_getSubForPrintReportOcenka.php",
                 method: "GET",
                 data: {id_application: id_application}
-            });
+            // });
         }).then((response) => {
             let subCriteriaForReport = JSON.parse(response);
             headTable = createTableForPrintSamoAccredOcenka(subCriteriaForReport);
