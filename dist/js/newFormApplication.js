@@ -237,6 +237,8 @@ function newShowModal(id_application) {
     id_app = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
+    let divReportForm = document.getElementById("divReport");
+
 
     //  naim.value = username;
     if (status == 1 || status == 5) {
@@ -277,6 +279,7 @@ function newShowModal(id_application) {
         // formDateDorabotka.style.display = "none";
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
+        divReportForm.classList.add("hiddentab");
 
         if (btnSend)
             btnSend.classList.add("hiddentab");

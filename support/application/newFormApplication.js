@@ -193,6 +193,7 @@ function newShowModal(id_application) {
     id_app = id_application;
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
+    let  fileAdminResh = document.getElementById("fileAdminResh");
 
     //  naim.value = username;
     if (status == 1 || status == 5 || status == 2) {
@@ -229,6 +230,7 @@ function newShowModal(id_application) {
         formDateDorabotka.setAttribute("disabled", "true");
         formFileReportDorabotka.style.display = "none";
         formDateDorabotka.style.display = "none";
+        fileAdminResh.classList.add("hiddentab");
         addtab.classList.add("hiddentab");
         if  (btnSuc){
         btnSuc.classList.add("hiddentab"); }
@@ -268,6 +270,7 @@ function newShowModal(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
+
                 fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if (data[0][15] != null) {
@@ -718,12 +721,15 @@ function newShowModal(id_application) {
         printNewReport();
     };
 
+
+
     let divfilesContainer = document.getElementById('filesContainer');
     if(divfilesContainer)
     divfilesContainer.innerHTML = "";
     let fileReport1 =   document.getElementById('fileReport');
     if(fileReport1)
     fileReport1.classList.add("hiddentab");
+
 
 }
 

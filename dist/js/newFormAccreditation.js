@@ -137,6 +137,14 @@ function newShowModal(id_application) {
     let sovetgr = document.getElementById("sovetgr");
     let btnPrintReportOcenka = document.getElementById("btnPrintReportOcenka");
     let divFileReportSamoocenka1 = document.getElementById("divFileReportSamoocenka");
+    let  fileAdminResh = document.getElementById("fileAdminResh");
+    let  fileProtokolKom = document.getElementById("fileProtokolKom");
+    let  divDateKom = document.getElementById("divDateKom");
+    let  fileReportinput = document.getElementById("fileReport");
+    let selectElement = document.getElementById("sootvetstvie");
+    let otzyvZ = document.getElementById("otzyvZ");
+    let otkazZ = document.getElementById("otkazZ");
+
 
 
 
@@ -153,10 +161,25 @@ function newShowModal(id_application) {
         btnPrintSved.classList.remove("hiddentab");
         btnPrintReportOcenka.classList.remove("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.remove("hiddentab");
+        fileProtokolKom.classList.remove("hiddentab");
+        divDateKom.classList.remove("hiddentab");
+        fileReportinput.classList.remove("hiddentab");
+        otzyvZ.classList.remove("hiddentab");
+        otkazZ.classList.remove("hiddentab");
+        selectElement.disabled = false;
+
     } else if (tabNeodobrennie.classList.contains("active")) {
 
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
             btnChecking.classList.remove("hiddentab");
+            fileAdminResh.classList.remove("hiddentab");
+            fileProtokolKom.classList.remove("hiddentab");
+            divDateKom.classList.remove("hiddentab");
+            fileReportinput.classList.remove("hiddentab");
+            selectElement.disabled = false;
+            otzyvZ.classList.remove("hiddentab");
+            otkazZ.classList.remove("hiddentab");
         }
         btnPrintSved.classList.add("hiddentab");
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -167,6 +190,13 @@ function newShowModal(id_application) {
         sovetgr.style.display = "none";
         informgr.style.display = "none";
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.remove("hiddentab");
+        fileProtokolKom.classList.remove("hiddentab");
+        divDateKom.classList.remove("hiddentab");
+        fileReportinput.classList.remove("hiddentab");
+        selectElement.disabled = false;
+        otzyvZ.classList.remove("hiddentab");
+        otkazZ.classList.remove("hiddentab");
     } else if (tabRassmotrenie.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -179,6 +209,13 @@ function newShowModal(id_application) {
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.remove("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.remove("hiddentab");
+        fileProtokolKom.classList.remove("hiddentab");
+        divDateKom.classList.remove("hiddentab");
+        fileReportinput.classList.remove("hiddentab");
+        selectElement.disabled = false;
+        otzyvZ.classList.remove("hiddentab");
+        otkazZ.classList.remove("hiddentab");
 
 
         btnPrint.onclick = () => {
@@ -186,17 +223,24 @@ function newShowModal(id_application) {
             newPrint();
         };
     } else if (tabReshenieSoveta.classList.contains("active")) {
-        btnOkonchatelnoeReshenie.classList.remove("hiddentab");
-        btnreport.classList.add("hiddentab");
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnreport.classList.remove("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
         informgr.style.display = "none";
-        sovetgr.style.display = "block";
+        sovetgr.style.display = "none";
         btnPrintSved.classList.remove("hiddentab");
-        btnPrintReportOcenka.classList.add("hiddentab");
+        btnPrintReportOcenka.classList.remove("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.add("hiddentab");
+        fileProtokolKom.classList.add("hiddentab");
+        divDateKom.classList.add("hiddentab");
+        fileReportinput.classList.add("hiddentab");
+        selectElement.disabled = true;
+        otzyvZ.classList.add("hiddentab");
+        otkazZ.classList.add("hiddentab");
 
     } else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -210,6 +254,13 @@ function newShowModal(id_application) {
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.add("hiddentab");
+        fileProtokolKom.classList.add("hiddentab");
+        divDateKom.classList.add("hiddentab");
+        fileReportinput.classList.add("hiddentab");
+        selectElement.disabled = true;
+        otzyvZ.classList.add("hiddentab");
+        otkazZ.classList.add("hiddentab");
     }
     else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -223,6 +274,13 @@ function newShowModal(id_application) {
         btnPrintSved.classList.add("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.add("hiddentab");
+        fileProtokolKom.classList.add("hiddentab");
+        divDateKom.classList.add("hiddentab");
+        fileReportinput.classList.add("hiddentab");
+        selectElement.disabled = true;
+        otzyvZ.classList.add("hiddentab");
+        otkazZ.classList.add("hiddentab");
     }
     else if (tabHome.classList.contains("active")) {
 
@@ -261,6 +319,13 @@ function newShowModal(id_application) {
         btnreport.classList.remove("hiddentab");
         btnPrintReportOcenka.classList.add("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.remove("hiddentab");
+        fileProtokolKom.classList.remove("hiddentab");
+        divDateKom.classList.remove("hiddentab");
+        fileReportinput.classList.remove("hiddentab");
+        selectElement.disabled = false;
+        otzyvZ.classList.remove("hiddentab");
+        otkazZ.classList.remove("hiddentab");
         btnPrint.onclick = () => {
 
             newPrint();
@@ -278,6 +343,12 @@ function newShowModal(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btnreport.classList.remove("hiddentab");
         divFileReportSamoocenka1.classList.add("hiddentab");
+        fileAdminResh.classList.remove("hiddentab");
+        fileProtokolKom.classList.remove("hiddentab");
+        divDateKom.classList.remove("hiddentab");
+        fileReportinput.classList.remove("hiddentab");
+        otzyvZ.classList.remove("hiddentab");
+        otkazZ.classList.remove("hiddentab");
     }
 
     openTabId = 0;

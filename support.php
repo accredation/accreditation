@@ -120,7 +120,7 @@
                                                 <!-- <tr onclick="showModal('<?= $app['id_question'] ?>', '')" style="cursor: pointer;"> -->
                                                 <tr  style="cursor: pointer; height: 100px;">
                                                     <td><?= $app['id_question'] ?></td>
-                                                    <td><?= $app['username'] ?></td>
+                                                    <td><?= !empty($app['username']) ? $app['username'] : $app['email'] ?></td>
                                                     <td style="width: 20%;"><?= $app['question'] ?></td>
                                                     <td style="width: 20%;"><?= $app['date_question'] ?></td>
                                                     <td style="width: 30%"> <?php if (!empty($app['answer'])) { ?>
@@ -200,7 +200,7 @@
                                                       <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
 
                                                       <td ><?= $app['date_question'] ?></td>
-                                                      <td><?= $app['username'] ?></td>
+                                                    <td><?= !empty($app['username']) ? $app['username'] : $app['email'] ?></td>
                                                     <td><button class="btn btn-success btn-fw" onclick="sendAnswerQuestion('<?= $app['id_question'] ?>', document.getElementById('n<?= $app['id_question'] ?>').value)">Ответить</button></td>
                                                 </tr>
                                                 <?php
@@ -259,7 +259,7 @@
                                                       <td style="width: 30%"><?= $app['answer'] ?></td>
                                                       <td style="width: 20%;"><?= $app['type_question'] ?></td>
                                                       <td><a href="<?= $app['file'] ?>" target="_blank">файл</a></td>
-                                                      <td><?= $app['username'] ?></td>
+                                                    <td><?= !empty($app['username']) ? $app['username'] : $app['email'] ?></td>
                                                 </tr>
                                                 <?php
                                             }

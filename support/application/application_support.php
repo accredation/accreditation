@@ -117,8 +117,8 @@
                                aria-selected="false">Отправленные</a>
                         </li>
                         <?php include "ajax/includeRole.php";
-                        if ($role == "14"){
-                        ?>
+//                        if ($role == "14"){
+//                        ?>
 
                         <li class="nav-item">
                             <a class="nav-link " id="rkk-tab" data-toggle="tab" href="#rkk" role="tab"
@@ -132,7 +132,7 @@
                                 <a class="nav-link" id="reshenieSoveta-tab" data-toggle="tab" href="#" role="tab"
                                    aria-selected="false">Решение</a>
                             </li>
-                        <?php }?>
+<!--                        --><?php //}?>
                     </ul>
                     <div class="d-md-block d-none">
                         <!--                    <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>-->
@@ -882,8 +882,18 @@
 
                                             </div>
 
-                       <?php if ($role == "14"){
+<!--                       --><?php //if ($role == "14"){
                         ?>
+
+                                            <form id="formAdminResh">
+                                                <div class="form-group" id="divAdminResh" style="margin-left: 2.5rem">
+                                                    <label for="" style="font-size: 24px">Административное решение</label><br/>
+                                                    <input type="file"  class="form-control-file"
+                                                           id="fileAdminResh" multiple>
+                                                </div>
+                                                <div id="filesContainerAdminResh" style="margin-left: 50px;  margin-top: -15px;"></div>
+                                            </form>
+
                            <form id="formReport">
                                <div class="form-group" id="divReport" style="margin-left: 2.5rem">
                                    <label for="" style="font-size: 24px">Отчет</label><br/>
@@ -893,7 +903,7 @@
                                <div id="filesContainer" style="margin-left: 50px;  margin-top: -15px;"></div>
                            </form>
 
-                        <?php }?>
+<!--                        --><?php //}?>
 
                                         </div>
                                     </div>

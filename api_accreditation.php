@@ -1092,8 +1092,8 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" onclick="toArchive(1)">Отзыв заявления</button>
-                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" onclick="toArchive(2)">Отказ в принятии</button>
+                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" id="otzyvZ" onclick="toArchive(1)">Отзыв заявления</button>
+                    <button type="button"  class="btn btn-danger" data-bs-dismiss="modal" id="otkazZ" onclick="toArchive(2)">Отказ в принятии</button>
                 </div>
                 <div class="modal-footer" style="margin-top: 3rem">
                     <!--                <form action="getApplication.php" method="post">-->

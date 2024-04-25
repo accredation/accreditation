@@ -136,6 +136,7 @@ function newShowModall(id_application) {
     let informgr = document.getElementById("informgr");
     let sovetgr = document.getElementById("sovetgr");
     let btnJournalActions = document.getElementById("btnJournalActions");
+    let  fileAdminResh = document.getElementById("fileAdminResh");
 
 
     if (tabOdobrenie.classList.contains("active")) {
@@ -155,6 +156,7 @@ function newShowModall(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         btnChecking.classList.add("hiddentab");
         btnOk.classList.add("hiddentab");
+        fileAdminResh.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
     } else if (tabRassmotrenie.classList.contains("active")) {
@@ -167,6 +169,7 @@ function newShowModall(id_application) {
         btnreport.classList.remove("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
+        fileAdminResh.classList.add("hiddentab");
 
     } else if (tabReshenieSoveta.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.remove("hiddentab");
@@ -178,6 +181,8 @@ function newShowModall(id_application) {
         btnOk.classList.add("hiddentab");
         informgr.style.display = "none";
         sovetgr.style.display = "block";
+        fileAdminResh.classList.add("hiddentab");
+
 
     } else if (accredArchive.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
@@ -189,6 +194,7 @@ function newShowModall(id_application) {
         btnOk.classList.add("hiddentab");
         informgr.style.display = "block";
         sovetgr.style.display = "block";
+        fileAdminResh.classList.add("hiddentab");
     } else if (tabHome.classList.contains("active")) {
 
         $.ajax({
@@ -226,6 +232,7 @@ function newShowModall(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+        fileAdminResh.classList.add("hiddentab");
         btnPrint.onclick = () => {
 
             newPrint();
@@ -243,6 +250,7 @@ function newShowModall(id_application) {
         btnOkReshenie.classList.add("hiddentab");
         // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
+        fileAdminResh.classList.add("hiddentab");
     }
 
     openTabId = 0;
