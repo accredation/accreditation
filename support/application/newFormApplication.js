@@ -718,14 +718,12 @@ function newShowModal(id_application) {
         printNewReport();
     };
 
-
-
     let divfilesContainer = document.getElementById('filesContainer');
     if(divfilesContainer)
     divfilesContainer.innerHTML = "";
     let fileReport1 =   document.getElementById('fileReport');
+    if(fileReport1)
     fileReport1.classList.add("hiddentab");
-
 
 }
 

@@ -983,7 +983,7 @@
                                             </div>
                                             <br>
                                             <div class="newform-group">
-                                                <label for="resolution">Решение совета</label>
+                                                <label for="resolution">Решение</label>
                                                 <select id="resolution" class="form-control">
                                                     <option value="Соответствует">Соответствует</option>
                                                     <option value="Частично соответствует">Частично соответствует

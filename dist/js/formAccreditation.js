@@ -2773,7 +2773,7 @@ $("#btnOkReshenie").on("click", () => {
     })
         .done(function (response) {
 
-            alert("Заявка перенесена в статус Решение совета");
+            alert("Заявка перенесена в статус Решение");
             location.href = "/index.php?users";
         });
 
