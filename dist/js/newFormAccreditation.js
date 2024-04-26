@@ -1883,7 +1883,7 @@ function newCollapseTable(thisDiv) {
 
     let selpickersAccred = document.querySelectorAll("#selpickerAccred");
 
-    if ((status !== 2) && (status !== 3)) {
+    if ((status !== 2) && (status !== 3) && (status !== 4)) {
 
         selpickers.forEach((selpicker) => {
             selpicker.disabled = true;
@@ -1960,7 +1960,7 @@ function changeField6(idCrit, idDep, select) {
 function changeField7(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField7.php",
-        method: "GET",
+        method: "POST",
         data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 

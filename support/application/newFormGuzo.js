@@ -132,6 +132,7 @@ function newShowModall(id_application) {
     let tabRassmotrenie = document.getElementById("rassmotrenie-tab");
     let tabReshenieSoveta = document.getElementById("reshenieSoveta-tab");
     let accredArchive = document.getElementById("accredArchive-tab");
+    let accredArchiveNew = document.getElementById("accredArchiveNew-tab");
     let tabHome = document.getElementById("home-tab");
     let informgr = document.getElementById("informgr");
     let sovetgr = document.getElementById("sovetgr");
@@ -218,9 +219,6 @@ function newShowModall(id_application) {
         });
 
 
-
-
-
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -238,7 +236,17 @@ function newShowModall(id_application) {
             newPrint();
         };
 
-    } else {
+    } else if (accredArchiveNew.classList.contains("active")) {
+        btnOkonchatelnoeReshenie.classList.add("hiddentab");
+        btnreport.classList.add("hiddentab");
+        btnOkReshenie.classList.add("hiddentab");
+        // btnNeOk.classList.add("hiddentab");
+        btnChecking.classList.add("hiddentab");
+        btnOk.classList.add("hiddentab");
+        informgr.style.display = "block";
+        sovetgr.style.display = "block";
+
+    }else {
         sovetgr.style.display = "none";
         informgr.style.display = "block";
         if (getCookie("secretar") === "1" || getCookie("predsedatel") === "1") {
@@ -1723,7 +1731,7 @@ function changeField6(idCrit, idDep, select) {
 function changeField7(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField7.php",
-        method: "GET",
+        method: "POST",
         data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
@@ -3886,3 +3894,4 @@ $("#formReport").on("change", () => {
     }
     xhr.send(form);
 });
+

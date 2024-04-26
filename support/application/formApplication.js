@@ -1403,7 +1403,7 @@ function getTabs(name, id_sub) {
     tablist.appendChild(tab);
 
 
-    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[7];
+    let tabContent = document.getElementsByClassName("tab-content tab-transparent-content")[6];
     let tabPane = document.createElement("div");
     tabPane.className = "tab-pane fade show remAccTab";
     tabPane.id = "tab" + id_sub + "-";
@@ -3349,7 +3349,7 @@ $("#reshenieSoveta-tab").on("click", () => {
     scriptAUsers.remove();
     document.body.appendChild(scriptAccred); // включить скрипт
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 4)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -3357,7 +3357,7 @@ $("#reshenieSoveta-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -3373,7 +3373,7 @@ $("#odobrennie-tab").on("click", () => {
     scriptAUsers.remove();
     document.body.appendChild(scriptAccred); // включить скрипт
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 3)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -3381,7 +3381,7 @@ $("#odobrennie-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -3389,5 +3389,24 @@ $("#odobrennie-tab").on("click", () => {
     allTabsMainPage[3].children[0].classList.add("active");
     status = 4;
     //  console.log(status);
+
+});
+
+$("#accredArchiveNew-tab").on("click", () => {
+    for (let i = 0; i < 6; i++) {
+        if (i != 5)
+            allTabsMainPage[i].style = "display:none";
+        else {
+            allTabsMainPage[i].style = "display:block";
+        }
+    }
+    for (let i = 0; i < 6; i++) {
+        allTabsMainPage[i].children[0].classList.remove("show");
+        allTabsMainPage[i].children[0].classList.remove("active");
+    }
+    allTabsMainPage[5].children[0].classList.add("show");
+    allTabsMainPage[5].children[0].classList.add("active");
+    status = 9;
+
 
 });
