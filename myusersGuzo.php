@@ -232,6 +232,10 @@
                 return
             }
 
+            login = login.trim();
+            password = password.trim();
+            email = email.trim();
+
             $.ajax({
                 url: "ajax/savePodUserGuzo.php",
                 method: "GET",

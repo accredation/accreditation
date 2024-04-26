@@ -229,6 +229,10 @@
                 alert('Пароль не должен состоять только из цифр');
                 return;
             }
+            login = login.trim();
+            password = password.trim();
+            email = email.trim();
+
             $.ajax({
                 url: "ajax/savePodUser.php",
                 method: "GET",
