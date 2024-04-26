@@ -233,6 +233,7 @@
             password = password.trim();
             email = email.trim();
 
+
             $.ajax({
                 url: "ajax/savePodUser.php",
                 method: "GET",
