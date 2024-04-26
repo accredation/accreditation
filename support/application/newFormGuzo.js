@@ -138,11 +138,16 @@ function newShowModall(id_application) {
     let btnJournalActions = document.getElementById("btnJournalActions");
     let  fileAdminResh = document.getElementById("fileAdminResh");
 
+    let  divPlan = document.getElementById("divPlan");
+    let  divDataPlan = document.getElementById("divDataPlan");
+
 
     if (tabOdobrenie.classList.contains("active")) {
         // console.log("XUY");
         // btnNeOk.classList.add("hiddentab");
         btnOk.classList.remove("hiddentab");
+        divPlan.classList.add("hiddentab");
+        divDataPlan.classList.add("hiddentab");
 
         btnJournalActions.style.display = "block";
 
@@ -159,6 +164,8 @@ function newShowModall(id_application) {
         fileAdminResh.classList.add("hiddentab");
         sovetgr.style.display = "none";
         informgr.style.display = "none";
+        divPlan.classList.add("hiddentab");
+        divDataPlan.classList.add("hiddentab");
     } else if (tabRassmotrenie.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         // btnNeOk.classList.add("hiddentab");
@@ -170,6 +177,8 @@ function newShowModall(id_application) {
         sovetgr.style.display = "none";
         informgr.style.display = "none";
         fileAdminResh.classList.add("hiddentab");
+        divPlan.classList.add("hiddentab");
+        divDataPlan.classList.add("hiddentab");
 
     } else if (tabReshenieSoveta.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.remove("hiddentab");
@@ -182,6 +191,8 @@ function newShowModall(id_application) {
         informgr.style.display = "none";
         sovetgr.style.display = "block";
         fileAdminResh.classList.add("hiddentab");
+        divPlan.classList.remove("hiddentab");
+        divDataPlan.classList.remove("hiddentab");
 
 
     } else if (accredArchive.classList.contains("active")) {
@@ -195,6 +206,8 @@ function newShowModall(id_application) {
         informgr.style.display = "block";
         sovetgr.style.display = "block";
         fileAdminResh.classList.add("hiddentab");
+        divPlan.classList.add("hiddentab");
+        divDataPlan.classList.add("hiddentab");
     } else if (tabHome.classList.contains("active")) {
 
         $.ajax({
@@ -233,6 +246,8 @@ function newShowModall(id_application) {
         // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         fileAdminResh.classList.add("hiddentab");
+        divPlan.classList.add("hiddentab");
+        divDataPlan.classList.add("hiddentab");
         btnPrint.onclick = () => {
 
             newPrint();
@@ -251,6 +266,8 @@ function newShowModall(id_application) {
         // btncalc.classList.remove("hiddentab");
         btnreport.classList.remove("hiddentab");
         fileAdminResh.classList.add("hiddentab");
+        divPlan.classList.add("hiddentab");
+        divDataPlan.classList.add("hiddentab");
     }
 
     openTabId = 0;
@@ -3886,3 +3903,4 @@ $("#formReport").on("change", () => {
     }
     xhr.send(form);
 });
+

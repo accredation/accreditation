@@ -903,6 +903,24 @@
                                <div id="filesContainer" style="margin-left: 50px;  margin-top: -15px;"></div>
                            </form>
 
+                                            <form id="formPlan">
+                                                <div class="form-group" id="divPlan" style="margin-left: 2.5rem">
+                                                    <label for="" style="font-size: 24px">План по устранению недостатков</label><br/>
+                                                    <input type="file" style="display: none"  class="form-control-file"
+                                                           id="fileReport" multiple>
+                                                </div>
+                                                <div id="filesContainerPlan" style="margin-left: 50px;  margin-top: -15px;"></div>
+                                            </form>
+
+                                            <form id="formDataPlan">
+                                                <div class="form-group" id="divDataPlan" style="margin-left: 2.5rem">
+                                                    <label for="" style="font-size: 24px">Дата утверждения плана</label><br/>
+                                                    <input style="display: none" type="file"  class="form-control-file"
+                                                           id="fileReport" multiple>
+                                                </div>
+                                                <div id="filesContainerDataPlan" style="margin-left: 50px;  margin-top: -15px;"></div>
+                                            </form>
+
 <!--                        --><?php //}?>
 
                                         </div>

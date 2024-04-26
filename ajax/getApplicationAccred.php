@@ -64,6 +64,9 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $adminResh = $row['adminResh'];
     $sootvetstvie  = $row['sootvetstvie'];
     $dateKom  = $row['date_council'];
+    $plandenostatkov  = $row['plandenostatkov'];
+    $plandatanedostatkov  = $row['plandatanedostatkov'];
+
 
 
 }
@@ -95,6 +98,8 @@ array_push($cells,$protokolKom);//23
 array_push($cells,$adminResh);//24
 array_push($cells,$sootvetstvie);//25
 array_push($cells,$dateKom);//26
+array_push($cells,$plandenostatkov); //27
+array_push($cells,$plandatanedostatkov); //28
 
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";

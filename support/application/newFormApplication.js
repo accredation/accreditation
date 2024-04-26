@@ -194,12 +194,21 @@ function newShowModal(id_application) {
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
     let  fileAdminResh = document.getElementById("fileAdminResh");
+    let  divPlan = document.getElementById("divPlan");
+    let  divDataPlan = document.getElementById("divDataPlan");
+
+    let  divPlanCont = document.getElementById("filesContainerPlan");
+    let  divDataPlanCont = document.getElementById("filesContainerDataPlan");
+
 
     //  naim.value = username;
     if (status == 1 || status == 5 || status == 2) {
         formFileReportDorabotka.style.display = "block";
         formDateDorabotka.style.display = "block";
         checkUserRole();
+        divPlan.classList.add("hiddentab");
+        divDataPlan.classList.add("hiddentab");
+
 
     } else {
         number_app.setAttribute("readonly", "");
@@ -232,6 +241,10 @@ function newShowModal(id_application) {
         formDateDorabotka.style.display = "none";
         fileAdminResh.classList.add("hiddentab");
         addtab.classList.add("hiddentab");
+        divPlan.classList.remove("hiddentab");
+        divDataPlan.classList.remove("hiddentab");
+
+
         if  (btnSuc){
         btnSuc.classList.add("hiddentab"); }
 
@@ -297,6 +310,19 @@ function newShowModal(id_application) {
             if (data[0][20] != null) {
                 reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
             }
+
+
+            if (data[0][26] != null) {
+
+                divPlanCont.insertAdjacentHTML("afterbegin", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][26] + "'>" + data[0][26] + "</a>");
+            }
+
+
+            if (data[0][27] != null) {
+
+                divDataPlanCont.insertAdjacentHTML("afterbegin", "<span>" + data[0][27] + "</span>");
+            }
+
 
             let lico = document.getElementById("lico");
             if (data[0][22] != null) {
