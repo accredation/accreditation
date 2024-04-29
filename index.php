@@ -1,7 +1,7 @@
 <?php require_once 'ajax/connection.php'; ?>
 <?php include 'authorization/auth.php'; ?>
 <?php include 'authorization/out.php'; ?>
-<?php if (isset($_COOKIE['login'])) {
+<?php if(isset($_COOKIE['login'])) {
 
     if (!isset($_GET['role'])) {
         $login = $_COOKIE['login'];
@@ -193,26 +193,25 @@
                 //  require_once "ajax/includeRole.php";
                 switch ($value) {
                     case 'application':
-                        if (isset($role)) {
+                        if(isset($role)) {
                             if ($role == "3" || $role == "15")
                                 include 'api_application.php';
-                            else {
+                            else{
                                 phpAlert("Вам недоступна эта страница");
                             }
-                        } else {
-
+                        }else{
                             phpAlert("Требуется авторизация");
                         }
 //                        include 'api_application.php';
                         break;
                     case 'users':
-                        if (isset($role)) {
+                        if(isset($role)) {
                             if ($role == "2")
                                 include 'api_accreditation.php';
-                            else {
+                            else{
                                 phpAlert("Вам недоступна эта страница");
                             }
-                        } else {
+                        }else{
                             phpAlert("Требуется авторизация");
                         }
 //                        include 'api_accreditation.php';
@@ -250,7 +249,7 @@
                     case 'report_first':
                         include 'modules/report/report_first/report_first.php';
                         break;
-
+                  
                     case 'report_analiz_samoocenka':
                         include 'modules/report/report_analiz_samoocenka/report_analiz_samoocenka.php';
                         break;
@@ -274,11 +273,15 @@
                         break;
                     case 'vid_profile_oz':
                         include 'modules/vid_profile_oz/vid_profile_oz.php';
-                        break;
+                        break;   
                     case 'report_vid_profile_oz':
                         include 'modules/report/report_vid_profile_oz/report_vid_profile_oz.php';
                         break;
+                    case 'report_criteria':
+                        include 'modules/report/report_criteria/report_criteria.php';
+                        break;
 
+                        
                 }
             } else {
                 include 'main.php';
@@ -301,7 +304,6 @@
     </div>
     <!-- page-body-wrapper ends -->
 </div>
-
 <!-- container-scroller -->
 <!-- plugins:js -->
 <script src="assets/vendors/js/vendor.bundle.base.js"></script>

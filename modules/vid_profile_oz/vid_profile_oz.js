@@ -523,11 +523,12 @@ function returnCheckedId(classElemName, eleNameSearch){
         alert(`Выберите ТИП`)
         return;
     }
-    let idProfileStr = returnCheckedId('profileUz', 'profile')
-    if(idProfileStr.length == 0){
-        alert(`Выберите Профиль`)
-        return;
-    }
+   
+     let idProfileStr = returnCheckedId('profileUz', 'profile')
+    // if(idProfileStr.length == 0){
+    //     alert(`Выберите Профиль`)
+    //     return;
+    // }
 
 
     $.ajax({
@@ -559,11 +560,11 @@ function returnCheckedId(classElemName, eleNameSearch){
         alert(`Выберите ТИП`)
         return;
     }
-    let idProfileStr = returnCheckedId('profileUz', 'profile')
-    if(idProfileStr.length == 0){
-        alert(`Выберите Профиль`)
-        return;
-    }
+     let idProfileStr = returnCheckedId('profileUz', 'profile')
+    // if(idProfileStr.length == 0){
+    //     alert(`Выберите Профиль`)
+    //     return;
+    // }
 
 
     $.ajax({

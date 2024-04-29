@@ -14,6 +14,10 @@ $idVidStr2 = explode(',', $idVidStr);
 mysqli_query($con, "delete from accreditation.uz_profile where id_uz = '$id_uz'");
 mysqli_query($con, "delete from accreditation.uz_vid where uz_vid.id_uz = '$id_uz'");
 
+$query = "update accreditation.uz_vid_profile set id_profile_str = '$idProfileStr', id_vid_str = '$idVidStr' where id_uz_vid_profile='$id_uz_vid_profile' ";
+
+mysqli_query($con, $query);
+
 foreach ($idProfileStr2 as $app) { 
     $query1 = "insert into accreditation.uz_profile (id_uz, id_profile) values ('$id_uz', '$app')";
     mysqli_query($con, $query1);
@@ -26,8 +30,5 @@ foreach ($idVidStr2 as $app1) {
 
 
 
-$query = "update accreditation.uz_vid_profile set id_profile_str = '$idProfileStr', id_vid_str = '$idVidStr' where id_uz_vid_profile='$id_uz_vid_profile' ";
 
-
-mysqli_query($con, $query);
 mysqli_close($con);
