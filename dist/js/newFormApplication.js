@@ -240,15 +240,29 @@ function newShowModal(id_application) {
     let divReportForm = document.getElementById("divReport");
 
 
+    let  divZayavOtzyv = document.getElementById("divZayavOtzyv");
+    let  divDataZayavOtzyv = document.getElementById("divDataZayavOtzyv");
+    let  filesContainerZayavOtzyv = document.getElementById("filesContainerZayavOtzyv");
+    let  filesContainerDataZayavOtzyv = document.getElementById("filesContainerDataZayavOtzyv");
+
+
     //  naim.value = username;
     if (status == 1 || status == 5) {
         if (formFileReportDorabotka) {
             formFileReportDorabotka.style.display = "block";
             formDateDorabotka.style.display = "block";
+            divZayavOtzyv.classList.add("hiddentab");
+            divDataZayavOtzyv.classList.add("hiddentab");
         }
         checkUserRole();
 
-    } else {
+    }
+    else if(status == 9) {
+        divZayavOtzyv.classList.remove("hiddentab");
+        divDataZayavOtzyv.classList.remove("hiddentab");
+    }
+
+    else {
         number_app.setAttribute("readonly", "");
         naim.setAttribute("readonly", "");
         sokr.setAttribute("readonly", "");
@@ -280,6 +294,8 @@ function newShowModal(id_application) {
         addtab.classList.add("hiddentab");
         btnSuc.classList.add("hiddentab");
         divReportForm.classList.add("hiddentab");
+        divZayavOtzyv.classList.add("hiddentab");
+        divDataZayavOtzyv.classList.add("hiddentab");
 
         if (btnSend)
             btnSend.classList.add("hiddentab");
@@ -365,6 +381,18 @@ function newShowModal(id_application) {
             if (data[0][19] != null) {
                 doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
+
+            if (data[0][28] != null) {
+
+                filesContainerZayavOtzyv.insertAdjacentHTML("afterbegin", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][28] + "'>" + data[0][28] + "</a>");
+            }
+
+
+            if (data[0][29] != null) {
+
+                filesContainerDataZayavOtzyv.insertAdjacentHTML("afterbegin", "<span>" + data[0][29] + "</span>");
+            }
+
 
             modal.classList.add("show");
             modal.style = "display: block";
