@@ -520,13 +520,14 @@ function newShowModal(id_application) {
     }
     let formPlanUstr = document.getElementById("formPlanUstr");
     let divDatePlanUstr = document.getElementById("divDatePlanUstr");
+
     if(formPlanUstr){
         formPlanUstr.remove();
     }
     if(divDatePlanUstr){
         divDatePlanUstr.remove();
     }
-    if(status == 4) {
+    if(status == 6) {
 
         formPlanUstr = document.createElement("form");
         formPlanUstr.id = "formPlanUstr";
@@ -546,7 +547,6 @@ function newShowModal(id_application) {
         divPlanUstr.appendChild(brli);
         divPlanUstr.appendChild(inputPlanUstr);
         formPlanUstr.appendChild(divPlanUstr);
-
         divDatePlanUstr = document.createElement("div");
         divDatePlanUstr.className = "form-group";
         divDatePlanUstr.style = "margin-left: 2.5rem;";
@@ -559,14 +559,22 @@ function newShowModal(id_application) {
         inputDatePlanUstr.className = "form-control";
         inputDatePlanUstr.style = "width: auto;";
         inputDatePlanUstr.id = "inputDatePlanUstr";
+        inputPlanUstr.onchange = function() {
+            postFilePlan();
+            console.log("Файл был выбран");
+        };
         divDatePlanUstr.appendChild(labelDatePlanUstr);
         divDatePlanUstr.appendChild(brli);
         divDatePlanUstr.appendChild(inputDatePlanUstr);
-
-
         formReport.insertAdjacentElement("afterend", divDatePlanUstr);
         formReport.insertAdjacentElement("afterend", formPlanUstr);
+
+
+
     }
+
+
+
 
 
     let data = new Array();
@@ -680,6 +688,25 @@ function newShowModal(id_application) {
             if (data[0][19] != null) {
                 doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
+
+
+            let divPlanUstr = document.getElementById("divPlanUstr");
+            let inputDatePlanUstr = document.getElementById("inputDatePlanUstr");
+            let inputPlanUstr = document.getElementById("inputPlanUstr");
+
+            if (data[0][28] != null) {
+                inputDatePlanUstr.value = data[0][28];
+            }
+
+            $.ajax({
+                url: "ajax/getFilePlan.php",
+                method: "GET",
+                data: {id_application: id_application}
+            })
+                .done(function (response) {
+                    inputPlanUstr.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + response + "'>" + response + "</a><br>");
+                });
+
 
             modal.classList.add("show");
             modal.style = "display: block";
@@ -4117,3 +4144,67 @@ $("#dateKom").on("change", function () {
         }
     })
 });
+
+
+
+function postFilePlan() {
+    let fileInput = document.getElementById('inputPlanUstr');
+    let filesContainer = document.createElement("div");
+    filesContainer.id = "filesContainer";
+    let id_application = document.getElementById("id_application");
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadPrikazNaznach";
+    fileInput.insertAdjacentElement("afterend", load);
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        let file = fileInput.files[i];
+        filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+    let divFilesList = document.createElement("div");
+    divFilesList.id = "divFilesList";
+    divFilesList.innerHTML = "<br>";
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        let file = fileInput.files[i];
+        let fileLink = document.createElement("a");
+        fileLink.href = '/docs/documents/' + loginApp + '/' + id_app + '/' + file.name;
+        fileLink.target = '_blank';
+        fileLink.innerHTML = file.name;
+        divFilesList.appendChild(fileLink);
+        divFilesList.appendChild(document.createElement("br"));
+    }
+
+    filesContainer.appendChild(divFilesList);
+
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        form.append("fileInput[]", fileInput.files[i]);
+    }
+
+    form.append("id_application", id_application.innerText);
+    form.append("login", loginApp);
+
+    xhr.open("post", "ajax/postFilePlan.php", true);
+
+    xhr.onload = function () {
+        load.innerHTML = "Файл загружен";
+        let downloadLinks = document.createElement("div");
+        downloadLinks.innerHTML = "<br>";
+        for (let i = 0; i < fileInput.files.length; i++) {
+            let file = fileInput.files[i];
+            let downloadLink = document.createElement("a");
+            downloadLink.href = '/docs/documents/' + loginApp + '/' + id_app + '/' + file.name;
+            downloadLink.innerHTML = file.name;
+            downloadLinks.appendChild(downloadLink);
+            downloadLinks.appendChild(document.createElement("br"));
+        }
+        fileInput.insertAdjacentElement("afterend", downloadLinks);
+    };
+
+    xhr.send(form);
+}
+
