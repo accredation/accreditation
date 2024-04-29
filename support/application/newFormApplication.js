@@ -201,6 +201,12 @@ function newShowModal(id_application) {
     let  divDataPlanCont = document.getElementById("filesContainerDataPlan");
 
 
+    let  divZayavOtzyv = document.getElementById("divZayavOtzyv");
+    let  divDataZayavOtzyv = document.getElementById("divDataZayavOtzyv");
+    let  filesContainerZayavOtzyv = document.getElementById("filesContainerZayavOtzyv");
+    let  filesContainerDataZayavOtzyv = document.getElementById("filesContainerDataZayavOtzyv");
+
+
     //  naim.value = username;
     if (status == 1 || status == 5 || status == 2) {
         formFileReportDorabotka.style.display = "block";
@@ -208,8 +214,13 @@ function newShowModal(id_application) {
         checkUserRole();
         divPlan.classList.add("hiddentab");
         divDataPlan.classList.add("hiddentab");
+        divZayavOtzyv.classList.add("hiddentab");
+        divDataZayavOtzyv.classList.add("hiddentab");
 
 
+    }else if(status == 9) {
+        divZayavOtzyv.classList.remove("hiddentab");
+        divDataZayavOtzyv.classList.remove("hiddentab");
     } else {
         number_app.setAttribute("readonly", "");
         naim.setAttribute("readonly", "");
@@ -243,6 +254,9 @@ function newShowModal(id_application) {
         addtab.classList.add("hiddentab");
         divPlan.classList.remove("hiddentab");
         divDataPlan.classList.remove("hiddentab");
+        divZayavOtzyv.classList.add("hiddentab");
+        divDataZayavOtzyv.classList.add("hiddentab");
+
 
 
         if  (btnSuc){
@@ -321,6 +335,18 @@ function newShowModal(id_application) {
             if (data[0][27] != null) {
 
                 divDataPlanCont.insertAdjacentHTML("afterbegin", "<span>" + data[0][27] + "</span>");
+            }
+
+
+            if (data[0][28] != null) {
+
+                filesContainerZayavOtzyv.insertAdjacentHTML("afterbegin", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][28] + "'>" + data[0][28] + "</a>");
+            }
+
+
+            if (data[0][29] != null) {
+
+                filesContainerDataZayavOtzyv.insertAdjacentHTML("afterbegin", "<span>" + data[0][29] + "</span>");
             }
 
 
