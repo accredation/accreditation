@@ -569,7 +569,60 @@ function newShowModal(id_application) {
         formReport.insertAdjacentElement("afterend", divDatePlanUstr);
         formReport.insertAdjacentElement("afterend", formPlanUstr);
 
+    }
 
+
+    let formPlanOtzyv = document.getElementById("formPlanOtzyv");
+    let divDatePlanOtzyv = document.getElementById("divDatePlanOtzyv");
+
+    if(formPlanOtzyv){
+        formPlanOtzyv.remove();
+    }
+    if(divDatePlanOtzyv){
+        divDatePlanOtzyv.remove();
+    }
+    if(status == 9) {
+        let sovetid = document.getElementById("sovetgr");
+        sovetid.style = "height:39%";
+        formPlanOtzyv = document.createElement("form");
+        formPlanOtzyv.id = "formPlanOtzyv";
+        let divPlanOtzyv = document.createElement("div");
+        divPlanOtzyv.id = "divPlanOtzyv";
+        divPlanOtzyv.className = "form-group";
+        divPlanOtzyv.style = "margin-left: 2.5rem;";
+        let labelPlanOtzyv = document.createElement("label");
+        labelPlanOtzyv.style = "font-size: 24px;";
+        labelPlanOtzyv.innerHTML = "Заявление об отзыве";
+        let brli = document.createElement("br");
+        let inputPlanOtzyv = document.createElement("input");
+        inputPlanOtzyv.type = "file";
+        inputPlanOtzyv.className = "form-control-file";
+        inputPlanOtzyv.id = "inputPlanOtzyv";
+        divPlanOtzyv.appendChild(labelPlanOtzyv);
+        divPlanOtzyv.appendChild(brli);
+        divPlanOtzyv.appendChild(inputPlanOtzyv);
+        formPlanOtzyv.appendChild(divPlanOtzyv);
+        divDatePlanOtzyv = document.createElement("div");
+        divDatePlanOtzyv.className = "form-group";
+        divDatePlanOtzyv.style = "margin-left: 2.5rem;";
+        divDatePlanOtzyv.id = "divDatePlanOtzyv";
+        let labelDatePlanOtzyv = document.createElement("label");
+        labelDatePlanOtzyv.style = "font-size: 24px;";
+        labelDatePlanOtzyv.innerHTML = "Планируемая дата повторной подачи";
+        let inputDatePlanOtzyv = document.createElement("input");
+        inputDatePlanOtzyv.type = "date";
+        inputDatePlanOtzyv.className = "form-control";
+        inputDatePlanOtzyv.style = "width: auto;";
+        inputDatePlanOtzyv.id = "inputDatePlanOtzyv";
+        inputPlanOtzyv.onchange = function() {
+            postFilePlanOtzyv();
+            console.log("Файл был выбран");
+        };
+        divDatePlanOtzyv.appendChild(labelDatePlanOtzyv);
+        divDatePlanOtzyv.appendChild(brli);
+        divDatePlanOtzyv.appendChild(inputDatePlanOtzyv);
+        formReport.insertAdjacentElement("afterend", divDatePlanOtzyv);
+        formReport.insertAdjacentElement("afterend", formPlanOtzyv);
 
     }
 
@@ -694,12 +747,17 @@ function newShowModal(id_application) {
             let inputDatePlanUstr = document.getElementById("inputDatePlanUstr");
             let inputPlanUstr = document.getElementById("inputPlanUstr");
 
-            if (data[0][28] != null) {
-                inputDatePlanUstr.value = data[0][28];
+
+            let divPlanOtzyv = document.getElementById("divPlanOtzyv");
+            let inputDatePlanOtzyv = document.getElementById("inputDatePlanOtzyv");
+            let inputPlanOtzyv = document.getElementById("inputPlanOtzyv");
+
+            if (data[0][30] != null) {
+                inputDatePlanOtzyv.value = data[0][30];
             }
 
-            if (data[0][27] != null) {
-                inputPlanUstr.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][27] + "'>" +  data[0][27] + "</a><br>");
+            if (data[0][29] != null) {
+                inputPlanOtzyv.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][29] + "'>" +  data[0][29] + "</a><br>");
 
             }
 
@@ -4185,6 +4243,68 @@ function postFilePlan() {
     form.append("login", loginApp);
 
     xhr.open("post", "ajax/postFilePlan.php", true);
+
+    xhr.onload = function () {
+        load.innerHTML = "Файл загружен";
+        let downloadLinks = document.createElement("div");
+        downloadLinks.innerHTML = "<br>";
+        for (let i = 0; i < fileInput.files.length; i++) {
+            let file = fileInput.files[i];
+            let downloadLink = document.createElement("a");
+            downloadLink.href = '/docs/documents/' + loginApp + '/' + id_app + '/' + file.name;
+            downloadLink.innerHTML = file.name;
+            downloadLinks.appendChild(downloadLink);
+            downloadLinks.appendChild(document.createElement("br"));
+        }
+        fileInput.insertAdjacentElement("afterend", downloadLinks);
+    };
+
+    xhr.send(form);
+}
+
+
+function postFilePlanOtzyv() {
+    let fileInput = document.getElementById('inputPlanOtzyv');
+    let filesContainer = document.createElement("div");
+    filesContainer.id = "filesContainer";
+    let id_application = document.getElementById("id_application");
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadPrikazNaznach";
+    fileInput.insertAdjacentElement("afterend", load);
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        let file = fileInput.files[i];
+        filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    }
+
+    let divFilesList = document.createElement("div");
+    divFilesList.id = "divFilesList";
+    divFilesList.innerHTML = "<br>";
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        let file = fileInput.files[i];
+        let fileLink = document.createElement("a");
+        fileLink.href = '/docs/documents/' + loginApp + '/' + id_app + '/' + file.name;
+        fileLink.target = '_blank';
+        fileLink.innerHTML = file.name;
+        divFilesList.appendChild(fileLink);
+        divFilesList.appendChild(document.createElement("br"));
+    }
+
+    filesContainer.appendChild(divFilesList);
+
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        form.append("fileInput[]", fileInput.files[i]);
+    }
+
+    form.append("id_application", id_application.innerText);
+    form.append("login", loginApp);
+
+    xhr.open("post", "ajax/postFilePlanOtzyv.php", true);
 
     xhr.onload = function () {
         load.innerHTML = "Файл загружен";

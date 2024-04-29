@@ -63,6 +63,9 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $sel_pervtor = $row['sel_pervtor'];
     $plandenostatkov  = $row['plandenostatkov'];
     $plandatanedostatkov  = $row['plandatanedostatkov'];
+
+    $zayav_otzyv  = $row['zayav_otzyv'];
+    $data_zayav_otzyv  = $row['data_zayav_otzyv'];
 }
 
 array_push($cells,$naim);
@@ -93,6 +96,8 @@ array_push($cells,$id_old_app); //24
 array_push($cells,$sel_pervtor); //25
 array_push($cells,$plandenostatkov); //26
 array_push($cells,$plandatanedostatkov); //27
+array_push($cells,$zayav_otzyv); //28
+array_push($cells,$data_zayav_otzyv); //29
 
 
 
