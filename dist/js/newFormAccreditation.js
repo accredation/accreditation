@@ -698,14 +698,10 @@ function newShowModal(id_application) {
                 inputDatePlanUstr.value = data[0][28];
             }
 
-            $.ajax({
-                url: "ajax/getFilePlan.php",
-                method: "GET",
-                data: {id_application: id_application}
-            })
-                .done(function (response) {
-                    inputPlanUstr.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + response + "'>" + response + "</a><br>");
-                });
+            if (data[0][27] != null) {
+                inputPlanUstr.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][27] + "'>" +  data[0][27] + "</a><br>");
+
+            }
 
 
             modal.classList.add("show");

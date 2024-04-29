@@ -314,14 +314,14 @@
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
-                                                    left outer join rkk on rkk.id_rkk=a.id_rkk  
+                                                    left outer join rkk on rkk.id_application=a.id_application  
                                                    where id_status = 3 and u.oblast = '$role'";
                                         } else {
                                             $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id, rkk.date_reg
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
-                                                    left outer join rkk on rkk.id_rkk=a.id_rkk   
+                                                    left outer join rkk on rkk.id_application=a.id_application   
                                                     where id_status = 3";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
