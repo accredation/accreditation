@@ -738,6 +738,27 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                                 <a id="fileAdminResh" ></a>
                                             </div>
                                         </form>
+
+
+                                        <form id="formZayavOtzyv">
+                                            <div class="form-group" id="divZayavOtzyv" style="margin-left: 2.5rem">
+                                                <label for="" style="font-size: 24px">Заявление об отзыве</label><br/>
+                                                <input type="file" style="display: none"  class="form-control-file"
+                                                       id="fileZayavOtzyv" multiple>
+                                            </div>
+                                            <div id="filesContainerZayavOtzyv" style="margin-left: 50px;  margin-top: -15px;"></div>
+                                        </form>
+
+                                        <form id="formDataZayavOtzyv">
+                                            <div class="form-group" id="divDataZayavOtzyv" style="margin-left: 2.5rem">
+                                                <label for="" style="font-size: 24px">Планируемая дата повторной подачи</label><br/>
+                                                <input style="display: none" type="file"  class="form-control-file"
+                                                       id="fileDataZayavOtzyv" multiple>
+                                            </div>
+                                            <div id="filesContainerDataZayavOtzyv" style="margin-left: 50px;  margin-top: -15px;"></div>
+                                        </form>
+
+
                                     </div>
                                 </div>
                                 <div style="width: 100%">
