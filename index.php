@@ -274,7 +274,11 @@
                         break;   
                     case 'report_vid_profile_oz':
                         include 'modules/report/report_vid_profile_oz/report_vid_profile_oz.php';
-                        break;       
+                        break; 
+                    case 'report_criteria':
+                        include 'modules/report/report_criteria/report_criteria.php';
+                        break;    
+                        
                         
                 }
             } else {
