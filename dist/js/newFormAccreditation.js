@@ -569,15 +569,7 @@ function newShowModal(id_application) {
         formReport.insertAdjacentElement("afterend", divDatePlanUstr);
         formReport.insertAdjacentElement("afterend", formPlanUstr);
 
-        $.ajax({
-            url: "ajax/getFilePlan.php",
-            method: "GET",
-            data: {id_application: id_application}
-        })
-            .done(function (response) {
-                let inputPlanUstr = document.getElementById("inputPlanUstr");
-                inputPlanUstr.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + response + "'>" + response + "</a><br>");
-            });
+
 
     }
 
@@ -700,7 +692,20 @@ function newShowModal(id_application) {
 
             let divPlanUstr = document.getElementById("divPlanUstr");
             let inputDatePlanUstr = document.getElementById("inputDatePlanUstr");
+            let inputPlanUstr = document.getElementById("inputPlanUstr");
 
+            if (data[0][28] != null) {
+                inputDatePlanUstr.value = data[0][28];
+            }
+
+            $.ajax({
+                url: "ajax/getFilePlan.php",
+                method: "GET",
+                data: {id_application: id_application}
+            })
+                .done(function (response) {
+                    inputPlanUstr.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + response + "'>" + response + "</a><br>");
+                });
 
 
             modal.classList.add("show");
