@@ -541,16 +541,18 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12) {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
-                                                    FROM applications a
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol
+                                                    FROM applications a 
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
+                                                     left outer join rkk r on r.id_application = a.id_application
                                                    where id_status = 6 and u.oblast = '$role'";
                                         } else {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
-                                                    FROM applications a
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol
+                                                    FROM applications a 
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
+                                                     left outer join rkk r on r.id_application = a.id_application
                                                    where id_status = 6";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
@@ -562,7 +564,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
-                                                <th>Дата решения совета</th>
+                                                <th>Дата протокола</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -576,7 +578,7 @@
                                                     style="cursor: pointer;">
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
-                                                    <td><?= $app['date_council'] ?></td>
+                                                    <td><?= $app['date_protokol'] ?></td>
 
 
                                                 </tr>
