@@ -127,7 +127,7 @@ and $oblastsIdStr3
 order by u.username
  ";
 
-echo  $query;
+
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 $reports = array();
