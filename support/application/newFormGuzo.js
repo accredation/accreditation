@@ -3906,14 +3906,27 @@ $("#formReport").on("change", () => {
     xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
     };
-    xhr.upload.onloadend = function () {
-        if (xhr.status != 200){
-            load.innerHTML = `Ошибка загрузки ${xhr.status}: ${xhr.statusText}`;
-        }
-        else{
+    // xhr.upload.onload = function () {
+    //     if (xhr.status != 200){
+    //         load.innerHTML = `Ошибка загрузки ${xhr.status}: ${xhr.statusText}`;
+    //     }
+    //     else{
+    //         load.innerHTML = "Файл загружен";
+    //     }
+    // }
+
+    xhr.addEventListener("load", () => {
+        if (xhr.status >=200 && xhr.status < 400)
             load.innerHTML = "Файл загружен";
-        }
-    }
-    xhr.send(form);
+        else
+            load.innerHTML = `Ошибка загрузки ${xhr.status}: ${xhr.statusText}`;
+    });
+
+    xhr.addEventListener("error", () => fail(new Error("Network error")));
+
+
+    xhr.send(form)
+
+
 });
 
