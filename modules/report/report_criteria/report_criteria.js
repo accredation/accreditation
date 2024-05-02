@@ -751,7 +751,6 @@ function reportYurLica(dataParametrs){
 
 
 function returnReportDivUls(dataParametrs){
-console.log(dataParametrs)
 
     let divReportUsl = document.createElement('div');
     divReportUsl.id = 'divReportUsl';

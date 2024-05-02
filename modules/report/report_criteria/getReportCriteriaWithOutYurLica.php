@@ -176,6 +176,11 @@ and $oblastsIdStr3
 and $typeIdStr3
 ;
 
+CREATE TEMPORARY TABLE accreditation.`tmp_table_uz`( id_uz INT, username text ); 
+
+insert into accreditation.`tmp_table_uz`
+select distinct id_uz, username
+from accreditation.`tmp_table_subvision`;
 
 
 CREATE TEMPORARY TABLE accreditation.`tmp_table_department`(
@@ -218,7 +223,7 @@ group by  id_uz, id_list_tables_criteria, ac.id_criteria
 select ltc.name , c.id_criteria, c.pp, c.name as criteria_name,  
 sum(count_yes) as count_yes, sum(count_no) as count_no, sum(count_not_need) as count_not_need,
 sum(count_yes_accred) as count_yes_accred, sum(count_no_accred) as count_no_accred, sum(count_not_need_accred) as count_not_need_accred
-from accreditation.`tmp_table_subvision` tts
+from accreditation.`tmp_table_uz` tts
 left outer join accreditation.`tmp_table_report_criteria_count` ttrcc on tts.id_uz=ttrcc.id_uz
 left outer join accreditation.z_list_tables_criteria ltc on ttrcc.id_list_tables_criteria=ltc.id_list_tables_criteria
 left outer join accreditation.z_criteria c on ttrcc.id_criteria=c.id_criteria
