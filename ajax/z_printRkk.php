@@ -190,7 +190,7 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">5</td>
         <td style = "width: 40%; text-align: left;">Заявление</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$new_date_reg. " ". $count_list_app . '</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$new_date_reg. " , ". $count_list_app . 'л</td>
     </tr>
     
     <tr>
@@ -260,21 +260,27 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">10</td>
         <td style = "width: 40%; text-align: left;">Приказ о создании комиссии</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_napr_zapr.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">11</td>
         <td style = "width: 40%; text-align: left;">Информация о выезде комиссии</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_sogl.'</td>
     </tr>
     
     <tr>
  
         <td style = " width: 10%; text-align: center;">12</td>
         <td style = "width: 40%; text-align: left;">Номер и дата протокола заседания комиссии</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">№'.$protokol_zased.' '. $date_protokol .'</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">';
+        if ($date_protokol === '1970-01-01') {
+            echo '№'.$protokol_zased.' ';
+        } else {
+            echo '№'.$protokol_zased.' '. $date_protokol;
+        }
+        echo '</td>
     </tr>
     
     <tr>
@@ -295,7 +301,14 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">15</td>
         <td style = "width: 40%; text-align: left;">Отметка об уведомлении о принятом административном решении</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'. $date_admin_resh .'</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">';
+
+            if ($date_admin_resh === '1970-01-01') {
+        echo '';
+    } else {
+        echo $date_admin_resh;
+    }
+        echo '</td>
     </tr>
     
     <tr>
@@ -323,7 +336,13 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">18.1</td>
         <td style = "width: 40%; text-align: left;">свидетельство о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации;</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$po_n.' '. $date_sved .' '. $count_list_sved. '</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">';
+        if ($date_sved === '1970-01-01') {
+            echo $po_n.' , '. $count_list_sved. 'л';
+        } else {
+            echo $po_n.' '. $date_sved .' , '. $count_list_sved. 'л';
+        }
+        echo'</td>
     </tr>
     
     <tr>
@@ -339,7 +358,7 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">19</td>
         <td style = "width: 40%; text-align: left;">Отметка о получении заинтересованным лицом документов и сведений</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">3</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$getter.'</td>
     </tr>
     
     <tr>
@@ -353,7 +372,13 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">21</td>
         <td style = "width: 40%; text-align: left;">Отметка о снятии с контроля</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$date_delo.'</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">';
+        if ($date_delo === '1970-01-01') {
+            echo '';
+        } else {
+            echo $date_delo;
+        }
+         echo'</td>
     </tr>
     
     <tr>

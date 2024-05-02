@@ -24,6 +24,29 @@ $dateSved = convertDate($row['date_sved']);
 $dateAdminResh = convertDate($row['date_admin_resh']);
 $po_n = $row['protokol_zased'];
 //echo '<tr><td colspan="4" style="font-weight: 700; text-align: center">' . $name_sub . '</td></tr>';
+
+
+$timestamp = strtotime($dateReg);
+$dateTime = new DateTime();
+$dateTime->setTimestamp($timestamp);
+$months = [
+    'January' => 'января',
+    'February' => 'февраля',
+    'March' => 'марта',
+    'April' => 'апреля',
+    'May' => 'мая',
+    'June' => 'июня',
+    'July' => 'июля',
+    'August' => 'августа',
+    'September' => 'сентября',
+    'October' => 'октября',
+    'November' => 'ноября',
+    'December' => 'декабря'
+];
+
+$new_date_reg = $dateTime->format('j ') . $months[$dateTime->format('F')] . $dateTime->format(' Y');
+
+$newdateSved = $dateTime->format('j ') . $months[$dateTime->format('F')] . $dateTime->format(' Y');
 echo '		
 <body>
 <style>
@@ -68,7 +91,7 @@ tr:hover {
 
 
 <br>
-Дата регистрации &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$dateReg.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+Дата регистрации &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$new_date_reg.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div style="font-size: 22pt;
     position: relative;
     left: 10%; width: 81%; text-align: justify;
@@ -151,7 +174,7 @@ echo '</tbody></table>
     position: relative;
     left: 12.5%;
     font-size: 20pt;
-	">Свидетельство действительно до '.$dateSved.
+	">Свидетельство действительно до '.$newdateSved.
     '</div>
     <br>
     <br>
@@ -167,7 +190,7 @@ echo '</tbody></table>
     position: relative;
     left: 12.5%;
     font-size: 20pt;
-	">Решение уполномоченного органа от '.$dateReg.' &nbsp;&nbsp;&nbsp;№'.$po_n.'
+	">Решение уполномоченного органа от '.$new_date_reg.' &nbsp;&nbsp;&nbsp;№'.$po_n.'
     </div>
     <br>
     <br>

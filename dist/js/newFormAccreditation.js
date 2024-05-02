@@ -583,7 +583,9 @@ function newShowModal(id_application) {
     }
     if(status == 9) {
         let sovetid = document.getElementById("sovetgr");
-        sovetid.style = "height:39%";
+        sovetid.style = "display:none";
+        let informgrid = document.getElementById("informgr");
+        informgrid.style = "display:none";
         formPlanOtzyv = document.createElement("form");
         formPlanOtzyv.id = "formPlanOtzyv";
         let divPlanOtzyv = document.createElement("div");
@@ -624,6 +626,11 @@ function newShowModal(id_application) {
         formReport.insertAdjacentElement("afterend", divDatePlanOtzyv);
         formReport.insertAdjacentElement("afterend", formPlanOtzyv);
 
+    }else{
+        let sovetid = document.getElementById("sovetgr");
+        sovetid.style = "display:block; height:39%";
+        let informgrid = document.getElementById("informgr");
+        informgrid.style = "display:block";
     }
 
 
@@ -3337,7 +3344,7 @@ function getRkk() {
             let data = JSON.parse(result);
 
             reg_index.innerHTML = data['id_rkk'];
-            admin_resh.innerHTML = data['id_rkk'];
+            // admin_resh.innerHTML = data['id_rkk'];
             dateRegistr.value = data.date_reg;
             countlist.value = data.count_list_app;
             tech_osn_rkk.value = data.tech_osn;
@@ -3352,21 +3359,39 @@ function getRkk() {
             info_napr_zapr.value = data['info_napr_zapr'];
             info_sogl.value = data['info_sogl'];
             protolol_zasedanie.value = data.protokol_zased;
-            date_zasedanie.value = data.date_protokol;
+            if (data.date_protokol === '1970-01-01') {
+                date_zasedanie.value = '';
+            }
+            else {
+                date_zasedanie.value = data.date_protokol;
+            }
             info_vozvrat.value = data.info_vozvr;
             info_otzyv.value = data['info_otzyv'];
-            date_admin_resh.value = data['date_admin_resh'];
+            if (data['date_admin_resh'] === '1970-01-01') {
+                date_admin_resh.value = '';
+            } else {
+                date_admin_resh.value = data['date_admin_resh'];
+            }
+
             count_admin_resh.value = data.count_list_admin;
             resultat.options.selectedIndex = Number(data['result']);
             svidetelstvo.value = data['svidetelstvo'];
-            date_svidetelstvo.value = data.date_sved;
+            if (data.date_sved === '1970-01-01') {
+                date_svidetelstvo.value = '';
+            } else {
+                date_svidetelstvo.value = data.date_sved;
+            }
             po_n.value = data['po_n'];
             count_svidetelstvo.value = data.count_list_sved;
             info_uved.value = data['info_uved'];
             count_medacr.value = data.count_list_report_medacr;
             getter.value = data['getter'];
             delo.value = data['delo'];
-            date_delo.value = data['date_delo'];
+            if (data['date_delo'] === '1970-01-01') {
+                date_delo.value = '';
+            } else {
+                date_delo.value = data['date_delo'];
+            }
             delo_listov.value = data['delo_listov'];
             dop_info.value = data['dop_info'];
             if (data['checkboxValueGuzo'] === "1") {
