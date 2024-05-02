@@ -3898,7 +3898,7 @@ $("#formReport").on("change", () => {
 
     xhr.upload.onprogress = function (event) {
         if (event.lengthComputable) {
-            let progress = (event.loaded / event.total) * 100;
+            let progress = (event.loaded / event.total) * 99;
             load.innerHTML = "Загрузка: " + Math.round(progress) + "%";
         }
     };
@@ -3906,8 +3906,13 @@ $("#formReport").on("change", () => {
     xhr.upload.onloadstart = function () {
         load.innerHTML = "Подождите, идет загрузка";
     };
-    xhr.upload.onload = function () {
-        load.innerHTML = "Файл загружен";
+    xhr.upload.onloadend = function () {
+        if (xhr.status != 200){
+            load.innerHTML = `Ошибка загрузки ${xhr.status}: ${xhr.statusText}`;
+        }
+        else{
+            load.innerHTML = "Файл загружен";
+        }
     }
     xhr.send(form);
 });
