@@ -110,7 +110,7 @@
                     <ul class="nav nav-tabs tab-transparent" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allApps" role="tab"
-                               aria-selected="true">Самоакредитация</a>
+                               aria-selected="true">Самоаккредитация</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="rassmotrenie-tab" data-toggle="tab" href="#rassmotrenie" role="tab"
@@ -367,7 +367,7 @@
 
 
                                                     <td>Заявление <?= $username ?> №<?= $app['app_id'] ?></td>
-                                                    <td><?= $app['dateInputDorabotki'] ?></td>
+                                                    <td><?= $app['date_reg'] ?></td>
 
                                                 </tr>
                                                 <?php
@@ -496,17 +496,19 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12) {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id, r.date_protokol
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
+                                                    left outer join rkk r on r.id_application=a.id_application
                                                    where id_status = 6 and u.oblast = '$role'";
                                         } else {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id, r.date_protokol
                                                     FROM applications a
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
-                                                   where id_status = 6";
+                                                    left outer join rkk r on r.id_application=a.id_application
+                                                   where uz.oblast='$oblast' and id_status = 6";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
@@ -517,7 +519,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Заявления</th>
-                                                <th>Дата решения совета</th>
+                                                <th>Дата протокола</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -531,7 +533,7 @@
                                                     style="cursor: pointer;">
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
-                                                    <td><?= $app['date_council'] ?></td>
+                                                    <td><?= $app['date_protokol'] ?></td>
 
 
                                                 </tr>

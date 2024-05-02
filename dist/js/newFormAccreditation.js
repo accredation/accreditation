@@ -766,9 +766,7 @@ function newShowModal(id_application) {
             modal.style = "display: block";
 
             for (let obj of data[1]) {
-
                 newGetTabs(obj[1], obj[0]);
-
             }
             let mark_percent = data[2];
             let mark_accred_percent = data[3];

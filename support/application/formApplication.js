@@ -2444,14 +2444,14 @@ $("#home-tab").on("click", () => {
         scriptAccred.remove(); // отключить скрипт
         document.body.appendChild(scriptAUsers); // включить скрипт
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 0)
             allTabsMainPage[i].style = "display:none";
         else {
             allTabsMainPage[i].style = "display:block";
         }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2467,7 +2467,7 @@ $("#rassmotrenie-tab").on("click", () => {
         document.body.appendChild(scriptAUsers); // включить скрипт
 
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 1)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2475,7 +2475,7 @@ $("#rassmotrenie-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2499,7 +2499,7 @@ $("#rkk-tab").on("click", () => {
         scriptAUsers.remove();
         document.body.appendChild(scriptAccred); // включить скрипт
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 2)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2507,7 +2507,7 @@ $("#rkk-tab").on("click", () => {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         allTabsMainPage[i].children[0].classList.remove("show");
         allTabsMainPage[i].children[0].classList.remove("active");
     }
@@ -2522,7 +2522,7 @@ $("#rkk-tab").on("click", () => {
 
 $("#neodobrennie-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 3)
             allTabsMainPage[i].style = "display:none";
         else {
@@ -2543,7 +2543,7 @@ $("#neodobrennie-tab").on("click", () => {
 
 $("#archive-tab").on("click", () => {
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         if (i != 4)
             allTabsMainPage[i].style = "display:none";
         else {

@@ -55,10 +55,9 @@ if (mysqli_num_rows($rez1) == 1) {
             $selected_lico_value = $row['selected_lico_value'];
             mysqli_query($con, "Insert into applications(`id_user`, `id_status`, `naim`, `date_create_app`, pervtor, id_rkk_perv,
                          sokr_naim, unp, ur_adress, fact_adress, tel, email, rukovoditel,predstavitel,soprovod_pismo, copy_rasp, org_structure, ucomplect,
-                         tech_osn, fileReport, fileReportSamoocenka, infDorabotkiFile, doverennost, zakluchenieSootvetstviya, prikazNaznach, 
+                         tech_osn, infDorabotkiFile, doverennost, zakluchenieSootvetstviya, prikazNaznach, 
                          selected_lico_value, id_old_app) values ('$id', 1, '$name', CURDATE(), 2, '$id_rkk', '$sokr', '$unp', '$ur_adress', '$fact_adress','$tel', '$email', '$rukovoditel',
-                                                      '$predstavitel', '$soprovod_pismo', '$copy_rasp', '$org_structure', '$ucomplect', '$tech_osn',
-                                                      '$report', '$reportSamoocenka', '$infDorabotkiFile', '$doverennost', '$zakluchenieSootvetstviya',
+                                                      '$predstavitel', '$soprovod_pismo', '$copy_rasp', '$org_structure', '$ucomplect', '$tech_osn', '$infDorabotkiFile', '$doverennost', '$zakluchenieSootvetstviya',
                                                       '$prikazNaznach', '$selected_lico_value', $id_old_app)");
         }
     }

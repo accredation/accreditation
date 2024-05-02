@@ -41,7 +41,7 @@ function login()
             {
                 $row = mysqli_fetch_assoc($rez); //она записывается в ассоциативный массив
 
-                if (md5($row['login'] . $row['password']) == $_COOKIE['password']) {
+                if (md5(trim($row['login']) . $row['password']) == $_COOKIE['password']) {
                     setcookie("id_user", $id, time() + (86400 * 30), "/");
                     setcookie("login", $_COOKIE['login'], time() + (86400 * 30), "/");
                     setcookie("password", $_COOKIE['password'], time() + (86400 * 30), "/");

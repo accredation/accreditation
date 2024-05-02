@@ -8,7 +8,7 @@ session_start();
 
 if ($_POST['login'] != "" && $_POST['password'] != "") //если поля заполнены
 {
-    $login = $_POST['login'];
+    $login = trim($_POST['login']);
     $password = $_POST['password'];
     $insertquery = "SELECT * FROM users WHERE login='$login' and active = 1";
 
@@ -30,7 +30,7 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
                         $_SESSION['id_user'] = $row['id_user']; //записываем в сессию id пользователя
                         $id = $_SESSION['id_user'];
                         setcookie("login", $login, time() + (86400 * 30), '/');
-                        setcookie("password", md5($row['login'] . $row['password']), time() + (86400 * 30), '/');
+                        setcookie("password", md5(trim($row['login']) . $row['password']), time() + (86400 * 30), '/');
                         setcookie("id_user", $id, time() + (86400 * 30), '/');
                         if ($row['sotrudnik_MA'] == 1) {
                             setcookie("isMA", 1, time() + (86400 * 30), '/');
@@ -71,7 +71,7 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
             $_SESSION['id_user'] = $row['id_user']; //записываем в сессию id пользователя
             $id = $_SESSION['id_user'];
             setcookie("login", $login, time() + (86400 * 30), '/');
-            setcookie("password", md5($row['login'] . $row['password']), time() + (86400 * 30), '/');
+            setcookie("password", md5(trim($row['login']) . $row['password']), time() + (86400 * 30), '/');
             setcookie("id_user", $id, time() + (86400 * 30), '/');
             if ($row['sotrudnik_MA'] == 1) {
                 setcookie("isMA", 1, time() + (86400 * 30), '/');
