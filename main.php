@@ -401,7 +401,7 @@ LIMIT 5";
                 <!--                 $app["path_img"] -->
                 <!--                        ');"></a>-->
                 <div class="content">
-                    <h3><a href="<?= $app["id_news"] == 19 ? 'https://www.youtube.com/@MedaccrRB' : '#'?>"><?= $app["name_news"] ?></a></h3>
+                    <h3><a href="<?= $app["id_news"] == 30 ? 'https://www.youtube.com/watch?v=BNPDFogkO8k' : '#'?>"><?= $app["name_news"] ?></a></h3>
                     <div class="anno"></div>
                     <div class="date"><?= $app["date_news"] ?></div>
                     <!--                    <a href="#" class="read_more">Подробнее</a>-->
@@ -421,7 +421,7 @@ LIMIT 5";
                             <!-- $app["path_img"] -->
                             <!--                                ');"></a>-->
                             <div class="content">
-                                <h3><a href="<?= $app["id_news"] == 19 ? 'https://www.youtube.com/@MedaccrRB' : '#'?>"><?= $app["name_news"] ?></a></h3>
+                                <h3><a href="<?= $app["id_news"] == 30 ? 'https://www.youtube.com/watch?v=BNPDFogkO8k' : '#'?>"><?= $app["name_news"] ?></a></h3>
                                 <div class="date"><?= $app["date_news"] ?></div>
                                 <!--                            <a href="#" class="read_more">Подробнее</a>-->
                             </div>

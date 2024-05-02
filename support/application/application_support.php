@@ -318,8 +318,18 @@
                                 left outer join rkk r on r.id_application=a.id_application
                                -- left outer join users u on uz.id_uz =u.id_uz 
                                 where  (('$id_role'=12 and (id_status = 3)) or ('$id_role'=14 and (uz.oblast='$oblast')))";
-                                        } else {
+                                        } else if ($role == 12) {
 
+                                            $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id, r.date_reg
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               left outer join users us on us.id_user=a.id_user
+                               left outer join rkk r on r.id_application=a.id_application
+                        
+                                left outer join uz uz on uz.id_uz =us.id_uz 
+                                where  id_status = 3";
+                                        }
+                                        else {
                                             $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id, r.date_reg
                                 FROM applications a
                                left outer join report_application_mark ram on a.id_application=ram.id_application
@@ -402,7 +412,18 @@
                         
                                -- left outer join users u on uz.id_uz =u.id_uz 
                                 where  (('$id_role'=12 and (id_status = 4)) or ('$id_role'=14 and (uz.oblast='$oblast')))";
-                                        } else {
+                                        } else if ($role == 12){
+
+                                                $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
+                                FROM applications a
+                               left outer join report_application_mark ram on a.id_application=ram.id_application
+                               left outer join uz uz on uz.id_uz=a.id_user
+                        
+                               -- left outer join users u on uz.id_uz =u.id_uz 
+                                where   id_status = 4";
+
+                                        }
+                                        else {
 
                                             $query = "SELECT a.*, uz.username, ram.*, a.id_application as app_id
                                 FROM applications a
