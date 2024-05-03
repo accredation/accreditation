@@ -28,3 +28,15 @@ function addHistoryChangePassword(id_user, newPass, type_action, name_action) {
             alert("Пароль изменен");
         });
 }
+
+function addHistoryChangeLogin(id_user, login, type_action, name_action) {
+
+    $.ajax({
+        url: "../ajax/changeUserLogin.php",
+        method: "POST",
+        data: {id_user: id_user, login: login, name_action: name_action}
+    })
+        .done(function (response) {
+            alert("Логин изменен");
+        });
+}

@@ -91,7 +91,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <tr style="cursor: pointer;">
 
                         <td><?= $user['usname'] ?></td>
-                        <td><?= $user['login'] ?></td>
+                        <td id="log<?= $user['id_user'] ?>" contenteditable="true" oncontextmenu="changeLogin(this)"><?= $user['login'] ?></td>
                         <td><?= $user['email'] ?></td>
                         <td ><?= $user['name'] ?></td>
                         <td><select name="" id="types<?= $user['id_user'] ?>" onchange="changeType(this)">
@@ -184,6 +184,18 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
             console.log("newPass", newPass);
             console.log("id", id);
             addHistoryChangePassword(id, newPass, 1, "Изменение пароля у " + login + " на пароль " + newPass);
+        }else{
+            return false;
+        }
+    }
+
+    function changeLogin(thisTd){
+        let tr = thisTd.parentElement;
+        let login = tr.children[1].innerText;
+        let confirmation = confirm("Вы уверены, что хотите изменить логин пользователя на " + login + "?");
+        if(confirmation) {
+            let id = thisTd.id.substring(3);
+            addHistoryChangeLogin(id, login, 1, "Изменение логина у " + login);
         }else{
             return false;
         }

@@ -389,7 +389,7 @@
         $query = "SELECT *
 FROM news
 ORDER BY id_news DESC
-LIMIT 5";
+";
         $result=mysqli_query($con, $query) or die ( mysqli_error($con));
         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
         $i = 0;
@@ -414,7 +414,7 @@ LIMIT 5";
             <div class="row">
                 <?php
                 }
-                else{?>
+                else if($i > 0 && $i < 5){?>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 wrapper">
                         <div class="item">
                             <!--                        <a href="#" class="preview" style="background-image: url('-->
@@ -429,11 +429,30 @@ LIMIT 5";
                     </div>
 
                 <?php }
+                else{
+                    ?>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 wrapper morenews hiddentab">
+                        <div class="item">
+                            <!--                        <a href="#" class="preview" style="background-image: url('-->
+                            <!-- $app["path_img"] -->
+                            <!--                                ');"></a>-->
+                            <div class="content">
+                                <h3><a href="<?= $app["id_news"] == 30 ? 'https://www.youtube.com/watch?v=BNPDFogkO8k' : '#'?>"><?= $app["name_news"] ?></a></h3>
+                                <div class="date"><?= $app["date_news"] ?></div>
+                                <!--                            <a href="#" class="read_more">Подробнее</a>-->
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
                 $i++;
                 }
 
                 ?>
             </div>
+            <button class="btn btn-primary" onclick="showMore(this)">
+                Все новости
+            </button>
         </div>
 
         <div class="clearfix sm-visible"></div>
@@ -477,6 +496,26 @@ LIMIT 5";
 
 
 <script>
+    let toggleNews = false;
+    function showMore(el){
+        let morenews = document.getElementsByClassName("morenews");
+        if(!toggleNews) {
+            [...morenews].map(item => {
+                item.classList.remove("hiddentab");
+                toggleNews = true;
+                el.innerText = "Скрыть все новости";
+            })
+        }
+        else{
+            [...morenews].map(item => {
+                item.classList.add("hiddentab");
+                toggleNews = false;
+                el.innerText = "Все новости";
+
+            })
+        }
+    }
+
 function addNews(){
 let modal = document.getElementById("modalnews");
 modal.classList.add("show");
