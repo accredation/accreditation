@@ -2375,6 +2375,7 @@ $("#doverennost").on("change", () => {
         }
     };
 
+
     xhr.upload.onloadstart = function() {
         load.innerHTML = "Подождите, идет загрузка";
     };
