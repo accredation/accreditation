@@ -68,6 +68,7 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $plandatanedostatkov  = $row['plandatanedostatkov'];
     $zayav_otzyv  = $row['zayav_otzyv'];
     $data_zayav_otzyv  = $row['data_zayav_otzyv'];
+    $data_zakluchenia  = $row['data_zakluchenia'];
 
 
 
@@ -104,6 +105,7 @@ array_push($cells,$plandenostatkov); //27
 array_push($cells,$plandatanedostatkov); //28
 array_push($cells,$zayav_otzyv); //29
 array_push($cells,$data_zayav_otzyv); //30
+array_push($cells,$data_zakluchenia); //31
 
 
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
