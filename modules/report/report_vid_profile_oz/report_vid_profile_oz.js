@@ -302,20 +302,20 @@ function reportWithOutYurLica(dataParametrs){
         th4.style = "border: 1px solid black; text-align: left;line-height: normal";
 
         let th5 = document.createElement('th');
-        th5.innerHTML = 'Из них, заявились не по перечню (виды)';
+        th5.innerHTML = 'Из них, не заявились по перечню (виды)';
         th5.style = "border: 1px solid black; text-align: left;line-height: normal";
 
         let th6 = document.createElement('th');
-        th6.innerHTML = 'Из них, заявились не по перечню (профили)';
+        th6.innerHTML = 'Из них, не заявились по перечню (профили)';
         th6.style = "border: 1px solid black; text-align: left;line-height: normal";
 
 
         let th7 = document.createElement('th');
-        th7.innerHTML = 'Из них, заявились дополнительно к перечню (виды)';
+        th7.innerHTML = 'Заявились дополнительно к перечню (виды)';
         th7.style = "border: 1px solid black; text-align: left;line-height: normal";
 
         let th8 = document.createElement('th');
-        th8.innerHTML = 'Из них, заявились дополнительно к перечню (профили)';
+        th8.innerHTML = 'Заявились дополнительно к перечню (профили)';
         th8.style = "border: 1px solid black; text-align: left;line-height: normal";
 
 
@@ -773,20 +773,20 @@ function reportYurLica(dataParametrs){
         th4.style = "border: 1px solid black; text-align: left;line-height: normal";
 
         let th5 = document.createElement('th');
-        th5.innerHTML = 'Из них, заявились не  по перечню (виды)';
+        th5.innerHTML = 'Из них, не заявились по перечню (виды)';
         th5.style = "border: 1px solid black; text-align: left;line-height: normal";
 
         let th6 = document.createElement('th');
-        th6.innerHTML = 'Из них, заявились не  по перечню (профили)';
+        th6.innerHTML = 'Из них, не заявились по перечню (профили)';
         th6.style = "border: 1px solid black; text-align: left;line-height: normal";
 
 
         let th7 = document.createElement('th');
-        th7.innerHTML = 'Из них, заявились дополнительно к перечню (виды)';
+        th7.innerHTML = 'Заявились дополнительно к перечню (виды)';
         th7.style = "border: 1px solid black; text-align: left;line-height: normal";
 
         let th8 = document.createElement('th');
-        th8.innerHTML = 'Из них, заявились дополнительно к перечню (профили)';
+        th8.innerHTML = 'Заявились дополнительно к перечню (профили)';
         th8.style = "border: 1px solid black; text-align: left;line-height: normal";
 
 
@@ -987,37 +987,37 @@ function reportYurLica(dataParametrs){
                     td11_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
                     let td12 = document.createElement('td');
-                    td12.innerHTML =  item['vid_sved_lishn_name'] ;
+                    td12.innerHTML =  item['name_vid_sved_not_in'] ;
                     td12.style = " text-align:center; line-height: normal;";
 
                     let td12_count = document.createElement('td');
-                    td12_count.innerHTML =  item['vid_sved_lishn_count'] ;
+                    td12_count.innerHTML =  item['count_vid_sved_not_in'] ;
                     td12_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
                     let td13 = document.createElement('td');
-                    td13.innerHTML =  item['profile_sved_lishn_name'] ;
+                    td13.innerHTML =  item['name_profile_sved_not_in'] ;
                     td13.style = " text-align:center; line-height: normal;";
 
                     let td13_count = document.createElement('td');
-                    td13_count.innerHTML =  item['profile_sved_lishn_count'] ;
+                    td13_count.innerHTML =  item['count_profile_sved_not_in'] ;
                     td13_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";                  
 
                     
                     let td14 = document.createElement('td');
-                    td14.innerHTML =  item['name_vid_sved_not_in'] ;
+                    td14.innerHTML =   item['vid_sved_lishn_name'] ;
                     td14.style = " text-align:center; line-height: normal;";
 
                     let td14_count = document.createElement('td');
-                    td14_count.innerHTML =  item['count_vid_sved_not_in'] ;
+                    td14_count.innerHTML =   item['vid_sved_lishn_count'] ;
                     td14_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
                     
                     let td15 = document.createElement('td');
-                    td15.innerHTML =  item['name_profile_sved_not_in'] ;
+                    td15.innerHTML =  item['profile_sved_lishn_name'] ;
                     td15.style = " text-align:center; line-height: normal;";
 
                     let td15_count = document.createElement('td');
-                    td15_count.innerHTML =  item['count_profile_sved_not_in'] ;
+                    td15_count.innerHTML =  item['profile_sved_lishn_count'] ;
                     td15_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
 

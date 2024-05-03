@@ -188,11 +188,18 @@ if($search_check === "false"){
 
 
 
-$query = "SELECT rkk.id_rkk, case when a.id_rkk_perv is not null then rkk.id_rkk +'/' + id_rkk_perv else rkk.id_rkk end as num_rkk, rkk.id_application, a.naim, case when rkk.perv_vtor = 1 then 'первичное' when rkk.perv_vtor = 2 then 'повторное' else '' end as perv_vtor,
-rkk.date_reg, a.ur_adress, a.fact_adress, a.tel, a.email, 
+$query = "SELECT rkk.id_rkk, case when a.id_rkk_perv is not null then rkk.id_rkk +'/' + id_rkk_perv else rkk.id_rkk end as num_rkk, rkk.id_application, a.naim, 
+case when rkk.perv_vtor = 1 then 'первичное' when rkk.perv_vtor = 2 then 'повторное' else '' end as perv_vtor,
+case when rkk.date_reg = '1970-01-01' then '' else rkk.date_reg end  as date_reg, a.ur_adress, a.fact_adress, a.tel, a.email, 
 case when rkk.result='1' then 'Выдача свидетельства' when rkk.result='2' then 'Отказ в выдаче свидетельства' when rkk.result='3' then 'Отказ в приеме заявления'
-else '' end as adm_reah,  rkk.id_rkk as adm_resh_num, rkk.date_admin_resh, rkk.svidetelstvo, rkk.date_sved, 
-'пока хз' as sved_srok_deist, rkk.date_delo, rkk.delo, a.zaregal, CONCAT( CONVERT(rkk.date_sved, char), ' ', rkk.info_uved) as info_uved , rkk.getter, so.oblast, rkk.date_protokol
+else '' end as adm_reah,  rkk.id_rkk as adm_resh_num,
+case when rkk.date_admin_resh = '1970-01-01' then '' else rkk.date_admin_resh end  as date_admin_resh, rkk.svidetelstvo, 
+case when rkk.date_sved = '1970-01-01' then '' else rkk.date_sved end  as date_sved, 
+'пока хз' as sved_srok_deist,
+case when rkk.date_delo = '1970-01-01' then '' else rkk.date_delo end  as date_delo, rkk.delo, 
+a.zaregal, CONCAT( CONVERT(case when rkk.date_sved = '1970-01-01' then '' else rkk.date_sved end, char), ' ', rkk.info_uved) as info_uved , 
+rkk.getter, so.oblast, case when rkk.date_protokol = '1970-01-01' then '' else rkk.date_protokol end  as date_protokol,
+rkk.dop_info
 from accreditation.rkk 
 left outer join accreditation.applications a on rkk.id_application=a.id_application
 left outer join accreditation.uz u on a.id_user=u.id_uz
@@ -223,7 +230,7 @@ for ($data = []; $row = mysqli_fetch_assoc($rez); $data[] = $row);
 class Report{
     public $id_rkk, $num_rkk, $id_application , $naim, $perv_vtor, $date_reg, $ur_adress, $fact_adress, $tel, $email,
      $adm_reah, $adm_resh_num , $date_admin_resh, $svidetelstvo, $date_sved, $sved_srok_deist, $date_delo, $delo,
-     $zaregal, $info_uved, $getter, $oblast;
+     $zaregal, $info_uved, $getter, $oblast, $dop_info, $date_protokol;
     
 }
 
@@ -252,6 +259,9 @@ foreach ($data as $app) {
     $report->info_uved = $app['info_uved'];
     $report->getter = $app['getter'];
     $report->oblast = $app['oblast'];
+    $report->dop_info = $app['dop_info'];
+    $report->date_protokol = $app['date_protokol'];
+    
 
     array_push($reports,$report);
 }

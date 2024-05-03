@@ -20,10 +20,7 @@ $otz = $_GET['otz'];
 $otkaz = $_GET['otkaz'];
 $type_report = $_GET['type_report']; 
 
-$count_day_proh = $_GET['count_day_proh'];
-$count_day_cge = $_GET['count_day_cge'];
-$count_day_proc = $_GET['count_day_proc'];
-$count_day_uved = $_GET['count_day_uved'];
+$count_day_complite = $_GET['count_day_complite'];
 
 
 
@@ -117,7 +114,7 @@ left outer join accreditation.uz u on sdo.id_uz=u.id_uz
 left outer join accreditation.status s on a.id_status=s.id_status
 where r.date_reg between '$datePeriod_at' and '$datePeriod_to'
 and a.id_status=4
-and ( (a.date_complete is not null and (a.date_complete > DATE_ADD(r.date_reg ,INTERVAL $count_day_proc DAY)  )))
+and ( (a.date_complete is not null and (a.date_complete > DATE_ADD(r.date_reg ,INTERVAL $count_day_complite DAY)  )))
 and $guzo
 and $perv_vtor
 and $otz_str

@@ -116,7 +116,7 @@ left outer join accreditation.uz u on sdo.id_uz=u.id_uz
 left outer join accreditation.status s on a.id_status=s.id_status
 where r.date_reg between '$datePeriod_at' and '$datePeriod_to'
 and r.result<>0
-and (r.date_admin_resh is null or (r.date_admin_resh is not null and (r.date_admin_resh > DATE_ADD(r.date_reg ,INTERVAL $count_day_uved DAY)  )))
+and (r.date_admin_resh is null or (r.date_admin_resh is not null and (r.date_admin_resh > DATE_ADD(r.date_protokol ,INTERVAL $count_day_uved DAY)  )))
 and $guzo
 and $perv_vtor
 and $otz_str

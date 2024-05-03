@@ -99,7 +99,7 @@ $guzo = '';
 $query = "
  
 select  rPov.id_rkk, u.username, a2.date_create_app, case when rPov.perv_vtor = 1 then 'первичное' when rPov.perv_vtor = 2 then 'повторное' else '' end as perv_vtor,
- s.name_status_report as name_status, rPov.date_reg, DATE_ADD(COALESCE(a.data_zayav_otzyv, r.date_reg),INTERVAL $count_day_app MONTH) as schedule_date, 
+ s.name_status_report as name_status, rPov.date_reg, DATE_ADD(COALESCE(a.data_zayav_otzyv, r.date_protokol),INTERVAL $count_day_app MONTH) as schedule_date, 
  case when a2.sootvetstvie = 1 then 'Соответствует' when a2.sootvetstvie=2 then 'Не соответствует' else '' end as sootvetstvie,
  case when rPov.result='1' then 'Выдача свидетельства' when rPov.result='2' then 'Отказ в выдаче свидетельства' when rPov.result='3' then 'Отказ в приеме заявления'
  else '' end as adm_reah, rPov.date_protokol, rPov.date_admin_resh as info_uved ,
@@ -115,10 +115,10 @@ left outer join accreditation.status s on a2.id_status=s.id_status
 where (a.id_status>=6 ) 
 and ( a.giveSvid=2 or r.result='2' or r.result='3')
 
-and DATE_ADD(COALESCE(a.data_zayav_otzyv, r.date_reg),INTERVAL $count_day_app MONTH) between '$datePeriod_at' and '$datePeriod_to' 
+and DATE_ADD(COALESCE(a.data_zayav_otzyv, r.date_protokol),INTERVAL $count_day_app MONTH) between '$datePeriod_at' and '$datePeriod_to' 
 
-
-and (rPov.date_reg is null or (rPov.date_reg is not null and (rPov.date_reg > DATE_ADD(COALESCE(a.data_zayav_otzyv, r.date_reg),INTERVAL $count_day_app MONTH)  )))
+ and (rPov.date_reg is not null)
+-- or (rPov.date_reg is not null and (rPov.date_reg > DATE_ADD(COALESCE(a.data_zayav_otzyv, r.date_protokol),INTERVAL $count_day_app MONTH)  )))
 and $guzo
 and $perv_vtor
 and $otz_str

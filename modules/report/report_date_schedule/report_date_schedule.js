@@ -71,12 +71,12 @@ function CheckTypeReportElement(elem, element_name){
     let day4 = document.getElementById('day4');
     let day5 = document.getElementById('day5');
     let day6 = document.getElementById('day6');
+    let day7 = document.getElementById('day7');
     radio_checked.checked = true
 
     switch (element_name) {
         case "1":
-        case "2":
-            
+
             if(day1.hasAttribute('hidden')){
                 day1.removeAttribute('hidden')
             }
@@ -100,10 +100,75 @@ function CheckTypeReportElement(elem, element_name){
             if(!day6.hasAttribute('hidden')){
                 day6.setAttribute('hidden', 'true')
             }
+
+            if(!day7.hasAttribute('hidden')){
+                day7.setAttribute('hidden', 'true')
+            }
+           
+            break;
+
+        case "2":
+            
+            if(!day1.hasAttribute('hidden')){
+                day1.setAttribute('hidden', 'true')
+            }
+            
+            if(!day2.hasAttribute('hidden')){
+                day2.setAttribute('hidden', 'true')
+            }
+
+            if(!day3.hasAttribute('hidden')){
+                day3.setAttribute('hidden', 'true')
+            }
+
+            if(!day4.hasAttribute('hidden')){
+                day4.setAttribute('hidden', 'true')
+            }
+
+            if(!day5.hasAttribute('hidden')){
+                day5.setAttribute('hidden', 'true')
+            }
+
+            if(!day6.hasAttribute('hidden')){
+                day6.setAttribute('hidden', 'true')
+            }
+
+            if(!day7.hasAttribute('hidden')){
+                day7.setAttribute('hidden', 'true')
+            }
            
             break;
 
         case "3":
+            if(day7.hasAttribute('hidden')){
+                day7.removeAttribute('hidden')
+            }
+            
+            if(!day1.hasAttribute('hidden')){
+                day1.setAttribute('hidden', 'true')
+            }
+
+            if(!day2.hasAttribute('hidden')){
+                day2.setAttribute('hidden', 'true')
+            }
+
+            if(!day3.hasAttribute('hidden')){
+                day3.setAttribute('hidden', 'true')
+            }
+
+            if(!day4.hasAttribute('hidden')){
+                day4.setAttribute('hidden', 'true')
+            }
+
+            if(!day5.hasAttribute('hidden')){
+                day5.setAttribute('hidden', 'true')
+            }
+
+            if(!day6.hasAttribute('hidden')){
+                day6.setAttribute('hidden', 'true')
+            }
+            break;
+
         case "4":
             if(day3.hasAttribute('hidden')){
                 day3.removeAttribute('hidden')
@@ -128,6 +193,11 @@ function CheckTypeReportElement(elem, element_name){
             if(!day6.hasAttribute('hidden')){
                 day6.setAttribute('hidden', 'true')
             }
+
+            if(!day7.hasAttribute('hidden')){
+                day7.setAttribute('hidden', 'true')
+            }
+           
 
             break;
         case "5":
@@ -154,6 +224,11 @@ function CheckTypeReportElement(elem, element_name){
             if(!day6.hasAttribute('hidden')){
                 day6.setAttribute('hidden', 'true')
             }
+
+            if(!day7.hasAttribute('hidden')){
+                day7.setAttribute('hidden', 'true')
+            }
+           
             break;    
 
         case "6":
@@ -181,7 +256,10 @@ function CheckTypeReportElement(elem, element_name){
                 day6.setAttribute('hidden', 'true')
             }
 
-            
+            if(!day7.hasAttribute('hidden')){
+                day7.setAttribute('hidden', 'true')
+            }
+           
             break;  
             
         case "7":
@@ -208,6 +286,11 @@ function CheckTypeReportElement(elem, element_name){
             if(!day5.hasAttribute('hidden')){
                 day5.setAttribute('hidden', 'true')
             }
+
+            if(!day7.hasAttribute('hidden')){
+                day7.setAttribute('hidden', 'true')
+            }
+           
             
             break;    
     }
@@ -281,7 +364,8 @@ function preperaReport(){
         count_day_proc: 0,
         count_day_uved: 0,
         count_day_plan:0,
-        count_day_app: 0
+        count_day_app: 0,
+        count_day_complite:0,
     }
 
 
@@ -378,6 +462,10 @@ function preperaReport(){
 
     let count_day_app = document.getElementById(`count_day_app`).value;
     dataParametrs.count_day_app = count_day_app;
+
+    let count_day_complite = document.getElementById(`count_day_complite`).value;
+    dataParametrs.count_day_complite = count_day_complite;
+    
 
     let btnReportPrint = document.getElementById(`btnReportPrint`);
     btnReportPrint.removeAttribute('disabled')
@@ -586,6 +674,7 @@ function reportReportGraf(dataParametrs){
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
 
+         let itogo = 0
            if(data.length > 0){
                 data.map((item,index) => {
                     let trStr = document.createElement('tr');
@@ -652,9 +741,24 @@ function reportReportGraf(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
-
+                    itogo ++
 
                 })
+
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
 
            }else {
                 divTable.innerHTML = ' ';
@@ -743,7 +847,7 @@ function reportReportNoSendRkk(dataParametrs){
         
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
-
+        let itogo=0
            if(data.length > 0){
                 data.map((item,index) => {
                     let trStr = document.createElement('tr');
@@ -812,9 +916,23 @@ function reportReportNoSendRkk(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
-
+                    itogo++
 
                 })
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
 
            }else {
                 divTable.innerHTML = ' ';
@@ -902,7 +1020,7 @@ function reportReportNoCGE(dataParametrs){
         
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
-
+        let itogo=0
            if(data.length > 0){
                 data.map((item,index) => {
                     let trStr = document.createElement('tr');
@@ -971,9 +1089,24 @@ function reportReportNoCGE(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
+                    itogo ++
 
 
                 })
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
 
            }else {
                 divTable.innerHTML = ' ';
@@ -1045,10 +1178,7 @@ function reportReportNoOcenka(dataParametrs){
     
             type_report: dataParametrs.type_report,
     
-            count_day_proh: dataParametrs.count_day_proh,
-            count_day_cge: dataParametrs.count_day_cge,
-            count_day_proc: dataParametrs.count_day_proc,
-            count_day_uved: dataParametrs.count_day_uved,
+            count_day_complite: dataParametrs.count_day_complite,
 
         }
         
@@ -1061,7 +1191,7 @@ function reportReportNoOcenka(dataParametrs){
         
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
-
+         let itogo=0
            if(data.length > 0){
                 data.map((item,index) => {
                     let trStr = document.createElement('tr');
@@ -1130,9 +1260,24 @@ function reportReportNoOcenka(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
+                    itogo ++
 
 
                 })
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
 
            }else {
                 divTable.innerHTML = ' ';
@@ -1217,7 +1362,7 @@ function reportReportNoResh(dataParametrs){
         for (let i of JSON.parse(response)){
             data.push(i);
         }
-        
+            let itogo=0
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
 
@@ -1289,10 +1434,25 @@ function reportReportNoResh(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
+                    itogo ++
 
 
                 })
 
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
            }else {
                 divTable.innerHTML = ' ';
                 divTableStr.innerHTML = 'По данным параметрам нет записей';
@@ -1380,7 +1540,7 @@ function reportReportNoAdmin(dataParametrs){
         
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
-
+        let itogo=0
            if(data.length > 0){
                 data.map((item,index) => {
                     let trStr = document.createElement('tr');
@@ -1449,9 +1609,25 @@ function reportReportNoAdmin(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
+                    itogo ++
 
 
                 })
+
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
 
            }else {
                 divTable.innerHTML = ' ';
@@ -1541,7 +1717,7 @@ function reportReportNoPlan(dataParametrs){
         
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
-
+        let itogo=0
            if(data.length > 0){
                 data.map((item,index) => {
                     let trStr = document.createElement('tr');
@@ -1610,9 +1786,25 @@ function reportReportNoPlan(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
+                    itogo ++
 
 
                 })
+
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
 
            }else {
                 divTable.innerHTML = ' ';
@@ -1697,7 +1889,7 @@ function reportReportNoApp(dataParametrs){
         
          let tbody = document.createElement('tbody');
          table.appendChild(tbody);
-
+        let itogo =0
            if(data.length > 0){
                 data.map((item,index) => {
                     let trStr = document.createElement('tr');
@@ -1766,9 +1958,25 @@ function reportReportNoApp(dataParametrs){
                     trStr.appendChild(td12);
 
                     tbody.appendChild(trStr);
+                    itogo ++
 
 
                 })
+
+                let trStrItog = document.createElement('tr');
+
+                    let td1itog = document.createElement('td');
+                    td1itog.innerHTML =  'Итого' ;
+                    td1itog.style = "border: 1px solid black;  text-align:left; line-height: normal;";
+                    td1itog.setAttribute('colspan', 11)
+
+                    let td2itog = document.createElement('td');
+                    td2itog.innerHTML =  itogo ;
+                    td2itog.style = "border: 1px solid black;  text-align:center; line-height: normal;";
+
+                    trStrItog.appendChild(td1itog);
+                    trStrItog.appendChild(td2itog);
+                    tbody.appendChild(trStrItog);
 
            }else {
                 divTable.innerHTML = ' ';

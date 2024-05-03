@@ -115,9 +115,10 @@ left outer join accreditation.schedule_date_oz sdo on sdo.id_uz=a.id_user and sd
 left outer join accreditation.uz u on sdo.id_uz=u.id_uz
 
 left outer join accreditation.status s on a.id_status=s.id_status
-where r.result='2' and
+where 
+a.id_status=6 and
 r.date_reg between '$datePeriod_at' and '$datePeriod_to'
-and (a.plandatanedostatkov is null or (a.plandatanedostatkov is not null and (a.plandatanedostatkov > DATE_ADD(r.date_reg ,INTERVAL $count_day_plan DAY)  )))
+and (a.plandatanedostatkov is null or (a.plandatanedostatkov is not null and (a.plandatanedostatkov > DATE_ADD(r.date_admin_resh ,INTERVAL $count_day_plan DAY)  )))
 and $guzo
 and $perv_vtor
 and $otz_str
