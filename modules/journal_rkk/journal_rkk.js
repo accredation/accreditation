@@ -463,12 +463,12 @@ function prepereTableReport(dataParametrs){
     th11.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th12 = document.createElement('th');
-    th12.innerHTML = 'Номер административного решения';
+    th12.innerHTML = 'Дата протокола';
     th12.id='th12'
-    th12.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+    th12.style = "border: 1px solid black; min-width: 120px; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
    
     let th13 = document.createElement('th');
-    th13.innerHTML = 'Дата административного решения';
+    th13.innerHTML = 'Дата уведомления';
     th13.id='th13'
     th13.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
@@ -514,6 +514,11 @@ function prepereTableReport(dataParametrs){
     th21.id='th21'
     th21.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
+    let th23 = document.createElement('th');
+    th23.innerHTML = 'Дополнительная информация';
+    th23.id='th23'
+    th23.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+
     let th22 = document.createElement('th');
     th22.innerHTML = 'Регион';
     th22.id='th22'
@@ -521,7 +526,7 @@ function prepereTableReport(dataParametrs){
 
 
     trHead.appendChild(th1);
-    trHead.appendChild(th2);
+    // trHead.appendChild(th2);
   //  trHead.appendChild(th3);
     trHead.appendChild(th4);
 
@@ -551,6 +556,7 @@ function prepereTableReport(dataParametrs){
     if(dataParametrs.info === true){
         trHead.appendChild(th20);
         trHead.appendChild(th21);
+        trHead.appendChild(th23);
     }
     
     
@@ -632,118 +638,125 @@ function reportPrepere(dataParametrs){
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['id_rkk'];
                 td1.className='td1'
-                td1.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td1.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td2 = document.createElement('td');
                 td2.innerHTML = item['num_rkk'];
                 td2.className='td2'
-                td2.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td2.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                               
                 let td3 = document.createElement('td');
                 td3.innerHTML = item['id_application'];
                 td3.className='td3'
-                td3.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td3.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td4 = document.createElement('td');
                 td4.innerHTML = item['naim'];
                 td4.className='td4'
-                td4.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td4.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td5 = document.createElement('td');
                 td5.innerHTML = item['perv_vtor'];
                 td5.className='td5'
-                td5.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td5.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td6 = document.createElement('td');
                 td6.innerHTML = item['date_reg'];
                 td6.className='td6'
-                td6.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td6.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 
                     let td7 = document.createElement('td');
                     td7.innerHTML = item['ur_adress'];
                     td7.className='td7'
-                    td7.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                    td7.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                     let td8 = document.createElement('td');
                     td8.innerHTML = item['fact_adress'];
                     td8.className='td8'
-                    td8.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                    td8.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                     let td9 = document.createElement('td');
                     td9.innerHTML = item['tel'];
                     td9.className='td9'
-                    td9.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                    td9.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                     let td10 = document.createElement('td');
                     td10.innerHTML = item['email'];
                     td10.className='td10'
-                    td10.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                    td10.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                 
 
                 let td11 = document.createElement('td');
                 td11.innerHTML = item['adm_reah'];
                 td11.className='td11'
-                td11.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td11.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td12 = document.createElement('td');
-                td12.innerHTML = item['adm_resh_num'];
+                td12.innerHTML = item['date_protokol'];
                 td12.className='td12'
-                td12.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td12.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td13 = document.createElement('td');
                 td13.innerHTML = item['date_admin_resh'];
                 td13.className='td13'
-                td13.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td13.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td14 = document.createElement('td');
                 td14.innerHTML = item['svidetelstvo'];
                 td14.className='td14'
-                td14.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td14.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td15 = document.createElement('td');
                 td15.innerHTML = item['date_sved'];
                 td15.className='td15'
-                td15.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td15.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td16 = document.createElement('td');
                 td16.innerHTML = item['sved_srok_deist'];
                 td16.className='td16'
-                td16.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td16.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td17 = document.createElement('td');
                 td17.innerHTML = item['date_delo'];
                 td17.className='td17'
-                td17.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td17.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td18 = document.createElement('td');
                 td18.innerHTML = item['delo'];
                 td18.className='td18'
-                td18.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td18.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td19 = document.createElement('td');
                 td19.innerHTML = item['zaregal'];
                 td19.className='td19'
-                td19.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td19.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                 
                 let td20 = document.createElement('td');
                 td20.innerHTML = item['info_uved'];
                 td20.className='td20'
-                td20.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td20.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td21 = document.createElement('td');
                 td21.innerHTML = item['getter'];
                 td21.className='td21'
-                td21.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td21.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+
+                let td23 = document.createElement('td');
+                td23.innerHTML = item['dop_info'];
+                td23.className='td23'
+                td23.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td22 = document.createElement('td');
                 td22.innerHTML = item['oblast'];
                 td22.className='td22'
-                td22.style = "border-bottom: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+                td22.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+
+
                 
                 
                 tr.appendChild(td1);
-                tr.appendChild(td2);
+                // tr.appendChild(td2);
                // tr.appendChild(td3);
                 tr.appendChild(td4);
 
@@ -773,6 +786,7 @@ function reportPrepere(dataParametrs){
                 if(dataParametrs.info === true){
                     tr.appendChild(td20);
                     tr.appendChild(td21);
+                    tr.appendChild(td23);
                 }
                 
                 

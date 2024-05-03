@@ -114,7 +114,7 @@ left outer join accreditation.uz u on sdo.id_uz=u.id_uz
 left outer join accreditation.rkk r on a.id_application=r.id_application
 left outer join accreditation.status s on a.id_status=s.id_status
 where sdo.year=$year_schedule
-and (r.date_reg is null or (r.date_reg is not null and (r.date_reg not between  sdo.schedule_date and DATE_ADD(sdo.schedule_date ,INTERVAL $count_day_proh DAY)  )))
+and (r.date_reg is null or (r.date_reg is not null and (r.date_reg <> sdo.schedule_date   )))
 and sdo.schedule_date between '$datePeriod_at' and '$datePeriod_to'
 and $guzo
 and $perv_vtor

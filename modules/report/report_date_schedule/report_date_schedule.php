@@ -423,6 +423,17 @@
                             </div>
                         </div>
 
+                        <div class=" mb-2" style="display: flex;" id='day7' hidden>      
+                            <div>
+                                <div class="form-group mr-3 mb-0" style="display: inline-flex;">
+                                    <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Количество дней на завершение оценки</label>
+                                    <input type="number" class="form-control"  style="font-size: 1rem;" id="count_day_complite"  value=60 >
+                                </div>
+
+                                
+                            </div>
+                        </div>
+
                 </div>
 
                 
