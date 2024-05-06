@@ -3,6 +3,7 @@
 <?php include 'authorization/out.php'; ?>
 <?php if(isset($_COOKIE['login'])) {
 
+
     if (!isset($_GET['role'])) {
         $login = $_COOKIE['login'];
         $query = "SELECT * FROM users where login = '$login'";

@@ -115,26 +115,27 @@ $(function() {
  let attr2Donut2 = $("#doughnutChart2").get(0).getAttribute("attr2");
  let attr3Donut2 = $("#doughnutChart2").get(0).getAttribute("attr3");
  let attr4Donut2 = $("#doughnutChart2").get(0).getAttribute("attr4");
+ let attr5Donut2 = $("#doughnutChart2").get(0).getAttribute("attr5");
 
  var doughnutPieData2 = {
     datasets: [{
-      data: [Number(attr1Donut2),Number(attr2Donut2),Number(attr3Donut2),Number(attr4Donut2),
-        (allCountOrganization - Number(attr1Donut2)-Number(attr2Donut2)-Number(attr3Donut2)-Number(attr4Donut2))],
+      data: [Number(attr1Donut2),Number(attr2Donut2),Number(attr3Donut2),Number(attr4Donut2),Number(attr5Donut2),
+        (allCountOrganization - Number(attr1Donut2)-Number(attr2Donut2)-Number(attr3Donut2)-Number(attr4Donut2)-Number(attr5Donut2))],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',
         'rgba(255, 206, 86, 0.5)',
         'rgba(75, 192, 192, 0.5)',
-        'rgba(153, 102, 255, 0.5)',
-        'rgba(255, 159, 64, 0.5)'
+        'rgba(255, 159, 64, 0.5)',
+        'rgba(153, 102, 255, 0.5)'
       ],
       borderColor: [
         'rgba(255,99,132,1)',
         'rgba(54, 162, 235, 1)',
         'rgba(255, 206, 86, 1)',
         'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 159, 64, 1)',
+        'rgba(153, 102, 255, 1)'
       ],
       borderWidth: 1,
     }],
@@ -145,6 +146,7 @@ $(function() {
       'Подали',
       'В работе',
       'Проведена оценка',
+      'Принято решение',
       'Не подали заявку'
     ]
   };

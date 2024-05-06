@@ -194,6 +194,15 @@
                     }
                     $countOk = $row['countOk'];
                     ?>
+                    <?php
+                    $rez = mysqli_query($con, "Select count(*) as countResh from applications where id_status = 6") or die("Ошибка " . mysqli_error($con));
+                    if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
+                    {
+                        $row = mysqli_fetch_assoc($rez);
+
+                    }
+                    $countResh = $row['countResh'];
+                    ?>
                     <!--                  </h3>-->
                     <h4 class="card-title" style="margin-bottom: 0.3rem">Процесс проведения
                         медицинской аккредитации </h4>
@@ -204,11 +213,13 @@
                         let countSended = <?= $countSended ?>;
                         let countChecking = <?= $countChecking ?>;
                         let countOk = <?= $countOk ?>;
+                        let countResh = <?= $countResh ?>;
 
                         document.getElementById('doughnutChart2').setAttribute('attr1',countNewApp);
                         document.getElementById('doughnutChart2').setAttribute('attr2',countSended);
                         document.getElementById('doughnutChart2').setAttribute('attr3',countChecking);
                         document.getElementById('doughnutChart2').setAttribute('attr4',countOk);
+                        document.getElementById('doughnutChart2').setAttribute('attr5',countResh);
 
                     </script>
 
