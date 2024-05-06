@@ -349,6 +349,21 @@
 
                                 
                             </div>
+
+                            <div class="col d-flex mb-2 ml-4" >
+                                <input  style="vertical-align: top; margin-right: 0.5rem; " 
+                                        type="radio" 
+                                        id="checkbox_type_report_8" 
+                                        onclick="CheckTypeReportElement(`checkBox`,'8' )"                             
+                                    />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;min-width: max-content;"
+                                    id="span_type_report_8"
+                                    onclick="CheckTypeReportElement(`span`,'8' )"                         
+                                    >Отсутствует заключение ЦГЭ </span>
+
+                                
+                            </div>
                         </div>     
 
                     </div>
@@ -366,18 +381,6 @@
                                 
                             </div>
                         </div>
-
-                        <div class=" mb-2" style="display: flex;" id='day2' hidden>      
-                            <div>
-                                <div class="form-group mr-3 mb-0" style="display: inline-flex;">
-                                    <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Количество дней на представление заключения ЦГЭ</label>
-                                    <input type="number" class="form-control"  style="font-size: 1rem;" id="count_day_cge"  value=45 >
-                                </div>
-
-                                
-                            </div>
-                        </div>
-
 
                         <div class=" mb-2" style="display: flex;" id='day3' hidden>      
                             <div>
@@ -428,6 +431,17 @@
                                 <div class="form-group mr-3 mb-0" style="display: inline-flex;">
                                     <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Количество дней на завершение оценки</label>
                                     <input type="number" class="form-control"  style="font-size: 1rem;" id="count_day_complite"  value=60 >
+                                </div>
+
+                                
+                            </div>
+                        </div>
+
+                        <div class=" mb-2" style="display: flex;" id='day8' hidden>      
+                            <div>
+                                <div class="form-group mr-3 mb-0" style="display: inline-flex;">
+                                    <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Количество дней на предоставление заключения ЦГЭ</label>
+                                    <input type="number" class="form-control"  style="font-size: 1rem;" id="count_day_cge"  value=45 >
                                 </div>
 
                                 

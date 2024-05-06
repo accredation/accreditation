@@ -190,15 +190,15 @@ if($search_check === "false"){
 
 $query = "SELECT rkk.id_rkk, case when a.id_rkk_perv is not null then rkk.id_rkk +'/' + id_rkk_perv else rkk.id_rkk end as num_rkk, rkk.id_application, a.naim, 
 case when rkk.perv_vtor = 1 then 'первичное' when rkk.perv_vtor = 2 then 'повторное' else '' end as perv_vtor,
-case when rkk.date_reg = '1970-01-01' then '' else rkk.date_reg end  as date_reg, a.ur_adress, a.fact_adress, a.tel, a.email, 
+case when rkk.date_reg = '1970-01-01' then '' else DATE_FORMAT(rkk.date_reg, '%d-%m-%Y')  end  as date_reg, a.ur_adress, a.fact_adress, a.tel, a.email, 
 case when rkk.result='1' then 'Выдача свидетельства' when rkk.result='2' then 'Отказ в выдаче свидетельства' when rkk.result='3' then 'Отказ в приеме заявления'
 else '' end as adm_reah,  rkk.id_rkk as adm_resh_num,
-case when rkk.date_admin_resh = '1970-01-01' then '' else rkk.date_admin_resh end  as date_admin_resh, rkk.svidetelstvo, 
-case when rkk.date_sved = '1970-01-01' then '' else rkk.date_sved end  as date_sved, 
+case when rkk.date_admin_resh = '1970-01-01' then '' else DATE_FORMAT(rkk.date_admin_resh, '%d-%m-%Y')  end  as date_admin_resh, rkk.svidetelstvo, 
+case when rkk.date_sved = '1970-01-01' then '' else  DATE_FORMAT(rkk.date_sved, '%d-%m-%Y')  end  as date_sved, 
 'пока хз' as sved_srok_deist,
-case when rkk.date_delo = '1970-01-01' then '' else rkk.date_delo end  as date_delo, rkk.delo, 
-a.zaregal, CONCAT( CONVERT(case when rkk.date_sved = '1970-01-01' then '' else rkk.date_sved end, char), ' ', rkk.info_uved) as info_uved , 
-rkk.getter, so.oblast, case when rkk.date_protokol = '1970-01-01' then '' else rkk.date_protokol end  as date_protokol,
+case when rkk.date_delo = '1970-01-01' then '' else DATE_FORMAT(rkk.date_delo, '%d-%m-%Y')  end  as date_delo, rkk.delo, 
+a.zaregal, CONCAT( CONVERT(case when rkk.date_sved = '1970-01-01' then '' else DATE_FORMAT(rkk.date_sved, '%d-%m-%Y')   end, char), ' ', rkk.info_uved) as info_uved , 
+rkk.getter, so.oblast, case when rkk.date_protokol = '1970-01-01' then '' else DATE_FORMAT(rkk.date_protokol, '%d-%m-%Y')  end  as date_protokol,
 rkk.dop_info
 from accreditation.rkk 
 left outer join accreditation.applications a on rkk.id_application=a.id_application

@@ -7,7 +7,12 @@ $date_create_to = $_GET['date_create_to'];
 $oblastsIdStr = $_GET['oblastsId'];
 $statusIdStr = $_GET['statusId'];
 $typeIdStr = $_GET['typeId'];
+$checkbox_pervtor_1_ = $_GET['checkbox_pervtor_1'];
+$checkbox_pervtor_2_ = $_GET['checkbox_pervtor_2'];
+$pervtor_ = $_GET['pervtor'];
 
+$checkbox_guzo_1_ = $_GET['checkbox_guzo_1'];
+$checkbox_guzo_2_ = $_GET['checkbox_guzo_2'];
 
 $date = date('d-m-y');
 
@@ -78,6 +83,40 @@ $typeIdStr3 = substr($typeIdStr3,0,-2);
 $typeIdStr3 = '(' . $typeIdStr3 . ')';
 }
 
+$perv_vtor = '';
+
+ if($checkbox_pervtor_1_ === "true") {
+    $perv_vtor = $perv_vtor  . "rkk.perv_vtor=1"; 
+ } 
+
+ if($checkbox_pervtor_2_ === "true") {
+    if(strlen($perv_vtor)>0){
+        $perv_vtor = $perv_vtor . ' or ';
+     }
+    $perv_vtor = $perv_vtor  . "rkk.perv_vtor=2"; 
+ } 
+
+ if($perv_vtor === ''){
+    $perv_vtor = '(' . 0 .'='. 0 . ')';
+ }
+
+
+ $guzo = '';
+
+ if($checkbox_guzo_1_ === "true") {
+    $guzo = $guzo  . "rkk.checkboxValueGuzo=1"; 
+ } 
+
+ if($checkbox_guzo_2_ === "true") {
+    if(strlen($guzo)>0){
+        $guzo = $guzo . ' or ';
+     }
+    $guzo = $guzo  . "rkk.checkboxValueGuzo=0"; 
+ } 
+
+ if($guzo === ''){
+    $guzo = '(' . 0 .'='. 0 . ')';
+ }
 
 
 $query = "
@@ -98,10 +137,13 @@ left outer join accreditation.z_list_tables_criteria ltc on dep.id_list_tables_c
 left outer join accreditation.z_types_tables tt on ltc.id_types_tables = tt.id_types_tables
 left outer join accreditation.spr_type_organization sto on uz.id_type=sto.id_type
 left outer join accreditation.z_answer_criteria zac on dep.id_department=zac.id_department
+left outer join accreditation.rkk rkk on app.id_application=rkk.id_application
 where app.id_status<>8
 and $statusIdStr3
 and $oblastsIdStr3
 and $typeIdStr3
+and (('$pervtor_' = 0) or ('$pervtor_'=1 and $perv_vtor)) 
+and $guzo
 
 group by oblast_name,  CONCAT( app.naim, ' №', app.id_application), app.id_application,  name_status, app.date_send, type_org  
 order by oblast_name, name_status, app.date_send, type_org,  CONCAT( app.naim, ' №', app.id_application)
