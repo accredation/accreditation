@@ -14,6 +14,21 @@ function CheckCheckBoxElement(elem, element_name, name_el_for_str, name_class_fo
     // }
 }
 
+function CheckCheckBoxAppElement(elem, element_name){
+    
+    let checkBox = document.getElementById(`checkbox_${element_name}`);
+
+    if(elem != 'checkBox'){
+        
+        checkBox.checked = !checkBox.checked;
+    }
+    
+
+    // if(!btnReportPrint.hasAttribute('disabled')){
+    //     btnReportPrint.setAttribute('disabled','true')
+    // }
+}
+
 
 function ReportCheckedOblast(name_el_for_str, name_class_for_search, report_key_value = false){
 
@@ -68,6 +83,14 @@ function preperaReport(){
         StatusId : '',
         TypeStr : '',
         TypeId : '',
+
+        checkbox_pervtor_1: false,
+        checkbox_pervtor_2: false,
+        pervtor: 0,
+
+        guzo : 0,
+        checkbox_guzo_1 :false,
+        checkbox_guzo_2 : false,
     }
 
 
@@ -121,6 +144,35 @@ function preperaReport(){
 
  //   let btnReport = document.getElementById(`btnReport`);
  //   btnReport.setAttribute('disabled', 'true');
+
+    let checkbox_pervtor_1 = document.getElementById(`checkbox_pervtor_1`);
+    let checkbox_pervtor_1_value = checkbox_pervtor_1.checked;
+    dataParametrs.checkbox_pervtor_1 = checkbox_pervtor_1.checked;
+
+    let checkbox_pervtor_2 = document.getElementById(`checkbox_pervtor_2`);
+    let checkbox_pervtor_2_value = checkbox_pervtor_2.checked;
+    dataParametrs.checkbox_pervtor_2= checkbox_pervtor_2.checked;
+
+    if(checkbox_pervtor_2_value || checkbox_pervtor_1_value){
+        dataParametrs.pervtor= 1;
+    } else {
+        dataParametrs.pervtor= 0;  
+    }
+    
+
+    let checkbox_guzo_1 = document.getElementById(`checkbox_guzo_1`);
+    let checkbox_guzo_1_value = checkbox_guzo_1.checked;
+    dataParametrs.checkbox_guzo_1 = checkbox_guzo_1.checked;
+
+    let checkbox_guzo_2 = document.getElementById(`checkbox_guzo_2`);
+    let checkbox_guzo_2_value = checkbox_guzo_2.checked;
+    dataParametrs.checkbox_guzo_2= checkbox_guzo_2.checked;
+
+    if(checkbox_guzo_2_value || checkbox_guzo_1_value){
+        dataParametrs.guzo= 1;
+    } else {
+        dataParametrs.guzo= 0;  
+    }
 
     let btnReportPrint = document.getElementById(`btnReportPrint`);
     btnReportPrint.removeAttribute('disabled')
@@ -176,6 +228,11 @@ function reportWithOutYurLica(dataParametrs){
             oblastsId : dataParametrs.OblastsId,
             statusId : dataParametrs.StatusId,
             typeId : dataParametrs.TypeId,
+            checkbox_pervtor_1: dataParametrs.checkbox_pervtor_1,
+            checkbox_pervtor_2: dataParametrs.checkbox_pervtor_2,
+            pervtor: dataParametrs.pervtor,
+            checkbox_guzo_1: dataParametrs.checkbox_guzo_1,
+            checkbox_guzo_2: dataParametrs.checkbox_guzo_2,
         }
         
     }).done(function (response){
@@ -370,6 +427,11 @@ function reportYurLica(dataParametrs){
             oblastsId : dataParametrs.OblastsId,
             statusId : dataParametrs.StatusId,
             typeId : dataParametrs.TypeId,
+            checkbox_pervtor_1: dataParametrs.checkbox_pervtor_1,
+            checkbox_pervtor_2: dataParametrs.checkbox_pervtor_2,
+            pervtor: dataParametrs.pervtor,
+            checkbox_guzo_1: dataParametrs.checkbox_guzo_1,
+            checkbox_guzo_2: dataParametrs.checkbox_guzo_2,
         }
         
     }).done(function (response){

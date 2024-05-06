@@ -66,12 +66,12 @@ function CheckTypeReportElement(elem, element_name){
     }
     
     let day1 = document.getElementById('day1');
-    let day2 = document.getElementById('day2');
     let day3 = document.getElementById('day3');
     let day4 = document.getElementById('day4');
     let day5 = document.getElementById('day5');
     let day6 = document.getElementById('day6');
     let day7 = document.getElementById('day7');
+    let day8 = document.getElementById('day8');
     radio_checked.checked = true
 
     switch (element_name) {
@@ -81,10 +81,6 @@ function CheckTypeReportElement(elem, element_name){
                 day1.removeAttribute('hidden')
             }
             
-            if(!day2.hasAttribute('hidden')){
-                day2.setAttribute('hidden', 'true')
-            }
-
             if(!day3.hasAttribute('hidden')){
                 day3.setAttribute('hidden', 'true')
             }
@@ -103,6 +99,10 @@ function CheckTypeReportElement(elem, element_name){
 
             if(!day7.hasAttribute('hidden')){
                 day7.setAttribute('hidden', 'true')
+            }
+
+            if(!day8.hasAttribute('hidden')){
+                day8.setAttribute('hidden', 'true')
             }
            
             break;
@@ -112,10 +112,6 @@ function CheckTypeReportElement(elem, element_name){
             if(!day1.hasAttribute('hidden')){
                 day1.setAttribute('hidden', 'true')
             }
-            
-            if(!day2.hasAttribute('hidden')){
-                day2.setAttribute('hidden', 'true')
-            }
 
             if(!day3.hasAttribute('hidden')){
                 day3.setAttribute('hidden', 'true')
@@ -137,6 +133,10 @@ function CheckTypeReportElement(elem, element_name){
                 day7.setAttribute('hidden', 'true')
             }
            
+            if(!day8.hasAttribute('hidden')){
+                day8.setAttribute('hidden', 'true')
+            }
+
             break;
 
         case "3":
@@ -148,10 +148,6 @@ function CheckTypeReportElement(elem, element_name){
                 day1.setAttribute('hidden', 'true')
             }
 
-            if(!day2.hasAttribute('hidden')){
-                day2.setAttribute('hidden', 'true')
-            }
-
             if(!day3.hasAttribute('hidden')){
                 day3.setAttribute('hidden', 'true')
             }
@@ -166,6 +162,10 @@ function CheckTypeReportElement(elem, element_name){
 
             if(!day6.hasAttribute('hidden')){
                 day6.setAttribute('hidden', 'true')
+            }
+
+            if(!day8.hasAttribute('hidden')){
+                day8.setAttribute('hidden', 'true')
             }
             break;
 
@@ -178,10 +178,6 @@ function CheckTypeReportElement(elem, element_name){
                 day1.setAttribute('hidden', 'true')
             }
 
-            if(!day2.hasAttribute('hidden')){
-                day2.setAttribute('hidden', 'true')
-            }
-
             if(!day4.hasAttribute('hidden')){
                 day4.setAttribute('hidden', 'true')
             }
@@ -196,6 +192,10 @@ function CheckTypeReportElement(elem, element_name){
 
             if(!day7.hasAttribute('hidden')){
                 day7.setAttribute('hidden', 'true')
+            }
+
+            if(!day8.hasAttribute('hidden')){
+                day8.setAttribute('hidden', 'true')
             }
            
 
@@ -209,10 +209,6 @@ function CheckTypeReportElement(elem, element_name){
                 day1.setAttribute('hidden', 'true')
             }
 
-            if(!day2.hasAttribute('hidden')){
-                day2.setAttribute('hidden', 'true')
-            }
-
             if(!day3.hasAttribute('hidden')){
                 day3.setAttribute('hidden', 'true')
             }
@@ -227,6 +223,10 @@ function CheckTypeReportElement(elem, element_name){
 
             if(!day7.hasAttribute('hidden')){
                 day7.setAttribute('hidden', 'true')
+            }
+
+            if(!day8.hasAttribute('hidden')){
+                day8.setAttribute('hidden', 'true')
             }
            
             break;    
@@ -240,10 +240,6 @@ function CheckTypeReportElement(elem, element_name){
                 day1.setAttribute('hidden', 'true')
             }
 
-            if(!day2.hasAttribute('hidden')){
-                day2.setAttribute('hidden', 'true')
-            }
-
             if(!day3.hasAttribute('hidden')){
                 day3.setAttribute('hidden', 'true')
             }
@@ -259,6 +255,10 @@ function CheckTypeReportElement(elem, element_name){
             if(!day7.hasAttribute('hidden')){
                 day7.setAttribute('hidden', 'true')
             }
+
+            if(!day8.hasAttribute('hidden')){
+                day8.setAttribute('hidden', 'true')
+            }
            
             break;  
             
@@ -269,10 +269,6 @@ function CheckTypeReportElement(elem, element_name){
             
             if(!day1.hasAttribute('hidden')){
                 day1.setAttribute('hidden', 'true')
-            }
-
-            if(!day2.hasAttribute('hidden')){
-                day2.setAttribute('hidden', 'true')
             }
 
             if(!day3.hasAttribute('hidden')){
@@ -290,9 +286,43 @@ function CheckTypeReportElement(elem, element_name){
             if(!day7.hasAttribute('hidden')){
                 day7.setAttribute('hidden', 'true')
             }
+
+            if(!day8.hasAttribute('hidden')){
+                day8.setAttribute('hidden', 'true')
+            }
            
             
-            break;    
+            break;  
+        case "8":
+            if(day8.hasAttribute('hidden')){
+                day8.removeAttribute('hidden')
+            }
+            
+            if(!day1.hasAttribute('hidden')){
+                day1.setAttribute('hidden', 'true')
+            }
+
+            if(!day3.hasAttribute('hidden')){
+                day3.setAttribute('hidden', 'true')
+            }
+
+            if(!day4.hasAttribute('hidden')){
+                day4.setAttribute('hidden', 'true')
+            }
+
+            if(!day5.hasAttribute('hidden')){
+                day5.setAttribute('hidden', 'true')
+            }
+
+            if(!day6.hasAttribute('hidden')){
+                day6.setAttribute('hidden', 'true')
+            }
+
+            if(!day7.hasAttribute('hidden')){
+                day7.setAttribute('hidden', 'true')
+            }
+
+            break;       
     }
 
 }
@@ -466,6 +496,8 @@ function preperaReport(){
     let count_day_complite = document.getElementById(`count_day_complite`).value;
     dataParametrs.count_day_complite = count_day_complite;
     
+    
+    
 
     let btnReportPrint = document.getElementById(`btnReportPrint`);
     btnReportPrint.removeAttribute('disabled')
@@ -509,6 +541,10 @@ function preperaReport(){
 
     if(dataParametrs.type_report == 7 ){
         reportReportNoApp(dataParametrs)
+    }
+
+    if(dataParametrs.type_report == 8 ){
+        reportReportNoCGE(dataParametrs)
     }
 
 
@@ -980,7 +1016,7 @@ function reportReportNoCGE(dataParametrs){
 
 
     $.ajax({
-        url: "modules/report/report_date_schedule/getReportReportNoSendRkk.php",
+        url: "modules/report/report_date_schedule/getReportReportNoCGE.php",
         method: "GET",
         data: {
             datePeriod_at : dataParametrs.datePeriod_at,
@@ -2044,6 +2080,11 @@ function returnReportDivUls(dataParametrs){
     if(dataParametrs.type_report == 7){
         divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Вид отчета:'+'</b> Не подали повторное заявление' + '<br/>'
         divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Количество месяцев для повторной подачи:'+'</b>' + dataParametrs.count_day_app  + '<br/>'  
+    }
+
+    if(dataParametrs.type_report == 8){
+        divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Вид отчета:'+'</b> Отсутствует заключение ЦГЭ' + '<br/>'
+        divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Количество дней на предоставление заключения ЦГЭ:'+'</b>' + dataParametrs.count_day_cge  + '<br/>'  
     }
     
 

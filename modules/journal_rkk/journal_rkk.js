@@ -411,7 +411,7 @@ function prepereTableReport(dataParametrs){
     th1.style = "border: 1px solid black; width: 5%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th2 = document.createElement('th');
-    th2.innerHTML = 'дробь (/000%) Рег. индекс';
+    th2.innerHTML = '№';
     th2.id='th2'
     th2.style = "border: 1px solid black; width: 5%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
@@ -526,7 +526,7 @@ function prepereTableReport(dataParametrs){
 
 
     trHead.appendChild(th1);
-    // trHead.appendChild(th2);
+    trHead.appendChild(th2);
   //  trHead.appendChild(th3);
     trHead.appendChild(th4);
 
@@ -629,10 +629,10 @@ function reportPrepere(dataParametrs){
         
         let tbody = document.createElement('tbody');
         table.appendChild(tbody);
-
+        let itog =0
         if(data.length > 0){
             data.map((item,index) => {
-
+                itog++
                                                 
                 let tr = document.createElement('tr');
                 let td1 = document.createElement('td');
@@ -641,7 +641,7 @@ function reportPrepere(dataParametrs){
                 td1.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td2 = document.createElement('td');
-                td2.innerHTML = item['num_rkk'];
+                td2.innerHTML = itog;
                 td2.className='td2'
                 td2.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                               
@@ -756,7 +756,7 @@ function reportPrepere(dataParametrs){
                 
                 
                 tr.appendChild(td1);
-                // tr.appendChild(td2);
+                tr.appendChild(td2);
                // tr.appendChild(td3);
                 tr.appendChild(td4);
 

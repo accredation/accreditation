@@ -8,7 +8,7 @@
                 <div class="col-sm-6 col-md-5 col-lg-5">   
 
                 <div class="form-group mr-3 mb-0" style="display: inline-flex;">
-                    <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Дата подачи заявления с</label>
+                    <label for="inputDate" style="font-size: 1rem; min-width: fit-content; line-height: 3rem;" class="mr-2">Период отправки заявления с</label>
                     <input type="date" class="form-control"  style="font-size: 1rem;" id="dateAccept" onclick="disablePrint()">
                 </div>
 
@@ -123,7 +123,7 @@
                                 <?php
                                     $query = "SELECT id_status, name_status_report
                                     FROM accreditation.status
-                                    where id_status not in (5,8)
+                                    where id_status not in (5,7,8)
                                     ";
                                     $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -225,6 +225,78 @@
                     </div>
                 </div>
 
+
+                <div class=" mt-2" style="display: flex;">      
+                        <div class="mr-3 ">
+                            <div>Заявление</div>
+                        </div> 
+
+                        <div class="row">
+                            <div class="col-sm-8 col-md-8 col-lg-8 ">
+
+                            <div class="d-flex mb-2" >
+                                                            
+                                <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                    type="checkbox" 
+                                    id="checkbox_guzo_1" 
+                                    onclick="CheckCheckBoxAppElement(`checkBox`,'guzo_1' )"                             
+                                />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;"
+                                    id="span_guzo_1"
+                                    onclick="CheckCheckBoxAppElement(`span`,'guzo_1' )"                         
+                                    >ГУЗО, Комитет</span>
+                            </div>
+
+                            <div class="d-flex mb-2 " >
+                                                            
+                                <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                    type="checkbox" 
+                                    id="checkbox_guzo_2" 
+                                    onclick="CheckCheckBoxAppElement(`checkBox`,'guzo_2' )"                             
+                                />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;"
+                                    id="span_guzo_2"
+                                    onclick="CheckCheckBoxAppElement(`span`,'guzo_2' )"                         
+                                    >Внутреняя комиссия</span>
+                            </div>    
+
+                            </div>
+
+                            <div class="col-sm-3 col-md-3 col-lg-3 ml-3 ">
+
+                            <div class="d-flex mb-2" >
+                                                            
+                                <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                    type="checkbox" 
+                                    id="checkbox_pervtor_1" 
+                                    onclick="CheckCheckBoxAppElement(`checkBox`,'pervtor_1' )"                             
+                                />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;"
+                                    id="span_pervtor_1"
+                                    onclick="CheckCheckBoxAppElement(`span`,'pervtor_1' )"                         
+                                    >первичное</span>
+                            </div>
+
+                            <div class="d-flex mb-2" >
+                                                            
+                                <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                    type="checkbox" 
+                                    id="checkbox_pervtor_2" 
+                                    onclick="CheckCheckBoxAppElement(`checkBox`,'pervtor_2' )"                             
+                                />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;"
+                                    id="span_pervtor_2"
+                                    onclick="CheckCheckBoxAppElement(`span`,'pervtor_2' )"                         
+                                    >повторное</span>
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>    
 
             </div>
                 
