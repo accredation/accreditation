@@ -2,6 +2,7 @@ let id_appp;
 let createrApp;
 let idRkk;
 let loginApp;
+let stringFileReport;
 
 function newShowModall(id_application) {
     let btnRkk;
@@ -382,6 +383,7 @@ function newShowModall(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
+                stringFileReport = data[0][14];
                 let fileNames = data[0][14].split(';');
                 fileNames.forEach((fileName) => {
                     filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
@@ -3735,9 +3737,9 @@ $("#btnOk").on("click", () => {
             let objects = JSON.parse(response);
             if (objects.length === 0) {
 
-                let divReport = document.getElementById("filesContainer");
-                let a = divReport.getElementsByTagName("a")[0];
-                if (a) {
+                // let divReport = document.getElementById("filesContainer");
+                // let a = divReport.getElementsByTagName("a")[0];
+                if (stringFileReport !== "" && stringFileReport !== undefined) {
                     $.ajax({
                         url: "ajax/changeStatusOkGuzo.php",
                         method: "GET",

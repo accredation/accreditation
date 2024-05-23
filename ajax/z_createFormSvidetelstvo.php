@@ -46,7 +46,15 @@ $months = [
 
 $new_date_reg = $dateTime->format('j ') . $months[$dateTime->format('F')] . $dateTime->format(' Y');
 
+$timestamp = strtotime($dateSved);
+$dateTime = new DateTime();
+$dateTime->setTimestamp($timestamp);
 $newdateSved = $dateTime->format('j ') . $months[$dateTime->format('F')] . $dateTime->format(' Y');
+
+$timestamp = strtotime($dateAdminResh);
+$dateTime = new DateTime();
+$dateTime->setTimestamp($timestamp);
+$newdateAdmResh = $dateTime->format('j ') . $months[$dateTime->format('F')] . $dateTime->format(' Y');
 echo '		
 <body>
 <style>
@@ -91,7 +99,7 @@ tr:hover {
 
 
 <br>
-Дата регистрации &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$new_date_reg.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+Дата регистрации &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$new_date_reg.'&nbsp;г.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div style="font-size: 22pt;
     position: relative;
     left: 10%; width: 81%; text-align: justify;
@@ -175,7 +183,7 @@ echo '</tbody></table>
     left: 12.5%;
     font-size: 20pt;
 	">Свидетельство действительно до '.$newdateSved.
-    '</div>
+    ' г. </div>
     <br>
     <br>
     <div style="
@@ -190,7 +198,7 @@ echo '</tbody></table>
     position: relative;
     left: 12.5%;
     font-size: 20pt;
-	">Решение уполномоченного органа от '.$new_date_reg.' &nbsp;&nbsp;&nbsp;№'.$po_n.'
+	">Решение уполномоченного органа от '.$newdateAdmResh.' г. &nbsp;&nbsp;&nbsp;№'.$po_n.'
     </div>
     <br>
     <br>

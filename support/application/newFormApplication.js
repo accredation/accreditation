@@ -297,8 +297,20 @@ function newShowModal(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
+                let reports = data[0][14].split(';');
+                divReport.innerHTML = "<label for=\"\" style=\"font-size: 24px\">Отчет</label><br>";
+                for (let report of reports) {
+                        let reportLink = document.createElement('a');
+                        reportLink.setAttribute('target', '_blank');
+                        reportLink.setAttribute('href', '/docs/documents/' + data[0][13] + '/' + id_application + '/' + report);
+                        reportLink.textContent = report;
+                        divReport.appendChild( reportLink);
+                        let br = document.createElement('br');
+                        divReport.appendChild( br);
 
-                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                }
+
+               // fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][14] + "'>" + data[0][14] + "</a>");
             }
             if (data[0][15] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][15] + "'>" + data[0][15] + "</a>");

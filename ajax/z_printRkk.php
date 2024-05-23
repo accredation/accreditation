@@ -284,14 +284,12 @@ echo ' <tr>
     </tr>
     
     <tr>
- 
         <td style = " width: 10%; text-align: center;">13</td>
         <td style = "width: 40%; text-align: left;">Документы и сведения, возвращенные представителю заинтересованного лица (в случае отказа в приеме заявления, отзыва заявления)</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;"></td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_vozvr.'</td>
     </tr>
     
     <tr>
- 
         <td style = " width: 10%; text-align: center;">14</td>
         <td style = "width: 40%; text-align: left;">Отметка об отзыве заявления</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$info_otzyv.'</td>

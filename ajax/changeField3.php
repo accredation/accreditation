@@ -34,14 +34,14 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
 if($count_all - $count_notneed !== 0)
     $mark_department = ($count_yes / ($count_all - $count_notneed)) * 100;
 
-if($count_all === $count_notneed ){
-    $mark_department = 100;
-}
+
 if($count_yes === "0"){
     $mark_department = 0;
 }
 $mark_department = round ($mark_department,0);
-
+if($count_all === $count_notneed ){
+    $mark_department = "-";
+}
 
 mysqli_query($con, "update z_department set mark_percent = '$mark_department', mark_all = '$count_all', mark_yes='$count_yes', mark_not_need='$count_notneed' where id_department='$idDep'");
 

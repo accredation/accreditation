@@ -1094,7 +1094,8 @@ function createTableForPrintNo(tableForPrint) {
     divPrintTable.appendChild(divNameSubTable);
 
     let divNameCriteriaTable = document.createElement('div');
-    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'] +' ' + Math.round(parseFloat(tableForPrint[0]['mark_percent']).toFixed(2))+'%' ;
+    let res = tableForPrint[0]['mark_percent'] === "-" ? "-" : Math.round(parseFloat(tableForPrint[0]['mark_percent']).toFixed(2));
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'] + ' ' + res+'%' ;
     divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
 
     divPrintTable.appendChild(divNameCriteriaTable);
@@ -1181,7 +1182,8 @@ function createTableForPrintNo(tableForPrint) {
             let tdNaim = document.createElement('td');
             tdNaim.setAttribute('colspan', '6');
             tdNaim.style = "padding-top: 1rem; padding-bottom:1rem";
-            tdNaim.innerHTML = item['name_criteria'] +' ' + Math.round(parseFloat(item['mark_percent']).toFixed(2))+'%' ;
+            let res = item['mark_percent'] === "-" ? "-" : Math.round(parseFloat(item['mark_percent']).toFixed(2));
+            tdNaim.innerHTML = item['name_criteria'] +' ' + res+'%' ;
             trNaim.appendChild(tdNaim);
             tbody.appendChild(trNaim);
 
