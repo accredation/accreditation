@@ -4385,7 +4385,6 @@ $("#DateZakluchenia").on("change", function () {
         data: { date: date, id_app:id_app},
         success: function() {
             console.log("Данные успешно сохранены");
-
         },
         error: function() {
             console.error("Ошибка при сохранении данных");
