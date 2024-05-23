@@ -4389,5 +4389,6 @@ $("#DateZakluchenia").on("change", function () {
         error: function() {
             console.error("Ошибка при сохранении данных");
         }
+
     })
 });

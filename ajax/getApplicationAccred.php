@@ -108,6 +108,7 @@ array_push($cells,$data_zayav_otzyv); //30
 array_push($cells,$data_zakluchenia); //31
 
 
+
 $query = "SELECT * FROM subvision WHERE id_application = '$id_application'";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
