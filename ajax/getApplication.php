@@ -63,6 +63,7 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $sel_pervtor = $row['sel_pervtor'];
     $plandenostatkov  = $row['plandenostatkov'];
     $plandatanedostatkov  = $row['plandatanedostatkov'];
+    $adminResh  = $row['adminResh'];
 
     $zayav_otzyv  = $row['zayav_otzyv'];
     $data_zayav_otzyv  = $row['data_zayav_otzyv'];
@@ -98,6 +99,7 @@ array_push($cells,$plandenostatkov); //26
 array_push($cells,$plandatanedostatkov); //27
 array_push($cells,$zayav_otzyv); //28
 array_push($cells,$data_zayav_otzyv); //29
+array_push($cells,$adminResh); //30
 
 
 

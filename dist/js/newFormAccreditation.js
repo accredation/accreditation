@@ -140,6 +140,7 @@ function newShowModal(id_application) {
     let  fileAdminResh = document.getElementById("fileAdminResh");
     let  fileProtokolKom = document.getElementById("fileProtokolKom");
     let  divDateKom = document.getElementById("divDateKom");
+    let  divZakluchenia = document.getElementById("divDateZakluchenia");
     let  fileReportinput = document.getElementById("fileReport");
     let selectElement = document.getElementById("sootvetstvie");
     let otzyvZ = document.getElementById("otzyvZ");
@@ -394,6 +395,7 @@ function newShowModal(id_application) {
     let formFileReportDorabotka = document.getElementById("formFileReportDorabotka");
     let formDateDorabotka = document.getElementById("formDateDorabotka");
     let dateKom = document.getElementById("dateKom");
+    let DateZakluchenia = document.getElementById("DateZakluchenia");
 
     // divSoprPismo.style = "display:none";
     //  divOrgStrukt.style = "display:none";
@@ -618,8 +620,12 @@ function newShowModal(id_application) {
         inputDatePlanOtzyv.id = "inputDatePlanOtzyv";
         inputPlanOtzyv.onchange = function() {
             postFilePlanOtzyv();
-            console.log("Файл был выбран");
         };
+
+        inputDatePlanOtzyv.onchange = function() {
+            postPlanDataPovtor();
+        };
+
         divDatePlanOtzyv.appendChild(labelDatePlanOtzyv);
         divDatePlanOtzyv.appendChild(brli);
         divDatePlanOtzyv.appendChild(inputDatePlanOtzyv);
@@ -664,6 +670,7 @@ function newShowModal(id_application) {
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
             dateKom.value = data[0][26];
+            DateZakluchenia.value = data[0][31];
             let data1 = JSON.parse(response);
             idRkk = data1[4];
 
@@ -692,19 +699,19 @@ function newShowModal(id_application) {
             if (data[0][23] != null) {
                 let fileNames = data[0][23].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ data[0][13] + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][24] != null) {
                 let fileNames = data[0][24].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ data[0][13] + "/"  + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/"  + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][14] != null) {
                 let fileNames = data[0][14].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ data[0][13] + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][15] != null) {
@@ -4353,6 +4360,22 @@ function postFilePlanOtzyv() {
     xhr.send(form);
 }
 
+function postPlanDataPovtor() {
+    let inputDate = document.getElementById("inputDatePlanOtzyv").value;
+    $.ajax({
+        url: 'ajax/saveDatePlanPovtor.php',
+        method: 'POST',
+        data: { inputDate: inputDate, id_app:id_app},
+        success: function() {
+            console.log("Данные успешно сохранены");
+        },
+        error: function() {
+            console.error("Ошибка при сохранении данных");
+        }
+    })
+}
+
+
 $("#DateZakluchenia").on("change", function () {
     let date = $("#DateZakluchenia").val();
     console.log(date);
@@ -4362,7 +4385,6 @@ $("#DateZakluchenia").on("change", function () {
         data: { date: date, id_app:id_app},
         success: function() {
             console.log("Данные успешно сохранены");
-
         },
         error: function() {
             console.error("Ошибка при сохранении данных");

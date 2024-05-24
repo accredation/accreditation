@@ -361,7 +361,12 @@ function newShowModal(id_application) {
                 filesContainerDataZayavOtzyv.insertAdjacentHTML("afterbegin", "<span>" + data[0][29] + "</span>");
             }
 
-
+            if (data[0][30] != null) {
+                let fileNames = data[0][30].split(';');
+                fileNames.forEach((fileName) => {
+                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ data[0][13] + "/"  + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                });
+            }
             let lico = document.getElementById("lico");
             if (data[0][22] != null) {
                 lico.options.selectedIndex = data[0][22];

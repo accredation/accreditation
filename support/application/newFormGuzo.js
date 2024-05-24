@@ -382,6 +382,12 @@ function newShowModall(id_application) {
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
+            if (data[0][24] != null) {
+                let fileNames = data[0][24].split(';');
+                fileNames.forEach((fileName) => {
+                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/"  + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                });
+            }
             if (data[0][14] != null) {
                 stringFileReport = data[0][14];
                 let fileNames = data[0][14].split(';');
