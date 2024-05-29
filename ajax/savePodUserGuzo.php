@@ -5,6 +5,7 @@ $login = $_GET['login'];
 $email = $_GET['email'];
 $password = $_GET['password'];
 $id_role = $_GET['id_role'];
+$password = trim($password);
 $md5Pass = md5($password);
 $rez1 = mysqli_query($con,  "select password from users where password = '$md5Pass'");
 if (mysqli_num_rows($rez1) > 0){

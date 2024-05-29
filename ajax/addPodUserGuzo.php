@@ -4,6 +4,7 @@ $id_userMain = $_COOKIE['id_user'];
 $login = $_GET['login'];
 $password = $_GET['password'];
 $email = $_GET['email'];
+$password = trim($password);
 $md5Pass = md5($password);
 
 $rez = mysqli_query($con, "select id_uz from users where id_user = '$id_userMain'"); //запрашивается строка с искомым id

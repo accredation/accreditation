@@ -9,7 +9,7 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
 {
     $login = trim($_POST['login']);
     $password = $_POST['password'];
-    $insertquery = "SELECT * FROM users WHERE login='$login' and active = 1";
+    $insertquery = "SELECT * FROM users WHERE trim(login)='$login' and active = 1";
 
     $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 
