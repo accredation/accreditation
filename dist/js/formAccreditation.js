@@ -1118,7 +1118,6 @@ function createTableForPrint(tableForPrint) {
 }
 
 function createTableForPrintNo(tableForPrint) {
-
     let divPrintTable = document.createElement('div');
 
     let divNameSubTable = document.createElement('div');

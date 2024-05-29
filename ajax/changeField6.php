@@ -22,7 +22,6 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     $row = mysqli_fetch_assoc($rez); //она
     $count_yes = $row['coun'];
 }
-
 $rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria where id_department='$idDep' and field6 = 3");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка

@@ -12,7 +12,6 @@ where a.id_application = '$id_application'
 order by s.id_subvision, c.level, rc.name
 ";
 
-
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 $marks = array();
 $report_sub_marks = array();

@@ -4036,11 +4036,9 @@ function createTableForPrintNoOcenka(tableForPrint) {
     th4.innerHTML = 'Документы и сведения, на основании которых проведена оценка соответствия';
     th4.style = "width:350px; border: 1px solid black";
 
-
     let th5 = document.createElement('th');
     th5.innerHTML = 'Выявленные несоответствия';
     th5.style = "border: 1px solid black";
-
 
     trHeadMain.appendChild(thNum);
     trHeadMain.appendChild(th1_Main);

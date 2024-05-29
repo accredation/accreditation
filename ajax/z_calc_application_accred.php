@@ -8,7 +8,6 @@ $rez = mysqli_query($con, "select sum(dep.mark_accred_percent) as su, count(dep.
     left outer join subvision s on dep.id_subvision = s.id_subvision
     left outer join applications a on s.id_application = a.id_application
     where a.id_application = '$id_application' and dep.mark_accred_percent <> '-'");
-
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
 {
     $row = mysqli_fetch_assoc($rez); //она

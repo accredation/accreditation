@@ -24,7 +24,6 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $mark_all = $row_department['mark_all'];
     $mark_yes = $row_department['mark_yes'];
     $mark_not_need = $row_department['mark_not_need'];
-
     $mark_accred_percent = $row_department['mark_accred_percent'];
     if($mark_percent === null)
         $mark_percent = 0;
