@@ -4,7 +4,7 @@ if (isset($_COOKIE['login'])) {
     echo "
 <style>
 td{
-text-align: center;
+    text-align: center;
 }
 </style>
 <table border='1'>
