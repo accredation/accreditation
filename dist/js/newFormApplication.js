@@ -39,7 +39,12 @@ function newShowModal(id_application) {
     let labelUcomplect = document.createElement("p");
     labelUcomplect.innerHTML = "Укомплектованность";
     newDivUcomplect.appendChild(labelUcomplect);
-    btnTableUcomplect.innerHTML = "Редактировать";
+    if (status == 1) {
+        btnTableUcomplect.innerHTML = "Редактировать";
+    }
+    else{
+        btnTableUcomplect.innerHTML = "Просмотр";
+    }
     btnTableUcomplect.classList = "ownUcomp"
     newDivUcomplect.appendChild(btnTableUcomplect);
     newDivUcomplect.style = "margin-bottom: 20px";
@@ -49,6 +54,7 @@ function newShowModal(id_application) {
     let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
     btnTableUcomplect.onclick = () => {
 
+        if (status == 1){
         modalUcomplect.style = "display: block";
         $.ajax({
             url: "ajax/z_ucomplectTable.php",
@@ -57,6 +63,17 @@ function newShowModal(id_application) {
         }).then((response) => {
             modalBody.innerHTML = response;
         })
+        }
+        else {
+            modalUcomplect.style = "display: block";
+            $.ajax({
+                url: "ajax/z_accred_ucomplectTable.php",
+                method: "GET",
+                data: {id_application: id_app}
+            }).then((response) => {
+                modalBody.innerHTML = response;
+            })
+        }
     }
 
     let closeXucomplect = document.getElementsByClassName("closeXucomplect")[0];
@@ -253,6 +270,7 @@ function newShowModal(id_application) {
             formDateDorabotka.style.display = "block";
             divZayavOtzyv.classList.add("hiddentab");
             divDataZayavOtzyv.classList.add("hiddentab");
+            ownUcompBtnClass.innerHTML = "Редактировать";
         }
         checkUserRole();
 
@@ -279,7 +297,6 @@ function newShowModal(id_application) {
         orgStrukt.setAttribute("disabled", "true");
         ucomplect.setAttribute("disabled", "true");
         techOsn.setAttribute("disabled", "true");
-        ownUcompBtnClass.setAttribute("disabled", "true");
         doverennost.setAttribute("disabled", "true");
         prikazNaznach.setAttribute("disabled", "true");
 

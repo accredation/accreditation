@@ -928,6 +928,15 @@
                                                     </select>
                                                 </div>
 
+                                                <form id="formDateZakluchenia">
+                                                    <div class="form-group" id="divDateZakluchenia" style="margin-left: 2.5rem">
+                                                        <label for="" style="font-size: 24px">Дата заключения</label><br/>
+                                                        <input style="    width: auto;" type="date"  class="form-control"
+                                                               id="DateZakluchenia" />
+                                                    </div>
+
+                                                </form>
+
 
                                                 <!--                                                <button class="btn-inverse-info" onclick="addTab()">+ добавить структурное подразделение</button>-->
                                                 <br/>

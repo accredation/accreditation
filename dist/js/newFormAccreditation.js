@@ -2500,7 +2500,7 @@ function createTableForPrintSamoAccred(valueRespons) {
 
             let tdOtdel4 = document.createElement('td');
             tdOtdel4.style = "border: 1px solid black;padding-top: 0.25rem; padding-bottom:0.25rem; padding-left: 0.3rem; vertical-align: baseline";
-            tdOtdel4.innerHTML = item['mark_dpercent'] === "-" ? "-" : Math.round(parseFloat(item['mark_dpercent']).toFixed(2)) + '%';
+            tdOtdel4.innerHTML = Math.round(parseFloat(item['mark_dpercent']).toFixed(2)) + '%';
 
             trNaim2.appendChild(tdOtdel1);
             trNaim2.appendChild(tdOtdel2);
@@ -4374,6 +4374,7 @@ function postPlanDataPovtor() {
         }
     })
 }
+
 
 
 $("#DateZakluchenia").on("change", function () {
