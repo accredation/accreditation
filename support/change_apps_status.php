@@ -10,15 +10,23 @@ text-align: center;
 <table border='1'>
 <thead>
 <tr>
+    <td>Наименование организации</td>
+    <td>Логин</td>
+    <td>Код</td>
     <td>Заявление</td>
     <td>Статус</td>
 </tr>
 </thead>
 <tbody>";
-    $query = "select id_application, a.id_status, name_status_report from applications a left join status s on a.id_status=s.id_status";
+    $query = "select naim,login, id_application, a.id_status, name_status_report,kod from applications a 
+                    left join status s on a.id_status=s.id_status
+                    left join users u on a.id_user=u.id_user";
     $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
     while ($row = mysqli_fetch_assoc($rez)) {
         echo "<tr>";
+        echo "<td>" . $row['naim'] . "</td>";
+        echo "<td>" . $row['login'] . "</td>";
+        echo "<td>" . $row['kod'] . "</td>";
         echo "<td>" . $row['id_application'] . "</td>";
         echo "<td><select id='app" . $row['id_application'] . "'  onchange='changeStatus(this)'>";
 
