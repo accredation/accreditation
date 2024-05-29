@@ -500,7 +500,6 @@ ORDER BY id_news DESC
                 <button type="button" class="btn btn-primary" onclick="saveNews()">Сохранить</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
             </div>
-
         </div>
     </div>
 </div>

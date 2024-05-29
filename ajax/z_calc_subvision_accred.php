@@ -3,15 +3,13 @@
 include "connection.php";
 
 $id_subvision = $_GET['id_sub'];
-
-$rez = mysqli_query($con, "select sum(mark_accred_percent) as sum, count(*) as coun from z_department where id_subvision='$id_subvision'");
+$rez = mysqli_query($con, "select sum(mark_accred_percent) as sum, count(*) as coun from z_department where id_subvision='$id_subvision' and mark_accred_percent <> '-'");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
 {
     $row = mysqli_fetch_assoc($rez); //она
     $count_all = $row['coun'];
     $sum = $row['sum'];
-
     if($sum === null){
         $sum = 0;
     }
@@ -20,8 +18,7 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     } else {
         $avg = $sum / $count_all;
     }
-//
-//    $avg = $sum / $count_all;
+
     if($count_all === null){
         $count_all = 0.0;
     }

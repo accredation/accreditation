@@ -7,7 +7,7 @@ $id_application = $_GET['id_application'];
 $rez = mysqli_query($con, "select sum(dep.mark_accred_percent) as su, count(dep.mark_accred_percent) as coun , a.mark_percent from z_department as dep 
     left outer join subvision s on dep.id_subvision = s.id_subvision
     left outer join applications a on s.id_application = a.id_application
-    where a.id_application = '$id_application'");
+    where a.id_application = '$id_application' and dep.mark_accred_percent <> '-'");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
 {

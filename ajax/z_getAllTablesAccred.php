@@ -21,18 +21,22 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $login_name = $row_department['login'];
     $id_app = $row_department['id_application'];
     $readyornot  = $row_department['readyornot'];
+    $mark_all = $row_department['mark_all'];
+    $mark_yes = $row_department['mark_yes'];
+    $mark_not_need = $row_department['mark_not_need'];
 
     $mark_accred_percent = $row_department['mark_accred_percent'];
     if($mark_percent === null)
         $mark_percent = 0;
-    if($mark_accred_percent === null)
-        $mark_accred_percent = 0;
-
+    if($mark_accred_percent === '-')
+        $mark_accred_percent = '-';
+    else
+    $mark_accred_percent = round(doubleval($mark_accred_percent),0) . '%';
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: block; " onclick="newCollapseTable(this)">
        <div class = "actCont" style="display: flex;">
          <div class="actions-container" style = "width: 80%;">
         <button class="btn btn-link" style="width: 100%;color: black;font-size: 14px;font-weight: 700;" data-toggle="collapse"  aria-expanded="false" aria-controls="collapse' . $id_department . '" style="text-decoration: none; color: black; font-size: 0.9rem;">
-        ' . $department_name . ' (самоаккредитация = ' . $mark_percent . '%)<div>(оценка соответствия = '.$mark_accred_percent. '%)</div>
+        ' . $department_name . ' (самоаккредитация = ' . $mark_percent . '%)<div>(оценка соответствия = '.$mark_accred_percent. ')</div>
     </button>
         </div>
        ';

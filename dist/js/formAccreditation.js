@@ -1128,7 +1128,8 @@ function createTableForPrintNo(tableForPrint) {
     divPrintTable.appendChild(divNameSubTable);
 
     let divNameCriteriaTable = document.createElement('div');
-    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'];
+    let res = tableForPrint[0]['mark_accred_percent'] === "-" ? "-" : Math.round(parseFloat(tableForPrint[0]['mark_accred_percent']).toFixed(2));
+    divNameCriteriaTable.textContent = tableForPrint[0]['name_criteria'] + ' ' + res+'%' ;
     divNameCriteriaTable.style = "padding-top: 1rem; padding-bottom:2rem";
 
     divPrintTable.appendChild(divNameCriteriaTable);
