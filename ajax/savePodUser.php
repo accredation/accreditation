@@ -15,7 +15,6 @@ if (mysqli_num_rows($rez1) > 0){
     if (mysqli_num_rows($rez2) > 0){
         http_response_code(400);
     }else {
-
         mysqli_query($con, "update users set login = '$login', email = '$email', password='$md5Pass', id_role = '$id_role' where id_user = '$id_user'");
     }
 

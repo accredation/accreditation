@@ -1429,7 +1429,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
 
 
     if (check == 1) {
-        let department = prompt("Введите название отделения");
+        let department = prompt("Введите название организации (подразделения)");
         if (department !== undefined && department.trim() !== '') {
 
 
@@ -1526,7 +1526,7 @@ function toggleActiveCheckbox(inputCheck, formCheckInput, formButton) {   // д�
 
 function buttonSelected(inputCheck) {  // добавление отделений (кнопки) - добавление таблиц отделений по кнопкам
 
-    let department = prompt("Введите названия отделения");
+    let department = prompt("Введите название отделения");
     if (department !== undefined && department.trim() !== '') {
         let str = inputCheck.id;
         let id_list_tables_criteria = str.replace(/\D/g, ''); // Удаление всех символов, кроме цифр

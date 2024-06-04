@@ -219,7 +219,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                left outer join report_application_mark ram on a.id_application=ram.id_application
                                left outer join uz uz on uz.id_uz=a.id_user
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where uz.id_uz='$id_uz' and id_status in (2,3)";
+                                where uz.id_uz='$id_uz' and id_status in (2,3,4)";
                                           $result=mysqli_query($con, $query) or die ( mysqli_error($con));
                                           for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                                           ?>
