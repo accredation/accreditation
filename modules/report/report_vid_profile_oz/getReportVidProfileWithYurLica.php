@@ -67,7 +67,9 @@ $adm = '';
 
  if($adm === ''){
     $adm = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $adm = '(' . $adm . ')';
+}
 
  $perv_vtor = '';
 
@@ -84,7 +86,9 @@ $adm = '';
 
  if($perv_vtor === ''){
     $perv_vtor = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $perv_vtor = '(' . $perv_vtor . ')';
+}
 
 
  $guzo = '';
@@ -102,7 +106,9 @@ $adm = '';
 
  if($guzo === ''){
     $guzo = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $guzo = '(' . $guzo . ')';
+}
 
 /////////////////////////////////////////////////////////////////
 //////////////// формирование условия по области
@@ -165,6 +171,8 @@ $statusIdStr3 = '(' . $statusIdStr3 . ')';
 
 
 $query = "
+
+SET SESSION  group_concat_max_len =100000;
 
 CREATE TEMPORARY TABLE accreditation.`tmp_table_uz`(
 id_oblast INT, 
@@ -482,7 +490,7 @@ drop TEMPORARY TABLE accreditation.`tmp_table_report_profile_sved_not_in`;
 */
 
 
-//echo $query;
+// echo $query;
 
 // ('$id_scriteria_str'='' or ('$id_scriteria_str'<>'' and 
 

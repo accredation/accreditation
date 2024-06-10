@@ -198,7 +198,7 @@
                       </a>
                       <div class="collapse" id="ui-reports">
                           <ul class="nav flex-column sub-menu">
-                              <li class="nav-item" style="height: 100%">
+                              <!-- <li class="nav-item" style="height: 100%">
                                   <a href="/index.php?report_first" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
 
                                       <p style="white-space: normal; line-height: 1">Структура организаций здравоохранения по результатам самооценки</p>
@@ -222,7 +222,63 @@
 
                                       <p style="white-space: normal; line-height: 1">Отчет по статусам заявлений организаций здравоохранения</p>
                                   </a>
-                              </li>
+                              </li> -->
+                              <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_first" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Структура организаций здравоохранения по результатам самооценки</p>
+                                      </a>
+                                  </li>
+
+                                
+                                  <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_analiz_samoocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Анализ результатов самооценки организаций здравоохранения</p>
+                                      </a>
+                                  </li>
+
+                                  <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_analiz_ocenka" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Анализ результатов медицинской аккредитации</p>
+                                      </a>
+                                  </li>
+
+<!--                                  <li class="nav-item" style="height: 100%">-->
+<!--                                      <a href="/index.php?report_doctor_work" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">-->
+<!---->
+<!--                                          <p style="white-space: normal; line-height: 1">Нагрузка врачей-экспертов</p>-->
+<!--                                      </a>-->
+<!--                                  </li>-->
+
+                                  <li class="nav-item" style="height: 100%">
+                                      <a href="/index.php?report_application_status" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                          <p style="white-space: normal; line-height: 1">Отчет по статусам заявлений организаций здравоохранения</p>
+                                      </a>
+                                  </li>
+
+                                  <li class="nav-item" style="height: 100%">
+                                    <a href="/index.php?report_date_schedule" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                        <p style="white-space: normal; line-height: 1">Контроль сроков подачи заявлений по графику</p>
+                                    </a>
+                                  </li>
+
+                                  <li class="nav-item" style="height: 100%">
+                                    <a href="/index.php?report_vid_profile_oz" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                        <p style="white-space: normal; line-height: 1">Отчет по видам медицинской помощи и профилям ОЗ установленных в перечне</p>
+                                    </a>
+                                  </li>
+
+                                  <li class="nav-item" style="height: 100%">
+                                    <a href="/index.php?report_criteria" class="nav-link" style="padding: 0rem 0rem 0rem 2rem;">
+
+                                        <p style="white-space: normal; line-height: 1">Анализ результатов по отдельным критериям</p>
+                                    </a>
+                                  </li>
                           </ul>
                       </div>
                   </li>

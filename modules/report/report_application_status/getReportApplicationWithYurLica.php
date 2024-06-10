@@ -98,7 +98,10 @@ $perv_vtor = '';
 
  if($perv_vtor === ''){
     $perv_vtor = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $perv_vtor = '(' . $perv_vtor . ')';
+}
+
 
 
  $guzo = '';
@@ -116,7 +119,9 @@ $perv_vtor = '';
 
  if($guzo === ''){
     $guzo = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $guzo = '(' . $guzo . ')';
+}
 
 
 $query = "

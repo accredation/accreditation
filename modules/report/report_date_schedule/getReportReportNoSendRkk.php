@@ -60,7 +60,9 @@ $guzo = '';
 
  if($guzo === ''){
     $guzo = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $guzo = '(' . $guzo . ')';
+}
 
 
  $perv_vtor = '';
@@ -78,7 +80,9 @@ $guzo = '';
 
  if($perv_vtor === ''){
     $perv_vtor = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $perv_vtor = '(' . $perv_vtor . ')';
+}
 
 
  $otz_str = '';
@@ -96,7 +100,9 @@ $guzo = '';
 
  if($otz_str === ''){
     $otz_str = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $otz_str = '(' . $otz_str . ')';
+}
 
 
 $query = "

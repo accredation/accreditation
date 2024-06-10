@@ -524,6 +524,15 @@ function prepereTableReport(dataParametrs){
     th22.id='th22'
     th22.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
+    let th24 = document.createElement('th');
+    th24.innerHTML = 'Комиссия';
+    th24.id='th24'
+    th24.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+
+    let th25 = document.createElement('th');
+    th25.innerHTML = 'Выдача свидетельства';
+    th25.id='th25'
+    th25.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     trHead.appendChild(th1);
     trHead.appendChild(th2);
@@ -543,6 +552,7 @@ function prepereTableReport(dataParametrs){
         trHead.appendChild(th10);
     }
     trHead.appendChild(th11);
+    trHead.appendChild(th25);
     trHead.appendChild(th12);
     trHead.appendChild(th13);
     trHead.appendChild(th14);
@@ -561,6 +571,7 @@ function prepereTableReport(dataParametrs){
     
     
     trHead.appendChild(th22);
+    trHead.appendChild(th24);
     thead1.appendChild(trHead);
     table.appendChild(thead1);
 
@@ -633,6 +644,8 @@ function reportPrepere(dataParametrs){
         if(data.length > 0){
             data.map((item,index) => {
                 itog++
+
+                let div = document.createElement('div');
                                                 
                 let tr = document.createElement('tr');
                 let td1 = document.createElement('td');
@@ -702,8 +715,12 @@ function reportPrepere(dataParametrs){
                 td13.className='td13'
                 td13.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
+                div.innerHTML = item['svidetelstvo']; 
+
                 let td14 = document.createElement('td');
-                td14.innerHTML = item['svidetelstvo'];
+              //  td14.innerHTML =  item['svidetelstvo'];
+
+                td14.appendChild(div);
                 td14.className='td14'
                 td14.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
@@ -752,8 +769,15 @@ function reportPrepere(dataParametrs){
                 td22.className='td22'
                 td22.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
-
+                let td24 = document.createElement('td');
+                td24.innerHTML = item['comisia'];
+                td24.className='td24'
+                td24.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                 
+                let td25 = document.createElement('td');
+                td25.innerHTML = item['giveSvid'];
+                td25.className='td25'
+                td25.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
                 
                 tr.appendChild(td1);
                 tr.appendChild(td2);
@@ -773,6 +797,7 @@ function reportPrepere(dataParametrs){
                     tr.appendChild(td10);
                 }
                 tr.appendChild(td11);
+                tr.appendChild(td25);
                 tr.appendChild(td12);
                 tr.appendChild(td13);
                 tr.appendChild(td14);
@@ -791,7 +816,7 @@ function reportPrepere(dataParametrs){
                 
                 
                 tr.appendChild(td22);
-                
+                tr.appendChild(td24);
                 tbody.appendChild(tr);
 
             })
@@ -809,7 +834,7 @@ function reportPrepere(dataParametrs){
 
 
     let divReportTitle = document.createElement('div');
-    divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:center";
+    divReportTitle.style = "padding-top: 0.5rem; padding-bottom:1rem; font-size:2rem; text-align:left";
 
     divReportTitle.textContent = `Журнал регистрации РКК`;
 
@@ -1101,7 +1126,11 @@ function printReport2(data){
 
 var tableToExcel = (function() {
     var uri = 'data:application/vnd.ms-excel;base64,'
-    , template = '<html  ><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+    , template = '<html  ><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name>'+
+    '<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->'+
+    '<style> tr div{ mso-number-format:000000; }'+
+    ' </style>'+
+    '<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
     , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
     , format = function(s, c) { 	    	 
         return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) 

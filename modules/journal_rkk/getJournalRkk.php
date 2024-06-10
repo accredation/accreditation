@@ -95,7 +95,9 @@ $adm = '';
 
  if($adm === ''){
     $adm = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $adm = '(' . $adm . ')';
+}
 
  $perv_vtor = '';
 
@@ -112,25 +114,29 @@ $adm = '';
 
  if($perv_vtor === ''){
     $perv_vtor = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $perv_vtor = '(' . $perv_vtor . ')';
+}
 
 
  $guzo = '';
 
  if($checkbox_guzo_1_ === "true") {
-    $guzo = $guzo  . "rkk.checkboxValueGuzo=1";
+    $guzo = $guzo  . "rkk.checkboxValueGuzo=1"; 
  } 
 
  if($checkbox_guzo_2_ === "true") {
     if(strlen($guzo)>0){
         $guzo = $guzo . ' or ';
      }
-    $guzo = $guzo  . "rkk.checkboxValueGuzo=0";
+    $guzo = $guzo  . "rkk.checkboxValueGuzo=0"; 
  } 
 
  if($guzo === ''){
     $guzo = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $guzo = '(' . $guzo . ')';
+}
 
 
 
@@ -150,7 +156,9 @@ $adm = '';
 
  if($otz_str === ''){
     $otz_str = '(' . 0 .'='. 0 . ')';
- }
+ }else {
+   $otz_str = '(' . $otz_str . ')';
+}
 
 
 $checkOblastsId_2 = explode(',', $checkOblastsId_);
@@ -199,7 +207,8 @@ case when rkk.date_sved = '1970-01-01' then '' else  DATE_FORMAT(rkk.date_sved, 
 case when rkk.date_delo = '1970-01-01' then '' else DATE_FORMAT(rkk.date_delo, '%d-%m-%Y')  end  as date_delo, rkk.delo, 
 a.zaregal, CONCAT( CONVERT(case when rkk.date_sved = '1970-01-01' then '' else DATE_FORMAT(rkk.date_sved, '%d-%m-%Y')   end, char), ' ', rkk.info_uved) as info_uved , 
 rkk.getter, so.oblast, case when rkk.date_protokol = '1970-01-01' then '' else DATE_FORMAT(rkk.date_protokol, '%d-%m-%Y')  end  as date_protokol,
-rkk.dop_info
+rkk.dop_info, case when rkk.checkboxValueGuzo='1' then 'ГУЗО, Комитет' when rkk.checkboxValueGuzo='0' then 'Внутренняя комиссия' else '' end comisia,
+case when a.giveSvid = 1 then 'Полное' when a.giveSvid = 2 then 'Частичное'  else ''  end  as giveSvid
 from accreditation.rkk 
 left outer join accreditation.applications a on rkk.id_application=a.id_application
 left outer join accreditation.uz u on a.id_user=u.id_uz
@@ -230,7 +239,7 @@ for ($data = []; $row = mysqli_fetch_assoc($rez); $data[] = $row);
 class Report{
     public $id_rkk, $num_rkk, $id_application , $naim, $perv_vtor, $date_reg, $ur_adress, $fact_adress, $tel, $email,
      $adm_reah, $adm_resh_num , $date_admin_resh, $svidetelstvo, $date_sved, $sved_srok_deist, $date_delo, $delo,
-     $zaregal, $info_uved, $getter, $oblast, $dop_info, $date_protokol;
+     $zaregal, $info_uved, $getter, $oblast, $dop_info, $date_protokol, $comisia, $giveSvid;
     
 }
 
@@ -261,8 +270,9 @@ foreach ($data as $app) {
     $report->oblast = $app['oblast'];
     $report->dop_info = $app['dop_info'];
     $report->date_protokol = $app['date_protokol'];
+    $report->comisia = $app['comisia'];
+    $report->giveSvid = $app['giveSvid'];
     
-
     array_push($reports,$report);
 }
 

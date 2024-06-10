@@ -507,7 +507,7 @@
                     <button 
                         id="btnReportPrint"
                         class="btn btn-success btn-fw"
-
+                        disabled
                         onclick="printReport2()"
                     >Экспорт в xls</button>
 

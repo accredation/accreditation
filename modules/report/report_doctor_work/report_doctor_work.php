@@ -15,7 +15,7 @@
                             <option value="3">На рассмотрении</option>
                             <option value="4">Завершена оценка</option>
                             <option value="5">На доработке</option>
-                            <option value="6">Решение</option>
+                            <option value="6">Решение совета</option>
                             <option value="7">Окончательное решение совета</option>
 
                         </select>
