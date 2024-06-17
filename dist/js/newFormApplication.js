@@ -41,8 +41,7 @@ function newShowModal(id_application) {
     newDivUcomplect.appendChild(labelUcomplect);
     if (status == 1) {
         btnTableUcomplect.innerHTML = "Редактировать";
-    }
-    else{
+    } else {
         btnTableUcomplect.innerHTML = "Просмотр";
     }
     btnTableUcomplect.classList = "ownUcomp"
@@ -54,17 +53,16 @@ function newShowModal(id_application) {
     let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
     btnTableUcomplect.onclick = () => {
 
-        if (status == 1){
-        modalUcomplect.style = "display: block";
-        $.ajax({
-            url: "ajax/z_ucomplectTable.php",
-            method: "GET",
-            data: {id_application: id_app}
-        }).then((response) => {
-            modalBody.innerHTML = response;
-        })
-        }
-        else {
+        if (status == 1) {
+            modalUcomplect.style = "display: block";
+            $.ajax({
+                url: "ajax/z_ucomplectTable.php",
+                method: "GET",
+                data: {id_application: id_app}
+            }).then((response) => {
+                modalBody.innerHTML = response;
+            })
+        } else {
             modalUcomplect.style = "display: block";
             $.ajax({
                 url: "ajax/z_accred_ucomplectTable.php",
@@ -257,10 +255,10 @@ function newShowModal(id_application) {
     let divReportForm = document.getElementById("divReport");
 
 
-    let  divZayavOtzyv = document.getElementById("divZayavOtzyv");
-    let  divDataZayavOtzyv = document.getElementById("divDataZayavOtzyv");
-    let  filesContainerZayavOtzyv = document.getElementById("filesContainerZayavOtzyv");
-    let  filesContainerDataZayavOtzyv = document.getElementById("filesContainerDataZayavOtzyv");
+    let divZayavOtzyv = document.getElementById("divZayavOtzyv");
+    let divDataZayavOtzyv = document.getElementById("divDataZayavOtzyv");
+    let filesContainerZayavOtzyv = document.getElementById("filesContainerZayavOtzyv");
+    let filesContainerDataZayavOtzyv = document.getElementById("filesContainerDataZayavOtzyv");
 
 
     //  naim.value = username;
@@ -274,13 +272,10 @@ function newShowModal(id_application) {
         }
         checkUserRole();
 
-    }
-    else if(status == 9) {
+    } else if (status == 9) {
         divZayavOtzyv.classList.remove("hiddentab");
         divDataZayavOtzyv.classList.remove("hiddentab");
-    }
-
-    else {
+    } else {
         number_app.setAttribute("readonly", "");
         naim.setAttribute("readonly", "");
         sokr.setAttribute("readonly", "");
@@ -347,7 +342,7 @@ function newShowModal(id_application) {
             selPervtor.options.selectedIndex = Number(data[0][25]) - 1;
             sel_pervtor = data[0][25];
             let id_old_app = data[0][24];
-            if(id_old_app){
+            if (id_old_app) {
                 id_application = id_old_app;
             }
 
@@ -401,13 +396,53 @@ function newShowModal(id_application) {
 
             if (data[0][28] != null) {
 
-                filesContainerZayavOtzyv.insertAdjacentHTML("afterbegin", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application+ "/" + data[0][28] + "'>" + data[0][28] + "</a>");
+                filesContainerZayavOtzyv.insertAdjacentHTML("afterbegin", "<a target='_blank' href='/docs/documents/" + data[0][13] + '/' + id_application + "/" + data[0][28] + "'>" + data[0][28] + "</a>");
             }
 
 
             if (data[0][29] != null) {
 
                 filesContainerDataZayavOtzyv.insertAdjacentHTML("afterbegin", "<span>" + data[0][29] + "</span>");
+            }
+
+
+            if (status == 7) {
+
+                    formPlanUstr = document.createElement("form");
+                    formPlanUstr.id = "formPlanUstr";
+                    let divPlanUstr = document.createElement("div");
+                    divPlanUstr.id = "divPlanUstr";
+                    divPlanUstr.className = "form-group";
+                    divPlanUstr.style = "margin-left: 2.5rem;";
+                    let labelPlanUstr = document.createElement("label");
+                    labelPlanUstr.style = "font-size: 24px;";
+                    labelPlanUstr.innerHTML = "План об устранении недостатков";
+                    let brli = document.createElement("br");
+                    let inputPlanUstr = document.createElement("input");
+                    inputPlanUstr.type = "file";
+                    inputPlanUstr.className = "form-control-file";
+                    inputPlanUstr.id = "inputPlanUstr";
+                    divPlanUstr.appendChild(labelPlanUstr);
+                    divPlanUstr.appendChild(brli);
+                    divPlanUstr.appendChild(inputPlanUstr);
+                    formPlanUstr.appendChild(divPlanUstr);
+
+                    inputPlanUstr.onchange = function () {
+                        postFilePlan();
+                        console.log("Файл был выбран");
+                    };
+
+
+                    formReport.insertAdjacentElement("afterend", formPlanUstr);
+                if (data[0][26] != null) {
+                    let divPlanUstr = document.getElementById("divPlanUstr");
+                    let fileLink = document.createElement("a");
+                    fileLink.id = "linkPlan";
+                    fileLink.href = '/docs/documents/' + createrApp + '/' + id_app + '/' + data[0][26];
+                    fileLink.target = '_blank';
+                    fileLink.innerHTML = data[0][26];
+                    divPlanUstr.appendChild(fileLink);
+                }
             }
 
 
@@ -425,6 +460,17 @@ function newShowModal(id_application) {
 
         });
     // выводим полученный ответ на консоль браузер
+    let formPlanUstr = document.getElementById("formPlanUstr");
+    let divDatePlanUstr = document.getElementById("divDatePlanUstr");
+
+    if (formPlanUstr) {
+        formPlanUstr.remove();
+    }
+    if (divDatePlanUstr) {
+        divDatePlanUstr.remove();
+    }
+    let formReport = document.getElementById("formReport");
+
 
     $(".closeX").on("click", async () => {
         newDivUcomplect.remove();
@@ -929,8 +975,8 @@ async function newShowTab(element, id_sub) {
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt;width:90%;";
                     // ТУТ задание
-                    if(sel_pervtor == "1")
-                    inputCheck.setAttribute("disabled", true);
+                    if (sel_pervtor == "1")
+                        inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
                     };
@@ -1006,8 +1052,8 @@ async function newShowTab(element, id_sub) {
                         "    text-shadow: 1px 1px #fff;\n" +
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt;width:90%;";
-                    if(sel_pervtor == "1")
-                    inputCheck.setAttribute("disabled", true);
+                    if (sel_pervtor == "1")
+                        inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
                     };
@@ -1081,8 +1127,8 @@ async function newShowTab(element, id_sub) {
                         "    text-shadow: 1px 1px #fff;\n" +
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt;width:90%;";
-                    if(sel_pervtor == "1")
-                    inputCheck.setAttribute("disabled", true);
+                    if (sel_pervtor == "1")
+                        inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
                     };
@@ -1159,8 +1205,8 @@ async function newShowTab(element, id_sub) {
                         "    text-shadow: 1px 1px #fff;\n" +
                         "    font-weight: 700;\n" +
                         "    font-size: 10pt; width:90%;";
-                    if(sel_pervtor == "1")
-                    inputCheck.setAttribute("disabled", true);
+                    if (sel_pervtor == "1")
+                        inputCheck.setAttribute("disabled", true);
                     inputCheck.onclick = () => {
                         buttonSelected(inputCheck)
                     };
@@ -1692,7 +1738,7 @@ function addFile(idCrit, idDep, input) {
             }
         };
 
-        xhr.upload.onload = function () {
+        xhr.onload = function () {
             input.removeAttribute("disabled");
             load.remove();
             let fileContainer = document.createElement('div');
@@ -2769,8 +2815,74 @@ $("#pervtor").on("change", () => {
     $.ajax({
         url: "ajax/changePervtor.php",
         method: "POST",
-        data: { id_app: id_app, sel_pervtor: selectedValue}
+        data: {id_app: id_app, sel_pervtor: selectedValue}
     }).then((response) => {
         sel_pervtor = selectedValue;
     })
 })
+
+function postFilePlan() {
+    let fileInput = document.getElementById('inputPlanUstr');
+    let linkPlan = document.getElementById('linkPlan');
+    if(linkPlan)
+        linkPlan.remove();
+    let filePlan = document.getElementById('inputPlanUstr');
+    let filePlanContainer = fileInput.nextElementSibling;
+    if (filePlanContainer) {
+        let filePlanLoadContainer = filePlanContainer.nextElementSibling;
+        filePlanLoadContainer.remove();
+        filePlanContainer.remove();
+    }
+    let divPlanUstr = document.getElementById('divPlanUstr');
+
+    let id_application = document.getElementById("id_application");
+    let load = document.createElement("div");
+    load.innerHTML = "Подождите, идет загрузка";
+    load.id = "loadInputPlanUstr";
+    fileInput.insertAdjacentElement("afterend", load);
+
+
+    let divFilesList = document.createElement("div");
+    divFilesList.id = "divFilesList";
+    divFilesList.innerHTML = "<br>";
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        let file = fileInput.files[i];
+        let fileLink = document.createElement("a");
+        fileLink.href = '/docs/documents/' + createrApp + '/' + id_app + '/' + file.name;
+        fileLink.target = '_blank';
+        fileLink.innerHTML = file.name;
+        divFilesList.appendChild(fileLink);
+        divFilesList.appendChild(document.createElement("br"));
+    }
+
+
+    let xhr = new XMLHttpRequest();
+    let form = new FormData();
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        form.append("fileInput[]", fileInput.files[i]);
+    }
+
+    form.append("id_application", id_application.innerText);
+    form.append("login", createrApp);
+
+    xhr.open("post", "ajax/postFilePlan.php", true);
+
+    xhr.onload = function () {
+        load.innerHTML = "Файл загружен";
+        let downloadLinks = document.createElement("div");
+        downloadLinks.innerHTML = "<br>";
+        for (let i = 0; i < fileInput.files.length; i++) {
+            let file = fileInput.files[i];
+            let downloadLink = document.createElement("a");
+            downloadLink.href = '/docs/documents/' + createrApp + '/' + id_app + '/' + file.name;
+            downloadLink.innerHTML = file.name;
+            downloadLinks.appendChild(downloadLink);
+            downloadLinks.appendChild(document.createElement("br"));
+        }
+        fileInput.insertAdjacentElement("afterend", downloadLinks);
+    };
+
+    xhr.send(form);
+}

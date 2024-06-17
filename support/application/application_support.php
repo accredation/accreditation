@@ -508,7 +508,9 @@
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                     left outer join rkk r on r.id_application=a.id_application
-                                                   where uz.oblast='$oblast' and id_status = 6";
+                                                   where (('$id_role'=12 and (id_status = 6)) or ('$id_role'=14 and (id_status = 6) and  (uz.oblast='$oblast'))) 
+							--	uz.oblast='$oblast' and id_status = 6
+							";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
@@ -587,7 +589,9 @@
                                left outer join rkk r on r.id_application=a.id_application
                         
                                -- left outer join users u on uz.id_uz =u.id_uz 
-                                where  uz.oblast='$oblast' and id_status = 9";
+                                where -- uz.oblast='$oblast' and id_status = 9
+					(('$id_role'=12 and (id_status = 9)) or ('$id_role'=14 and (id_status = 9) and  (uz.oblast='$oblast'))) 
+					";
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;

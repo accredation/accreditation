@@ -529,49 +529,7 @@ function newShowModal(id_application) {
     if(divDatePlanUstr){
         divDatePlanUstr.remove();
     }
-    if(status == 6) {
 
-        formPlanUstr = document.createElement("form");
-        formPlanUstr.id = "formPlanUstr";
-        let divPlanUstr = document.createElement("div");
-        divPlanUstr.id = "divPlanUstr";
-        divPlanUstr.className = "form-group";
-        divPlanUstr.style = "margin-left: 2.5rem;";
-        let labelPlanUstr = document.createElement("label");
-        labelPlanUstr.style = "font-size: 24px;";
-        labelPlanUstr.innerHTML = "План об устранении недостатков";
-        let brli = document.createElement("br");
-        let inputPlanUstr = document.createElement("input");
-        inputPlanUstr.type = "file";
-        inputPlanUstr.className = "form-control-file";
-        inputPlanUstr.id = "inputPlanUstr";
-        divPlanUstr.appendChild(labelPlanUstr);
-        divPlanUstr.appendChild(brli);
-        divPlanUstr.appendChild(inputPlanUstr);
-        formPlanUstr.appendChild(divPlanUstr);
-        divDatePlanUstr = document.createElement("div");
-        divDatePlanUstr.className = "form-group";
-        divDatePlanUstr.style = "margin-left: 2.5rem;";
-        divDatePlanUstr.id = "divDatePlanUstr";
-        let labelDatePlanUstr = document.createElement("label");
-        labelDatePlanUstr.style = "font-size: 24px;";
-        labelDatePlanUstr.innerHTML = "Дата утверждения плана";
-        let inputDatePlanUstr = document.createElement("input");
-        inputDatePlanUstr.type = "date";
-        inputDatePlanUstr.className = "form-control";
-        inputDatePlanUstr.style = "width: auto;";
-        inputDatePlanUstr.id = "inputDatePlanUstr";
-        inputPlanUstr.onchange = function() {
-            postFilePlan();
-            console.log("Файл был выбран");
-        };
-        divDatePlanUstr.appendChild(labelDatePlanUstr);
-        divDatePlanUstr.appendChild(brli);
-        divDatePlanUstr.appendChild(inputDatePlanUstr);
-        formReport.insertAdjacentElement("afterend", divDatePlanUstr);
-        formReport.insertAdjacentElement("afterend", formPlanUstr);
-
-    }
 
 
     let formPlanOtzyv = document.getElementById("formPlanOtzyv");
@@ -638,10 +596,6 @@ function newShowModal(id_application) {
         let informgrid = document.getElementById("informgr");
         informgrid.style = "display:none";
     }
-
-
-
-
 
     let data = new Array();
     $.ajax({
@@ -772,6 +726,33 @@ function newShowModal(id_application) {
 
             if (data[0][29] != null) {
                 inputPlanOtzyv.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][29] + "'>" +  data[0][29] + "</a><br>");
+
+            }
+
+            if(status == 6) {
+                formPlanUstr = document.createElement("form");
+                formPlanUstr.id = "formPlanUstr";
+                let divPlanUstr = document.createElement("div");
+                divPlanUstr.id = "divPlanUstr";
+                divPlanUstr.className = "form-group";
+                divPlanUstr.style = "margin-left: 2.5rem;";
+                let labelPlanUstr = document.createElement("label");
+                labelPlanUstr.style = "font-size: 24px;";
+                labelPlanUstr.innerHTML = "План об устранении недостатков";
+                let brli = document.createElement("br");
+                divPlanUstr.appendChild(labelPlanUstr);
+                divPlanUstr.appendChild(brli);
+                formPlanUstr.appendChild(divPlanUstr);
+                formReport.insertAdjacentElement("afterend", formPlanUstr);
+                if (data[0][27] != null) {
+                    let divPlanUstr = document.getElementById("divPlanUstr");
+                    let fileLink = document.createElement("a");
+                    fileLink.id = "linkPlan";
+                    fileLink.href = '/docs/documents/' + data[0][13] + '/' + id_app + '/' + data[0][27];
+                    fileLink.target = '_blank';
+                    fileLink.innerHTML = data[0][27];
+                    divPlanUstr.appendChild(fileLink);
+                }
 
             }
 
@@ -2112,7 +2093,7 @@ function addFile(idCrit, idDep, input) {
         }
     };
 
-    xhr.upload.onload = function () {
+    xhr.onload = function () {
         input.removeAttribute("disabled");
         load.remove();
         let fileContainer = document.createElement('div');
@@ -2135,7 +2116,6 @@ function addFile(idCrit, idDep, input) {
     }
     xhr.send(form);
 }
-
 
 function z_deleteFile(fileName, idCrit, idDepartment) {
     if (confirm('Вы уверены, что хотите удалить этот файл?')) {
