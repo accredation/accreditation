@@ -4,6 +4,8 @@ let idRkk;
 let loginApp;
 
 function newShowModal(id_application) {
+    let mainRightCard = document.getElementById("mainRightCard");
+    mainRightCard.innerHTML = "";
     let btnRkk;
     let divSoprovodPismo = document.getElementById("divSoprovodPismo");
     if (!divSoprovodPismo.classList.contains("hiddentab"))
@@ -353,7 +355,6 @@ function newShowModal(id_application) {
     }
 
     openTabId = 0;
-    let mainRightCard = document.getElementById("mainRightCard");
 
     let addtab = document.getElementById("addtab");
 
@@ -763,11 +764,16 @@ function newShowModal(id_application) {
             for (let obj of data[1]) {
                 newGetTabs(obj[1], obj[0]);
             }
-            let mark_percent = data[2];
-            let mark_accred_percent = data[3];
-            let mainRightCard = document.getElementById("mainRightCard");
-            mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(mark_percent).toFixed(2)) + "%";
-            mainRightCard.innerHTML = mainRightCard.innerHTML + "<br>Оценка соответствия - " + Math.round(parseFloat(mark_accred_percent).toFixed(2)) + "%";
+            $.ajax({
+                url: "ajax/z_calc_application_accred.php",
+                method: "GET",
+                data: {id_application: id_app}
+            }).then((response) => {
+                let data = JSON.parse(response);
+                let mainRightCard = document.getElementById("mainRightCard");
+                mainRightCard.innerHTML = "Самоаккредитация - " + Math.round(parseFloat(data.mark_percent).toFixed(2)) + "%";
+                mainRightCard.innerHTML = mainRightCard.innerHTML + "<br>Количественная оценка - " + Math.round(parseFloat(data.mark_accred_percent).toFixed(2)) + "%";
+            })
 
         });
     // выводим полученный ответ на консоль браузер

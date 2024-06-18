@@ -289,7 +289,7 @@
     <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_1_h" onclick="togleDiv('razled_1_h','razled_1_row')">Регламентирующие документы &nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2> <?= $role === "12" ? '<input type="file" class="btn btn-linkedin" onchange="addFile(this,1)"/><span ></span>' : ''?><br/>
     <div class="row hidden" id="razled_1_row" style="display: none;">
             <?php
-                $query_RAZDEL_1 = "SELECT * FROM `documents` where razdel  = 1 order by str_num ";
+                $query_RAZDEL_1 = "SELECT * FROM `documents` where razdel  = 1 order by document_id ";
                 $result_RAZDEL_1=mysqli_query($con, $query_RAZDEL_1) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_1); $data[] = $row);
 
@@ -310,7 +310,7 @@
     <h2 for="quastion" style = " margin-top: 1rem; cursor: pointer;" id="razled_2_h" onclick="togleDiv('razled_2_h','razled_2_row')" >Формы обязательных документов&nbsp;&nbsp;&nbsp;  <i class="fa fa-arrow-left" style="font-size: 1.5rem; color: #148A8A" aria-hidden="true"></i></h2><?= $role === "12" ? '<input type="file" class="btn btn-linkedin" onchange="addFile(this,2)"/><span ></span>' : '' ?><br/>
     <div class="row hidden" id="razled_2_row" style="display: none;">
         <?php
-                $query_RAZDEL_2 = "SELECT * FROM `documents` where razdel  = 2  order by str_num ";
+                $query_RAZDEL_2 = "SELECT * FROM `documents` where razdel  = 2  order by document_id ";
                 $result_RAZDEL_2=mysqli_query($con, $query_RAZDEL_2) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_2); $data[] = $row);
 
@@ -332,7 +332,7 @@
     <div class="hidden" id="razled_3_row" style="display: none;">
     <div class="row ">
     <?php
-                $query_RAZDEL_3 = "SELECT * FROM `documents` where razdel  = 3 order by str_num ";
+                $query_RAZDEL_3 = "SELECT * FROM `documents` where razdel  = 3 order by document_id ";
                 $result_RAZDEL_3=mysqli_query($con, $query_RAZDEL_3) or die ( mysqli_error($con));
                 for ($data = []; $row = mysqli_fetch_assoc($result_RAZDEL_3); $data[] = $row);
 
