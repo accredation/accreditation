@@ -92,7 +92,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
                         <td><?= $user['usname'] ?></td>
                         <td id="log<?= $user['id_user'] ?>" contenteditable="true" oncontextmenu="changeLogin(this)"><?= $user['login'] ?></td>
-                        <td><?= $user['email'] ?></td>
+                        <td id="mail<?= $user['id_user'] ?>" contenteditable="true" oncontextmenu="changeMail(this)"><?= $user['email'] ?></td>
                         <td ><?= $user['name'] ?></td>
                         <td><select name="" id="types<?= $user['id_user'] ?>" onchange="changeType(this)">
                                 <option value="<?= $user['id_type'] ?>"><?= $user['id_type'] ? $user['type_name'] : "Не выбрано" ?></option>
@@ -196,6 +196,19 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
         if(confirmation) {
             let id = thisTd.id.substring(3);
             addHistoryChangeLogin(id, login, 1, "Изменение логина у " + login);
+        }else{
+            return false;
+        }
+    }
+
+    function changeMail(thisTd){
+        let tr = thisTd.parentElement;
+        let login = tr.children[1].innerText;
+        let mail = tr.children[2].innerText;
+        let confirmation = confirm("Вы уверены, что хотите изменить email пользователя " + login + "?");
+        if(confirmation) {
+            let id = thisTd.id.substring(4);
+            addHistoryChangeMail(id, mail, 1, "Изменение email у " + login);
         }else{
             return false;
         }

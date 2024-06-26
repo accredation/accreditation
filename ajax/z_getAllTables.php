@@ -92,7 +92,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         $field4 = $row_criteria["field4"];
         if ($field4 !== null) {
             $files = explode(";", $field4);
-            $files = array_unique($files);
+//            $files = array_unique($files);
         } else {
             $files = array();
         }
