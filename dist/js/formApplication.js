@@ -336,7 +336,7 @@ function createApplication() {
             btncr.removeAttribute("disabled");
         });
     alert("Заявление создано");
-   location.href = "/index.php?application";
+    location.href = "/index.php?application";
 }
 
 function showModal(id_application, strMarks, strMarksAccred) {
@@ -1686,8 +1686,7 @@ function deleteTab(id_sub) {
     }
 
 }
-
-$("#btnSuc").on("click", function () {
+function saveApp(){
     let number_app = document.getElementById("id_application");
     let naim = document.getElementById("naim");
     let sokr = document.getElementById("sokr");
@@ -1738,7 +1737,7 @@ $("#btnSuc").on("click", function () {
     form.append("rukovoditel", rukovoditelText);
     form.append("predstavitel", predstavitelText);
     form.append("selected_lico_value", selected_lico_value);
-    
+
 
     let soprPismoFile = soprPismo.files[0];
     form.append("soprPismo", soprPismoFile);
@@ -1754,6 +1753,9 @@ $("#btnSuc").on("click", function () {
     xhr.open("post", "ajax/saveApplication.php", true);
     xhr.send(form);
     alert("Заявление сохранено");
+}
+$("#btnSuc").on("click", function () {
+    saveApp();
     //  location.href = "/index.php?application";
 
 });
@@ -2593,7 +2595,7 @@ $("#archiveNew-tab").on("click", () => {
 
 
 $("#btnSend").on("click", async (event) => {
-
+    saveApp();
     if(event.target.id === "btnSend") {
         let id_application = document.getElementById("id_application");
         let divSoprovodPismo = document.getElementById("divSoprovodPismo");
@@ -2643,6 +2645,7 @@ $("#btnSend").on("click", async (event) => {
                                 data: {id_application: id_application.innerText}
                             })
                                 .done(function (response) {
+
                                     if (response == "") {
                                         alert("Заявление отправлено");
                                         calcMarks();

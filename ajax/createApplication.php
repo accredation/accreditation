@@ -31,7 +31,6 @@ if (mysqli_num_rows($rez1) == 1) {
             $row = mysqli_fetch_assoc($rez2);
             $id_rkk = $row['id_rkk'];
             $id_old_app = $row['id_application'];
-
             $sokr = $row['sokr_naim'];
             $unp = $row['unp'];
             $ur_adress = $row['ur_adress'];
@@ -53,16 +52,26 @@ if (mysqli_num_rows($rez1) == 1) {
             $zakluchenieSootvetstviya = $row['zakluchenieSootvetstviya'];
             $prikazNaznach = $row['prikazNaznach'];
             $selected_lico_value = $row['selected_lico_value'];
-            mysqli_query($con, "Insert into applications(`id_user`, `id_status`, `naim`, `date_create_app`, pervtor, id_rkk_perv,
+
+            if (is_numeric($id_rkk) && $id_rkk > 0) {
+                $id_rkk_value = $id_rkk;
+            }
+            else {
+                $id_rkk_value = 'NULL';
+                $selected_lico_value = 'NULL';
+            }
+
+            $result = mysqli_query($con, "Insert into applications(`id_user`, `id_status`, `naim`, `date_create_app`, pervtor, id_rkk_perv,
                          sokr_naim, unp, ur_adress, fact_adress, tel, email, rukovoditel,predstavitel,soprovod_pismo, copy_rasp, org_structure, ucomplect,
                          tech_osn, infDorabotkiFile, doverennost, zakluchenieSootvetstviya, prikazNaznach, 
-                         selected_lico_value, id_old_app) values ('$id', 1, '$name', CURDATE(), 2, '$id_rkk', '$sokr', '$unp', '$ur_adress', '$fact_adress','$tel', '$email', '$rukovoditel',
+                         selected_lico_value, id_old_app) values ('$id', 1, '$name', CURDATE(), 2, $id_rkk_value , '$sokr', '$unp', '$ur_adress', '$fact_adress','$tel', '$email', '$rukovoditel',
                                                       '$predstavitel', '$soprovod_pismo', '$copy_rasp', '$org_structure', '$ucomplect', '$tech_osn', '$infDorabotkiFile', '$doverennost', '$zakluchenieSootvetstviya',
-                                                      '$prikazNaznach', '$selected_lico_value', $id_old_app)");
+                                                      '$prikazNaznach', $selected_lico_value , $id_old_app)");
+            if (!$result) {
+                die('Ошибка при вставке ins: ' . mysqli_error($con));
+            }
         }
     }
 //        mysqli_query($con, "Insert into subvision(`name`,`id_application`)  select '$name', id_application from applications where id_user='$id' and id_status=1");
-
-
 }
 ?>
