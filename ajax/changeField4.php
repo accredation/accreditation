@@ -27,8 +27,10 @@ if(mysqli_num_rows($rez) == 1){
 
 if (!file_exists('../docs/documents/'.$login.'/'.$id_application.'/'.$idDep)) {
     mkdir('../docs/documents/'.$login.'/'.$id_application.'/'.$idDep, 0777, true);
-}
 
+}
+if(substr(sprintf('%o', fileperms('../docs/documents/'.$login.'/'.$id_application.'/'.$idDep)), -4) != 0777)
+    chmod('../docs/documents/'.$login.'/'.$id_application.'/'.$idDep, 0777);
 
 if (isset($_FILES['addedFile']['name'])) {
     $file_name = $_FILES['addedFile']['name'];

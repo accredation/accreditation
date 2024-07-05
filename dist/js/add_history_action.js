@@ -40,3 +40,15 @@ function addHistoryChangeLogin(id_user, login, type_action, name_action) {
             alert("Логин изменен");
         });
 }
+
+function addHistoryChangeMail(id_user, mail, type_action, name_action) {
+
+    $.ajax({
+        url: "../ajax/changeUserMail.php",
+        method: "POST",
+        data: {id_user: id_user, mail: mail, name_action: name_action}
+    })
+        .done(function (response) {
+            alert("Почта изменена");
+        });
+}
