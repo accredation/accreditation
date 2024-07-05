@@ -336,7 +336,7 @@ function createApplication() {
             btncr.removeAttribute("disabled");
         });
     alert("Заявление создано");
-   location.href = "/index.php?application";
+    location.href = "/index.php?application";
 }
 
 function showModal(id_application, strMarks, strMarksAccred) {
