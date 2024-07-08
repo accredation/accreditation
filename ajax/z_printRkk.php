@@ -299,8 +299,7 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">15</td>
         <td style = "width: 40%; text-align: left;">Отметка об уведомлении о принятом административном решении</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">';
-
+        <td style="width: 50%;  text-align: left;  word-break: break-word;"> № '.$count_list_admin. ', ' ;
             if ($date_admin_resh === '1970-01-01') {
         echo '';
     } else {
@@ -336,9 +335,9 @@ echo ' <tr>
         <td style = "width: 40%; text-align: left;">свидетельство о соответствии государственной организации здравоохранения базовым критериям медицинской аккредитации;</td>
         <td style="width: 50%;  text-align: left;  word-break: break-word;">';
         if ($date_sved === '1970-01-01') {
-            echo $svidetelstvo.' , '. $count_list_sved. 'л';
+            echo $svidetelstvo.', '. $count_list_sved. 'л';
         } else {
-            echo $svidetelstvo.' '. $date_sved .' , '. $count_list_sved. 'л';
+            echo $svidetelstvo.', '. $date_sved .', '. $count_list_sved. 'л';
         }
         echo'</td>
     </tr>
@@ -347,7 +346,7 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">18.2</td>
         <td style = "width: 40%; text-align: left;">информация (отчет) о результатах проведения медицинской аккредитации</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$count_list_report_medacr.'</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$count_list_report_medacr.'л</td>
     </tr>
     
 
@@ -383,7 +382,7 @@ echo ' <tr>
  
         <td style = " width: 10%; text-align: center;">22</td>
         <td style = "width: 40%; text-align: left;">Документ подшит в дело</td>
-        <td style="width: 50%;  text-align: left;  word-break: break-word;">'.$delo. ' '. $delo_listov .'</td>
+        <td style="width: 50%;  text-align: left;  word-break: break-word;">№ '.$delo. ' , '. $delo_listov .'л</td>
     </tr>
     
     <tr>
