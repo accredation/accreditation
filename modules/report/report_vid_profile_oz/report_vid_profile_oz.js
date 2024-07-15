@@ -928,38 +928,42 @@ function reportYurLica(dataParametrs){
                     td4_count.innerHTML =  item['profile_count'] ;
                     td4_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
+                    
+
+
                     let td5 = document.createElement('td');
-                    td5.innerHTML =  item['vid_lishn_name'] ;
+                    td5.innerHTML =  item['name_vid_not_in'] ;
                     td5.style = " text-align:center; line-height: normal;";
 
                     let td5_count = document.createElement('td');
-                    td5_count.innerHTML =  item['vid_lishn_count'] ;
+                    td5_count.innerHTML =  item['count_vid_not_in'] ;
                     td5_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
-   
+
                     let td6 = document.createElement('td');
-                    td6.innerHTML =  item['profile_lishn_name'] ;
+                    td6.innerHTML =  item['name_profile_not_in'] ;
                     td6.style = " text-align:center; line-height: normal;";
 
                     let td6_count = document.createElement('td');
-                    td6_count.innerHTML =  item['profile_lishn_count'] ;
+                    td6_count.innerHTML =  item['count_profile_not_in'] ;
                     td6_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
 
                     let td7 = document.createElement('td');
-                    td7.innerHTML =  item['name_vid_not_in'] ;
+                    td7.innerHTML =  item['vid_lishn_name'] ;
                     td7.style = " text-align:center; line-height: normal;";
 
                     let td7_count = document.createElement('td');
-                    td7_count.innerHTML =  item['count_vid_not_in'] ;
+                    td7_count.innerHTML =  item['vid_lishn_count'] ;
                     td7_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
-
+   
                     let td8 = document.createElement('td');
-                    td8.innerHTML =  item['name_profile_not_in'] ;
+                    td8.innerHTML =  item['profile_lishn_name'] ;
                     td8.style = " text-align:center; line-height: normal;";
 
                     let td8_count = document.createElement('td');
-                    td8_count.innerHTML =  item['count_profile_not_in'] ;
+                    td8_count.innerHTML =  item['profile_lishn_count'] ;
                     td8_count.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
+
 
                     let td9 = document.createElement('td');
                     td9.innerHTML =  item['sved_name'] ;
