@@ -106,8 +106,10 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
 
     $query_criteria = "SELECT zac.id_criteria, zac.field3, zac.field4, zac.field5, zac.field6, zac.field7, zac.defect, zc.pp, zc.`name`
                         FROM z_answer_criteria AS zac
-                        JOIN z_criteria AS zc ON zac.id_criteria = zc.id_criteria
-                        WHERE zac.id_department = '$id_department'";
+                        left JOIN z_criteria AS zc ON zac.id_criteria = zc.id_criteria
+                        WHERE zac.id_department = '$id_department' order by  CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(zc.pp, '.', 1), '.', -1) AS UNSIGNED), 
+CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(zc.pp, '.', 2), '.', -1) AS UNSIGNED), 
+CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(zc.pp, '.', 3), '.', -1) AS UNSIGNED);";
     $result_criteria = mysqli_query($con, $query_criteria) or die("Ошибка " . mysqli_error($con));
 
     while ($row_criteria = mysqli_fetch_assoc($result_criteria)) {

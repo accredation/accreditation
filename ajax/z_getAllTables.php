@@ -46,7 +46,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         else {
             echo'
         <div class ="actions-container2"  style = "width: 30%;">
-          <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
+          <button class="btn-rename hiddentab" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
           <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
         </div>';
         }
@@ -83,7 +83,12 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
     $query_criteria = "SELECT zac.id_criteria, zac.field3, zac.field4, zac.field5, zac.field6, zac.field7, zac.defect, zc.pp, zc.`name`
                         FROM z_answer_criteria AS zac
                         JOIN z_criteria AS zc ON zac.id_criteria = zc.id_criteria
-                        WHERE zac.id_department = '$id_department'";
+                        JOIN z_list_tables_criteria AS zltc ON zltc.id_list_tables_criteria = zc.id_list_tables_criteria
+                        WHERE zac.id_department = '$id_department'
+                        ";
+//    order by  CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(zc.pp, '.', 1), '.', -1) AS UNSIGNED),
+//CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(zc.pp, '.', 2), '.', -1) AS UNSIGNED),
+//CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(zc.pp, '.', 3), '.', -1) AS UNSIGNED);
     $result_criteria = mysqli_query($con, $query_criteria) or die("Ошибка " . mysqli_error($con));
 
     while ($row_criteria = mysqli_fetch_assoc($result_criteria)) {
@@ -99,8 +104,8 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         echo '<tr>
                 <td style="border: 1px solid black; text-align: center;">' . $row_criteria["pp"] . '</td>
                 <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
-                <td style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
-                <select id="selpicker" onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)">
+                <td contenteditable="false" style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
+                <select  id="selpicker" onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)" >
                 <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="0"></option>
                 <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
                 <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
@@ -116,7 +121,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 echo '</div>';
             }
         }
-        echo '</div><input class  = "inpFiles"  onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"/></td>
+        echo '</div><input class  = "inpFiles"  onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"  /></td>
                 <td style="border: 1px solid black; max-width: 10vw;
   word-wrap: break-word;" contenteditable="true" oninput="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
             </tr>';

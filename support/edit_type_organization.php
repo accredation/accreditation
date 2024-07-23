@@ -30,7 +30,9 @@
         }
     </style>
 </head>
+
 <body >
+
 <?php
 include '../ajax/connection.php';
 class Types{
@@ -66,6 +68,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+            <button type="button" class="btn btn-light mb-4" data-toggle="modal" data-target="#modalAddUser">Добавить пользователя</button>
             <table id="example1" class="table table-striped table-bordered">
 
                 <thead>
@@ -130,6 +133,59 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
     <!-- /.card -->
 </div>
 
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить пользователя</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="user-name" class="col-form-label">Имя пользователя</label>
+                    <input type="text" class="form-control" id="user-name">
+                </div>
+                <div class="form-group">
+                    <label for="login-name" class="col-form-label">Логин</label>
+                    <input type="text" class="form-control" id="login-name">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-form-label">Пароль</label>
+                    <input type="text" class="form-control" id="password">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-form-label">Почта</label>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="roles">Роль</label>
+                    <select class="form-control" id="roles">
+                        <?php
+                            $res = mysqli_query($con, "select * from roles where id_role = 14");
+                            while($row = mysqli_fetch_assoc($res)){
+                                echo "<option value='{$row['id_role']}'>{$row['name']}</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" onclick="addUser()">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->
@@ -148,6 +204,32 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
 <script src="../dist/js/jquery.dataTables.min.js"></script>
 <script>
+    function addUser(){
+        let name = $("#user-name").val();
+        let login = $("#login-name").val();
+        let password = $("#password").val();
+        let email = $("#email").val();
+        let role = $("#roles").val();
+
+        $.ajax({
+            url:"../ajax/addUser.php",
+            method:"POST",
+            data:{name:name, login:login, password:password, email:email, role:role}
+
+        }).done(function (response){
+            console.log(response);
+            alert("Пользователь добавлен!");
+            location.reload();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 501) {
+                alert("Пользователь с таким логином уже существует");
+            } else {
+                console.error("Ошибка при выполнении запроса: " + textStatus, errorThrown);
+                alert("Произошла ошибка при выполнении запроса. Пожалуйста, попробуйте позже.");
+            }
+        });
+    }
+
     function getCookie(name) {
         let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
         return matches ? decodeURIComponent(matches[1]) : undefined;

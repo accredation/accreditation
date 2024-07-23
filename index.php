@@ -1,7 +1,37 @@
 <?php require_once 'ajax/connection.php'; ?>
 <?php include 'authorization/auth.php'; ?>
 <?php include 'authorization/out.php'; ?>
-<?php if(isset($_COOKIE['login'])) {
+
+<?php
+if(1){
+ echo '<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сервер временно недоступен</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .message {
+        font-size: 24px;
+        text-align: center;
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <div class="message">СЕРВЕР ВРЕМЕННО НЕДОСТУПЕН, ВЫПОЛНЯЕТСЯ ОБНОВЛЕНИЕ</div>
+</body>
+</html>';
+}else{
+if(isset($_COOKIE['login'])) {
 
 
     if (!isset($_GET['role'])) {
@@ -327,3 +357,5 @@
 
 
 </html>
+
+<?php } ?>

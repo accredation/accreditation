@@ -40,7 +40,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         else {
             echo'
         <div class ="actions-container2"  style = "width: 30%;">
-          <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
+          <button class="btn-rename hiddentab" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
           <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
         </div>';
         }

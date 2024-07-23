@@ -3560,11 +3560,12 @@ function printSved(el){
 
 
 function printSvedCheckbox(el) {
+
     $.ajax({
         url: "ajax/z_createFormSvidetelstvoCheckbox.php",
         method: "GET",
         data: {
-            id_application: id_app
+            id_application: id_app, status: status
         }
     }).then(response => {
         $('#modalBody').html(response);

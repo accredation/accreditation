@@ -1676,6 +1676,7 @@ function deleteDepartment(id_department) {
         })
             .done(function (response) {
                 console.log(response);
+
                 alert("Отделение удалено.");
                 let id_list_tables_criteria = response;
                 let tabActive = document.getElementById("tab" + openTabId + "-");
@@ -1699,6 +1700,7 @@ function deleteDepartment(id_department) {
                 let cardH = document.getElementById("heading" + id_department);
                 if (cardH)
                     cardH.remove();
+
             })
             .fail(function (error) {
                 console.error("Ошибка при удалении отдела:", error);

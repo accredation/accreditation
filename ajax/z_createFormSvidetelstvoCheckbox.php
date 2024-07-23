@@ -1,6 +1,7 @@
 <?php
 include "connection.php";
 $id_app = $_GET['id_application'];
+$status = $_GET['status'];
 
 
 //echo '<tr><td colspan="4" style="font-weight: 700; text-align: center">' . $name_sub . '</td></tr>';
@@ -69,12 +70,13 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     $result_tds = mysqli_query($con, $query_tds) or die("Ошибка " . mysqli_error($con));
     while ($row_tds = mysqli_fetch_assoc($result_tds)) {
         $checkbox = ($row_tds["accred_svid"] == 1) ? 'checked' : '';
+        $disabled = $status == 6 || $status == 7 ? "disabled" : "";
         echo ' <tr>
         <td style = "text-align: center;">'.$ind.'</td>
         <td style="width: 25%;    word-break: break-word;">'.$row_tds["namet"].'</td>
         <td>'.$row_tds["namel"].'</td>
         <td>'.$row_tds["named"].'</td>
-        <td><input onchange="svidCheckbox(this)" type="checkbox" '.$checkbox.' data-id="'.$row_tds["id_department"].'"></td>
+        <td><input onchange="svidCheckbox(this)"'. $disabled .' type="checkbox" '.$checkbox.' data-id="'.$row_tds["id_department"].'"></td>
     </tr>
     ';
         $ind++;

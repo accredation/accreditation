@@ -42,14 +42,15 @@ if (mysqli_num_rows($rez) == 1) {
                ON DUPLICATE KEY UPDATE `name` = '$fullName'";
     $rez2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
 
-    $query3 = "SELECT * FROM z_department WHERE z_department.id_list_tables_criteria ='$id_list_tables_criteria' AND id_subvision = '$id_sub'";
+    $query3 = "SELECT * FROM z_department WHERE z_department.id_list_tables_criteria ='$id_list_tables_criteria' AND id_subvision = '$id_sub' ";
     $rez3 = mysqli_query($con, $query3) or die("Ошибка " . mysqli_error($con));
 
     if (mysqli_num_rows($rez3) == 1) {
         $row3 = mysqli_fetch_assoc($rez3);
         $id_department = $row3['id_department'];
 
-        $query5 = "SELECT id_criteria, pp, z_criteria.`name` FROM z_criteria WHERE id_list_tables_criteria = '$id_list_tables_criteria'";
+        $query5 = "SELECT id_criteria, pp, z_criteria.`name` FROM z_criteria
+WHERE id_list_tables_criteria = '$id_list_tables_criteria' and z_criteria.`name` not like '%Укомплектованность%'";
         $rez5 = mysqli_query($con, $query5) or die("Ошибка " . mysqli_error($con));
 
         while ($row5 = mysqli_fetch_assoc($rez5)) {
@@ -84,7 +85,7 @@ if($row['id_role'] == 15){  }
        else {
            echo'
         <div class ="actions-container2"  style = "width: 30%;">
-          <button class="btn-rename" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
+          <button class="btn-rename hiddentab" onclick="renameDepartment(' . $id_department . ')">&#9998;</button>
           <button class="delete-icon" onclick="deleteDepartment(' . $id_department . ')">&times;</button>
         </div>';
            }

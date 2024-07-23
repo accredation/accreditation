@@ -7,7 +7,7 @@ $idDep = $_GET['idDep'];
 $val = $_GET['val'];
 
 mysqli_query($con, "update z_answer_criteria set field3 = '$val' where id_criteria='$idCrit' and id_department='$idDep'");
-$rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria where id_department='$idDep'");
+$rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria as za right join z_criteria as zc on zc.id_criteria=za.id_criteria where id_department='$idDep'");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
 {
@@ -15,7 +15,7 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     $count_all = $row['coun'];
 }
 
-$rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria where id_department='$idDep' and field3 = 1");
+$rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria  as za right join z_criteria as zc on zc.id_criteria=za.id_criteria where id_department='$idDep' and field3 = 1");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
 {
@@ -23,7 +23,7 @@ if (mysqli_num_rows($rez) == 1) //если получена одна строк�
     $count_yes = $row['coun'];
 }
 
-$rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria where id_department='$idDep' and field3 = 3");
+$rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria  as za right join z_criteria as zc on zc.id_criteria=za.id_criteria where id_department='$idDep' and field3 = 3");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
 {

@@ -260,6 +260,9 @@ function newShowModal(id_application) {
     let filesContainerZayavOtzyv = document.getElementById("filesContainerZayavOtzyv");
     let filesContainerDataZayavOtzyv = document.getElementById("filesContainerDataZayavOtzyv");
 
+    if(status == 6 || status == 7){
+        selPervtor.setAttribute("disabled", true);
+    }
 
     //  naim.value = username;
     if (status == 1 || status == 5) {
@@ -1831,8 +1834,8 @@ function deleteDepartment(id_department) {
                     data: {id_sub: openTabId, id_department: id_department},
                 })
                     .done(function (response) {
-                        console.log(response);
-
+                        let mainLi = document.getElementById("tab1");
+                        newShowTab(mainLi,1).then(()=> {console.log("ok");});
                         let id_list_tables_criteria = response;
                         let tabActive = document.getElementById("tab" + openTabId + "-");
                         let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);

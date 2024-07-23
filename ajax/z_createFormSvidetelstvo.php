@@ -154,10 +154,10 @@ while ($row_subs = mysqli_fetch_assoc($result_subs)) {
     $name_sub = $row_subs["name"];
     $id_sub = $row_subs["id_subvision"];
 
-    $query_tds = "select tt.name as namet, ltc.name_profile as namel, dep.name as named FROM z_department AS dep
+    $query_tds = "select tt.name as namet, ltc.name_profile as namel, dep.name as named, level FROM z_department AS dep
                         JOIN z_list_tables_criteria AS ltc ON ltc.id_list_tables_criteria = dep.id_list_tables_criteria  
                         JOIN z_types_tables AS tt ON tt.id_types_tables = ltc.id_types_tables
-                        where dep.id_subvision = '$id_sub' and dep.accred_svid = 1";
+                        where dep.id_subvision = '$id_sub' and dep.accred_svid = 1 order by level";
     $result_tds = mysqli_query($con, $query_tds) or die("Ошибка " . mysqli_error($con));
     while ($row_tds = mysqli_fetch_assoc($result_tds)) {
         echo ' <tr>
