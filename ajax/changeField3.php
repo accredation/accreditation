@@ -5,8 +5,10 @@ include "connection.php";
 $idCrit = $_GET['idCrit'];
 $idDep = $_GET['idDep'];
 $val = $_GET['val'];
+$id_answer_criteria = $_GET['idAnswerCriteria'];
 
-mysqli_query($con, "update z_answer_criteria set field3 = '$val' where id_criteria='$idCrit' and id_department='$idDep'");
+
+mysqli_query($con, "update z_answer_criteria set field3 = '$val' where id_answer_criteria = '$id_answer_criteria'");
 $rez = mysqli_query($con, "select count(*) as coun from z_answer_criteria as za right join z_criteria as zc on zc.id_criteria=za.id_criteria where id_department='$idDep'");
 
 if (mysqli_num_rows($rez) == 1) //если получена одна строка
