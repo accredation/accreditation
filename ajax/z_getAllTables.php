@@ -80,7 +80,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
         </tr>
         <tbody>';
 
-    $query_criteria = "SELECT zac.id_criteria, zac.field3, zac.field4, zac.field5, zac.field6, zac.field7, zac.defect, zc.pp, zc.`name`
+    $query_criteria = "SELECT zac.id_answer_criteria, zac.id_criteria, zac.field3, zac.field4, zac.field5, zac.field6, zac.field7, zac.defect, zc.pp, zc.`name`
                         FROM z_answer_criteria AS zac
                         JOIN z_criteria AS zc ON zac.id_criteria = zc.id_criteria
                         JOIN z_list_tables_criteria AS zltc ON zltc.id_list_tables_criteria = zc.id_list_tables_criteria
@@ -93,6 +93,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
 
     while ($row_criteria = mysqli_fetch_assoc($result_criteria)) {
         $id_crit = $row_criteria["id_criteria"];
+        $idAnswerCriteria = $row_criteria["id_answer_criteria"];
         $field3 = $row_criteria["field3"];
         $field4 = $row_criteria["field4"];
         if ($field4 !== null) {
@@ -105,25 +106,25 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
                 <td style="border: 1px solid black; text-align: center;">' . $row_criteria["pp"] . '</td>
                 <td style="border: 1px solid black; padding: 0.2rem 0.75rem; text-align: left;">' . $row_criteria["name"] . '</td>
                 <td contenteditable="false" style="border: 1px solid black;"><div style="display: flex; justify-content: center;">
-                <select  id="selpicker" onchange="changeField3(' . $id_crit . ', ' . $id_department . ', this)" >
+                <select  id="selpicker" onchange="changeField3(' . $idAnswerCriteria . ',' . $id_crit . ', ' . $id_department . ', this)" >
                 <option ' . (($field3 === '0' || null) ? 'selected' : '') . 'value="0"></option>
                 <option ' . ($field3 === '1' ? 'selected' : '') . ' value="1">Да</option>
                 <option ' . ($field3 === '2' ? 'selected' : '') . ' value="2">Нет</option>
                 <option ' . ($field3 === '3' ? 'selected' : '') . ' value="3">Не применяется</option>
                 </select></div></td>
-                <td style="border: 1px solid black;"><div id="' . $id_crit . '_' . $id_department . '" style="width: 350px; ">';
+                <td style="border: 1px solid black;"><div id="' . $idAnswerCriteria . '" style="width: 350px; ">';
         $count = count($files);
         foreach ($files as $key => $file) {
             if ($key < $count - 1) {
                 echo '<div class="file-container" >';
                 echo '<a target = "_blank" href="/docs/documents/' . $login_name . '/'.$id_app. '/' . $id_department . '/' . $file . '">' . $file . '</a>';
-                echo '<span class="delete-file" id="delete_'.$id_crit.'_'.$id_department.'_' . $file . '" onclick="z_deleteFile(\'' . $file . '\',' . $id_crit . ',' . $id_department . ')" style="cursor:pointer; padding-left:10px;">×</span>';
+                echo '<span class="delete-file" id="delete_'.$idAnswerCriteria.'_' . $file . '" onclick="z_deleteFile(' . $idAnswerCriteria . ',\'' . $file . '\')" style="cursor:pointer; padding-left:10px;">×</span>';
                 echo '</div>';
             }
         }
-        echo '</div><input class  = "inpFiles"  onchange="addFile(' . $id_crit . ', ' . $id_department . ', this)" type="file"  /></td>
+        echo '</div><input class  = "inpFiles"  onchange="addFile(' . $idAnswerCriteria . ',' . $id_crit . ', ' . $id_department . ', this)" type="file"  /></td>
                 <td style="border: 1px solid black; max-width: 10vw;
-  word-wrap: break-word;" contenteditable="true" oninput="changeField5(' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
+  word-wrap: break-word;" contenteditable="true" oninput="changeField5(' . $idAnswerCriteria . ',' . $id_crit . ', ' . $id_department . ', this)">' . $row_criteria["field5"] . '</td>
             </tr>';
     }
 

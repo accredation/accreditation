@@ -1666,11 +1666,11 @@ function newCollapseTable(thisDiv) {
     }
 }
 
-function changeField3(idCrit, idDep, select) {
+function changeField3(idAnswerCriteria, idCrit, idDep, select) {
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
     })
         .done(function (response) {
 
@@ -1687,10 +1687,10 @@ function changeField5(idCrit, idDep, text) {
     })
 }
 
-function addFile(idCrit, idDep, input) {
+function addFile(idAnswerCriteria, idCrit, idDep, input) {
     let login = getCookie('login');
 
-    let divA = document.getElementById(idCrit + "_" + idDep);
+    let divA = document.getElementById(idAnswerCriteria);
     let arrayDives = divA.childNodes;
     let arrayFiles = [];
     arrayDives.forEach(item => {
@@ -1704,6 +1704,7 @@ function addFile(idCrit, idDep, input) {
         form.append("idCrit", idCrit);
         form.append("idApp", id_app);
         form.append("idDep", idDep);
+        form.append("idAnswerCriteria", idAnswerCriteria);
         form.append("addedFile", addedFile);
 
         xhr.open("post", "ajax/changeField4.php", true);
@@ -1754,9 +1755,9 @@ function addFile(idCrit, idDep, input) {
             deleteButton.textContent = '×';
             deleteButton.style.cursor = 'pointer';
             deleteButton.style.paddingLeft = '10px';
-            deleteButton.id = 'delete_' + idCrit + '_' + idDep + '_' + addedFile.name;
+            deleteButton.id = 'delete_' + idAnswerCriteria + '_' + addedFile.name;
             deleteButton.onclick = function () {
-                z_deleteFile(addedFile.name, idCrit, idDep);
+                z_deleteFile(idAnswerCriteria, addedFile.name, idCrit, idDep);
             };
             fileContainer.appendChild(fileLink);
             fileContainer.appendChild(deleteButton);
@@ -1770,16 +1771,16 @@ function addFile(idCrit, idDep, input) {
 }
 
 
-function z_deleteFile(fileName, idCrit, idDepartment) {
+function z_deleteFile(idAnswerCriteria,fileName, idCrit, idDepartment) {
     if (confirm('Вы уверены, что хотите удалить этот файл?')) {
-        let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_criteria=' + idCrit + '&id_department=' + idDepartment + '&id_application=' + id_app;
+        let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_answer_criteria=' + idAnswerCriteria + '&id_application=' + id_app;
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     const fileContainers = document.getElementsByClassName('file-container');
                     for (let i = 0; i < fileContainers.length; i++) {
-                        if (fileContainers[i].contains(document.getElementById('delete_' + idCrit + '_' + idDepartment + '_' + fileName))) {
+                        if (fileContainers[i].contains(document.getElementById('delete_' + idAnswerCriteria + '_' + fileName))) {
                             fileContainers[i].remove();
                             break;
                         }

@@ -1,16 +1,16 @@
 <?php
-if (isset($_GET['file_name']) && isset($_GET['id_criteria']) && isset($_GET['id_department'])) {
+if (isset($_GET['file_name']) && isset($_GET['id_answer_criteria'])) {
     include "connection.php";
 
     $fileName = $_GET['file_name'];
     $id_application = $_GET['id_application'];
-    $idCrit = $_GET['id_criteria'];
-    $idDepartment = $_GET['id_department'];
+
+    $idAnswerCriteria = $_GET['id_answer_criteria'];
+
     $login  =$_COOKIE["login"];
     $fileName = mysqli_real_escape_string($con, $fileName);
-    $idCrit = (int)$idCrit;
-    $idDepartment = (int)$idDepartment;
-    $query = "SELECT field4 FROM z_answer_criteria WHERE id_criteria = '$idCrit' AND id_department = '$idDepartment'";
+
+    $query = "SELECT field4 FROM z_answer_criteria WHERE id_answer_criteria = '$idAnswerCriteria'";
     $result = mysqli_query($con, $query);
     $row = mysqli_fetch_assoc($result);
     $filesString = $row['field4'];
@@ -21,7 +21,7 @@ if (isset($_GET['file_name']) && isset($_GET['id_criteria']) && isset($_GET['id_
         unset($filesArray[$key]);
     }
     $newFilesString = implode(';', $filesArray);
-    $updateQuery = "UPDATE z_answer_criteria SET field4 = '$newFilesString' WHERE id_criteria = '$idCrit' AND id_department = '$idDepartment'";
+    $updateQuery = "UPDATE z_answer_criteria SET field4 = '$newFilesString' WHERE id_answer_criteria = '$idAnswerCriteria'";
     $updateResult = mysqli_query($con, $updateQuery);
     if ($updateResult) {
         echo json_encode(['success' => true]);
