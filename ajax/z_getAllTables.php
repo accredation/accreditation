@@ -82,7 +82,7 @@ while ($row_department = mysqli_fetch_assoc($result_departments)) {
 
     $query_criteria = "SELECT zac.id_answer_criteria, zac.id_criteria, zac.field3, zac.field4, zac.field5, zac.field6, zac.field7, zac.defect, zc.pp, zc.`name`
                         FROM z_answer_criteria AS zac
-                        JOIN z_criteria AS zc ON zac.id_criteria = zc.id_criteria
+                        LEFT JOIN z_criteria AS zc ON zac.id_criteria = zc.id_criteria
                         JOIN z_list_tables_criteria AS zltc ON zltc.id_list_tables_criteria = zc.id_list_tables_criteria
                         WHERE zac.id_department = '$id_department'
                         ";

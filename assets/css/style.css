@@ -13133,7 +13133,7 @@ dl {
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
     background: #096262;
-    width: 258px;
+    width: 285px;
     height: 64px; }
     @media (max-width: 991px) {
       .navbar .navbar-brand-wrapper {
@@ -13168,7 +13168,7 @@ dl {
     color: #ffffff;
     padding-left: 24px;
     padding-right: 24px;
-    width: calc(100% - 258px);
+    width: calc(100% - 285px);
     height: 64px;
     background-color: #148A8A;
   }
@@ -13551,7 +13551,7 @@ dl {
   background: #148A8A;
   font-family: "nunito-medium", sans-serif;
   padding: 0;
-  width: 258px;
+  min-width: 285px;
   z-index: 11;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
