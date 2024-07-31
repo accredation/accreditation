@@ -2522,8 +2522,6 @@ async function sendApp() {
                         });
                     //     })
                     // })
-
-
                 }
             } else {
                 let errMsg = "Допущена ошибка: ";
