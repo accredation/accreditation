@@ -735,7 +735,7 @@ if (mysqli_num_rows($rez) == 0) //если нашлась одна строка,
                                         <form id="formAdminResh" >
                                             <div class="form-group" id = "divAdminResh" style="margin-left: 2.5rem">
                                                 <label for="" style="font-size: 24px">Административное решение</label><br/>
-                                                <a id="fileAdminResh" ></a>
+                                                <div id="filesContainerAdminResh" style="margin-left: 0px;  margin-top: 0px;"></div>
                                             </div>
                                         </form>
 

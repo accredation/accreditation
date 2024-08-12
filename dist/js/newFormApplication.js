@@ -10,15 +10,28 @@ function newShowModal(id_application) {
     if (formFileReportZakluchenieSootvet.classList.contains("hiddentab"))
         formFileReportZakluchenieSootvet.classList.add("hiddentab");
 
-    let fileAdminResh = document.getElementById("fileAdminResh");
+    let filesContainerAdminResh = document.getElementById("filesContainerAdminResh");
+
     $.ajax({
         url: "ajax/getFileAdminResh.php",
         method: "POST",
         data: {id_app: id_app}
     }).then(response => {
-        fileAdminResh.innerHTML = response;
-        fileAdminResh.href = `docs/documents/${getCookie('login')}/${id_app}/${response}`;
-    })
+        if (response != null) {
+            let fileNames = response.split(';');
+            fileNames.forEach((fileName) => {
+                fileName = fileName.trim();
+                if (fileName) {
+                    console.log (fileName);
+                    loginApp  =  getCookie('login');
+                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
+                    // fileAdminResh.innerHTML = response;
+                    // fileAdminResh.href = `docs/documents/${getCookie('login')}/${id_app}/${response}`;
+                }
+            });
+        }
+    });
+
 
     createrApp = "";
 
