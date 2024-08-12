@@ -79,6 +79,12 @@
             e-mail: <a href="mailto:hancharou@rnpcmt.by">hancharou@rnpcmt.by</a><br /><br />
 
         </section>
+        <section class="col-lg-3">
+            <p class="card-text" style="display:inline; font-size: 1.1rem">Сыдыков Никита Мураджанович</p><br/>
+            ведущий специалист<br/>
+            e-mail: <a href="mailto:hancharou@rnpcmt.by">sydykav@rnpcmt.by</a><br /><br />
+
+        </section>
     </div>
 </div>
 

@@ -444,13 +444,18 @@
                         </section>
                     </div>
                 </section>
-
+            </div>
+            <div class="row" >
                 <section class="col-lg-4" style="padding-left: 2%">
                     <p style="display:inline; font-size: 1.1rem">Василевич Анжелика Дмитриевна</p><br/>
                     Тел.: +375 17 311-50-92<br/>
                 </section>
                 <section class="col-lg-4">
                     <p class="card-text" style="display:inline; font-size: 1.1rem">Довнар Ольга Александровна</p><br/>
+                    Тел.: +375 17 311-50-88<br/>
+                </section>
+                <section class="col-lg-4">
+                    <p class="card-text" style="display:inline; font-size: 1.1rem">Чеб Надежда Александровна</p><br/>
                     Тел.: +375 17 311-50-88<br/>
                 </section>
             </div>
