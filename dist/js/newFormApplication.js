@@ -1680,7 +1680,7 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
 function changeField5(idAnswerCriteria,idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField5.php",
-        method: "GET",
+        method: "POST",
         data: {idAnswerCriteria:idAnswerCriteria,idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
