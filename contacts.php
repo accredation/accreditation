@@ -56,6 +56,7 @@
         <br/>
         <p style="text-align: justify;">Адрес: ул. Фабрициуса, 28, каб. 211 -&nbsp;214, 216,&nbsp; 220007, г. Минск, Республика Беларусь</p>
         <p style="text-align: justify;">e-mail: <strong><a href="mailto:medaccr@rnpcmt.by">medaccr@rnpcmt.by</a></strong></p>
+        <p style="text-align: justify;">Тел.: +375 17 311-50-83</p>
         <p style="text-align: justify;">Тел.: +375 17 368-06-77</p>
 
         <br/>
