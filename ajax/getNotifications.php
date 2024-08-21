@@ -6,11 +6,13 @@ class Notify{
 }
 $id_user = $_GET['id_user'];
 
-$query = "SELECT * FROM notifications WHERE readornot=1 and id_user = '$id_user' order by id_notifications desc";
+$query = "SELECT * FROM notifications WHERE (readornot=1 and id_user = '$id_user') or (id_user is null) order by id_notifications desc";
 
 $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
 
+
 $cells = array();
+
 
 
 
@@ -21,8 +23,6 @@ foreach ($names as $name) {
     $not->text_notifications = $name['text_notifications'];
     array_push($cells,$not);
 }
-
-
 
 
 echo json_encode($cells);

@@ -4,6 +4,7 @@ let accountAction = document.getElementById("accountAction");
 let log_out = document.getElementById("log_out");
 let loginName = document.getElementById("loginName");
 let LogIn;
+let countNots;
 
 
 $(document).ready(function () {
@@ -65,7 +66,6 @@ let myidUser;
 let ageSess;
 
 
-
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -91,6 +91,7 @@ function checkNotifications() {
     }
 }
 
+//localStorage.setItem('countNots', notifications.length);
 function getNotifications() {
     let id_user = getCookie('id_user');
     let notif = document.getElementById("notifications");
@@ -107,27 +108,35 @@ function getNotifications() {
 
             var notifications = JSON.parse(response);
             console.log(notifications);
+
             if (notifications.length === 0) {
                 symbol.style.display = "none";
                 notif.innerHTML += "<p class='text-muted p-3'>Нет уведомлений</p>";
             } else {
-                symbol.style.display = "block";
-                for (var i = 0; i < notifications.length; i++) {
-                    var notification = notifications[i];
-                    let idNot = notification['id_notifications'];
-                    var html = "<a class='dropdown-item preview-item' onclick='markAsRead(" + idNot + ")'>";
-                    html += '<div class="preview-thumbnail">';
-                    html += '<div class="preview-icon bg-success">';
-                    html += '<i class="mdi mdi-calendar"></i>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">';
-                    html += '<h6 class="preview-subject font-weight-normal mb-1">Новое уведомление</h6>';
-                    html += '<p class="text-gray ellipsis mb-0" style="text-wrap: wrap; min-width: 250px">' + notification['text_notifications'] + '</p>';
-                    html += '</div>';
-                    html += '</a>';
-                    html += '<div class="dropdown-divider"></div>';
-                    notif.innerHTML += html;
+                countNots = notifications.length;
+                if (countNots == localStorage.getItem('countNots')) {
+                    symbol.style.display = "none";
+                    notif.innerHTML += "<p class='text-muted p-3'>Нет уведомлений</p>";
+                }
+                else {
+                    symbol.style.display = "block";
+                    for (var i = 0; i < notifications.length; i++) {
+                        var notification = notifications[i];
+                        let idNot = notification['id_notifications'];
+                        var html = "<a class='dropdown-item preview-item' onclick='markAsRead(" + idNot + ", countNots )'>";
+                        html += '<div class="preview-thumbnail">';
+                        html += '<div class="preview-icon bg-success">';
+                        html += '<i class="mdi mdi-calendar"></i>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">';
+                        html += '<h6 class="preview-subject font-weight-normal mb-1">Новое уведомление</h6>';
+                        html += '<p class="text-gray ellipsis mb-0" style="text-wrap: wrap; min-width: 250px">' + notification['text_notifications'] + '</p>';
+                        html += '</div>';
+                        html += '</a>';
+                        html += '<div class="dropdown-divider"></div>';
+                        notif.innerHTML += html;
+                    }
                 }
             }
         });
@@ -136,11 +145,14 @@ function getNotifications() {
 
 // Вызов функции getNotifications при нажатии на колокольчик
 notificationDropdown.onclick = function () {
+
     getNotifications();
 };
 
 
 function markAsRead(notificationId) {
+
+    localStorage.setItem('countNots', countNots);
 
     $.ajax({
         url: "ajax/markNotificationAsRead.php",
@@ -199,8 +211,6 @@ window.addEventListener("unload", async (event) => {
     event.preventDefault();
     //   event.returnValue ='';
 })
-
-
 
 
 //
