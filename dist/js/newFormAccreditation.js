@@ -626,6 +626,13 @@ function newShowModal(id_application) {
             adressFact.value = data[0][18];
             dateKom.value = data[0][26];
             DateZakluchenia.value = data[0][31];
+
+            let id_old_app = data[0][32];
+            oldApp = id_old_app;
+            if (id_old_app) {
+                id_application = id_old_app;
+            }
+
             let data1 = JSON.parse(response);
             idRkk = data1[4];
 

@@ -358,6 +358,7 @@ function newShowModal(id_application) {
             selPervtor.options.selectedIndex = Number(data[0][25]) - 1;
             sel_pervtor = data[0][25];
             let id_old_app = data[0][24];
+            oldApp = id_old_app;
             if (id_old_app) {
                 id_application = id_old_app;
             }

@@ -6,7 +6,7 @@ $login = $_COOKIE['login'];
 
 
 
-$query_departments = "SELECT  z_department.* , us.login, a.id_application
+$query_departments = "SELECT z_department.* , us.login, a.id_application
 FROM z_department 
 left outer join subvision s on z_department.id_subvision=s.id_subvision
 left outer join applications a on s.id_application=a.id_application

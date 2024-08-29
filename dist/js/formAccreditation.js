@@ -13,6 +13,7 @@ let predDiv = document.getElementById("predDiv");
 let data_old = new Array();
 let data_old1 = new Array();
 let openTabId = 0;
+let oldApp;
 
 let status = 2;
 
