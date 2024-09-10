@@ -10,7 +10,7 @@ $query_departments = "SELECT z_department.* , us.login, a.id_application
 FROM z_department 
 left outer join subvision s on z_department.id_subvision=s.id_subvision
 left outer join applications a on s.id_application=a.id_application
-left outer join users us on a.id_user=us.id_uz and us.active=1 and us.id_role=3
+left outer join users us on a.id_user=us.id_uz and us.id_role=3
 WHERE z_department.ID_SUBVISION = '$id_sub'";
 $result_departments = mysqli_query($con, $query_departments) or die("Ошибка " . mysqli_error($con));
 

@@ -47,17 +47,7 @@ function newShowModal(id_application) {
     prev.insertAdjacentElement("afterend", newDivUcomplect);
     let modalUcomplect = document.getElementById("modalUcomplect");
     let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
-    btnTableUcomplect.onclick = () => {
 
-        modalUcomplect.style = "display: block";
-        $.ajax({
-            url: "ajax/z_accred_ucomplectTable.php",
-            method: "GET",
-            data: {id_application: id_application}
-        }).then((response) => {
-            modalBody.innerHTML = response;
-        })
-    }
 
     let closeXucomplect = document.getElementsByClassName("closeXucomplect")[0];
     closeXucomplect.onclick = () => {
@@ -412,6 +402,18 @@ function newShowModal(id_application) {
     let sootvetstvie = document.getElementById("sootvetstvie")
     number_app.innerHTML = id_application;
     id_app = id_application;
+
+    btnTableUcomplect.onclick = () => {
+
+        modalUcomplect.style = "display: block";
+        $.ajax({
+            url: "ajax/z_accred_ucomplectTable.php",
+            method: "GET",
+            data: {id_application: id_app}
+        }).then((response) => {
+            modalBody.innerHTML = response;
+        })
+    }
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
     let formReport = document.getElementById("formReport");
