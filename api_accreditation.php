@@ -545,14 +545,14 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12) {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol, r.date_delo as datdel
                                                     FROM applications a 
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                      left outer join rkk r on r.id_application = a.id_application
                                                    where id_status = 6 and u.oblast = '$role'";
                                         } else {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol, r.date_delo as datdel
                                                     FROM applications a 
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
@@ -561,6 +561,7 @@
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
+
                                         ?>
 
                                         <table id="example" class="table table-striped table-bordered"
@@ -575,13 +576,17 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                include "ajax/mainMark.php"
+                                                include "ajax/mainMark.php";
+                                                $date_delo = $app['datdel'];
+                                                if($date_delo != "")
+                                                    $style = 'color: red;' ;
+                                                else $style = "";
                                                 ?>
-
                                                 <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
-                                                    style="cursor: pointer;">
+                                                    style="cursor: pointer; <?= $style?>">
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
+
                                                     <td><?= $app['date_protokol'] ?></td>
 
 
