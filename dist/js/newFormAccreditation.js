@@ -635,6 +635,9 @@ function newShowModal(id_application) {
             if (id_old_app) {
                 id_application = id_old_app;
             }
+            else {
+                id_application = id_app;
+            }
 
             let data1 = JSON.parse(response);
             idRkk = data1[4];
@@ -664,19 +667,20 @@ function newShowModal(id_application) {
             if (data[0][23] != null) {
                 let fileNames = data[0][23].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][24] != null) {
                 let fileNames = data[0][24].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/"  + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                    console.log(href='/docs/documents/" ' + id_app);
+                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/"  + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][14] != null) {
                 let fileNames = data[0][14].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_application + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][15] != null) {
@@ -690,7 +694,7 @@ function newShowModal(id_application) {
             }
             if (data[0][9] != null) {
                 console.log(href='/docs/documents/" ' + id_app);
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_app + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
