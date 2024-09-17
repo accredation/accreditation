@@ -47,17 +47,7 @@ function newShowModal(id_application) {
     prev.insertAdjacentElement("afterend", newDivUcomplect);
     let modalUcomplect = document.getElementById("modalUcomplect");
     let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
-    btnTableUcomplect.onclick = () => {
 
-        modalUcomplect.style = "display: block";
-        $.ajax({
-            url: "ajax/z_accred_ucomplectTable.php",
-            method: "GET",
-            data: {id_application: id_application}
-        }).then((response) => {
-            modalBody.innerHTML = response;
-        })
-    }
 
     let closeXucomplect = document.getElementsByClassName("closeXucomplect")[0];
     closeXucomplect.onclick = () => {
@@ -412,6 +402,18 @@ function newShowModal(id_application) {
     let sootvetstvie = document.getElementById("sootvetstvie")
     number_app.innerHTML = id_application;
     id_app = id_application;
+
+    btnTableUcomplect.onclick = () => {
+
+        modalUcomplect.style = "display: block";
+        $.ajax({
+            url: "ajax/z_accred_ucomplectTable.php",
+            method: "GET",
+            data: {id_application: id_app}
+        }).then((response) => {
+            modalBody.innerHTML = response;
+        })
+    }
     let modal = document.getElementById("myModal");
     let tablist = document.getElementById("tablist");
     let formReport = document.getElementById("formReport");
@@ -464,11 +466,12 @@ function newShowModal(id_application) {
         select.appendChild(option2);
 
         select.onchange = () => {
+            console.log (id_app);
             $.ajax({
                 url: "ajax/changeGiveSvid.php",
                 method: "GET",
                 data: {
-                    id_app: id_application,
+                    id_app: id_app,
                     giveSvid: select.value
                 }
             })
@@ -626,6 +629,13 @@ function newShowModal(id_application) {
             adressFact.value = data[0][18];
             dateKom.value = data[0][26];
             DateZakluchenia.value = data[0][31];
+
+            let id_old_app = data[0][32];
+            oldApp = id_old_app;
+            if (id_old_app) {
+                id_application = id_old_app;
+            }
+
             let data1 = JSON.parse(response);
             idRkk = data1[4];
 
@@ -679,7 +689,8 @@ function newShowModal(id_application) {
                 soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                console.log(href='/docs/documents/" ' + id_app);
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_app + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][10] + "'>" + data[0][10] + "</a>");

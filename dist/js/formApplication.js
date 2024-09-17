@@ -530,6 +530,10 @@ function showModal(id_application, strMarks, strMarksAccred) {
             email.value = data[0][5];
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
+            let id_old_app = data[0][24];
+            if (id_old_app) {
+                id_application = id_old_app;
+            }
             if (data[0][17] != null) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }

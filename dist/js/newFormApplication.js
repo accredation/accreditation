@@ -64,6 +64,11 @@ function newShowModal(id_application) {
     prev.insertAdjacentElement("afterend", newDivUcomplect);
     let modalUcomplect = document.getElementById("modalUcomplect");
     let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
+    let appex =  document.getElementById('id_application').textContent;
+
+
+
+
     btnTableUcomplect.onclick = () => {
 
         if (status == 1) {
@@ -71,7 +76,7 @@ function newShowModal(id_application) {
             $.ajax({
                 url: "ajax/z_ucomplectTable.php",
                 method: "GET",
-                data: {id_application: id_app}
+                data: {id_application: id_application}
             }).then((response) => {
                 modalBody.innerHTML = response;
             })
@@ -80,7 +85,7 @@ function newShowModal(id_application) {
             $.ajax({
                 url: "ajax/z_accred_ucomplectTable.php",
                 method: "GET",
-                data: {id_application: id_app}
+                data: {id_application: id_application}
             }).then((response) => {
                 modalBody.innerHTML = response;
             })
@@ -358,6 +363,7 @@ function newShowModal(id_application) {
             selPervtor.options.selectedIndex = Number(data[0][25]) - 1;
             sel_pervtor = data[0][25];
             let id_old_app = data[0][24];
+            oldApp = id_old_app;
             if (id_old_app) {
                 id_application = id_old_app;
             }
