@@ -30,7 +30,7 @@ left outer join `subvision` s on a.id_application=s.id_application
 left outer join `z_department` zd on s.id_subvision=zd.id_subvision
 left outer join `z_answer_criteria` zac on zd.id_department=zac.id_department
 left outer join `z_criteria` zc on zac.id_criteria=zc.id_criteria
-WHERE a.id_application = '$id_app' 
+WHERE a.id_application = '$id_app'  and pp is not null
   and ((((zac.field6 = 1 or zac.field6 = 3) and ((Ltrim(Rtrim(zac.field7))='') or zac.field7 is null)))
  or ((zac.field6 = 2) and (( Ltrim(Rtrim(zac.defect))='' ) or (zac.defect is null)) or (zac.field6 is null or zac.field6=0))or zd.id_department is null )
 order by  sub_name,   dep_name, zc.pp";

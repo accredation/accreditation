@@ -466,11 +466,12 @@ function newShowModal(id_application) {
         select.appendChild(option2);
 
         select.onchange = () => {
+            console.log (id_app);
             $.ajax({
                 url: "ajax/changeGiveSvid.php",
                 method: "GET",
                 data: {
-                    id_app: id_application,
+                    id_app: id_app,
                     giveSvid: select.value
                 }
             })
@@ -688,7 +689,8 @@ function newShowModal(id_application) {
                 soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                console.log(href='/docs/documents/" ' + id_app);
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_app + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
