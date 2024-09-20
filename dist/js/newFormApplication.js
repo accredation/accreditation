@@ -76,7 +76,7 @@ function newShowModal(id_application) {
             $.ajax({
                 url: "ajax/z_ucomplectTable.php",
                 method: "GET",
-                data: {id_application: id_application}
+                data: {id_application: id_app}
             }).then((response) => {
                 modalBody.innerHTML = response;
             })
