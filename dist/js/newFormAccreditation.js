@@ -3237,6 +3237,8 @@ function saveRkk() {
     let dop_info = document.getElementById("dop_info");
     let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
     let checkboxValue = checkboxValueGuzo.checked ? "1" : "0";
+    let hiddenSelectContainer = document.getElementById('hidden_select_container');
+    let additionalSelect = document.getElementById('additional_select');
     $.ajax({
         url: "ajax/saveRkk.php",
         method: "POST",
@@ -3250,6 +3252,7 @@ function saveRkk() {
             dop_sved: dop_sved.value,
             predst_rkk: predst_rkk.value,
             perv_vtor_zayav: perv_vtor_zayav.options[perv_vtor_zayav.options.selectedIndex].value,
+            additionalSelect: additionalSelect.options[additionalSelect.options.selectedIndex].value,
             reg_index: reg_index.value,
             povtor_index: povtor_index.value,
             info_napr_zapr: info_napr_zapr.value,
@@ -3295,7 +3298,7 @@ function getRkk() {
     let dop_sved = document.getElementById("dop_sved");
     // let prinyal_zayav = document.getElementById("prinyal_zayav");
     let predst_rkk = document.getElementById("predst_rkk");
-    let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
+
     let reg_index = document.getElementById("reg_index");
     let povtor_index = document.getElementById("povtor_index");
     let info_napr_zapr = document.getElementById("info_napr_zapr");
@@ -3320,6 +3323,10 @@ function getRkk() {
     let date_delo = document.getElementById("date_delo");
     let dop_info = document.getElementById("dop_info");
     let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
+    let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
+    let hiddenSelectContainer = document.getElementById('hidden_select_container');
+    let additionalSelect = document.getElementById('additional_select');
+
 
     dateRegistr.value = "";
     countlist.value = "";
@@ -3339,6 +3346,7 @@ function getRkk() {
     date_admin_resh.value = "";
     count_admin_resh.value = "";
     resultat.options.selectedIndex = 0;
+    additionalSelect.selectedIndex = 0;
     svidetelstvo.value = "";
     date_svidetelstvo.value = "";
     po_n.value = "";
@@ -3375,6 +3383,14 @@ function getRkk() {
             // prinyal_zayav.value = data['id_user'];
             predst_rkk.value = data.predstavitel;
             perv_vtor_zayav.value = data.perv_vtor;
+            if (data.perv_vtor === "2")
+            {
+                hiddenSelectContainer.style.display = 'block';
+                additionalSelect.selectedIndex = Number(data.rkkotzyv);
+            }else
+            {
+                hiddenSelectContainer.style.display = 'none';
+            }
             povtor_index.value = data.date_index_povt_app;
             info_napr_zapr.value = data['info_napr_zapr'];
             info_sogl.value = data['info_sogl'];
@@ -3423,6 +3439,8 @@ function getRkk() {
         }
     });
 }
+
+
 
 
 function regRkk() {

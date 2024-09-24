@@ -1278,6 +1278,18 @@
                                         </select>
 
                                     </div>
+                                    <div class="form-group" id="hidden_select_container" style="display: none;">
+                                        <label>Дополнительный выбор<span class="zvezda">*</span></label>
+                                        <select class="form-control" id="additional_select">
+                                            <option value="0">Не выбрано</option>
+                                            <option value="1">Отказ в приеме заявления</option>
+                                            <option value="2">Отказ в свидетельстве</option>
+                                            <option value="3">Отзыв заявления</option>
+                                            <option value="4">Изменить в свидетельстве</option>
+                                            <option value="5">Неполное свидетельство</option>
+                                        </select>
+                                    </div>
+
                                     <div class="form-group"><label>Регистрационный индекс -</label><span
                                                 id="reg_index" ></span></div>
                                     <div class="form-group"><label>Даты, индексы повторных заявлений</label><input

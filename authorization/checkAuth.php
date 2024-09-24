@@ -4,7 +4,7 @@ $error = array(); //массив для ошибок
 
 $ip = $_SERVER['REMOTE_ADDR'];
 if ($ip == "80.94.166.115" || $ip == "212.98.179.59") {
-    echo 'Да';
+    echo '1';
     return;
 }
 

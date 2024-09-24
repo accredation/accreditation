@@ -46,6 +46,7 @@ if (mysqli_num_rows($rez) == 1) {
     $responce['po_n'] = $row['po_n'];
     $responce['delo_listov'] = $row['delo_listov'];
     $responce['checkboxValueGuzo'] = $row['checkboxValueGuzo'];
+    $responce['rkkotzyv'] = $row['rkkotzyv'];
 
     echo json_encode($responce);
 } else {

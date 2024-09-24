@@ -36,6 +36,7 @@ if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_o
     $dop_info = $_POST['dop_info'];
     $id_application = $_POST['id_application'];
     $checkboxValue = $_POST['checkboxValue'];
+    $hiddenSelectContainer = $_POST['additionalSelect'];
 
     $formatted_dateRegistr = date("Y-m-d", strtotime($dateRegistr)) == "1970-01-01" ? "NULL" : "'".date("Y-m-d", strtotime($dateRegistr))."'";
     $formatted_date_zasedanie = date("Y-m-d", strtotime($date_zasedanie))== "1970-01-01" ? "NULL" : "'".date("Y-m-d", strtotime($date_zasedanie))."'";
@@ -75,7 +76,9 @@ if ($_POST['dateRegistr'] !== "" && $_POST['countlist'] !== "" && $_POST['tech_o
         dop_info = '$dop_info', 
         delo_listov = '$delo_listov', 
         po_n = '$po_n',
-         checkboxValueGuzo = '$checkboxValue'
+         checkboxValueGuzo = '$checkboxValue',
+         rkkotzyv = '$hiddenSelectContainer'
+               
         WHERE id_application = '$id_application';");
 
         mysqli_query($con, "update applications SET
@@ -86,12 +89,12 @@ WHERE id_application = '$id_application';");
         mysqli_query($con, "insert into rkk (id_application, date_reg, count_list_app,tech_osn, raspisanie, ucomplect, 
                  report_samoacred, dop_sved,		predstavitel,	perv_vtor,
                  info_napr_zapr,	info_sogl,	protokol_zased,	date_protokol	,info_vozvr,	info_otzyv	,count_list_admin,	`result`,	svidetelstvo,	date_sved	,
-                 count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info, delo_listov, po_n , checkboxValueGuzo, type_otzyv ) 
+                 count_list_sved	,info_uved	,	count_list_report_medacr,	getter	,delo	,date_delo	,dop_info, delo_listov, po_n , checkboxValueGuzo,rkkotzyv, type_otzyv ) 
                             values ('$id_application',$formatted_dateRegistr,'$countlist','$tech_osn_rkk','$stat_rasp','$ucomp_rkk','$report_samoacred',
                                     '$dop_sved', '$predst_rkk', '$perv_vtor_zayav','$info_napr_zapr','$info_sogl',
                                     '$protolol_zasedanie', $formatted_date_zasedanie,'$info_vozvrat','$info_otzyv','$count_admin_resh',
                                     '$resultat','$svidetelstvo',$formatted_date_svidetelstvo,'$count_svidetelstvo','$info_uved',
-                                    '$count_medacr','$getter','$delo',$formatted_date_delo, '$dop_info', '$delo_listov', '$po_n' , '$checkboxValue' , 0)");
+                                    '$count_medacr','$getter','$delo',$formatted_date_delo, '$dop_info', '$delo_listov', '$po_n' , '$checkboxValue' ,'$hiddenSelectContainer', 0)");
 echo mysqli_error($con);
         mysqli_query($con, "update applications SET
  checkboxValueGuzo = '$checkboxValue'
