@@ -69,6 +69,7 @@ if (mysqli_num_rows($rez) >0) //если нашлась одна строка, �
     $zayav_otzyv  = $row['zayav_otzyv'];
     $data_zayav_otzyv  = $row['data_zayav_otzyv'];
     $data_zakluchenia  = $row['data_zakluchenia'];
+    $id_old_app = $row['id_old_app'];
 
 
 
@@ -106,6 +107,8 @@ array_push($cells,$plandatanedostatkov); //28
 array_push($cells,$zayav_otzyv); //29
 array_push($cells,$data_zayav_otzyv); //30
 array_push($cells,$data_zakluchenia); //31
+array_push($cells,$id_old_app); //32
+
 
 
 

@@ -621,6 +621,14 @@ function reportYurLica(dataParametrs){
         th7.style = "border: 1px solid black; text-align: left;line-height: normal";
 
         
+        let th8 = document.createElement('th');
+        th8.innerHTML = 'Удельный вес «Да»';
+        th8.style = "border: 1px solid black; text-align: left;line-height: normal";
+
+        let th9 = document.createElement('th');
+        th9.innerHTML = 'Удельный вес «Нет»';
+        th9.style = "border: 1px solid black; text-align: left;line-height: normal";
+
 
          trHead.appendChild(th1);
          trHead.appendChild(th2);
@@ -629,7 +637,8 @@ function reportYurLica(dataParametrs){
          trHead.appendChild(th5);
          trHead.appendChild(th6);
          trHead.appendChild(th7);
-
+         trHead.appendChild(th8);
+         trHead.appendChild(th9);
 
          table.appendChild(trHead);
 
@@ -703,16 +712,47 @@ function reportYurLica(dataParametrs){
                     let td7 = document.createElement('td');
                     td7.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
+                    let td8 = document.createElement('td');
+                    td8.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
+
+                    let td9 = document.createElement('td');
+                    td9.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
+                    let ynCount = 0;
                     if(dataParametrs.type_report ==1){
                         td5.innerHTML =  item['count_yes'] ;
                         td6.innerHTML =  item['count_no'] ;
                         td7.innerHTML =  item['count_not_need'] ;
+                        ynCount = Number(item['count_yes']) + Number(item['count_no'])
+
+                        if(item['count_yes'] > 0) {
+                            
+                            td8.innerHTML =  (item['count_yes'] / ynCount *100).toFixed(2) ;
+                            td8.innerHTML = td8.innerHTML  + ' %';
+                        } else td8.innerHTML =  0;
+
+                        if(item['count_no'] > 0) {
+                            td9.innerHTML =  (item['count_no'] / ynCount *100).toFixed(2)  ;
+                            td9.innerHTML = td9.innerHTML  + ' %';
+                        } else td9.innerHTML =  0;
+
                     } else {
                         td5.innerHTML =  item['count_yes_accred'] ;
                         td6.innerHTML =  item['count_no_accred'] ; 
                         td7.innerHTML =  item['count_not_need_accred'] ;
-                    }
+                        ynCount = Number(item['count_yes_accred']) + Number(item['count_no_accred'])
+                        if(item['count_yes_accred'] > 0) {
+                            td8.innerHTML =  (item['count_yes_accred'] / ynCount *100).toFixed(2) ;
+                            td8.innerHTML = td8.innerHTML  + ' %';
+                        } else td8.innerHTML =  0;
 
+                        if(item['count_no_accred'] > 0) {
+                            td9.innerHTML =  (item['count_no_accred'] / ynCount *100).toFixed(2) ;
+                            td9.innerHTML = td9.innerHTML  + ' %';
+                        } else td9.innerHTML =  0;
+
+
+                    }
+      
 
                     trStr.appendChild(td1);
                     trStr.appendChild(td2);
@@ -721,7 +761,8 @@ function reportYurLica(dataParametrs){
                     trStr.appendChild(td5);
                     trStr.appendChild(td6);
                     trStr.appendChild(td7);
-
+                    trStr.appendChild(td8);
+                    trStr.appendChild(td9);
                     tbody.appendChild(trStr);
 
 
@@ -899,13 +940,24 @@ function reportWithOutYurLica(dataParametrs){
         th7.innerHTML = 'Варианты «Не требуется»';
         th7.style = "border: 1px solid black; text-align: left;line-height: normal";
 
+        
+        let th8 = document.createElement('th');
+        th8.innerHTML = 'Удельный вес «Да»';
+        th8.style = "border: 1px solid black; text-align: left;line-height: normal";
+
+        let th9 = document.createElement('th');
+        th9.innerHTML = 'Удельный вес «Нет»';
+        th9.style = "border: 1px solid black; text-align: left;line-height: normal";
+
+
          trHead.appendChild(th2);
          trHead.appendChild(th3);
          trHead.appendChild(th4);
          trHead.appendChild(th5);
          trHead.appendChild(th6);
          trHead.appendChild(th7);
-
+         trHead.appendChild(th8);
+         trHead.appendChild(th9);
 
          table.appendChild(trHead);
 
@@ -979,14 +1031,44 @@ function reportWithOutYurLica(dataParametrs){
                     
                     td7.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
 
+
+                    let td8 = document.createElement('td');
+                    td8.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
+
+                    let td9 = document.createElement('td');
+                    td9.style = "border-bottom: 1px dashed black;  text-align:center; line-height: normal;";
+
+                    let ynCount = 0;
                     if(dataParametrs.type_report == 1){
                         td5.innerHTML =  item['count_yes'] ;
                         td6.innerHTML =  item['count_no'] ;
                         td7.innerHTML =  item['count_not_need'] ;
+                        ynCount = Number(item['count_yes']) + Number(item['count_no']);
+
+                        if(item['count_yes'] > 0) {
+                            td8.innerHTML =  (item['count_yes']  / ynCount  *100).toFixed(2);
+                            td8.innerHTML = td8.innerHTML  + ' %';
+                        } else td8.innerHTML =  0;
+
+                        if(item['count_no'] > 0) {
+                            td9.innerHTML =  (item['count_no']   / ynCount  *100).toFixed(2) ;
+                            td9.innerHTML = td9.innerHTML  + ' %';
+                        } else td9.innerHTML =  0;
+
                     } else {
                         td5.innerHTML =  item['count_yes_accred'] ;
                         td6.innerHTML =  item['count_no_accred'] ; 
                         td7.innerHTML =  item['count_not_need_accred'] ;
+                        ynCount = Number(item['count_yes_accred']) + Number(item['count_no_accred']);
+                        if(item['count_yes_accred'] > 0) {
+                            td8.innerHTML =  (item['count_yes_accred']  / ynCount  *100).toFixed(2) ;
+                            td8.innerHTML = td8.innerHTML  + ' %';
+                        } else td8.innerHTML =  0;
+
+                        if(item['count_no_accred'] > 0) {
+                            td9.innerHTML =  (item['count_no_accred']  / ynCount  *100).toFixed(2) ;
+                            td9.innerHTML = td9.innerHTML  + ' %';
+                        } else td9.innerHTML =  0;
                     }
 
                     trStr.appendChild(td2);
@@ -995,7 +1077,8 @@ function reportWithOutYurLica(dataParametrs){
                     trStr.appendChild(td5);
                     trStr.appendChild(td6);
                     trStr.appendChild(td7);
-
+                    trStr.appendChild(td8);
+                    trStr.appendChild(td9);
                     tbody.appendChild(trStr);
 
 

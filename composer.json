@@ -1,5 +1,5 @@
 {
-  "name": "vendor_name/!!!accreditation — последняя",
+  "name": "vendor_name/accreditation2024",
   "description": "description",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -10,6 +10,7 @@
     }
   ],
   "require": {
-    "ext-mysqli": "*"
+    "ext-mysqli": "*",
+    "phpoffice/phpspreadsheet": "^2.2"
   }
 }
