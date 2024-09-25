@@ -4,6 +4,9 @@ let checkContacktValue = false;
 let arrOblastId_journal_rkk = [];
 let arrOblastSTR_journal_rkk = [];
 
+let arrRkkotzyvId_journal_rkk = [];
+let arrRkkotzyvSTR_journal_rkk = [];
+
 function CheckCheckBoxElement(elem, element_name){
     
     let checkBox = document.getElementById(`checkbox_${element_name}`);
@@ -13,6 +16,17 @@ function CheckCheckBoxElement(elem, element_name){
         checkBox.checked = !checkBox.checked;
     }
     
+
+    if(element_name === 'pervtor_2'){
+        let rkkotzyv_hide = document.getElementById(`rkkotzyv_hide`); 
+        if (checkBox.checked == false) {
+            rkkotzyv_hide.classList.add("hiddentab");
+        } else {
+            
+            rkkotzyv_hide.classList.remove("hiddentab");
+        }
+        
+    }
 
     // if(!btnReportPrint.hasAttribute('disabled')){
     //     btnReportPrint.setAttribute('disabled','true')
@@ -44,6 +58,38 @@ function CheckCheckBoxOblastElement(elem, index){
         checkBox1.checked = false;
     }
 
+    
+    
+
+    // if(!btnReportPrint.hasAttribute('disabled')){
+    //     btnReportPrint.setAttribute('disabled','true')
+    // }
+}
+
+function CheckCheckBoxRkkotzyvElement(elem, index){
+
+    let checkBox = document.getElementById(`checkbox_rkkotzyv_${index}`);
+    if(elem != 'checkBox'){   
+        checkBox.checked = !checkBox.checked;
+    }
+
+    let rkkotzyv = document.getElementsByClassName('rkkotzyv');
+/*
+    if(index===0){
+        if (rkkotzyv.length !== 0) {
+            for (let i = 0; i < rkkotzyv.length; i++) {
+                let checkBox1 = document.getElementById(`checkbox_rkkotzyv_${oblast[i].id}`);
+                checkBox1.checked = checkBox.checked;
+            }
+        }
+    }
+
+
+    if(index!==0){
+        let checkBox1 = document.getElementById(`checkbox_rkkotzyv_0`);
+        checkBox1.checked = false;
+    }
+*/
     
     
 
@@ -185,7 +231,9 @@ function preperaReport(){
         radio_search_1: false,
         radio_search_2: false,
         text_search: '',
-
+      
+        checkRkkotzyvStr : '',
+        checkRkkotzyvId : '',
     }
 
     let checkbox_with_contact = document.getElementById(`checkbox_with_contact`).checked;
@@ -358,8 +406,10 @@ function preperaReport(){
 
     dataParametrs.text_search = text_search.value.trim()
 
-
-
+   
+    ReportCheckedRkkotzyv()
+    dataParametrs.checkRkkotzyvStr= arrRkkotzyvSTR_journal_rkk.toString();
+    dataParametrs.checkRkkotzyvId= arrRkkotzyvId_journal_rkk.toString();
 
 
     reportPrepere(dataParametrs)
@@ -385,6 +435,29 @@ function ReportCheckedOblast(){
 
                     let spanCheckBox = document.getElementById(`span_oblast_${oblast[i].id}`).innerText;
                     arrOblastSTR_journal_rkk = [...arrOblastSTR_journal_rkk, spanCheckBox ]
+                }
+                
+            }
+        } 
+    
+
+}
+
+
+function ReportCheckedRkkotzyv(){
+
+    arrRkkotzyvId_journal_rkk = [];
+    arrRkkotzyvSTR_journal_rkk = [];
+
+    let rkkotzyv = document.getElementsByClassName('rkkotzyv');
+        if (rkkotzyv.length !== 0) {
+            for (let i = 1; i < rkkotzyv.length; i++) {
+                let checkBox = document.getElementById(`checkbox_rkkotzyv_${rkkotzyv[i].id}`);
+                if(checkBox.checked){
+                    arrRkkotzyvId_journal_rkk = [...arrRkkotzyvId_journal_rkk, rkkotzyv[i].id];
+
+                    let spanCheckBox = document.getElementById(`span_rkkotzyv_${rkkotzyv[i].id}`).innerText;
+                    arrRkkotzyvSTR_journal_rkk = [...arrRkkotzyvSTR_journal_rkk, spanCheckBox ]
                 }
                 
             }
@@ -430,6 +503,11 @@ function prepereTableReport(dataParametrs){
     th5.innerHTML = 'первичный/повторный';
     th5.id='th5'
     th5.style = "border: 1px solid black; width: 10%; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
+
+    let th26 = document.createElement('th');
+    th26.innerHTML = 'Основание для повторного';
+    th26.id='th26'
+    th26.style = "border: 1px solid black; text-align: left; line-height: normal; padding: 0.2rem 0.75rem;"
 
     let th6 = document.createElement('th');
     th6.innerHTML = 'Дата регистрации заявления';
@@ -542,6 +620,10 @@ function prepereTableReport(dataParametrs){
     if(dataParametrs.pervtor === 1){
         trHead.appendChild(th5);
     }
+
+    if(dataParametrs.checkbox_pervtor_2 === true){
+        trHead.appendChild(th26);
+    }
     
     trHead.appendChild(th6);
     if(dataParametrs.with_contact === true){
@@ -627,6 +709,8 @@ function reportPrepere(dataParametrs){
             radio_search_1: dataParametrs.radio_search_1,
             radio_search_2: dataParametrs.radio_search_2,
             text_search: dataParametrs.text_search,
+            checkRkkotzyvStr : dataParametrs.checkRkkotzyvStr,
+            checkRkkotzyvId : dataParametrs.checkRkkotzyvId,
         }
         
     }).done(function (response){
@@ -672,6 +756,11 @@ function reportPrepere(dataParametrs){
                 td5.innerHTML = item['perv_vtor'];
                 td5.className='td5'
                 td5.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
+
+                let td26 = document.createElement('td');
+                td26.innerHTML = item['rkkotzyv_str'];
+                td26.className='td26'
+                td26.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td6 = document.createElement('td');
                 td6.innerHTML = item['date_reg'];
@@ -786,6 +875,10 @@ function reportPrepere(dataParametrs){
 
                 if(dataParametrs.pervtor === 1){
                     tr.appendChild(td5);
+                }
+
+                if(dataParametrs.checkbox_pervtor_2 === true){
+                    tr.appendChild(td26);
                 }
 
                 tr.appendChild(td6);
@@ -926,6 +1019,10 @@ function reportPrepere(dataParametrs){
             }
            
             divReportUsl.innerHTML  = divReportUsl.innerHTML + '<br/>'
+        } 
+
+        if(dataParametrs.checkRkkotzyvStr.length > 0) {
+            divReportUsl.innerHTML  = divReportUsl.innerHTML +'<b>' +' Основание для повторного'+'</b>:'+dataParametrs.checkRkkotzyvStr.toString() +'<br/>'      
         } 
 
 
