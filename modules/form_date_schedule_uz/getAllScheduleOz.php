@@ -8,6 +8,7 @@ from accreditation.schedule_date_oz sch_oz
 left outer join accreditation.uz u on sch_oz.id_uz=u.id_uz
 
 where sch_oz.year='$year'
+order by schedule_date, username 
 ";
 
 
@@ -30,6 +31,7 @@ if (mysqli_num_rows($rez) == 0){
     left outer join accreditation.uz u on sch_oz.id_uz=u.id_uz
     
     where sch_oz.year='$year'
+	order by schedule_date, username 
     ";
     
     

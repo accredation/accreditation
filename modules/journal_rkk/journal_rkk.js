@@ -406,10 +406,17 @@ function preperaReport(){
 
     dataParametrs.text_search = text_search.value.trim()
 
-   
-    ReportCheckedRkkotzyv()
-    dataParametrs.checkRkkotzyvStr= arrRkkotzyvSTR_journal_rkk.toString();
-    dataParametrs.checkRkkotzyvId= arrRkkotzyvId_journal_rkk.toString();
+	
+    if (checkbox_pervtor_2_value){
+	    ReportCheckedRkkotzyv()
+	    dataParametrs.checkRkkotzyvStr= arrRkkotzyvSTR_journal_rkk.toString();
+	    dataParametrs.checkRkkotzyvId= arrRkkotzyvId_journal_rkk.toString();
+	}
+    else {
+	dataParametrs.checkRkkotzyvStr='';
+	dataParametrs.checkRkkotzyvId= '';
+	}	
+
 
 
     reportPrepere(dataParametrs)

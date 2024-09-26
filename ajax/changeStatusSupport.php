@@ -4,11 +4,8 @@ include 'connection.php';
 $id_app = $_POST['id_app'];
 $id_status = $_POST['id_status'];
 $login = $_COOKIE['login'];
-
 $query = "select id_status from applications where id_application = '$id_app'";
-
 $res = mysqli_query($con, $query);
-
 $row = mysqli_fetch_assoc($res);
 $old_id_status = $row['id_status'];
 if($old_id_status == "9"){

@@ -20,6 +20,8 @@ function cteateTable(year_value){
         
         let  thead = document.createElement('thead');
 
+	let  th_num = document.createElement('th');
+        th_num.innerHTML = '№ п/п';
 
         let  th = document.createElement('th');
         th.innerHTML = 'Организация озравоохранения';
@@ -32,6 +34,7 @@ function cteateTable(year_value){
 
        let  th3 = document.createElement('th');
         
+	thead.appendChild(th_num)
         thead.appendChild(th)
         thead.appendChild(th1)
         thead.appendChild(th2)
@@ -61,11 +64,15 @@ function cteateTable(year_value){
         
 
         if(data.length > 0){
-            data.map((item) => {
+            data.map((item,index) => {
 
                 let tr = document.createElement('tr');
                 tr.id = 'tr_schedule_'+item['id_schedule']
                // tr.style.cursor="pointer"
+
+		let td_num = document.createElement('td');
+                td_num.innerHTML = index +1 ;
+                
 
                 let td1 = document.createElement('td');
                 td1.innerHTML = item['username'];
@@ -125,6 +132,8 @@ function cteateTable(year_value){
                     div2.appendChild(buttonDel);
                     td4.appendChild(div2)    
 
+
+		tr.appendChild(td_num);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
