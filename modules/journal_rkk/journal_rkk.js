@@ -765,7 +765,11 @@ function reportPrepere(dataParametrs){
                 td5.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 
                 let td26 = document.createElement('td');
-                td26.innerHTML = item['rkkotzyv_str'];
+                if (item['rkkotzyv_str'] === null) {
+                    td26.innerHTML = '';
+                } else {
+                    td26.innerHTML = item['rkkotzyv_str'];
+                }
                 td26.className='td26'
                 td26.style = "border: 1px dashed black; padding: 0.2rem 0.75rem;text-align:center;line-height: normal; ";
 

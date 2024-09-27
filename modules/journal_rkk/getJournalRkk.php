@@ -291,7 +291,7 @@ foreach ($data as $app) {
     $report->date_protokol = $app['date_protokol'];
     $report->comisia = $app['comisia'];
     $report->giveSvid = $app['giveSvid'];
-    
+
     array_push($reports,$report);
 }
 

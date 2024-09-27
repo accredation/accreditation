@@ -22,6 +22,13 @@ if (mysqli_num_rows($rez) == 1) {
     $responce['id_user'] = $row['id_user'];
     $responce['predstavitel'] = $row['predstavitel'];
     $responce['perv_vtor'] = $row['perv_vtor'];
+    if ($row['perv_vtor'] == 1) {
+        $responce['rkkotzyv'] = 0;
+        $update_query = "UPDATE rkk SET rkkotzyv = 0 WHERE id_application = '$id_application'";
+        mysqli_query($con, $update_query);
+    } else {
+        $responce['rkkotzyv'] = $row['rkkotzyv'];
+    }
     $responce['date_index_povt_app'] = $row['date_index_povt_app'];
     $responce['info_napr_zapr'] = $row['info_napr_zapr'];
     $responce['info_sogl'] = $row['info_sogl'];
@@ -46,7 +53,6 @@ if (mysqli_num_rows($rez) == 1) {
     $responce['po_n'] = $row['po_n'];
     $responce['delo_listov'] = $row['delo_listov'];
     $responce['checkboxValueGuzo'] = $row['checkboxValueGuzo'];
-    $responce['rkkotzyv'] = $row['rkkotzyv'];
 
     echo json_encode($responce);
 } else {

@@ -1281,7 +1281,7 @@
                                     <div class="form-group" id="hidden_select_container" style="display: none;">
                                         <label>Дополнительный выбор<span class="zvezda">*</span></label>
                                         <select class="form-control" id="additional_select">
-                                            <option value="0">Не выбрано</option>
+                                            <option value="0"> </option>
                                             <option value="1">Отказ в приеме заявления</option>
                                             <option value="2">Отказ в свидетельстве</option>
                                             <option value="3">Отзыв заявления</option>
@@ -1335,7 +1335,7 @@
                                     </div>
                                     <div class="form-group" style="display: flex;  "><label style="margin-right:1rem">Результат</label>
                                         <select name="" id="resultat">
-                                            <option value="0">Не выбрано</option>
+                                            <option value="0"> </option>
                                             <option value="1">Выдача свидетельства</option>
                                             <option value="2">Отказ в выдаче свидетельства</option>
                                             <option value="3">Отказ в приеме заявления</option>
