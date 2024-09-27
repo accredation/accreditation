@@ -24,7 +24,7 @@ if (mysqli_num_rows($rez) == 1) {
     $responce['perv_vtor'] = $row['perv_vtor'];
     if ($row['perv_vtor'] == 1) {
         $responce['rkkotzyv'] = 0;
-        $update_query = "UPDATE rkk SET rkkotzyv = 0 WHERE id_application = '$id_application'";
+        $update_query = "UPDATE rkk SET rkkotzyv = null WHERE id_application = '$id_application'";
         mysqli_query($con, $update_query);
     } else {
         $responce['rkkotzyv'] = $row['rkkotzyv'];
