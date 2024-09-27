@@ -229,6 +229,21 @@
                                     >Отказ в приеме заявления</span>
                             </div>
 
+
+			    <div class="d-flex mb-2" >
+                                                            
+                                <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                    type="checkbox" 
+                                    id="checkbox_adm_resh_4" 
+                                    onclick="CheckCheckBoxElement(`checkBox`,'adm_resh_4' )"                              
+                                />
+                                <span 
+                                    style="line-height: normal; cursor: pointer;"
+                                    id="span_adm_resh_4"
+                                    onclick="CheckCheckBoxElement(`span`,'adm_resh_4' )"                           
+                                    >Отсутствует административное решение</span>
+                            </div>
+
                         </div>
                         
                         
