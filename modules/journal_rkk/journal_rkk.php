@@ -371,6 +371,67 @@
                     </div>
 
 
+                    <div class=" mb-4 ml-2 d-flex hiddentab" id="rkkotzyv_hide" >      
+                         
+
+                        <span>Основание для повторного</span>
+
+                        <div class="row " style="display: contents;">
+                          
+
+                                <?php
+                                    $index=1;
+                                    $query = "SELECT id_rkkotzyv, rkkotzyv_str
+                                                FROM accreditation.spr_rkkotzyv
+                                                order by id_rkkotzyv
+                                                ";
+                                    $result=mysqli_query($con, $query) or die ( mysqli_error($con));
+                                        for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+
+                                        foreach ($data as $app) {
+                                        if($index==1){
+                                ?>
+                                        <div class="ml-2 col-sm-4 col-md-3 col-lg-3">
+                                    <?php   
+                                        }                                       
+                                    ?>
+                                        <div class="d-flex mb-2 rkkotzyv" id=<?= $app['id_rkkotzyv']?> >
+                                                                
+                                            <input  style="vertical-align: top; margin-right: 0.5rem;" 
+                                                    type="checkbox" 
+                                                    id="checkbox_rkkotzyv_<?= $app['id_rkkotzyv']?>"
+                                                    checked=true
+                                                       
+                                                    onclick="CheckCheckBoxRkkotzyvElement(`checkBox`,<?= $app['id_rkkotzyv']?> )"                       
+                                            />
+                                            <span 
+                                                    style="line-height: normal; cursor: pointer;"
+                                                    id="span_rkkotzyv_<?= $app['id_rkkotzyv']?>"
+                                                    onclick="CheckCheckBoxRkkotzyvElement(`span`,<?= $app['id_rkkotzyv']?> )"                                        
+                                            ><?= $app['rkkotzyv_str']?></span>
+                                        </div>
+
+                                    <?php
+                                        if($index==3){
+                                        $index=0;
+                                    ?>
+                                        </div>
+                                    <?php   
+                                        }                                       
+                                    ?>    
+                                    
+                                <?php 
+                                $index++;                           
+                                }?>
+
+                            
+                            </div>
+                        
+                        
+                        
+                    </div>
+
+
                     <div class=" mb-4 ml-2 " style="display: flex;">                             
 
                             <div class="d-flex mb-2" >

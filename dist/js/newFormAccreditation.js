@@ -129,17 +129,14 @@ function newShowModal(id_application) {
     let sovetgr = document.getElementById("sovetgr");
     let btnPrintReportOcenka = document.getElementById("btnPrintReportOcenka");
     let divFileReportSamoocenka1 = document.getElementById("divFileReportSamoocenka");
-    let  fileAdminResh = document.getElementById("fileAdminResh");
-    let  fileProtokolKom = document.getElementById("fileProtokolKom");
-    let  divDateKom = document.getElementById("divDateKom");
-    let  divZakluchenia = document.getElementById("divDateZakluchenia");
-    let  fileReportinput = document.getElementById("fileReport");
+    let fileAdminResh = document.getElementById("fileAdminResh");
+    let fileProtokolKom = document.getElementById("fileProtokolKom");
+    let divDateKom = document.getElementById("divDateKom");
+    let divZakluchenia = document.getElementById("divDateZakluchenia");
+    let fileReportinput = document.getElementById("fileReport");
     let selectElement = document.getElementById("sootvetstvie");
     let otzyvZ = document.getElementById("otzyvZ");
     let otkazZ = document.getElementById("otkazZ");
-
-
-
 
 
     if (tabOdobrenie.classList.contains("active")) {
@@ -254,8 +251,7 @@ function newShowModal(id_application) {
         selectElement.disabled = true;
         otzyvZ.classList.add("hiddentab");
         otkazZ.classList.add("hiddentab");
-    }
-    else if (accredArchiveNew.classList.contains("active")) {
+    } else if (accredArchiveNew.classList.contains("active")) {
         btnOkonchatelnoeReshenie.classList.add("hiddentab");
         btnreport.classList.add("hiddentab");
         btnOkReshenie.classList.add("hiddentab");
@@ -274,8 +270,7 @@ function newShowModal(id_application) {
         selectElement.disabled = true;
         otzyvZ.classList.add("hiddentab");
         otkazZ.classList.add("hiddentab");
-    }
-    else if (tabHome.classList.contains("active")) {
+    } else if (tabHome.classList.contains("active")) {
 
         $.ajax({
             url: "ajax/getIdRkk.php",
@@ -295,9 +290,6 @@ function newShowModal(id_application) {
                 }
             }
         });
-
-
-
 
 
         sovetgr.style.display = "none";
@@ -418,11 +410,11 @@ function newShowModal(id_application) {
     let tablist = document.getElementById("tablist");
     let formReport = document.getElementById("formReport");
     let fgSvid = document.getElementById("fgSvid");
-    if(fgSvid){
+    if (fgSvid) {
         fgSvid.remove();
     }
 
-    if(status == 4){
+    if (status == 4) {
 
         const formGroup = document.createElement('div');
         formGroup.className = 'form-group';
@@ -449,7 +441,7 @@ function newShowModal(id_application) {
                 id_app: id_application
             }
         }).then(response => {
-            switch(response){
+            switch (response) {
                 case "0":
                     option0.selected = true;
                     break;
@@ -466,6 +458,7 @@ function newShowModal(id_application) {
         select.appendChild(option2);
 
         select.onchange = () => {
+            console.log(id_app);
             $.ajax({
                 url: "ajax/changeGiveSvid.php",
                 method: "GET",
@@ -526,25 +519,24 @@ function newShowModal(id_application) {
     let formPlanUstr = document.getElementById("formPlanUstr");
     let divDatePlanUstr = document.getElementById("divDatePlanUstr");
 
-    if(formPlanUstr){
+    if (formPlanUstr) {
         formPlanUstr.remove();
     }
-    if(divDatePlanUstr){
+    if (divDatePlanUstr) {
         divDatePlanUstr.remove();
     }
-
 
 
     let formPlanOtzyv = document.getElementById("formPlanOtzyv");
     let divDatePlanOtzyv = document.getElementById("divDatePlanOtzyv");
 
-    if(formPlanOtzyv){
+    if (formPlanOtzyv) {
         formPlanOtzyv.remove();
     }
-    if(divDatePlanOtzyv){
+    if (divDatePlanOtzyv) {
         divDatePlanOtzyv.remove();
     }
-    if(status == 9) {
+    if (status == 9) {
         let sovetid = document.getElementById("sovetgr");
         sovetid.style = "display:none";
         let informgrid = document.getElementById("informgr");
@@ -579,11 +571,11 @@ function newShowModal(id_application) {
         inputDatePlanOtzyv.className = "form-control";
         inputDatePlanOtzyv.style = "width: auto;";
         inputDatePlanOtzyv.id = "inputDatePlanOtzyv";
-        inputPlanOtzyv.onchange = function() {
+        inputPlanOtzyv.onchange = function () {
             postFilePlanOtzyv();
         };
 
-        inputDatePlanOtzyv.onchange = function() {
+        inputDatePlanOtzyv.onchange = function () {
             postPlanDataPovtor();
         };
 
@@ -593,7 +585,7 @@ function newShowModal(id_application) {
         formReport.insertAdjacentElement("afterend", divDatePlanOtzyv);
         formReport.insertAdjacentElement("afterend", formPlanOtzyv);
 
-    }else{
+    } else {
         let sovetid = document.getElementById("sovetgr");
         sovetid.style = "display:none; height:39%";
         let informgrid = document.getElementById("informgr");
@@ -633,8 +625,7 @@ function newShowModal(id_application) {
             oldApp = id_old_app;
             if (id_old_app) {
                 id_application = id_old_app;
-            }
-            else {
+            } else {
                 id_application = id_app;
             }
 
@@ -666,20 +657,20 @@ function newShowModal(id_application) {
             if (data[0][23] != null) {
                 let fileNames = data[0][23].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainerProtokolKom.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][24] != null) {
                 let fileNames = data[0][24].split(';');
                 fileNames.forEach((fileName) => {
-                    console.log(href='/docs/documents/" ' + id_app);
-                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/"  + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
+                    console.log(href = '/docs/documents/" ' + id_app);
+                    filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][14] != null) {
                 let fileNames = data[0][14].split(';');
                 fileNames.forEach((fileName) => {
-                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/"+ loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
+                    filesContainer.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
                 });
             }
             if (data[0][15] != null) {
@@ -692,7 +683,15 @@ function newShowModal(id_application) {
                 soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                fetch('/docs/documents/' + data[0][13] + "/" + id_application + "/" + data[0][9])
+                    .then(r => {
+                        if (r.status === 200)
+                            copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                        else
+                            copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_app + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                    })
+                    .catch(e => console.error(e));
+
             }
             if (data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
@@ -701,7 +700,14 @@ function newShowModal(id_application) {
                 ucomplect.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if (data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                fetch('/docs/documents/' + data[0][13] + "/" + id_application + "/" + data[0][12])
+                    .then(r => {
+                        if (r.status === 200)
+                            techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                        else
+                            techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_app + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                    })
+                    .catch(e => console.error(e));
             }
             if (data[0][20] != null) {
                 reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
@@ -739,11 +745,11 @@ function newShowModal(id_application) {
             }
 
             if (data[0][29] != null) {
-                inputPlanOtzyv.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][29] + "'>" +  data[0][29] + "</a><br>");
+                inputPlanOtzyv.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][29] + "'>" + data[0][29] + "</a><br>");
 
             }
 
-            if(status == 6) {
+            if (status == 6) {
                 formPlanUstr = document.createElement("form");
                 formPlanUstr.id = "formPlanUstr";
                 let divPlanUstr = document.createElement("div");
@@ -1227,7 +1233,7 @@ function newShowModal(id_application) {
 
 
     let divBtnPrintReportOcenka = document.getElementById('btnPrintReportOcenka');
-    if(divBtnPrintReportOcenka)
+    if (divBtnPrintReportOcenka)
         divBtnPrintReportOcenka.onclick = () => {
 
             printNewReportOcenka();
@@ -2022,49 +2028,61 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+        data: {
+            idAnswerCriteria: idAnswerCriteria,
+            idCrit: idCrit,
+            idDep: idDep,
+            val: select.options[select.selectedIndex].value,
+            id_sub: openTabId
+        }
     })
         .done(function (response) {
 
         })
 }
 
-function changeField5(idAnswerCriteria,idCrit, idDep, text) {
+function changeField5(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField5.php",
         method: "POST",
-        data: {idAnswerCriteria: idAnswerCriteria,idCrit: idCrit, idDep: idDep, text: text.innerText}
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
 }
 
-function changeField6(idAnswerCriteria,idCrit, idDep, select) {
+function changeField6(idAnswerCriteria, idCrit, idDep, select) {
     $.ajax({
         url: "ajax/changeField6.php",
         method: "GET",
-        data: {idAnswerCriteria: idAnswerCriteria,idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+        data: {
+            idAnswerCriteria: idAnswerCriteria,
+            idCrit: idCrit,
+            idDep: idDep,
+            val: select.options[select.selectedIndex].value,
+            id_sub: openTabId
+        }
     })
         .done(function (response) {
 
         })
 }
 
-function changeField7(idAnswerCriteria,idCrit, idDep, text) {
+function changeField7(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField7.php",
         method: "POST",
-        data: {idAnswerCriteria: idAnswerCriteria,idCrit: idCrit, idDep: idDep, text: text.innerText}
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
 }
 
-function changeFieldDefect(idAnswerCriteria,idCrit, idDep, text) {
+function changeFieldDefect(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeFieldDefect.php",
         method: "GET",
-        data: {idAnswerCriteria: idAnswerCriteria,idCrit: idCrit, idDep: idDep, text: text.innerText}
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
@@ -3003,10 +3021,9 @@ function checkUserRole() {
         inputFieldcopyRaspisanie.disabled = true;
         inputFieldtechOsn.disabled = true;
         inputFieldreportSamoocenka.disabled = true;
-     //   ownUcompBtn.disabled = true;
+        //   ownUcompBtn.disabled = true;
 
-    }
-    else if (idRole === "14") {
+    } else if (idRole === "14") {
         inputFieldSokrNaim.disabled = true;
         inputFieldunp.disabled = true;
         inputFieldadress.disabled = true;
@@ -3022,8 +3039,7 @@ function checkUserRole() {
         inputprikazNaznach.disabled = true;
         inputreportZakluchenieSootvet.disabled = true;
 
-    }
-    else {
+    } else {
 
         inputFieldSokrNaim.disabled = false;
         inputFieldunp.disabled = false;
@@ -3221,6 +3237,8 @@ function saveRkk() {
     let dop_info = document.getElementById("dop_info");
     let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
     let checkboxValue = checkboxValueGuzo.checked ? "1" : "0";
+    let hiddenSelectContainer = document.getElementById('hidden_select_container');
+    let additionalSelect = document.getElementById('additional_select');
     $.ajax({
         url: "ajax/saveRkk.php",
         method: "POST",
@@ -3234,6 +3252,7 @@ function saveRkk() {
             dop_sved: dop_sved.value,
             predst_rkk: predst_rkk.value,
             perv_vtor_zayav: perv_vtor_zayav.options[perv_vtor_zayav.options.selectedIndex].value,
+            additionalSelect: additionalSelect.options[additionalSelect.options.selectedIndex].value,
             reg_index: reg_index.value,
             povtor_index: povtor_index.value,
             info_napr_zapr: info_napr_zapr.value,
@@ -3257,7 +3276,7 @@ function saveRkk() {
             delo_listov: delo_listov.value,
             date_delo: date_delo.value,
             dop_info: dop_info.value,
-            checkboxValue:checkboxValue,
+            checkboxValue: checkboxValue,
             id_application: id_app
 
         }
@@ -3279,7 +3298,7 @@ function getRkk() {
     let dop_sved = document.getElementById("dop_sved");
     // let prinyal_zayav = document.getElementById("prinyal_zayav");
     let predst_rkk = document.getElementById("predst_rkk");
-    let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
+
     let reg_index = document.getElementById("reg_index");
     let povtor_index = document.getElementById("povtor_index");
     let info_napr_zapr = document.getElementById("info_napr_zapr");
@@ -3304,6 +3323,10 @@ function getRkk() {
     let date_delo = document.getElementById("date_delo");
     let dop_info = document.getElementById("dop_info");
     let checkboxValueGuzo = document.getElementById("checkboxValueGuzo");
+    let perv_vtor_zayav = document.getElementById("perv_vtor_zayav");
+    let hiddenSelectContainer = document.getElementById('hidden_select_container');
+    let additionalSelect = document.getElementById('additional_select');
+
 
     dateRegistr.value = "";
     countlist.value = "";
@@ -3323,6 +3346,7 @@ function getRkk() {
     date_admin_resh.value = "";
     count_admin_resh.value = "";
     resultat.options.selectedIndex = 0;
+    additionalSelect.selectedIndex = 0;
     svidetelstvo.value = "";
     date_svidetelstvo.value = "";
     po_n.value = "";
@@ -3359,14 +3383,21 @@ function getRkk() {
             // prinyal_zayav.value = data['id_user'];
             predst_rkk.value = data.predstavitel;
             perv_vtor_zayav.value = data.perv_vtor;
+            if (data.perv_vtor === "2")
+            {
+                hiddenSelectContainer.style.display = 'block';
+                additionalSelect.selectedIndex = Number(data.rkkotzyv);
+            }else
+            {
+                hiddenSelectContainer.style.display = 'none';
+            }
             povtor_index.value = data.date_index_povt_app;
             info_napr_zapr.value = data['info_napr_zapr'];
             info_sogl.value = data['info_sogl'];
             protolol_zasedanie.value = data.protokol_zased;
             if (data.date_protokol === '1970-01-01') {
                 date_zasedanie.value = '';
-            }
-            else {
+            } else {
                 date_zasedanie.value = data.date_protokol;
             }
             info_vozvrat.value = data.info_vozvr;
@@ -3399,15 +3430,17 @@ function getRkk() {
             delo_listov.value = data['delo_listov'];
             dop_info.value = data['dop_info'];
             if (data['checkboxValueGuzo'] === "1") {
-                checkboxValueGuzo.checked = true;            } else {
+                checkboxValueGuzo.checked = true;
+            } else {
                 checkboxValueGuzo.checked = false;
             }
-        }
-        else {
+        } else {
 
         }
     });
 }
+
+
 
 
 function regRkk() {
@@ -3483,8 +3516,7 @@ function refreshRkk(id_app) {
     });
 }
 
-function guzoChange(checkbox)
-{
+function guzoChange(checkbox) {
     if (checkbox.checked) {
 
         checkbox.value = "1";
@@ -3495,9 +3527,9 @@ function guzoChange(checkbox)
 }
 
 
-function setNewStatus(){
+function setNewStatus() {
 
-    if(confirm("Вы точно хотите переместить заявление в статус самооценки?")) {
+    if (confirm("Вы точно хотите переместить заявление в статус самооценки?")) {
         $.ajax({
             url: "ajax/setNewStatus.php",
             method: "POST",
@@ -3509,7 +3541,7 @@ function setNewStatus(){
 }
 
 
-function printRkk(){
+function printRkk() {
     $.ajax({
         url: "ajax/z_printRkk.php",
         method: "GET",
@@ -3533,7 +3565,7 @@ function printRkk(){
     });
 }
 
-function toArchive(pervtor){
+function toArchive(pervtor) {
     $.ajax({
         url: "ajax/toArchive.php",
         method: "POST",
@@ -3551,7 +3583,7 @@ document.getElementById("btnFormApplication").onclick = async function () {
 };
 
 
-function printSved(el){
+function printSved(el) {
     $.ajax({
         url: "ajax/z_createFormSvidetelstvo.php",
         method: "GET",
@@ -3594,11 +3626,11 @@ function svidCheckbox(checkbox) {
     $.ajax({
         url: 'ajax/updateSvidCheckbox.php',
         method: 'POST',
-        data: { id_dept: id_dept, checked: checked },
-        success: function(response) {
+        data: {id_dept: id_dept, checked: checked},
+        success: function (response) {
 
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
         }
     });
 }
@@ -3631,8 +3663,7 @@ $("#formFileReportZakluchenieSootvet").on("change", () => {
     let filesContainerAdminResh = document.getElementById("reportZakluchenieSootvet");
 
 
-
-        let file = filesContainerAdminResh.files[0];
+    let file = filesContainerAdminResh.files[0];
     let nextElement = filesContainerAdminResh.nextElementSibling;
 
     while (nextElement) {
@@ -3640,7 +3671,7 @@ $("#formFileReportZakluchenieSootvet").on("change", () => {
         nextElement = nextElement.nextElementSibling;
         elementToRemove.remove();
     }
-        filesContainerAdminResh.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
+    filesContainerAdminResh.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + file.name + "'>" + file.name + "</a><br>");
 
 
     let id_application = document.getElementById("id_application");
@@ -3679,7 +3710,6 @@ $("#formProtokolKom").on("change", () => {
 });
 
 
-
 $("#formReport").on("change", () => {
     let fileReport = document.getElementById("fileReport");
     let filesContainer = document.getElementById("filesContainer");
@@ -3701,7 +3731,6 @@ $("#formReport").on("change", () => {
     xhr.open("post", "ajax/postFileReportGuzo.php", true);
 
 
-
     let load = document.createElement("div");
     load.innerHTML = "Подождите, идет загрузка";
     load.id = "loadPrikazNaznach";
@@ -3719,7 +3748,7 @@ $("#formReport").on("change", () => {
     };
 
     xhr.addEventListener("load", () => {
-        if (xhr.status >=200 && xhr.status < 400)
+        if (xhr.status >= 200 && xhr.status < 400)
             load.innerHTML = "Файл загружен";
         else
             load.innerHTML = `Ошибка загрузки ${xhr.status}: ${xhr.statusText}`;
@@ -4198,19 +4227,17 @@ function createTableForPrintNoOcenka(tableForPrint) {
 }
 
 
-
-
 function changeSootv(selectElement) {
     let selectedValue = selectElement.value;
     $.ajax({
         url: 'ajax/saveSootvetstvie.php',
         method: 'POST',
-        data: { value: selectedValue, id_app:id_app},
-        success: function() {
+        data: {value: selectedValue, id_app: id_app},
+        success: function () {
             console.log("Данные успешно сохранены");
 
         },
-        error: function() {
+        error: function () {
             console.error("Ошибка при сохранении данных");
         }
     });
@@ -4222,17 +4249,16 @@ $("#dateKom").on("change", function () {
     $.ajax({
         url: 'ajax/saveDateKom.php',
         method: 'POST',
-        data: { date: date, id_app:id_app},
-        success: function() {
+        data: {date: date, id_app: id_app},
+        success: function () {
             console.log("Данные успешно сохранены");
 
         },
-        error: function() {
+        error: function () {
             console.error("Ошибка при сохранении данных");
         }
     })
 });
-
 
 
 function postFilePlan() {
@@ -4363,16 +4389,15 @@ function postPlanDataPovtor() {
     $.ajax({
         url: 'ajax/saveDatePlanPovtor.php',
         method: 'POST',
-        data: { inputDate: inputDate, id_app:id_app},
-        success: function() {
+        data: {inputDate: inputDate, id_app: id_app},
+        success: function () {
             console.log("Данные успешно сохранены");
         },
-        error: function() {
+        error: function () {
             console.error("Ошибка при сохранении данных");
         }
     })
 }
-
 
 
 $("#DateZakluchenia").on("change", function () {
@@ -4381,11 +4406,11 @@ $("#DateZakluchenia").on("change", function () {
     $.ajax({
         url: 'ajax/saveDateZakluchenia.php',
         method: 'POST',
-        data: { date: date, id_app:id_app},
-        success: function() {
+        data: {date: date, id_app: id_app},
+        success: function () {
             console.log("Данные успешно сохранены");
         },
-        error: function() {
+        error: function () {
             console.error("Ошибка при сохранении данных");
         }
     })

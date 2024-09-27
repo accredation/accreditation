@@ -389,15 +389,17 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12) {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id, r.date_protokol
                                                     FROM applications a
+                                                    left join rkk r on r.id_application = a.id_application
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                    where id_status = 4 and u.oblast = '$role'";
                                         } else {
 
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id, r.date_protokol
                                                     FROM applications a
+                                                        left join rkk r on r.id_application = a.id_application
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user where id_status = 4";
                                         }
@@ -412,6 +414,7 @@
                                                 <th >Заявления</th>
                                                 <th>Дата одобрения</th>
                                                 <th>Дата комиссии</th>
+                                                <th>Дата протокола из РКК</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -428,6 +431,7 @@
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
                                                     <td><?= $app['date_complete'] ?></td>
                                                     <td><?= $app['date_council'] ?></td>
+                                                    <td><?= $app['date_protokol'] ?></td>
 
 
                                                 </tr>
@@ -541,14 +545,14 @@
                                             $role = $row['id_role'];
                                         }
                                         if ($role > 3 && $role < 12) {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol, r.date_delo as datdel
                                                     FROM applications a 
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
                                                      left outer join rkk r on r.id_application = a.id_application
                                                    where id_status = 6 and u.oblast = '$role'";
                                         } else {
-                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol
+                                            $query = "SELECT a.*, uz.username, uz.oblast, ram.*, a.id_application as app_id , date_protokol, r.date_delo as datdel
                                                     FROM applications a 
                                                    left outer join report_application_mark ram on a.id_application=ram.id_application
                                                     left outer join uz uz on uz.id_uz=a.id_user
@@ -557,6 +561,7 @@
                                         }
                                         $result = mysqli_query($con, $query) or die (mysqli_error($con));
                                         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
+
                                         ?>
 
                                         <table id="example" class="table table-striped table-bordered"
@@ -571,13 +576,17 @@
                                             <?php
 
                                             foreach ($data as $app) {
-                                                include "ajax/mainMark.php"
+                                                include "ajax/mainMark.php";
+                                                $date_delo = $app['datdel'];
+                                                if($date_delo != "")
+                                                    $style = 'color: red;' ;
+                                                else $style = "";
                                                 ?>
-
                                                 <tr onclick="newShowModal('<?= $app['app_id'] ?>')"
-                                                    style="cursor: pointer;">
+                                                    style="cursor: pointer; <?= $style?>">
 
                                                     <td>Заявление <?= $app['username'] ?> №<?= $app['app_id'] ?></td>
+
                                                     <td><?= $app['date_protokol'] ?></td>
 
 
@@ -1269,6 +1278,18 @@
                                         </select>
 
                                     </div>
+                                    <div class="form-group" id="hidden_select_container" style="display: none;">
+                                        <label>Дополнительный выбор<span class="zvezda">*</span></label>
+                                        <select class="form-control" id="additional_select">
+                                            <option value="0">Не выбрано</option>
+                                            <option value="1">Отказ в приеме заявления</option>
+                                            <option value="2">Отказ в свидетельстве</option>
+                                            <option value="3">Отзыв заявления</option>
+                                            <option value="4">Изменить в свидетельстве</option>
+                                            <option value="5">Неполное свидетельство</option>
+                                        </select>
+                                    </div>
+
                                     <div class="form-group"><label>Регистрационный индекс -</label><span
                                                 id="reg_index" ></span></div>
                                     <div class="form-group"><label>Даты, индексы повторных заявлений</label><input

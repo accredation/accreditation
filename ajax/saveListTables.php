@@ -36,8 +36,10 @@ left join z_list_tables_criteria zltc on zltc.id_list_tables_criteria=zd.id_list
 where zs.id_subvision = '$id_sub' and zltc.level = 1";
     $rez = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
     $row = mysqli_fetch_assoc($rez);
-    $mainDep = $row['id_department'];
-    $mainIdListCrit = $row['id_list_tables_criteria'];
+    if(mysqli_num_rows($rez) > 0) {
+        $mainDep = $row['id_department'];
+        $mainIdListCrit = $row['id_list_tables_criteria'];
+    }
 
 
     $query = "insert  into z_department (`id_list_tables_criteria`,`name`, id_subvision) values  ('$id_list_tables_criteria','$fullName' , '$id_sub')";
@@ -70,24 +72,27 @@ where zs.id_subvision = '$id_sub' and zltc.level = 1";
         }
     }
 
-    $query = "SELECT * FROM accreditation.z_criteria where `name` like '%Укомплектованность%' and id_list_tables_criteria = '$mainIdListCrit' ;";
+    if(isset($mainIdListCrit)) {
 
-    $res = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+        $query = "SELECT * FROM accreditation.z_criteria where `name` like '%Укомплектованность%' and id_list_tables_criteria = '$mainIdListCrit' ;";
 
-    $queryCatch = "select * from z_department zd 
+        $res = mysqli_query($con, $query) or die("Ошибка " . mysqli_error($con));
+
+        $queryCatch = "select * from z_department zd 
     left join z_list_tables_criteria zltc on zd.id_list_tables_criteria = zltc.id_list_tables_criteria 
 where zltc.id_list_tables_criteria not in (5,6,10,47) and zd.id_department = '$insertedId'";
-    $resCatch = mysqli_query($con, $queryCatch) or die("Ошибка " . mysqli_error($con));
-    if (mysqli_num_rows($resCatch) > 0) {
+        $resCatch = mysqli_query($con, $queryCatch) or die("Ошибка " . mysqli_error($con));
+        if (mysqli_num_rows($resCatch) > 0) {
 
-        while ($row = mysqli_fetch_assoc($res)) {
-            $id_criteria_inserted = $row['id_criteria'];
-            $query2 = "INSERT INTO z_answer_criteria (id_department, id_criteria, field5) 
+            while ($row = mysqli_fetch_assoc($res)) {
+                $id_criteria_inserted = $row['id_criteria'];
+                $query2 = "INSERT INTO z_answer_criteria (id_department, id_criteria, field5) 
                        values ('$mainDep', '$id_criteria_inserted', '$fullName')
                     ";
-            $rez2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
-        }
+                $rez2 = mysqli_query($con, $query2) or die("Ошибка " . mysqli_error($con));
+            }
 
+        }
     }
 
     echo '<div class="card-header" id="heading' . $id_department . '" style="justify-content: center; display: block; " onclick="newCollapseTable(this)">

@@ -43,8 +43,9 @@ $radio_search_1 = $_GET['radio_search_1'];
 $radio_search_2 = $_GET['radio_search_2'];
 $text_search = $_GET['text_search'];
 
-
-
+$checkRkkotzyvStr_ =$_GET['checkRkkotzyvStr'];
+$checkRkkotzyvId_ =$_GET['checkRkkotzyvId'];
+               
 $date = date('d-m-y');
 if($date_reg_ == '0'){
     $date_reg_at_ = $date;
@@ -195,9 +196,25 @@ if($search_check === "false"){
 }
 
 
+$checkRkkotzyvId_2 = explode(',', $checkRkkotzyvId_);
+$checkRkkotzyvId_3 = '';                              
+
+foreach($checkRkkotzyvId_2 as $str){
+    $checkRkkotzyvId_3 .= '(' . 'rkk.rkkotzyv' . '=' . $str . ') or';
+
+}
+
+if($checkRkkotzyvId_ === ''){
+    $checkRkkotzyvId_3 = '0 = 0';
+} else {
+$checkRkkotzyvId_3 = substr($checkRkkotzyvId_3,0,-2);
+$checkRkkotzyvId_3 = '(' . $checkRkkotzyvId_3 . ')';
+}
+
 
 $query = "SELECT rkk.id_rkk, case when a.id_rkk_perv is not null then rkk.id_rkk +'/' + id_rkk_perv else rkk.id_rkk end as num_rkk, rkk.id_application, a.naim, 
 case when rkk.perv_vtor = 1 then 'первичное' when rkk.perv_vtor = 2 then 'повторное' else '' end as perv_vtor,
+sr.rkkotzyv_str as rkkotzyv_str,
 case when rkk.date_reg = '1970-01-01' then '' else DATE_FORMAT(rkk.date_reg, '%d-%m-%Y')  end  as date_reg, a.ur_adress, a.fact_adress, a.tel, a.email, 
 case when rkk.result='1' then 'Выдача свидетельства' when rkk.result='2' then 'Отказ в выдаче свидетельства' when rkk.result='3' then 'Отказ в приеме заявления'
 else '' end as adm_reah,  rkk.id_rkk as adm_resh_num,
@@ -213,7 +230,7 @@ from accreditation.rkk
 left outer join accreditation.applications a on rkk.id_application=a.id_application
 left outer join accreditation.uz u on a.id_user=u.id_uz
 left outer join accreditation.spr_oblast so on u.oblast=so.id_oblast
-
+left outer join accreditation.spr_rkkotzyv sr on rkk.rkkotzyv=sr.id_rkkotzyv
 where (('$date_reg_' = 0) or ('$date_reg_'=1 and rkk.date_reg between '$date_reg_at_' and '$date_reg_to_'))
 and (('$date_protokol_' = 0) or ('$date_protokol_'=1 and rkk.date_protokol between '$date_protokol_at_' and '$date_protokol_to_'))
 and (('$date_admin_resh_' = 0) or ('$date_admin_resh_'=1 and rkk.date_admin_resh between '$date_admin_resh_at_' and '$date_admin_resh_to_'))
@@ -225,6 +242,7 @@ and $otz_str
 and $guzo
 and (('$checkAllOblast_' = 'true') or ('$checkAllOblast_'='false' and $checkOblastsId_3 )  )
 and $search
+and $checkRkkotzyvId_3
 ";
 
 
@@ -251,6 +269,7 @@ foreach ($data as $app) {
     $report->id_application = $app['id_application'];
     $report->naim = $app['naim'];
     $report->perv_vtor = $app['perv_vtor'];
+    $report->rkkotzyv_str = $app['rkkotzyv_str'];
     $report->date_reg = $app['date_reg'];
     $report->ur_adress = $app['ur_adress'];
     $report->fact_adress = $app['fact_adress'];

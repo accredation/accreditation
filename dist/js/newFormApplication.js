@@ -22,8 +22,8 @@ function newShowModal(id_application) {
             fileNames.forEach((fileName) => {
                 fileName = fileName.trim();
                 if (fileName) {
-                    console.log (fileName);
-                    loginApp  =  getCookie('login');
+                    console.log(fileName);
+                    loginApp = getCookie('login');
                     filesContainerAdminResh.insertAdjacentHTML("beforeend", "<a target='_blank' href='/docs/documents/" + loginApp + "/" + id_app + "/" + fileName + "'>" + fileName + "</a><br>");
                     // fileAdminResh.innerHTML = response;
                     // fileAdminResh.href = `docs/documents/${getCookie('login')}/${id_app}/${response}`;
@@ -64,9 +64,7 @@ function newShowModal(id_application) {
     prev.insertAdjacentElement("afterend", newDivUcomplect);
     let modalUcomplect = document.getElementById("modalUcomplect");
     let modalBody = modalUcomplect.getElementsByClassName("modal-body")[0];
-    let appex =  document.getElementById('id_application').textContent;
-
-
+    let appex = document.getElementById('id_application').textContent;
 
 
     btnTableUcomplect.onclick = () => {
@@ -76,7 +74,7 @@ function newShowModal(id_application) {
             $.ajax({
                 url: "ajax/z_ucomplectTable.php",
                 method: "GET",
-                data: {id_application: id_application}
+                data: {id_application: id_app}
             }).then((response) => {
                 modalBody.innerHTML = response;
             })
@@ -278,7 +276,7 @@ function newShowModal(id_application) {
     let filesContainerZayavOtzyv = document.getElementById("filesContainerZayavOtzyv");
     let filesContainerDataZayavOtzyv = document.getElementById("filesContainerDataZayavOtzyv");
 
-    if(status == 6 || status == 7){
+    if (status == 6 || status == 7) {
         selPervtor.setAttribute("disabled", true);
     }
 
@@ -372,7 +370,15 @@ function newShowModal(id_application) {
                 divDateDorabotka.insertAdjacentHTML("afterend", "<span>" + data[0][17] + "</span>");
             }
             if (data[0][14] != null) {
-                fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                let filesRep = data[0][14];
+                let filesArr = filesRep.split(";")
+                if (filesArr.length > 1) {
+                    filesArr.map(item => {
+                        fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + item + "'>" + item + "</a><br/>");
+                    })
+                } else {
+                    fileReport.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][14] + "'>" + data[0][14] + "</a>");
+                }
             }
             if (data[0][15] != null) {
                 reportSamoocenka.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][15] + "'>" + data[0][15] + "</a>");
@@ -430,32 +436,32 @@ function newShowModal(id_application) {
 
             if (status == 7) {
 
-                    formPlanUstr = document.createElement("form");
-                    formPlanUstr.id = "formPlanUstr";
-                    let divPlanUstr = document.createElement("div");
-                    divPlanUstr.id = "divPlanUstr";
-                    divPlanUstr.className = "form-group";
-                    divPlanUstr.style = "margin-left: 2.5rem;";
-                    let labelPlanUstr = document.createElement("label");
-                    labelPlanUstr.style = "font-size: 24px;";
-                    labelPlanUstr.innerHTML = "План об устранении недостатков";
-                    let brli = document.createElement("br");
-                    let inputPlanUstr = document.createElement("input");
-                    inputPlanUstr.type = "file";
-                    inputPlanUstr.className = "form-control-file";
-                    inputPlanUstr.id = "inputPlanUstr";
-                    divPlanUstr.appendChild(labelPlanUstr);
-                    divPlanUstr.appendChild(brli);
-                    divPlanUstr.appendChild(inputPlanUstr);
-                    formPlanUstr.appendChild(divPlanUstr);
+                formPlanUstr = document.createElement("form");
+                formPlanUstr.id = "formPlanUstr";
+                let divPlanUstr = document.createElement("div");
+                divPlanUstr.id = "divPlanUstr";
+                divPlanUstr.className = "form-group";
+                divPlanUstr.style = "margin-left: 2.5rem;";
+                let labelPlanUstr = document.createElement("label");
+                labelPlanUstr.style = "font-size: 24px;";
+                labelPlanUstr.innerHTML = "План об устранении недостатков";
+                let brli = document.createElement("br");
+                let inputPlanUstr = document.createElement("input");
+                inputPlanUstr.type = "file";
+                inputPlanUstr.className = "form-control-file";
+                inputPlanUstr.id = "inputPlanUstr";
+                divPlanUstr.appendChild(labelPlanUstr);
+                divPlanUstr.appendChild(brli);
+                divPlanUstr.appendChild(inputPlanUstr);
+                formPlanUstr.appendChild(divPlanUstr);
 
-                    inputPlanUstr.onchange = function () {
-                        postFilePlan();
-                        console.log("Файл был выбран");
-                    };
+                inputPlanUstr.onchange = function () {
+                    postFilePlan();
+                    console.log("Файл был выбран");
+                };
 
 
-                    formReport.insertAdjacentElement("afterend", formPlanUstr);
+                formReport.insertAdjacentElement("afterend", formPlanUstr);
                 if (data[0][26] != null) {
                     let divPlanUstr = document.getElementById("divPlanUstr");
                     let fileLink = document.createElement("a");
@@ -1689,18 +1695,24 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+        data: {
+            idAnswerCriteria: idAnswerCriteria,
+            idCrit: idCrit,
+            idDep: idDep,
+            val: select.options[select.selectedIndex].value,
+            id_sub: openTabId
+        }
     })
         .done(function (response) {
 
         })
 }
 
-function changeField5(idAnswerCriteria,idCrit, idDep, text) {
+function changeField5(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField5.php",
         method: "POST",
-        data: {idAnswerCriteria:idAnswerCriteria,idCrit: idCrit, idDep: idDep, text: text.innerText}
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
@@ -1790,7 +1802,7 @@ function addFile(idAnswerCriteria, idCrit, idDep, input) {
 }
 
 
-function z_deleteFile(idAnswerCriteria,fileName, idCrit, idDepartment) {
+function z_deleteFile(idAnswerCriteria, fileName, idCrit, idDepartment) {
     if (confirm('Вы уверены, что хотите удалить этот файл?')) {
         let url = 'ajax/z_deleteFile.php?file_name=' + encodeURIComponent(fileName) + '&id_answer_criteria=' + idAnswerCriteria + '&id_application=' + id_app;
         fetch(url)
@@ -1855,7 +1867,9 @@ function deleteDepartment(id_department) {
                 })
                     .done(function (response) {
                         let mainLi = document.getElementById("tab1");
-                        newShowTab(mainLi,1).then(()=> {console.log("ok");});
+                        newShowTab(mainLi, 1).then(() => {
+                            console.log("ok");
+                        });
                         let id_list_tables_criteria = response;
                         let tabActive = document.getElementById("tab" + openTabId + "-");
                         let countButton = tabActive.querySelector("#checkbox" + id_list_tables_criteria);
@@ -2845,7 +2859,7 @@ $("#pervtor").on("change", () => {
 function postFilePlan() {
     let fileInput = document.getElementById('inputPlanUstr');
     let linkPlan = document.getElementById('linkPlan');
-    if(linkPlan)
+    if (linkPlan)
         linkPlan.remove();
     let filePlan = document.getElementById('inputPlanUstr');
     let filePlanContainer = fileInput.nextElementSibling;

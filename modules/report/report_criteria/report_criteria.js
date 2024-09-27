@@ -1134,6 +1134,7 @@ var uri = 'data:application/vnd.ms-excel;base64,'
     link.click();
 }
 
+
 return function(table, name, fileName) {
     if (!table.nodeType) table = document.getElementById(table)
         var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
