@@ -331,6 +331,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item" id="nav911">
+                    <a class="nav-link"  href="/index.php?logActions" >
+                        <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                        <span class="menu-title" >Логи по заявлениям</span>
+                    </a>
+                </li>
+
 <!--                <li class="nav-item" id="nav77">-->
 <!--                    <a class="nav-link"  href="/index.php?naznachenie_vrachei" >-->
 <!--                        <span class="icon-bg"><i class="mdi mdi-account-plus menu-icon"></i></span>-->

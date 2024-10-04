@@ -6,6 +6,7 @@ $idCrit = $_POST['idCrit'];
 $idDep = $_POST['idDep'];
 $id_application = $_POST['idApp'];
 $id_answer_criteria = $_POST['idAnswerCriteria'];
+$id_userOlys = $_POST['id_userOlys'];
 
 
 
@@ -45,4 +46,29 @@ if (isset($_FILES['addedFile']['name'])) {
 
     $result = mysqli_query($con, $insertquery) or die("Ошибка " . mysqli_error($con));
 }
+
+function getUserIpAddr() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
+$ip_address = getUserIpAddr();
+$date_create = date('Y-m-d H:i:s');
+$action = "Загрузка документа field4 с именем:  $file_name";
+$id_subvision = 0;
+
+$sqlinsert = "INSERT INTO Aalog1_actions (date_create, action, ip_adress, id_user, id_application, id_subvision, id_department, id_answer_criteria, id_crit) 
+VALUES ('$date_create', '$action', '$ip_address', '$id_userOlys', '$id_application', '$id_subvision', '$idDep', '$id_answer_criteria' , '$idCrit')";
+if (mysqli_query($con, $sqlinsert)) {
+    echo "Запись успешно добавлена в логи.";
+} else {
+    echo "Ошибка: " . $sqlinsert . "<br>" . mysqli_error($con);
+}
+
+
 mysqli_close($con);

@@ -1692,6 +1692,9 @@ function newCollapseTable(thisDiv) {
 }
 
 function changeField3(idAnswerCriteria, idCrit, idDep, select) {
+    let id_userOlys = getCookie('id_user');
+
+
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
@@ -1700,7 +1703,9 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
             idCrit: idCrit,
             idDep: idDep,
             val: select.options[select.selectedIndex].value,
-            id_sub: openTabId
+            id_sub: openTabId,
+            id_userOlys: id_userOlys,
+            id_app: id_app,
         }
     })
         .done(function (response) {
@@ -1709,10 +1714,11 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
 }
 
 function changeField5(idAnswerCriteria, idCrit, idDep, text) {
+    let id_userOlys = getCookie('id_user');
     $.ajax({
         url: "ajax/changeField5.php",
         method: "POST",
-        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText, id_userOlys: id_userOlys, id_app: id_app}
     }).done(function (response) {
 
     })

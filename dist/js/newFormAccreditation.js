@@ -2033,7 +2033,7 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
             idCrit: idCrit,
             idDep: idDep,
             val: select.options[select.selectedIndex].value,
-            id_sub: openTabId
+            id_sub: openTabId,
         }
     })
         .done(function (response) {
@@ -2052,6 +2052,7 @@ function changeField5(idAnswerCriteria, idCrit, idDep, text) {
 }
 
 function changeField6(idAnswerCriteria, idCrit, idDep, select) {
+    let id_userOlys = getCookie('id_user');
     $.ajax({
         url: "ajax/changeField6.php",
         method: "GET",
@@ -2060,7 +2061,9 @@ function changeField6(idAnswerCriteria, idCrit, idDep, select) {
             idCrit: idCrit,
             idDep: idDep,
             val: select.options[select.selectedIndex].value,
-            id_sub: openTabId
+            id_sub: openTabId,
+            id_userOlys: id_userOlys,
+            id_app: id_app
         }
     })
         .done(function (response) {

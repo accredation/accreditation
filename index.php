@@ -232,6 +232,9 @@ if(isset($_COOKIE['login'])) {
                     case 'usersAccred':
                         include 'usersAccred.php';
                         break;
+                    case 'logActions':
+                        include 'logActions.php';
+                        break;
                     case 'contacts':
                         include 'contacts.php';
                         break;

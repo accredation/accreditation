@@ -120,7 +120,7 @@ $(function() {
  var doughnutPieData2 = {
     datasets: [{
       data: [Number(attr1Donut2),Number(attr2Donut2),Number(attr3Donut2),Number(attr4Donut2),Number(attr5Donut2),
-        (allCountOrganization+56 - Number(attr1Donut2)-Number(attr2Donut2)-Number(attr3Donut2)-Number(attr4Donut2)-Number(attr5Donut2))],
+        (allCountOrganization+63 - Number(attr1Donut2)-Number(attr2Donut2)-Number(attr3Donut2)-Number(attr4Donut2)-Number(attr5Donut2))],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',

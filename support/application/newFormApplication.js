@@ -1574,6 +1574,7 @@ function changeField5(idCrit, idDep, text) {
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
+    let id_userOlys = getCookie('id_user');
 
     let divA = document.getElementById(idCrit + "_" + idDep);
 
@@ -1583,6 +1584,7 @@ function addFile(idCrit, idDep, input) {
     form.append("idCrit", idCrit);
     form.append("idDep", idDep);
     form.append("addedFile", addedFile);
+    form.append("id_userOlys", id_userOlys);
 
     xhr.open("post", "ajax/changeField4.php", true);
 
