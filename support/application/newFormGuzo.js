@@ -1722,10 +1722,12 @@ function newCollapseTable(thisDiv) {
 }
 
 function changeField3(idCrit, idDep, select) {
+    let id_userOlys = getCookie('id_user');
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,id_userOlys: id_userOlys,
+            id_app: id_app}
     })
         .done(function (response) {
 
@@ -1743,10 +1745,12 @@ function changeField5(idCrit, idDep, text) {
 }
 
 function changeField6(idCrit, idDep, select) {
+    let id_userOlys = getCookie('id_user');
     $.ajax({
         url: "ajax/changeField6.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,             id_userOlys: id_userOlys,
+            id_app: id_app}
     })
         .done(function (response) {
 
@@ -1776,6 +1780,7 @@ function changeFieldDefect(idCrit, idDep, text) {
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
+    let id_userOlys = getCookie('id_user');
 
     let divA = document.getElementById(idCrit + "_" + idDep);
 
@@ -1786,6 +1791,7 @@ function addFile(idCrit, idDep, input) {
     form.append("idApp", id_appp);
     form.append("idDep", idDep);
     form.append("addedFile", addedFile);
+    form.append("id_userOlys", id_userOlys);
 
     xhr.open("post", "ajax/changeField4.php", true);
 

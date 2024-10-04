@@ -1552,10 +1552,12 @@ function newCollapseTable(thisDiv) {
 }
 
 function changeField3(idCrit, idDep, select) {
+    let id_userOlys = getCookie('id_user');
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId}
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,id_userOlys: id_userOlys,
+            id_app: id_app}
     })
         .done(function (response) {
 

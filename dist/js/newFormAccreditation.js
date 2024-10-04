@@ -2025,6 +2025,9 @@ function newCollapseTable(thisDiv) {
 }
 
 function changeField3(idAnswerCriteria, idCrit, idDep, select) {
+    let id_userOlys = getCookie('id_user');
+
+
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
@@ -2034,6 +2037,8 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
             idDep: idDep,
             val: select.options[select.selectedIndex].value,
             id_sub: openTabId,
+            id_userOlys: id_userOlys,
+            id_app: id_app
         }
     })
         .done(function (response) {
@@ -2094,7 +2099,7 @@ function changeFieldDefect(idAnswerCriteria, idCrit, idDep, text) {
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
-
+    let id_userOlys = getCookie('id_user');
     let divA = document.getElementById(idCrit + "_" + idDep);
 
     let xhr = new XMLHttpRequest(),
@@ -2104,6 +2109,7 @@ function addFile(idCrit, idDep, input) {
     form.append("idApp", id_app);
     form.append("idDep", idDep);
     form.append("addedFile", addedFile);
+    form.append("id_userOlys", id_userOlys);
 
     xhr.open("post", "ajax/changeField4.php", true);
 
