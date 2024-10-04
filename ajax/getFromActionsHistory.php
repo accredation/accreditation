@@ -11,7 +11,23 @@ $id_department_filter = isset($_GET['id_department']) ? $_GET['id_department'] :
 $id_answer_criteria_filter = isset($_GET['id_answer_criteria']) ? $_GET['id_answer_criteria'] : '';
 $id_crit_filter = isset($_GET['id_crit']) ? $_GET['id_crit'] : '';
 
-$query = "SELECT * FROM Aalog1_actions WHERE 1=1";
+$query = "
+    SELECT 
+        a.*, 
+        s.name AS subvision_name, 
+        d.name AS department_name, 
+        c.name AS criteria_name 
+    FROM 
+        Aalog1_actions a
+    LEFT JOIN 
+        subvision s ON a.id_subvision = s.id_subvision
+    LEFT JOIN 
+        z_department d ON a.id_department = d.id_department
+    LEFT JOIN 
+        z_criteria c ON a.id_crit = c.id_criteria
+    WHERE 
+        1=1
+";
 
 if ($date_create_filter) {
     $query .= " AND date_create LIKE '%$date_create_filter%'";
@@ -40,7 +56,7 @@ if ($id_answer_criteria_filter) {
 if ($id_crit_filter) {
     $query .= " AND id_crit LIKE '%$id_crit_filter%'";
 }
-
+$query .= " ORDER BY a.date_create DESC";
 $result = mysqli_query($con, $query);
 
 if (!$result) {
@@ -50,7 +66,18 @@ if (!$result) {
 
 $data = [];
 while ($row = mysqli_fetch_assoc($result)) {
-    $data[] = $row;
+    $data[] = [
+        'date_create' => $row['date_create'],
+        'action' => $row['action'],
+        'ip_adress' => $row['ip_adress'],
+        'id_user' => $row['id_user'],
+        'id_application' => $row['id_application'],
+        'subvision_name' => $row['subvision_name'],
+        'department_name' => $row['department_name'],
+        'criteria_name' => $row['criteria_name'],
+        'id_answer_criteria' => $row['id_answer_criteria'],
+        'id_crit' => $row['id_crit']
+    ];
 }
 
 header('Content-Type: application/json');

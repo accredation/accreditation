@@ -1692,7 +1692,7 @@ function newCollapseTable(thisDiv) {
 }
 
 function changeField3(idAnswerCriteria, idCrit, idDep, select) {
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
 
 
     $.ajax({
@@ -1726,7 +1726,7 @@ function changeField5(idAnswerCriteria, idCrit, idDep, text) {
 
 function addFile(idAnswerCriteria, idCrit, idDep, input) {
     let login = getCookie('login');
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
     let divA = document.getElementById(idAnswerCriteria);
     let arrayDives = divA.childNodes;
     let arrayFiles = [];

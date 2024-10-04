@@ -1722,7 +1722,7 @@ function newCollapseTable(thisDiv) {
 }
 
 function changeField3(idCrit, idDep, select) {
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
@@ -1745,7 +1745,7 @@ function changeField5(idCrit, idDep, text) {
 }
 
 function changeField6(idCrit, idDep, select) {
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
     $.ajax({
         url: "ajax/changeField6.php",
         method: "GET",
@@ -1780,7 +1780,7 @@ function changeFieldDefect(idCrit, idDep, text) {
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
 
     let divA = document.getElementById(idCrit + "_" + idDep);
 

@@ -2025,7 +2025,7 @@ function newCollapseTable(thisDiv) {
 }
 
 function changeField3(idAnswerCriteria, idCrit, idDep, select) {
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
 
 
     $.ajax({
@@ -2057,7 +2057,7 @@ function changeField5(idAnswerCriteria, idCrit, idDep, text) {
 }
 
 function changeField6(idAnswerCriteria, idCrit, idDep, select) {
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
     $.ajax({
         url: "ajax/changeField6.php",
         method: "GET",
@@ -2099,7 +2099,7 @@ function changeFieldDefect(idAnswerCriteria, idCrit, idDep, text) {
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
-    let id_userOlys = getCookie('id_user');
+    let id_userOlys = getCookie('login');
     let divA = document.getElementById(idCrit + "_" + idDep);
 
     let xhr = new XMLHttpRequest(),
