@@ -2,11 +2,11 @@
 
 include "connection.php";
 
-$idCrit = $_POST['idCrit'];
-$idDep = $_POST['idDep'];
-$text = $_POST['text'];
-$id_answer_criteria = $_POST['idAnswerCriteria'];
+$idCrit = $_GET['idCrit'];
+$idDep = $_GET['idDep'];
+$text = $_GET['text'];
+$idAnswerCriteria = $_GET['idAnswerCriteria'];
 
 
-mysqli_query($con, "update z_answer_criteria set field7 = '$text' where id_answer_criteria = '$id_answer_criteria'");
+mysqli_query($con, "update z_answer_criteria set field7 = '$text' where id_answer_criteria = '$idAnswerCriteria'");
 mysqli_close($con);

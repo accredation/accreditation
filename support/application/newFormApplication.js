@@ -1556,7 +1556,7 @@ function changeField3(idCrit, idDep, select) {
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,id_userOlys: id_userOlys,
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,id_userOlys: getCookie("login"),
             id_app: id_app}
     })
         .done(function (response) {
@@ -1576,7 +1576,7 @@ function changeField5(idCrit, idDep, text) {
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
-    let id_userOlys = getCookie('login');
+
 
     let divA = document.getElementById(idCrit + "_" + idDep);
 
@@ -1586,7 +1586,7 @@ function addFile(idCrit, idDep, input) {
     form.append("idCrit", idCrit);
     form.append("idDep", idDep);
     form.append("addedFile", addedFile);
-    form.append("id_userOlys", id_userOlys);
+    form.append("id_userOlys", login);
 
     xhr.open("post", "ajax/changeField4.php", true);
 

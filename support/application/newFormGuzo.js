@@ -1726,7 +1726,7 @@ function changeField3(idCrit, idDep, select) {
     $.ajax({
         url: "ajax/changeField3.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,id_userOlys: id_userOlys,
+        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,id_userOlys: getCookie("login"),
             id_app: id_app}
     })
         .done(function (response) {
@@ -1744,43 +1744,52 @@ function changeField5(idCrit, idDep, text) {
     })
 }
 
-function changeField6(idCrit, idDep, select) {
+function changeField6(idAnswerCriteria, idCrit, idDep, select) {
     let id_userOlys = getCookie('login');
+
     $.ajax({
         url: "ajax/changeField6.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, val: select.options[select.selectedIndex].value, id_sub: openTabId,             id_userOlys: id_userOlys,
-            id_app: id_app}
+        data: {
+            idAnswerCriteria: idAnswerCriteria,
+            idCrit: idCrit,
+            idDep: idDep,
+            val: select.options[select.selectedIndex].value,
+            id_sub: openTabId,
+            id_userOlys: id_userOlys ,
+            id_app: id_appp
+        }
     })
         .done(function (response) {
 
         })
 }
-
-function changeField7(idCrit, idDep, text) {
+function changeField7(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField7.php",
-        method: "POST",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
+        method: "GET",
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
 }
 
-function changeFieldDefect(idCrit, idDep, text) {
+
+function changeFieldDefect(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeFieldDefect.php",
         method: "GET",
-        data: {idCrit: idCrit, idDep: idDep, text: text.innerText}
+        data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
 
     })
 }
+
 
 
 function addFile(idCrit, idDep, input) {
     let login = getCookie('login');
-    let id_userOlys = getCookie('login');
+
 
     let divA = document.getElementById(idCrit + "_" + idDep);
 
@@ -1791,7 +1800,7 @@ function addFile(idCrit, idDep, input) {
     form.append("idApp", id_appp);
     form.append("idDep", idDep);
     form.append("addedFile", addedFile);
-    form.append("id_userOlys", id_userOlys);
+    form.append("id_userOlys", login);
 
     xhr.open("post", "ajax/changeField4.php", true);
 

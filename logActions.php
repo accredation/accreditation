@@ -188,7 +188,7 @@
                             <td>${row.subvision_name}</td>
                             <td>${row.department_name}</td>
                             <td>${row.id_answer_criteria}</td>
-                            <td>${row.id_crit}</td>
+                            <td>${row.criteria_name}</td>
                         </tr>
                     `;
                     tbody.append(tr);

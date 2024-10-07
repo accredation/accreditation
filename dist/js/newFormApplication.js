@@ -1704,7 +1704,7 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
             idDep: idDep,
             val: select.options[select.selectedIndex].value,
             id_sub: openTabId,
-            id_userOlys: id_userOlys,
+            id_userOlys: getCookie("login"),
             id_app: id_app
         }
     })
@@ -1726,7 +1726,6 @@ function changeField5(idAnswerCriteria, idCrit, idDep, text) {
 
 function addFile(idAnswerCriteria, idCrit, idDep, input) {
     let login = getCookie('login');
-    let id_userOlys = getCookie('login');
     let divA = document.getElementById(idAnswerCriteria);
     let arrayDives = divA.childNodes;
     let arrayFiles = [];
@@ -1743,7 +1742,7 @@ function addFile(idAnswerCriteria, idCrit, idDep, input) {
         form.append("idDep", idDep);
         form.append("idAnswerCriteria", idAnswerCriteria);
         form.append("addedFile", addedFile);
-        form.append("id_userOlys", id_userOlys);
+        form.append("id_userOlys", login);
 
         xhr.open("post", "ajax/changeField4.php", true);
 
