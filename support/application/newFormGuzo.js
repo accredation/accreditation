@@ -1774,7 +1774,6 @@ function changeField7(idAnswerCriteria, idCrit, idDep, text) {
     })
 }
 
-
 function changeFieldDefect(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeFieldDefect.php",
