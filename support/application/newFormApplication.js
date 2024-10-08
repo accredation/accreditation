@@ -1567,7 +1567,7 @@ function changeField3(idCrit, idDep, select) {
 function changeField5(idCrit, idDep, text) {
     $.ajax({
         url: "ajax/changeField5.php",
-        method: "GET",
+        method: "POST",
         data: {idCrit: idCrit, idDep: idDep, text: text.innerText.replace(/[^\w\s]/gi, '')}
     }).done(function (response) {
 
