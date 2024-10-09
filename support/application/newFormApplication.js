@@ -1560,8 +1560,12 @@ function changeField3(idCrit, idDep, select) {
             id_app: id_app}
     })
         .done(function (response) {
-
-        })
+            if (response == 0) {
+                alert("Ошибка при сохранения данных.");
+            }
+        }).fail(function () {
+        alert("Ошибка при выполнении запроса.");
+    });
 }
 
 function changeField5(idCrit, idDep, text) {

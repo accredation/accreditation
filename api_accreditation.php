@@ -1127,7 +1127,7 @@
                     <?php if($_COOKIE['login'] == 'kuznec@rnpcmt.by') { ?>
                     <button type="submit" class="btn btn-warning" onclick="setNewStatus()">Отзыв</button>
                     <?php }?>
-                    <button type="submit" class="btn btn-success btn-fw hiddentab" id="btnOkReshenie">Вынести решение
+                    <button type="submit" class="btn btn-warning btn-fw hiddentab" id="btnOkReshenie">Вынести решение
                     </button>
 
                     <!--                    <button type="submit" class="btn btn-danger hiddentab" id="btnNeOk">На доработку</button>-->

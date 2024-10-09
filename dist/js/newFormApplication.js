@@ -1709,8 +1709,12 @@ function changeField3(idAnswerCriteria, idCrit, idDep, select) {
         }
     })
         .done(function (response) {
-
-        })
+            if (response == 0) {
+                alert("Ошибка при сохранения данных.");
+            }
+        }).fail(function () {
+        alert("Ошибка при выполнении запроса.");
+    });
 }
 
 function changeField5(idAnswerCriteria, idCrit, idDep, text) {

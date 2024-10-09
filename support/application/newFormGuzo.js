@@ -1730,8 +1730,12 @@ function changeField3(idCrit, idDep, select) {
             id_app: id_app}
     })
         .done(function (response) {
-
-        })
+            if (response == 0) {
+                alert("Ошибка при сохранения данных.");
+            }
+        }).fail(function () {
+        alert("Ошибка при выполнении запроса.");
+    });
 }
 
 function changeField5(idCrit, idDep, text) {
@@ -1761,8 +1765,12 @@ function changeField6(idAnswerCriteria, idCrit, idDep, select) {
         }
     })
         .done(function (response) {
-
-        })
+            if (response == 0) {
+                alert("Ошибка при обновлении данных.");
+            }
+        }).fail(function () {
+        alert("Ошибка при выполнении запроса.");
+    });
 }
 function changeField7(idAnswerCriteria, idCrit, idDep, text) {
     $.ajax({
@@ -1770,8 +1778,12 @@ function changeField7(idAnswerCriteria, idCrit, idDep, text) {
         method: "POST",
         data: {idAnswerCriteria: idAnswerCriteria, idCrit: idCrit, idDep: idDep, text: text.innerText}
     }).done(function (response) {
-
-    })
+        if (response == 0) {
+            alert("Ошибка при сохранения данных.");
+        }
+    }).fail(function () {
+        alert("Ошибка при выполнении запроса.");
+    });
 }
 
 function changeFieldDefect(idAnswerCriteria, idCrit, idDep, text) {
