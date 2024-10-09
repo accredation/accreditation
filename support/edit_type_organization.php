@@ -49,7 +49,7 @@ foreach ($data as $type) {
     $newType->typeName = $type['type_name'];
     array_push($arrayTypes, $newType);
 }
-$query = "SELECT u.id_user, u.`username` as usname, u.password, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name, u.last_time_session, u.online, u.active, u.kod
+$query = "SELECT u.id_user, u.`username` as usname, u.password, u.email, u.login, `name`, u.last_time_online, u.last_page, uz.`id_type`, type_name, u.last_time_session, u.online, u.active, u.kod, uz.oblast as obl
 FROM users u
 left outer join roles r on u.id_role=r.id_role
 left outer join uz uz on uz.id_uz=u.id_uz
@@ -81,6 +81,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Пароль</th>
                     <th>Статус</th>
                     <th>Код</th>
+                    <th>Регион</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -106,6 +107,59 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                         <td id="pass<?= $user['id_user'] ?>" contenteditable="true" oncontextmenu="changePassword(this)"><?= $user['password'] ?></td>
                         <td id="active<?= $user['id_user'] ?>"  ><input onchange="changeActive(this)" type="checkbox" <?= $user['active'] === "1" ? 'checked' : ''?>></td>
                         <td ><?= $user['kod'] ?></td>
+                        <td > <?php
+
+                            switch ($user['obl']) {
+                                case 0:
+                                    echo "Все";
+                                    break;
+                                case 1:
+                                    echo "Администратор";
+                                    break;
+                                case 2:
+                                    echo "Аккредитатор";
+                                    break;
+                                case 3:
+                                    echo "Пользователь";
+                                    break;
+                                case 4:
+                                    echo "Минздрав";
+                                    break;
+                                case 5:
+                                    echo "Аккредитация Минск";
+                                    break;
+                                case 6:
+                                    echo "Аккредитация Минская область";
+                                    break;
+                                case 7:
+                                    echo "Аккредитация Гомель";
+                                    break;
+                                case 8:
+                                    echo "Аккредитация Могилев";
+                                    break;
+                                case 9:
+                                    echo "Аккредитация Витебск";
+                                    break;
+                                case 10:
+                                    echo "Аккредитация Гродно";
+                                    break;
+                                case 11:
+                                    echo "Аккредитация Брест";
+                                    break;
+                                case 12:
+                                    echo "Техподдержка";
+                                    break;
+                                case 14:
+                                    echo "ГУЗО_МИНЗДРАВ";
+                                    break;
+                                case 15:
+                                    echo "подпользователь";
+                                    break;
+                                default:
+                                    echo "Неизвестное значение";
+                            }
+                            ?>
+                        </td>
                     </tr>
                     <?php
                 }
@@ -122,6 +176,7 @@ for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
                     <th>Пароль</th>
                     <th>Статус</th>
                     <th>Код</th>
+
                 </tr>
                 </tfoot>
             </table>
