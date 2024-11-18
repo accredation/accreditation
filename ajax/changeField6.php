@@ -8,6 +8,7 @@ if (isset($_POST['idCrit'], $_POST['idDep'], $_POST['idAnswerCriteria'], $_POST[
     $id_answer_criteria = $_POST['idAnswerCriteria'];
     $val = $_POST['val'];
     $id_userOlys = $_POST['id_userOlys'];
+    $id_subvision = $_POST['id_sub'];
 
 
     mysqli_query($con, "update z_answer_criteria set field6 = '$val' where id_answer_criteria = '$id_answer_criteria'");
@@ -48,7 +49,7 @@ if (isset($_POST['idCrit'], $_POST['idDep'], $_POST['idAnswerCriteria'], $_POST[
 
     mysqli_query($con, "update z_department set mark_accred_percent = '$mark_department', mark_accred_all = '$count_all', mark_accred_yes='$count_yes', mark_accred_not_need='$count_notneed' where id_department='$idDep'");
 
-    $id_subvision = $_GET['id_sub'];
+
 
     $rez = mysqli_query($con, "select avg(mark_accred_percent) as coun from z_department where id_subvision='$id_subvision'");
 

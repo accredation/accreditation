@@ -195,9 +195,6 @@
                 });
                 $('#logsTable').DataTable();
             },
-            error: function(xhr, status, error) {
-                console.error('Ошибка:', error);
-            }
         });
     }
     $(document).ready(function() {

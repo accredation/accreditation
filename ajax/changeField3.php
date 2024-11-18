@@ -1,7 +1,7 @@
 <?php
 
 include "connection.php";
-if (isset($_POST['idCrit'], $_POST['idDep'], $_POST['val'], $_POST['idAnswerCriteria'])) {
+if (isset($_GET['idCrit'], $_GET['idDep'], $_GET['val'], $_GET['idAnswerCriteria'])) {
     $idCrit = $_GET['idCrit'];
     $idDep = $_GET['idDep'];
     $val = $_GET['val'];

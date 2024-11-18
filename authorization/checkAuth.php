@@ -3,10 +3,10 @@ include '../ajax/connection.php';
 $error = array(); //массив для ошибок
 
 $ip = $_SERVER['REMOTE_ADDR'];
-if ($ip == "80.94.166.115" || $ip == "212.98.179.59") {
-    echo '1';
-    return;
-}
+//if ($ip == "80.94.166.115" || $ip == "212.98.179.59") {
+//    echo '1';
+//    return;
+//}
 
     $login = $_POST['login'];
     $kod = $_POST['kod'];

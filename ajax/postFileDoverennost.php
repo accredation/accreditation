@@ -11,7 +11,7 @@ $row = mysqli_fetch_assoc($result);
 $selPervtor = $row['sel_pervtor'];
 $idOldApp = $row['id_old_app'];
 $id_applicationnew = $row['id_application'];
-if ($idOldApp !== null && $idOldApp !== '')
+if ($idOldApp == null && $idOldApp == '')
 {
     $id_application = $idOldApp;
 }

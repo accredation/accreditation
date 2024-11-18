@@ -361,6 +361,7 @@ function newShowModal(id_application) {
             selPervtor.options.selectedIndex = Number(data[0][25]) - 1;
             sel_pervtor = data[0][25];
             let id_old_app = data[0][24];
+            let id_new_apps = data[0][31];
             oldApp = id_old_app;
             if (id_old_app) {
                 id_application = id_old_app;
@@ -419,7 +420,7 @@ function newShowModal(id_application) {
             }
 
             if (data[0][19] != null) {
-                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
+                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_new_apps + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
 
             if (data[0][28] != null) {

@@ -322,6 +322,7 @@ function newShowModal(id_application) {
                 soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] +'/'+ id_application + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
+
                 copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13]  +'/'+ id_application+ "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {

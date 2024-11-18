@@ -375,6 +375,16 @@ function newShowModall(id_application) {
             rukovoditel.value = data[0][6];
             predstavitel.value = data[0][7];
             adressFact.value = data[0][18];
+            let id_o_a ;
+            if (id_o_a == null) {
+                id_o_a = id_application;
+                console.log ("ппиц");
+            }
+            else {
+                id_o_a   = data[0][32];
+                console.log ("пизда");
+            }
+
             let data1 = JSON.parse(response);
             idRkk = data1[4];
 
@@ -405,7 +415,8 @@ function newShowModall(id_application) {
                 soprPismo.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][8] + "'>" + data[0][8] + "</a>");
             }
             if (data[0][9] != null) {
-                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
+                console.log ("Хуй")
+                copyRaspisanie.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_o_a + "/" + data[0][9] + "'>" + data[0][9] + "</a>");
             }
             if (data[0][10] != null) {
                 orgStrukt.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][10] + "'>" + data[0][10] + "</a>");
@@ -414,10 +425,10 @@ function newShowModall(id_application) {
                 ucomplect.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][11] + "'>" + data[0][11] + "</a>");
             }
             if (data[0][12] != null) {
-                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
+                techOsn.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_o_a + "/" + data[0][12] + "'>" + data[0][12] + "</a>");
             }
             if (data[0][20] != null) {
-                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
+                reportZakluchenieSootvet.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_o_a + "/" + data[0][20] + "'>" + data[0][20] + "</a>");
             }
 
             let lico = document.getElementById("lico");
@@ -430,11 +441,11 @@ function newShowModall(id_application) {
             }
 
             if (data[0][21] != null) {
-                prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
+                prikazNaznach.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_o_a + "/" + data[0][21] + "'>" + data[0][21] + "</a>");
             }
 
             if (data[0][19] != null) {
-                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_application + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
+                doverennost.insertAdjacentHTML("afterend", "<a target='_blank' href='/docs/documents/" + data[0][13] + "/" + id_o_a + "/" + data[0][19] + "'>" + data[0][19] + "</a>");
             }
 
             modal.classList.add("show");
